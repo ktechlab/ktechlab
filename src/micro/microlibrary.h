@@ -14,13 +14,13 @@
 #include "asminfo.h"
 #include "microinfo.h"
 
+#include <QList>
 #include <QString>
 #include <QStringList>
-#include <QList>
 
 class MicroInfo;
 class MicroLibrary;
-typedef QList<MicroInfo*> MicroInfoList;
+typedef QList<MicroInfo *> MicroInfoList;
 
 inline MicroLibrary *microLibrary();
 
@@ -30,27 +30,28 @@ inline MicroLibrary *microLibrary();
 */
 class MicroLibrary
 {
-	public:
-		static MicroLibrary * self();
-		
-		~MicroLibrary();
-	
-		MicroInfo *microInfoWithID( QString id );
-		void addMicroInfo( MicroInfo *microInfo );
-		
-		/**
-		 * Returns a list of micro ids with the given properties (OR'ed
-		 * together).
-		 */
-		QStringList microIDs( unsigned asmSet = AsmInfo::AsmSetAll, unsigned gpsimSupport = MicroInfo::AllSupport, unsigned flowCodeSupport = MicroInfo::AllSupport, unsigned microbeSupport = MicroInfo::AllSupport );
+public:
+    static MicroLibrary *self();
 
-    public:
-		MicroLibrary();
-	private:
-// 		static MicroLibrary * m_pSelf;
-	
-		MicroInfoList m_microInfoList;
-		friend MicroLibrary *microLibrary();
+    ~MicroLibrary();
+
+    MicroInfo *microInfoWithID(QString id);
+    void addMicroInfo(MicroInfo *microInfo);
+
+    /**
+     * Returns a list of micro ids with the given properties (OR'ed
+     * together).
+     */
+    QStringList microIDs(unsigned asmSet = AsmInfo::AsmSetAll, unsigned gpsimSupport = MicroInfo::AllSupport, unsigned flowCodeSupport = MicroInfo::AllSupport, unsigned microbeSupport = MicroInfo::AllSupport);
+
+public:
+    MicroLibrary();
+
+private:
+    // 		static MicroLibrary * m_pSelf;
+
+    MicroInfoList m_microInfoList;
+    friend MicroLibrary *microLibrary();
 };
 
 #endif

@@ -21,25 +21,25 @@ class QSlider;
 
 class VariableResistor : public Component
 {
-	public:
-		VariableResistor( ICNDocument* icnDocument, bool newItem, const QString& id = nullptr );
-		~VariableResistor() override;
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
-		
-		void sliderValueChanged( const QString &id, int newValue ) override;
-		
-	private:
-		void dataChanged() override;
-		void drawShape( QPainter &p ) override;
+public:
+    VariableResistor(ICNDocument *icnDocument, bool newItem, const QString &id = nullptr);
+    ~VariableResistor() override;
 
-		Resistance *m_pResistance;
-		QSlider *m_pSlider;
-		double m_minResistance;
-		double m_maxResistance;
-		double m_currResistance;
-		double m_tickValue;
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    void sliderValueChanged(const QString &id, int newValue) override;
+
+private:
+    void dataChanged() override;
+    void drawShape(QPainter &p) override;
+
+    Resistance *m_pResistance;
+    QSlider *m_pSlider;
+    double m_minResistance;
+    double m_maxResistance;
+    double m_currResistance;
+    double m_tickValue;
 };
 
 #endif

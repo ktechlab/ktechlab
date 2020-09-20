@@ -8,49 +8,48 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "matrix.h"
 #include "voltagepoint.h"
 #include "elementset.h"
+#include "matrix.h"
 
-VoltagePoint::VoltagePoint( const double voltage )
-	: Element::Element()
+VoltagePoint::VoltagePoint(const double voltage)
+    : Element::Element()
 {
-	m_voltage = -voltage;
-	m_numCBranches = 1;
-	m_numCNodes = 1;
+    m_voltage = -voltage;
+    m_numCBranches = 1;
+    m_numCNodes = 1;
 }
-
 
 VoltagePoint::~VoltagePoint()
 {
 }
 
-
-void VoltagePoint::setVoltage( const double v )
+void VoltagePoint::setVoltage(const double v)
 {
-	if ( -v == m_voltage ) return;
-	
-	if (p_eSet)
-		p_eSet->setCacheInvalidated();
-	
-	m_voltage = -v;
-	add_initial_dc();
+    if (-v == m_voltage)
+        return;
+
+    if (p_eSet)
+        p_eSet->setCacheInvalidated();
+
+    m_voltage = -v;
+    add_initial_dc();
 }
 
 void VoltagePoint::add_initial_dc()
 {
-	if (!b_status) return;
-	
-	A_b( 0, 0 ) = -1;
-	A_c( 0, 0 ) = -1;
-	
-	b_v( 0 ) = m_voltage;
-}
+    if (!b_status)
+        return;
 
+    A_b(0, 0) = -1;
+    A_c(0, 0) = -1;
+
+    b_v(0) = m_voltage;
+}
 
 void VoltagePoint::updateCurrents()
 {
-	if (!b_status) return;
-	m_cnodeI[0] = p_cbranch[0]->i;
+    if (!b_status)
+        return;
+    m_cnodeI[0] = p_cbranch[0]->i;
 }
-

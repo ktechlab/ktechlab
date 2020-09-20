@@ -24,7 +24,10 @@ class ProjectItem;
 // class Q3StoredDrag;  // 2018.08.12 - move to QTreeWidget
 class QMimeData;
 
-namespace KateMDI { class ToolView; }
+namespace KateMDI
+{
+class ToolView;
+}
 
 /**
 @short Contains info about item for ItemSelector
@@ -32,34 +35,46 @@ namespace KateMDI { class ToolView; }
 */
 class ILVItem : public QObject, public QTreeWidgetItem /* K3ListViewItem */
 {
-	public:
-        enum {
-            DataRole_ID = Qt::UserRole,
-            // note: add here isRemovable, projectItem
-        } ILVItemRole;
+public:
+    enum {
+        DataRole_ID = Qt::UserRole,
+        // note: add here isRemovable, projectItem
+    } ILVItemRole;
 
-		ILVItem( QTreeWidget *parent, const QString &id );
-		ILVItem( QTreeWidgetItem *parent, const QString &id );
+    ILVItem(QTreeWidget *parent, const QString &id);
+    ILVItem(QTreeWidgetItem *parent, const QString &id);
 
-		void setProjectItem( ProjectItem * projectItem ) { m_pProjectItem = projectItem; }
-		ProjectItem * projectItem() const { return m_pProjectItem; }
+    void setProjectItem(ProjectItem *projectItem)
+    {
+        m_pProjectItem = projectItem;
+    }
+    ProjectItem *projectItem() const
+    {
+        return m_pProjectItem;
+    }
 
-// 		QString id() const { return m_id; } // 2018.08.12 - use value()
+    // 		QString id() const { return m_id; } // 2018.08.12 - use value()
 
-// 		QString key( int, bool ) const { return m_id; } // 2018.08.12 - use value()
-		/**
-		 * Set whether the item can be removed from the listview by the user
-		 */
-		void setRemovable( bool isRemovable ) { b_isRemovable = isRemovable; }
-		/**
-		 * Whether the item can be removed from the listview by the user
-		 */
-		bool isRemovable() const { return b_isRemovable; }
+    // 		QString key( int, bool ) const { return m_id; } // 2018.08.12 - use value()
+    /**
+     * Set whether the item can be removed from the listview by the user
+     */
+    void setRemovable(bool isRemovable)
+    {
+        b_isRemovable = isRemovable;
+    }
+    /**
+     * Whether the item can be removed from the listview by the user
+     */
+    bool isRemovable() const
+    {
+        return b_isRemovable;
+    }
 
-	protected:
-		//QString m_id; // 2018.08.12 - use value()
-		bool b_isRemovable;
-		ProjectItem * m_pProjectItem;
+protected:
+    // QString m_id; // 2018.08.12 - use value()
+    bool b_isRemovable;
+    ProjectItem *m_pProjectItem;
 };
 
 /**
@@ -68,68 +83,67 @@ class ILVItem : public QObject, public QTreeWidgetItem /* K3ListViewItem */
 */
 class ItemSelector : public QTreeWidget /* K3ListView */
 {
-	Q_OBJECT
-	public:
-		ItemSelector( QWidget *parent, const char *name );
-		~ItemSelector() override;
-		/**
-		 * Adds a listview item to the ListView
-		 * @param caption The displayed text
-		 * @param id A unique identification for when it is dragged or activated
-		 * @param category The category it is in, eg "Integrated Circuits
-		 * @param icon The icon to be displayed to the left of the text
-		 * @param removable Whether the user can right-click on the item and select Remove
-		 */
-		void addItem( const QString & caption, const QString & id, const QString & category, const QPixmap & icon = QPixmap(), bool removable = false );
+    Q_OBJECT
+public:
+    ItemSelector(QWidget *parent, const char *name);
+    ~ItemSelector() override;
+    /**
+     * Adds a listview item to the ListView
+     * @param caption The displayed text
+     * @param id A unique identification for when it is dragged or activated
+     * @param category The category it is in, eg "Integrated Circuits
+     * @param icon The icon to be displayed to the left of the text
+     * @param removable Whether the user can right-click on the item and select Remove
+     */
+    void addItem(const QString &caption, const QString &id, const QString &category, const QPixmap &icon = QPixmap(), bool removable = false);
 
-	public slots:
-		virtual void slotContextMenuRequested(const QPoint& pos);
-		virtual void clear();
-		void slotRemoveSelectedItem();
+public slots:
+    virtual void slotContextMenuRequested(const QPoint &pos);
+    virtual void clear();
+    void slotRemoveSelectedItem();
 
-	signals:
-		/**
-		 * Emitted when a user selects an item and removes it
-		 */
-		void itemRemoved( const QString &id );
-		void itemDoubleClicked( const QString &id );
-		void itemClicked( const QString &id );
-		void itemSelected( const QString & id );
+signals:
+    /**
+     * Emitted when a user selects an item and removes it
+     */
+    void itemRemoved(const QString &id);
+    void itemDoubleClicked(const QString &id);
+    void itemClicked(const QString &id);
+    void itemSelected(const QString &id);
 
-	protected:
-		/**
-		 * Sets the caption of the ListView (eg 'Components' or 'Files')
-		 */
-		void setListCaption( const QString &caption );
-		/**
-		 * Writes the open status (folded or unfolded) of "parent" items in the view
-		 * to the config file.
-		 */
-		void writeOpenStates();
-		/**
-		 * Reads the open status (folded or unfolded) of the given item. The default
-		 * status for non-existant items is true.
-		 */
-		bool readOpenState( const QString &id );
+protected:
+    /**
+     * Sets the caption of the ListView (eg 'Components' or 'Files')
+     */
+    void setListCaption(const QString &caption);
+    /**
+     * Writes the open status (folded or unfolded) of "parent" items in the view
+     * to the config file.
+     */
+    void writeOpenStates();
+    /**
+     * Reads the open status (folded or unfolded) of the given item. The default
+     * status for non-existant items is true.
+     */
+    bool readOpenState(const QString &id);
 
-        QTreeWidgetItem *selectedItem() const ;
+    QTreeWidgetItem *selectedItem() const;
 
-        QMimeData * mimeData(const QList<QTreeWidgetItem *> items) const override ;
+    QMimeData *mimeData(const QList<QTreeWidgetItem *> items) const override;
 
-	private slots:
-		void slotItemSelected( );
-		void slotItemClicked(  QTreeWidgetItem *item, int );
-		void slotItemDoubleClicked( QTreeWidgetItem*, int );
+private slots:
+    void slotItemSelected();
+    void slotItemClicked(QTreeWidgetItem *item, int);
+    void slotItemDoubleClicked(QTreeWidgetItem *, int);
 
-	private:
-		/**
-		 * @return a dragobject encoding the currently selected component item.
-		 */
-// 		Q3DragObject * dragObject();
+private:
+    /**
+     * @return a dragobject encoding the currently selected component item.
+     */
+    // 		Q3DragObject * dragObject();
 
-		QStringList m_categories;
+    QStringList m_categories;
 };
-
 
 /**
 @short Allows selection of electrical components
@@ -137,16 +151,18 @@ class ItemSelector : public QTreeWidget /* K3ListView */
  */
 class ComponentSelector : public ItemSelector
 {
-	Q_OBJECT
-	public:
-		static ComponentSelector * self( KateMDI::ToolView * parent = nullptr );
-		static QString toolViewIdentifier() { return "ComponentSelector"; }
+    Q_OBJECT
+public:
+    static ComponentSelector *self(KateMDI::ToolView *parent = nullptr);
+    static QString toolViewIdentifier()
+    {
+        return "ComponentSelector";
+    }
 
-	private:
-		ComponentSelector( KateMDI::ToolView * parent );
-		static ComponentSelector * m_pSelf;
+private:
+    ComponentSelector(KateMDI::ToolView *parent);
+    static ComponentSelector *m_pSelf;
 };
-
 
 /**
 @short Allows selection of PIC parts (eg 'Pause')
@@ -154,31 +170,35 @@ class ComponentSelector : public ItemSelector
  */
 class FlowPartSelector : public ItemSelector
 {
-	Q_OBJECT
-	public:
-		static FlowPartSelector * self( KateMDI::ToolView * parent = nullptr );
-		static QString toolViewIdentifier() { return "FlowPartSelector"; }
+    Q_OBJECT
+public:
+    static FlowPartSelector *self(KateMDI::ToolView *parent = nullptr);
+    static QString toolViewIdentifier()
+    {
+        return "FlowPartSelector";
+    }
 
-	private:
-		FlowPartSelector( KateMDI::ToolView * parent );
-		static FlowPartSelector * m_pSelf;
+private:
+    FlowPartSelector(KateMDI::ToolView *parent);
+    static FlowPartSelector *m_pSelf;
 };
-
 
 /**
 @author David Saxton
  */
 class MechanicsSelector : public ItemSelector
 {
-	Q_OBJECT
-	public:
-		static MechanicsSelector * self( KateMDI::ToolView * parent = nullptr );
-		static QString toolViewIdentifier() { return "MechanicsSelector"; }
+    Q_OBJECT
+public:
+    static MechanicsSelector *self(KateMDI::ToolView *parent = nullptr);
+    static QString toolViewIdentifier()
+    {
+        return "MechanicsSelector";
+    }
 
-	private:
-		MechanicsSelector( QWidget *parent = nullptr );
-		static MechanicsSelector * m_pSelf;
+private:
+    MechanicsSelector(QWidget *parent = nullptr);
+    static MechanicsSelector *m_pSelf;
 };
-
 
 #endif

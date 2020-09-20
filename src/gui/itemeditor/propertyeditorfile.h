@@ -22,23 +22,24 @@ typedef Variant Property;
 
 class PropertyEditorFile : public PropertySubEditor
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-		PropertyEditorFile( QWidget * parent, Property * property, const char * name = nullptr );
-		~PropertyEditorFile() override {;}
+public:
+    PropertyEditorFile(QWidget *parent, Property *property, const char *name = nullptr);
+    ~PropertyEditorFile() override
+    {
+        ;
+    }
 
-		void resizeEvent(QResizeEvent *ev) override;
-		bool eventFilter( QObject * watched, QEvent * e ) override;
+    void resizeEvent(QResizeEvent *ev) override;
+    bool eventFilter(QObject *watched, QEvent *e) override;
 
-	protected slots:
-		void selectFile();
+protected slots:
+    void selectFile();
 
-	protected:
-		KLineEdit * m_lineedit;
-		QPushButton * m_button;
+protected:
+    KLineEdit *m_lineedit;
+    QPushButton *m_button;
 };
 
-
 #endif
-

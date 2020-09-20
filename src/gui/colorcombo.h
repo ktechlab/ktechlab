@@ -22,60 +22,62 @@ which colours are displayed to be changed.
 */
 class ColorCombo : public QComboBox
 {
-	Q_OBJECT
-	Q_PROPERTY( QColor color READ color WRITE setColor )
+    Q_OBJECT
+    Q_PROPERTY(QColor color READ color WRITE setColor)
 
-	public:
-		enum ColorScheme
-		{
-			QtStandard = 0,
-			LED = 1,
-			NumberOfSchemes = 2 ///< for internal usage; this should be one less than the number of items in the enum
-		};
+public:
+    enum ColorScheme {
+        QtStandard = 0,
+        LED = 1,
+        NumberOfSchemes = 2 ///< for internal usage; this should be one less than the number of items in the enum
+    };
 
-  	 	/**
-		 * Constructs a color combo box.
-		 */
-		ColorCombo( ColorScheme colorScheme, QWidget *parent, const char *name = nullptr );
-		~ColorCombo() override;
+    /**
+     * Constructs a color combo box.
+     */
+    ColorCombo(ColorScheme colorScheme, QWidget *parent, const char *name = nullptr);
+    ~ColorCombo() override;
 
-		/**
-		 * Returns the currently selected color.
-		**/
-		QColor color() const { return internalColor; }
+    /**
+     * Returns the currently selected color.
+     **/
+    QColor color() const
+    {
+        return internalColor;
+    }
 
-	public slots:
-		/**
-		 * Selects the color @p col.
-		 */
-		void setColor( const QColor & col );
+public slots:
+    /**
+     * Selects the color @p col.
+     */
+    void setColor(const QColor &col);
 
-	signals:
-    	/**
-		 * Emitted when a new color box has been selected.
-		 */
-		void activated( const QColor &col );
-	    /**
-		 * Emitted when a new item has been highlighted.
-		 */
-		void highlighted( const QColor &col );
+signals:
+    /**
+     * Emitted when a new color box has been selected.
+     */
+    void activated(const QColor &col);
+    /**
+     * Emitted when a new item has been highlighted.
+     */
+    void highlighted(const QColor &col);
 
-	protected slots:
-		void slotActivated( int index );
-		void slotHighlighted( int index );
+protected slots:
+    void slotActivated(int index);
+    void slotHighlighted(int index);
 
-	protected:
-		void resizeEvent( QResizeEvent *re ) override;
-		void addColors();
-		void createPalettes();
+protected:
+    void resizeEvent(QResizeEvent *re) override;
+    void addColors();
+    void createPalettes();
 
-		QColor customColor;
-		QColor internalColor;
-		ColorScheme m_colorScheme;
+    QColor customColor;
+    QColor internalColor;
+    ColorScheme m_colorScheme;
 
-		static bool createdPalettes;
-		static QColor * palette[ NumberOfSchemes ];
-		static int paletteSize[ NumberOfSchemes ];
+    static bool createdPalettes;
+    static QColor *palette[NumberOfSchemes];
+    static int paletteSize[NumberOfSchemes];
 };
 
 #endif

@@ -10,35 +10,29 @@
 
 #include "sub.h"
 
-#include "libraryitem.h"
 #include "flowcode.h"
+#include "libraryitem.h"
 
 #include <KLocalizedString>
 
-Item* Sub::construct( ItemDocument *itemDocument, bool newItem, const char *id )
+Item *Sub::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-	return new Sub( (ICNDocument*)itemDocument, newItem, id );
+    return new Sub((ICNDocument *)itemDocument, newItem, id);
 }
 
-LibraryItem* Sub::libraryItem()
+LibraryItem *Sub::libraryItem()
 {
-	return new LibraryItem(
-		QStringList(QString("flow/sub")),
-		i18n("Subroutine"),
-		i18n("Common"),
-		"sub.png",
-		LibraryItem::lit_flowpart,
-		Sub::construct );
+    return new LibraryItem(QStringList(QString("flow/sub")), i18n("Subroutine"), i18n("Common"), "sub.png", LibraryItem::lit_flowpart, Sub::construct);
 }
 
-Sub::Sub( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowContainer( icnDocument, newItem, id ? id : "sub" )
+Sub::Sub(ICNDocument *icnDocument, bool newItem, const char *id)
+    : FlowContainer(icnDocument, newItem, id ? id : "sub")
 {
-	m_name = i18n("Sub");
-	
-	createProperty( "sub", Variant::Type::Combo );
-	property("sub")->setCaption( i18n("Subroutine") );
-	property("sub")->setValue("MySub");
+    m_name = i18n("Sub");
+
+    createProperty("sub", Variant::Type::Combo);
+    property("sub")->setCaption(i18n("Subroutine"));
+    property("sub")->setValue("MySub");
 }
 
 Sub::~Sub()
@@ -47,12 +41,12 @@ Sub::~Sub()
 
 void Sub::dataChanged()
 {
-	setCaption( "Sub " + dataString("sub") );
+    setCaption("Sub " + dataString("sub"));
 }
 
-void Sub::generateMicrobe( FlowCode *code )
+void Sub::generateMicrobe(FlowCode *code)
 {
-	code->addCode( "\nsub "+dataString("sub")+"\n{" );
-	code->addCodeBranch( outputPart("int_in") );
-	code->addCode("}");
+    code->addCode("\nsub " + dataString("sub") + "\n{");
+    code->addCodeBranch(outputPart("int_in"));
+    code->addCode("}");
 }

@@ -20,16 +20,16 @@
 class ECFixedVoltage : public Component
 {
 public:
-	ECFixedVoltage( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECFixedVoltage() override;
+    ECFixedVoltage(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECFixedVoltage() override;
 
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
 private:
-	void drawShape( QPainter &p ) override;
-	void dataChanged() override;
-	VoltagePoint *m_voltagePoint;
+    void drawShape(QPainter &p) override;
+    void dataChanged() override;
+    VoltagePoint *m_voltagePoint;
 };
 
 #endif

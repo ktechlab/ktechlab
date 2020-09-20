@@ -20,14 +20,14 @@ class MechanicsDocument;
 */
 class MechanicsView : public ItemView
 {
-	Q_OBJECT
-	public:
-		MechanicsView( MechanicsDocument *mechanicsDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr );
-		~MechanicsView() override;
+    Q_OBJECT
+public:
+    MechanicsView(MechanicsDocument *mechanicsDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr);
+    ~MechanicsView() override;
 
-	protected:
-		void dragEnterEvent( QDragEnterEvent * e ) override;
-		MechanicsDocument *m_pMechanicsDocument;
+protected:
+    void dragEnterEvent(QDragEnterEvent *e) override;
+    MechanicsDocument *m_pMechanicsDocument;
 };
 
 #endif

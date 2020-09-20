@@ -14,40 +14,40 @@
 #ifndef DEBUGMANAGER_H
 #define DEBUGMANAGER_H
 
-#include <QPointer>
 #include <QMap>
 #include <QObject>
+#include <QPointer>
 
 class GpsimProcessor;
 class TextDocument;
 
-typedef QList< QPointer<GpsimProcessor> > GpsimProcessorList;
+typedef QList<QPointer<GpsimProcessor>> GpsimProcessorList;
 
 /**
 @author David Saxton
 */
 class DebugManager : public QObject
 {
-	Q_OBJECT
-	public:
-		static DebugManager * self();
-		~DebugManager() override;
-		
-		void registerGpsim( GpsimProcessor * gpsim );
-		/**
-		 * Called from TextDocument when it opens a URL so that it can be
-		 * connected up to any processors that refer to its url.
-		 */
-		void urlOpened( TextDocument * td );
-		
-	protected:
-		GpsimProcessorList m_processors;
+    Q_OBJECT
+public:
+    static DebugManager *self();
+    ~DebugManager() override;
 
-    public:
-        DebugManager();
-	private:
-// 		static DebugManager * m_pSelf;
-		
+    void registerGpsim(GpsimProcessor *gpsim);
+    /**
+     * Called from TextDocument when it opens a URL so that it can be
+     * connected up to any processors that refer to its url.
+     */
+    void urlOpened(TextDocument *td);
+
+protected:
+    GpsimProcessorList m_processors;
+
+public:
+    DebugManager();
+
+private:
+    // 		static DebugManager * m_pSelf;
 };
 
 #endif

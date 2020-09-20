@@ -10,25 +10,24 @@
 #include "imageexportdlg.h"
 
 #include <KComboBox>
-#include <KUrlRequester>
 #include <KLocalizedString>
+#include <KUrlRequester>
 
-#include <QMimeDatabase>
-#include <QDialogButtonBox>
-#include <QPushButton>
 #include <QCheckBox>
-#include <QVBoxLayout>
+#include <QDialogButtonBox>
 #include <QFormLayout>
+#include <QMimeDatabase>
+#include <QPushButton>
 #include <QString>
-
+#include <QVBoxLayout>
 
 ImageExportDialog::ImageExportDialog(QWidget *parent)
     : QDialog(parent)
     , m_mimeTypeNames({
-        QStringLiteral("image/png"),
-        QStringLiteral("image/bmp"),
-        QStringLiteral("image/svg+xml"),
-    })
+          QStringLiteral("image/png"),
+          QStringLiteral("image/bmp"),
+          QStringLiteral("image/svg+xml"),
+      })
 {
     setWindowTitle(i18n("Export As Image"));
     setModal(true);
@@ -40,7 +39,7 @@ ImageExportDialog::ImageExportDialog(QWidget *parent)
 
     m_formatSelect = new KComboBox(this);
     QMimeDatabase mimeDb;
-    for (auto& mimeTypeName : qAsConst(m_mimeTypeNames)) {
+    for (auto &mimeTypeName : qAsConst(m_mimeTypeNames)) {
         m_formatSelect->addItem(mimeDb.mimeTypeForName(mimeTypeName).comment());
     }
     formLayout->addRow(i18n("Format:"), m_formatSelect);
@@ -52,7 +51,7 @@ ImageExportDialog::ImageExportDialog(QWidget *parent)
     formLayout->addRow(i18n("File name:"), m_filePathEdit);
 
     m_cropCheck = new QCheckBox(this);
-    m_cropCheck->setObjectName( "cropCheck" );
+    m_cropCheck->setObjectName("cropCheck");
     m_cropCheck->setChecked(true); // yes by default?
 
     formLayout->addRow(i18n("Crop image:"), m_cropCheck);
@@ -67,10 +66,8 @@ ImageExportDialog::ImageExportDialog(QWidget *parent)
     connect(m_buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     layout->addWidget(m_buttonBox);
 
-    connect(m_formatSelect, QOverload<int>::of(&KComboBox::currentIndexChanged),
-            this, &ImageExportDialog::handleFormatIndexChanged);
-    connect(m_filePathEdit, &KUrlRequester::textChanged,
-            this, &ImageExportDialog::updateExportButton);
+    connect(m_formatSelect, QOverload<int>::of(&KComboBox::currentIndexChanged), this, &ImageExportDialog::handleFormatIndexChanged);
+    connect(m_filePathEdit, &KUrlRequester::textChanged, this, &ImageExportDialog::updateExportButton);
 
     handleFormatIndexChanged(m_formatSelect->currentIndex());
 }
@@ -83,11 +80,7 @@ QString ImageExportDialog::filePath() const
 QString ImageExportDialog::formatType() const
 {
     const int formatIndex = m_formatSelect->currentIndex();
-    return
-        (formatIndex == 0) ? QStringLiteral("PNG") :
-        (formatIndex == 1) ? QStringLiteral("BMP") :
-        (formatIndex == 2) ? QStringLiteral("SVG") :
-        QString();
+    return (formatIndex == 0) ? QStringLiteral("PNG") : (formatIndex == 1) ? QStringLiteral("BMP") : (formatIndex == 2) ? QStringLiteral("SVG") : QString();
 }
 
 bool ImageExportDialog::isCropSelected() const
@@ -97,7 +90,7 @@ bool ImageExportDialog::isCropSelected() const
 
 void ImageExportDialog::handleFormatIndexChanged(int index)
 {
-    m_filePathEdit->setMimeTypeFilters((index != -1) ? QStringList{m_mimeTypeNames.at(index)} : QStringList());
+    m_filePathEdit->setMimeTypeFilters((index != -1) ? QStringList {m_mimeTypeNames.at(index)} : QStringList());
 
     updateExportButton();
 }

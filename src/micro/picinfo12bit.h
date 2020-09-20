@@ -11,8 +11,8 @@
 #ifndef PICINFO12BIT_H
 #define PICINFO12BIT_H
 
-#include "picinfo.h"
 #include "asminfo.h"
+#include "picinfo.h"
 
 /**
 @short 12 Bit PIC Instructions
@@ -20,14 +20,17 @@
  */
 class PicAsm12bit : public AsmInfo
 {
-	public:
-		static PicAsm12bit *self();
-		Set set() const override { return AsmInfo::PIC12; }
-	
-	//protected:
-	//	static PicAsm12bit *m_self;
+public:
+    static PicAsm12bit *self();
+    Set set() const override
+    {
+        return AsmInfo::PIC12;
+    }
 
-        PicAsm12bit();
+    // protected:
+    //	static PicAsm12bit *m_self;
+
+    PicAsm12bit();
 };
 
 /**
@@ -35,11 +38,14 @@ class PicAsm12bit : public AsmInfo
  */
 class PicInfo12bit : public PicInfo
 {
-	public:
-		PicInfo12bit();
-		~PicInfo12bit() override;
-	
-		AsmInfo * instructionSet() override { return PicAsm12bit::self(); }
+public:
+    PicInfo12bit();
+    ~PicInfo12bit() override;
+
+    AsmInfo *instructionSet() override
+    {
+        return PicAsm12bit::self();
+    }
 };
 
 /**
@@ -47,10 +53,13 @@ class PicInfo12bit : public PicInfo
  */
 class PicInfo16C54 : public PicInfo12bit
 {
-	public:
-		PicInfo16C54();
-		~PicInfo16C54() override;
-		Support gpsimSupport() const override { return FullSupport; }
+public:
+    PicInfo16C54();
+    ~PicInfo16C54() override;
+    Support gpsimSupport() const override
+    {
+        return FullSupport;
+    }
 };
 
 /**
@@ -58,10 +67,13 @@ class PicInfo16C54 : public PicInfo12bit
  */
 class PicInfo16C55 : public PicInfo12bit
 {
-	public:
-		PicInfo16C55();
-		~PicInfo16C55() override;
-		Support gpsimSupport() const override { return FullSupport; }
+public:
+    PicInfo16C55();
+    ~PicInfo16C55() override;
+    Support gpsimSupport() const override
+    {
+        return FullSupport;
+    }
 };
 
 /**
@@ -69,10 +81,13 @@ class PicInfo16C55 : public PicInfo12bit
  */
 class PicInfo12C508 : public PicInfo12bit
 {
-	public:
-		PicInfo12C508();
-		~PicInfo12C508() override;
-		Support gpsimSupport() const override { return FullSupport; }
+public:
+    PicInfo12C508();
+    ~PicInfo12C508() override;
+    Support gpsimSupport() const override
+    {
+        return FullSupport;
+    }
 };
 
 /**
@@ -80,10 +95,13 @@ class PicInfo12C508 : public PicInfo12bit
  */
 class PicInfo12C509 : public PicInfo12C508
 {
-	public:
-		PicInfo12C509();
-		~PicInfo12C509() override;
-		Support gpsimSupport() const override { return FullSupport; }
+public:
+    PicInfo12C509();
+    ~PicInfo12C509() override;
+    Support gpsimSupport() const override
+    {
+        return FullSupport;
+    }
 };
 
 /**
@@ -91,10 +109,13 @@ class PicInfo12C509 : public PicInfo12C508
  */
 class PicInfo12C671 : public PicInfo12C508
 {
-	public:
-		PicInfo12C671();
-		~PicInfo12C671() override;
-		Support gpsimSupport() const override { return NoSupport; }
+public:
+    PicInfo12C671();
+    ~PicInfo12C671() override;
+    Support gpsimSupport() const override
+    {
+        return NoSupport;
+    }
 };
 
 /**
@@ -102,10 +123,13 @@ class PicInfo12C671 : public PicInfo12C508
  */
 class PicInfo12C672 : public PicInfo12C508
 {
-	public:
-		PicInfo12C672();
-		~PicInfo12C672() override;
-		Support gpsimSupport() const override { return NoSupport; }
+public:
+    PicInfo12C672();
+    ~PicInfo12C672() override;
+    Support gpsimSupport() const override
+    {
+        return NoSupport;
+    }
 };
 
 #endif

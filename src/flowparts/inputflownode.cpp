@@ -1,15 +1,15 @@
 //
 // C++ Implementation: inputflownode
 //
-// Description: 
+// Description:
 //
 //
 //
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#include "connector.h"
 #include "inputflownode.h"
+#include "connector.h"
 #include "flowconnector.h"
 #include "flowpart.h"
 
@@ -17,10 +17,9 @@
 #include <QPainter>
 
 InputFlowNode::InputFlowNode(ICNDocument *icnDocument, int dir, const QPoint &pos, QString *id)
- : FPNode(icnDocument, Node::fp_in, dir, pos, id)
+    : FPNode(icnDocument, Node::fp_in, dir, pos, id)
 {
 }
-
 
 InputFlowNode::~InputFlowNode()
 {
@@ -28,114 +27,115 @@ InputFlowNode::~InputFlowNode()
 
 FlowPart *InputFlowNode::outputFlowPart() const
 {
-	return dynamic_cast<FlowPart*>(parentItem());
+    return dynamic_cast<FlowPart *>(parentItem());
 }
-
 
 FlowPartList InputFlowNode::inputFlowParts() const
 {
-	FlowPartList list;
+    FlowPartList list;
 
-	const FlowConnectorList::const_iterator end = m_inFlowConnList.end();
-	for ( FlowConnectorList::const_iterator it = m_inFlowConnList.begin(); it != end; ++it )
-	{
-		if (*it) {
-			Node *startNode = (*it)->startNode();
-			FlowPart *flowPart = startNode ? dynamic_cast<FlowPart*>(startNode->parentItem()) : nullptr;
-			if (flowPart)
-				list.append(flowPart);
-		}
-	}
+    const FlowConnectorList::const_iterator end = m_inFlowConnList.end();
+    for (FlowConnectorList::const_iterator it = m_inFlowConnList.begin(); it != end; ++it) {
+        if (*it) {
+            Node *startNode = (*it)->startNode();
+            FlowPart *flowPart = startNode ? dynamic_cast<FlowPart *>(startNode->parentItem()) : nullptr;
+            if (flowPart)
+                list.append(flowPart);
+        }
+    }
 
-	return list;
+    return list;
 }
-
 
 bool InputFlowNode::acceptInput() const
 {
-	return true;
+    return true;
 }
-
 
 bool InputFlowNode::acceptOutput() const
 {
-	return false;
+    return false;
 }
 
-void InputFlowNode::addOutputConnector( Connector * const /*connector*/ )
+void InputFlowNode::addOutputConnector(Connector *const /*connector*/)
 {
-	qCritical() << Q_FUNC_INFO << "BUG: adding output connector to an input node" << endl;
+    qCritical() << Q_FUNC_INFO << "BUG: adding output connector to an input node" << endl;
 }
 
-
-inline QPolygon arrowPoints( int dir )
+inline QPolygon arrowPoints(int dir)
 {
-	QPolygon pa(3);
-	switch ( dir ) {
-		case 0:
-			pa[0] = QPoint( 3, 0 );
-			pa[1] = QPoint( 0, 2 );
-			pa[2] = QPoint( 0, -2 );
-			break;
-		case 180:
-			pa[0] = QPoint( -3, 0 );
-			pa[1] = QPoint( 0, 2 );
-			pa[2] = QPoint( 0, -2 );
-			break;
-		case 90:
-			pa[0] = QPoint( 2, 0 );
-			pa[1] = QPoint( -2, 0 );
-			pa[2] = QPoint( 0, 3 );
-			break;
-		case 270:
-			pa[0] = QPoint( 2, 0 );
-			pa[1] = QPoint( -2, 0 );
-			pa[2] = QPoint( 0, -3 );
-			break;
-	};
-	return pa;
+    QPolygon pa(3);
+    switch (dir) {
+    case 0:
+        pa[0] = QPoint(3, 0);
+        pa[1] = QPoint(0, 2);
+        pa[2] = QPoint(0, -2);
+        break;
+    case 180:
+        pa[0] = QPoint(-3, 0);
+        pa[1] = QPoint(0, 2);
+        pa[2] = QPoint(0, -2);
+        break;
+    case 90:
+        pa[0] = QPoint(2, 0);
+        pa[1] = QPoint(-2, 0);
+        pa[2] = QPoint(0, 3);
+        break;
+    case 270:
+        pa[0] = QPoint(2, 0);
+        pa[1] = QPoint(-2, 0);
+        pa[2] = QPoint(0, -3);
+        break;
+    };
+    return pa;
 }
 
-void InputFlowNode::drawShape ( QPainter &p )
+void InputFlowNode::drawShape(QPainter &p)
 {
-	const int _x = ( int ) x();
-	const int _y = ( int ) y();
+    const int _x = (int)x();
+    const int _y = (int)y();
 
-	if	( m_dir == 0 )		p.drawLine ( _x, _y, _x-8, _y );
-	else if ( m_dir == 90 )		p.drawLine ( _x, _y, _x, _y-8 );
-	else if ( m_dir == 180 )	p.drawLine ( _x, _y, _x+8, _y );
-	else if ( m_dir == 270 )	p.drawLine ( _x, _y, _x, _y+8 );
+    if (m_dir == 0)
+        p.drawLine(_x, _y, _x - 8, _y);
+    else if (m_dir == 90)
+        p.drawLine(_x, _y, _x, _y - 8);
+    else if (m_dir == 180)
+        p.drawLine(_x, _y, _x + 8, _y);
+    else if (m_dir == 270)
+        p.drawLine(_x, _y, _x, _y + 8);
 
-	QPolygon pa ( 3 );
+    QPolygon pa(3);
 
-	switch ( m_dir )
-	{
-		case 180: // right
-			pa = arrowPoints ( 0 );
-			break;
-		case 0: // left
-			pa = arrowPoints ( 180 );
-			break;
-		case 270: // down
-			pa = arrowPoints ( 90 );
-			break;
-		case 90: // up
-			pa = arrowPoints ( 270 );
-			break;
-		default:
-			qCritical() << Q_FUNC_INFO << "BUG: m_dir = " << m_dir << endl;
-	}
+    switch (m_dir) {
+    case 180: // right
+        pa = arrowPoints(0);
+        break;
+    case 0: // left
+        pa = arrowPoints(180);
+        break;
+    case 270: // down
+        pa = arrowPoints(90);
+        break;
+    case 90: // up
+        pa = arrowPoints(270);
+        break;
+    default:
+        qCritical() << Q_FUNC_INFO << "BUG: m_dir = " << m_dir << endl;
+    }
 
-	// Note: I have not tested the positioning of the arrows for all combinations.
-	// In fact, most almost definitely do not work. So feel free to change the code
-	// as you see fit if necessary.
+    // Note: I have not tested the positioning of the arrows for all combinations.
+    // In fact, most almost definitely do not work. So feel free to change the code
+    // as you see fit if necessary.
 
-	if ( m_dir == 0 );
-	else if ( m_dir == 90 );
-	else if ( m_dir == 180 ) pa.translate ( 3, 0 );
-	else if ( m_dir == 270 ) pa.translate ( 0, 3 );
+    if (m_dir == 0)
+        ;
+    else if (m_dir == 90)
+        ;
+    else if (m_dir == 180)
+        pa.translate(3, 0);
+    else if (m_dir == 270)
+        pa.translate(0, 3);
 
-	pa.translate ( _x, _y );
-	p.drawPolygon ( pa );
+    pa.translate(_x, _y);
+    p.drawPolygon(pa);
 }
-

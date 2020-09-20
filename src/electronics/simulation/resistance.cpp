@@ -8,64 +8,62 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include "resistance.h"
 #include "elementset.h"
 #include "matrix.h"
-#include "resistance.h"
 
 // #include <QDebug>
 
-Resistance::Resistance( const double resistance )
-	: Element::Element()
+Resistance::Resistance(const double resistance)
+    : Element::Element()
 {
-	m_g = resistance < 1e-9 ? 1e9 : 1./resistance;
-	m_numCNodes = 2;
-// 	qDebug() << Q_FUNC_INFO << endl;
+    m_g = resistance < 1e-9 ? 1e9 : 1. / resistance;
+    m_numCNodes = 2;
+    // 	qDebug() << Q_FUNC_INFO << endl;
 }
 
 Resistance::~Resistance()
 {
-// 	qDebug() << Q_FUNC_INFO << endl;
+    // 	qDebug() << Q_FUNC_INFO << endl;
 }
 
-void Resistance::setConductance( const double g )
+void Resistance::setConductance(const double g)
 {
-	if ( g == m_g )
-		return;
-	
-	if (p_eSet)
-		p_eSet->setCacheInvalidated();
-	
-	// Remove old resistance
-	m_g = -m_g;
-	add_initial_dc();
+    if (g == m_g)
+        return;
 
-	m_g = g;
-	add_initial_dc();
+    if (p_eSet)
+        p_eSet->setCacheInvalidated();
+
+    // Remove old resistance
+    m_g = -m_g;
+    add_initial_dc();
+
+    m_g = g;
+    add_initial_dc();
 }
 
-void Resistance::setResistance( const double r )
+void Resistance::setResistance(const double r)
 {
-	setConductance( r < 1e-9 ? 1e9 : 1./r );
+    setConductance(r < 1e-9 ? 1e9 : 1. / r);
 }
 
 void Resistance::add_initial_dc()
 {
-	if (!b_status) return;
-	
-	A_g( 0, 0 ) += m_g;
-	A_g( 1, 1 ) += m_g;
-	A_g( 0, 1 ) -= m_g;
-	A_g( 1, 0 ) -= m_g;
+    if (!b_status)
+        return;
+
+    A_g(0, 0) += m_g;
+    A_g(1, 1) += m_g;
+    A_g(0, 1) -= m_g;
+    A_g(1, 0) -= m_g;
 }
 
 void Resistance::updateCurrents()
 {
-	if (!b_status) return;
-	const double v=p_cnode[0]->v-p_cnode[1]->v; 
-	m_cnodeI[1] = v*m_g;
-	m_cnodeI[0] = -m_cnodeI[1];
+    if (!b_status)
+        return;
+    const double v = p_cnode[0]->v - p_cnode[1]->v;
+    m_cnodeI[1] = v * m_g;
+    m_cnodeI[0] = -m_cnodeI[1];
 }
-
-
-
-

@@ -16,7 +16,7 @@
 @author William Hillerby
  */
 
- /** @todo FOA Discrete, Liner, Non-Linear and arrange items in itemlib.h and libItem() */
+/** @todo FOA Discrete, Liner, Non-Linear and arrange items in itemlib.h and libItem() */
 
 /*
 
@@ -34,21 +34,20 @@ const double maxVoltageOut = 50.0;
 
 class VoltageRegulator : public Component
 {
-	public:
-		VoltageRegulator( ICNDocument* icnDocument, bool newItem, const QString& id = nullptr );
-		~VoltageRegulator() override;
-		
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
+public:
+    VoltageRegulator(ICNDocument *icnDocument, bool newItem, const QString &id = nullptr);
+    ~VoltageRegulator() override;
 
-	private:
-		void dataChanged() override;
-		void drawShape( QPainter &p ) override;
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-		// Input.
-		// Output.
-		// Reference = ground for fixed regulators.
+private:
+    void dataChanged() override;
+    void drawShape(QPainter &p) override;
 
+    // Input.
+    // Output.
+    // Reference = ground for fixed regulators.
 };
 
 #endif

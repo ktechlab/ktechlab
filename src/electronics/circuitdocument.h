@@ -28,26 +28,40 @@ class Wire;
 
 class KActionMenu;
 
-typedef QList<Circuit*> CircuitList;
-typedef QList<Component*> ComponentList;
-typedef QList<QPointer<Connector> > ConnectorList;
-typedef QList<ECNode*> ECNodeList;
-typedef QList<Element*> ElementList;
-typedef QList<QPointer<Pin> > PinList;
-typedef QList<Switch*> SwitchList;
-typedef QList<QPointer<Wire> > WireList;
+typedef QList<Circuit *> CircuitList;
+typedef QList<Component *> ComponentList;
+typedef QList<QPointer<Connector>> ConnectorList;
+typedef QList<ECNode *> ECNodeList;
+typedef QList<Element *> ElementList;
+typedef QList<QPointer<Pin>> PinList;
+typedef QList<Switch *> SwitchList;
+typedef QList<QPointer<Wire>> WireList;
 
 class Circuitoid
 {
 public:
-	bool contains( Pin *node ) { return pinList.contains(node); }
-	bool contains( Element *ele ) { return elementList.contains(ele); }
+    bool contains(Pin *node)
+    {
+        return pinList.contains(node);
+    }
+    bool contains(Element *ele)
+    {
+        return elementList.contains(ele);
+    }
 
-	void addPin( Pin *node ) { if (node && !contains(node)) pinList += node; }
-	void addElement( Element *ele ) { if (ele && !contains(ele)) elementList += ele; }
+    void addPin(Pin *node)
+    {
+        if (node && !contains(node))
+            pinList += node;
+    }
+    void addElement(Element *ele)
+    {
+        if (ele && !contains(ele))
+            elementList += ele;
+    }
 
-	PinList pinList;
-	ElementList elementList;
+    PinList pinList;
+    ElementList elementList;
 };
 
 /**
@@ -59,101 +73,100 @@ information from those simulations back on the ICNDocument
 */
 class CircuitDocument : public CircuitICNDocument
 {
-	Q_OBJECT
-	public:
-		CircuitDocument( const QString &caption, const char *name = nullptr );
-		~CircuitDocument() override;
-	
-		View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr ) override;
-	
-		void calculateConnectorCurrents();
-		/**
-		 * Count the number of ExternalConnection components in the CNItemList
-		 */
-		int countExtCon( const ItemList &cnItemList ) const;
+    Q_OBJECT
+public:
+    CircuitDocument(const QString &caption, const char *name = nullptr);
+    ~CircuitDocument() override;
 
-		void update() override;
-	
-	public slots:
-		/**
-		 * Creates a subcircuit from the currently selected components
-		 */
-		void createSubcircuit();
-		void displayEquations();
-		void setOrientation0();
-		void setOrientation90();
-		void setOrientation180();
-		void setOrientation270();
-		void rotateCounterClockwise();
-		void rotateClockwise();
-		void flipHorizontally();
-		void flipVertically();
-		/**
-		 * Enables / disables / selects various actions depending on what is
-		 * selected or not.
-		 */
-		void slotInitItemActions() override;
-		void requestAssignCircuits();
-		void componentAdded( Item *item );
-		void componentRemoved( Item *item );
-		void connectorAdded( Connector *connector );
-		void slotUpdateConfiguration() override;
-	
-	protected:
-		void itemAdded( Item *item ) override;
-		void fillContextMenu( const QPoint &pos ) override;
-		bool isValidItem( Item *item ) override;
-		bool isValidItem( const QString &itemId ) override;
+    View *createView(ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr) override;
 
-		KActionMenu *m_pOrientationAction;
+    void calculateConnectorCurrents();
+    /**
+     * Count the number of ExternalConnection components in the CNItemList
+     */
+    int countExtCon(const ItemList &cnItemList) const;
 
-	private slots:
-		void assignCircuits();
+    void update() override;
 
-	private:
-		/**
-		 * If the given circuitoid can be a LogicCircuit, then it will be added to
-		 * m_logicCircuits, and return true. Else returns false.
-		 */
-		bool tryAsLogicCircuit( Circuitoid *circuitoid );
-		/**
-		 * Creates a circuit from the circuitoid
-		 */
-		Circuit *createCircuit( Circuitoid *circuitoid );
+public slots:
+    /**
+     * Creates a subcircuit from the currently selected components
+     */
+    void createSubcircuit();
+    void displayEquations();
+    void setOrientation0();
+    void setOrientation90();
+    void setOrientation180();
+    void setOrientation270();
+    void rotateCounterClockwise();
+    void rotateClockwise();
+    void flipHorizontally();
+    void flipVertically();
+    /**
+     * Enables / disables / selects various actions depending on what is
+     * selected or not.
+     */
+    void slotInitItemActions() override;
+    void requestAssignCircuits();
+    void componentAdded(Item *item);
+    void componentRemoved(Item *item);
+    void connectorAdded(Connector *connector);
+    void slotUpdateConfiguration() override;
 
-		/**
-		 * @param pin Current node (will be added, then tested for further
-		 * connections).
-		 * @param pinList List of nodes in current partition.
-		 * @param unassignedPins The pool of all nodes in the CircuitDocument
-		 * waiting for assignment.
-		 * @param onlyGroundDependent if true, then the partition will not use
-		 * circuit-dependent pins to include new pins while growing the
-		 * partition.
-		 */
-		void getPartition(Pin *pin, PinList *pinList, PinList *unassignedPins, bool onlyGroundDependent = false);
-		/**
-		 * Takes the nodeList (generated by getPartition), splits it at ground nodes,
-		 * and creates circuits from each split.
-		 */
-		void splitIntoCircuits(PinList *pinList);
-		/**
-		 * Construct a circuit from the given node, stopping at the groundnodes
-		 */
-		void recursivePinAdd(Pin *pin, Circuitoid *circuitoid, PinList *unassignedPins);
+protected:
+    void itemAdded(Item *item) override;
+    void fillContextMenu(const QPoint &pos) override;
+    bool isValidItem(Item *item) override;
+    bool isValidItem(const QString &itemId) override;
 
-		void deleteCircuits();
+    KActionMenu *m_pOrientationAction;
 
-		QTimer *m_updateCircuitsTmr;
-		CircuitList m_circuitList;
-		ComponentList m_toSimulateList;
-		ComponentList m_componentList; // List is built up during call to assignCircuits
+private slots:
+    void assignCircuits();
 
-// hmm, we have one of these in circuit too....
-		PinList m_pinList;
-		WireList m_wireList;
-		SwitchList m_switchList;
+private:
+    /**
+     * If the given circuitoid can be a LogicCircuit, then it will be added to
+     * m_logicCircuits, and return true. Else returns false.
+     */
+    bool tryAsLogicCircuit(Circuitoid *circuitoid);
+    /**
+     * Creates a circuit from the circuitoid
+     */
+    Circuit *createCircuit(Circuitoid *circuitoid);
+
+    /**
+     * @param pin Current node (will be added, then tested for further
+     * connections).
+     * @param pinList List of nodes in current partition.
+     * @param unassignedPins The pool of all nodes in the CircuitDocument
+     * waiting for assignment.
+     * @param onlyGroundDependent if true, then the partition will not use
+     * circuit-dependent pins to include new pins while growing the
+     * partition.
+     */
+    void getPartition(Pin *pin, PinList *pinList, PinList *unassignedPins, bool onlyGroundDependent = false);
+    /**
+     * Takes the nodeList (generated by getPartition), splits it at ground nodes,
+     * and creates circuits from each split.
+     */
+    void splitIntoCircuits(PinList *pinList);
+    /**
+     * Construct a circuit from the given node, stopping at the groundnodes
+     */
+    void recursivePinAdd(Pin *pin, Circuitoid *circuitoid, PinList *unassignedPins);
+
+    void deleteCircuits();
+
+    QTimer *m_updateCircuitsTmr;
+    CircuitList m_circuitList;
+    ComponentList m_toSimulateList;
+    ComponentList m_componentList; // List is built up during call to assignCircuits
+
+    // hmm, we have one of these in circuit too....
+    PinList m_pinList;
+    WireList m_wireList;
+    SwitchList m_switchList;
 };
 
 #endif
-

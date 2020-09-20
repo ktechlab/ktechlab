@@ -10,10 +10,10 @@
 
 #include "scopescreen.h"
 
+#include "ktechlab.h"
 #include "probe.h"
 #include "probepositioner.h"
 #include "simulator.h"
-#include "ktechlab.h"
 
 #include <cmath>
 
@@ -29,29 +29,29 @@
 
 #include <cassert>
 
-ScopeScreen::ScopeScreen( KateMDI::ToolView * parent)
-        : QWidget(parent)
+ScopeScreen::ScopeScreen(KateMDI::ToolView *parent)
+    : QWidget(parent)
 {
     if (parent->layout()) {
         parent->layout()->addWidget(this);
         qDebug() << Q_FUNC_INFO << " added item selector to parent's layout " << parent;
     } else {
-        qWarning() << Q_FUNC_INFO << " unexpected null layout on parent " << parent ;
+        qWarning() << Q_FUNC_INFO << " unexpected null layout on parent " << parent;
     }
 
-	setupUi(this);
+    setupUi(this);
 }
 
-
 ScopeScreen::~ScopeScreen()
-{}
-
-ScopeScreen * ScopeScreen::self( KateMDI::ToolView * parent )
 {
-	static ScopeScreen * pSelf = nullptr;
-	if(pSelf)
-		return pSelf;
-	assert(parent);
-	pSelf = new ScopeScreen(parent);
-	return pSelf;
+}
+
+ScopeScreen *ScopeScreen::self(KateMDI::ToolView *parent)
+{
+    static ScopeScreen *pSelf = nullptr;
+    if (pSelf)
+        return pSelf;
+    assert(parent);
+    pSelf = new ScopeScreen(parent);
+    return pSelf;
 }

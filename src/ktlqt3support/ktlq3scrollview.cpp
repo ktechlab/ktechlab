@@ -41,20 +41,20 @@
 
 #include "ktlq3scrollview.h"
 
-#include <QWidget>
-#include <QScrollBar>
+#include <QCursor>
 #include <QPainter>
 #include <QPixmap>
-#include <QCursor>
+#include <QScrollBar>
+#include <QWidget>
 // #include "q3ptrdict.h"
-#include <QHash>
 #include <QApplication>
-#include <QTimer>
+#include <QHash>
 #include <QStyle>
+#include <QTimer>
 // #include "q3ptrlist.h"
+#include <QContextMenuEvent>
 #include <QDragEnterEvent>
 #include <QDragLeaveEvent>
-#include <QContextMenuEvent>
 //#include "q3listview.h"
 // #ifdef Q_WS_MAC      // 2018.10.18 - do not depend on internal headers
 // # include "private/qt_mac_p.h"
@@ -70,40 +70,37 @@ static const int initialScrollTime = 30;
 static const int initialScrollAccel = 5;
 
 struct QSVChildRec {
-    QSVChildRec(QWidget* c, int xx, int yy) :
-        child(c),
-        x(xx), y(yy)
+    QSVChildRec(QWidget *c, int xx, int yy)
+        : child(c)
+        , x(xx)
+        , y(yy)
     {
     }
 
-    void hideOrShow(KtlQ3ScrollView* sv, QWidget* clipped_viewport);
-    void moveTo(KtlQ3ScrollView* sv, int xx, int yy, QWidget* clipped_viewport)
+    void hideOrShow(KtlQ3ScrollView *sv, QWidget *clipped_viewport);
+    void moveTo(KtlQ3ScrollView *sv, int xx, int yy, QWidget *clipped_viewport)
     {
         if (x != xx || y != yy) {
             x = xx;
             y = yy;
-            hideOrShow(sv,clipped_viewport);
+            hideOrShow(sv, clipped_viewport);
         }
     }
-    QWidget* child;
+    QWidget *child;
     int x, y;
 };
 
-void QSVChildRec::hideOrShow(KtlQ3ScrollView* sv, QWidget* clipped_viewport)
+void QSVChildRec::hideOrShow(KtlQ3ScrollView *sv, QWidget *clipped_viewport)
 {
     if (clipped_viewport) {
-        if (x+child->width() < sv->contentsX()+clipped_viewport->x()
-             || x > sv->contentsX()+clipped_viewport->width()
-             || y+child->height() < sv->contentsY()+clipped_viewport->y()
-             || y > sv->contentsY()+clipped_viewport->height()) {
-            child->move(clipped_viewport->width(),
-                        clipped_viewport->height());
+        if (x + child->width() < sv->contentsX() + clipped_viewport->x() || x > sv->contentsX() + clipped_viewport->width() || y + child->height() < sv->contentsY() + clipped_viewport->y() ||
+            y > sv->contentsY() + clipped_viewport->height()) {
+            child->move(clipped_viewport->width(), clipped_viewport->height());
         } else {
-            child->move(x-sv->contentsX()-clipped_viewport->x(),
-                        y-sv->contentsY()-clipped_viewport->y());
+            child->move(x - sv->contentsX() - clipped_viewport->x(), y - sv->contentsY() - clipped_viewport->y());
         }
     } else {
-        child->move(x-sv->contentsX(), y-sv->contentsY());
+        child->move(x - sv->contentsX(), y - sv->contentsY());
     }
 }
 
@@ -111,21 +108,28 @@ void QSVChildRec::hideOrShow(KtlQ3ScrollView* sv, QWidget* clipped_viewport)
 
 // QT_END_INCLUDE_NAMESPACE
 
-class KtlQ3ScrollViewData {
+class KtlQ3ScrollViewData
+{
 public:
-    KtlQ3ScrollViewData(KtlQ3ScrollView* parent, int vpwflags) :
-        hbar(new QScrollBar(Qt::Horizontal, parent /*, "qt_hbar"*/)),
-        vbar(new QScrollBar(Qt::Vertical, parent /*, "qt_vbar" */)),
-        viewport(new KtlQAbstractScrollAreaWidget(parent, "qt_viewport", QFlag(vpwflags))),
-        clipped_viewport(nullptr),
-        flags(vpwflags),
-        vx(0), vy(0), vwidth(1), vheight(1),
+    KtlQ3ScrollViewData(KtlQ3ScrollView *parent, int vpwflags)
+        : hbar(new QScrollBar(Qt::Horizontal, parent /*, "qt_hbar"*/))
+        , vbar(new QScrollBar(Qt::Vertical, parent /*, "qt_vbar" */))
+        , viewport(new KtlQAbstractScrollAreaWidget(parent, "qt_viewport", QFlag(vpwflags)))
+        , clipped_viewport(nullptr)
+        , flags(vpwflags)
+        , vx(0)
+        , vy(0)
+        , vwidth(1)
+        , vheight(1)
+        ,
 #ifndef QT_NO_DRAGANDDROP
-        autoscroll_timer(parent /* , "scrollview autoscroll timer" */),
-        drag_autoscroll(true),
+        autoscroll_timer(parent /* , "scrollview autoscroll timer" */)
+        , drag_autoscroll(true)
+        ,
 #endif
-        scrollbar_timer(parent /*, "scrollview scrollbar timer" */),
-        inresize(false), use_cached_size_hint(true)
+        scrollbar_timer(parent /*, "scrollview scrollbar timer" */)
+        , inresize(false)
+        , use_cached_size_hint(true)
     {
         hbar->setObjectName("qt_hbar");
         vbar->setObjectName("qt_vbar");
@@ -139,9 +143,11 @@ public:
         hMode = KtlQ3ScrollView::Auto;
         corner = nullptr;
         // vbar->setSteps(20, 1/*set later*/);
-        vbar->setSingleStep(20); vbar->setPageStep(1);
-        //hbar->setSteps(20, 1/*set later*/);
-        hbar->setSingleStep(20); hbar->setPageStep(1);
+        vbar->setSingleStep(20);
+        vbar->setPageStep(1);
+        // hbar->setSteps(20, 1/*set later*/);
+        hbar->setSingleStep(20);
+        hbar->setPageStep(1);
         policy = KtlQ3ScrollView::Default;
         signal_choke = false;
         static_bg = false;
@@ -152,48 +158,51 @@ public:
     }
     ~KtlQ3ScrollViewData();
 
-    QSVChildRec* rec(QWidget* w) { return /* childDict.find(w); */ childDict.value(w);   }
-    QSVChildRec* ancestorRec(QWidget* w);
-    QSVChildRec* addChildRec(QWidget* w, int x, int y)
+    QSVChildRec *rec(QWidget *w)
     {
-        QSVChildRec *r = new QSVChildRec(w,x,y);
+        return /* childDict.find(w); */ childDict.value(w);
+    }
+    QSVChildRec *ancestorRec(QWidget *w);
+    QSVChildRec *addChildRec(QWidget *w, int x, int y)
+    {
+        QSVChildRec *r = new QSVChildRec(w, x, y);
         children.append(r);
         childDict.insert(w, r);
         return r;
     }
-    void deleteChildRec(QSVChildRec* r)
+    void deleteChildRec(QSVChildRec *r)
     {
         childDict.remove(r->child);
-        //children.removeRef(r);
+        // children.removeRef(r);
         children.removeAll(r);
         delete r;
     }
 
-    void hideOrShowAll(KtlQ3ScrollView* sv, bool isScroll = false);
+    void hideOrShowAll(KtlQ3ScrollView *sv, bool isScroll = false);
     void moveAllBy(int dx, int dy);
     bool anyVisibleChildren();
-    void autoMove(KtlQ3ScrollView* sv);
-    void autoResize(KtlQ3ScrollView* sv);
-    void autoResizeHint(KtlQ3ScrollView* sv);
+    void autoMove(KtlQ3ScrollView *sv);
+    void autoResize(KtlQ3ScrollView *sv);
+    void autoResizeHint(KtlQ3ScrollView *sv);
     void viewportResized(int w, int h);
 
-    QScrollBar*  hbar;
-    QScrollBar*  vbar;
+    QScrollBar *hbar;
+    QScrollBar *vbar;
     bool hbarPressed;
     bool vbarPressed;
-    KtlQAbstractScrollAreaWidget*    viewport;
-    KtlQClipperWidget*     clipped_viewport;
-    int         flags;
-    //Q3PtrList<QSVChildRec>       children;
-    QList<QSVChildRec*>          children;
-    //Q3PtrDict<QSVChildRec>       childDict; // 2018.10.07
-    QHash< QWidget*, QSVChildRec* > childDict;
-    QWidget*    corner;
-    int         vx, vy, vwidth, vheight; // for drawContents-style usage
-    int         l_marg, r_marg, t_marg, b_marg;
+    KtlQAbstractScrollAreaWidget *viewport;
+    KtlQClipperWidget *clipped_viewport;
+    int flags;
+    // Q3PtrList<QSVChildRec>       children;
+    QList<QSVChildRec *> children;
+    // Q3PtrDict<QSVChildRec>       childDict; // 2018.10.07
+    QHash<QWidget *, QSVChildRec *> childDict;
+    QWidget *corner;
+    int vx, vy, vwidth, vheight; // for drawContents-style usage
+    int l_marg, r_marg, t_marg, b_marg;
     KtlQ3ScrollView::ResizePolicy policy;
-    KtlQ3ScrollView::ScrollBarMode  vMode;
-    KtlQ3ScrollView::ScrollBarMode  hMode;
+    KtlQ3ScrollView::ScrollBarMode vMode;
+    KtlQ3ScrollView::ScrollBarMode hMode;
 #ifndef QT_NO_DRAGANDDROP
     QPoint cpDragStart;
     QTimer autoscroll_timer;
@@ -218,67 +227,70 @@ public:
     uint use_cached_size_hint : 1;
     QSize cachedSizeHint;
 
-    inline int contentsX() const { return -vx; }
-    inline int contentsY() const { return -vy; }
-    inline int contentsWidth() const { return vwidth; }
+    inline int contentsX() const
+    {
+        return -vx;
+    }
+    inline int contentsY() const
+    {
+        return -vy;
+    }
+    inline int contentsWidth() const
+    {
+        return vwidth;
+    }
 };
 
 inline KtlQ3ScrollViewData::~KtlQ3ScrollViewData()
 {
-    //children.setAutoDelete(true); // 2018.12.08
-    for (QList<QSVChildRec*>::iterator it = children.begin();
-            it != children.end(); ++it) {
+    // children.setAutoDelete(true); // 2018.12.08
+    for (QList<QSVChildRec *>::iterator it = children.begin(); it != children.end(); ++it) {
         QSVChildRec *r = *it;
         delete r;
     }
     children.removeAll(nullptr);
 }
 
-QSVChildRec* KtlQ3ScrollViewData::ancestorRec(QWidget* w)
+QSVChildRec *KtlQ3ScrollViewData::ancestorRec(QWidget *w)
 {
     if (clipped_viewport) {
         while (w->parentWidget() != clipped_viewport) {
             w = w->parentWidget();
-            if (!w) return nullptr;
+            if (!w)
+                return nullptr;
         }
     } else {
         while (w->parentWidget() != viewport) {
             w = w->parentWidget();
-            if (!w) return nullptr;
+            if (!w)
+                return nullptr;
         }
     }
     return rec(w);
 }
 
-void KtlQ3ScrollViewData::hideOrShowAll(KtlQ3ScrollView* sv, bool isScroll)
+void KtlQ3ScrollViewData::hideOrShowAll(KtlQ3ScrollView *sv, bool isScroll)
 {
     if (!clipped_viewport)
         return;
-    if (clipped_viewport->x() <= 0
-         && clipped_viewport->y() <= 0
-         && clipped_viewport->width()+clipped_viewport->x() >=
-         viewport->width()
-         && clipped_viewport->height()+clipped_viewport->y() >=
-         viewport->height()) {
+    if (clipped_viewport->x() <= 0 && clipped_viewport->y() <= 0 && clipped_viewport->width() + clipped_viewport->x() >= viewport->width() && clipped_viewport->height() + clipped_viewport->y() >= viewport->height()) {
         // clipped_viewport still covers viewport
-        if(static_bg) {
-            //clipped_viewport->repaint(true); // 2018.11.30
+        if (static_bg) {
+            // clipped_viewport->repaint(true); // 2018.11.30
             clipped_viewport->repaint();
-        }
-        else if ((!isScroll && !clipped_viewport->testAttribute(Qt::WA_StaticContents)) || static_bg)
+        } else if ((!isScroll && !clipped_viewport->testAttribute(Qt::WA_StaticContents)) || static_bg)
             clipped_viewport->update();
     } else {
         // Re-center
         int nx = (viewport->width() - clipped_viewport->width()) / 2;
         int ny = (viewport->height() - clipped_viewport->height()) / 2;
-        clipped_viewport->move(nx,ny);
+        clipped_viewport->move(nx, ny);
         clipped_viewport->update();
     }
-    //for (QSVChildRec *r = children.first(); r; r=children.next()) {   // 2018.12.08
+    // for (QSVChildRec *r = children.first(); r; r=children.next()) {   // 2018.12.08
     //    r->hideOrShow(sv, clipped_viewport);
     //}
-    for (QList<QSVChildRec*>::iterator it = children.begin();
-            it != children.end(); ++it) {
+    for (QList<QSVChildRec *>::iterator it = children.begin(); it != children.end(); ++it) {
         QSVChildRec *r = *it;
         r->hideOrShow(sv, clipped_viewport);
     }
@@ -287,20 +299,18 @@ void KtlQ3ScrollViewData::hideOrShowAll(KtlQ3ScrollView* sv, bool isScroll)
 void KtlQ3ScrollViewData::moveAllBy(int dx, int dy)
 {
     if (clipped_viewport && !static_bg) {
-        clipped_viewport->move(clipped_viewport->x()+dx,
-                                clipped_viewport->y()+dy);
+        clipped_viewport->move(clipped_viewport->x() + dx, clipped_viewport->y() + dy);
     } else {
-        //for (QSVChildRec *r = children.first(); r; r=children.next()) { // 2018.12.07
+        // for (QSVChildRec *r = children.first(); r; r=children.next()) { // 2018.12.07
         //    r->child->move(r->child->x()+dx,r->child->y()+dy);
         //}
-        for (QList<QSVChildRec*>::iterator it = children.begin();
-                it != children.end(); ++it) {
+        for (QList<QSVChildRec *>::iterator it = children.begin(); it != children.end(); ++it) {
             QSVChildRec *r = *it;
-            r->child->move(r->child->x()+dx,r->child->y()+dy);
+            r->child->move(r->child->x() + dx, r->child->y() + dy);
         }
 
         if (static_bg) {
-            //viewport->repaint(true); // 2018.11.30
+            // viewport->repaint(true); // 2018.11.30
             viewport->repaint();
         }
     }
@@ -308,46 +318,46 @@ void KtlQ3ScrollViewData::moveAllBy(int dx, int dy)
 
 bool KtlQ3ScrollViewData::anyVisibleChildren()
 {
-    //for (QSVChildRec *r = children.first(); r; r=children.next()) {   // 2018.12.08
+    // for (QSVChildRec *r = children.first(); r; r=children.next()) {   // 2018.12.08
     //    if (r->child->isVisible()) return true;
     //}
-    for (QList<QSVChildRec*>::iterator it = children.begin();
-            it != children.end(); ++it) {
+    for (QList<QSVChildRec *>::iterator it = children.begin(); it != children.end(); ++it) {
         QSVChildRec *r = *it;
-        if (r->child->isVisible()) return true;
+        if (r->child->isVisible())
+            return true;
     }
     return false;
 }
 
-void KtlQ3ScrollViewData::autoMove(KtlQ3ScrollView* sv)
+void KtlQ3ScrollViewData::autoMove(KtlQ3ScrollView *sv)
 {
     if (policy == KtlQ3ScrollView::AutoOne) {
-        QSVChildRec* r = children.first();
+        QSVChildRec *r = children.first();
         if (r)
-            sv->setContentsPos(-r->child->x(),-r->child->y());
+            sv->setContentsPos(-r->child->x(), -r->child->y());
     }
 }
 
-void KtlQ3ScrollViewData::autoResize(KtlQ3ScrollView* sv)
+void KtlQ3ScrollViewData::autoResize(KtlQ3ScrollView *sv)
 {
     if (policy == KtlQ3ScrollView::AutoOne) {
-        QSVChildRec* r = children.first();
+        QSVChildRec *r = children.first();
         if (r)
-            sv->resizeContents(r->child->width(),r->child->height());
+            sv->resizeContents(r->child->width(), r->child->height());
     }
 }
 
-void KtlQ3ScrollViewData::autoResizeHint(KtlQ3ScrollView* sv)
+void KtlQ3ScrollViewData::autoResizeHint(KtlQ3ScrollView *sv)
 {
     if (policy == KtlQ3ScrollView::AutoOne) {
-        QSVChildRec* r = children.first();
+        QSVChildRec *r = children.first();
         if (r) {
             QSize s = r->child->sizeHint();
             if (s.isValid())
                 r->child->resize(s);
         }
     } else if (policy == KtlQ3ScrollView::AutoOneFit) {
-        QSVChildRec* r = children.first();
+        QSVChildRec *r = children.first();
         if (r) {
             QSize sh = r->child->sizeHint();
             sh = sh.boundedTo(r->child->maximumSize());
@@ -359,16 +369,14 @@ void KtlQ3ScrollViewData::autoResizeHint(KtlQ3ScrollView* sv)
 void KtlQ3ScrollViewData::viewportResized(int w, int h)
 {
     if (policy == KtlQ3ScrollView::AutoOneFit) {
-        QSVChildRec* r = children.first();
+        QSVChildRec *r = children.first();
         if (r) {
             QSize sh = r->child->sizeHint();
             sh = sh.boundedTo(r->child->maximumSize());
-            r->child->resize(qMax(w,sh.width()), qMax(h,sh.height()));
+            r->child->resize(qMax(w, sh.width()), qMax(h, sh.height()));
         }
-
     }
 }
-
 
 /*!
     \class KtlQ3ScrollView
@@ -535,7 +543,6 @@ void KtlQ3ScrollViewData::viewportResized(int w, int h)
     and we recommend specifying the \c WNoAutoErase flag explicitly.
 */
 
-
 /*!
     \enum KtlQ3ScrollView::ResizePolicy
 
@@ -570,39 +577,34 @@ void KtlQ3ScrollViewData::viewportResized(int w, int h)
     widget flags are propagated to the parent constructor as usual.
 */
 
-KtlQ3ScrollView::KtlQ3ScrollView(QWidget *parent, const char *name, Qt::WindowFlags f) :
-    KtlQ3Frame(parent, name, f & (~Qt::WA_StaticContents) /*& (~Qt::WNoAutoErase) & (~Qt::WResizeNoErase) */ )
+KtlQ3ScrollView::KtlQ3ScrollView(QWidget *parent, const char *name, Qt::WindowFlags f)
+    : KtlQ3Frame(parent, name, f & (~Qt::WA_StaticContents) /*& (~Qt::WNoAutoErase) & (~Qt::WResizeNoErase) */)
 {
     Qt::WindowFlags flags = /* Qt::WResizeNoErase |  (f&Qt::WPaintClever)
-        | (f&Qt::WRepaintNoErase) | */ (f&Qt::WA_StaticContents);
+        | (f&Qt::WRepaintNoErase) | */
+        (f & Qt::WA_StaticContents);
     d = new KtlQ3ScrollViewData(this, flags);
 
 #ifndef QT_NO_DRAGANDDROP
-    connect(&d->autoscroll_timer, SIGNAL(timeout()),
-             this, SLOT(doDragAutoScroll()));
+    connect(&d->autoscroll_timer, SIGNAL(timeout()), this, SLOT(doDragAutoScroll()));
 #endif
 
-    connect(d->hbar, SIGNAL(valueChanged(int)),
-        this, SLOT(hslide(int)));
-    connect(d->vbar, SIGNAL(valueChanged(int)),
-        this, SLOT(vslide(int)));
+    connect(d->hbar, SIGNAL(valueChanged(int)), this, SLOT(hslide(int)));
+    connect(d->vbar, SIGNAL(valueChanged(int)), this, SLOT(vslide(int)));
 
     connect(d->hbar, SIGNAL(sliderPressed()), this, SLOT(hbarIsPressed()));
     connect(d->hbar, SIGNAL(sliderReleased()), this, SLOT(hbarIsReleased()));
     connect(d->vbar, SIGNAL(sliderPressed()), this, SLOT(vbarIsPressed()));
     connect(d->vbar, SIGNAL(sliderReleased()), this, SLOT(vbarIsReleased()));
 
-
     d->viewport->installEventFilter(this);
 
-    connect(&d->scrollbar_timer, SIGNAL(timeout()),
-             this, SLOT(updateScrollBars()));
+    connect(&d->scrollbar_timer, SIGNAL(timeout()), this, SLOT(updateScrollBars()));
 
     setFrameStyle(KtlQ3Frame::StyledPanel | KtlQ3Frame::Sunken);
     setLineWidth(style()->pixelMetric(QStyle::PM_DefaultFrameWidth));
     setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 }
-
 
 /*!
     Destroys the KtlQ3ScrollView. Any children added with addChild() will
@@ -691,9 +693,9 @@ bool KtlQ3ScrollView::isVerticalSliderPressed()
 /*!
     \internal
 */
-void KtlQ3ScrollView::styleChange(QStyle& old)
+void KtlQ3ScrollView::styleChange(QStyle &old)
 {
-    //QWidget::styleChange(old); // 2019.04.14
+    // QWidget::styleChange(old); // 2019.04.14
     updateScrollBars();
     d->cachedSizeHint = QSize();
 }
@@ -703,7 +705,7 @@ void KtlQ3ScrollView::styleChange(QStyle& old)
 */
 void KtlQ3ScrollView::fontChange(const QFont &old)
 {
-    //QWidget::fontChange(old); // 2019.04.14
+    // QWidget::fontChange(old); // 2019.04.14
     updateScrollBars();
     d->cachedSizeHint = QSize();
 }
@@ -735,8 +737,7 @@ void KtlQ3ScrollView::vslide(int pos)
 
     \sa setVBarGeometry()
 */
-void KtlQ3ScrollView::setHBarGeometry(QScrollBar& hbar,
-    int x, int y, int w, int h)
+void KtlQ3ScrollView::setHBarGeometry(QScrollBar &hbar, int x, int y, int w, int h)
 {
     hbar.setGeometry(x, y, w, h);
 }
@@ -752,12 +753,10 @@ void KtlQ3ScrollView::setHBarGeometry(QScrollBar& hbar,
 
     \sa setHBarGeometry()
 */
-void KtlQ3ScrollView::setVBarGeometry(QScrollBar& vbar,
-    int x, int y, int w, int h)
+void KtlQ3ScrollView::setVBarGeometry(QScrollBar &vbar, int x, int y, int w, int h)
 {
     vbar.setGeometry(x, y, w, h);
 }
-
 
 /*!
     Returns the viewport size for size (\a x, \a y).
@@ -776,10 +775,10 @@ void KtlQ3ScrollView::setVBarGeometry(QScrollBar& vbar,
 QSize KtlQ3ScrollView::viewportSize(int x, int y) const
 {
     int fw = frameWidth();
-    int lmarg = fw+d->l_marg;
-    int rmarg = fw+d->r_marg;
-    int tmarg = fw+d->t_marg;
-    int bmarg = fw+d->b_marg;
+    int lmarg = fw + d->l_marg;
+    int rmarg = fw + d->r_marg;
+    int tmarg = fw + d->t_marg;
+    int bmarg = fw + d->b_marg;
 
     int w = width();
     int h = height();
@@ -791,8 +790,8 @@ QSize KtlQ3ScrollView::viewportSize(int x, int y) const
 
     if (d->policy != AutoOne || d->anyVisibleChildren()) {
         // Do we definitely need the scroll bar?
-        needh = w-lmarg-rmarg < x;
-        needv = h-tmarg-bmarg < y;
+        needh = w - lmarg - rmarg < x;
+        needv = h - tmarg - bmarg < y;
 
         // Do we intend to show the scroll bar?
         if (d->hMode == AlwaysOn)
@@ -810,13 +809,13 @@ QSize KtlQ3ScrollView::viewportSize(int x, int y) const
             showv = needv;
 
         // Given other scroll bar will be shown, NOW do we need one?
-        if (showh && h-vsbExt-tmarg-bmarg < y) {
+        if (showh && h - vsbExt - tmarg - bmarg < y) {
             if (d->vMode == Auto)
-                showv=true;
+                showv = true;
         }
-        if (showv && w-hsbExt-lmarg-rmarg < x) {
+        if (showv && w - hsbExt - lmarg - rmarg < x) {
             if (d->hMode == Auto)
-                showh=true;
+                showh = true;
         }
     } else {
         // Scroll bars not needed, only show scroll bar that are always on.
@@ -824,10 +823,8 @@ QSize KtlQ3ScrollView::viewportSize(int x, int y) const
         showv = d->vMode == AlwaysOn;
     }
 
-    return QSize(w-lmarg-rmarg - (showv ? vsbExt : 0),
-                  h-tmarg-bmarg - (showh ? hsbExt : 0));
+    return QSize(w - lmarg - rmarg - (showv ? vsbExt : 0), h - tmarg - bmarg - (showh ? hsbExt : 0));
 }
-
 
 /*!
     Updates scroll bars: all possibilities are considered. You should
@@ -835,16 +832,16 @@ QSize KtlQ3ScrollView::viewportSize(int x, int y) const
 */
 void KtlQ3ScrollView::updateScrollBars()
 {
-    if(!horizontalScrollBar() && !verticalScrollBar())
+    if (!horizontalScrollBar() && !verticalScrollBar())
         return;
 
     // I support this should use viewportSize()... but it needs
     // so many of the temporary variables from viewportSize.  hm.
     int fw = frameWidth();
-    int lmarg = fw+d->l_marg;
-    int rmarg = fw+d->r_marg;
-    int tmarg = fw+d->t_marg;
-    int bmarg = fw+d->b_marg;
+    int lmarg = fw + d->l_marg;
+    int rmarg = fw + d->r_marg;
+    int tmarg = fw + d->t_marg;
+    int bmarg = fw + d->b_marg;
 
     int w = width();
     int h = height();
@@ -864,10 +861,10 @@ void KtlQ3ScrollView::updateScrollBars()
 
     if (d->policy != AutoOne || d->anyVisibleChildren()) {
         // Do we definitely need the scroll bar?
-        needh = w-lmarg-rmarg < d->contentsWidth();
+        needh = w - lmarg - rmarg < d->contentsWidth();
         if (d->inresize)
-            needh  = !horizontalScrollBar()->isHidden();
-        needv = h-tmarg-bmarg < contentsHeight();
+            needh = !horizontalScrollBar()->isHidden();
+        needv = h - tmarg - bmarg < contentsHeight();
 
         // Do we intend to show the scroll bar?
         if (d->hMode == AlwaysOn)
@@ -886,43 +883,43 @@ void KtlQ3ScrollView::updateScrollBars()
 
 #ifdef Q_WS_MAC
         bool mac_need_scroll = false;
-        if(!parentWidget()) {
+        if (!parentWidget()) {
             mac_need_scroll = true;
         } else {
             QWidget *tlw = window();
-// #ifndef QT_MAC_USE_COCOA           // 2018.10.18 - do not depend on internal headers
-//             QPoint tlw_br = QPoint(tlw->width(), tlw->height()),
-//                     my_br = qt_mac_posInWindow(this) + QPoint(w, h);
-//             if(my_br.x() >= tlw_br.x() - 3 && my_br.y() >= tlw_br.y() - 3)
-// #endif
-                mac_need_scroll = true;
+            // #ifndef QT_MAC_USE_COCOA           // 2018.10.18 - do not depend on internal headers
+            //             QPoint tlw_br = QPoint(tlw->width(), tlw->height()),
+            //                     my_br = qt_mac_posInWindow(this) + QPoint(w, h);
+            //             if(my_br.x() >= tlw_br.x() - 3 && my_br.y() >= tlw_br.y() - 3)
+            // #endif
+            mac_need_scroll = true;
         }
-        if(mac_need_scroll) {
-// #ifndef QT_MAC_USE_COCOA           // 2018.10.18 - do not depend on internal headers
-//             WindowAttributes attr;
-//             GetWindowAttributes((WindowPtr)handle(), &attr);
-//             mac_need_scroll = (attr & kWindowResizableAttribute);
-// #endif
+        if (mac_need_scroll) {
+            // #ifndef QT_MAC_USE_COCOA           // 2018.10.18 - do not depend on internal headers
+            //             WindowAttributes attr;
+            //             GetWindowAttributes((WindowPtr)handle(), &attr);
+            //             mac_need_scroll = (attr & kWindowResizableAttribute);
+            // #endif
         }
-        if(mac_need_scroll) {
+        if (mac_need_scroll) {
             showc = true;
-            if(d->vMode == Auto)
+            if (d->vMode == Auto)
                 showv = true;
-            if(d->hMode == Auto)
+            if (d->hMode == Auto)
                 showh = true;
         }
 #endif
 
         // Given other scroll bar will be shown, NOW do we need one?
-        if (showh && h-vsbExt-tmarg-bmarg < contentsHeight()) {
-            needv=true;
+        if (showh && h - vsbExt - tmarg - bmarg < contentsHeight()) {
+            needv = true;
             if (d->vMode == Auto)
-                showv=true;
+                showv = true;
         }
-        if (showv && !d->inresize && w-hsbExt-lmarg-rmarg < d->contentsWidth()) {
-            needh=true;
+        if (showv && !d->inresize && w - hsbExt - lmarg - rmarg < d->contentsWidth()) {
+            needh = true;
             if (d->hMode == Auto)
-                showh=true;
+                showh = true;
         }
     } else {
         // Scrollbars not needed, only show scroll bar that are always on.
@@ -932,38 +929,38 @@ void KtlQ3ScrollView::updateScrollBars()
     }
 
     bool sc = d->signal_choke;
-    d->signal_choke=true;
+    d->signal_choke = true;
 
     // Hide unneeded scroll bar, calculate viewport size
     if (showh) {
-        porth=h-hsbExt-tmarg-bmarg;
+        porth = h - hsbExt - tmarg - bmarg;
     } else {
         if (!needh)
             d->hbar->setValue(0);
         d->hbar->hide();
-        porth=h-tmarg-bmarg;
+        porth = h - tmarg - bmarg;
     }
     if (showv) {
-        portw=w-vsbExt-lmarg-rmarg;
+        portw = w - vsbExt - lmarg - rmarg;
     } else {
         if (!needv)
             d->vbar->setValue(0);
         d->vbar->hide();
-        portw=w-lmarg-rmarg;
+        portw = w - lmarg - rmarg;
     }
 
     // Configure scroll bars that we will show
     if (needv) {
-        d->vbar->setRange(0, contentsHeight()-porth);
-        //d->vbar->setSteps(KtlQ3ScrollView::d->vbar->lineStep(), porth); // 2018.11.30
+        d->vbar->setRange(0, contentsHeight() - porth);
+        // d->vbar->setSteps(KtlQ3ScrollView::d->vbar->lineStep(), porth); // 2018.11.30
         d->vbar->setSingleStep(KtlQ3ScrollView::d->vbar->singleStep());
         d->vbar->setPageStep(porth);
     } else {
         d->vbar->setRange(0, 0);
     }
     if (needh) {
-        d->hbar->setRange(0, qMax(0, d->contentsWidth()-portw));
-        //d->hbar->setSteps(KtlQ3ScrollView::d->hbar->lineStep(), portw); // 2018.11.30
+        d->hbar->setRange(0, qMax(0, d->contentsWidth() - portw));
+        // d->hbar->setSteps(KtlQ3ScrollView::d->hbar->lineStep(), portw); // 2018.11.30
         d->hbar->setSingleStep(KtlQ3ScrollView::d->hbar->singleStep());
         d->hbar->setPageStep(portw);
     } else {
@@ -975,95 +972,75 @@ void KtlQ3ScrollView::updateScrollBars()
     bool reverse = QApplication::layoutDirection() == Qt::RightToLeft;
     int xoffset = (reverse && (showv || cornerWidget())) ? vsbExt : 0;
     int xpos = reverse ? 0 : w - vsbExt;
-    bool frameContentsOnly =
-        style()->styleHint(QStyle::SH_ScrollView_FrameOnlyAroundContents);
+    bool frameContentsOnly = style()->styleHint(QStyle::SH_ScrollView_FrameOnlyAroundContents);
 
-    if(! frameContentsOnly) {
+    if (!frameContentsOnly) {
         if (reverse)
             xpos += fw;
         else
             xpos -= fw;
     }
     if (showh) {
-        int right = (showc || showv || cornerWidget()) ? w-vsbExt : w;
-        if (! frameContentsOnly)
-            setHBarGeometry(*d->hbar, fw + xoffset, h-hsbExt-fw,
-                             right-fw-fw, hsbExt);
+        int right = (showc || showv || cornerWidget()) ? w - vsbExt : w;
+        if (!frameContentsOnly)
+            setHBarGeometry(*d->hbar, fw + xoffset, h - hsbExt - fw, right - fw - fw, hsbExt);
         else
-            setHBarGeometry(*d->hbar, 0 + xoffset, h-hsbExt, right,
-                             hsbExt);
-        bottom=h-hsbExt;
+            setHBarGeometry(*d->hbar, 0 + xoffset, h - hsbExt, right, hsbExt);
+        bottom = h - hsbExt;
     } else {
-        bottom=h;
+        bottom = h;
     }
     if (showv) {
-        clipper()->setGeometry(lmarg + xoffset, tmarg,
-                                w-vsbExt-lmarg-rmarg,
-                                bottom-tmarg-bmarg);
-        d->viewportResized(w-vsbExt-lmarg-rmarg, bottom-tmarg-bmarg);
-        if (! frameContentsOnly)
+        clipper()->setGeometry(lmarg + xoffset, tmarg, w - vsbExt - lmarg - rmarg, bottom - tmarg - bmarg);
+        d->viewportResized(w - vsbExt - lmarg - rmarg, bottom - tmarg - bmarg);
+        if (!frameContentsOnly)
             changeFrameRect(QRect(0, 0, w, h));
         else
-            changeFrameRect(QRect(xoffset, 0, w-vsbExt, bottom));
+            changeFrameRect(QRect(xoffset, 0, w - vsbExt, bottom));
         if (showc || cornerWidget()) {
-            if (! frameContentsOnly)
-                setVBarGeometry(*d->vbar, xpos,
-                                 fw, vsbExt,
-                                 h-hsbExt-fw-fw);
+            if (!frameContentsOnly)
+                setVBarGeometry(*d->vbar, xpos, fw, vsbExt, h - hsbExt - fw - fw);
             else
-                setVBarGeometry(*d->vbar, xpos, 0,
-                                 vsbExt,
-                                 h-hsbExt);
-        }
-        else {
-            if (! frameContentsOnly)
-                setVBarGeometry(*d->vbar, xpos,
-                                 fw, vsbExt,
-                                 bottom-fw-fw);
+                setVBarGeometry(*d->vbar, xpos, 0, vsbExt, h - hsbExt);
+        } else {
+            if (!frameContentsOnly)
+                setVBarGeometry(*d->vbar, xpos, fw, vsbExt, bottom - fw - fw);
             else
-                setVBarGeometry(*d->vbar, xpos, 0,
-                                 vsbExt, bottom);
+                setVBarGeometry(*d->vbar, xpos, 0, vsbExt, bottom);
         }
     } else {
-        if (! frameContentsOnly)
+        if (!frameContentsOnly)
             changeFrameRect(QRect(0, 0, w, h));
         else
             changeFrameRect(QRect(0, 0, w, bottom));
-        clipper()->setGeometry(lmarg, tmarg,
-                                w-lmarg-rmarg, bottom-tmarg-bmarg);
-        d->viewportResized(w-lmarg-rmarg, bottom-tmarg-bmarg);
+        clipper()->setGeometry(lmarg, tmarg, w - lmarg - rmarg, bottom - tmarg - bmarg);
+        d->viewportResized(w - lmarg - rmarg, bottom - tmarg - bmarg);
     }
 
     QWidget *corner = d->corner;
     if (d->corner) {
-        if (! frameContentsOnly)
-            corner->setGeometry(xpos,
-                                h-hsbExt-fw,
-                                vsbExt,
-                                hsbExt);
+        if (!frameContentsOnly)
+            corner->setGeometry(xpos, h - hsbExt - fw, vsbExt, hsbExt);
         else
-            corner->setGeometry(xpos,
-                                h-hsbExt,
-                                vsbExt,
-                                hsbExt);
+            corner->setGeometry(xpos, h - hsbExt, vsbExt, hsbExt);
     }
 
-    d->signal_choke=sc;
+    d->signal_choke = sc;
 
-    if (d->contentsX()+visibleWidth() > d->contentsWidth()) {
+    if (d->contentsX() + visibleWidth() > d->contentsWidth()) {
         int x;
 #if 0
         if (reverse)
             x =qMin(0,d->contentsWidth()-visibleWidth());
         else
 #endif
-            x =qMax(0,d->contentsWidth()-visibleWidth());
+        x = qMax(0, d->contentsWidth() - visibleWidth());
         d->hbar->setValue(x);
         // Do it even if it is recursive
         moveContents(-x, -d->contentsY());
     }
-    if (d->contentsY()+visibleHeight() > contentsHeight()) {
-        int y=qMax(0,contentsHeight()-visibleHeight());
+    if (d->contentsY() + visibleHeight() > contentsHeight()) {
+        int y = qMax(0, contentsHeight() - visibleHeight());
         d->vbar->setValue(y);
         // Do it even if it is recursive
         moveContents(-d->contentsX(), -y);
@@ -1075,10 +1052,10 @@ void KtlQ3ScrollView::updateScrollBars()
     if (showv && (d->vbar->isHidden() || !d->vbar->isVisible()))
         d->vbar->show();
 
-    d->signal_choke=true;
+    d->signal_choke = true;
     d->vbar->setValue(d->contentsY());
     d->hbar->setValue(d->contentsX());
-    d->signal_choke=false;
+    d->signal_choke = false;
 
     QSize newVisibleSize(visibleWidth(), visibleHeight());
     if (d->clipped_viewport && oldVisibleSize != newVisibleSize) {
@@ -1086,7 +1063,6 @@ void KtlQ3ScrollView::updateScrollBars()
         viewportResizeEvent(&e);
     }
 }
-
 
 /*!
     \reimp
@@ -1113,7 +1089,7 @@ void KtlQ3ScrollView::resize(int w, int h)
 /*!
     \internal
 */
-void KtlQ3ScrollView::resize(const QSize& s)
+void KtlQ3ScrollView::resize(const QSize &s)
 {
     resize(s.width(), s.height());
 }
@@ -1121,9 +1097,9 @@ void KtlQ3ScrollView::resize(const QSize& s)
 /*!
     \reimp
 */
-void KtlQ3ScrollView::resizeEvent(QResizeEvent* event)
+void KtlQ3ScrollView::resizeEvent(QResizeEvent *event)
 {
-    //KtlQ3Frame::resizeEvent();
+    // KtlQ3Frame::resizeEvent();
 
 #if 0
     if (QApplication::reverseLayout()) {
@@ -1137,19 +1113,17 @@ void KtlQ3ScrollView::resizeEvent(QResizeEvent* event)
     d->inresize = true;
     updateScrollBars();
     d->inresize = inresize;
-    //d->scrollbar_timer.start(0, true); // 2018.11.30
+    // d->scrollbar_timer.start(0, true); // 2018.11.30
     d->scrollbar_timer.setSingleShot(true);
     d->scrollbar_timer.start(0);
 
     d->hideOrShowAll(this);
 }
 
-
-
 /*!
     \reimp
 */
-void  KtlQ3ScrollView::mousePressEvent(QMouseEvent * e)
+void KtlQ3ScrollView::mousePressEvent(QMouseEvent *e)
 {
     e->ignore();
 }
@@ -1157,16 +1131,7 @@ void  KtlQ3ScrollView::mousePressEvent(QMouseEvent * e)
 /*!
     \reimp
 */
-void  KtlQ3ScrollView::mouseReleaseEvent(QMouseEvent *e)
-{
-    e->ignore();
-}
-
-
-/*!
-    \reimp
-*/
-void  KtlQ3ScrollView::mouseDoubleClickEvent(QMouseEvent *e)
+void KtlQ3ScrollView::mouseReleaseEvent(QMouseEvent *e)
 {
     e->ignore();
 }
@@ -1174,7 +1139,15 @@ void  KtlQ3ScrollView::mouseDoubleClickEvent(QMouseEvent *e)
 /*!
     \reimp
 */
-void  KtlQ3ScrollView::mouseMoveEvent(QMouseEvent *e)
+void KtlQ3ScrollView::mouseDoubleClickEvent(QMouseEvent *e)
+{
+    e->ignore();
+}
+
+/*!
+    \reimp
+*/
+void KtlQ3ScrollView::mouseMoveEvent(QMouseEvent *e)
 {
     e->ignore();
 }
@@ -1187,13 +1160,12 @@ void KtlQ3ScrollView::wheelEvent(QWheelEvent *e)
 {
     /* QWheelEvent ce(viewport()->mapFromGlobal(e->globalPos()),
                     e->globalPos(), e->delta(), e->state());  - 2018.11.30*/
-    QWheelEvent ce(viewport()->mapFromGlobal(e->globalPos()),
-                    e->globalPos(), e->delta(), e->buttons(), e->modifiers());
+    QWheelEvent ce(viewport()->mapFromGlobal(e->globalPos()), e->globalPos(), e->delta(), e->buttons(), e->modifiers());
     viewportWheelEvent(&ce);
     if (!ce.isAccepted()) {
         if (e->orientation() == Qt::Horizontal && horizontalScrollBar())
             horizontalScrollBar()->event(e);
-        else  if (e->orientation() == Qt::Vertical && verticalScrollBar())
+        else if (e->orientation() == Qt::Vertical && verticalScrollBar())
             verticalScrollBar()->event(e);
     } else {
         e->accept();
@@ -1213,8 +1185,7 @@ void KtlQ3ScrollView::contextMenuEvent(QContextMenuEvent *e)
 
     /* QContextMenuEvent ce(e->reason(), viewport()->mapFromGlobal(e->globalPos()),
                           e->globalPos(), e->state()); - 2018.11.30 */
-    QContextMenuEvent ce(e->reason(), viewport()->mapFromGlobal(e->globalPos()),
-                          e->globalPos(), e->modifiers());
+    QContextMenuEvent ce(e->reason(), viewport()->mapFromGlobal(e->globalPos()), e->globalPos(), e->modifiers());
     viewportContextMenuEvent(&ce);
     if (ce.isAccepted())
         e->accept();
@@ -1226,7 +1197,6 @@ KtlQ3ScrollView::ScrollBarMode KtlQ3ScrollView::vScrollBarMode() const
 {
     return d->vMode;
 }
-
 
 /*!
     \enum KtlQ3ScrollView::ScrollBarMode
@@ -1245,7 +1215,6 @@ KtlQ3ScrollView::ScrollBarMode KtlQ3ScrollView::vScrollBarMode() const
     independent.)
 */
 
-
 /*!
     \property KtlQ3ScrollView::vScrollBarMode
     \brief the mode for the vertical scroll bar
@@ -1254,14 +1223,13 @@ KtlQ3ScrollView::ScrollBarMode KtlQ3ScrollView::vScrollBarMode() const
 
     \sa hScrollBarMode
 */
-void  KtlQ3ScrollView::setVScrollBarMode(ScrollBarMode mode)
+void KtlQ3ScrollView::setVScrollBarMode(ScrollBarMode mode)
 {
     if (d->vMode != mode) {
         d->vMode = mode;
         updateScrollBars();
     }
 }
-
 
 /*!
     \property KtlQ3ScrollView::hScrollBarMode
@@ -1284,13 +1252,12 @@ void KtlQ3ScrollView::setHScrollBarMode(ScrollBarMode mode)
     }
 }
 
-
 /*!
     Returns the widget in the corner between the two scroll bars.
 
     By default, no corner widget is present.
 */
-QWidget* KtlQ3ScrollView::cornerWidget() const
+QWidget *KtlQ3ScrollView::cornerWidget() const
 {
     return d->corner;
 }
@@ -1318,18 +1285,20 @@ QWidget* KtlQ3ScrollView::cornerWidget() const
 
     \sa setVScrollBarMode(), setHScrollBarMode()
 */
-void KtlQ3ScrollView::setCornerWidget(QWidget* corner)
+void KtlQ3ScrollView::setCornerWidget(QWidget *corner)
 {
-    QWidget* oldcorner = d->corner;
+    QWidget *oldcorner = d->corner;
     if (oldcorner != corner) {
-        if (oldcorner) oldcorner->hide();
+        if (oldcorner)
+            oldcorner->hide();
         d->corner = corner;
-        if (corner) corner->setParent(this);
+        if (corner)
+            corner->setParent(this);
         updateScrollBars();
-        if (corner) corner->show();
+        if (corner)
+            corner->show();
     }
 }
-
 
 void KtlQ3ScrollView::setResizePolicy(ResizePolicy r)
 {
@@ -1361,19 +1330,20 @@ void KtlQ3ScrollView::setEnabled(bool enable)
     Removes the \a child widget from the scrolled area. Note that this
     happens automatically if the \a child is deleted.
 */
-void KtlQ3ScrollView::removeChild(QWidget* child)
+void KtlQ3ScrollView::removeChild(QWidget *child)
 {
     if (!d || !child) // First check in case we are destructing
         return;
 
     QSVChildRec *r = d->rec(child);
-    if (r) d->deleteChildRec(r);
+    if (r)
+        d->deleteChildRec(r);
 }
 
 /*!
     \internal
 */
-void KtlQ3ScrollView::removeChild(QObject* child)
+void KtlQ3ScrollView::removeChild(QObject *child)
 {
     // KtlQ3Frame::removeChild(child); // 2018.11.30
     if (child) {
@@ -1389,7 +1359,7 @@ void KtlQ3ScrollView::removeChild(QObject* child)
     You may want to call enableClipper(true) if you add a large number
     of widgets.
 */
-void KtlQ3ScrollView::addChild(QWidget* child, int x, int y)
+void KtlQ3ScrollView::addChild(QWidget *child, int x, int y)
 {
     if (!child) {
 #if defined(QT_CHECK_NULL)
@@ -1398,13 +1368,13 @@ void KtlQ3ScrollView::addChild(QWidget* child, int x, int y)
         return;
     }
     child->ensurePolished();
-    //child->setBackgroundOrigin(WidgetOrigin); // 2018.11.30 - does nothing in qt4
+    // child->setBackgroundOrigin(WidgetOrigin); // 2018.11.30 - does nothing in qt4
 
     if (child->parentWidget() == viewport()) {
         // May already be there
         QSVChildRec *r = d->rec(child);
         if (r) {
-            r->moveTo(this,x,y,d->clipped_viewport);
+            r->moveTo(this, x, y, d->clipped_viewport);
             if (d->policy > Manual) {
                 d->autoResizeHint(this);
                 d->autoResize(this); // #### better to just deal with this one widget!
@@ -1422,11 +1392,11 @@ void KtlQ3ScrollView::addChild(QWidget* child, int x, int y)
         setResizePolicy(Manual);
     }
     if (child->parentWidget() != viewport()) {
-            //child->reparent(viewport(), 0, QPoint(0,0), false); // 2018.11.30
-            child->setParent(viewport());
-            child->setGeometry(0, 0, child->width(), child->height());
+        // child->reparent(viewport(), 0, QPoint(0,0), false); // 2018.11.30
+        child->setParent(viewport());
+        child->setGeometry(0, 0, child->width(), child->height());
     }
-    d->addChildRec(child,x,y)->hideOrShow(this, d->clipped_viewport);
+    d->addChildRec(child, x, y)->hideOrShow(this, d->clipped_viewport);
 
     if (d->policy > Manual) {
         d->autoResizeHint(this);
@@ -1438,9 +1408,9 @@ void KtlQ3ScrollView::addChild(QWidget* child, int x, int y)
     Repositions the \a child widget to (\a x, \a y). This function is
     the same as addChild().
 */
-void KtlQ3ScrollView::moveChild(QWidget* child, int x, int y)
+void KtlQ3ScrollView::moveChild(QWidget *child, int x, int y)
 {
-    addChild(child,x,y);
+    addChild(child, x, y);
 }
 
 /*!
@@ -1449,7 +1419,7 @@ void KtlQ3ScrollView::moveChild(QWidget* child, int x, int y)
 
     This function returns 0 if \a child has not been added to the view.
 */
-int KtlQ3ScrollView::childX(QWidget* child)
+int KtlQ3ScrollView::childX(QWidget *child)
 {
     QSVChildRec *r = d->rec(child);
     return r ? r->x : 0;
@@ -1461,7 +1431,7 @@ int KtlQ3ScrollView::childX(QWidget* child)
 
     This function returns 0 if \a child has not been added to the view.
 */
-int KtlQ3ScrollView::childY(QWidget* child)
+int KtlQ3ScrollView::childY(QWidget *child)
 {
     QSVChildRec *r = d->rec(child);
     return r ? r->y : 0;
@@ -1490,14 +1460,14 @@ int KtlQ3ScrollView::childY(QWidget* child)
 
 bool KtlQ3ScrollView::eventFilter(QObject *obj, QEvent *e)
 {
-    bool disabled = !(qobject_cast<QWidget*>(obj)->isEnabled());
+    bool disabled = !(qobject_cast<QWidget *>(obj)->isEnabled());
     if (!d)
         return false; // we are destructing
     if (obj == d->viewport || obj == d->clipped_viewport) {
         switch (e->type()) {
             /* Forward many events to viewport...() functions */
         case QEvent::Paint:
-            viewportPaintEvent((QPaintEvent*)e);
+            viewportPaintEvent((QPaintEvent *)e);
             break;
         case QEvent::Resize:
             if (!d->clipped_viewport)
@@ -1506,64 +1476,62 @@ bool KtlQ3ScrollView::eventFilter(QObject *obj, QEvent *e)
         case QEvent::MouseButtonPress:
             if (disabled)
                 return false;
-            viewportMousePressEvent((QMouseEvent*)e);
-            if (((QMouseEvent*)e)->isAccepted())
+            viewportMousePressEvent((QMouseEvent *)e);
+            if (((QMouseEvent *)e)->isAccepted())
                 return true;
             break;
         case QEvent::MouseButtonRelease:
             if (disabled)
                 return false;
-            viewportMouseReleaseEvent((QMouseEvent*)e);
-            if (((QMouseEvent*)e)->isAccepted())
+            viewportMouseReleaseEvent((QMouseEvent *)e);
+            if (((QMouseEvent *)e)->isAccepted())
                 return true;
             break;
         case QEvent::MouseButtonDblClick:
             if (disabled)
                 return false;
-            viewportMouseDoubleClickEvent((QMouseEvent*)e);
-            if (((QMouseEvent*)e)->isAccepted())
+            viewportMouseDoubleClickEvent((QMouseEvent *)e);
+            if (((QMouseEvent *)e)->isAccepted())
                 return true;
             break;
         case QEvent::MouseMove:
             if (disabled)
                 return false;
-            viewportMouseMoveEvent((QMouseEvent*)e);
-            if (((QMouseEvent*)e)->isAccepted())
+            viewportMouseMoveEvent((QMouseEvent *)e);
+            if (((QMouseEvent *)e)->isAccepted())
                 return true;
             break;
 #ifndef QT_NO_DRAGANDDROP
         case QEvent::DragEnter:
             if (disabled)
                 return false;
-            viewportDragEnterEvent((QDragEnterEvent*)e);
+            viewportDragEnterEvent((QDragEnterEvent *)e);
             break;
         case QEvent::DragMove: {
             if (disabled)
                 return false;
             if (d->drag_autoscroll) {
-                QPoint vp = ((QDragMoveEvent*) e)->pos();
-                QRect inside_margin(autoscroll_margin, autoscroll_margin,
-                                     visibleWidth() - autoscroll_margin * 2,
-                                     visibleHeight() - autoscroll_margin * 2);
+                QPoint vp = ((QDragMoveEvent *)e)->pos();
+                QRect inside_margin(autoscroll_margin, autoscroll_margin, visibleWidth() - autoscroll_margin * 2, visibleHeight() - autoscroll_margin * 2);
                 if (!inside_margin.contains(vp)) {
                     startDragAutoScroll();
                     // Keep sending move events
-                    ((QDragMoveEvent*)e)->accept(QRect(0,0,0,0));
+                    ((QDragMoveEvent *)e)->accept(QRect(0, 0, 0, 0));
                 }
             }
-            viewportDragMoveEvent((QDragMoveEvent*)e);
+            viewportDragMoveEvent((QDragMoveEvent *)e);
         } break;
         case QEvent::DragLeave:
             if (disabled)
                 return false;
             stopDragAutoScroll();
-            viewportDragLeaveEvent((QDragLeaveEvent*)e);
+            viewportDragLeaveEvent((QDragLeaveEvent *)e);
             break;
         case QEvent::Drop:
             if (disabled)
                 return false;
             stopDragAutoScroll();
-            viewportDropEvent((QDropEvent*)e);
+            viewportDropEvent((QDropEvent *)e);
             break;
 #endif // QT_NO_DRAGANDDROP
 #ifndef QT_NO_WHEELEVENT
@@ -1575,26 +1543,26 @@ bool KtlQ3ScrollView::eventFilter(QObject *obj, QEvent *e)
         case QEvent::ContextMenu:
             if (disabled)
                 return false;
-            viewportContextMenuEvent((QContextMenuEvent*)e);
-            if (((QContextMenuEvent*)e)->isAccepted())
+            viewportContextMenuEvent((QContextMenuEvent *)e);
+            if (((QContextMenuEvent *)e)->isAccepted())
                 return true;
             break;
         case QEvent::ChildRemoved:
-            removeChild((QWidget*)((QChildEvent*)e)->child());
+            removeChild((QWidget *)((QChildEvent *)e)->child());
             break;
-        //case QEvent::LayoutHint:  // 2018.12.08 - deprecated
+        // case QEvent::LayoutHint:  // 2018.12.08 - deprecated
         //    d->autoResizeHint(this);
         //    break;
         default:
             break;
         }
-    } else if (d && d->rec((QWidget*)obj)) {  // must be a child
+    } else if (d && d->rec((QWidget *)obj)) { // must be a child
         if (e->type() == QEvent::Resize)
             d->autoResize(this);
         else if (e->type() == QEvent::Move)
             d->autoMove(this);
     }
-    return KtlQ3Frame::eventFilter(obj, e);  // always continue with standard event processing
+    return KtlQ3Frame::eventFilter(obj, e); // always continue with standard event processing
 }
 
 /*!
@@ -1602,7 +1570,7 @@ bool KtlQ3ScrollView::eventFilter(QObject *obj, QEvent *e)
     mousePressEvent(): the press position in \a e is translated to be a point
     on the contents.
 */
-void KtlQ3ScrollView::contentsMousePressEvent(QMouseEvent* e)
+void KtlQ3ScrollView::contentsMousePressEvent(QMouseEvent *e)
 {
     e->ignore();
 }
@@ -1612,7 +1580,7 @@ void KtlQ3ScrollView::contentsMousePressEvent(QMouseEvent* e)
     mouseReleaseEvent(): the release position in \a e is translated to be a
     point on the contents.
 */
-void KtlQ3ScrollView::contentsMouseReleaseEvent(QMouseEvent* e)
+void KtlQ3ScrollView::contentsMouseReleaseEvent(QMouseEvent *e)
 {
     e->ignore();
 }
@@ -1624,9 +1592,9 @@ void KtlQ3ScrollView::contentsMouseReleaseEvent(QMouseEvent* e)
 
     The default implementation generates a normal mouse press event.
 */
-void KtlQ3ScrollView::contentsMouseDoubleClickEvent(QMouseEvent* e)
+void KtlQ3ScrollView::contentsMouseDoubleClickEvent(QMouseEvent *e)
 {
-    contentsMousePressEvent(e);             // try mouse press event
+    contentsMousePressEvent(e); // try mouse press event
 }
 
 /*!
@@ -1634,7 +1602,7 @@ void KtlQ3ScrollView::contentsMouseDoubleClickEvent(QMouseEvent* e)
     mouseMoveEvent(): the mouse position in \a e is translated to be a point
     on the contents.
 */
-void KtlQ3ScrollView::contentsMouseMoveEvent(QMouseEvent* e)
+void KtlQ3ScrollView::contentsMouseMoveEvent(QMouseEvent *e)
 {
     e->ignore();
 }
@@ -1698,7 +1666,7 @@ void KtlQ3ScrollView::contentsDropEvent(QDropEvent * /* event */)
     point on the contents.
 */
 #ifndef QT_NO_WHEELEVENT
-void KtlQ3ScrollView::contentsWheelEvent(QWheelEvent * e)
+void KtlQ3ScrollView::contentsWheelEvent(QWheelEvent *e)
 {
     e->ignore();
 }
@@ -1719,28 +1687,22 @@ void KtlQ3ScrollView::contentsContextMenuEvent(QContextMenuEvent *e)
     (for example, if you don't want to open a QPainter on the
     viewport). The paint event is passed in \a pe.
 */
-void KtlQ3ScrollView::viewportPaintEvent(QPaintEvent* pe)
+void KtlQ3ScrollView::viewportPaintEvent(QPaintEvent *pe)
 {
-    QWidget* vp = viewport();
+    QWidget *vp = viewport();
 
     QPainter p(vp);
     QRect r = pe->rect();
 
     if (d->clipped_viewport) {
-        QRect rr(
-            -d->clipped_viewport->x(), -d->clipped_viewport->y(),
-            d->viewport->width(), d->viewport->height()
-           );
+        QRect rr(-d->clipped_viewport->x(), -d->clipped_viewport->y(), d->viewport->width(), d->viewport->height());
         r &= rr;
         if (r.isValid()) {
             int ex = r.x() + d->clipped_viewport->x() + d->contentsX();
             int ey = r.y() + d->clipped_viewport->y() + d->contentsY();
             int ew = r.width();
             int eh = r.height();
-            drawContentsOffset(&p,
-                d->contentsX()+d->clipped_viewport->x(),
-                d->contentsY()+d->clipped_viewport->y(),
-                ex, ey, ew, eh);
+            drawContentsOffset(&p, d->contentsX() + d->clipped_viewport->x(), d->contentsY() + d->clipped_viewport->y(), ex, ey, ew, eh);
         }
     } else {
         r &= d->viewport->rect();
@@ -1751,7 +1713,6 @@ void KtlQ3ScrollView::viewportPaintEvent(QPaintEvent* pe)
         drawContentsOffset(&p, d->contentsX(), d->contentsY(), ex, ey, ew, eh);
     }
 }
-
 
 /*!
     To provide simple processing of events on the contents, this
@@ -1774,12 +1735,11 @@ void KtlQ3ScrollView::viewportResizeEvent(QResizeEvent * /* event */)
 
   \sa contentsMousePressEvent(), QWidget::mousePressEvent()
 */
-void KtlQ3ScrollView::viewportMousePressEvent(QMouseEvent* e)
+void KtlQ3ScrollView::viewportMousePressEvent(QMouseEvent *e)
 {
     /* QMouseEvent ce(e->type(), viewportToContents(e->pos()),
         e->globalPos(), e->button(), e->state()); - 2018.11.30 */
-    QMouseEvent ce(e->type(), viewportToContents(e->pos()),
-        e->globalPos(), e->button(), e->buttons(), e->modifiers());
+    QMouseEvent ce(e->type(), viewportToContents(e->pos()), e->globalPos(), e->button(), e->buttons(), e->modifiers());
     contentsMousePressEvent(&ce);
     if (!ce.isAccepted())
         e->ignore();
@@ -1793,12 +1753,11 @@ void KtlQ3ScrollView::viewportMousePressEvent(QMouseEvent* e)
 
   \sa QWidget::mouseReleaseEvent()
 */
-void KtlQ3ScrollView::viewportMouseReleaseEvent(QMouseEvent* e)
+void KtlQ3ScrollView::viewportMouseReleaseEvent(QMouseEvent *e)
 {
     /* QMouseEvent ce(e->type(), viewportToContents(e->pos()),
         e->globalPos(), e->button(), e->state()); -- 2018.11.30 */
-    QMouseEvent ce(e->type(), viewportToContents(e->pos()),
-        e->globalPos(), e->button(), e->buttons(), e->modifiers());
+    QMouseEvent ce(e->type(), viewportToContents(e->pos()), e->globalPos(), e->button(), e->buttons(), e->modifiers());
     contentsMouseReleaseEvent(&ce);
     if (!ce.isAccepted())
         e->ignore();
@@ -1812,12 +1771,11 @@ void KtlQ3ScrollView::viewportMouseReleaseEvent(QMouseEvent* e)
 
   \sa QWidget::mouseDoubleClickEvent()
 */
-void KtlQ3ScrollView::viewportMouseDoubleClickEvent(QMouseEvent* e)
+void KtlQ3ScrollView::viewportMouseDoubleClickEvent(QMouseEvent *e)
 {
     /* QMouseEvent ce(e->type(), viewportToContents(e->pos()),
         e->globalPos(), e->button(), e->state());  - 2018.11.30 */
-    QMouseEvent ce(e->type(), viewportToContents(e->pos()),
-        e->globalPos(), e->button(), e->buttons(), e->modifiers());
+    QMouseEvent ce(e->type(), viewportToContents(e->pos()), e->globalPos(), e->button(), e->buttons(), e->modifiers());
     contentsMouseDoubleClickEvent(&ce);
     if (!ce.isAccepted())
         e->ignore();
@@ -1831,10 +1789,9 @@ void KtlQ3ScrollView::viewportMouseDoubleClickEvent(QMouseEvent* e)
 
   \sa QWidget::mouseMoveEvent()
 */
-void KtlQ3ScrollView::viewportMouseMoveEvent(QMouseEvent* e)
+void KtlQ3ScrollView::viewportMouseMoveEvent(QMouseEvent *e)
 {
-    QMouseEvent ce(e->type(), viewportToContents(e->pos()),
-        e->globalPos(), e->button(), e->buttons(), e->modifiers());
+    QMouseEvent ce(e->type(), viewportToContents(e->pos()), e->globalPos(), e->button(), e->buttons(), e->modifiers());
     contentsMouseMoveEvent(&ce);
     if (!ce.isAccepted())
         e->ignore();
@@ -1850,13 +1807,12 @@ void KtlQ3ScrollView::viewportMouseMoveEvent(QMouseEvent* e)
 
   \sa QWidget::dragEnterEvent()
 */
-void KtlQ3ScrollView::viewportDragEnterEvent(QDragEnterEvent* e)
+void KtlQ3ScrollView::viewportDragEnterEvent(QDragEnterEvent *e)
 {
-    //e->setPoint(viewportToContents(e->pos())); // 2018.11.30
-    QDragEnterEvent ev(viewportToContents(e->pos()), e->possibleActions(),
-                       e->mimeData(), e->mouseButtons(), e->keyboardModifiers());
+    // e->setPoint(viewportToContents(e->pos())); // 2018.11.30
+    QDragEnterEvent ev(viewportToContents(e->pos()), e->possibleActions(), e->mimeData(), e->mouseButtons(), e->keyboardModifiers());
     contentsDragEnterEvent(&ev);
-    //e->setPoint(contentsToViewport(e->pos())); // 2018.11.30
+    // e->setPoint(contentsToViewport(e->pos())); // 2018.11.30
 }
 
 /*!\internal
@@ -1867,13 +1823,12 @@ void KtlQ3ScrollView::viewportDragEnterEvent(QDragEnterEvent* e)
 
   \sa QWidget::dragMoveEvent()
 */
-void KtlQ3ScrollView::viewportDragMoveEvent(QDragMoveEvent* e)
+void KtlQ3ScrollView::viewportDragMoveEvent(QDragMoveEvent *e)
 {
-    //e->setPoint(viewportToContents(e->pos())); // 2018.11.30
-    QDragMoveEvent ev(viewportToContents(e->pos()), e->possibleActions(),
-                      e->mimeData(), e->mouseButtons(), e->keyboardModifiers());
+    // e->setPoint(viewportToContents(e->pos())); // 2018.11.30
+    QDragMoveEvent ev(viewportToContents(e->pos()), e->possibleActions(), e->mimeData(), e->mouseButtons(), e->keyboardModifiers());
     contentsDragMoveEvent(&ev);
-    //e->setPoint(contentsToViewport(e->pos())); // 2018.11.30
+    // e->setPoint(contentsToViewport(e->pos())); // 2018.11.30
 }
 
 /*!\internal
@@ -1884,7 +1839,7 @@ void KtlQ3ScrollView::viewportDragMoveEvent(QDragMoveEvent* e)
 
   \sa QWidget::dragLeaveEvent()
 */
-void KtlQ3ScrollView::viewportDragLeaveEvent(QDragLeaveEvent* e)
+void KtlQ3ScrollView::viewportDragLeaveEvent(QDragLeaveEvent *e)
 {
     contentsDragLeaveEvent(e);
 }
@@ -1897,13 +1852,12 @@ void KtlQ3ScrollView::viewportDragLeaveEvent(QDragLeaveEvent* e)
 
   \sa QWidget::dropEvent()
 */
-void KtlQ3ScrollView::viewportDropEvent(QDropEvent* e)
+void KtlQ3ScrollView::viewportDropEvent(QDropEvent *e)
 {
-    //e->setPoint(viewportToContents(e->pos())); // 2018.11.30
-    QDropEvent ev(viewportToContents(e->pos()), e->possibleActions(),
-                    e->mimeData(), e->mouseButtons(), e->keyboardModifiers());
+    // e->setPoint(viewportToContents(e->pos())); // 2018.11.30
+    QDropEvent ev(viewportToContents(e->pos()), e->possibleActions(), e->mimeData(), e->mouseButtons(), e->keyboardModifiers());
     contentsDropEvent(&ev);
-    //e->setPoint(contentsToViewport(e->pos())); // 2018.11.30
+    // e->setPoint(contentsToViewport(e->pos())); // 2018.11.30
 }
 
 #endif // QT_NO_DRAGANDDROP
@@ -1917,7 +1871,7 @@ void KtlQ3ScrollView::viewportDropEvent(QDropEvent* e)
   \sa QWidget::wheelEvent()
 */
 #ifndef QT_NO_WHEELEVENT
-void KtlQ3ScrollView::viewportWheelEvent(QWheelEvent* e)
+void KtlQ3ScrollView::viewportWheelEvent(QWheelEvent *e)
 {
     /*
        Different than standard mouse events, because wheel events might
@@ -1926,8 +1880,7 @@ void KtlQ3ScrollView::viewportWheelEvent(QWheelEvent* e)
     */
     /* QWheelEvent ce(viewportToContents(e->pos()),
         e->globalPos(), e->delta(), e->state()); */
-    QWheelEvent ce(viewportToContents(e->pos()),
-        e->globalPos(), e->delta(), e->buttons(), e->modifiers());
+    QWheelEvent ce(viewportToContents(e->pos()), e->globalPos(), e->delta(), e->buttons(), e->modifiers());
     contentsWheelEvent(&ce);
     if (ce.isAccepted())
         e->accept();
@@ -1944,7 +1897,7 @@ void KtlQ3ScrollView::viewportWheelEvent(QWheelEvent* e)
 */
 void KtlQ3ScrollView::viewportContextMenuEvent(QContextMenuEvent *e)
 {
-    //QContextMenuEvent ce(e->reason(), viewportToContents(e->pos()), e->globalPos(), e->state());
+    // QContextMenuEvent ce(e->reason(), viewportToContents(e->pos()), e->globalPos(), e->state());
     QContextMenuEvent ce(e->reason(), viewportToContents(e->pos()), e->globalPos(), e->modifiers());
     contentsContextMenuEvent(&ce);
     if (ce.isAccepted())
@@ -1961,7 +1914,7 @@ void KtlQ3ScrollView::viewportContextMenuEvent(QContextMenuEvent *e)
 
     This function never returns 0.
 */
-QScrollBar* KtlQ3ScrollView::horizontalScrollBar() const
+QScrollBar *KtlQ3ScrollView::horizontalScrollBar() const
 {
     return d->hbar;
 }
@@ -1974,10 +1927,10 @@ QScrollBar* KtlQ3ScrollView::horizontalScrollBar() const
 
     This function never returns 0.
 */
-QScrollBar* KtlQ3ScrollView::verticalScrollBar() const {
+QScrollBar *KtlQ3ScrollView::verticalScrollBar() const
+{
     return d->vbar;
 }
-
 
 /*!
     Scrolls the content so that the point (\a x, \a y) is visible with at
@@ -1997,47 +1950,47 @@ void KtlQ3ScrollView::ensureVisible(int x, int y)
 */
 void KtlQ3ScrollView::ensureVisible(int x, int y, int xmargin, int ymargin)
 {
-    int pw=visibleWidth();
-    int ph=visibleHeight();
+    int pw = visibleWidth();
+    int ph = visibleHeight();
 
-    int cx=-d->contentsX();
-    int cy=-d->contentsY();
-    int cw=d->contentsWidth();
-    int ch=contentsHeight();
+    int cx = -d->contentsX();
+    int cy = -d->contentsY();
+    int cw = d->contentsWidth();
+    int ch = contentsHeight();
 
-    if (pw < xmargin*2)
-        xmargin=pw/2;
-    if (ph < ymargin*2)
-        ymargin=ph/2;
+    if (pw < xmargin * 2)
+        xmargin = pw / 2;
+    if (ph < ymargin * 2)
+        ymargin = ph / 2;
 
     if (cw <= pw) {
-        xmargin=0;
-        cx=0;
+        xmargin = 0;
+        cx = 0;
     }
     if (ch <= ph) {
-        ymargin=0;
-        cy=0;
+        ymargin = 0;
+        cy = 0;
     }
 
-    if (x < -cx+xmargin)
-        cx = -x+xmargin;
-    else if (x >= -cx+pw-xmargin)
-        cx = -x+pw-xmargin;
+    if (x < -cx + xmargin)
+        cx = -x + xmargin;
+    else if (x >= -cx + pw - xmargin)
+        cx = -x + pw - xmargin;
 
-    if (y < -cy+ymargin)
-        cy = -y+ymargin;
-    else if (y >= -cy+ph-ymargin)
-        cy = -y+ph-ymargin;
+    if (y < -cy + ymargin)
+        cy = -y + ymargin;
+    else if (y >= -cy + ph - ymargin)
+        cy = -y + ph - ymargin;
 
     if (cx > 0)
-        cx=0;
-    else if (cx < pw-cw && cw>pw)
-        cx=pw-cw;
+        cx = 0;
+    else if (cx < pw - cw && cw > pw)
+        cx = pw - cw;
 
     if (cy > 0)
-        cy=0;
-    else if (cy < ph-ch && ch>ph)
-        cy=ph-ch;
+        cy = 0;
+    else if (cy < ph - ch && ch > ph)
+        cy = ph - ch;
 
     setContentsPos(-cx, -cy);
 }
@@ -2054,14 +2007,16 @@ void KtlQ3ScrollView::setContentsPos(int x, int y)
         if (x > d->contentsWidth() - visibleWidth()) x = d->contentsWidth() - visibleWidth();
     else
 #endif
-        if (x < 0) x = 0;
-    if (y < 0) y = 0;
+    if (x < 0)
+        x = 0;
+    if (y < 0)
+        y = 0;
     // Choke signal handling while we update BOTH sliders.
-    d->signal_choke=true;
+    d->signal_choke = true;
     moveContents(-x, -y);
     d->vbar->setValue(y);
     d->hbar->setValue(x);
-    d->signal_choke=false;
+    d->signal_choke = false;
 }
 
 /*!
@@ -2069,7 +2024,7 @@ void KtlQ3ScrollView::setContentsPos(int x, int y)
 */
 void KtlQ3ScrollView::scrollBy(int dx, int dy)
 {
-    setContentsPos(qMax(d->contentsX()+dx, 0), qMax(d->contentsY()+dy, 0));
+    setContentsPos(qMax(d->contentsX() + dx, 0), qMax(d->contentsY() + dy, 0));
 }
 
 /*!
@@ -2097,11 +2052,10 @@ void KtlQ3ScrollView::center(int x, int y)
 */
 void KtlQ3ScrollView::center(int x, int y, float xmargin, float ymargin)
 {
-    int pw=visibleWidth();
-    int ph=visibleHeight();
-    ensureVisible(x, y, int(xmargin/2.0*pw+0.5), int(ymargin/2.0*ph+0.5));
+    int pw = visibleWidth();
+    int ph = visibleHeight();
+    ensureVisible(x, y, int(xmargin / 2.0 * pw + 0.5), int(ymargin / 2.0 * ph + 0.5));
 }
-
 
 /*!
     \fn void KtlQ3ScrollView::contentsMoving(int x, int y)
@@ -2117,15 +2071,15 @@ void KtlQ3ScrollView::center(int x, int y, float xmargin, float ymargin)
 */
 void KtlQ3ScrollView::moveContents(int x, int y)
 {
-    if (-x+visibleWidth() > d->contentsWidth())
+    if (-x + visibleWidth() > d->contentsWidth())
 #if 0
         if(QApplication::reverseLayout())
             x=qMax(0,-d->contentsWidth()+visibleWidth());
         else
 #endif
-            x=qMin(0,-d->contentsWidth()+visibleWidth());
-    if (-y+visibleHeight() > contentsHeight())
-        y=qMin(0,-contentsHeight()+visibleHeight());
+        x = qMin(0, -d->contentsWidth() + visibleWidth());
+    if (-y + visibleHeight() > contentsHeight())
+        y = qMin(0, -contentsHeight() + visibleHeight());
 
     int dx = x - d->vx;
     int dy = y - d->vy;
@@ -2140,19 +2094,16 @@ void KtlQ3ScrollView::moveContents(int x, int y)
 
     if (d->clipped_viewport || d->static_bg) {
         // Cheap move (usually)
-        d->moveAllBy(dx,dy);
+        d->moveAllBy(dx, dy);
     } else if (/*dx && dy ||*/
-         (qAbs(dy) * 5 > visibleHeight() * 4) ||
-         (qAbs(dx) * 5 > visibleWidth() * 4)
-       )
-    {
+               (qAbs(dy) * 5 > visibleHeight() * 4) || (qAbs(dx) * 5 > visibleWidth() * 4)) {
         // Big move
         if (viewport()->updatesEnabled())
             viewport()->update();
-        d->moveAllBy(dx,dy);
+        d->moveAllBy(dx, dy);
     } else if (!d->fake_scroll || d->contentsWidth() > visibleWidth()) {
         // Small move
-        clipper()->scroll(dx,dy);
+        clipper()->scroll(dx, dy);
     }
     d->hideOrShowAll(this, true);
 }
@@ -2207,16 +2158,16 @@ void KtlQ3ScrollView::resizeContents(int w, int h)
     d->vheight = h;
 
     d->scrollbar_timer.setSingleShot(true);
-    d->scrollbar_timer.start(0 /*, true */ );
+    d->scrollbar_timer.start(0 /*, true */);
 
     if (d->children.isEmpty() && d->policy == Default)
         setResizePolicy(Manual);
 
     if (ow > w) {
         // Swap
-        int t=w;
-        w=ow;
-        ow=t;
+        int t = w;
+        w = ow;
+        ow = t;
     }
     // Refresh area ow..w
     if (ow < visibleWidth() && w >= 0) {
@@ -2224,14 +2175,14 @@ void KtlQ3ScrollView::resizeContents(int w, int h)
             ow = 0;
         if (w > visibleWidth())
             w = visibleWidth();
-        clipper()->update(d->contentsX()+ow, 0, w-ow, visibleHeight());
+        clipper()->update(d->contentsX() + ow, 0, w - ow, visibleHeight());
     }
 
     if (oh > h) {
         // Swap
-        int t=h;
-        h=oh;
-        oh=t;
+        int t = h;
+        h = oh;
+        oh = t;
     }
     // Refresh area oh..h
     if (oh < visibleHeight() && h >= 0) {
@@ -2239,7 +2190,7 @@ void KtlQ3ScrollView::resizeContents(int w, int h)
             oh = 0;
         if (h > visibleHeight())
             h = visibleHeight();
-        clipper()->update(0, d->contentsY()+oh, visibleWidth(), h-oh);
+        clipper()->update(0, d->contentsY() + oh, visibleWidth(), h - oh);
     }
 }
 
@@ -2255,7 +2206,7 @@ void KtlQ3ScrollView::updateContents(int x, int y, int w, int h)
     if (!isVisible() || !updatesEnabled())
         return;
 
-    QWidget* vp = viewport();
+    QWidget *vp = viewport();
 
     // Translate
     x -= d->contentsX();
@@ -2294,7 +2245,7 @@ void KtlQ3ScrollView::updateContents(int x, int y, int w, int h)
 
     Updates the contents in rectangle \a r
 */
-void KtlQ3ScrollView::updateContents(const QRect& r)
+void KtlQ3ScrollView::updateContents(const QRect &r)
 {
     updateContents(r.x(), r.y(), r.width(), r.height());
 }
@@ -2313,11 +2264,10 @@ void KtlQ3ScrollView::updateContents()
     Repaints the contents of rectangle \a r. If \a erase is true the
     background is cleared using the background color.
 */
-void KtlQ3ScrollView::repaintContents(const QRect& r, bool erase)
+void KtlQ3ScrollView::repaintContents(const QRect &r, bool erase)
 {
     repaintContents(r.x(), r.y(), r.width(), r.height(), erase);
 }
-
 
 /*!
     \overload
@@ -2329,7 +2279,6 @@ void KtlQ3ScrollView::repaintContents(bool erase)
 {
     repaintContents(d->contentsX(), d->contentsY(), visibleWidth(), visibleHeight(), erase);
 }
-
 
 /*!
     Calls repaint() on a rectangle defined by \a x, \a y, \a w, \a h,
@@ -2344,7 +2293,7 @@ void KtlQ3ScrollView::repaintContents(int x, int y, int w, int h, bool /*erase*/
     if (!isVisible() || !updatesEnabled())
         return;
 
-    QWidget* vp = viewport();
+    QWidget *vp = viewport();
 
     // Translate logical to clipper()
     x -= d->contentsX();
@@ -2375,7 +2324,6 @@ void KtlQ3ScrollView::repaintContents(int x, int y, int w, int h, bool /*erase*/
     vp->update(x, y, w, h);
 }
 
-
 /*!
     For backward-compatibility only. It is easier to use
     drawContents(QPainter*,int,int,int,int).
@@ -2385,9 +2333,9 @@ void KtlQ3ScrollView::repaintContents(int x, int y, int w, int h, bool /*erase*/
     drawContents() for an explanation of the parameters \a p, \a
     offsetx, \a offsety, \a clipx, \a clipy, \a clipw and \a cliph.
 */
-void KtlQ3ScrollView::drawContentsOffset(QPainter* p, int offsetx, int offsety, int clipx, int clipy, int clipw, int cliph)
+void KtlQ3ScrollView::drawContentsOffset(QPainter *p, int offsetx, int offsety, int clipx, int clipy, int clipw, int cliph)
 {
-    p->translate(-offsetx,-offsety);
+    p->translate(-offsetx, -offsety);
     drawContents(p, clipx, clipy, clipw, cliph);
 }
 
@@ -2407,33 +2355,31 @@ void KtlQ3ScrollView::drawContentsOffset(QPainter* p, int offsetx, int offsety, 
     The clip rectangle and translation of the painter \a p is already
     set appropriately.
 */
-void KtlQ3ScrollView::drawContents(QPainter*, int, int, int, int)
+void KtlQ3ScrollView::drawContents(QPainter *, int, int, int, int)
 {
 }
-
 
 /*!
     \reimp
 */
 void KtlQ3ScrollView::frameChanged()
 {
-//     // slight ugle-hack - the listview header needs readjusting when
-//     // changing the frame
-//     if (Q3ListView *lv = qobject_cast<Q3ListView *>(this))
-//         lv->triggerUpdate();
+    //     // slight ugle-hack - the listview header needs readjusting when
+    //     // changing the frame
+    //     if (Q3ListView *lv = qobject_cast<Q3ListView *>(this))
+    //         lv->triggerUpdate();
     KtlQ3Frame::frameChanged();
     updateScrollBars();
 }
-
 
 /*!
     Returns the viewport widget of the scrollview. This is the widget
     containing the contents widget or which is the drawing area.
 */
-QWidget* KtlQ3ScrollView::viewport() const
+QWidget *KtlQ3ScrollView::viewport() const
 {
     if (d->clipped_viewport)
-        return  d->clipped_viewport;
+        return d->clipped_viewport;
     return d->viewport;
 }
 
@@ -2445,7 +2391,7 @@ QWidget* KtlQ3ScrollView::viewport() const
 
     \sa visibleWidth(), visibleHeight()
 */
-QWidget* KtlQ3ScrollView::clipper() const
+QWidget *KtlQ3ScrollView::clipper() const
 {
     return d->viewport;
 }
@@ -2468,8 +2414,7 @@ int KtlQ3ScrollView::visibleHeight() const
     return clipper()->height();
 }
 
-
-void KtlQ3ScrollView::changeFrameRect(const QRect& r)
+void KtlQ3ScrollView::changeFrameRect(const QRect &r)
 {
     QRect oldr = frameRect();
     if (oldr != r) {
@@ -2487,7 +2432,6 @@ void KtlQ3ScrollView::changeFrameRect(const QRect& r)
     }
 }
 
-
 /*!
     Sets the margins around the scrolling area to \a left, \a top, \a
     right and \a bottom. This is useful for applications such as
@@ -2501,10 +2445,7 @@ void KtlQ3ScrollView::changeFrameRect(const QRect& r)
 */
 void KtlQ3ScrollView::setMargins(int left, int top, int right, int bottom)
 {
-    if (left == d->l_marg &&
-         top == d->t_marg &&
-         right == d->r_marg &&
-         bottom == d->b_marg)
+    if (left == d->l_marg && top == d->t_marg && right == d->r_marg && bottom == d->b_marg)
         return;
 
     d->l_marg = left;
@@ -2513,7 +2454,6 @@ void KtlQ3ScrollView::setMargins(int left, int top, int right, int bottom)
     d->b_marg = bottom;
     updateScrollBars();
 }
-
 
 /*!
     Returns the left margin.
@@ -2525,7 +2465,6 @@ int KtlQ3ScrollView::leftMargin() const
     return d->l_marg;
 }
 
-
 /*!
     Returns the top margin.
 
@@ -2536,7 +2475,6 @@ int KtlQ3ScrollView::topMargin() const
     return d->t_marg;
 }
 
-
 /*!
     Returns the right margin.
 
@@ -2546,7 +2484,6 @@ int KtlQ3ScrollView::rightMargin() const
 {
     return d->r_marg;
 }
-
 
 /*!
     Returns the bottom margin.
@@ -2570,18 +2507,15 @@ bool KtlQ3ScrollView::focusNextPrevChild(bool next)
         QWidget *w = window()->focusWidget();
         if (isAncestorOf(w)) {
             QSVChildRec *r = d->ancestorRec(w);
-           if (r && (r->child == w || w->isVisibleTo(r->child))) {
+            if (r && (r->child == w || w->isVisibleTo(r->child))) {
                 QPoint cp = r->child->mapToGlobal(QPoint(0, 0));
                 QPoint cr = w->mapToGlobal(QPoint(0, 0)) - cp;
-                ensureVisible(r->x + cr.x() + w->width()/2, r->y + cr.y() + w->height()/2,
-                              w->width()/2, w->height()/2);
+                ensureVisible(r->x + cr.x() + w->width() / 2, r->y + cr.y() + w->height() / 2, w->width() / 2, w->height() / 2);
             }
         }
     }
     return retval;
 }
-
-
 
 /*!
     When a large numbers of child widgets are in a scrollview,
@@ -2592,7 +2526,7 @@ bool KtlQ3ScrollView::focusNextPrevChild(bool next)
     Note that you may only call enableClipper() prior to adding
     widgets.
 */
-void KtlQ3ScrollView::enableClipper(bool y)        // note: this method as of 2018.11.30 is unused
+void KtlQ3ScrollView::enableClipper(bool y) // note: this method as of 2018.11.30 is unused
 {
     if (!d->clipped_viewport == !y)
         return;
@@ -2600,11 +2534,10 @@ void KtlQ3ScrollView::enableClipper(bool y)        // note: this method as of 20
         qFatal("May only call KtlQ3ScrollView::enableClipper() before adding widgets");
     if (y) {
         d->clipped_viewport = new KtlQClipperWidget(clipper(), "qt_clipped_viewport", QFlag(d->flags));
-        d->clipped_viewport->setGeometry(-coord_limit/2,-coord_limit/2,
-                                         coord_limit,coord_limit);
-        //d->clipped_viewport->setBackgroundMode(d->viewport->backgroundMode());
+        d->clipped_viewport->setGeometry(-coord_limit / 2, -coord_limit / 2, coord_limit, coord_limit);
+        // d->clipped_viewport->setBackgroundMode(d->viewport->backgroundMode());
         d->clipped_viewport->setBackgroundRole(d->viewport->backgroundRole());
-        //d->viewport->setBackgroundMode(NoBackground); // no exposures for this // 2018.11.30
+        // d->viewport->setBackgroundMode(NoBackground); // no exposures for this // 2018.11.30
         d->viewport->setAttribute(Qt::WA_NoSystemBackground); // hope this is the correct replacement for above
         d->viewport->removeEventFilter(this);
         d->clipped_viewport->installEventFilter(this);
@@ -2625,7 +2558,7 @@ void KtlQ3ScrollView::enableClipper(bool y)        // note: this method as of 20
 
     \sa hasStaticBackground()
 */
-void  KtlQ3ScrollView::setStaticBackground(bool y)
+void KtlQ3ScrollView::setStaticBackground(bool y)
 {
     d->static_bg = y;
 }
@@ -2647,14 +2580,12 @@ bool KtlQ3ScrollView::hasStaticBackground() const
     Returns the point \a p translated to a point on the viewport()
     widget.
 */
-QPoint KtlQ3ScrollView::contentsToViewport(const QPoint& p) const
+QPoint KtlQ3ScrollView::contentsToViewport(const QPoint &p) const
 {
     if (d->clipped_viewport) {
-        return QPoint(p.x() - d->contentsX() - d->clipped_viewport->x(),
-                       p.y() - d->contentsY() - d->clipped_viewport->y());
+        return QPoint(p.x() - d->contentsX() - d->clipped_viewport->x(), p.y() - d->contentsY() - d->clipped_viewport->y());
     } else {
-        return QPoint(p.x() - d->contentsX(),
-                       p.y() - d->contentsY());
+        return QPoint(p.x() - d->contentsX(), p.y() - d->contentsY());
     }
 }
 
@@ -2664,25 +2595,22 @@ QPoint KtlQ3ScrollView::contentsToViewport(const QPoint& p) const
     Returns the point on the viewport \a vp translated to a point in
     the contents.
 */
-QPoint KtlQ3ScrollView::viewportToContents(const QPoint& vp) const
+QPoint KtlQ3ScrollView::viewportToContents(const QPoint &vp) const
 {
     if (d->clipped_viewport) {
-        return QPoint(vp.x() + d->contentsX() + d->clipped_viewport->x(),
-                       vp.y() + d->contentsY() + d->clipped_viewport->y());
+        return QPoint(vp.x() + d->contentsX() + d->clipped_viewport->x(), vp.y() + d->contentsY() + d->clipped_viewport->y());
     } else {
-        return QPoint(vp.x() + d->contentsX(),
-                       vp.y() + d->contentsY());
+        return QPoint(vp.x() + d->contentsX(), vp.y() + d->contentsY());
     }
 }
-
 
 /*!
     Translates a point (\a x, \a y) in the contents to a point (\a vx,
     \a vy) on the viewport() widget.
 */
-void KtlQ3ScrollView::contentsToViewport(int x, int y, int& vx, int& vy) const
+void KtlQ3ScrollView::contentsToViewport(int x, int y, int &vx, int &vy) const
 {
-    const QPoint v = contentsToViewport(QPoint(x,y));
+    const QPoint v = contentsToViewport(QPoint(x, y));
     vx = v.x();
     vy = v.y();
 }
@@ -2691,9 +2619,9 @@ void KtlQ3ScrollView::contentsToViewport(int x, int y, int& vx, int& vy) const
     Translates a point (\a vx, \a vy) on the viewport() widget to a
     point (\a x, \a y) in the contents.
 */
-void KtlQ3ScrollView::viewportToContents(int vx, int vy, int& x, int& y) const
+void KtlQ3ScrollView::viewportToContents(int vx, int vy, int &x, int &y) const
 {
-    const QPoint c = viewportToContents(QPoint(vx,vy));
+    const QPoint c = viewportToContents(QPoint(vx, vy));
     x = c.x();
     y = c.y();
 }
@@ -2706,7 +2634,7 @@ QSize KtlQ3ScrollView::sizeHint() const
     if (d->use_cached_size_hint && d->cachedSizeHint.isValid())
         return d->cachedSizeHint;
 
-    //constPolish(); // 2018.11.30
+    // constPolish(); // 2018.11.30
     ensurePolished();
     int f = 2 * frameWidth();
     int h = fontMetrics().height();
@@ -2727,10 +2655,8 @@ QSize KtlQ3ScrollView::sizeHint() const
         sz.setWidth(sz.width() + d->vbar->sizeHint().width());
     if (d->hMode == AlwaysOn)
         sz.setHeight(sz.height() + d->hbar->sizeHint().height());
-    return sz.expandedTo(QSize(12 * h, 8 * h))
-             .boundedTo(QSize(36 * h, 24 * h));
+    return sz.expandedTo(QSize(12 * h, 8 * h)).boundedTo(QSize(36 * h, 24 * h));
 }
-
 
 /*!
     \reimp
@@ -2743,7 +2669,6 @@ QSize KtlQ3ScrollView::minimumSizeHint() const
     int f = 2 * frameWidth();
     return QSize((6 * h) + f, (4 * h) + f);
 }
-
 
 /*!
     \reimp
@@ -2768,7 +2693,6 @@ void KtlQ3ScrollView::startDragAutoScroll()
     }
 }
 
-
 /*!
   \internal
 */
@@ -2776,7 +2700,6 @@ void KtlQ3ScrollView::stopDragAutoScroll()
 {
     d->autoscroll_timer.stop();
 }
-
 
 /*!
   \internal
@@ -2790,7 +2713,7 @@ void KtlQ3ScrollView::doDragAutoScroll()
         d->autoscroll_time--;
         d->autoscroll_timer.start(d->autoscroll_time);
     }
-    int l = qMax(1, (initialScrollTime- d->autoscroll_time));
+    int l = qMax(1, (initialScrollTime - d->autoscroll_time));
 
     int dx = 0, dy = 0;
     if (p.y() < autoscroll_margin) {
@@ -2804,12 +2727,11 @@ void KtlQ3ScrollView::doDragAutoScroll()
         dx = +l;
     }
     if (dx || dy) {
-        scrollBy(dx,dy);
+        scrollBy(dx, dy);
     } else {
         stopDragAutoScroll();
     }
 }
-
 
 /*!
     \property KtlQ3ScrollView::dragAutoScroll

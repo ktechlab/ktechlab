@@ -55,8 +55,9 @@ QT_BEGIN_NAMESPACE
     Creates a new frame with the given \a parent, object \a name, and
     with widget flags \a f.
 */
-KtlQ3Frame::KtlQ3Frame(QWidget* parent, const char* name, Qt::WindowFlags f)
-    :QFrame(parent, f), marg(0)
+KtlQ3Frame::KtlQ3Frame(QWidget *parent, const char *name, Qt::WindowFlags f)
+    : QFrame(parent, f)
+    , marg(0)
 {
     if (name)
         setObjectName(QLatin1String(name));
@@ -74,7 +75,7 @@ KtlQ3Frame::~KtlQ3Frame()
     Paints the frame (or part of the frame) that's necessary,
     depending on the \a event.
 */
-void KtlQ3Frame::paintEvent(QPaintEvent * event)
+void KtlQ3Frame::paintEvent(QPaintEvent *event)
 {
     QPainter paint(this);
     if (!contentsRect().contains(event->rect())) {
@@ -153,7 +154,6 @@ void KtlQ3Frame::resizeEvent(QResizeEvent *e)
 void KtlQ3Frame::frameChanged()
 {
 }
-
 
 /*!
     \property KtlQ3Frame::margin

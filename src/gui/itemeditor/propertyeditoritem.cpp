@@ -10,63 +10,59 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include "propertyeditoritem.h"
 #include "drawpart.h"
 #include "propertyeditor.h"
-#include "propertyeditoritem.h"
 
 #include <KLocalizedString>
 
-#include <QDebug>
 #include <QColor>
 #include <QCursor>
+#include <QDebug>
 #include <QFont>
 #include <QPainter>
 #include <QPixmap>
 #include <QPoint>
 #include <QSize>
 
-
-//BEGIN Class PropertyEditorItem
-PropertyEditorItem::PropertyEditorItem( PropertyEditorItem * par, Property * property )
-	: QTableWidgetItem( property->editorCaption() /*, property->displayString() */ )
+// BEGIN Class PropertyEditorItem
+PropertyEditorItem::PropertyEditorItem(PropertyEditorItem *par, Property *property)
+    : QTableWidgetItem(property->editorCaption() /*, property->displayString() */)
 {
     // setParent(par); // table takes ownership of the item
-    //setText(property->editorCaption()); // need to set 2 items for each property
-	// setExpandable( false ); // TODO
+    // setText(property->editorCaption()); // need to set 2 items for each property
+    // setExpandable( false ); // TODO
 
-	m_property=property;
-	//connect( m_property, SIGNAL(valueChanged( QVariant, QVariant )), this, SLOT(propertyValueChanged()) );
+    m_property = property;
+    // connect( m_property, SIGNAL(valueChanged( QVariant, QVariant )), this, SLOT(propertyValueChanged()) );
 
-	//updateValue(); // need to set 2 items for each property
+    // updateValue(); // need to set 2 items for each property
 
-	//3 rows per item is enough?
-// 	setMultiLinesEnabled( true ); // TODO
-// 	setHeight(static_cast<PropertyEditor*>(listView())->baseRowHeight()*3);
+    // 3 rows per item is enough?
+    // 	setMultiLinesEnabled( true ); // TODO
+    // 	setHeight(static_cast<PropertyEditor*>(listView())->baseRowHeight()*3);
 }
 
-
-PropertyEditorItem::PropertyEditorItem(QTableWidget* parent, const QString& text)
-	: QTableWidgetItem( text )
+PropertyEditorItem::PropertyEditorItem(QTableWidget *parent, const QString &text)
+    : QTableWidgetItem(text)
 {
     setParent(parent);
     setText(text);
 
-	m_property = nullptr;
+    m_property = nullptr;
     setFlags(flags() &= (~Qt::ItemIsSelectable));
-	//setSelectable(false);
-	//setOpen(true);
+    // setSelectable(false);
+    // setOpen(true);
 
-	//3 rows per item is enough?
-// 	setMultiLinesEnabled( true );   // TODO
-// 	setHeight(static_cast<PropertyEditor*>(par)->baseRowHeight()*3);
+    // 3 rows per item is enough?
+    // 	setMultiLinesEnabled( true );   // TODO
+    // 	setHeight(static_cast<PropertyEditor*>(par)->baseRowHeight()*3);
 }
-
 
 void PropertyEditorItem::propertyValueChanged()
 {
-	setText( m_property->displayString() );
+    setText(m_property->displayString());
 }
-
 
 #if 0 // 2018.08.13 - moved to property editor
 void PropertyEditorItem::paintCell(QPainter *p, const QColorGroup & cg, int column, int width, int align)
@@ -127,7 +123,7 @@ void PropertyEditorItem::paintCell(QPainter *p, const QColorGroup & cg, int colu
 				p->drawLine( height()/2, height()/2-1, width-height()/2, height()/2-1 );
 				break;
 			}
-			
+
 #if 0
 			case Variant::Type::PenCapStyle:
 			{
@@ -200,26 +196,23 @@ void PropertyEditorItem::paintCell(QPainter *p, const QColorGroup & cg, int colu
 // 		setHeight(0);
 // }
 
-
 PropertyEditorItem::~PropertyEditorItem()
 {
 }
 
-
 void PropertyEditorItem::updateValue(bool alsoParent)
 {
-	QString text;
-	if ( m_property ) {
-		text = m_property->displayString();
+    QString text;
+    if (m_property) {
+        text = m_property->displayString();
     }
     qDebug() << Q_FUNC_INFO << "text= " << text;
-	setText( text );
-	if ( alsoParent && QObject::parent() )
-		static_cast<PropertyEditorItem*>(QObject::parent())->updateValue();
+    setText(text);
+    if (alsoParent && QObject::parent())
+        static_cast<PropertyEditorItem *>(QObject::parent())->updateValue();
 }
-
 
 // void PropertyEditorItem::paintFocus ( QPainter * , const QColorGroup & , const QRect &  )
 // {
 // }
-//END class PropertyEditorItem
+// END class PropertyEditorItem

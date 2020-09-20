@@ -19,35 +19,38 @@
 class Meter : public Component
 {
 public:
-	Meter( ICNDocument *icnDocument, bool newItem, const char *id );
-	~Meter() override;
-	
-	void stepNonLogic() override;
-	bool doesStepNonLogic() const override { return true; }
-	void drawShape( QPainter &p ) override;
-	bool contentChanged() const override;
-	
+    Meter(ICNDocument *icnDocument, bool newItem, const char *id);
+    ~Meter() override;
+
+    void stepNonLogic() override;
+    bool doesStepNonLogic() const override
+    {
+        return true;
+    }
+    void drawShape(QPainter &p) override;
+    bool contentChanged() const override;
+
 protected:
-	QString displayText();
-	void dataChanged() override;
-	/**
-	 * Return the value / current, or whatever the meter is measuring
-	 */
-	virtual double meterValue() = 0;
+    QString displayText();
+    void dataChanged() override;
+    /**
+     * Return the value / current, or whatever the meter is measuring
+     */
+    virtual double meterValue() = 0;
 
-	double calcProp( double v ) const;
+    double calcProp(double v) const;
 
-	bool b_firstRun; // If true, then update the text dispalyed
-	bool b_timerStarted; // The timer to change the text is started on change
-	double m_timeSinceUpdate;
-	double m_avgValue;
-	double m_old_value;
-	double m_minValue;
-	double m_maxValue;
-	Text *p_displayText;
-	QString m_unit;
+    bool b_firstRun;     // If true, then update the text dispalyed
+    bool b_timerStarted; // The timer to change the text is started on change
+    double m_timeSinceUpdate;
+    double m_avgValue;
+    double m_old_value;
+    double m_minValue;
+    double m_maxValue;
+    Text *p_displayText;
+    QString m_unit;
 
-	double m_prevProp; // Used in contentChanged()
+    double m_prevProp; // Used in contentChanged()
 };
 
 /**
@@ -57,15 +60,15 @@ protected:
 class FrequencyMeter : public Meter
 {
 public:
-	FrequencyMeter( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~FrequencyMeter() override;
+    FrequencyMeter(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~FrequencyMeter() override;
 
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
 protected:
-	double meterValue() override;
-	ECNode *m_probeNode;
+    double meterValue() override;
+    ECNode *m_probeNode;
 };
 
 /**
@@ -75,17 +78,17 @@ protected:
 class ECAmmeter : public Meter
 {
 public:
-	ECAmmeter( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECAmmeter() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    ECAmmeter(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECAmmeter() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
 protected:
-	double meterValue() override;
+    double meterValue() override;
 
 private:
-	VoltageSource *m_voltageSource;
+    VoltageSource *m_voltageSource;
 };
 
 /**
@@ -95,15 +98,14 @@ private:
 class ECVoltMeter : public Meter
 {
 public:
-	ECVoltMeter( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECVoltMeter() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    ECVoltMeter(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECVoltMeter() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
 protected:
-	double meterValue() override;
-
+    double meterValue() override;
 };
 
 #endif

@@ -19,37 +19,39 @@
 */
 class Inductance : public Reactive
 {
-	public:
-		enum Method
-		{
-			m_none, // None
-			m_euler, // Backward Euler
-			m_trap // Trapezoidal (currently unimplemented)
-		};
-		Inductance( double capacitance, double delta );
-		~Inductance() override;
-	
-		Type type() const override { return Element_Inductance; }
+public:
+    enum Method {
+        m_none,  // None
+        m_euler, // Backward Euler
+        m_trap   // Trapezoidal (currently unimplemented)
+    };
+    Inductance(double capacitance, double delta);
+    ~Inductance() override;
 
-		/**
-		 * Set the stepping use for numerical integration of inductance, and the
-		 * interval between successive updates.
-		 */
-		void setMethod( Method m );
-		void time_step() override;
-		void add_initial_dc() override;
-		void setInductance( double i );
+    Type type() const override
+    {
+        return Element_Inductance;
+    }
 
-	protected:
-		void updateCurrents() override;
-		bool updateStatus() override;
+    /**
+     * Set the stepping use for numerical integration of inductance, and the
+     * interval between successive updates.
+     */
+    void setMethod(Method m);
+    void time_step() override;
+    void add_initial_dc() override;
+    void setInductance(double i);
 
-	private:
-		double m_inductance; // Inductance
-		Method m_method; // Method of integration
+protected:
+    void updateCurrents() override;
+    bool updateStatus() override;
 
-		double scaled_inductance;
-		double v_eq_old;
+private:
+    double m_inductance; // Inductance
+    Method m_method;     // Method of integration
+
+    double scaled_inductance;
+    double v_eq_old;
 };
 
 #endif

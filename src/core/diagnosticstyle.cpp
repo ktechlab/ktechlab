@@ -12,7 +12,7 @@
 #include <QPainter>
 #include <QWidget>
 
-void DiagnosticStyle::drawControl(ControlElement element, const QStyleOption* option, QPainter* painter, const QWidget* widget) const
+void DiagnosticStyle::drawControl(ControlElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
     BaseStyle::drawControl(element, option, painter, widget);
     if (widget && painter) {
@@ -21,18 +21,18 @@ void DiagnosticStyle::drawControl(ControlElement element, const QStyleOption* op
         painter->drawRect(widget->rect());
 
         // show the classname of the widget
-        QBrush translucentBrush(QColor(255,246,240, 100));
+        QBrush translucentBrush(QColor(255, 246, 240, 100));
         painter->fillRect(widget->rect(), translucentBrush);
         painter->setPen(QColor("darkblue"));
-//         QFont textFont = painter->font();
-//         textFont.setPointSize( 8 );
-//         painter->setFont(textFont);
+        //         QFont textFont = painter->font();
+        //         textFont.setPointSize( 8 );
+        //         painter->setFont(textFont);
         QString text(widget->metaObject()->className());
         text.append(":");
         text.append(widget->objectName());
         painter->drawText(widget->rect(),
                           Qt::AlignLeft | Qt::AlignTop,
-                          //Qt::AlignRight | Qt::AlignBottom,
+                          // Qt::AlignRight | Qt::AlignBottom,
                           text);
     }
 }

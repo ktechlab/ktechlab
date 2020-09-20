@@ -10,8 +10,8 @@
 #ifndef ITEMEDITOR_H
 #define ITEMEDITOR_H
 
-#include <QWidget>
 #include <QPointer>
+#include <QWidget>
 
 class ComponentModelWidget;
 class CNItem;
@@ -26,7 +26,10 @@ class PropertyEditor;
 class QPushButton;
 class QLabel;
 
-namespace KateMDI { class ToolView; }
+namespace KateMDI
+{
+class ToolView;
+}
 
 /**
 @author Daniel Clarke
@@ -34,44 +37,46 @@ namespace KateMDI { class ToolView; }
 */
 class ItemEditor : public QWidget
 {
-	Q_OBJECT
-	public:
-		static ItemEditor * self( KateMDI::ToolView * parent = nullptr );
-		~ItemEditor() override;
-		static QString toolViewIdentifier() { return "ItemEditor"; }
-	
-	public slots:
-		/**
-		 * Update the Properties Editor
-		 */
-		void slotUpdate( ItemGroup * itemGroup );
-		/**
-		 * Updates various widgets (orientation and component-model ).
-		 */
-		void slotUpdate( Item * item );
-		/**
-		 * Clear the properties editor and orientation widget
-		 */
-		void slotClear();
-		void slotMultipleSelected();
-		/**
-		 * Updates the merge / reset data parts (e.g. enabling or disabling the
-		 * "Merge" button)
-		 */
-		void itemGroupUpdated( ItemGroup * itemGroup );
-	
-	protected:
-		void updateNameLabel( Item * item );
-		
-		PropertyEditor * m_pPropertyEditor;
-		QLabel * m_pNameLabel;
-		OrientationWidget * m_pOrientationWidget;
-		ComponentModelWidget * m_pComponentModelWidget;
-		
-	private:
-		static ItemEditor * m_pSelf;
-		ItemEditor( KateMDI::ToolView * parent );
-};
+    Q_OBJECT
+public:
+    static ItemEditor *self(KateMDI::ToolView *parent = nullptr);
+    ~ItemEditor() override;
+    static QString toolViewIdentifier()
+    {
+        return "ItemEditor";
+    }
 
+public slots:
+    /**
+     * Update the Properties Editor
+     */
+    void slotUpdate(ItemGroup *itemGroup);
+    /**
+     * Updates various widgets (orientation and component-model ).
+     */
+    void slotUpdate(Item *item);
+    /**
+     * Clear the properties editor and orientation widget
+     */
+    void slotClear();
+    void slotMultipleSelected();
+    /**
+     * Updates the merge / reset data parts (e.g. enabling or disabling the
+     * "Merge" button)
+     */
+    void itemGroupUpdated(ItemGroup *itemGroup);
+
+protected:
+    void updateNameLabel(Item *item);
+
+    PropertyEditor *m_pPropertyEditor;
+    QLabel *m_pNameLabel;
+    OrientationWidget *m_pOrientationWidget;
+    ComponentModelWidget *m_pComponentModelWidget;
+
+private:
+    static ItemEditor *m_pSelf;
+    ItemEditor(KateMDI::ToolView *parent);
+};
 
 #endif

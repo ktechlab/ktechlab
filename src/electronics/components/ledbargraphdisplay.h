@@ -10,8 +10,8 @@
 #ifndef LEDBARGRAPHDISPLAY_H
 #define LEDBARGRAPHDISPLAY_H
 
-#include <component.h>
 #include "diode.h"
+#include <component.h>
 
 // #include <q3valuevector.h>
 #include <QStringList>
@@ -25,47 +25,50 @@ const unsigned int max_LED_rows = 24;
 
 class LEDPart
 {
-	public:
-		LEDPart( Component *pParent, const QString& strPNode, const QString& strNNode );
-		~LEDPart();
+public:
+    LEDPart(Component *pParent, const QString &strPNode, const QString &strNNode);
+    ~LEDPart();
 
-		void setDiodeSettings( const DiodeSettings& ds );
-		void setColor( const QColor &color );
-		void step();
+    void setDiodeSettings(const DiodeSettings &ds);
+    void setColor(const QColor &color);
+    void step();
 
-		void draw( QPainter &p, int x, int y, int w, int h );
+    void draw(QPainter &p, int x, int y, int w, int h);
 
-	private:
-		Component *m_pParent;
-		Diode *m_pDiode;
-		DiodeSettings ds;
-		QString m_strPNode, m_strNNode;
+private:
+    Component *m_pParent;
+    Diode *m_pDiode;
+    DiodeSettings ds;
+    QString m_strPNode, m_strNNode;
 
-		double r, g, b;
-		double lastUpdatePeriod;
-		double avg_brightness;
-		uint last_brightness;
+    double r, g, b;
+    double lastUpdatePeriod;
+    double avg_brightness;
+    uint last_brightness;
 };
 
 class LEDBarGraphDisplay : public Component
 {
-	public:
-		LEDBarGraphDisplay( ICNDocument* icnDocument, bool newItem, const QString& id = nullptr );
-		~LEDBarGraphDisplay() override;
+public:
+    LEDBarGraphDisplay(ICNDocument *icnDocument, bool newItem, const QString &id = nullptr);
+    ~LEDBarGraphDisplay() override;
 
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-	private:
-		void initPins();
-		void dataChanged() override;
-		
-		void stepNonLogic() override;
-		bool doesStepNonLogic() const override { return true; }
-		void drawShape( QPainter &p ) override;
+private:
+    void initPins();
+    void dataChanged() override;
 
-		LEDPart* m_LEDParts[max_LED_rows];
-		unsigned int m_numRows;
+    void stepNonLogic() override;
+    bool doesStepNonLogic() const override
+    {
+        return true;
+    }
+    void drawShape(QPainter &p) override;
+
+    LEDPart *m_LEDParts[max_LED_rows];
+    unsigned int m_numRows;
 };
 
 #endif

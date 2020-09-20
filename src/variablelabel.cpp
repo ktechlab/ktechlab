@@ -16,76 +16,71 @@
 #include "textview.h"
 #include "variablelabel.h"
 
-
-//BEGIN class VariableLabel
-VariableLabel::VariableLabel( TextView * parent )
-	: QLabel( parent, Qt::WindowStaysOnTopHint /* | Qt::WStyle_Customize */ | Qt::FramelessWindowHint | Qt::Tool | Qt::X11BypassWindowManagerHint )
+// BEGIN class VariableLabel
+VariableLabel::VariableLabel(TextView *parent)
+    : QLabel(parent, Qt::WindowStaysOnTopHint /* | Qt::WStyle_Customize */ | Qt::FramelessWindowHint | Qt::Tool | Qt::X11BypassWindowManagerHint)
 {
     setObjectName("toolTipTip");
 
-	m_value = -1;
-	
-	setMargin(1);
-	//setAutoMask( false ); // TODO is this needed?
-	setFrameStyle( QFrame::Plain | QFrame::Box );
-	setLineWidth( 1 );
-	setAlignment( Qt::AlignLeft | Qt::AlignTop );
-	setIndent(0);
-	ensurePolished();
-	adjustSize();
+    m_value = -1;
+
+    setMargin(1);
+    // setAutoMask( false ); // TODO is this needed?
+    setFrameStyle(QFrame::Plain | QFrame::Box);
+    setLineWidth(1);
+    setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    setIndent(0);
+    ensurePolished();
+    adjustSize();
 }
 
-
-void VariableLabel::setRegister( RegisterInfo * info, const QString & name )
+void VariableLabel::setRegister(RegisterInfo *info, const QString &name)
 {
-	disconnectRegisterInfo();
-	
-	if ( !info )
-		return;
-	
-	m_value = -1;
-	m_pRegisterInfo = info;
-	m_registerName = name;
-	
-	connect( m_pRegisterInfo, SIGNAL(destroyed()), this, SLOT(hide()) );
-	connect( m_pRegisterInfo, SIGNAL(valueChanged(unsigned)), this, SLOT(updateText()) );
-	
-	updateText();
-}
+    disconnectRegisterInfo();
 
+    if (!info)
+        return;
+
+    m_value = -1;
+    m_pRegisterInfo = info;
+    m_registerName = name;
+
+    connect(m_pRegisterInfo, SIGNAL(destroyed()), this, SLOT(hide()));
+    connect(m_pRegisterInfo, SIGNAL(valueChanged(unsigned)), this, SLOT(updateText()));
+
+    updateText();
+}
 
 void VariableLabel::disconnectRegisterInfo()
 {
-	if ( !m_pRegisterInfo )
-		return;
-	
-	disconnect( m_pRegisterInfo, SIGNAL(destroyed()), this, SLOT(hide()) );
-	disconnect( m_pRegisterInfo, SIGNAL(valueChanged(unsigned)), this, SLOT(updateText()) );
-	
-	m_pRegisterInfo = nullptr;
-	m_registerName = QString::null;
+    if (!m_pRegisterInfo)
+        return;
+
+    disconnect(m_pRegisterInfo, SIGNAL(destroyed()), this, SLOT(hide()));
+    disconnect(m_pRegisterInfo, SIGNAL(valueChanged(unsigned)), this, SLOT(updateText()));
+
+    m_pRegisterInfo = nullptr;
+    m_registerName = QString::null;
 }
 
-
-void VariableLabel::setValue( unsigned value )
+void VariableLabel::setValue(unsigned value)
 {
-	disconnectRegisterInfo();
-	m_value = value;
-	
-	updateText();
-}
+    disconnectRegisterInfo();
+    m_value = value;
 
+    updateText();
+}
 
 void VariableLabel::updateText()
 {
-	if ( m_pRegisterInfo )
-		setText( QString("%1 = %2").arg( m_registerName ).arg( SymbolViewer::self()->toDisplayString( m_pRegisterInfo->value() ) ) );
-	
-	else if ( m_value != -1 )
-		setText( QString::number( m_value ) );
-	
-	adjustSize();
+    if (m_pRegisterInfo)
+        setText(QString("%1 = %2").arg(m_registerName).arg(SymbolViewer::self()->toDisplayString(m_pRegisterInfo->value())));
+
+    else if (m_value != -1)
+        setText(QString::number(m_value));
+
+    adjustSize();
 }
-//END class VariableLabel
+// END class VariableLabel
 
 #endif // !NO_GPSIM

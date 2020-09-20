@@ -24,39 +24,43 @@ typedef Variant Property;
 
 class PropComboBox : public KComboBox
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-		PropComboBox( QWidget * parent );
-		~PropComboBox() override {;}
+public:
+    PropComboBox(QWidget *parent);
+    ~PropComboBox() override
+    {
+        ;
+    }
 
-		bool eventFilter(QObject *o, QEvent *e) override;
+    bool eventFilter(QObject *o, QEvent *e) override;
 
-	public slots:
-		void hideList();
+public slots:
+    void hideList();
 
-	protected:
-		bool m_eventFilterEnabled : 1;
+protected:
+    bool m_eventFilterEnabled : 1;
 };
-
 
 class PropertyEditorList : public PropertySubEditor
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-		PropertyEditorList( QWidget * parent, Property * property, const char * name = nullptr );
-		~PropertyEditorList() override {;}
+public:
+    PropertyEditorList(QWidget *parent, Property *property, const char *name = nullptr);
+    ~PropertyEditorList() override
+    {
+        ;
+    }
 
-		void setList(QStringList l);
+    void setList(QStringList l);
 
-	protected slots:
-		void valueChanged( const QString & text );
+protected slots:
+    void valueChanged(const QString &text);
 
-	protected:
-		PropComboBox *m_combo;
-		QToolButton *m_button;
+protected:
+    PropComboBox *m_combo;
+    QToolButton *m_button;
 };
-
 
 #endif

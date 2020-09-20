@@ -13,13 +13,12 @@
 #ifndef PROPERTYEDITOR_H
 #define PROPERTYEDITOR_H
 
-#include <QVariant>
 #include <QPointer>
 #include <QTableWidget>
+#include <QVariant>
 
 // #include <q3dict.h>
 //#include <q3listview.h> // 2018.08.13 - ported to QTableWidget
-
 
 #include "propertyeditoritem.h"
 
@@ -32,119 +31,122 @@ class QStyledItemDelegate;
 //! A list view to edit any type of properties
 class PropertyEditor : public QTableWidget // K3ListView
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-		/*! Creates an empty PropertyEditor with \a parent as parent widget.
-		*/
-		PropertyEditor( QWidget * parent = nullptr, const char * name = nullptr );
-		~PropertyEditor() override;
+public:
+    /*! Creates an empty PropertyEditor with \a parent as parent widget.
+     */
+    PropertyEditor(QWidget *parent = nullptr, const char *name = nullptr);
+    ~PropertyEditor() override;
 
-		/*! Reset the list, ie clears all items in the list.
-		   if \a editorOnly is true, then only the current editor will be cleared, not the whole list.
-		*/
-		void reset() override;
+    /*! Reset the list, ie clears all items in the list.
+       if \a editorOnly is true, then only the current editor will be cleared, not the whole list.
+    */
+    void reset() override;
 
-		/**
-		 * Updates the list of Property editors from the items selected in
-		 * \a itemGroup.
-		 */
-		void create( ItemGroup * itemGroup );
+    /**
+     * Updates the list of Property editors from the items selected in
+     * \a itemGroup.
+     */
+    void create(ItemGroup *itemGroup);
 
-		QSize sizeHint() const override;
-		/**
-		 * @internal used by PropertySubEditor and PropertyEditor.
-		 */
-		bool handleKeyPress( QKeyEvent* ev );
-		/**
-		 * Updates the default button for the current editor.
-		 */
-		void updateDefaultsButton();
+    QSize sizeHint() const override;
+    /**
+     * @internal used by PropertySubEditor and PropertyEditor.
+     */
+    bool handleKeyPress(QKeyEvent *ev);
+    /**
+     * Updates the default button for the current editor.
+     */
+    void updateDefaultsButton();
 
-	public slots:
-		/**
-		 * On focus:
-		 * \li previously focused editor is activated
-		 * \li first visible item is activated if no item was active
-		*/
-		virtual void setFocus();
+public slots:
+    /**
+     * On focus:
+     * \li previously focused editor is activated
+     * \li first visible item is activated if no item was active
+     */
+    virtual void setFocus();
 
-	protected slots:
-		/**
-		 * This slot resets the value of an item, using Property::oldValue().
-		 * It is called when pressing the "Revert to defaults" button
-		 */
-		void resetItem();
-		/**
-		 * This slot updates the positions of current editor and revert button.
-		 * It is called when double-clicking list's header.
-		 */
-		void moveEditor();
-		/**
-		 * Fills the list with an item for each property in the buffer.
-		 * You shouldn't need to call this, as it is automatically called in create().
-		 */
-		void fill();
-		/**
-		 * This slot updates editor and revert buttons position and size when
-		 * the columns are resized.
-		 */
-		void slotColumnSizeChanged( int section, int oldS, int newS);
-		void slotColumnSizeChanged( int section);
-		/**
-		 * This slot is called when the user clicks the list view. It takes care
-		 * of deleting current editor and creating a new editor for the newly
-		 * selected item.
-		 */
-		void slotClicked(const QModelIndex& index);
-		/**
-		 * Used to fix selection when unselectable item was activated.
-		 */
-		void slotCurrentChanged(QTableWidgetItem *);
+protected slots:
+    /**
+     * This slot resets the value of an item, using Property::oldValue().
+     * It is called when pressing the "Revert to defaults" button
+     */
+    void resetItem();
+    /**
+     * This slot updates the positions of current editor and revert button.
+     * It is called when double-clicking list's header.
+     */
+    void moveEditor();
+    /**
+     * Fills the list with an item for each property in the buffer.
+     * You shouldn't need to call this, as it is automatically called in create().
+     */
+    void fill();
+    /**
+     * This slot updates editor and revert buttons position and size when
+     * the columns are resized.
+     */
+    void slotColumnSizeChanged(int section, int oldS, int newS);
+    void slotColumnSizeChanged(int section);
+    /**
+     * This slot is called when the user clicks the list view. It takes care
+     * of deleting current editor and creating a new editor for the newly
+     * selected item.
+     */
+    void slotClicked(const QModelIndex &index);
+    /**
+     * Used to fix selection when unselectable item was activated.
+     */
+    void slotCurrentChanged(QTableWidgetItem *);
 
-        void slotCurrentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
+    void slotCurrentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
 
-		void slotExpanded(QTableWidgetItem *item);
-		void slotCollapsed(QTableWidgetItem *item);
+    void slotExpanded(QTableWidgetItem *item);
+    void slotCollapsed(QTableWidgetItem *item);
 
-	protected:
-		/**
-		 * Creates an editor for the list item \a i in the rect \a geometry, and
-		 * displays revert button if property is modified (ie
-		 * PropertyEditorItem::modified() == true). The editor type depends on
-		 * Property::type() of the item's property.
-		*/
-		void createEditor(const QModelIndex& index);//, const QRect &geometry);
-		/**
-		 * Reimplemented from K3ListView to update editor and revert button
-		 * position.
-		 */
-		void resizeEvent(QResizeEvent *ev) override;
+protected:
+    /**
+     * Creates an editor for the list item \a i in the rect \a geometry, and
+     * displays revert button if property is modified (ie
+     * PropertyEditorItem::modified() == true). The editor type depends on
+     * Property::type() of the item's property.
+     */
+    void createEditor(const QModelIndex &index); //, const QRect &geometry);
+    /**
+     * Reimplemented from K3ListView to update editor and revert button
+     * position.
+     */
+    void resizeEvent(QResizeEvent *ev) override;
 
-		void showDefaultsButton( bool show );
+    void showDefaultsButton(bool show);
 
-		int baseRowHeight() const { return m_baseRowHeight; }
+    int baseRowHeight() const
+    {
+        return m_baseRowHeight;
+    }
 
-		PropertyEditorItem *selectedItem() ;
+    PropertyEditorItem *selectedItem();
 
-		QPointer<ItemGroup> m_pItemGroup;
-		QPointer<PropertySubEditor> m_currentEditor;
-		PropertyEditorItem *m_editItem;
-		PropertyEditorItem *m_topItem; //The top item is used to control the drawing of every branches.
-		QPushButton *m_defaults; // "Revert to defaults" button
-		//PropertyEditorItem::Dict m_items; // 2018.08.13 - unused
-		int m_baseRowHeight;
-		//! Used in setFocus() to prevent scrolling to previously selected item on mouse click
-		bool justClickedItem;
+    QPointer<ItemGroup> m_pItemGroup;
+    QPointer<PropertySubEditor> m_currentEditor;
+    PropertyEditorItem *m_editItem;
+    PropertyEditorItem *m_topItem; // The top item is used to control the drawing of every branches.
+    QPushButton *m_defaults;       // "Revert to defaults" button
+    // PropertyEditorItem::Dict m_items; // 2018.08.13 - unused
+    int m_baseRowHeight;
+    //! Used in setFocus() to prevent scrolling to previously selected item on mouse click
+    bool justClickedItem;
 
-        int m_lastCellWidgetRow;
-        int m_lastCellWidgetCol;
+    int m_lastCellWidgetRow;
+    int m_lastCellWidgetCol;
 
-        QStyledItemDelegate *m_colPropertyDelegate;
-        QStyledItemDelegate *m_colValueDelegate;
+    QStyledItemDelegate *m_colPropertyDelegate;
+    QStyledItemDelegate *m_colValueDelegate;
 
-		friend class PropertyEditorItem;
-		friend class PropertySubEditor;
+    friend class PropertyEditorItem;
+    friend class PropertySubEditor;
 };
 
 #endif

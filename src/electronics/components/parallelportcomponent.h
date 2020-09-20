@@ -11,8 +11,8 @@
 #ifndef PARALLELPORTCOMPONENT_H
 #define PARALLELPORTCOMPONENT_H
 
-#include "logic.h"
 #include "component.h"
+#include "logic.h"
 
 class ParallelPort;
 
@@ -21,28 +21,31 @@ class ParallelPort;
  */
 class ParallelPortComponent : public CallbackClass, public Component
 {
-	public:
-		ParallelPortComponent( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~ParallelPortComponent() override;
-	
-		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem * libraryItem();
-		
-		void stepNonLogic() override;
-		bool doesStepNonLogic() const override { return true; }
-	
-	protected:
-		void initPort( const QString & port );
-		void dataChanged() override;
-		void drawShape( QPainter & p ) override;
+public:
+    ParallelPortComponent(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ParallelPortComponent() override;
 
-		void dataCallback( bool );
-		void controlCallback( bool );
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-		/// Registers: { Data[0...7], Status[0...5], 0[6...7], Control[0...4], 0[5...7] }
-		LogicOut * m_pLogic[24];
+    void stepNonLogic() override;
+    bool doesStepNonLogic() const override
+    {
+        return true;
+    }
 
-		ParallelPort * m_pParallelPort;
+protected:
+    void initPort(const QString &port);
+    void dataChanged() override;
+    void drawShape(QPainter &p) override;
+
+    void dataCallback(bool);
+    void controlCallback(bool);
+
+    /// Registers: { Data[0...7], Status[0...5], 0[6...7], Control[0...4], 0[5...7] }
+    LogicOut *m_pLogic[24];
+
+    ParallelPort *m_pParallelPort;
 };
 
 #endif

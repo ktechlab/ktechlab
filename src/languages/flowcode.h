@@ -13,19 +13,19 @@
 
 #include "language.h"
 
-#include <QPointer>
+#include <QList>
 #include <QObject>
+#include <QPointer>
 #include <QString>
 #include <QStringList>
-#include <QList>
 
 class CNItem;
 class FlowPart;
 class Item;
 class MicroSettings;
 
-typedef QList<FlowPart*> FlowPartList;
-typedef QList<QPointer<Item> > ItemList;
+typedef QList<FlowPart *> FlowPartList;
+typedef QList<QPointer<Item>> ItemList;
 
 /**
 "FlowCode" can possibly be considered a misnomer, as the output is actually Microbe.
@@ -39,68 +39,68 @@ basic from the code that they create. The 3 simple steps for usage of this funct
 class FlowCode : public Language
 {
 public:
-	FlowCode( ProcessChain *processChain );
+    FlowCode(ProcessChain *processChain);
 
-	void processInput( ProcessOptions options ) override;
-	ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const override;
+    void processInput(ProcessOptions options) override;
+    ProcessOptions::ProcessPath::Path outputPath(ProcessOptions::ProcessPath::Path inputPath) const override;
 
-	/**
-	 * You must set the start part
-	 */
-	void setStartPart( FlowPart *startPart );
-	~FlowCode() override;
-	/**
-	 * You must add all top level subroutines using this function
-	 */
-	void addSubroutine( FlowPart *part );
-	/**
-	 * Adds code at the current insertion point
-	 */
-	void addCode( const QString& code );
-	/**
-	 * Adds a code branch to the current insertion point. This will stop when the level gets
-	 * below the original starting level (so for insertion of the contents of a for loop,
-	 * insertion will stop at the end of that for loop).
-	 * @param flowPart The next FlowPart to get code from
-	 */
-	void addCodeBranch( FlowPart *flowPart );
-	/**
-	 * Designates a FlowPart as a stopping part (i.e. will refuse requests to addCodeBranch
-	 * for that FlowPart until removeStopPart is called
-	 */
-	void addStopPart( FlowPart *part );
-	/**
-	 * Undesignates a FlowPart as a stopping part
-	 */
-	void removeStopPart( FlowPart *part );
-	/**
-	 * Generates and returns the microbe code
-	 */
-	QString generateMicrobe( const ItemList &itemList, MicroSettings *settings );
-	/**
-	 * Returns true if the FlowPart is a valid one for adding a branch
-	 */
-	bool isValidBranch( FlowPart *flowPart );
-	/**
-	 * Generates a nice label name from the string, e.g. genLabel("callsub")
-	 * returns "__label_callsub".
-	 */
-	static QString genLabel( const QString &id );
+    /**
+     * You must set the start part
+     */
+    void setStartPart(FlowPart *startPart);
+    ~FlowCode() override;
+    /**
+     * You must add all top level subroutines using this function
+     */
+    void addSubroutine(FlowPart *part);
+    /**
+     * Adds code at the current insertion point
+     */
+    void addCode(const QString &code);
+    /**
+     * Adds a code branch to the current insertion point. This will stop when the level gets
+     * below the original starting level (so for insertion of the contents of a for loop,
+     * insertion will stop at the end of that for loop).
+     * @param flowPart The next FlowPart to get code from
+     */
+    void addCodeBranch(FlowPart *flowPart);
+    /**
+     * Designates a FlowPart as a stopping part (i.e. will refuse requests to addCodeBranch
+     * for that FlowPart until removeStopPart is called
+     */
+    void addStopPart(FlowPart *part);
+    /**
+     * Undesignates a FlowPart as a stopping part
+     */
+    void removeStopPart(FlowPart *part);
+    /**
+     * Generates and returns the microbe code
+     */
+    QString generateMicrobe(const ItemList &itemList, MicroSettings *settings);
+    /**
+     * Returns true if the FlowPart is a valid one for adding a branch
+     */
+    bool isValidBranch(FlowPart *flowPart);
+    /**
+     * Generates a nice label name from the string, e.g. genLabel("callsub")
+     * returns "__label_callsub".
+     */
+    static QString genLabel(const QString &id);
 
 protected:
-	/**
-	 * Performs indenting, removal of unnecessary labels, etc.
-	 */
-	void tidyCode();
+    /**
+     * Performs indenting, removal of unnecessary labels, etc.
+     */
+    void tidyCode();
 
-	QStringList m_gotos; // Gotos used
-	QStringList m_labels; // Labels used
-	FlowPartList m_subroutines;
-	FlowPartList m_addedParts;
-	FlowPartList m_stopParts;
-	FlowPart *p_startPart;
-	QString m_code;
-	int m_curLevel;
+    QStringList m_gotos;  // Gotos used
+    QStringList m_labels; // Labels used
+    FlowPartList m_subroutines;
+    FlowPartList m_addedParts;
+    FlowPartList m_stopParts;
+    FlowPart *p_startPart;
+    QString m_code;
+    int m_curLevel;
 };
 
 #endif

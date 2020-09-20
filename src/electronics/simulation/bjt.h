@@ -16,65 +16,65 @@
 
 class BJTState
 {
-	public:
-		BJTState();
-		void reset();
+public:
+    BJTState();
+    void reset();
 
-		BJTState operator-( const BJTState & s ) const;
+    BJTState operator-(const BJTState &s) const;
 
-		double A[3][3];
-		double I[3];
+    double A[3][3];
+    double I[3];
 };
-
 
 class BJTSettings
 {
-	public:
-		BJTSettings();
+public:
+    BJTSettings();
 
-		double I_S; ///< saturation current
-		double N_F; ///< forward emission coefficient
-		double N_R; ///< reverse emission coefficient
-		double B_F; ///< forward beta
-		double B_R; ///< reverse beta
+    double I_S; ///< saturation current
+    double N_F; ///< forward emission coefficient
+    double N_R; ///< reverse emission coefficient
+    double B_F; ///< forward beta
+    double B_R; ///< reverse beta
 };
-
 
 /**
 @author David Saxton
 */
 class BJT : public NonLinear
 {
-	public:
-		BJT( bool isNPN );
-		~BJT() override;
-	
-		Type type() const override { return Element_BJT; }
-		void update_dc() override;
-		void add_initial_dc() override;
-		BJTSettings settings() const { return m_bjtSettings; }
-		void setBJTSettings( const BJTSettings & settings );
+public:
+    BJT(bool isNPN);
+    ~BJT() override;
 
-	protected:
-		void updateCurrents() override;
+    Type type() const override
+    {
+        return Element_BJT;
+    }
+    void update_dc() override;
+    void add_initial_dc() override;
+    BJTSettings settings() const
+    {
+        return m_bjtSettings;
+    }
+    void setBJTSettings(const BJTSettings &settings);
 
-		/**
-		 * Calculates the new BJTState from the voltages on the nodes.
-		 */
-		void calc_eq();
-		void calcIg( double V_BE, double V_BC,
-					 double * I_BE, double * I_BC,
-					 double * I_T,
-					 double * g_BE, double * g_BC,
-					 double * g_IF, double * g_IR ) const;
-		void updateLim();
+protected:
+    void updateCurrents() override;
 
-		BJTState m_os;
-		BJTState m_ns;
-		int m_pol;
-		double V_BE_prev, V_BC_prev;
-		double V_BE_lim, V_BC_lim;
-		BJTSettings m_bjtSettings;
+    /**
+     * Calculates the new BJTState from the voltages on the nodes.
+     */
+    void calc_eq();
+    void calcIg(double V_BE, double V_BC, double *I_BE, double *I_BC, double *I_T, double *g_BE, double *g_BC, double *g_IF, double *g_IR) const;
+    void updateLim();
+
+    BJTState m_os;
+    BJTState m_ns;
+    int m_pol;
+    double V_BE_prev, V_BC_prev;
+    double V_BE_lim, V_BC_lim;
+    BJTSettings m_bjtSettings;
 };
 
 #endif

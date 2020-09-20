@@ -28,98 +28,112 @@ typedef Variant Property;
 
 class PropertyEditorInput : public PropertySubEditor
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-		PropertyEditorInput( QWidget * parent, Property * property, const char * name = nullptr );
-		~PropertyEditorInput() override {;}
+public:
+    PropertyEditorInput(QWidget *parent, Property *property, const char *name = nullptr);
+    ~PropertyEditorInput() override
+    {
+        ;
+    }
 
-	protected slots:
-		void slotTextChanged(const QString &text);
+protected slots:
+    void slotTextChanged(const QString &text);
 
-	protected:
-		KLineEdit * m_lineedit;
+protected:
+    KLineEdit *m_lineedit;
 };
-
-
 
 class PropIntSpinBox : public QSpinBox
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-	PropIntSpinBox( int lower, int upper, int step, int value, int base, QWidget *parent, const char *name);
-	~PropIntSpinBox() override {;}
+public:
+    PropIntSpinBox(int lower, int upper, int step, int value, int base, QWidget *parent, const char *name);
+    ~PropIntSpinBox() override
+    {
+        ;
+    }
 
-	bool eventFilter(QObject *o, QEvent *e) override;
-	QLineEdit * editor () const { return QSpinBox::lineEdit(); }
+    bool eventFilter(QObject *o, QEvent *e) override;
+    QLineEdit *editor() const
+    {
+        return QSpinBox::lineEdit();
+    }
 };
-
-
 
 class PropertyEditorSpin : public PropertySubEditor
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-		PropertyEditorSpin( QWidget * parent, Property * property, const char * name = nullptr );
-		~PropertyEditorSpin() override {;}
+public:
+    PropertyEditorSpin(QWidget *parent, Property *property, const char *name = nullptr);
+    ~PropertyEditorSpin() override
+    {
+        ;
+    }
 
-	protected slots:
-		void valueChange( int );
+protected slots:
+    void valueChange(int);
 
-	protected:
-		PropIntSpinBox *m_spinBox;
+protected:
+    PropIntSpinBox *m_spinBox;
 };
-
-
 
 class PropDoubleSpinBox : public DoubleSpinBox
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-		PropDoubleSpinBox(double lower, double upper, double minAbs, double value, const QString &unit, QWidget *parent);
-	~PropDoubleSpinBox() override {;}
+public:
+    PropDoubleSpinBox(double lower, double upper, double minAbs, double value, const QString &unit, QWidget *parent);
+    ~PropDoubleSpinBox() override
+    {
+        ;
+    }
 
-	bool eventFilter(QObject *o, QEvent *e) override;
-	QLineEdit * editor () const { return DoubleSpinBox::lineEdit(); }
+    bool eventFilter(QObject *o, QEvent *e) override;
+    QLineEdit *editor() const
+    {
+        return DoubleSpinBox::lineEdit();
+    }
 };
-
-
 
 class PropertyEditorDblSpin : public PropertySubEditor
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-		PropertyEditorDblSpin( QWidget * parent, Property * property, const char * name = nullptr );
-		~PropertyEditorDblSpin() override {;}
+public:
+    PropertyEditorDblSpin(QWidget *parent, Property *property, const char *name = nullptr);
+    ~PropertyEditorDblSpin() override
+    {
+        ;
+    }
 
-	protected slots:
-		void valueChange( double value );
+protected slots:
+    void valueChange(double value);
 
-	protected:
-		PropDoubleSpinBox *m_spinBox;
+protected:
+    PropDoubleSpinBox *m_spinBox;
 };
-
-
 
 class PropertyEditorBool : public PropertySubEditor
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-		PropertyEditorBool( QWidget * parent, Property * property, const char * name = nullptr );
-		~PropertyEditorBool() override {;}
+public:
+    PropertyEditorBool(QWidget *parent, Property *property, const char *name = nullptr);
+    ~PropertyEditorBool() override
+    {
+        ;
+    }
 
-		bool eventFilter( QObject * watched, QEvent * e ) override;
+    bool eventFilter(QObject *watched, QEvent *e) override;
 
-	protected slots:
-		void setState(bool state);
+protected slots:
+    void setState(bool state);
 
-	protected:
-		QToolButton *m_toggle;
+protected:
+    QToolButton *m_toggle;
 };
 
 #endif

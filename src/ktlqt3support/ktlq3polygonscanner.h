@@ -53,14 +53,17 @@ QT_MODULE(Qt3SupportLight)
 class QPolygon;
 class QPoint;
 
-class /* Q_COMPAT_EXPORT */ KtlQ3PolygonScanner {
+class /* Q_COMPAT_EXPORT */ KtlQ3PolygonScanner
+{
 public:
-    virtual ~KtlQ3PolygonScanner() {}
-    void scan(const QPolygon& pa, bool winding, int index = 0, int npoints = -1);
-    void scan(const QPolygon& pa, bool winding, int index, int npoints, bool stitchable);
-    enum Edge { Left=1, Right=2, Top=4, Bottom=8 };
-    void scan(const QPolygon& pa, bool winding, int index, int npoints, KtlQ3PolygonScanner::Edge edges);
-    virtual void processSpans(int n, QPoint* point, int* width)=0;
+    virtual ~KtlQ3PolygonScanner()
+    {
+    }
+    void scan(const QPolygon &pa, bool winding, int index = 0, int npoints = -1);
+    void scan(const QPolygon &pa, bool winding, int index, int npoints, bool stitchable);
+    enum Edge { Left = 1, Right = 2, Top = 4, Bottom = 8 };
+    void scan(const QPolygon &pa, bool winding, int index, int npoints, KtlQ3PolygonScanner::Edge edges);
+    virtual void processSpans(int n, QPoint *point, int *width) = 0;
 };
 
 QT_END_NAMESPACE

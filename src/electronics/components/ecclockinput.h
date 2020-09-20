@@ -18,8 +18,7 @@
 class ComponentCallback;
 class Simulator;
 
-template <typename T>
-class LinkedList;
+template<typename T> class LinkedList;
 
 /**
 @short Boolean clock input
@@ -28,40 +27,43 @@ class LinkedList;
 class ECClockInput : public Component
 {
 public:
-	ECClockInput( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECClockInput() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    ECClockInput(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECClockInput() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
     /** callback for logic steps, for each logic update step;
      only active when the period of the clock is less or equal than LOGIC_UPDATE_PER_STEP */
-	void stepCallback();
+    void stepCallback();
     /** callback for linear steps, for each linear update step;
      only active when the period of the clock is greater than LOGIC_UPDATE_PER_STEP */
-	void stepLogic();
+    void stepLogic();
     /** callback at linear steps; always active */
-	void stepNonLogic() override;
-	bool doesStepNonLogic() const override { return true; }
-	
+    void stepNonLogic() override;
+    bool doesStepNonLogic() const override
+    {
+        return true;
+    }
+
 protected:
-	void drawShape( QPainter &p ) override;
-	void dataChanged() override;
-	
-	uint m_time;
+    void drawShape(QPainter &p) override;
+    void dataChanged() override;
+
+    uint m_time;
     /** unit: simulator logic update tick == 1s / LOGIC_UPDATE_RATE */
-	uint m_high_time;
+    uint m_high_time;
     /** unit: simulator logic update tick == 1s / LOGIC_UPDATE_RATE */
-	uint m_low_time;
+    uint m_low_time;
     /** unit: simulator logic update tick == 1s / LOGIC_UPDATE_RATE */
-	uint m_period;
+    uint m_period;
     /** unit: simulator logic update tick == 1s / LOGIC_UPDATE_RATE */
-	long long m_lastSetTime;
-	LogicOut * m_pOut;
-	bool m_bSetStepCallbacks;
-	bool m_bLastStepCallbackOut;
-	Simulator * m_pSimulator;
-	std::list<ComponentCallback> * m_pComponentCallback[ 100 /* == LOGIC_UPDATE_PER_STEP */ ];
+    long long m_lastSetTime;
+    LogicOut *m_pOut;
+    bool m_bSetStepCallbacks;
+    bool m_bLastStepCallbackOut;
+    Simulator *m_pSimulator;
+    std::list<ComponentCallback> *m_pComponentCallback[100 /* == LOGIC_UPDATE_PER_STEP */];
 };
 
 #endif

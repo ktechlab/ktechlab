@@ -22,24 +22,24 @@
 class Multiplexer : public CallbackClass, public Component
 {
 public:
-	Multiplexer( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~Multiplexer() override;
+    Multiplexer(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~Multiplexer() override;
 
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
 protected:
-	void dataChanged() override;
-	/**
-	 * Add / remove pins according to the number of inputs the user has requested
-	 */
-	void initPins( unsigned addressSize );
+    void dataChanged() override;
+    /**
+     * Add / remove pins according to the number of inputs the user has requested
+     */
+    void initPins(unsigned addressSize);
 
-	void inStateChanged( bool newState );
+    void inStateChanged(bool newState);
 
-	QVector<LogicIn*> m_aLogic;
-	QVector<LogicIn*> m_xLogic;
-	LogicOut * m_output;
+    QVector<LogicIn *> m_aLogic;
+    QVector<LogicIn *> m_xLogic;
+    LogicOut *m_output;
 };
 
 #endif

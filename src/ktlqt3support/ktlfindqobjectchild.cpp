@@ -14,10 +14,11 @@
 
 #include <string.h>
 
-QObject *ktlFindQObjectChild(QObject *parent, const char *className) {
+QObject *ktlFindQObjectChild(QObject *parent, const char *className)
+{
     const QObjectList children = parent->children();
     for (QObject *child : children) {
-        if (0 == strcmp( child->metaObject()->className(), className )) {
+        if (0 == strcmp(child->metaObject()->className(), className)) {
             return child;
         }
         QObject *ret = ktlFindQObjectChild(child, className);

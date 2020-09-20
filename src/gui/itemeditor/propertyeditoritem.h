@@ -28,68 +28,77 @@
 /** This class is a subclass of K3ListViewItem which is associated to a property.
     It also takes care of drawing custom contents.
  **/
- //! An item in PropertyEditorItem associated to a property
-class PropertyEditorItem : public QObject,  public QTableWidgetItem // K3ListViewItem
+//! An item in PropertyEditorItem associated to a property
+class PropertyEditorItem : public QObject, public QTableWidgetItem // K3ListViewItem
 {
-	Q_OBJECT
-	
-	public:
-		//typedef Q3AsciiDict<PropertyEditorItem> Dict; // 2018.08.13 - unused
+    Q_OBJECT
 
-		/**
-		 * Creates a PropertyEditorItem child of \a parent, associated to
-		 * \a property. Within property editor, items are created in
-		 * PropertyEditor::fill(), every time the buffer is updated. It
-		 * \a property has not desctiption set, its name (i.e. not i18n'ed) is
-		 * reused.
-		 */
-		PropertyEditorItem( PropertyEditorItem *parent, Property *property );
+public:
+    // typedef Q3AsciiDict<PropertyEditorItem> Dict; // 2018.08.13 - unused
 
-		/**
-		 * Creates PropertyEditor Top Item which is necessary for drawing all
-		 * branches.
-		 */
-		PropertyEditorItem( /*K3ListView */ QTableWidget *parent, const QString &text);
+    /**
+     * Creates a PropertyEditorItem child of \a parent, associated to
+     * \a property. Within property editor, items are created in
+     * PropertyEditor::fill(), every time the buffer is updated. It
+     * \a property has not desctiption set, its name (i.e. not i18n'ed) is
+     * reused.
+     */
+    PropertyEditorItem(PropertyEditorItem *parent, Property *property);
 
-		~PropertyEditorItem() override;
+    /**
+     * Creates PropertyEditor Top Item which is necessary for drawing all
+     * branches.
+     */
+    PropertyEditorItem(/*K3ListView */ QTableWidget *parent, const QString &text);
 
-		/**
-		 * \return property's name.
-		 */
-		QString name() const { return m_property->id(); }
-		/**
-		 * \return properties's type.
-		 */
-		Variant::Type::Value	type() { return m_property->type(); }
-		/**
-		 * \return a pointer to the property associated to this item.
-		 */
-		Property*	property() { return m_property;}
-		/**
-		 * Updates text on of this item, for current property value. If
-		 * \a alsoParent is true, parent item (if present) is also updated.
-		 */
-		virtual void updateValue(bool alsoParent = true);
+    ~PropertyEditorItem() override;
 
-// 		virtual void paintFocus ( QPainter * p, const QColorGroup & cg, const QRect & r );
-		
-	protected slots:
-		virtual void propertyValueChanged();
+    /**
+     * \return property's name.
+     */
+    QString name() const
+    {
+        return m_property->id();
+    }
+    /**
+     * \return properties's type.
+     */
+    Variant::Type::Value type()
+    {
+        return m_property->type();
+    }
+    /**
+     * \return a pointer to the property associated to this item.
+     */
+    Property *property()
+    {
+        return m_property;
+    }
+    /**
+     * Updates text on of this item, for current property value. If
+     * \a alsoParent is true, parent item (if present) is also updated.
+     */
+    virtual void updateValue(bool alsoParent = true);
 
-	protected:
-		/**
-		 * Reimplemented from K3ListViewItem to draw custom contents. Properties
-		 * names are wriiten in bold if modified. Also takes care of drawing
-		 * borders around the cells as well as pixmaps or colors if necessary.
-		 */
-// 		virtual void paintCell(QPainter *p, const QColorGroup & cg, int column, int width, int align);
-		/**
-		 * Reimplemented from K3ListViewItem to hide the top item.
-		 */
-// 		virtual void setup();
+    // 		virtual void paintFocus ( QPainter * p, const QColorGroup & cg, const QRect & r );
 
-	private:
-		Property *m_property;
+protected slots:
+    virtual void propertyValueChanged();
+
+protected:
+    /**
+     * Reimplemented from K3ListViewItem to draw custom contents. Properties
+     * names are wriiten in bold if modified. Also takes care of drawing
+     * borders around the cells as well as pixmaps or colors if necessary.
+     */
+    // 		virtual void paintCell(QPainter *p, const QColorGroup & cg, int column, int width, int align);
+    /**
+     * Reimplemented from K3ListViewItem to hide the top item.
+     */
+    // 		virtual void setup();
+
+private:
+    Property *m_property;
 };
 
 #endif

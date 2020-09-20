@@ -21,17 +21,17 @@ Simple electrical cell that simulates a PD and internal resistance
 class ECCell : public Component
 {
 public:
-	ECCell( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECCell() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    ECCell(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECCell() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
 private:
-	void dataChanged() override;
-	void drawShape( QPainter &p ) override;
-	VoltageSource *m_voltageSource;
-	double voltage;
+    void dataChanged() override;
+    void drawShape(QPainter &p) override;
+    VoltageSource *m_voltageSource;
+    double voltage;
 };
 
 #endif

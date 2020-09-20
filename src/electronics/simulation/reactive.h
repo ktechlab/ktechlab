@@ -20,23 +20,26 @@
 class Reactive : public Element
 {
 public:
-	Reactive( const double delta );
-	~Reactive() override;
-	
-	bool isReactive() const override { return true; }
-	/**
-	 * Call this function to set the time period (in seconds)
-	 */
-	void setDelta( double delta );
-	/**
-	 * Called on every time step for the element to update itself
-	 */
-	virtual void time_step() = 0;
+    Reactive(const double delta);
+    ~Reactive() override;
+
+    bool isReactive() const override
+    {
+        return true;
+    }
+    /**
+     * Call this function to set the time period (in seconds)
+     */
+    void setDelta(double delta);
+    /**
+     * Called on every time step for the element to update itself
+     */
+    virtual void time_step() = 0;
 
 protected:
-	bool updateStatus() override;
-	
-	double m_delta; // Delta time interval
+    bool updateStatus() override;
+
+    double m_delta; // Delta time interval
 };
 
 #endif

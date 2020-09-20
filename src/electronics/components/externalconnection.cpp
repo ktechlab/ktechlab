@@ -14,64 +14,55 @@
 #include <KLocalizedString>
 #include <QPainter>
 
-Item* ExternalConnection::construct( ItemDocument *itemDocument, bool newItem, const char *id )
+Item *ExternalConnection::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-	return new ExternalConnection( (ICNDocument*)itemDocument, newItem, id );
+    return new ExternalConnection((ICNDocument *)itemDocument, newItem, id);
 }
 
-LibraryItem* ExternalConnection::libraryItem()
+LibraryItem *ExternalConnection::libraryItem()
 {
-	return new LibraryItem(
-		QStringList(QString("ec/external_connection")),
-		i18n("External Connection"),
-		i18n("Connections"),
-		"external_connection.png",
-		LibraryItem::lit_component,
-		ExternalConnection::construct );
+    return new LibraryItem(QStringList(QString("ec/external_connection")), i18n("External Connection"), i18n("Connections"), "external_connection.png", LibraryItem::lit_component, ExternalConnection::construct);
 }
 
-ExternalConnection::ExternalConnection( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "external_connection" )
+ExternalConnection::ExternalConnection(ICNDocument *icnDocument, bool newItem, const char *id)
+    : Component(icnDocument, newItem, id ? id : "external_connection")
 {
-	m_name = i18n("External Connection");
-	setSize( -8, -8, 16, 16 );
-	
-	createProperty( "name", Variant::Type::Combo );
-	property("name")->setCaption( i18n("Name") );
-	property("name")->setValue("ExtCon");
+    m_name = i18n("External Connection");
+    setSize(-8, -8, 16, 16);
 
-	init1PinLeft();
-	
-	addDisplayText( "name", QRect( -24, 8, 3*width(), 16 ), "ExtCon" );
+    createProperty("name", Variant::Type::Combo);
+    property("name")->setCaption(i18n("Name"));
+    property("name")->setValue("ExtCon");
+
+    init1PinLeft();
+
+    addDisplayText("name", QRect(-24, 8, 3 * width(), 16), "ExtCon");
 }
 
 ExternalConnection::~ExternalConnection()
 {
 }
 
-
 void ExternalConnection::dataChanged()
 {
-	QString name = dataString("name");
-	
-	QRect r( -width(), 16, 3*width(), 16 );
-	setDisplayText( "name", name );
+    QString name = dataString("name");
+
+    QRect r(-width(), 16, 3 * width(), 16);
+    setDisplayText("name", name);
 }
 
-
-void ExternalConnection::drawShape( QPainter &p )
+void ExternalConnection::drawShape(QPainter &p)
 {
-	initPainter(p);
-	int _x = (int)x()-8;
-	int _y = (int)y()-8;
-	p.drawEllipse( _x, _y, width(), height() );
-	
-	p.drawLine( _x+3, _y+6, _x+12, _y+6 );
-	p.drawLine( _x+8, _y+3, _x+12, _y+6 );
-	
-	p.drawLine( _x+3, _y+9, _x+12, _y+9 );
-	p.drawLine( _x+3, _y+9, _x+8, _y+12 );
-	
-	deinitPainter(p);
-}
+    initPainter(p);
+    int _x = (int)x() - 8;
+    int _y = (int)y() - 8;
+    p.drawEllipse(_x, _y, width(), height());
 
+    p.drawLine(_x + 3, _y + 6, _x + 12, _y + 6);
+    p.drawLine(_x + 8, _y + 3, _x + 12, _y + 6);
+
+    p.drawLine(_x + 3, _y + 9, _x + 12, _y + 9);
+    p.drawLine(_x + 3, _y + 9, _x + 8, _y + 12);
+
+    deinitPainter(p);
+}

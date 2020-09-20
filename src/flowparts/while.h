@@ -19,16 +19,16 @@
 class While : public FlowContainer
 {
 public:
-	While( ICNDocument *icnDocument, bool newItem, const char *id );
-	~While() override;
+    While(ICNDocument *icnDocument, bool newItem, const char *id);
+    ~While() override;
 
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-	void generateMicrobe( FlowCode *code ) override;
+    void generateMicrobe(FlowCode *code) override;
 
 protected:
-	void dataChanged() override;
+    void dataChanged() override;
 };
 
 #endif

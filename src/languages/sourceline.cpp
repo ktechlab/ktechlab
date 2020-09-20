@@ -10,33 +10,25 @@
 
 #include "sourceline.h"
 
-
-//BEGIN class SourceLine
+// BEGIN class SourceLine
 SourceLine::SourceLine()
-	: m_line(-1)
+    : m_line(-1)
 {
 }
 
-
-SourceLine::SourceLine( const QString & fileName, int line )
-	: m_fileName(fileName),
-	m_line(line)
+SourceLine::SourceLine(const QString &fileName, int line)
+    : m_fileName(fileName)
+    , m_line(line)
 {
 }
 
-
-bool SourceLine::operator < ( const SourceLine & sourceLine ) const
+bool SourceLine::operator<(const SourceLine &sourceLine) const
 {
-	return (m_fileName < sourceLine.fileName()) ||
-			(m_fileName == sourceLine.fileName() && m_line < sourceLine.line());
+    return (m_fileName < sourceLine.fileName()) || (m_fileName == sourceLine.fileName() && m_line < sourceLine.line());
 }
 
-
-bool SourceLine::operator == ( const SourceLine & sourceLine ) const
+bool SourceLine::operator==(const SourceLine &sourceLine) const
 {
-	return (sourceLine.fileName() == fileName()) &&
-			(sourceLine.line() == line());
+    return (sourceLine.fileName() == fileName()) && (sourceLine.line() == line());
 }
-//END class SourceLine
-
-
+// END class SourceLine

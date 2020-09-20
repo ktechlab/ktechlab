@@ -10,39 +10,33 @@
 
 #include "delay.h"
 
-#include "libraryitem.h"
 #include "flowcode.h"
+#include "libraryitem.h"
 
 #include <KLocalizedString>
 
-Item* Delay::construct( ItemDocument *itemDocument, bool newItem, const char *id )
+Item *Delay::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-	return new Delay( (ICNDocument*)itemDocument, newItem, id );
+    return new Delay((ICNDocument *)itemDocument, newItem, id);
 }
 
-LibraryItem* Delay::libraryItem()
+LibraryItem *Delay::libraryItem()
 {
-	return new LibraryItem(
-		QStringList(QString("flow/delay")),
-		i18n("Delay"),
-		i18n("Functions"),
-		"delay.png",
-		LibraryItem::lit_flowpart,
-		Delay::construct );
+    return new LibraryItem(QStringList(QString("flow/delay")), i18n("Delay"), i18n("Functions"), "delay.png", LibraryItem::lit_flowpart, Delay::construct);
 }
 
-Delay::Delay( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, id ? id : "delay" )
+Delay::Delay(ICNDocument *icnDocument, bool newItem, const char *id)
+    : FlowPart(icnDocument, newItem, id ? id : "delay")
 {
-	m_name = i18n("Delay");
-	initProcessSymbol();
-	createStdInput();
-	createStdOutput();
-	
-	createProperty( "delay_length", Variant::Type::Double );
-	property("delay_length")->setCaption( i18n("Pause Length") );
-	property("delay_length")->setUnit("sec");
-	property("delay_length")->setValue(1.0);
+    m_name = i18n("Delay");
+    initProcessSymbol();
+    createStdInput();
+    createStdOutput();
+
+    createProperty("delay_length", Variant::Type::Double);
+    property("delay_length")->setCaption(i18n("Pause Length"));
+    property("delay_length")->setUnit("sec");
+    property("delay_length")->setValue(1.0);
 }
 
 Delay::~Delay()
@@ -51,18 +45,18 @@ Delay::~Delay()
 
 void Delay::dataChanged()
 {
-	double delay = dataDouble("delay_length");
-	setCaption( i18n("Delay for %1 sec", QString::number( delay / getMultiplier(delay), 'g', 3 )+getNumberMag(delay)) );
+    double delay = dataDouble("delay_length");
+    setCaption(i18n("Delay for %1 sec", QString::number(delay / getMultiplier(delay), 'g', 3) + getNumberMag(delay)));
 }
 
-void Delay::generateMicrobe( FlowCode *code )
+void Delay::generateMicrobe(FlowCode *code)
 {
-	const double delayLength_ms = dataDouble("delay_length")*1e3;
-	code->addCode( "delay "+QString::number(delayLength_ms) );
-	code->addCodeBranch( outputPart("stdoutput") );
-	
-// 	code->addVariable("COUNT_REPEAT");
-	
+    const double delayLength_ms = dataDouble("delay_length") * 1e3;
+    code->addCode("delay " + QString::number(delayLength_ms));
+    code->addCodeBranch(outputPart("stdoutput"));
+
+    // 	code->addVariable("COUNT_REPEAT");
+
 #if 0
 	// Code for pauses less than 769uS
 	if ( pauseLength < 769 )
@@ -132,4 +126,3 @@ void Delay::generateMicrobe( FlowCode *code )
 	}
 #endif
 }
-

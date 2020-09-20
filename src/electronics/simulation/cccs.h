@@ -23,18 +23,21 @@ Branches b0 and b1 are for control and output
 class CCCS : public Element
 {
 public:
-	CCCS( const double gain );
-	~CCCS() override;
-	
-	Type type() const override { return Element_CCCS; }
-	void setGain( const double g );
+    CCCS(const double gain);
+    ~CCCS() override;
+
+    Type type() const override
+    {
+        return Element_CCCS;
+    }
+    void setGain(const double g);
 
 protected:
-	void updateCurrents() override;
-	void add_initial_dc() override;
+    void updateCurrents() override;
+    void add_initial_dc() override;
 
 private:
-	double m_g; // Conductance
+    double m_g; // Conductance
 };
 
 #endif

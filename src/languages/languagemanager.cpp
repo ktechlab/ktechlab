@@ -8,18 +8,18 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "docmanager.h"
 #include "languagemanager.h"
-#include "logview.h"
+#include "docmanager.h"
 #include "ktechlab.h"
+#include "logview.h"
 // #include "k3tempfile.h"
 #include "outputmethoddlg.h"
 #include "processchain.h"
 #include "projectmanager.h"
 
-#include "microbe.h"
 #include "gpasm.h"
 #include "gpdasm.h"
+#include "microbe.h"
 
 // #include <k3dockwidget.h>
 #include <KLocalizedString>
@@ -28,76 +28,68 @@
 
 #include <ktlconfig.h>
 
+LanguageManager *LanguageManager::m_pSelf = nullptr;
 
-LanguageManager * LanguageManager::m_pSelf = nullptr;
-
-
-LanguageManager * LanguageManager::self( KateMDI::ToolView * parent )
+LanguageManager *LanguageManager::self(KateMDI::ToolView *parent)
 {
-	if (!m_pSelf)
-	{
-		assert(parent);
-		m_pSelf = new LanguageManager( parent );
-	}
-	return m_pSelf;
+    if (!m_pSelf) {
+        assert(parent);
+        m_pSelf = new LanguageManager(parent);
+    }
+    return m_pSelf;
 }
 
-
-LanguageManager::LanguageManager( KateMDI::ToolView * parent )
-	: QObject( KTechlab::self() )
+LanguageManager::LanguageManager(KateMDI::ToolView *parent)
+    : QObject(KTechlab::self())
 {
-	m_logView = new LogView( parent, "LanguageManager LogView");
-	
-	m_logView->setWhatsThis( i18n("These messages show the output of language-related functionality such as compiling and assembling.<br><br>For error messages, clicking on the line will automatically open up the file at the position of the error.") );
-	connect( m_logView, SIGNAL(paraClicked(const QString&, MessageInfo )), this, SLOT(slotParaClicked(const QString&, MessageInfo )) );
-	reset();
-}
+    m_logView = new LogView(parent, "LanguageManager LogView");
 
+    m_logView->setWhatsThis(
+        i18n("These messages show the output of language-related functionality such as compiling and assembling.<br><br>For error messages, clicking on the line will automatically open up the file at the position of the error."));
+    connect(m_logView, SIGNAL(paraClicked(const QString &, MessageInfo)), this, SLOT(slotParaClicked(const QString &, MessageInfo)));
+    reset();
+}
 
 LanguageManager::~LanguageManager()
 {
 }
 
-
 void LanguageManager::reset()
 {
-	m_logView->clear();
+    m_logView->clear();
 }
 
-
-ProcessChain * LanguageManager::compile( ProcessOptions options )
+ProcessChain *LanguageManager::compile(ProcessOptions options)
 {
-	if ( KTLConfig::raiseMessagesLog() )
-		KTechlab::self()->showToolView( KTechlab::self()->toolView( toolViewIdentifier() ) );
-	
-	return new ProcessChain( options );
+    if (KTLConfig::raiseMessagesLog())
+        KTechlab::self()->showToolView(KTechlab::self()->toolView(toolViewIdentifier()));
+
+    return new ProcessChain(options);
 }
 
-
-ProcessListChain * LanguageManager::compile( ProcessOptionsList pol )
+ProcessListChain *LanguageManager::compile(ProcessOptionsList pol)
 {
-	if ( KTLConfig::raiseMessagesLog() )
-		KTechlab::self()->showToolView( KTechlab::self()->toolView( toolViewIdentifier() ) );
-	
-	return new ProcessListChain( pol );
+    if (KTLConfig::raiseMessagesLog())
+        KTechlab::self()->showToolView(KTechlab::self()->toolView(toolViewIdentifier()));
+
+    return new ProcessListChain(pol);
 }
 
+void LanguageManager::slotError(const QString &error, MessageInfo messageInfo)
+{
+    m_logView->addOutput(error, LogView::ot_error, messageInfo);
+}
+void LanguageManager::slotWarning(const QString &error, MessageInfo messageInfo)
+{
+    m_logView->addOutput(error, LogView::ot_warning, messageInfo);
+}
+void LanguageManager::slotMessage(const QString &error, MessageInfo messageInfo)
+{
+    m_logView->addOutput(error, LogView::ot_message, messageInfo);
+}
 
-void LanguageManager::slotError( const QString &error, MessageInfo messageInfo )
+void LanguageManager::slotParaClicked(const QString &message, MessageInfo messageInfo)
 {
-	m_logView->addOutput( error, LogView::ot_error, messageInfo );
-}
-void LanguageManager::slotWarning( const QString &error, MessageInfo messageInfo )
-{
-	m_logView->addOutput( error, LogView::ot_warning, messageInfo );
-}
-void LanguageManager::slotMessage( const QString &error, MessageInfo messageInfo )
-{
-	m_logView->addOutput( error, LogView::ot_message, messageInfo );
-}
-
-void LanguageManager::slotParaClicked( const QString& message, MessageInfo messageInfo )
-{
-	Q_UNUSED(message);
-	DocManager::self()->gotoTextLine(QUrl::fromUserInput(messageInfo.fileURL()), messageInfo.fileLine() );
+    Q_UNUSED(message);
+    DocManager::self()->gotoTextLine(QUrl::fromUserInput(messageInfo.fileURL()), messageInfo.fileLine());
 }

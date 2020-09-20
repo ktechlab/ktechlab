@@ -21,72 +21,75 @@ const int max_ADDAC_bits = 32;
 class ADDAC : public Component
 {
 public:
-	public:
-		ADDAC( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~ADDAC() override;
-		
-	protected:
-		void dataChanged() override;
-		/**
-		 * Add / remove pins according to the number of outputs the user has requested
-		 */
-		virtual void initPins() = 0;
+public:
+    ADDAC(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ADDAC() override;
 
-		int m_numBits;
-		double m_range;
+protected:
+    void dataChanged() override;
+    /**
+     * Add / remove pins according to the number of outputs the user has requested
+     */
+    virtual void initPins() = 0;
+
+    int m_numBits;
+    double m_range;
 };
-
 
 /**
 @author David Saxton
  */
 class ADC : public ADDAC
 {
-	public:
-		ADC( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~ADC() override;
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
-	
-		void stepNonLogic() override;
-		bool doesStepNonLogic() const override { return true; }
-	
-	protected:
-		/**
-		 * Add / remove pins according to the number of outputs the user has requested
-		 */
-		void initPins() override;
-	
-		LogicOut *m_logic[max_ADDAC_bits];
-		ECNode *m_realNode;
-};
+public:
+    ADC(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ADC() override;
 
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    void stepNonLogic() override;
+    bool doesStepNonLogic() const override
+    {
+        return true;
+    }
+
+protected:
+    /**
+     * Add / remove pins according to the number of outputs the user has requested
+     */
+    void initPins() override;
+
+    LogicOut *m_logic[max_ADDAC_bits];
+    ECNode *m_realNode;
+};
 
 /**
 @author David Saxton
  */
 class DAC : public ADDAC
 {
-	public:
-		DAC( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~DAC() override;
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
-	
-		void stepNonLogic() override;
-		bool doesStepNonLogic() const override { return true; }
-	
-	protected:
-		/**
-		 * Add / remove pins according to the number of outputs the user has requested
-		 */
-		void initPins() override;
-	
-		LogicIn *m_logic[max_ADDAC_bits];
-		VoltagePoint *m_voltagePoint;
-};
+public:
+    DAC(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~DAC() override;
 
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    void stepNonLogic() override;
+    bool doesStepNonLogic() const override
+    {
+        return true;
+    }
+
+protected:
+    /**
+     * Add / remove pins according to the number of outputs the user has requested
+     */
+    void initPins() override;
+
+    LogicIn *m_logic[max_ADDAC_bits];
+    VoltagePoint *m_voltagePoint;
+};
 
 #endif

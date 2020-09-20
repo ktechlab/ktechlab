@@ -14,11 +14,11 @@
 #include <QFrame>
 class QTimer;
 
-///Screen-type Oscilloscope data view
+/// Screen-type Oscilloscope data view
 /**
 An Oscilloscope screen, as opposed to a paper tape (the current Oscilloscope)
 
-	@author John Myers
+    @author John Myers
 */
 class ScopeScreenView : public ScopeViewBase
 {
@@ -27,39 +27,50 @@ public:
     ScopeScreenView(QWidget *parent = nullptr, const char *name = nullptr);
 
     ~ScopeScreenView() override;
-	//virtual void drawContents(QPainter * p);
-	void drawBackground(QPainter & p) override;
-	
-		///Draw the horizontal line indicating the midpoint of our output for \c probe
-	void drawMidLine(QPainter & p, ProbeData * probe) override;
-	
-	///\TODO: remove virtual; draw one logic probe
-	void drawProbe(QPainter& p, LogicProbeData * probe) override;
-	///\TODO: remove virtual; draw one floating-point probe
-	void drawProbe(QPainter& p, FloatingProbeData * probe) override;
-	
-		/// gives the first Simulator tick visible in the view
-	llong visibleStartTime() const override {return 0;}
-	/// gives the last Simulator tick visible in the view
-	llong visibleEndTime() const override {return 0;}
-	
-	double ticksPerPixel() const override {return 0;}
-	llong pixelsPerTick() const override {return 0;}
+    // virtual void drawContents(QPainter * p);
+    void drawBackground(QPainter &p) override;
+
+    /// Draw the horizontal line indicating the midpoint of our output for \c probe
+    void drawMidLine(QPainter &p, ProbeData *probe) override;
+
+    ///\TODO: remove virtual; draw one logic probe
+    void drawProbe(QPainter &p, LogicProbeData *probe) override;
+    ///\TODO: remove virtual; draw one floating-point probe
+    void drawProbe(QPainter &p, FloatingProbeData *probe) override;
+
+    /// gives the first Simulator tick visible in the view
+    llong visibleStartTime() const override
+    {
+        return 0;
+    }
+    /// gives the last Simulator tick visible in the view
+    llong visibleEndTime() const override
+    {
+        return 0;
+    }
+
+    double ticksPerPixel() const override
+    {
+        return 0;
+    }
+    llong pixelsPerTick() const override
+    {
+        return 0;
+    }
 
 public slots:
-	void setIntervalsX(int value);
-	void setTicksPerIntervalX(int value);
-	void setOffsetX(int value);
+    void setIntervalsX(int value);
+    void setTicksPerIntervalX(int value);
+    void setOffsetX(int value);
 
-	void updateViewTimeout();
+    void updateViewTimeout();
 
 private:
-	int m_intervalsX;
-	int m_ticksPerIntervalX;
-	int m_offsetX;
+    int m_intervalsX;
+    int m_ticksPerIntervalX;
+    int m_offsetX;
 
-	QTimer* m_updateViewTmr;
-
+    QTimer *m_updateViewTmr;
 };
 
 #endif

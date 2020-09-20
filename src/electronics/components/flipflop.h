@@ -18,16 +18,15 @@ class Simulator;
 
 class ClockedFlipFlop : public CallbackClass, public Component
 {
-	public:
-		ClockedFlipFlop( ICNDocument *icnDocument, bool newItem, const char * id );
+public:
+    ClockedFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id);
 
-	protected:
-		enum EdgeTrigger { Rising, Falling };
-		void dataChanged() override;
-		virtual void initSymbolFromTrigger() = 0;
-		EdgeTrigger m_edgeTrigger;
+protected:
+    enum EdgeTrigger { Rising, Falling };
+    void dataChanged() override;
+    virtual void initSymbolFromTrigger() = 0;
+    EdgeTrigger m_edgeTrigger;
 };
-
 
 /**
 @short Boolean D-Type Flip-Flop
@@ -36,33 +35,32 @@ class ClockedFlipFlop : public CallbackClass, public Component
 class ECDFlipFlop : public ClockedFlipFlop
 {
 public:
-	ECDFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECDFlipFlop() override;
+    ECDFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECDFlipFlop() override;
 
-    static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
 protected:
-	void drawShape( QPainter & p ) override;
-	void initSymbolFromTrigger() override;
-	void inputChanged( bool newState );
-	void inStateChanged( bool newState );
-	void asyncChanged(bool newState );
-	void clockChanged(bool newState );
+    void drawShape(QPainter &p) override;
+    void initSymbolFromTrigger() override;
+    void inputChanged(bool newState);
+    void inStateChanged(bool newState);
+    void asyncChanged(bool newState);
+    void clockChanged(bool newState);
 
-	LogicIn *m_pD;
-	LogicIn *m_pClock;
-	LogicOut *m_pQ;
-	LogicOut *m_pQBar;
-	LogicIn *setp;
-	LogicIn *rstp;
-	bool m_bPrevClock;
+    LogicIn *m_pD;
+    LogicIn *m_pClock;
+    LogicOut *m_pQ;
+    LogicOut *m_pQBar;
+    LogicIn *setp;
+    LogicIn *rstp;
+    bool m_bPrevClock;
 
-	bool m_prevD;
-	unsigned long long m_prevDChangeSimTime;
-	Simulator * m_pSimulator;
+    bool m_prevD;
+    unsigned long long m_prevDChangeSimTime;
+    Simulator *m_pSimulator;
 };
-
 
 /**
 @short Boolean JK-Type Flip-Flop
@@ -71,30 +69,29 @@ protected:
 class ECJKFlipFlop : public ClockedFlipFlop
 {
 public:
-	ECJKFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECJKFlipFlop() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    ECJKFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECJKFlipFlop() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
 private:
-	void drawShape( QPainter & p ) override;
-	void initSymbolFromTrigger() override;
-	void inStateChanged( bool newState );
-	void asyncChanged(bool newState );
-	void clockChanged(bool newState );
+    void drawShape(QPainter &p) override;
+    void initSymbolFromTrigger() override;
+    void inStateChanged(bool newState);
+    void asyncChanged(bool newState);
+    void clockChanged(bool newState);
 
-	bool prev_state;
-	bool m_bPrevClock;
-	LogicIn *m_pJ;
-	LogicIn *m_pClock;
-	LogicIn *m_pK;
-	LogicIn *setp;
-	LogicIn *rstp;
-	LogicOut *m_pQ;
-	LogicOut *m_pQBar;
+    bool prev_state;
+    bool m_bPrevClock;
+    LogicIn *m_pJ;
+    LogicIn *m_pClock;
+    LogicIn *m_pK;
+    LogicIn *setp;
+    LogicIn *rstp;
+    LogicOut *m_pQ;
+    LogicOut *m_pQBar;
 };
-
 
 /**
 @short Boolean Set-Reset Flip-Flop
@@ -103,20 +100,20 @@ private:
 class ECSRFlipFlop : public CallbackClass, public Component
 {
 public:
-	ECSRFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECSRFlipFlop() override;
+    ECSRFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECSRFlipFlop() override;
 
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
 protected:
-	void inStateChanged( bool newState );
-	LogicIn * m_pS;
-	LogicIn * m_pR;
-	LogicOut * m_pQ;
-	LogicOut * m_pQBar;
-	bool old_q1;
-	bool old_q2;
+    void inStateChanged(bool newState);
+    LogicIn *m_pS;
+    LogicIn *m_pR;
+    LogicOut *m_pQ;
+    LogicOut *m_pQBar;
+    bool old_q1;
+    bool old_q2;
 };
 
 #endif

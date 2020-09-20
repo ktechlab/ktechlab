@@ -20,16 +20,16 @@
 class Sub : public FlowContainer
 {
 public:
-	Sub( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~Sub() override;
+    Sub(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~Sub() override;
 
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-	void generateMicrobe( FlowCode *code ) override;
+    void generateMicrobe(FlowCode *code) override;
 
 protected:
-	void dataChanged() override;
-}; 
+    void dataChanged() override;
+};
 
 #endif

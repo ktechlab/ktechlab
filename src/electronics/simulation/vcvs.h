@@ -22,18 +22,21 @@ Controlling voltage between nodes c0 and c1
 class VCVS : public Element
 {
 public:
-	VCVS( const double gain );
-	~VCVS() override;
-	
-	Type type() const override { return Element_VCVS; }
-	void setGain( const double g );
+    VCVS(const double gain);
+    ~VCVS() override;
+
+    Type type() const override
+    {
+        return Element_VCVS;
+    }
+    void setGain(const double g);
 
 protected:
-	void updateCurrents() override;
-	void add_initial_dc() override;
+    void updateCurrents() override;
+    void add_initial_dc() override;
 
 private:
-	double m_g; // Conductance
+    double m_g; // Conductance
 };
 
 #endif

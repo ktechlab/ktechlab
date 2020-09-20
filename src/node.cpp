@@ -8,20 +8,20 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "cnitem.h"
-#include "icndocument.h"
-#include "connector.h"
-#include "itemdocumentdata.h"
 #include "node.h"
+#include "cnitem.h"
+#include "connector.h"
+#include "icndocument.h"
+#include "itemdocumentdata.h"
 
 #include <QDebug>
 #include <QPainter>
 
-QColor Node::m_selectedColor = QColor( 101, 134, 192 );
+QColor Node::m_selectedColor = QColor(101, 134, 192);
 
-Node::Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id )
-	: //QObject(),
-	  KtlQCanvasPolygon( icnDocument ? icnDocument->canvas() : nullptr )
+Node::Node(ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id)
+    : // QObject(),
+    KtlQCanvasPolygon(icnDocument ? icnDocument->canvas() : nullptr)
 {
     QString name("Node");
     if (id) {
@@ -32,142 +32,146 @@ Node::Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoin
     setObjectName(name.toLatin1().data());
     qDebug() << Q_FUNC_INFO << " this=" << this;
 
-	m_length = 8;
-	p_nodeGroup = nullptr;
-	p_parentItem = nullptr;
-	b_deleted = false;
-	m_dir = dir;
-	m_type = type;
-	p_icnDocument = icnDocument;
-	m_level = 0;
+    m_length = 8;
+    p_nodeGroup = nullptr;
+    p_parentItem = nullptr;
+    b_deleted = false;
+    m_dir = dir;
+    m_type = type;
+    p_icnDocument = icnDocument;
+    m_level = 0;
 
-	if ( p_icnDocument ) {
-		if (id) {
-			m_id = *id;
-			if ( !p_icnDocument->registerUID(*id) )
-				qCritical() << Q_FUNC_INFO << "Could not register id " << *id << endl;
-		} else m_id = p_icnDocument->generateUID("node"+QString::number(type));
-	}
+    if (p_icnDocument) {
+        if (id) {
+            m_id = *id;
+            if (!p_icnDocument->registerUID(*id))
+                qCritical() << Q_FUNC_INFO << "Could not register id " << *id << endl;
+        } else
+            m_id = p_icnDocument->generateUID("node" + QString::number(type));
+    }
 
-	initPoints();
-	move( pos.x(), pos.y() );
-	setBrush( Qt::black );
-	setPen( QPen( Qt::black ) );
-	show();
+    initPoints();
+    move(pos.x(), pos.y());
+    setBrush(Qt::black);
+    setPen(QPen(Qt::black));
+    show();
 
-	emit (moved(this));
+    emit(moved(this));
 }
 
 Node::~Node()
 {
-	if ( p_icnDocument )
-		p_icnDocument->unregisterUID( id() );
+    if (p_icnDocument)
+        p_icnDocument->unregisterUID(id());
 }
 
-void Node::setLevel( const int level )
+void Node::setLevel(const int level)
 {
-	m_level = level;
+    m_level = level;
 }
 
-void Node::setLength( int length )
+void Node::setLength(int length)
 {
-	if ( m_length == length )
-		return;
-	m_length = length;
-	initPoints();
+    if (m_length == length)
+        return;
+    m_length = length;
+    initPoints();
 }
 
-void Node::setOrientation( int dir )
+void Node::setOrientation(int dir)
 {
-	if ( m_dir == dir )
-		return;
-	m_dir = dir;
-	initPoints();
+    if (m_dir == dir)
+        return;
+    m_dir = dir;
+    initPoints();
 }
 
 void Node::initPoints()
 {
-	int l = m_length;
+    int l = m_length;
 
-	// Bounding rectangle, facing right
-	QPolygon pa( QRect( 0, -8, l, 16 ) );
+    // Bounding rectangle, facing right
+    QPolygon pa(QRect(0, -8, l, 16));
 
-	QMatrix m;
-	m.rotate( m_dir );
-	pa = m.map(pa);
-	setPoints(pa);
+    QMatrix m;
+    m.rotate(m_dir);
+    pa = m.map(pa);
+    setPoints(pa);
 }
 
-void Node::setVisible( bool yes )
+void Node::setVisible(bool yes)
 {
-	if ( isVisible() == yes ) return;
+    if (isVisible() == yes)
+        return;
 
-	KtlQCanvasPolygon::setVisible(yes);
+    KtlQCanvasPolygon::setVisible(yes);
 }
 
-void Node::setParentItem( CNItem *parentItem )
+void Node::setParentItem(CNItem *parentItem)
 {
-	if (!parentItem) {
-		qCritical() << Q_FUNC_INFO << "no parent item" << endl;
-		return;
-	}
+    if (!parentItem) {
+        qCritical() << Q_FUNC_INFO << "no parent item" << endl;
+        return;
+    }
 
-	p_parentItem = parentItem;
+    p_parentItem = parentItem;
 
-	setLevel(p_parentItem->level());
+    setLevel(p_parentItem->level());
 
-	connect( p_parentItem, SIGNAL(movedBy(double, double )), this, SLOT(moveBy(double, double)) );
-	connect( p_parentItem, SIGNAL(removed(Item*)), this, SLOT(removeNode(Item*)) );
+    connect(p_parentItem, SIGNAL(movedBy(double, double)), this, SLOT(moveBy(double, double)));
+    connect(p_parentItem, SIGNAL(removed(Item *)), this, SLOT(removeNode(Item *)));
 }
 
 void Node::removeNode()
 {
-	if (b_deleted) return;
-	b_deleted = true;
+    if (b_deleted)
+        return;
+    b_deleted = true;
 
-	emit removed(this);
-	p_icnDocument->appendDeleteList(this);
+    emit removed(this);
+    p_icnDocument->appendDeleteList(this);
 }
 
-void Node::setICNDocument(ICNDocument *documentPtr) {
+void Node::setICNDocument(ICNDocument *documentPtr)
+{
     p_icnDocument = documentPtr;
 }
 
-void Node::moveBy( double dx, double dy )
+void Node::moveBy(double dx, double dy)
 {
-	if ( dx == 0 && dy == 0 ) return;
-	KtlQCanvasPolygon::moveBy( dx, dy );
-	emit moved(this);
+    if (dx == 0 && dy == 0)
+        return;
+    KtlQCanvasPolygon::moveBy(dx, dy);
+    emit moved(this);
 }
 
 NodeData Node::nodeData() const
 {
-	NodeData data;
-	data.x = x();
-	data.y = y();
-	return data;
+    NodeData data;
+    data.x = x();
+    data.y = y();
+    return data;
 }
 
-void Node::setNodeSelected( bool yes )
+void Node::setNodeSelected(bool yes)
 {
-	if ( isSelected() == yes )
-		return;
+    if (isSelected() == yes)
+        return;
 
-	KtlQCanvasItem::setSelected(yes);
+    KtlQCanvasItem::setSelected(yes);
 
-	setPen(   yes ? m_selectedColor : Qt::black );
-	setBrush( yes ? m_selectedColor : Qt::black );
+    setPen(yes ? m_selectedColor : Qt::black);
+    setBrush(yes ? m_selectedColor : Qt::black);
 }
 
-void Node::initPainter( QPainter & p )
+void Node::initPainter(QPainter &p)
 {
-	p.translate( int(x()), int(y()) );
-	p.rotate( m_dir );
+    p.translate(int(x()), int(y()));
+    p.rotate(m_dir);
 }
 
-
-void Node::deinitPainter( QPainter & p )
+void Node::deinitPainter(QPainter &p)
 {
-	p.rotate( -m_dir );
-	p.translate( -int(x()), -int(y()) );
+    p.rotate(-m_dir);
+    p.translate(-int(x()), -int(y()));
 }

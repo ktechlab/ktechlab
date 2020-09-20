@@ -23,47 +23,48 @@ class Document;
 */
 class DocManagerIface : public DCOPObject
 {
-	K_DCOP
+    K_DCOP
 
-	public:
-		DocManagerIface( DocManager * docManager );
-		~DocManagerIface();
-		
-	k_dcop:
-		/**
-		 * Attempt to close all documents, returning true if successful.
-		 */
-		bool closeAll();
-		/**
-		 * Attempt to open the given URL.
-		 */
-		DCOPRef openURL( const QString & url );
-		/**
-		 * Attempt to open the text file at the given url (if it isn't already
-		 * open), and then go to that line in the text file.
-		 */
-		void gotoTextLine( const QString & url, int line );
-		/**
-		 * Creates a new Text document.
-		 */
-		DCOPRef createTextDocument();
-		/**
-		 * Creates a new Circuit document.
-		 */
-		DCOPRef createCircuitDocument();
-		/**
-		 * Creates a new FlowCode document.
-		 */
-		DCOPRef createFlowCodeDocument();
-		/**
-		 * Creates a new Mechanics document.
-		 */
-		DCOPRef createMechanicsDocument();
-		
-	protected:
-		DCOPRef docToRef( Document * document );
-		
-		DocManager * m_pDocManager;
+public:
+    DocManagerIface(DocManager *docManager);
+    ~DocManagerIface();
+
+    k_dcop :
+        /**
+         * Attempt to close all documents, returning true if successful.
+         */
+        bool
+        closeAll();
+    /**
+     * Attempt to open the given URL.
+     */
+    DCOPRef openURL(const QString &url);
+    /**
+     * Attempt to open the text file at the given url (if it isn't already
+     * open), and then go to that line in the text file.
+     */
+    void gotoTextLine(const QString &url, int line);
+    /**
+     * Creates a new Text document.
+     */
+    DCOPRef createTextDocument();
+    /**
+     * Creates a new Circuit document.
+     */
+    DCOPRef createCircuitDocument();
+    /**
+     * Creates a new FlowCode document.
+     */
+    DCOPRef createFlowCodeDocument();
+    /**
+     * Creates a new Mechanics document.
+     */
+    DCOPRef createMechanicsDocument();
+
+protected:
+    DCOPRef docToRef(Document *document);
+
+    DocManager *m_pDocManager;
 };
 
 #endif

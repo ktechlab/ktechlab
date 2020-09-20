@@ -22,15 +22,15 @@ class FloatingProbeData;
 */
 class Probe : public Component
 {
-	public:
-		Probe( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~Probe() override;
-	
-	protected:
-		void dataChanged() override;
+public:
+    Probe(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~Probe() override;
 
-		ProbeData * p_probeData; // As obtained via registering with the oscilloscope
-		QColor m_color;
+protected:
+    void dataChanged() override;
+
+    ProbeData *p_probeData; // As obtained via registering with the oscilloscope
+    QColor m_color;
 };
 
 /**
@@ -38,17 +38,20 @@ class Probe : public Component
  */
 class FloatingProbe : public Probe
 {
-	public:
-		FloatingProbe( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~FloatingProbe() override;
-	
-		bool doesStepNonLogic() const override { return true; }
-		
-	protected:
-		void dataChanged() override;
-		void drawShape( QPainter &p ) override;
+public:
+    FloatingProbe(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~FloatingProbe() override;
 
-		FloatingProbeData * m_pFloatingProbeData;
+    bool doesStepNonLogic() const override
+    {
+        return true;
+    }
+
+protected:
+    void dataChanged() override;
+    void drawShape(QPainter &p) override;
+
+    FloatingProbeData *m_pFloatingProbeData;
 };
 
 /**
@@ -56,18 +59,18 @@ class FloatingProbe : public Probe
  */
 class VoltageProbe : public FloatingProbe
 {
-	public:
-		VoltageProbe( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~VoltageProbe() override;
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
-		
-		void stepNonLogic() override;
+public:
+    VoltageProbe(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~VoltageProbe() override;
 
-	protected:
-		Pin * m_pPin1;
-		Pin * m_pPin2;
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    void stepNonLogic() override;
+
+protected:
+    Pin *m_pPin1;
+    Pin *m_pPin2;
 };
 
 /**
@@ -75,17 +78,17 @@ class VoltageProbe : public FloatingProbe
  */
 class CurrentProbe : public FloatingProbe
 {
-	public:
-		CurrentProbe( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~CurrentProbe() override;
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
-		
-		void stepNonLogic() override;
+public:
+    CurrentProbe(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~CurrentProbe() override;
 
-	protected:
-		VoltageSource *m_voltageSource;
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    void stepNonLogic() override;
+
+protected:
+    VoltageSource *m_voltageSource;
 };
 
 /**
@@ -93,21 +96,21 @@ class CurrentProbe : public FloatingProbe
  */
 class LogicProbe : public CallbackClass, public Probe
 {
-	public:
-		LogicProbe( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~LogicProbe() override;
+public:
+    LogicProbe(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~LogicProbe() override;
 
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-		void logicCallback( bool value );
+    void logicCallback(bool value);
 
-	protected:
-		void drawShape( QPainter &p ) override;
+protected:
+    void drawShape(QPainter &p) override;
 
-		LogicProbeData * p_logicProbeData;
-		LogicIn * m_pIn;
-		Simulator * m_pSimulator;
+    LogicProbeData *p_logicProbeData;
+    LogicIn *m_pIn;
+    Simulator *m_pSimulator;
 };
 
 #endif

@@ -10,63 +10,54 @@
 
 #include "writeport.h"
 
-#include "libraryitem.h"
 #include "flowcode.h"
+#include "libraryitem.h"
 
 #include <KLocalizedString>
 
-Item* WritePort::construct( ItemDocument *itemDocument, bool newItem, const char *id )
+Item *WritePort::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-	return new WritePort( (ICNDocument*)itemDocument, newItem, id );
+    return new WritePort((ICNDocument *)itemDocument, newItem, id);
 }
 
-LibraryItem* WritePort::libraryItem()
+LibraryItem *WritePort::libraryItem()
 {
-	return new LibraryItem(
-		QStringList(QString("flow/writeport")),
-		i18n("Write to Port"),
-		i18n("I\\/O"),
-		"portwrite.png",
-		LibraryItem::lit_flowpart,
-		WritePort::construct );
+    return new LibraryItem(QStringList(QString("flow/writeport")), i18n("Write to Port"), i18n("I\\/O"), "portwrite.png", LibraryItem::lit_flowpart, WritePort::construct);
 }
 
-WritePort::WritePort( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, id ? id : "writeport" )
+WritePort::WritePort(ICNDocument *icnDocument, bool newItem, const char *id)
+    : FlowPart(icnDocument, newItem, id ? id : "writeport")
 {
-	m_name = i18n("Write to Port");
-	initIOSymbol();
-	createStdInput();
-	createStdOutput();
-	
-	createProperty( "0-var", Variant::Type::Combo );
-	property("0-var")->setToolbarCaption( i18n("Write") );
-	property("0-var")->setEditorCaption( i18n("Variable") );
-	property("0-var")->setValue("x");
-	
-	createProperty( "1-port", Variant::Type::Port );
-	property("1-port")->setToolbarCaption( i18nc( "write to port", "to" ) );
-	property("1-port")->setEditorCaption( i18n("Port") );
-	property("1-port")->setValue("PORTA");
-}
+    m_name = i18n("Write to Port");
+    initIOSymbol();
+    createStdInput();
+    createStdOutput();
 
+    createProperty("0-var", Variant::Type::Combo);
+    property("0-var")->setToolbarCaption(i18n("Write"));
+    property("0-var")->setEditorCaption(i18n("Variable"));
+    property("0-var")->setValue("x");
+
+    createProperty("1-port", Variant::Type::Port);
+    property("1-port")->setToolbarCaption(i18nc("write to port", "to"));
+    property("1-port")->setEditorCaption(i18n("Port"));
+    property("1-port")->setValue("PORTA");
+}
 
 WritePort::~WritePort()
 {
 }
 
-
 void WritePort::dataChanged()
 {
-	setCaption(  i18n("Write %1 to %2", dataString("0-var"), dataString("1-port")) );
+    setCaption(i18n("Write %1 to %2", dataString("0-var"), dataString("1-port")));
 }
 
-
-void WritePort::generateMicrobe( FlowCode *code )
+void WritePort::generateMicrobe(FlowCode *code)
 {
-	code->addCode( dataString("1-port")+" = "+dataString("0-var") );
-	code->addCodeBranch( outputPart("stdoutput") );
-	
+    code->addCode(dataString("1-port") + " = " + dataString("0-var"));
+    code->addCodeBranch(outputPart("stdoutput"));
+
 #if 0
 	QString var = dataString("var");
 	QString port = dataString("port");

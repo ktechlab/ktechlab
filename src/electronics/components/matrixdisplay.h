@@ -22,39 +22,41 @@ const unsigned max_md_height = 20;
 */
 class MatrixDisplay : public Component
 {
-	public:
-		MatrixDisplay( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~MatrixDisplay() override;
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
-	
-		void stepNonLogic() override;
-		bool doesStepNonLogic() const override { return true; }
-		
-	protected:
-		void drawShape( QPainter &p ) override;
-		void dataChanged() override;
+public:
+    MatrixDisplay(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~MatrixDisplay() override;
 
-		void initPins( unsigned numRows, unsigned numCols );
-		QString colPinID( int col ) const;
-		QString rowPinID( int row ) const;
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
+    void stepNonLogic() override;
+    bool doesStepNonLogic() const override
+    {
+        return true;
+    }
 
-		QVector< QVector<double> > m_avgBrightness;
-		QVector< QVector<unsigned> > m_lastBrightness;
-		QVector< QVector<Diode*> > m_pDiodes;
+protected:
+    void drawShape(QPainter &p) override;
+    void dataChanged() override;
 
-		ECNode * m_pRowNodes[max_md_height];
-		ECNode * m_pColNodes[max_md_width];
+    void initPins(unsigned numRows, unsigned numCols);
+    QString colPinID(int col) const;
+    QString rowPinID(int row) const;
 
-		double m_lastUpdatePeriod;
+    QVector<QVector<double>> m_avgBrightness;
+    QVector<QVector<unsigned>> m_lastBrightness;
+    QVector<QVector<Diode *>> m_pDiodes;
 
-		double m_r, m_g, m_b;
-		bool m_bRowCathode;
+    ECNode *m_pRowNodes[max_md_height];
+    ECNode *m_pColNodes[max_md_width];
 
-		unsigned m_numRows;
-		unsigned m_numCols;
+    double m_lastUpdatePeriod;
+
+    double m_r, m_g, m_b;
+    bool m_bRowCathode;
+
+    unsigned m_numRows;
+    unsigned m_numCols;
 };
 
 #endif

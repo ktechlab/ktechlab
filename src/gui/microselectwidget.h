@@ -27,48 +27,48 @@ class KComboBox;
 */
 class MicroSelectWidget : public QGroupBox
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-		MicroSelectWidget( QWidget* parent = nullptr, const char* name = nullptr, Qt::WindowFlags f = {} );
-		~MicroSelectWidget() override;
+public:
+    MicroSelectWidget(QWidget *parent = nullptr, const char *name = nullptr, Qt::WindowFlags f = {});
+    ~MicroSelectWidget() override;
 
-		void setMicro( const QString & id );
-		QString micro() const;
-		
-		/**
-		 * @see MicroLibrary::microIDs
-		 */
-		void setAllowedAsmSet( unsigned allowed );
-		/**
-		 * @see MicroLibrary::microIDs
-		 */
-		void setAllowedGpsimSupport( unsigned allowed );
-		/**
-		 * @see MicroLibrary::microIDs
-		 */
-		void setAllowedFlowCodeSupport( unsigned allowed );
-		/**
-		 * @see MicroLibrary::microIDs
-		 */
-		void setAllowedMicrobeSupport( unsigned allowed );
-		
-	protected slots:
-		void microFamilyChanged( const QString & family );
+    void setMicro(const QString &id);
+    QString micro() const;
 
-	protected:
-		void updateFromAllowed();
-		
-		unsigned int m_allowedAsmSet;
-		unsigned int m_allowedGpsimSupport;
-		unsigned int m_allowedFlowCodeSupport;
-		unsigned int m_allowedMicrobeSupport;
-		
-		QHBoxLayout * m_pWidgetLayout;
-		QLabel * m_pMicroFamilyLabel;
-		KComboBox * m_pMicroFamily;
-		QLabel * m_pMicroLabel;
-		KComboBox * m_pMicro;
+    /**
+     * @see MicroLibrary::microIDs
+     */
+    void setAllowedAsmSet(unsigned allowed);
+    /**
+     * @see MicroLibrary::microIDs
+     */
+    void setAllowedGpsimSupport(unsigned allowed);
+    /**
+     * @see MicroLibrary::microIDs
+     */
+    void setAllowedFlowCodeSupport(unsigned allowed);
+    /**
+     * @see MicroLibrary::microIDs
+     */
+    void setAllowedMicrobeSupport(unsigned allowed);
+
+protected slots:
+    void microFamilyChanged(const QString &family);
+
+protected:
+    void updateFromAllowed();
+
+    unsigned int m_allowedAsmSet;
+    unsigned int m_allowedGpsimSupport;
+    unsigned int m_allowedFlowCodeSupport;
+    unsigned int m_allowedMicrobeSupport;
+
+    QHBoxLayout *m_pWidgetLayout;
+    QLabel *m_pMicroFamilyLabel;
+    KComboBox *m_pMicroFamily;
+    QLabel *m_pMicroLabel;
+    KComboBox *m_pMicro;
 };
 
 #endif

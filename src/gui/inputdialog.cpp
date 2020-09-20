@@ -11,26 +11,22 @@
 
 #include <QDialog>
 #include <QDialogButtonBox>
-#include <QPushButton>
+#include <QHBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QValidator>
+#include <QPushButton>
 #include <QString>
+#include <QVBoxLayout>
 #include <QValidator>
 
 namespace InputDialog
 {
-
 class Dialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    Dialog(const QString &windowTitle, const QString &labelText,
-           const QString &value, QWidget *parent,
-           QValidator *validator);
+    Dialog(const QString &windowTitle, const QString &labelText, const QString &value, QWidget *parent, QValidator *validator);
 
     QString text() const;
 
@@ -43,9 +39,7 @@ private:
     QDialogButtonBox *m_buttonBox;
 };
 
-Dialog::Dialog(const QString &windowTitle, const QString &labelText,
-               const QString &value, QWidget *parent,
-               QValidator *validator)
+Dialog::Dialog(const QString &windowTitle, const QString &labelText, const QString &value, QWidget *parent, QValidator *validator)
     : QDialog(parent)
     , m_validator(validator)
 {
@@ -80,8 +74,7 @@ Dialog::Dialog(const QString &windowTitle, const QString &labelText,
     connect(m_buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     layout->addWidget(m_buttonBox);
 
-    connect(m_lineEdit, &QLineEdit::textChanged,
-            this, &Dialog::handleTextChanged);
+    connect(m_lineEdit, &QLineEdit::textChanged, this, &Dialog::handleTextChanged);
 
     handleTextChanged(value);
 }
@@ -106,9 +99,7 @@ void Dialog::handleTextChanged(const QString &text)
     m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(acceptable);
 }
 
-QString getText(const QString &windowTitle, const QString &labelText,
-                const QString &value, bool *ok, QWidget *parent,
-                QValidator *validator)
+QString getText(const QString &windowTitle, const QString &labelText, const QString &value, bool *ok, QWidget *parent, QValidator *validator)
 {
     Dialog *dialog = new Dialog(windowTitle, labelText, value, parent, validator);
 

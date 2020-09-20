@@ -20,18 +20,25 @@
 class VoltagePoint : public Element
 {
 public:
-	VoltagePoint( const double voltage );
-	~VoltagePoint() override;
-	
-	Type type() const override { return Element_VoltagePoint; }
-	void setVoltage( const double voltage );
-	double voltage() { return m_voltage; }
+    VoltagePoint(const double voltage);
+    ~VoltagePoint() override;
+
+    Type type() const override
+    {
+        return Element_VoltagePoint;
+    }
+    void setVoltage(const double voltage);
+    double voltage()
+    {
+        return m_voltage;
+    }
+
 protected:
-	void updateCurrents() override;
-	void add_initial_dc() override;
+    void updateCurrents() override;
+    void add_initial_dc() override;
 
 private:
-	double m_voltage; // Conductance
+    double m_voltage; // Conductance
 };
 
 #endif

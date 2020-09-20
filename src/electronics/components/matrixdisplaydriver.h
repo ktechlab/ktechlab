@@ -18,24 +18,27 @@
  */
 class MatrixDisplayDriver : public Component
 {
-	public:
-		MatrixDisplayDriver( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~MatrixDisplayDriver() override;
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
-	
-		void stepNonLogic() override;
-		bool doesStepNonLogic() const override { return true; }
+public:
+    MatrixDisplayDriver(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~MatrixDisplayDriver() override;
 
-	protected:
-		QVector<LogicIn*> m_pValueLogic;
-		QVector<LogicOut*> m_pRowLogic;
-		QVector<LogicOut*> m_pColLogic;
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-		unsigned m_prevCol;
-		unsigned m_nextCol;
-		unsigned m_scanCount;
+    void stepNonLogic() override;
+    bool doesStepNonLogic() const override
+    {
+        return true;
+    }
+
+protected:
+    QVector<LogicIn *> m_pValueLogic;
+    QVector<LogicOut *> m_pRowLogic;
+    QVector<LogicOut *> m_pColLogic;
+
+    unsigned m_prevCol;
+    unsigned m_nextCol;
+    unsigned m_scanCount;
 };
 
 #endif

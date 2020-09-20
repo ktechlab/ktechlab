@@ -28,23 +28,23 @@
 // #include <q3dict.h>
 // #include <q3intdict.h>
 // #include <q3vbox.h>
-#include <QSplitter>
 #include <QMap>
+#include <QSplitter>
 
 class QAction;
 
-namespace KateMDI {
-
+namespace KateMDI
+{
 class MainWindow;
 class ToolView;
 
 /** This class is needed because QSplitter cant return an index for a widget. */
 class Splitter : public QSplitter
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    Splitter(Qt::Orientation o, QWidget* parent = nullptr, const char* name = nullptr);
+public:
+    Splitter(Qt::Orientation o, QWidget *parent = nullptr, const char *name = nullptr);
     ~Splitter() override;
 
     /** Since there is supposed to be only 2 childs of a katesplitter,
@@ -53,39 +53,39 @@ class Splitter : public QSplitter
      * returns 0 if there is no widget after this one.
      * This results in an error if widget is not a child
      * in this splitter */
-    //bool isLastChild(QWidget* w) const;
+    // bool isLastChild(QWidget* w) const;
 
-    //int idAfter ( QWidget * w ) const;
+    // int idAfter ( QWidget * w ) const;
 };
 
 class GUIClient : public QObject, public KXMLGUIClient
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    GUIClient ( MainWindow *mw );
+public:
+    GUIClient(MainWindow *mw);
     ~GUIClient() override;
 
-    void registerToolView (ToolView *tv);
+    void registerToolView(ToolView *tv);
 
-  private slots:
-    void clientAdded( KXMLGUIClient *client );
+private slots:
+    void clientAdded(KXMLGUIClient *client);
     void updateActions();
 
-  private:
+private:
     MainWindow *m_mw;
 };
 
 class ToolView : public QWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  friend class Sidebar;
-  friend class MainWindow;
-  friend class GUIClient;
-  friend class ToggleToolViewAction;
+    friend class Sidebar;
+    friend class MainWindow;
+    friend class GUIClient;
+    friend class ToggleToolViewAction;
 
-  protected:
+protected:
     /**
      * ToolView
      * Objects of this clas represent a toolview in the mainwindow
@@ -95,39 +95,45 @@ class ToolView : public QWidget
      * @param sidebar sidebar of this toolview
      * @param parent parent widget, e.g. the splitter of one of the sidebars
      */
-    ToolView (MainWindow *mainwin, class Sidebar *sidebar, QWidget *parent);
+    ToolView(MainWindow *mainwin, class Sidebar *sidebar, QWidget *parent);
 
-  public:
+public:
     /**
      * destuct me, this is allowed for all, will care itself that the toolview is removed
      * from the mainwindow and sidebar
      */
-    ~ToolView () override;
+    ~ToolView() override;
 
-  signals:
+signals:
     /**
      * toolview hidden or shown
      * @param visible is this toolview made visible?
      */
-    void visibleChanged (bool visible);
+    void visibleChanged(bool visible);
 
-  /**
-   * some internal methodes needed by the main window and the sidebars
-   */
-  protected:
-    MainWindow *mainWindow () { return m_mainWin; }
+    /**
+     * some internal methodes needed by the main window and the sidebars
+     */
+protected:
+    MainWindow *mainWindow()
+    {
+        return m_mainWin;
+    }
 
-    Sidebar *sidebar () { return m_sidebar; }
+    Sidebar *sidebar()
+    {
+        return m_sidebar;
+    }
 
-    void setVisibleToolView (bool vis);
+    void setVisibleToolView(bool vis);
 
-  public:
-    bool visible () const;
+public:
+    bool visible() const;
 
-  protected:
-    void childEvent ( QChildEvent *ev ) override;
+protected:
+    void childEvent(QChildEvent *ev) override;
 
-  private:
+private:
     MainWindow *m_mainWin;
     Sidebar *m_sidebar;
 
@@ -152,76 +158,90 @@ class ToolView : public QWidget
 
 class Sidebar : public KMultiTabBar
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    Sidebar (KMultiTabBar::KMultiTabBarPosition pos, MainWindow *mainwin, QWidget *parent);
-    ~Sidebar () override;
+public:
+    Sidebar(KMultiTabBar::KMultiTabBarPosition pos, MainWindow *mainwin, QWidget *parent);
+    ~Sidebar() override;
 
-    void setSplitter (Splitter *sp);
+    void setSplitter(Splitter *sp);
 
-	//HACK use these functions intead of their respective functions in
-	//KMultiTabBar so that we know what they were set to.
-	void setSidebarPosition( KMultiTabBarPosition pos );
-	KMultiTabBar::KMultiTabBarPosition sidebarPosition() const { return m_pos; }
-	void setSidebarStyle( KMultiTabBarStyle style );
-	KMultiTabBar::KMultiTabBarStyle sidebarTabStyle() const { return m_sidebarTabStyle; }
+    // HACK use these functions intead of their respective functions in
+    // KMultiTabBar so that we know what they were set to.
+    void setSidebarPosition(KMultiTabBarPosition pos);
+    KMultiTabBar::KMultiTabBarPosition sidebarPosition() const
+    {
+        return m_pos;
+    }
+    void setSidebarStyle(KMultiTabBarStyle style);
+    KMultiTabBar::KMultiTabBarStyle sidebarTabStyle() const
+    {
+        return m_sidebarTabStyle;
+    }
 
-  public:
-    ToolView *addWidget (const QPixmap &icon, const QString &text, ToolView *widget);
-    bool removeWidget (ToolView *widget);
+public:
+    ToolView *addWidget(const QPixmap &icon, const QString &text, ToolView *widget);
+    bool removeWidget(ToolView *widget);
 
-    bool showWidget (ToolView *widget);
-    bool hideWidget (ToolView *widget);
+    bool showWidget(ToolView *widget);
+    bool hideWidget(ToolView *widget);
 
-    void setLastSize (int s) { m_lastSize = s; }
-    int lastSize () const { return m_lastSize; }
-    void updateLastSize ();
+    void setLastSize(int s)
+    {
+        m_lastSize = s;
+    }
+    int lastSize() const
+    {
+        return m_lastSize;
+    }
+    void updateLastSize();
 
-    bool splitterVisible () const { return m_ownSplit->isVisible(); }
+    bool splitterVisible() const
+    {
+        return m_ownSplit->isVisible();
+    }
 
-	void restoreSession ();
-	void updateMinimumSize();
+    void restoreSession();
+    void updateMinimumSize();
 
-     /**
+    /**
      * restore the current session config from given object, use current group
      * @param config config object to use
      */
-    void restoreSession (KConfigGroup *config);
+    void restoreSession(KConfigGroup *config);
 
-     /**
+    /**
      * save the current session config to given object, use current group
      * @param config config object to use
      */
-    void saveSession (KConfigGroup* config);
+    void saveSession(KConfigGroup *config);
 
-  private slots:
+private slots:
     void tabClicked(int);
 
-  protected:
+protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
 
-  private slots:
-    void buttonPopupActivate (QAction* action);
+private slots:
+    void buttonPopupActivate(QAction *action);
 
-  private:
-
+private:
     MainWindow *m_mainWin;
 
-	KMultiTabBar::KMultiTabBarStyle m_sidebarTabStyle;
+    KMultiTabBar::KMultiTabBarStyle m_sidebarTabStyle;
     KMultiTabBar::KMultiTabBarPosition m_pos;
     Splitter *m_splitter;
     KMultiTabBar *m_tabBar;
     Splitter *m_ownSplit;
 
-    //Q3IntDict<ToolView> m_idToWidget;
-    QMap<int, ToolView*> m_idToWidget;
-    QMap<ToolView*, int> m_widgetToId;
+    // Q3IntDict<ToolView> m_idToWidget;
+    QMap<int, ToolView *> m_idToWidget;
+    QMap<ToolView *, int> m_widgetToId;
 
     /**
      * list of all toolviews around in this sidebar
      */
-    QList<ToolView*> m_toolviews;
+    QList<ToolView *> m_toolviews;
 
     int m_lastSize;
 
@@ -230,35 +250,35 @@ class Sidebar : public KMultiTabBar
 
 class MainWindow : public KParts::MainWindow
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  friend class ToolView;
+    friend class ToolView;
 
-  //
-  // Constructor area
-  //
-  public:
+    //
+    // Constructor area
+    //
+public:
     /**
      * Constructor
      */
-    MainWindow (QWidget* parentWidget = nullptr, const char* name = nullptr);
+    MainWindow(QWidget *parentWidget = nullptr, const char *name = nullptr);
 
     /**
      * Destructor
      */
-    ~MainWindow () override;
+    ~MainWindow() override;
 
-  //
-  // public interfaces
-  //
-  public:
+    //
+    // public interfaces
+    //
+public:
     /**
      * central widget ;)
      * use this as parent for your content
      * this widget will get focus if a toolview is hidden
      * @return central widget
      */
-    QWidget *centralWidget () const;
+    QWidget *centralWidget() const;
 
     /**
      * add a given widget to the given sidebar if possible, name is very important
@@ -268,99 +288,99 @@ class MainWindow : public KParts::MainWindow
      * @param text text to use in addition to icon
      * @return created toolview on success or 0
      */
-    ToolView *createToolView (const QString &identifier, KMultiTabBar::KMultiTabBarPosition pos, const QPixmap &icon, const QString &text);
+    ToolView *createToolView(const QString &identifier, KMultiTabBar::KMultiTabBarPosition pos, const QPixmap &icon, const QString &text);
 
     /**
      * give you handle to toolview for the given name, 0 if no toolview around
      * @param identifier toolview name
      * @return toolview if existing, else 0
      */
-    ToolView *toolView (const QString &identifier) const;
+    ToolView *toolView(const QString &identifier) const;
 
     /**
      * set the toolview's tabbar style.
      * @param style the tabbar style.
      */
-    void setToolViewStyle (KMultiTabBar::KMultiTabBarStyle style);
+    void setToolViewStyle(KMultiTabBar::KMultiTabBarStyle style);
 
     /**
      * get the toolview's tabbar style. Call this before @p startRestore(),
      * otherwise you overwrite the usersettings.
      * @return toolview's tabbar style
      */
-    KMultiTabBar::KMultiTabBarStyle toolViewStyle () const;
+    KMultiTabBar::KMultiTabBarStyle toolViewStyle() const;
 
-  protected:
+protected:
     /**
      * called by toolview destructor
      * @param widget toolview which is destroyed
      */
-    void toolViewDeleted (ToolView *widget);
+    void toolViewDeleted(ToolView *widget);
 
-  /**
-   * modifiers for existing toolviews
-   */
-  public:
+    /**
+     * modifiers for existing toolviews
+     */
+public:
     /**
      * move a toolview around
      * @param widget toolview to move
      * @param pos position to move too, during session restore, only preference
      * @return success
      */
-    bool moveToolView (ToolView *widget, KMultiTabBar::KMultiTabBarPosition pos);
+    bool moveToolView(ToolView *widget, KMultiTabBar::KMultiTabBarPosition pos);
 
     /**
      * show given toolview, discarded while session restore
      * @param widget toolview to show
      * @return success
      */
-    bool showToolView (ToolView *widget);
+    bool showToolView(ToolView *widget);
 
     /**
      * hide given toolview, discarded while session restore
      * @param widget toolview to hide
      * @return success
      */
-    bool hideToolView (ToolView *widget);
+    bool hideToolView(ToolView *widget);
 
-  /**
-   * session saving and restore stuff
-   */
-  public:
+    /**
+     * session saving and restore stuff
+     */
+public:
     /**
      * start the restore
      * @param config config object to use
      * @param group config group to use
      */
-    void startRestore (KConfig *config, const QString &group);
+    void startRestore(KConfig *config, const QString &group);
 
     /**
      * finish the restore
      */
-    void finishRestore ();
+    void finishRestore();
 
     /**
      * save the current session config to given object and group
      * @param config config object to use
      */
-    void saveSession (KConfigGroup *config);
+    void saveSession(KConfigGroup *config);
 
-	void updateSidebarMinimumSizes();
+    void updateSidebarMinimumSizes();
 
-  /**
-   * internal data ;)
-   */
-  private:
+    /**
+     * internal data ;)
+     */
+private:
     /**
      * map identifiers to widgets
      */
-    //Q3Dict<ToolView> m_idToWidget;
-    QMap<QString, ToolView*> m_idToWidget;
+    // Q3Dict<ToolView> m_idToWidget;
+    QMap<QString, ToolView *> m_idToWidget;
 
     /**
      * list of all toolviews around
      */
-    QList<ToolView*> m_toolviews;
+    QList<ToolView *> m_toolviews;
 
     /**
      * widget, which is the central part of the

@@ -21,25 +21,25 @@ class MOSFET;
  */
 class ECMOSFET : public Component
 {
-	public:
-		ECMOSFET( int MOSFET_type, ICNDocument *icnDocument, bool newItem, const char * id = nullptr );
-		~ECMOSFET() override;
-	
-		static Item * constructNEM( ItemDocument * itemDocument, bool newItem, const char * id );
-		static Item * constructPEM( ItemDocument * itemDocument, bool newItem, const char * id );
-// 		static Item * constructNDM( ItemDocument * itemDocument, bool newItem, const char * id );
-// 		static Item * constructPDM( ItemDocument * itemDocument, bool newItem, const char * id );
-		static LibraryItem * libraryItemNEM();
-		static LibraryItem * libraryItemPEM();
-// 		static LibraryItem * libraryItemNDM();
-// 		static LibraryItem * libraryItemPDM();
+public:
+    ECMOSFET(int MOSFET_type, ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECMOSFET() override;
 
-	protected:
-		void dataChanged() override;
-		void drawShape( QPainter &p ) override;
+    static Item *constructNEM(ItemDocument *itemDocument, bool newItem, const char *id);
+    static Item *constructPEM(ItemDocument *itemDocument, bool newItem, const char *id);
+    // 		static Item * constructNDM( ItemDocument * itemDocument, bool newItem, const char * id );
+    // 		static Item * constructPDM( ItemDocument * itemDocument, bool newItem, const char * id );
+    static LibraryItem *libraryItemNEM();
+    static LibraryItem *libraryItemPEM();
+    // 		static LibraryItem * libraryItemNDM();
+    // 		static LibraryItem * libraryItemPDM();
 
-		bool m_bHaveBodyPin;
-		int m_MOSFET_type;
-		MOSFET * m_pMOSFET;
+protected:
+    void dataChanged() override;
+    void drawShape(QPainter &p) override;
+
+    bool m_bHaveBodyPin;
+    int m_MOSFET_type;
+    MOSFET *m_pMOSFET;
 };
 #endif

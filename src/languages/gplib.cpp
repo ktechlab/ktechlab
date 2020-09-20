@@ -16,60 +16,53 @@
 #include <KMessageBox>
 #include <KProcess>
 
-Gplib::Gplib( ProcessChain *processChain )
-	: ExternalLanguage( processChain, "Gpasm" )
+Gplib::Gplib(ProcessChain *processChain)
+    : ExternalLanguage(processChain, "Gpasm")
 {
-	m_successfulMessage = i18n("*** Archiving successful ***");
-	m_failedMessage = i18n("*** Archiving failed ***");
+    m_successfulMessage = i18n("*** Archiving successful ***");
+    m_failedMessage = i18n("*** Archiving failed ***");
 }
-
 
 Gplib::~Gplib()
 {
 }
 
-
-void Gplib::processInput( ProcessOptions options )
+void Gplib::processInput(ProcessOptions options)
 {
-	resetLanguageProcess();
-	m_processOptions = options;
-	
-	*m_languageProcess << ("gplib");
-	*m_languageProcess << ("--create");
-	
-	*m_languageProcess << ( options.intermediaryOutput() );
-	
-	const QStringList inputFiles = options.inputFiles();
-	QStringList::const_iterator end = inputFiles.end();
-	for ( QStringList::const_iterator it = inputFiles.begin(); it != end; ++it )
-		*m_languageProcess << ( *it );
+    resetLanguageProcess();
+    m_processOptions = options;
 
-	if ( !start() )
-	{
-		KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Linking failed. Please check you have gputils installed.") );
-		processInitFailed();
-		return;
-	}
+    *m_languageProcess << ("gplib");
+    *m_languageProcess << ("--create");
+
+    *m_languageProcess << (options.intermediaryOutput());
+
+    const QStringList inputFiles = options.inputFiles();
+    QStringList::const_iterator end = inputFiles.end();
+    for (QStringList::const_iterator it = inputFiles.begin(); it != end; ++it)
+        *m_languageProcess << (*it);
+
+    if (!start()) {
+        KMessageBox::sorry(LanguageManager::self()->logView(), i18n("Linking failed. Please check you have gputils installed."));
+        processInitFailed();
+        return;
+    }
 }
 
-
-bool Gplib::isError( const QString &message ) const
+bool Gplib::isError(const QString &message) const
 {
-	return message.contains( "Error", Qt::CaseInsensitive );
+    return message.contains("Error", Qt::CaseInsensitive);
 }
 
-
-bool Gplib::isWarning( const QString &message ) const
+bool Gplib::isWarning(const QString &message) const
 {
-	return message.contains( "Warning", Qt::CaseInsensitive );
+    return message.contains("Warning", Qt::CaseInsensitive);
 }
 
-
-MessageInfo Gplib::extractMessageInfo( const QString &text )
+MessageInfo Gplib::extractMessageInfo(const QString &text)
 {
-
-	if ( text.length()<5 || !text.startsWith("/") )
-		return MessageInfo();
+    if (text.length() < 5 || !text.startsWith("/"))
+        return MessageInfo();
 #if 0	
 	const int index = text.indexOf( ".asm", 0, Qt::CaseInsensitive )+4;
 	if ( index == -1+4 )
@@ -93,47 +86,43 @@ MessageInfo Gplib::extractMessageInfo( const QString &text )
 }
 	return MessageInfo( fileName, line );
 #endif
-	return MessageInfo();
+    return MessageInfo();
 }
 
-
-
-
-ProcessOptions::ProcessPath::Path Gplib::outputPath( ProcessOptions::ProcessPath::Path inputPath ) const
+ProcessOptions::ProcessPath::Path Gplib::outputPath(ProcessOptions::ProcessPath::Path inputPath) const
 {
-	switch (inputPath)
-	{
-		case ProcessOptions::ProcessPath::Object_Library:
-			return ProcessOptions::ProcessPath::None;
-			
-		case ProcessOptions::ProcessPath::AssemblyAbsolute_PIC:
-		case ProcessOptions::ProcessPath::AssemblyAbsolute_Program:
-		case ProcessOptions::ProcessPath::AssemblyRelocatable_Library:
-		case ProcessOptions::ProcessPath::AssemblyRelocatable_Object:
-		case ProcessOptions::ProcessPath::AssemblyRelocatable_PIC:
-		case ProcessOptions::ProcessPath::AssemblyRelocatable_Program:
-		case ProcessOptions::ProcessPath::C_AssemblyRelocatable:
-		case ProcessOptions::ProcessPath::C_Library:
-		case ProcessOptions::ProcessPath::C_Object:
-		case ProcessOptions::ProcessPath::C_PIC:
-		case ProcessOptions::ProcessPath::C_Program:
-		case ProcessOptions::ProcessPath::FlowCode_AssemblyAbsolute:
-		case ProcessOptions::ProcessPath::FlowCode_Microbe:
-		case ProcessOptions::ProcessPath::FlowCode_PIC:
-		case ProcessOptions::ProcessPath::FlowCode_Program:
-		case ProcessOptions::ProcessPath::Microbe_AssemblyAbsolute:
-		case ProcessOptions::ProcessPath::Microbe_PIC:
-		case ProcessOptions::ProcessPath::Microbe_Program:
-		case ProcessOptions::ProcessPath::Object_Disassembly:
-		case ProcessOptions::ProcessPath::Object_PIC:
-		case ProcessOptions::ProcessPath::Object_Program:
-		case ProcessOptions::ProcessPath::PIC_AssemblyAbsolute:
-		case ProcessOptions::ProcessPath::Program_Disassembly:
-		case ProcessOptions::ProcessPath::Program_PIC:
-		case ProcessOptions::ProcessPath::Invalid:
-		case ProcessOptions::ProcessPath::None:
-			return ProcessOptions::ProcessPath::Invalid;
-	}
-	
-	return ProcessOptions::ProcessPath::Invalid;
+    switch (inputPath) {
+    case ProcessOptions::ProcessPath::Object_Library:
+        return ProcessOptions::ProcessPath::None;
+
+    case ProcessOptions::ProcessPath::AssemblyAbsolute_PIC:
+    case ProcessOptions::ProcessPath::AssemblyAbsolute_Program:
+    case ProcessOptions::ProcessPath::AssemblyRelocatable_Library:
+    case ProcessOptions::ProcessPath::AssemblyRelocatable_Object:
+    case ProcessOptions::ProcessPath::AssemblyRelocatable_PIC:
+    case ProcessOptions::ProcessPath::AssemblyRelocatable_Program:
+    case ProcessOptions::ProcessPath::C_AssemblyRelocatable:
+    case ProcessOptions::ProcessPath::C_Library:
+    case ProcessOptions::ProcessPath::C_Object:
+    case ProcessOptions::ProcessPath::C_PIC:
+    case ProcessOptions::ProcessPath::C_Program:
+    case ProcessOptions::ProcessPath::FlowCode_AssemblyAbsolute:
+    case ProcessOptions::ProcessPath::FlowCode_Microbe:
+    case ProcessOptions::ProcessPath::FlowCode_PIC:
+    case ProcessOptions::ProcessPath::FlowCode_Program:
+    case ProcessOptions::ProcessPath::Microbe_AssemblyAbsolute:
+    case ProcessOptions::ProcessPath::Microbe_PIC:
+    case ProcessOptions::ProcessPath::Microbe_Program:
+    case ProcessOptions::ProcessPath::Object_Disassembly:
+    case ProcessOptions::ProcessPath::Object_PIC:
+    case ProcessOptions::ProcessPath::Object_Program:
+    case ProcessOptions::ProcessPath::PIC_AssemblyAbsolute:
+    case ProcessOptions::ProcessPath::Program_Disassembly:
+    case ProcessOptions::ProcessPath::Program_PIC:
+    case ProcessOptions::ProcessPath::Invalid:
+    case ProcessOptions::ProcessPath::None:
+        return ProcessOptions::ProcessPath::Invalid;
+    }
+
+    return ProcessOptions::ProcessPath::Invalid;
 }

@@ -30,111 +30,119 @@ A standard dialog for getting project details from the user for a new project
 */
 class NewProjectDlg : public QDialog
 {
-	Q_OBJECT
-	public:
-		NewProjectDlg( QWidget * parent );
+    Q_OBJECT
+public:
+    NewProjectDlg(QWidget *parent);
 
-  	  	/**
-		 * Called when the 'OK' button is pressed.
-		 * User entered values are read in
-		 */
-		void accept() override;
+    /**
+     * Called when the 'OK' button is pressed.
+     * User entered values are read in
+     */
+    void accept() override;
 
-		QString projectName() const { return m_projectName; }
-		QString projectLocation() const { return m_projectLocation; }
-		QString location() const { return m_location; }
+    QString projectName() const
+    {
+        return m_projectName;
+    }
+    QString projectLocation() const
+    {
+        return m_projectLocation;
+    }
+    QString location() const
+    {
+        return m_location;
+    }
 
-	public slots:
-   		 /**
-		 * Called when the projectName or projectLocation edit boxes are edited.
-		 * Checks whether the resultant location combination is a valid path -
-		 * if so, enabels the OK button; otherwise disables it.
-		  */
-		void locationChanged( const QString & );
+public slots:
+    /**
+     * Called when the projectName or projectLocation edit boxes are edited.
+     * Checks whether the resultant location combination is a valid path -
+     * if so, enabels the OK button; otherwise disables it.
+     */
+    void locationChanged(const QString &);
 
-	protected:
-		NewProjectWidget * m_pWidget;
-        QDialogButtonBox *m_buttonBox;
-		QString m_projectName;
-		QString m_projectLocation;
-		QString m_location;
+protected:
+    NewProjectWidget *m_pWidget;
+    QDialogButtonBox *m_buttonBox;
+    QString m_projectName;
+    QString m_projectLocation;
+    QString m_location;
 };
-
 
 /**
 @author David Saxton
 */
 class CreateSubprojectDlg : public QDialog
 {
-	Q_OBJECT
-	public:
-		CreateSubprojectDlg( QWidget *parent = nullptr );
-		~CreateSubprojectDlg() override;
+    Q_OBJECT
+public:
+    CreateSubprojectDlg(QWidget *parent = nullptr);
+    ~CreateSubprojectDlg() override;
 
-		// The following values should agree with the positions in the combo box
-		enum Type
-		{
-			ProgramType = 0,
-			LibraryType = 1
-		};
+    // The following values should agree with the positions in the combo box
+    enum Type { ProgramType = 0, LibraryType = 1 };
 
-  	  	/**
-		 * Called when the 'OK' button is pressed. User entered values are read
-		 * in.
-		 */
-		void accept() override;
+    /**
+     * Called when the 'OK' button is pressed. User entered values are read
+     * in.
+     */
+    void accept() override;
 
-		Type type() const { return m_type; }
-		QString targetFile() const { return m_targetFile; }
+    Type type() const
+    {
+        return m_type;
+    }
+    QString targetFile() const
+    {
+        return m_targetFile;
+    }
 
-	protected:
-		CreateSubprojectWidget * m_pWidget;
-		Type m_type;
-		QString m_targetFile;
+protected:
+    CreateSubprojectWidget *m_pWidget;
+    Type m_type;
+    QString m_targetFile;
 };
-
 
 /**
 @author David Saxton
 */
 class LinkerOptionsDlg : public QDialog
 {
-	Q_OBJECT
-	public:
-		LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *parent = nullptr );
-		~LinkerOptionsDlg() override;
+    Q_OBJECT
+public:
+    LinkerOptionsDlg(LinkerOptions *linkingOptions, QWidget *parent = nullptr);
+    ~LinkerOptionsDlg() override;
 
-  	  	/**
-		 * Called when the 'OK' button is pressed. User entered values are read
-		 * in.
-		 */
-		void accept() override;
+    /**
+     * Called when the 'OK' button is pressed. User entered values are read
+     * in.
+     */
+    void accept() override;
 
-	protected:
-		LinkerOptions * m_pLinkerOptions;
-		LinkerOptionsWidget * m_pWidget;
-		KUrlRequester * m_pExternalLibraryRequester;
+protected:
+    LinkerOptions *m_pLinkerOptions;
+    LinkerOptionsWidget *m_pWidget;
+    KUrlRequester *m_pExternalLibraryRequester;
 };
-
 
 /**
 @author David Saxton
 */
 class ProcessingOptionsDlg : public QDialog
 {
-	public:
-		ProcessingOptionsDlg( ProjectItem * projectItem, QWidget *parent = nullptr );
-		~ProcessingOptionsDlg() override;
+public:
+    ProcessingOptionsDlg(ProjectItem *projectItem, QWidget *parent = nullptr);
+    ~ProcessingOptionsDlg() override;
 
-  	  	/**
-		 * Called when the 'OK' button is pressed. User entered values are read
-		 * in.
-		 */
-		void accept() override;
+    /**
+     * Called when the 'OK' button is pressed. User entered values are read
+     * in.
+     */
+    void accept() override;
 
-	protected:
-		ProjectItem * m_pProjectItem;
-		ProcessingOptionsWidget * m_pWidget;
+protected:
+    ProjectItem *m_pProjectItem;
+    ProcessingOptionsWidget *m_pWidget;
 };
 
 #endif

@@ -20,23 +20,23 @@
 class ChassisCircular2 : public MechanicsItem
 {
 public:
-	ChassisCircular2( MechanicsDocument *mechanicsDocument, bool newItem, const char *id = nullptr );
-	~ChassisCircular2() override;
+    ChassisCircular2(MechanicsDocument *mechanicsDocument, bool newItem, const char *id = nullptr);
+    ~ChassisCircular2() override;
 
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-	virtual void advance( int phase );
+    virtual void advance(int phase);
 
 protected:
-	void itemResized() override;
-	void drawShape( QPainter &p ) override;
+    void itemResized() override;
+    void drawShape(QPainter &p) override;
 
-	double m_theta1; // Angle of rotation of wheel 1 (used for drawing)
-	double m_theta2; // Angle of rotation of wheel 1 (used for drawing)
+    double m_theta1; // Angle of rotation of wheel 1 (used for drawing)
+    double m_theta2; // Angle of rotation of wheel 1 (used for drawing)
 
-	QRect m_wheel1Pos; // Position of first wheel, with respect to top left of item
-	QRect m_wheel2Pos; // Position of second wheel, with respect to top left of item
+    QRect m_wheel1Pos; // Position of first wheel, with respect to top left of item
+    QRect m_wheel2Pos; // Position of second wheel, with respect to top left of item
 };
 
 #endif

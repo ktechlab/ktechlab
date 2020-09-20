@@ -13,12 +13,12 @@
 
 MicroInfo::MicroInfo()
 {
-	m_package = nullptr;
+    m_package = nullptr;
 }
 
 MicroInfo::~MicroInfo()
 {
-	delete m_package;
+    delete m_package;
 }
 
 #if 0
@@ -58,4 +58,3 @@ int MicroInfo::numIOPins( const QString &portName )
 	else return 0;
 }
 #endif
-

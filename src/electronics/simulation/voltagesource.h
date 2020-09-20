@@ -20,18 +20,21 @@ CNode n0 is the negative terminal, CNode n1 is the positive terminal
 class VoltageSource : public Element
 {
 public:
-	VoltageSource( const double voltage );
-	~VoltageSource() override;
-	
-	Type type() const override { return Element_VoltageSource; }
-	void setVoltage( const double v );
+    VoltageSource(const double voltage);
+    ~VoltageSource() override;
+
+    Type type() const override
+    {
+        return Element_VoltageSource;
+    }
+    void setVoltage(const double v);
 
 protected:
-	void updateCurrents() override;
-	void add_initial_dc() override;
+    void updateCurrents() override;
+    void add_initial_dc() override;
 
 private:
-	double m_v; // Voltage
+    double m_v; // Voltage
 };
 
 #endif

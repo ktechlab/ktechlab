@@ -20,16 +20,16 @@
 class Pulse : public FlowPart
 {
 public:
-	Pulse( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~Pulse() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
-	void generateMicrobe( FlowCode *code ) override;
+    Pulse(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~Pulse() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    void generateMicrobe(FlowCode *code) override;
 
 protected:
-	void dataChanged() override;
+    void dataChanged() override;
 };
 
 #endif

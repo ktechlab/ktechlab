@@ -18,33 +18,32 @@ class PicProgrammerSettings;
 class ProcessOptions;
 class ProgrammerWidget;
 
-
 /**
 @author David Saxton
 */
 class ProgrammerDlg : public QDialog
 {
-	Q_OBJECT
-	public:
-		/**
-		 * Create a new ProgrammerDlg with the PIC type set to picID. Other
-		 * options (such as the program to use) will be read in from the
-		 * settings.
-		 */
-		ProgrammerDlg( const QString & picID, QWidget * parent = nullptr, const char * name = nullptr );
-		~ProgrammerDlg() override;
+    Q_OBJECT
+public:
+    /**
+     * Create a new ProgrammerDlg with the PIC type set to picID. Other
+     * options (such as the program to use) will be read in from the
+     * settings.
+     */
+    ProgrammerDlg(const QString &picID, QWidget *parent = nullptr, const char *name = nullptr);
+    ~ProgrammerDlg() override;
 
-		/**
-		 * Initialises options with the values that the user has entered into
-		 * the widgets.
-		 */
-		void initOptions( ProcessOptions * options );
+    /**
+     * Initialises options with the values that the user has entered into
+     * the widgets.
+     */
+    void initOptions(ProcessOptions *options);
 
-		MicroSelectWidget * microSelect() const;
+    MicroSelectWidget *microSelect() const;
 
-	protected:
-		ProgrammerWidget * m_pProgrammerWidget;
-		PicProgrammerSettings * m_pProgrammerSettings;
+protected:
+    ProgrammerWidget *m_pProgrammerWidget;
+    PicProgrammerSettings *m_pProgrammerSettings;
 };
 
 #endif

@@ -21,20 +21,20 @@
 class ECBCDTo7Segment : public CallbackClass, public Component
 {
 public:
-	ECBCDTo7Segment( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECBCDTo7Segment() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
+    ECBCDTo7Segment(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECBCDTo7Segment() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
 private:
-	void inStateChanged( bool newState );
-	LogicIn *ALogic, *BLogic, *CLogic, *DLogic;
-	LogicIn *ltLogic, *rbLogic, *enLogic;
-	LogicOut *outLogic[7];
-	
-	// Old values
-	bool oldOut[7];
+    void inStateChanged(bool newState);
+    LogicIn *ALogic, *BLogic, *CLogic, *DLogic;
+    LogicIn *ltLogic, *rbLogic, *enLogic;
+    LogicOut *outLogic[7];
+
+    // Old values
+    bool oldOut[7];
 };
 
 #endif

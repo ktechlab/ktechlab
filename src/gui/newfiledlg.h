@@ -24,29 +24,41 @@ A standard dialog for getting file details from the user for a new project
 */
 class NewFileDlg : public QDialog
 {
-	Q_OBJECT
-	public:
-		NewFileDlg( QWidget *parent );
+    Q_OBJECT
+public:
+    NewFileDlg(QWidget *parent);
 
-		void accept() override;
+    void accept() override;
 
-		int fileType() const { return m_fileType; }
-		int codeType() const { return m_codeType; }
-		bool addToProject() const { return m_bAddToProject; }
-		QString microID() const { return m_microID; }
-		MicroSelectWidget * microSelectWidget() const;
+    int fileType() const
+    {
+        return m_fileType;
+    }
+    int codeType() const
+    {
+        return m_codeType;
+    }
+    bool addToProject() const
+    {
+        return m_bAddToProject;
+    }
+    QString microID() const
+    {
+        return m_microID;
+    }
+    MicroSelectWidget *microSelectWidget() const;
 
-	public slots:
-		void fileTypeChanged();
+public slots:
+    void fileTypeChanged();
 
-	protected:
-		int m_fileType;
-		int m_codeType;
-		bool m_bAddToProject;
-		QString m_microID;
+protected:
+    int m_fileType;
+    int m_codeType;
+    bool m_bAddToProject;
+    QString m_microID;
 
-		NewFileWidget * m_pNewFileWidget;
-		QWidget * m_pMainParent;
+    NewFileWidget *m_pNewFileWidget;
+    QWidget *m_pMainParent;
 };
 
 #endif

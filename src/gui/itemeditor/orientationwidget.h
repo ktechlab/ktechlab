@@ -25,35 +25,35 @@ class DrawingPushButton;
 */
 class OrientationWidget : public QWidget
 {
-	Q_OBJECT
-	public:
-		OrientationWidget( QWidget *parent = nullptr, const char *name = nullptr );
-		~OrientationWidget() override;
+    Q_OBJECT
+public:
+    OrientationWidget(QWidget *parent = nullptr, const char *name = nullptr);
+    ~OrientationWidget() override;
 
-	public slots:
-		void slotUpdate( CNItemGroup * itemGroup );
-		void slotClear();
-	
-	signals:
-		void orientationSelected( uint orientation );
-		
-	protected slots:
-		void slotButtonClicked();
-		/**
-		 * Updates which button is indented depending on the current orientation
-		 * of the item(s) being edited.
-		 */
-		void updateShownOrientation();
-	
-	protected:
-		void initFromComponent( Component * component );
-		void initFromFlowPart( FlowPart * flowPart );
-	
-		DrawingPushButton *m_toolBtn[2][4];
-		QPointer<FlowPart> m_pFlowPart;
-		QPointer<Component> m_pComponent;
-		QPointer<CNItem> m_pCNItem; // Either the flowpart or component
-		bool m_bHaveSameOrientation; // Whether the items had the same orientation when last updated
+public slots:
+    void slotUpdate(CNItemGroup *itemGroup);
+    void slotClear();
+
+signals:
+    void orientationSelected(uint orientation);
+
+protected slots:
+    void slotButtonClicked();
+    /**
+     * Updates which button is indented depending on the current orientation
+     * of the item(s) being edited.
+     */
+    void updateShownOrientation();
+
+protected:
+    void initFromComponent(Component *component);
+    void initFromFlowPart(FlowPart *flowPart);
+
+    DrawingPushButton *m_toolBtn[2][4];
+    QPointer<FlowPart> m_pFlowPart;
+    QPointer<Component> m_pComponent;
+    QPointer<CNItem> m_pCNItem;  // Either the flowpart or component
+    bool m_bHaveSameOrientation; // Whether the items had the same orientation when last updated
 };
 
 #endif

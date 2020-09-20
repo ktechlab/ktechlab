@@ -20,15 +20,15 @@ class FlowCodeDocument;
 */
 class FlowCodeView : public ICNView
 {
-	Q_OBJECT
-	public:
-		FlowCodeView( FlowCodeDocument *flowCodeDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr );
-		~FlowCodeView() override;
-	
-	protected:
-		void dragEnterEvent( QDragEnterEvent * e ) override;
+    Q_OBJECT
+public:
+    FlowCodeView(FlowCodeDocument *flowCodeDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr);
+    ~FlowCodeView() override;
 
-		FlowCodeDocument *p_flowCodeDocument;
+protected:
+    void dragEnterEvent(QDragEnterEvent *e) override;
+
+    FlowCodeDocument *p_flowCodeDocument;
 };
 
 #endif

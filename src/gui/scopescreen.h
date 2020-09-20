@@ -15,23 +15,28 @@
 
 #include <ui_scopescreenwidget.h>
 
-namespace KateMDI { class ToolView; }
+namespace KateMDI
+{
+class ToolView;
+}
 
 /**
-	@author John Myers
+    @author John Myers
 */
 class ScopeScreen : public QWidget, public Ui::ScopeScreenWidget
 {
     Q_OBJECT
 
 private:
-	ScopeScreen(KateMDI::ToolView * parent);
-	
-public:
-	static ScopeScreen * self( KateMDI::ToolView * parent = nullptr );
-	static QString toolViewIdentifier() { return "ScopeScreen"; }
-    ~ScopeScreen() override;
+    ScopeScreen(KateMDI::ToolView *parent);
 
+public:
+    static ScopeScreen *self(KateMDI::ToolView *parent = nullptr);
+    static QString toolViewIdentifier()
+    {
+        return "ScopeScreen";
+    }
+    ~ScopeScreen() override;
 };
 
 #endif

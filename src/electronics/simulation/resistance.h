@@ -20,23 +20,32 @@
 class Resistance : public Element
 {
 public:
-	Resistance( const double resistance );
-	~Resistance() override;
-	
-	Type type() const override { return Element_Resistance; }
-	
-	void setConductance( const double g );
-	void setResistance( const double r );
+    Resistance(const double resistance);
+    ~Resistance() override;
 
-	double resistance() { return 1/m_g; }
-	double conductance() { return m_g; }
+    Type type() const override
+    {
+        return Element_Resistance;
+    }
+
+    void setConductance(const double g);
+    void setResistance(const double r);
+
+    double resistance()
+    {
+        return 1 / m_g;
+    }
+    double conductance()
+    {
+        return m_g;
+    }
 
 protected:
-	void updateCurrents() override;
-	void add_initial_dc() override;
-	
+    void updateCurrents() override;
+    void add_initial_dc() override;
+
 private:
-	double m_g; // Conductance
+    double m_g; // Conductance
 };
 
 #endif

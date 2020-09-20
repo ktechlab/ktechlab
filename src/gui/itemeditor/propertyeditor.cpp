@@ -10,46 +10,49 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "item.h"
-#include "iteminterface.h"
-#include "itemgroup.h"
-#include "ktechlab.h"
 #include "propertyeditor.h"
+#include "item.h"
+#include "itemgroup.h"
+#include "iteminterface.h"
+#include "ktechlab.h"
 #include "propertyeditorcolor.h"
 #include "propertyeditorfile.h"
-#include "propertyeditorlist.h"
 #include "propertyeditorinput.h"
+#include "propertyeditorlist.h"
 
 #include "drawparts/drawpart.h"
 
-#include <KLocalizedString>
 #include <KIconLoader>
+#include <KLocalizedString>
 
-#include <QPushButton>
 #include <QApplication>
 #include <QDebug>
 #include <QEvent>
 #include <QFontMetrics>
 #include <QHeaderView>
 #include <QIcon>
-#include <QTimer>
+#include <QPushButton>
 #include <QStyledItemDelegate>
-
+#include <QTimer>
 
 struct PropertyEditorStyledItemColProperty : public QStyledItemDelegate {
     PropertyEditor *m_propEditor;
 
-    PropertyEditorStyledItemColProperty(PropertyEditor *propEditor) : m_propEditor(propEditor) { }
+    PropertyEditorStyledItemColProperty(PropertyEditor *propEditor)
+        : m_propEditor(propEditor)
+    {
+    }
 
-    void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const override {
-//         if ( depth() == 0 )
-//             return;
-        QTableWidgetItem *itemPtr = m_propEditor->item( index.row(), index.column());
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
+    {
+        //         if ( depth() == 0 )
+        //             return;
+        QTableWidgetItem *itemPtr = m_propEditor->item(index.row(), index.column());
         if (!itemPtr) {
             qWarning() << Q_FUNC_INFO << " null item";
             return;
         }
-        PropertyEditorItem *itemProp = dynamic_cast<PropertyEditorItem*>( itemPtr );
+        PropertyEditorItem *itemProp = dynamic_cast<PropertyEditorItem *>(itemPtr);
         if (!itemProp) {
             qWarning() << Q_FUNC_INFO << " cannot cast item";
             return;
@@ -67,34 +70,33 @@ struct PropertyEditorStyledItemColProperty : public QStyledItemDelegate {
 
         painter->save();
 
-        //qWarning() << " draw col " << index.column() << " row " << index.row()
+        // qWarning() << " draw col " << index.column() << " row " << index.row()
         //    << " isHighlighted=" << isHighlighted << " state_selected=" << option.state.testFlag(QStyle::State_Selected);
 
-        if (isHighlighted || option.state.testFlag(QStyle::State_Selected))
-        {
-            painter->fillRect(left,top, width, height, option.palette.highlight());
-            painter->setPen(option.palette.color(QPalette::BrightText) /* highlightedText() */ );
+        if (isHighlighted || option.state.testFlag(QStyle::State_Selected)) {
+            painter->fillRect(left, top, width, height, option.palette.highlight());
+            painter->setPen(option.palette.color(QPalette::BrightText) /* highlightedText() */);
         } else {
             QColor bgColor = option.palette.color(QPalette::Base); // 2018.12.07
-            painter->fillRect(left,top, width, height, QBrush(bgColor));
+            painter->fillRect(left, top, width, height, QBrush(bgColor));
         }
 
         QFont f = option.font;
 
-        if ( itemProp->property()->changed() || (!itemProp->property()->isAdvanced())) {
+        if (itemProp->property()->changed() || (!itemProp->property()->isAdvanced())) {
             f.setBold(true);
         }
 
         painter->setFont(f);
-        painter->drawText( QRect(left + margin, top, width-1, height-1), Qt::AlignVCenter, itemProp->text() );
+        painter->drawText(QRect(left + margin, top, width - 1, height - 1), Qt::AlignVCenter, itemProp->text());
 
-        //qWarning() << Q_FUNC_INFO << " draw " << itemProp->text() << " at " << option.rect;
+        // qWarning() << Q_FUNC_INFO << " draw " << itemProp->text() << " at " << option.rect;
 
-        painter->setPen( QColor(200,200,200) ); //like in table view
-        painter->drawLine(left + width-1, top, left + width-1, top + height-1);
+        painter->setPen(QColor(200, 200, 200)); // like in table view
+        painter->drawLine(left + width - 1, top, left + width - 1, top + height - 1);
 
-        painter->setPen( QColor(200,200,200) ); //like in t.v.
-        painter->drawLine(left-50, top + height-1, left + width-1, top + height-1 );
+        painter->setPen(QColor(200, 200, 200)); // like in t.v.
+        painter->drawLine(left - 50, top + height - 1, left + width - 1, top + height - 1);
 
         painter->restore();
     }
@@ -108,18 +110,22 @@ struct PropertyEditorStyledItemColProperty : public QStyledItemDelegate {
 struct PropertyEditorStyledItemColValue : public QStyledItemDelegate {
     PropertyEditor *m_propEditor;
 
-    PropertyEditorStyledItemColValue(PropertyEditor *propEditor) : m_propEditor(propEditor) { }
+    PropertyEditorStyledItemColValue(PropertyEditor *propEditor)
+        : m_propEditor(propEditor)
+    {
+    }
 
-    void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const override {
-//         if ( depth() == 0 )
-//             return;
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
+    {
+        //         if ( depth() == 0 )
+        //             return;
 
-        QTableWidgetItem *itemPtr = m_propEditor->item( index.row(), index.column());
+        QTableWidgetItem *itemPtr = m_propEditor->item(index.row(), index.column());
         if (!itemPtr) {
             qWarning() << Q_FUNC_INFO << " null item";
             return;
         }
-        PropertyEditorItem *itemProp = dynamic_cast<PropertyEditorItem*>( itemPtr );
+        PropertyEditorItem *itemProp = dynamic_cast<PropertyEditorItem *>(itemPtr);
         if (!itemProp) {
             qWarning() << Q_FUNC_INFO << " cannot cast item";
             return;
@@ -132,60 +138,53 @@ struct PropertyEditorStyledItemColValue : public QStyledItemDelegate {
         const int top = option.rect.top();
         const int left = option.rect.left();
 
-        //const bool isHighlighted = m_propEditor->currentRow() == index.row(); // TODO
+        // const bool isHighlighted = m_propEditor->currentRow() == index.row(); // TODO
 
         QColor bgColor = option.palette.color(QPalette::Window); // backgroundColor(0); // 2018.06.02 - is this better?
 
         painter->save();
 
         Property *property = itemProp->property();
-        switch(property->type())
-        {
-//          case QVariant::Pixmap:
-//          {
-//              p->fillRect(0,0,width,height(),QBrush(backgroundColor()));
-//              p->drawPixmap(margin, margin, m_property->value().toPixmap());
-//              break;
-//          }
+        switch (property->type()) {
+            //          case QVariant::Pixmap:
+            //          {
+            //              p->fillRect(0,0,width,height(),QBrush(backgroundColor()));
+            //              p->drawPixmap(margin, margin, m_property->value().toPixmap());
+            //              break;
+            //          }
 
-            case Variant::Type::Color:
-            {
-                painter->fillRect(left,top, width,height, QBrush(bgColor));
-                //QColor ncolor = m_property->value().toColor();
-                QColor ncolor = property->value().value<QColor>();
-                painter->setBrush(ncolor);
-                painter->drawRect(left + margin, top + margin, width - 2*margin, height - 2*margin);
-//                 QColorGroup nGroup(cg);
-                break;
+        case Variant::Type::Color: {
+            painter->fillRect(left, top, width, height, QBrush(bgColor));
+            // QColor ncolor = m_property->value().toColor();
+            QColor ncolor = property->value().value<QColor>();
+            painter->setBrush(ncolor);
+            painter->drawRect(left + margin, top + margin, width - 2 * margin, height - 2 * margin);
+            //                 QColorGroup nGroup(cg);
+            break;
+        }
+
+        case Variant::Type::Bool: {
+            painter->fillRect(left, top, width, height, QBrush(bgColor));
+            if (property->value().toBool()) {
+                painter->drawPixmap(left + margin, top + height / 2 - 8, SmallIcon("dialog-ok"));
+                painter->drawText(QRect(left + margin + 20, top, width, height - 1), Qt::AlignVCenter, i18n("Yes"));
+            } else {
+                painter->drawPixmap(left + margin, top + height / 2 - 8, SmallIcon("dialog-cancel"));
+                painter->drawText(QRect(left + margin + 20, top, width, height - 1), Qt::AlignVCenter, i18n("No"));
             }
+            break;
+        }
 
-            case Variant::Type::Bool:
-            {
-                painter->fillRect(left, top , width,height, QBrush(bgColor));
-                if(property->value().toBool())
-                {
-                    painter->drawPixmap(left + margin, top + height/2 -8, SmallIcon("dialog-ok"));
-                    painter->drawText(QRect(left + margin+20, top, width,height-1), Qt::AlignVCenter, i18n("Yes"));
-                }
-                else
-                {
-                    painter->drawPixmap(left + margin, top + height/2 -8, SmallIcon("dialog-cancel"));
-                    painter->drawText(QRect(left + margin+20, top, width,height-1), Qt::AlignVCenter, i18n("No"));
-                }
-                break;
-            }
+        case Variant::Type::PenStyle: {
+            painter->fillRect(left, top, width, height, QBrush(bgColor));
 
-            case Variant::Type::PenStyle:
-            {
-                painter->fillRect(left, top, width,height, QBrush(bgColor));
-
-                Qt::PenStyle style = DrawPart::nameToPenStyle( property->value().toString() );
-                int penWidth = 3;
-                QPen pen( Qt::black, penWidth, style );
-                painter->setPen( pen );
-                painter->drawLine( left + height/2, top + height/2-1, left + width-height/2, top + height/2-1 );
-                break;
-            }
+            Qt::PenStyle style = DrawPart::nameToPenStyle(property->value().toString());
+            int penWidth = 3;
+            QPen pen(Qt::black, penWidth, style);
+            painter->setPen(pen);
+            painter->drawLine(left + height / 2, top + height / 2 - 1, left + width - height / 2, top + height / 2 - 1);
+            break;
+        }
 
 #if 0
             case Variant::Type::PenCapStyle:
@@ -201,30 +200,29 @@ struct PropertyEditorStyledItemColValue : public QStyledItemDelegate {
             }
 #endif
 
-            case Variant::Type::None:
-            case Variant::Type::Int:
-            case Variant::Type::Raw:
-            case Variant::Type::Double:
-            case Variant::Type::String:
-            case Variant::Type::Multiline:
-            case Variant::Type::RichText:
-            case Variant::Type::Select:
-            case Variant::Type::Combo:
-            case Variant::Type::FileName:
-            case Variant::Type::VarName:
-            case Variant::Type::PenCapStyle:
-            case Variant::Type::Port:
-            case Variant::Type::Pin:
-            case Variant::Type::SevenSegment:
-            case Variant::Type::KeyPad:
-            {
-                QStyledItemDelegate::paint(painter, option, index);
-                break;
-            }
+        case Variant::Type::None:
+        case Variant::Type::Int:
+        case Variant::Type::Raw:
+        case Variant::Type::Double:
+        case Variant::Type::String:
+        case Variant::Type::Multiline:
+        case Variant::Type::RichText:
+        case Variant::Type::Select:
+        case Variant::Type::Combo:
+        case Variant::Type::FileName:
+        case Variant::Type::VarName:
+        case Variant::Type::PenCapStyle:
+        case Variant::Type::Port:
+        case Variant::Type::Pin:
+        case Variant::Type::SevenSegment:
+        case Variant::Type::KeyPad: {
+            QStyledItemDelegate::paint(painter, option, index);
+            break;
+        }
         }
 
-        painter->setPen( QColor(200,200,200) ); //like in t.v.
-        painter->drawLine( left-50, top + height-1, left + width, top + height-1 );
+        painter->setPen(QColor(200, 200, 200)); // like in t.v.
+        painter->drawLine(left - 50, top + height - 1, left + width, top + height - 1);
 
         painter->restore();
     }
@@ -235,25 +233,25 @@ struct PropertyEditorStyledItemColValue : public QStyledItemDelegate {
     */
 };
 
-PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
-	: QTableWidget( parent )
- //, m_items(101, false) // 2018.08.13 - unused
- , justClickedItem(false)
- , m_lastCellWidgetRow(-1)
- , m_lastCellWidgetCol(-1)
- , m_colPropertyDelegate(nullptr)
- , m_colValueDelegate(nullptr)
+PropertyEditor::PropertyEditor(QWidget *parent, const char *name)
+    : QTableWidget(parent)
+    //, m_items(101, false) // 2018.08.13 - unused
+    , justClickedItem(false)
+    , m_lastCellWidgetRow(-1)
+    , m_lastCellWidgetCol(-1)
+    , m_colPropertyDelegate(nullptr)
+    , m_colValueDelegate(nullptr)
 {
-    setObjectName( name );
-	//m_items.setAutoDelete(false); // 2018.08.13 - unused
+    setObjectName(name);
+    // m_items.setAutoDelete(false); // 2018.08.13 - unused
 
     setColumnCount(2);
     QStringList headerLabels;
-    headerLabels.append( i18n("Property") );
-    headerLabels.append( i18n("Value") );
+    headerLabels.append(i18n("Property"));
+    headerLabels.append(i18n("Value"));
     setHorizontalHeaderLabels(headerLabels);
-	//addColumn( i18n("Property") );    // 2018.08.13 - ported to QTableWidget
-	//addColumn( i18n("Value") );
+    // addColumn( i18n("Property") );    // 2018.08.13 - ported to QTableWidget
+    // addColumn( i18n("Value") );
 
     m_colPropertyDelegate = new PropertyEditorStyledItemColProperty(this);
     setItemDelegateForColumn(0, m_colPropertyDelegate);
@@ -261,84 +259,81 @@ PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
     m_colValueDelegate = new PropertyEditorStyledItemColValue(this);
     setItemDelegateForColumn(1, m_colValueDelegate);
 
-	m_topItem = nullptr;
-	m_editItem = nullptr;
+    m_topItem = nullptr;
+    m_editItem = nullptr;
 
-	connect(this, SIGNAL(clicked(const QModelIndex&)), this, SLOT(slotClicked(const QModelIndex&)));
-	connect(this, SIGNAL(itemActivated(QTableWidgetItem*)), this, SLOT(slotCurrentChanged(QTableWidgetItem *)));
-// 	connect(this, SIGNAL(expanded(Q3ListViewItem *)), this, SLOT(slotExpanded(Q3ListViewItem *)));  // TODO
-// 	connect(this, SIGNAL(collapsed(Q3ListViewItem *)), this, SLOT(slotCollapsed(Q3ListViewItem *)));
+    connect(this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(slotClicked(const QModelIndex &)));
+    connect(this, SIGNAL(itemActivated(QTableWidgetItem *)), this, SLOT(slotCurrentChanged(QTableWidgetItem *)));
+    // 	connect(this, SIGNAL(expanded(Q3ListViewItem *)), this, SLOT(slotExpanded(Q3ListViewItem *)));  // TODO
+    // 	connect(this, SIGNAL(collapsed(Q3ListViewItem *)), this, SLOT(slotCollapsed(Q3ListViewItem *)));
 
-    connect(this, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(slotCurrentCellChanged(int,int,int,int)));
+    connect(this, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(slotCurrentCellChanged(int, int, int, int)));
 
-// 	connect(header(), SIGNAL(sizeChange( int, int, int )), this, SLOT(slotColumnSizeChanged( int, int, int ))); // TODO
-// 	connect(header(), SIGNAL(clicked( int )), this, SLOT(moveEditor()));
-// 	connect(header(), SIGNAL(sectionHandleDoubleClicked ( int )), this, SLOT(slotColumnSizeChanged( int )));
+    // 	connect(header(), SIGNAL(sizeChange( int, int, int )), this, SLOT(slotColumnSizeChanged( int, int, int ))); // TODO
+    // 	connect(header(), SIGNAL(clicked( int )), this, SLOT(moveEditor()));
+    // 	connect(header(), SIGNAL(sectionHandleDoubleClicked ( int )), this, SLOT(slotColumnSizeChanged( int )));
 
-	m_defaults = new QPushButton(viewport());
-	m_defaults->setFocusPolicy(Qt::NoFocus);
-	setFocusPolicy(Qt::ClickFocus);
-	m_defaults->setIcon(QIcon::fromTheme("edit-undo"));
-	m_defaults->setToolTip(i18n("Undo changes"));
-	m_defaults->hide();
-	connect(m_defaults, SIGNAL(clicked()), this, SLOT(resetItem()));
+    m_defaults = new QPushButton(viewport());
+    m_defaults->setFocusPolicy(Qt::NoFocus);
+    setFocusPolicy(Qt::ClickFocus);
+    m_defaults->setIcon(QIcon::fromTheme("edit-undo"));
+    m_defaults->setToolTip(i18n("Undo changes"));
+    m_defaults->hide();
+    connect(m_defaults, SIGNAL(clicked()), this, SLOT(resetItem()));
 
     // TODO
-    const int itemMargin=2;
-	//setRootIsDecorated( false );
-	//setShowSortIndicator( false );
-	// setTooltipColumn(0); // TODO equivalent?
-	setSortingEnabled(false /*true*/); // note: enabling it causes crashes, apperently
+    const int itemMargin = 2;
+    // setRootIsDecorated( false );
+    // setShowSortIndicator( false );
+    // setTooltipColumn(0); // TODO equivalent?
+    setSortingEnabled(false /*true*/); // note: enabling it causes crashes, apperently
     horizontalHeader()->setSortIndicatorShown(false);
     horizontalHeader()->setContentsMargins(itemMargin, itemMargin, itemMargin, itemMargin);
-	//setItemMargin(2); // needed?
-	horizontalHeader()->setResizeMode(QHeaderView::QHeaderView::Stretch);
+    // setItemMargin(2); // needed?
+    horizontalHeader()->setResizeMode(QHeaderView::QHeaderView::Stretch);
     horizontalHeader()->setMovable(false);
-	//header()->setMovingEnabled( false );
+    // header()->setMovingEnabled( false );
     verticalHeader()->setVisible(false);
-	//setTreeStepSize(0);
+    // setTreeStepSize(0);
     setSelectionMode(QAbstractItemView::SingleSelection);
 
-	m_baseRowHeight = QFontMetrics(font()).height() + itemMargin*2;
+    m_baseRowHeight = QFontMetrics(font()).height() + itemMargin * 2;
 }
-
 
 PropertyEditor::~PropertyEditor()
 {
     // note: delete m_colPropertyDelegate and m_colValueDelegate
 }
 
-
-void PropertyEditor::slotClicked(const QModelIndex& index)
+void PropertyEditor::slotClicked(const QModelIndex &index)
 {
-	if (!index.isValid())
-		return;
+    if (!index.isValid())
+        return;
 
-// 2019.01.19 - moved to slotCurrentCellChanged()
-//     if (index.column() == 1) {
-//         // PropertyEditorItem *i = static_cast<PropertyEditorItem *>(item);// 2018.08.13 - not needed
-//         createEditor(index);
-//     }
+    // 2019.01.19 - moved to slotCurrentCellChanged()
+    //     if (index.column() == 1) {
+    //         // PropertyEditorItem *i = static_cast<PropertyEditorItem *>(item);// 2018.08.13 - not needed
+    //         createEditor(index);
+    //     }
 
-	justClickedItem = true;
+    justClickedItem = true;
 }
 
-
-void PropertyEditor::slotCurrentChanged(QTableWidgetItem* /*itemParam*/)
+void PropertyEditor::slotCurrentChanged(QTableWidgetItem * /*itemParam*/)
 {
-// TODO
-// 	if (itemParam == firstChild())
-// 	{
-// 		Q3ListViewItem *oldItem = item;
-// 		while (item && (!item->isSelectable() || !item->isVisible()))
-// 			item = item->itemBelow();
-//
-// 		if (item && item!=oldItem)
-// 		{
-// 			setSelected(item,true);
-// 			return;
-// 		}
-// 	}
+    // TODO
+    // 	if (itemParam == firstChild())
+    // 	{
+    // 		Q3ListViewItem *oldItem = item;
+    // 		while (item && (!item->isSelectable() || !item->isVisible()))
+    // 			item = item->itemBelow();
+    //
+    // 		if (item && item!=oldItem)
+    // 		{
+    // 			setSelected(item,true);
+    // 			return;
+    // 		}
+    // 	}
 }
 
 void PropertyEditor::slotCurrentCellChanged(int currentRow, int currentColumn, int /*previousRow*/, int /*previousColumn*/)
@@ -353,23 +348,21 @@ void PropertyEditor::slotCurrentCellChanged(int currentRow, int currentColumn, i
     }
 }
 
-void PropertyEditor::slotExpanded(QTableWidgetItem* item)
+void PropertyEditor::slotExpanded(QTableWidgetItem *item)
 {
-	if (!item)
-		return;
-	moveEditor();
+    if (!item)
+        return;
+    moveEditor();
 }
 
-
-void PropertyEditor::slotCollapsed(QTableWidgetItem* item)
+void PropertyEditor::slotCollapsed(QTableWidgetItem *item)
 {
-	if (!item)
-		return;
-	moveEditor();
+    if (!item)
+        return;
+    moveEditor();
 }
 
-
-void PropertyEditor::createEditor( const QModelIndex& index )
+void PropertyEditor::createEditor(const QModelIndex &index)
 {
     PropertyEditorItem *i = dynamic_cast<PropertyEditorItem *>(item(index.row(), index.column()));
     if (!i) {
@@ -377,11 +370,11 @@ void PropertyEditor::createEditor( const QModelIndex& index )
         return;
     }
 
-// 	int y = viewportToContents(QPoint(0, itemRect(i).y())).y();
-// 	QRect geometry(columnWidth(0), y, columnWidth(1), i->height());
+    // 	int y = viewportToContents(QPoint(0, itemRect(i).y())).y();
+    // 	QRect geometry(columnWidth(0), y, columnWidth(1), i->height());
 
-	//delete m_currentEditor;
-    //m_currentEditor->deleteLater();
+    // delete m_currentEditor;
+    // m_currentEditor->deleteLater();
     if (m_lastCellWidgetRow >= 0 && m_lastCellWidgetCol >= 0) {
         removeCellWidget(m_lastCellWidgetRow, m_lastCellWidgetCol);
         m_lastCellWidgetRow = -1;
@@ -389,150 +382,134 @@ void PropertyEditor::createEditor( const QModelIndex& index )
     }
     m_currentEditor = nullptr;
 
-	m_editItem = i;
+    m_editItem = i;
 
-	PropertySubEditor *editor = nullptr;
-	switch ( i->type() )
-	{
-		case Variant::Type::String:
-			editor = new PropertyEditorInput( viewport(), i->property() );
-			break;
+    PropertySubEditor *editor = nullptr;
+    switch (i->type()) {
+    case Variant::Type::String:
+        editor = new PropertyEditorInput(viewport(), i->property());
+        break;
 
-		case Variant::Type::Port:
-		case Variant::Type::Pin:
-		case Variant::Type::Combo:
-		case Variant::Type::VarName:
-		case Variant::Type::Select:
-		case Variant::Type::PenStyle:
-		case Variant::Type::PenCapStyle:
-		case Variant::Type::SevenSegment:
-		case Variant::Type::KeyPad:
-			editor = new PropertyEditorList( viewport(), i->property() );
-			break;
+    case Variant::Type::Port:
+    case Variant::Type::Pin:
+    case Variant::Type::Combo:
+    case Variant::Type::VarName:
+    case Variant::Type::Select:
+    case Variant::Type::PenStyle:
+    case Variant::Type::PenCapStyle:
+    case Variant::Type::SevenSegment:
+    case Variant::Type::KeyPad:
+        editor = new PropertyEditorList(viewport(), i->property());
+        break;
 
-		case Variant::Type::FileName:
-            qDebug() << Q_FUNC_INFO << "creating PropertyEditorFile";
-			editor = new PropertyEditorFile( viewport(), i->property() );
-			break;
+    case Variant::Type::FileName:
+        qDebug() << Q_FUNC_INFO << "creating PropertyEditorFile";
+        editor = new PropertyEditorFile(viewport(), i->property());
+        break;
 
-		case Variant::Type::Int:
-			editor = new PropertyEditorSpin( viewport(), i->property() );
-			break;
+    case Variant::Type::Int:
+        editor = new PropertyEditorSpin(viewport(), i->property());
+        break;
 
-		case Variant::Type::Double:
-			editor = new PropertyEditorDblSpin( viewport(), i->property() );
-			break;
+    case Variant::Type::Double:
+        editor = new PropertyEditorDblSpin(viewport(), i->property());
+        break;
 
-		case Variant::Type::Color:
-			editor = new PropertyEditorColor( viewport(), i->property() );
-			break;
+    case Variant::Type::Color:
+        editor = new PropertyEditorColor(viewport(), i->property());
+        break;
 
-		case Variant::Type::Bool:
-			editor = new PropertyEditorBool( viewport(), i->property() );
-			break;
+    case Variant::Type::Bool:
+        editor = new PropertyEditorBool(viewport(), i->property());
+        break;
 
-		case Variant::Type::Raw:
-		case Variant::Type::Multiline:
-		case Variant::Type::RichText:
-		case Variant::Type::None:
-			break;
-	}
+    case Variant::Type::Raw:
+    case Variant::Type::Multiline:
+    case Variant::Type::RichText:
+    case Variant::Type::None:
+        break;
+    }
 
-	if (editor)
-	{
-		//addChild(editor);
-		//moveChild(editor, geometry.x(), geometry.y());
+    if (editor) {
+        // addChild(editor);
+        // moveChild(editor, geometry.x(), geometry.y());
         m_lastCellWidgetRow = index.row();
         m_lastCellWidgetCol = index.column();
         setCellWidget(index.row(), index.column(), editor);
-		editor->show();
+        editor->show();
 
-		editor->setFocus();
-	}
+        editor->setFocus();
+    }
 
-	m_currentEditor = editor;
-	showDefaultsButton( i->property()->changed() );
+    m_currentEditor = editor;
+    showDefaultsButton(i->property()->changed());
 }
 
-
-void PropertyEditor::showDefaultsButton( bool show )
+void PropertyEditor::showDefaultsButton(bool show)
 {
     QRect editItemRect = visualItemRect(m_editItem);
-	int y = editItemRect.y(); // viewportToContents(QPoint(0, itemRect(m_editItem).y())).y(); // TODO
-	QRect geometry( columnWidth(0), y, columnWidth(1), editItemRect.height() /* m_editItem->height() TOOD */ );
-	m_defaults->resize(m_baseRowHeight, m_baseRowHeight);
+    int y = editItemRect.y(); // viewportToContents(QPoint(0, itemRect(m_editItem).y())).y(); // TODO
+    QRect geometry(columnWidth(0), y, columnWidth(1), editItemRect.height() /* m_editItem->height() TOOD */);
+    m_defaults->resize(m_baseRowHeight, m_baseRowHeight);
 
-	if (!show) {
-		if (m_currentEditor) {
-			if (m_currentEditor->leavesTheSpaceForRevertButton()) {
-				geometry.setWidth(geometry.width()-m_defaults->width());
-			}
-			m_currentEditor->resize(geometry.width(), geometry.height());
-		}
-		m_defaults->hide();
-		return;
-	}
+    if (!show) {
+        if (m_currentEditor) {
+            if (m_currentEditor->leavesTheSpaceForRevertButton()) {
+                geometry.setWidth(geometry.width() - m_defaults->width());
+            }
+            m_currentEditor->resize(geometry.width(), geometry.height());
+        }
+        m_defaults->hide();
+        return;
+    }
 
-	QPoint p = geometry.topLeft() ; // = contentsToViewport(QPoint(0, geometry.y())); // TODO
-	m_defaults->move(geometry.x() + geometry.width() - m_defaults->width(), p.y());
-	if (m_currentEditor) {
-		m_currentEditor->move(m_currentEditor->x(), p.y());
-		m_currentEditor->resize(geometry.width()-m_defaults->width(), geometry.height());
-	}
-	m_defaults->show();
+    QPoint p = geometry.topLeft(); // = contentsToViewport(QPoint(0, geometry.y())); // TODO
+    m_defaults->move(geometry.x() + geometry.width() - m_defaults->width(), p.y());
+    if (m_currentEditor) {
+        m_currentEditor->move(m_currentEditor->x(), p.y());
+        m_currentEditor->resize(geometry.width() - m_defaults->width(), geometry.height());
+    }
+    m_defaults->show();
 }
-
 
 void PropertyEditor::updateDefaultsButton()
 {
-	if (!m_editItem)
-		return;
-	showDefaultsButton( m_editItem->property()->changed() );
-	repaint(); //m_editItem->repaint();
+    if (!m_editItem)
+        return;
+    showDefaultsButton(m_editItem->property()->changed());
+    repaint(); // m_editItem->repaint();
 }
 
-
-void PropertyEditor::slotColumnSizeChanged( int section, int, int newS)
+void PropertyEditor::slotColumnSizeChanged(int section, int, int newS)
 {
-	if ( m_currentEditor )
-	{
-		if(section == 0)
-		{
-			m_currentEditor->move(newS, m_currentEditor->y());
-		}
-		else
-		{
-			if(m_defaults->isVisible())
-				m_currentEditor->resize(newS - m_defaults->width(), m_currentEditor->height());
-			else
-				m_currentEditor->resize(
-					newS-(m_currentEditor->leavesTheSpaceForRevertButton()?m_defaults->width():0),
-					m_currentEditor->height());
-		}
-	}
+    if (m_currentEditor) {
+        if (section == 0) {
+            m_currentEditor->move(newS, m_currentEditor->y());
+        } else {
+            if (m_defaults->isVisible())
+                m_currentEditor->resize(newS - m_defaults->width(), m_currentEditor->height());
+            else
+                m_currentEditor->resize(newS - (m_currentEditor->leavesTheSpaceForRevertButton() ? m_defaults->width() : 0), m_currentEditor->height());
+        }
+    }
 }
 
-
-void PropertyEditor::slotColumnSizeChanged( int section)
+void PropertyEditor::slotColumnSizeChanged(int section)
 {
-	setColumnWidth(1, viewport()->width() - columnWidth(0));
-	slotColumnSizeChanged(section, 0, horizontalHeader()->sectionSize(section));
-	if(m_currentEditor)
-	{
-		if(m_defaults->isVisible())
-			m_currentEditor->resize(columnWidth(1) - m_defaults->width(), m_currentEditor->height());
-		else
-			m_currentEditor->resize(
-				columnWidth(1)-(m_currentEditor->leavesTheSpaceForRevertButton()?m_defaults->width():0),
-				m_currentEditor->height());
-	}
+    setColumnWidth(1, viewport()->width() - columnWidth(0));
+    slotColumnSizeChanged(section, 0, horizontalHeader()->sectionSize(section));
+    if (m_currentEditor) {
+        if (m_defaults->isVisible())
+            m_currentEditor->resize(columnWidth(1) - m_defaults->width(), m_currentEditor->height());
+        else
+            m_currentEditor->resize(columnWidth(1) - (m_currentEditor->leavesTheSpaceForRevertButton() ? m_defaults->width() : 0), m_currentEditor->height());
+    }
 }
-
 
 void PropertyEditor::reset()
 {
-	//if ( m_currentEditor )
-	//	m_currentEditor->deleteLater();
+    // if ( m_currentEditor )
+    //	m_currentEditor->deleteLater();
     if (m_lastCellWidgetRow >= 0 && m_lastCellWidgetCol >= 0) {
         removeCellWidget(m_lastCellWidgetRow, m_lastCellWidgetCol);
         m_lastCellWidgetRow = -1;
@@ -540,203 +517,183 @@ void PropertyEditor::reset()
     }
     m_currentEditor = nullptr;
 
-	if ( m_defaults->isVisible() )
-		m_defaults->hide();
+    if (m_defaults->isVisible())
+        m_defaults->hide();
 
-	//clear();
+    // clear();
     QTableWidget::reset();
-	m_editItem = nullptr;
-	m_topItem = nullptr;
+    m_editItem = nullptr;
+    m_topItem = nullptr;
 }
-
 
 QSize PropertyEditor::sizeHint() const
 {
-	return QSize( QFontMetrics(font()).width(
-        horizontalHeaderItem(0)->text() +
-        horizontalHeaderItem(1)->text() + "   "),
-		QTableWidget::sizeHint().height());
+    return QSize(QFontMetrics(font()).width(horizontalHeaderItem(0)->text() + horizontalHeaderItem(1)->text() + "   "), QTableWidget::sizeHint().height());
 }
 
-
-void PropertyEditor::create( ItemGroup * b )
+void PropertyEditor::create(ItemGroup *b)
 {
     qDebug() << Q_FUNC_INFO << "b=" << b;
-	m_pItemGroup = b;
+    m_pItemGroup = b;
 
-	//QCString selectedPropertyName1, selectedPropertyName2;
-//     QByteArray selectedPropertyName1, selectedPropertyName2;     // 2018.08. 13 - dead code
+    // QCString selectedPropertyName1, selectedPropertyName2;
+    //     QByteArray selectedPropertyName1, selectedPropertyName2;     // 2018.08. 13 - dead code
 
-	fill();
-/* 2018.08. 13 - dead code
-	//select prev. selecteed item
-	PropertyEditorItem * item = 0;
-	if (!selectedPropertyName2.isEmpty()) //try other one for old buffer
-		item = m_items[selectedPropertyName2];
-	if (!item && !selectedPropertyName1.isEmpty()) //try old one for current buffer
-		item = m_items[selectedPropertyName1];
-	if (item)
-	{
-		setItemSelected(item, true);
-        scrollToItem(item);
-	} else {
-        qWarning() << Q_FUNC_INFO << "no item to select ";
-    }
-*/
+    fill();
+    /* 2018.08. 13 - dead code
+        //select prev. selecteed item
+        PropertyEditorItem * item = 0;
+        if (!selectedPropertyName2.isEmpty()) //try other one for old buffer
+            item = m_items[selectedPropertyName2];
+        if (!item && !selectedPropertyName1.isEmpty()) //try old one for current buffer
+            item = m_items[selectedPropertyName1];
+        if (item)
+        {
+            setItemSelected(item, true);
+            scrollToItem(item);
+        } else {
+            qWarning() << Q_FUNC_INFO << "no item to select ";
+        }
+    */
     qDebug() << Q_FUNC_INFO << "column count= " << columnCount() << "rowCount=" << rowCount();
 }
 
-
 void PropertyEditor::fill()
 {
-	reset();
+    reset();
 
-	if ( !m_pItemGroup || !m_pItemGroup->activeItem() ) {
+    if (!m_pItemGroup || !m_pItemGroup->activeItem()) {
         qWarning() << Q_FUNC_INFO << " no active item " << m_pItemGroup;
-		return;
+        return;
     }
 
-	if(!m_topItem)
-	{
-		m_topItem = new PropertyEditorItem(this,"Top Item");
-	}
+    if (!m_topItem) {
+        m_topItem = new PropertyEditorItem(this, "Top Item");
+    }
 
-	//m_items.clear();  // 2018.08.13 - unused
-	setRowCount(0); // remove all items from the table
+    // m_items.clear();  // 2018.08.13 - unused
+    setRowCount(0); // remove all items from the table
 
-	VariantDataMap *vmap = m_pItemGroup->activeItem()->variantMap();
-	// Build the list
-	for( VariantDataMap::iterator vait = vmap->begin(); vait != vmap->end(); ++vait )
-	{
-		Variant * v = *vait;
-		if ( v->isHidden() ) {
-			continue;
+    VariantDataMap *vmap = m_pItemGroup->activeItem()->variantMap();
+    // Build the list
+    for (VariantDataMap::iterator vait = vmap->begin(); vait != vmap->end(); ++vait) {
+        Variant *v = *vait;
+        if (v->isHidden()) {
+            continue;
         }
-		qDebug() << Q_FUNC_INFO << "add variant id=" << v->id() << " v=" << v;
+        qDebug() << Q_FUNC_INFO << "add variant id=" << v->id() << " v=" << v;
 
-		switch ( v->type() )
-		{
-			case Variant::Type::String:
-			case Variant::Type::Port:
-			case Variant::Type::Pin:
-			case Variant::Type::Combo:
-			case Variant::Type::VarName:
-			case Variant::Type::Select:
-			case Variant::Type::PenStyle:
-			case Variant::Type::PenCapStyle:
-			case Variant::Type::SevenSegment:
-			case Variant::Type::KeyPad:
-			case Variant::Type::FileName:
-			case Variant::Type::Int:
-			case Variant::Type::Double:
-			case Variant::Type::Color:
-			case Variant::Type::Bool:
-				// These are all handled by the ItemEditor
-				break;
+        switch (v->type()) {
+        case Variant::Type::String:
+        case Variant::Type::Port:
+        case Variant::Type::Pin:
+        case Variant::Type::Combo:
+        case Variant::Type::VarName:
+        case Variant::Type::Select:
+        case Variant::Type::PenStyle:
+        case Variant::Type::PenCapStyle:
+        case Variant::Type::SevenSegment:
+        case Variant::Type::KeyPad:
+        case Variant::Type::FileName:
+        case Variant::Type::Int:
+        case Variant::Type::Double:
+        case Variant::Type::Color:
+        case Variant::Type::Bool:
+            // These are all handled by the ItemEditor
+            break;
 
-			case Variant::Type::Raw:
-			case Variant::Type::Multiline:
-			case Variant::Type::None:
-			case Variant::Type::RichText:
-				// These are not handled by the ItemEditor
-				continue;
-		}
+        case Variant::Type::Raw:
+        case Variant::Type::Multiline:
+        case Variant::Type::None:
+        case Variant::Type::RichText:
+            // These are not handled by the ItemEditor
+            continue;
+        }
 
         const int nextRow = rowCount();
         setRowCount(nextRow + 1);
         {
-            QTableWidgetItem *itemPropName = new PropertyEditorItem( m_topItem, v );
+            QTableWidgetItem *itemPropName = new PropertyEditorItem(m_topItem, v);
             itemPropName->setText(v->editorCaption());
             itemPropName->setFlags(Qt::ItemIsEnabled);
             setItem(nextRow, 0, itemPropName);
         }
         {
-            PropertyEditorItem  *itemPropValue = new PropertyEditorItem( m_topItem, v );
-            itemPropValue->setText( v->displayString() );
-            connect( v, SIGNAL(valueChanged( QVariant, QVariant )), itemPropValue, SLOT(propertyValueChanged()) );
+            PropertyEditorItem *itemPropValue = new PropertyEditorItem(m_topItem, v);
+            itemPropValue->setText(v->displayString());
+            connect(v, SIGNAL(valueChanged(QVariant, QVariant)), itemPropValue, SLOT(propertyValueChanged()));
             itemPropValue->updateValue();
             setItem(nextRow, 1, itemPropValue);
         }
-		//m_items.insert( v->id().latin1(), item ); // 2018.08.13 - unused
-
-	}
+        // m_items.insert( v->id().latin1(), item ); // 2018.08.13 - unused
+    }
 }
-
 
 void PropertyEditor::setFocus()
 {
     selectedItems();
-	PropertyEditorItem *item = static_cast<PropertyEditorItem *>(selectedItem());
-	if (item) {
-		if (!justClickedItem) {
+    PropertyEditorItem *item = static_cast<PropertyEditorItem *>(selectedItem());
+    if (item) {
+        if (!justClickedItem) {
             scrollToItem(item);
         }
-		justClickedItem = false;
-	}
-	else
-	{
-		//select an item before focusing
-		item = static_cast<PropertyEditorItem *>(itemAt(QPoint(10,1)));
-		if (item)
-		{
-			scrollToItem(item); // ensureItemVisible(item);
-            item->setSelected(true);    //setSelected(item, true);
-		}
-	}
-	if (m_currentEditor) {
-		m_currentEditor->setFocus();
+        justClickedItem = false;
+    } else {
+        // select an item before focusing
+        item = static_cast<PropertyEditorItem *>(itemAt(QPoint(10, 1)));
+        if (item) {
+            scrollToItem(item);      // ensureItemVisible(item);
+            item->setSelected(true); // setSelected(item, true);
+        }
     }
-	else {
-		QTableWidget::setFocus();
+    if (m_currentEditor) {
+        m_currentEditor->setFocus();
+    } else {
+        QTableWidget::setFocus();
     }
 }
-
 
 void PropertyEditor::resetItem()
 {
-	if ( m_editItem  )
-	{
-		ItemInterface::self()->slotSetData( m_editItem->property()->id(), m_editItem->property()->defaultValue() );
-	}
-}
-
-
-void PropertyEditor::moveEditor()
-{
-	if ( !m_currentEditor )
-		return;
-
-	QPoint p = QPoint(0, visualItemRect(m_editItem).y()); //  = contentsToViewport(QPoint(0, itemPos(m_editItem))); // TODO
-	m_currentEditor->move(m_currentEditor->x(), p.y());
-	if( m_defaults->isVisible() ) {
-		m_defaults->move(m_defaults->x(), p.y());
+    if (m_editItem) {
+        ItemInterface::self()->slotSetData(m_editItem->property()->id(), m_editItem->property()->defaultValue());
     }
 }
 
+void PropertyEditor::moveEditor()
+{
+    if (!m_currentEditor)
+        return;
+
+    QPoint p = QPoint(0, visualItemRect(m_editItem).y()); //  = contentsToViewport(QPoint(0, itemPos(m_editItem))); // TODO
+    m_currentEditor->move(m_currentEditor->x(), p.y());
+    if (m_defaults->isVisible()) {
+        m_defaults->move(m_defaults->x(), p.y());
+    }
+}
 
 void PropertyEditor::resizeEvent(QResizeEvent *ev)
 {
-	QTableWidget::resizeEvent(ev);
+    QTableWidget::resizeEvent(ev);
     updateDefaultsButton();
-// 	if(m_defaults->isVisible())
-// 	{
-//         rect();
-// 		QRect r = visualItemRect(m_editItem) ; // = itemRect(m_editItem); // TODO
-// 		if(r.y()) { // r.y() == 0 if the item is not visible on the screen
-// 			m_defaults->move(r.x() + r.width() - m_defaults->width(), r.y());
-//         }
-// 	}
-//
-// 	if ( m_currentEditor )
-// 	{
-// 		m_currentEditor->resize(
-// 			columnWidth(1)-((m_currentEditor->leavesTheSpaceForRevertButton()||m_defaults->isVisible()) ? m_defaults->width() : 0),
-// 			m_currentEditor->height());
-// 	}
+    // 	if(m_defaults->isVisible())
+    // 	{
+    //         rect();
+    // 		QRect r = visualItemRect(m_editItem) ; // = itemRect(m_editItem); // TODO
+    // 		if(r.y()) { // r.y() == 0 if the item is not visible on the screen
+    // 			m_defaults->move(r.x() + r.width() - m_defaults->width(), r.y());
+    //         }
+    // 	}
+    //
+    // 	if ( m_currentEditor )
+    // 	{
+    // 		m_currentEditor->resize(
+    // 			columnWidth(1)-((m_currentEditor->leavesTheSpaceForRevertButton()||m_defaults->isVisible()) ? m_defaults->width() : 0),
+    // 			m_currentEditor->height());
+    // 	}
 }
 
-
-bool PropertyEditor::handleKeyPress( QKeyEvent* /*ev*/ )
+bool PropertyEditor::handleKeyPress(QKeyEvent * /*ev*/)
 {
 #if 0 // TODO
     const int k = ev->key();
@@ -789,10 +746,11 @@ bool PropertyEditor::handleKeyPress( QKeyEvent* /*ev*/ )
 		return true;
 	}
 #endif
-	return false;
+    return false;
 }
 
-PropertyEditorItem *PropertyEditor::selectedItem() {
+PropertyEditorItem *PropertyEditor::selectedItem()
+{
     QModelIndexList selList = selectedIndexes();
     if (selList.empty()) {
         return nullptr;
@@ -801,7 +759,7 @@ PropertyEditorItem *PropertyEditor::selectedItem() {
         qWarning() << Q_FUNC_INFO << " unexpected selection size of " << selList.size();
     }
     QModelIndex selIndex = selList.first();
-    PropertyEditorItem *itemProp = dynamic_cast<PropertyEditorItem*>(item(selIndex.row(), selIndex.column()));
+    PropertyEditorItem *itemProp = dynamic_cast<PropertyEditorItem *>(item(selIndex.row(), selIndex.column()));
     if (!itemProp) {
         qWarning() << Q_FUNC_INFO << " failed to cast " << selIndex;
     }

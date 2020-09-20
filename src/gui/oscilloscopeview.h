@@ -25,41 +25,41 @@ class QTimer;
 */
 class OscilloscopeView : public QFrame
 {
-	Q_OBJECT
-	public:
-		OscilloscopeView( QWidget *parent, const char *name = nullptr);
-		~OscilloscopeView() override;
-		
-	public slots:
-		/**
-		 * Sets the needRedraw flag to true, and then class repaint
-		 */
-		void updateView();
-		void slotSetFrameRate( QAction * );
+    Q_OBJECT
+public:
+    OscilloscopeView(QWidget *parent, const char *name = nullptr);
+    ~OscilloscopeView() override;
 
-	protected slots:
-		void updateViewTimeout();
+public slots:
+    /**
+     * Sets the needRedraw flag to true, and then class repaint
+     */
+    void updateView();
+    void slotSetFrameRate(QAction *);
 
-	protected:
-		void mousePressEvent( QMouseEvent *event) override;
-		void mouseMoveEvent( QMouseEvent *event) override;
-		void mouseReleaseEvent( QMouseEvent *event) override;
-		void paintEvent( QPaintEvent *event) override;
-		void resizeEvent( QResizeEvent *event) override;
+protected slots:
+    void updateViewTimeout();
 
-		void drawLogicData( QPainter & p);
-		void drawFloatingData( QPainter & p);
-		void updateOutputHeight();
-		void updateTimeLabel();
+protected:
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
+    void resizeEvent(QResizeEvent *event) override;
 
-		bool b_needRedraw;
-		QPixmap *m_pixmap;
-		QTimer *m_updateViewTmr;
-		int m_fps;
-		int m_sliderValueAtClick;
-		int m_clickOffsetPos;
-		Simulator * m_pSimulator;
-		double m_halfOutputHeight;
+    void drawLogicData(QPainter &p);
+    void drawFloatingData(QPainter &p);
+    void updateOutputHeight();
+    void updateTimeLabel();
+
+    bool b_needRedraw;
+    QPixmap *m_pixmap;
+    QTimer *m_updateViewTmr;
+    int m_fps;
+    int m_sliderValueAtClick;
+    int m_clickOffsetPos;
+    Simulator *m_pSimulator;
+    double m_halfOutputHeight;
 };
 
 #endif

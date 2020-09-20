@@ -20,21 +20,20 @@
 class ECPTBSwitch : public Component
 {
 public:
-	ECPTBSwitch( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECPTBSwitch() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
-	void buttonStateChanged( const QString &id, bool state ) override;
-	void dataChanged() override;
-	
-private:
-	void drawShape( QPainter &p ) override;
-	Switch *m_switch;
-	bool pressed;
-};
+    ECPTBSwitch(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECPTBSwitch() override;
 
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    void buttonStateChanged(const QString &id, bool state) override;
+    void dataChanged() override;
+
+private:
+    void drawShape(QPainter &p) override;
+    Switch *m_switch;
+    bool pressed;
+};
 
 /**
 @short Push-to-make switch
@@ -43,21 +42,20 @@ private:
 class ECPTMSwitch : public Component
 {
 public:
-	ECPTMSwitch( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECPTMSwitch() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
-	void buttonStateChanged( const QString &id, bool state ) override;
-	void dataChanged() override;
-	
+    ECPTMSwitch(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECPTMSwitch() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    void buttonStateChanged(const QString &id, bool state) override;
+    void dataChanged() override;
+
 private:
-	void drawShape( QPainter &p ) override;
+    void drawShape(QPainter &p) override;
 
-	Switch *m_switch;
-	bool pressed;
+    Switch *m_switch;
+    bool pressed;
 };
-
 
 #endif

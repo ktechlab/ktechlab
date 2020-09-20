@@ -16,11 +16,11 @@
 
 // #include <kate/view.h>
 //#include <ktexteditor/view.h>
-#include <KTextEditor/View>
 #include <KTextEditor/TextHintInterface>
+#include <KTextEditor/View>
 
-#include <QPointer>
 #include <QLabel>
+#include <QPointer>
 
 class QMouseEvent;
 class RegisterInfo;
@@ -28,81 +28,82 @@ class TextDocument;
 class TextView;
 class VariableLabel;
 
-
 /**
 @author David Saxton
 */
 class TextView : public View
 {
-	Q_OBJECT
-	public:
-		TextView( TextDocument *textDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr );
-		~TextView() override;
+    Q_OBJECT
+public:
+    TextView(TextDocument *textDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr);
+    ~TextView() override;
 
-		bool closeView() override;
+    bool closeView() override;
 
-		/**
-		 * Brings up the goto line dialog.
-		 */
-		bool gotoLine( const int line ) ; // { return m_view->setCursorPosition( line, 0/*m_view->cursorColumn()*/ ); }
-		/**
-		 * Returns a pointer to the document as a text document
-		 */
-		TextDocument *textDocument() const;
-        void undo();
-        void redo();
-		void cut(); // { m_view->cut(); }
-		void copy(); // { m_view->copy(); }
-		void paste(); // { m_view->paste(); }
-		void saveCursorPosition();
-		void restoreCursorPosition();
-		/**
-		 * Enable code actions depending on the type of code being edited
-		 */
-		void initCodeActions();
-		void setCursorPosition( uint line, uint col ); // { m_view->setCursorPosition( line, col ); }
-		unsigned currentLine();
-		unsigned currentColumn();
-		void disableActions();
+    /**
+     * Brings up the goto line dialog.
+     */
+    bool gotoLine(const int line); // { return m_view->setCursorPosition( line, 0/*m_view->cursorColumn()*/ ); }
+    /**
+     * Returns a pointer to the document as a text document
+     */
+    TextDocument *textDocument() const;
+    void undo();
+    void redo();
+    void cut();   // { m_view->cut(); }
+    void copy();  // { m_view->copy(); }
+    void paste(); // { m_view->paste(); }
+    void saveCursorPosition();
+    void restoreCursorPosition();
+    /**
+     * Enable code actions depending on the type of code being edited
+     */
+    void initCodeActions();
+    void setCursorPosition(uint line, uint col); // { m_view->setCursorPosition( line, col ); }
+    unsigned currentLine();
+    unsigned currentColumn();
+    void disableActions();
 
-		KTextEditor::View * kateView() const { return m_view; }
+    KTextEditor::View *kateView() const
+    {
+        return m_view;
+    }
 
-		//KTextEditor::View::saveResult save(); // { return m_view->save(); }
-		bool save();
-		//KTextEditor::View::saveResult saveAs(); // { return m_view->saveAs(); }
-        bool saveAs();
-        void print();
+    // KTextEditor::View::saveResult save(); // { return m_view->save(); }
+    bool save();
+    // KTextEditor::View::saveResult saveAs(); // { return m_view->saveAs(); }
+    bool saveAs();
+    void print();
 
-	public slots:
-		/**
-		 * Called when change line / toggle marks
-		 */
-		void slotUpdateMarksInfo();
-		void slotCursorPositionChanged();
-		void toggleBreakpoint() override;
-		/**
-		 * Initialize the actions appropriate for when the debugger is running
-		 * or stepping
-		 */
-		void slotInitDebugActions();
+public slots:
+    /**
+     * Called when change line / toggle marks
+     */
+    void slotUpdateMarksInfo();
+    void slotCursorPositionChanged();
+    void toggleBreakpoint() override;
+    /**
+     * Initialize the actions appropriate for when the debugger is running
+     * or stepping
+     */
+    void slotInitDebugActions();
 
-	protected slots:
-		void slotWordHoveredOver( const QString & word, int line, int col );
-		void slotWordUnhovered();
-		void gotFocus();
-        void slotSelectionmChanged();
+protected slots:
+    void slotWordHoveredOver(const QString &word, int line, int col);
+    void slotWordUnhovered();
+    void gotFocus();
+    void slotSelectionmChanged();
 
-	protected:
-		KTextEditor::View * m_view;
+protected:
+    KTextEditor::View *m_view;
 #ifndef NO_GPSIM
-		VariableLabel * m_pTextViewLabel; ///< Pops up when the user hovers his mouse over a word
+    VariableLabel *m_pTextViewLabel; ///< Pops up when the user hovers his mouse over a word
 #endif
 
-	private:
-		uint m_savedCursorLine;
-		uint m_savedCursorColumn;
+private:
+    uint m_savedCursorLine;
+    uint m_savedCursorColumn;
 };
-
 
 /**
 This class is an event filter to be installed in the kate view, and is used to
@@ -113,93 +114,91 @@ over (used in the debugger).
 */
 class TextViewEventFilter : public QObject, public KTextEditor::TextHintProvider
 {
-	Q_OBJECT
-	public:
-		TextViewEventFilter( TextView * textView );
-        virtual ~TextViewEventFilter();
+    Q_OBJECT
+public:
+    TextViewEventFilter(TextView *textView);
+    virtual ~TextViewEventFilter();
 
-		bool eventFilter( QObject * watched, QEvent * e ) override;
+    bool eventFilter(QObject *watched, QEvent *e) override;
 
-        // from TextHintInterface
-        QString textHint(KTextEditor::View *view,
-                             const KTextEditor::Cursor &position) override ;
-	signals:
-		/**
-		 * When the user hovers the mouse for more than 700 milliseconds over a
-		 * word, "hover mode" is entered. When the user presses a key, clicks
-		 * mouse, etc, this mode is left. During the mode, any word that is
-		 * under the mouse cursor will be emitted as hoveredOver( word ).
-		 */
-		void wordHoveredOver( const QString & word, int line, int col );
-		/**
-		 * Emitted when focus is lost, the mouse moves to a different word, etc.
-		 */
-		void wordUnhovered();
+    // from TextHintInterface
+    QString textHint(KTextEditor::View *view, const KTextEditor::Cursor &position) override;
+signals:
+    /**
+     * When the user hovers the mouse for more than 700 milliseconds over a
+     * word, "hover mode" is entered. When the user presses a key, clicks
+     * mouse, etc, this mode is left. During the mode, any word that is
+     * under the mouse cursor will be emitted as hoveredOver( word ).
+     */
+    void wordHoveredOver(const QString &word, int line, int col);
+    /**
+     * Emitted when focus is lost, the mouse moves to a different word, etc.
+     */
+    void wordUnhovered();
 
-	protected slots:
-		void slotNeedTextHint( const KTextEditor::Cursor& position, QString& text );
-		/**
-		 * Called when we are not in hover mode, but the user has had his mouse
-		 * in the same position for some time.
-		 */
-		void hoverTimeout();
-		/**
-		 * Called (from m_pSleepTimer) when we are in hover mode, but no word
-		 * has been hovered over for some time.
-		 */
-		void gotoSleep();
-		/**
-		 * @see m_pNoWordTimer
-		 */
-		void slotNoWordTimeout();
+protected slots:
+    void slotNeedTextHint(const KTextEditor::Cursor &position, QString &text);
+    /**
+     * Called when we are not in hover mode, but the user has had his mouse
+     * in the same position for some time.
+     */
+    void hoverTimeout();
+    /**
+     * Called (from m_pSleepTimer) when we are in hover mode, but no word
+     * has been hovered over for some time.
+     */
+    void gotoSleep();
+    /**
+     * @see m_pNoWordTimer
+     */
+    void slotNoWordTimeout();
 
-	protected:
-		enum HoverStatus
-		{
-			/**
-			 * We are currently hovering - wordHoveredOver was emitted, and
-			 * wordUnhovered hasn't been emitted yet.
-			 */
-			Active,
-			/**
-			 * A word was unhovered recently. We will go straight to PoppedUp
-			 * mode if a word is hovered over again.
-			 */
-			Hidden,
-			/**
-			 * A word was not unhovered recentely. There will be a short display
-			 * before going to PoppedUp mode if a word is hovered over.
-			 */
-			Sleeping
-		};
+protected:
+    enum HoverStatus {
+        /**
+         * We are currently hovering - wordHoveredOver was emitted, and
+         * wordUnhovered hasn't been emitted yet.
+         */
+        Active,
+        /**
+         * A word was unhovered recently. We will go straight to PoppedUp
+         * mode if a word is hovered over again.
+         */
+        Hidden,
+        /**
+         * A word was not unhovered recentely. There will be a short display
+         * before going to PoppedUp mode if a word is hovered over.
+         */
+        Sleeping
+    };
 
-		/**
-		 * Starts / stops timers, emits signals, etc. See other functions for an
-		 * idea of what this does.
-		 */
-		void updateHovering( const QString & currentWord, int line, int col );
-		/**
-		 * Started when the user moves his mouse over a word, and we are in
-		 * Sleeping mode. Reset when the user moves his mouse, etc.
-		 */
-		QTimer * m_pHoverTimer;
-		/**
-		 * Started when a word is unhovered. When this timeouts, we will go to
-		 * Sleeping mode.
-		 */
-		QTimer * m_pSleepTimer;
-		/**
-		 * Activated by the user moving the mouse. Reset by a call to
-		 * slotNeedTextHint. This timer is needed as KateViewInternal doesn't
-		 * bother updating us if the mouse cursor isn't over text.
-		 */
-		QTimer * m_pNoWordTimer;
+    /**
+     * Starts / stops timers, emits signals, etc. See other functions for an
+     * idea of what this does.
+     */
+    void updateHovering(const QString &currentWord, int line, int col);
+    /**
+     * Started when the user moves his mouse over a word, and we are in
+     * Sleeping mode. Reset when the user moves his mouse, etc.
+     */
+    QTimer *m_pHoverTimer;
+    /**
+     * Started when a word is unhovered. When this timeouts, we will go to
+     * Sleeping mode.
+     */
+    QTimer *m_pSleepTimer;
+    /**
+     * Activated by the user moving the mouse. Reset by a call to
+     * slotNeedTextHint. This timer is needed as KateViewInternal doesn't
+     * bother updating us if the mouse cursor isn't over text.
+     */
+    QTimer *m_pNoWordTimer;
 
-		TextView * m_pTextView;
-		QString m_lastWord;
-		int m_lastLine;
-		int m_lastCol;
-		HoverStatus m_hoverStatus;
+    TextView *m_pTextView;
+    QString m_lastWord;
+    int m_lastLine;
+    int m_lastCol;
+    HoverStatus m_hoverStatus;
 };
 
 #endif

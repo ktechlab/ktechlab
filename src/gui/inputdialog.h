@@ -16,12 +16,8 @@ class QWidget;
 
 namespace InputDialog
 {
-
-QString getText(const QString &windowTitle, const QString &labelText,
-                const QString &value, bool *ok, QWidget *parent,
-                QValidator *validator);
+QString getText(const QString &windowTitle, const QString &labelText, const QString &value, bool *ok, QWidget *parent, QValidator *validator);
 
 }
 
 #endif
-

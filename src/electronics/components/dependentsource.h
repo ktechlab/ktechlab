@@ -18,14 +18,14 @@
 */
 class DependentSource : public Component
 {
-	public:
-		DependentSource( ICNDocument *icnDocument, bool newItem, const char *id );
-		~DependentSource() override;
+public:
+    DependentSource(ICNDocument *icnDocument, bool newItem, const char *id);
+    ~DependentSource() override;
 
-	protected:
-		void drawOutline( QPainter & p );
-		void drawTopArrow( QPainter & p );
-		void drawBottomArrow( QPainter & p );
+protected:
+    void drawOutline(QPainter &p);
+    void drawTopArrow(QPainter &p);
+    void drawBottomArrow(QPainter &p);
 };
 
 /**
@@ -34,18 +34,18 @@ class DependentSource : public Component
 */
 class ECCCCS : public DependentSource
 {
-	public:
-		ECCCCS( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~ECCCCS() override;
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
+public:
+    ECCCCS(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECCCCS() override;
 
-	protected:
-		void dataChanged() override;
-		void drawShape( QPainter &p ) override;
-	
-		CCCS *m_cccs;
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+protected:
+    void dataChanged() override;
+    void drawShape(QPainter &p) override;
+
+    CCCS *m_cccs;
 };
 
 /**
@@ -54,18 +54,18 @@ class ECCCCS : public DependentSource
 */
 class ECCCVS : public DependentSource
 {
-	public:
-		ECCCVS( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~ECCCVS() override;
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
+public:
+    ECCCVS(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECCCVS() override;
 
-	protected:
-		void dataChanged() override;
-		void drawShape( QPainter &p ) override;
-	
-		CCVS *m_ccvs;
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+protected:
+    void dataChanged() override;
+    void drawShape(QPainter &p) override;
+
+    CCVS *m_ccvs;
 };
 
 /**
@@ -74,18 +74,18 @@ class ECCCVS : public DependentSource
 */
 class ECVCCS : public DependentSource
 {
-	public:
-		ECVCCS( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~ECVCCS() override;
+public:
+    ECVCCS(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECVCCS() override;
 
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-	protected:
-		void dataChanged() override;
-		void drawShape( QPainter &p ) override;
+protected:
+    void dataChanged() override;
+    void drawShape(QPainter &p) override;
 
-		VCCS *m_vccs;
+    VCCS *m_vccs;
 };
 
 /**
@@ -94,18 +94,18 @@ class ECVCCS : public DependentSource
 */
 class ECVCVS : public DependentSource
 {
-	public:
-		ECVCVS( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~ECVCVS() override;
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
+public:
+    ECVCVS(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECVCVS() override;
 
-	protected:
-		void dataChanged() override;
-		void drawShape( QPainter &p ) override;
-	
-		VCVS *m_vcvs;
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+protected:
+    void dataChanged() override;
+    void drawShape(QPainter &p) override;
+
+    VCVS *m_vcvs;
 };
 
 #endif

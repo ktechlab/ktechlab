@@ -11,18 +11,17 @@
 #ifndef ASMINFO_H
 #define ASMINFO_H
 
+#include <QList>
 #include <QString>
 #include <QStringList>
-#include <QList>
 
 /**
 @author David Saxton
 */
-struct Instruction
-{
-	QString operand;
-	QString description;
-	QString opcode;
+struct Instruction {
+    QString operand;
+    QString description;
+    QString opcode;
 };
 
 typedef QList<Instruction> InstructionList;
@@ -34,42 +33,41 @@ typedef QList<Instruction> InstructionList;
 class AsmInfo
 {
 public:
-	AsmInfo();
-	virtual ~AsmInfo();
+    AsmInfo();
+    virtual ~AsmInfo();
 
-	enum Set
-	{
-		PIC12	= 1 << 0,
-		PIC14	= 1 << 1,
-		PIC16	= 1 << 2
-	};
-	enum { AsmSetAll = PIC12 | PIC14 | PIC16 };
+    enum Set { PIC12 = 1 << 0, PIC14 = 1 << 1, PIC16 = 1 << 2 };
+    enum { AsmSetAll = PIC12 | PIC14 | PIC16 };
 
-	static QString setToString( Set set );
-	static Set stringToSet( const QString & set );
+    static QString setToString(Set set);
+    static Set stringToSet(const QString &set);
 
-	/**
-	 * @return the instruction set in use
-	 */
-	virtual Set set() const = 0;
-	/**
-	 * Returns a list of instruction operands (all uppercase).
-	 */
-	QStringList operandList() const { return m_operandList; }
-	/**
-	 * @param operand is the name of the instruction - eg 'addwf' or 'clrwdt'.
-	 * @param description is instruction description - eg 'Add W and f'.
-	 * @param opcode is the 14-bit code for the instruction, eg
-	 * '000111dfffffff'for addwf.
-	 */
-	void addInstruction( const QString &operand, const QString &description, const QString &opcode );
-    void addInstruction( const char* operand, const char* description, const char* opcode ) {
-        addInstruction(QString::fromLatin1(operand),QString::fromLatin1(description), QString::fromLatin1(opcode));
+    /**
+     * @return the instruction set in use
+     */
+    virtual Set set() const = 0;
+    /**
+     * Returns a list of instruction operands (all uppercase).
+     */
+    QStringList operandList() const
+    {
+        return m_operandList;
+    }
+    /**
+     * @param operand is the name of the instruction - eg 'addwf' or 'clrwdt'.
+     * @param description is instruction description - eg 'Add W and f'.
+     * @param opcode is the 14-bit code for the instruction, eg
+     * '000111dfffffff'for addwf.
+     */
+    void addInstruction(const QString &operand, const QString &description, const QString &opcode);
+    void addInstruction(const char *operand, const char *description, const char *opcode)
+    {
+        addInstruction(QString::fromLatin1(operand), QString::fromLatin1(description), QString::fromLatin1(opcode));
     }
 
 private:
-	InstructionList m_instructionList;
-	QStringList m_operandList;
+    InstructionList m_instructionList;
+    QStringList m_operandList;
 };
 
 #endif

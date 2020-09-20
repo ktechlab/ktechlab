@@ -10,42 +10,33 @@
 #include "voltageregulator.h"
 
 #include "canvasitemparts.h"
-#include "libraryitem.h"
 #include "ecnode.h"
+#include "libraryitem.h"
 
 #include <KLocalizedString>
 
+#include <QDebug>
 #include <QPainter>
 #include <QStyle>
-#include <QDebug>
 
-Item* VoltageRegulator::construct( ItemDocument *itemDocument, bool newItem, const char *id )
+Item *VoltageRegulator::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-	return new VoltageRegulator( (ICNDocument*)itemDocument, newItem, id );
+    return new VoltageRegulator((ICNDocument *)itemDocument, newItem, id);
 }
 
-LibraryItem* VoltageRegulator::libraryItem()
+LibraryItem *VoltageRegulator::libraryItem()
 {
-	return new LibraryItem(
-			QStringList(QString("ec/voltageregulator")),
-	i18n("Voltage Regulator"),
-	i18n("Passive"),
-	"voltage_regulator.png",
-	LibraryItem::lit_component,
-	VoltageRegulator::construct 
-						  );
+    return new LibraryItem(QStringList(QString("ec/voltageregulator")), i18n("Voltage Regulator"), i18n("Passive"), "voltage_regulator.png", LibraryItem::lit_component, VoltageRegulator::construct);
 }
 
-VoltageRegulator::VoltageRegulator( ICNDocument* icnDocument, bool newItem, const QString& id )
-	: Component( icnDocument, newItem, (!id.isEmpty()) ? id : "voltageregulator" )
+VoltageRegulator::VoltageRegulator(ICNDocument *icnDocument, bool newItem, const QString &id)
+    : Component(icnDocument, newItem, (!id.isEmpty()) ? id : "voltageregulator")
 {
-	
-	createProperty( "voltageout",  Variant::Type::Double );
-	property("voltageout")->setCaption( i18n( "Voltage Out" ) );
-	property("voltageout")->setMinValue( 2 );
-	property("voltageout")->setMaxValue( maxVoltageOut );
-	property("voltageout")->setValue( 5 );
-	
+    createProperty("voltageout", Variant::Type::Double);
+    property("voltageout")->setCaption(i18n("Voltage Out"));
+    property("voltageout")->setMinValue(2);
+    property("voltageout")->setMaxValue(maxVoltageOut);
+    property("voltageout")->setValue(5);
 }
 
 VoltageRegulator::~VoltageRegulator()
@@ -55,16 +46,14 @@ VoltageRegulator::~VoltageRegulator()
 void VoltageRegulator::dataChanged()
 {
 }
-	
-void VoltageRegulator::drawShape( QPainter &p )
+
+void VoltageRegulator::drawShape(QPainter &p)
 {
-	initPainter(p);
-	
-	// Get centre point of component.
-	//int _y = (int)y();
-	//int _x = (int)x();
-	
-	deinitPainter(p);
+    initPainter(p);
+
+    // Get centre point of component.
+    // int _y = (int)y();
+    // int _x = (int)x();
+
+    deinitPainter(p);
 }
-
-

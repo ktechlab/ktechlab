@@ -19,14 +19,14 @@ same as when setText is called - and if so, don't reset it.
 */
 class LineEdit : public KLineEdit
 {
-	Q_OBJECT
-	public:
-		LineEdit( QWidget * parent = nullptr, const char * name = nullptr );
-		LineEdit( const QString & text, QWidget * parent = nullptr, const char * name = nullptr );
-		~LineEdit() override;
+    Q_OBJECT
+public:
+    LineEdit(QWidget *parent = nullptr, const char *name = nullptr);
+    LineEdit(const QString &text, QWidget *parent = nullptr, const char *name = nullptr);
+    ~LineEdit() override;
 
-	public slots:
-		void setText( const QString & text ) override;
+public slots:
+    void setText(const QString &text) override;
 };
 
 #endif

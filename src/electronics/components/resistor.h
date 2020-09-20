@@ -19,18 +19,18 @@
 */
 class Resistor : public Component
 {
-	public:
-		Resistor( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~Resistor() override;
+public:
+    Resistor(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~Resistor() override;
 
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-	protected:
-		void dataChanged() override;
-		void drawShape( QPainter & p ) override;
+protected:
+    void dataChanged() override;
+    void drawShape(QPainter &p) override;
 
-		Resistance * m_resistance;
+    Resistance *m_resistance;
 };
 
 #endif

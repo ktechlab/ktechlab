@@ -18,33 +18,31 @@
 class FPNode;
 
 /**
-	@author David Saxton, Alan Grimes, Zoltan Padrah <zoltan.padrah@gmail.com>
+    @author David Saxton, Alan Grimes, Zoltan Padrah <zoltan.padrah@gmail.com>
 
-	A flow connector, connecting 2 FPNodes
+    A flow connector, connecting 2 FPNodes
 */
 class FlowConnector : public Connector
 {
-
 public:
-    FlowConnector(FPNode* startNode, FPNode* endNode, ICNDocument* _ICNDocument, QString* id = nullptr);
+    FlowConnector(FPNode *startNode, FPNode *endNode, ICNDocument *_ICNDocument, QString *id = nullptr);
 
     ~FlowConnector() override;
 
-	/**
-	 * Node at start of connector (which refers to this as the output connector)
-	 */
-	Node *startNode() const override ; // { return m_startFpNode );
+    /**
+     * Node at start of connector (which refers to this as the output connector)
+     */
+    Node *startNode() const override; // { return m_startFpNode );
 
-	/**
-	 * Node at end of connector (which refers to this as the input connector)
-	 */
-	Node *endNode() const override ; // { return m_endFpNode; }
+    /**
+     * Node at end of connector (which refers to this as the input connector)
+     */
+    Node *endNode() const override; // { return m_endFpNode; }
 
 private:
-	/// the endnodes of the connector
-	QPointer<FPNode> m_startFpNode;
-	QPointer<FPNode> m_endFpNode;
-
+    /// the endnodes of the connector
+    QPointer<FPNode> m_startFpNode;
+    QPointer<FPNode> m_endFpNode;
 };
 
 #endif

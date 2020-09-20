@@ -18,28 +18,31 @@
 */
 class BiDirLED : public Component
 {
-	public:
-		BiDirLED( ICNDocument * icnDocument, bool newItem, const char *id = nullptr );
-		~BiDirLED() override;
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
-	
-		void dataChanged() override;
-		void stepNonLogic() override;
-		bool doesStepNonLogic() const override { return true; }
-	
-	private:
-		void drawShape( QPainter &p ) override;
-	
-		double r[2];
-		double g[2];
-		double b[2];
+public:
+    BiDirLED(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~BiDirLED() override;
 
-		double avg_brightness[2];
-		uint last_brightness[2];
-		double lastUpdatePeriod;
-		Diode *m_pDiode[2];
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    void dataChanged() override;
+    void stepNonLogic() override;
+    bool doesStepNonLogic() const override
+    {
+        return true;
+    }
+
+private:
+    void drawShape(QPainter &p) override;
+
+    double r[2];
+    double g[2];
+    double b[2];
+
+    double avg_brightness[2];
+    uint last_brightness[2];
+    double lastUpdatePeriod;
+    Diode *m_pDiode[2];
 };
 
 #endif

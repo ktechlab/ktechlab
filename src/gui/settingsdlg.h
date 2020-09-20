@@ -24,68 +24,66 @@ class PicProgrammerConfigWidget;
 class PicProgrammerSettings;
 class SDCCOptionsWidget;
 
-
-
 /**
 @author David Saxton
 */
 class SettingsDlg : public KConfigDialog
 {
-	Q_OBJECT
-	public:
-		SettingsDlg( QWidget *parent, const char *name, KCoreConfigSkeleton *config );
-		~SettingsDlg() override;
-	
-		static int refreshRateToSliderValue( int refreshRate );
-		static int sliderValueToRefreshRate( int sliderValue );
+    Q_OBJECT
+public:
+    SettingsDlg(QWidget *parent, const char *name, KCoreConfigSkeleton *config);
+    ~SettingsDlg() override;
 
-		virtual void show();
+    static int refreshRateToSliderValue(int refreshRate);
+    static int sliderValueToRefreshRate(int sliderValue);
 
-	public slots:
-		void slotUpdateRefreshRateLabel( int sliderValue );
-		void slotUpdatePicProgrammerDescription();
-		void slotAddProgrammerConfig();
-		void slotRemoveProgrammerConfig();
-		void slotSaveCurrentProgrammerConfig();
+    virtual void show();
 
-	protected slots:
-		void slotUpdateSettings();
-		void slotUpdateWidgets();
+public slots:
+    void slotUpdateRefreshRateLabel(int sliderValue);
+    void slotUpdatePicProgrammerDescription();
+    void slotAddProgrammerConfig();
+    void slotRemoveProgrammerConfig();
+    void slotSaveCurrentProgrammerConfig();
 
-	protected:
-		void updateSettings() override;
-		void updateWidgets() override;
-		void updateWidgetsDefault() override;
-		bool hasChanged() override;
-		bool isDefault() override;
+protected slots:
+    void slotUpdateSettings();
+    void slotUpdateWidgets();
 
-		PicProgrammerSettings * m_pPicProgrammerSettings;
+protected:
+    void updateSettings() override;
+    void updateWidgets() override;
+    void updateWidgetsDefault() override;
+    bool hasChanged() override;
+    bool isDefault() override;
 
-		GeneralOptionsWidget * m_generalOptionsWidget;
-		GpasmSettingsWidget * m_gpasmSettingsWidget;
-		SDCCOptionsWidget * m_sdccOptionsWidget;
-		AsmFormattingWidget * m_asmFormattingWidget;
-		LogicWidget * m_logicWidget;
-		PicProgrammerConfigWidget * m_picProgrammerConfigWidget;
-		GplinkSettingsWidget * m_gplinkSettingsWidget;
+    PicProgrammerSettings *m_pPicProgrammerSettings;
+
+    GeneralOptionsWidget *m_generalOptionsWidget;
+    GpasmSettingsWidget *m_gpasmSettingsWidget;
+    SDCCOptionsWidget *m_sdccOptionsWidget;
+    AsmFormattingWidget *m_asmFormattingWidget;
+    LogicWidget *m_logicWidget;
+    PicProgrammerConfigWidget *m_picProgrammerConfigWidget;
+    GplinkSettingsWidget *m_gplinkSettingsWidget;
 };
-
 
 class NameValidator : public QValidator
 {
-	public:
-		NameValidator( QStringList unallowed )
-			: QValidator(nullptr) {
-			m_unallowed = unallowed;
-		}
-		
-		State validate( QString & input, int & ) const override {
-			return (input.isEmpty() || m_unallowed.contains( input.toLower() )) ? Intermediate : Acceptable;
-		}
+public:
+    NameValidator(QStringList unallowed)
+        : QValidator(nullptr)
+    {
+        m_unallowed = unallowed;
+    }
 
-	protected:
-		QStringList m_unallowed;
+    State validate(QString &input, int &) const override
+    {
+        return (input.isEmpty() || m_unallowed.contains(input.toLower())) ? Intermediate : Acceptable;
+    }
+
+protected:
+    QStringList m_unallowed;
 };
-
 
 #endif

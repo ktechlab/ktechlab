@@ -10,38 +10,32 @@
 
 #include "callsub.h"
 
-#include "libraryitem.h"
 #include "flowcode.h"
+#include "libraryitem.h"
 
 #include <KLocalizedString>
 
-Item* CallSub::construct( ItemDocument *itemDocument, bool newItem, const char *id )
+Item *CallSub::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-	return new CallSub( (ICNDocument*)itemDocument, newItem, id );
+    return new CallSub((ICNDocument *)itemDocument, newItem, id);
 }
 
-LibraryItem* CallSub::libraryItem()
+LibraryItem *CallSub::libraryItem()
 {
-	return new LibraryItem(
-		QStringList(QString("flow/callsub")),
-		i18n("Sub Call"),
-		i18n("Common"),
-		"subcall.png",
-		LibraryItem::lit_flowpart,
-		CallSub::construct );
+    return new LibraryItem(QStringList(QString("flow/callsub")), i18n("Sub Call"), i18n("Common"), "subcall.png", LibraryItem::lit_flowpart, CallSub::construct);
 }
 
-CallSub::CallSub( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, id ? id : "callsub" )
+CallSub::CallSub(ICNDocument *icnDocument, bool newItem, const char *id)
+    : FlowPart(icnDocument, newItem, id ? id : "callsub")
 {
-	m_name = i18n("Sub Call");
-	initCallSymbol();
-	createStdInput();
-	createStdOutput();
-	
-	createProperty( "sub", Variant::Type::Combo );
-	property("sub")->setCaption( i18n("Subroutine") );
-	property("sub")->setValue("MySub");
+    m_name = i18n("Sub Call");
+    initCallSymbol();
+    createStdInput();
+    createStdOutput();
+
+    createProperty("sub", Variant::Type::Combo);
+    property("sub")->setCaption(i18n("Subroutine"));
+    property("sub")->setValue("MySub");
 }
 
 CallSub::~CallSub()
@@ -50,12 +44,11 @@ CallSub::~CallSub()
 
 void CallSub::dataChanged()
 {
-	setCaption( i18n("Call %1", dataString("sub")) );
+    setCaption(i18n("Call %1", dataString("sub")));
 }
 
-void CallSub::generateMicrobe( FlowCode *code )
+void CallSub::generateMicrobe(FlowCode *code)
 {
-	code->addCode( "call " + dataString("sub") );
-	code->addCodeBranch( outputPart("stdoutput" ) );
+    code->addCode("call " + dataString("sub"));
+    code->addCodeBranch(outputPart("stdoutput"));
 }
-

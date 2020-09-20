@@ -20,17 +20,17 @@
 class ECVoltageSignal : public Component
 {
 public:
-	ECVoltageSignal( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECVoltageSignal() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    ECVoltageSignal(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECVoltageSignal() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
 protected:
-	void drawShape( QPainter &p ) override;
-	void dataChanged() override;
-	
-	VoltageSignal *m_voltageSignal;
+    void drawShape(QPainter &p) override;
+    void dataChanged() override;
+
+    VoltageSignal *m_voltageSignal;
 };
 
 #endif

@@ -10,16 +10,16 @@
 #include "componentmodellibrary.h"
 
 #include <QDebug>
-#include <QTime>
 #include <QFile>
 #include <QStandardPaths>
+#include <QTime>
 
 #include <cassert>
 
 // A prime number slightly larger than the number of models for any particular type
 // const int maxComponentModels = 101;
 
-//BEGIN class ComponentModel
+// BEGIN class ComponentModel
 ComponentModel::ComponentModel()
 {
 }
@@ -28,152 +28,146 @@ ComponentModel::~ComponentModel()
 {
 }
 
-double ComponentModel::property( const QString & name ) const
+double ComponentModel::property(const QString &name) const
 {
-	return m_property[ name ];
+    return m_property[name];
 }
 
-void ComponentModel::setProperty( const QString & name, double value )
+void ComponentModel::setProperty(const QString &name, double value)
 {
-	m_property[ name ] = value;
+    m_property[name] = value;
 }
-//END class ComponentModel
+// END class ComponentModel
 
-
-//BEGIN class ComponentModelLibrary
-ComponentModelLibrary * ComponentModelLibrary::m_pSelf = nullptr;
-
+// BEGIN class ComponentModelLibrary
+ComponentModelLibrary *ComponentModelLibrary::m_pSelf = nullptr;
 
 // static
-ComponentModelLibrary * ComponentModelLibrary::self()
+ComponentModelLibrary *ComponentModelLibrary::self()
 {
-	if ( !m_pSelf )
-		m_pSelf = new ComponentModelLibrary;
+    if (!m_pSelf)
+        m_pSelf = new ComponentModelLibrary;
 
-	return m_pSelf;
+    return m_pSelf;
 }
-
 
 ComponentModelLibrary::ComponentModelLibrary()
 {
-	loadModels();
+    loadModels();
 }
-
 
 ComponentModelLibrary::~ComponentModelLibrary()
 {
 }
 
-
 void ComponentModelLibrary::loadModels()
 {
-	QTime ct;
-	ct.start();
+    QTime ct;
+    ct.start();
 
-	QStringList files;
-	files << "transistors_lib.txt";
+    QStringList files;
+    files << "transistors_lib.txt";
 
-	// Used to check that maxComponentModels isn't too small
-	typedef QMap< ModelType, int > IntMap;
-	IntMap modelCount;
-	
-	QStringList::iterator end = files.end();
-	for ( QStringList::iterator it = files.begin(); it != end; ++it )
-	{
-		QString fileName = QStandardPaths::locate( QStandardPaths::AppDataLocation, "models/" + *it );
-		if ( fileName.isEmpty() )
-		{
-			qWarning() << Q_FUNC_INFO << "Could not find library file \""<<*it<<"\".\n";
-			continue;
-		}
+    // Used to check that maxComponentModels isn't too small
+    typedef QMap<ModelType, int> IntMap;
+    IntMap modelCount;
 
-		QFile file( fileName );
-		if ( !file.open( QIODevice::ReadOnly ) )
-		{
-			qWarning() << Q_FUNC_INFO << "Could not open library file \""<<fileName<<"\" for reading.\n";
-			continue;
-		}
+    QStringList::iterator end = files.end();
+    for (QStringList::iterator it = files.begin(); it != end; ++it) {
+        QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, "models/" + *it);
+        if (fileName.isEmpty()) {
+            qWarning() << Q_FUNC_INFO << "Could not find library file \"" << *it << "\".\n";
+            continue;
+        }
 
-		QString id;
-		QString typeString;
-		ComponentModel *model = nullptr;
+        QFile file(fileName);
+        if (!file.open(QIODevice::ReadOnly)) {
+            qWarning() << Q_FUNC_INFO << "Could not open library file \"" << fileName << "\" for reading.\n";
+            continue;
+        }
 
-		QTextStream stream( & file );
-		while ( !stream.atEnd() )
-		{
-			QString line = stream.readLine();
+        QString id;
+        QString typeString;
+        ComponentModel *model = nullptr;
 
-			if ( line.isEmpty() ) continue;
+        QTextStream stream(&file);
+        while (!stream.atEnd()) {
+            QString line = stream.readLine();
 
-			if ( line == "[/]" )
-			{
-				// End of previous model
+            if (line.isEmpty())
+                continue;
 
-				assert( model );
+            if (line == "[/]") {
+                // End of previous model
 
-				ModelType type = None;
-				if ( typeString == "NPN" ) type = NPN;
-				else if ( typeString == "PNP" ) type = PNP;
-				else	qCritical() << Q_FUNC_INFO << "Unknown type \""<<typeString<<"\".\n";
+                assert(model);
 
-				if ( m_componentModelIDs[type].contains( id ) )
-					qCritical() << Q_FUNC_INFO << "Already have model with id=\""<<id<<"\" for type=\""<<typeString<<"\".\n";
+                ModelType type = None;
+                if (typeString == "NPN")
+                    type = NPN;
+                else if (typeString == "PNP")
+                    type = PNP;
+                else
+                    qCritical() << Q_FUNC_INFO << "Unknown type \"" << typeString << "\".\n";
 
-				if ( !m_componentModels.contains( type ) )
-				{
-					m_componentModels[type] = ComponentModelDict( /* maxComponentModels */ );
-					//m_componentModels[type].setAutoDelete( true ); // 2018.08.14 - not needed
-				}
+                if (m_componentModelIDs[type].contains(id))
+                    qCritical() << Q_FUNC_INFO << "Already have model with id=\"" << id << "\" for type=\"" << typeString << "\".\n";
 
-				m_componentModels[type].insert( id, *model );
-				m_componentModelIDs[type] << id;
+                if (!m_componentModels.contains(type)) {
+                    m_componentModels[type] = ComponentModelDict(/* maxComponentModels */);
+                    // m_componentModels[type].setAutoDelete( true ); // 2018.08.14 - not needed
+                }
 
-				/* if ( int(modelCount[type] * 1.2) > maxComponentModels )  // 2018.08.14 - not needed
-				{
-					qWarning() << Q_FUNC_INFO << "There are "<<modelCount[type]<<" models for component type \""<<typeString<<"\". Consider enlarging the dictionary.\n";
-				} */
+                m_componentModels[type].insert(id, *model);
+                m_componentModelIDs[type] << id;
 
-				// Reset the model
-				model = nullptr;
-				id = QString::null;
-				typeString = QString::null;
+                /* if ( int(modelCount[type] * 1.2) > maxComponentModels )  // 2018.08.14 - not needed
+                {
+                    qWarning() << Q_FUNC_INFO << "There are "<<modelCount[type]<<" models for component type \""<<typeString<<"\". Consider enlarging the dictionary.\n";
+                } */
 
-				modelCount[type]++;
-			} else if ( line.startsWith("[" ) ) {
-				// Already handled the case with "[/]", so must be beginning of
-				// new model
+                // Reset the model
+                model = nullptr;
+                id = QString::null;
+                typeString = QString::null;
 
-				// Check that their isn't a previous model that hasn't saved
-				assert( !model );
+                modelCount[type]++;
+            } else if (line.startsWith("[")) {
+                // Already handled the case with "[/]", so must be beginning of
+                // new model
 
-				model = new ComponentModel;
-				id = line.mid( 1, line.length()-2 ); // extract the text between the square brackets
-			} else {
-				// Setting a property of the model
-				assert( model );
+                // Check that their isn't a previous model that hasn't saved
+                assert(!model);
 
-				int pos = line.indexOf( '=' );
-				assert( pos != -1 );
+                model = new ComponentModel;
+                id = line.mid(1, line.length() - 2); // extract the text between the square brackets
+            } else {
+                // Setting a property of the model
+                assert(model);
 
-				QString name = line.left( pos );
-				QString value = line.mid( pos+1 );
+                int pos = line.indexOf('=');
+                assert(pos != -1);
 
-				if ( name == "Description" )
-					model->setDescription( value );
-				else if ( name == "Type" )
-					typeString = value;
-				else {
-					bool ok;
-					double realValue = value.toDouble( & ok );
-					
-					if ( !ok )
-						qCritical() << Q_FUNC_INFO << "Could not convert \""<<value<<"\" to a real number (for property \""<<name<<"\".\n";
-					else	model->setProperty( name, realValue );
-				}
-			}
-		}
-	}
+                QString name = line.left(pos);
+                QString value = line.mid(pos + 1);
 
-	qDebug() << Q_FUNC_INFO << "It took " << ct.elapsed() << " milliseconds to read in the component models.\n";
+                if (name == "Description")
+                    model->setDescription(value);
+                else if (name == "Type")
+                    typeString = value;
+                else {
+                    bool ok;
+                    double realValue = value.toDouble(&ok);
+
+                    if (!ok)
+                        qCritical() << Q_FUNC_INFO << "Could not convert \"" << value << "\" to a real number (for property \"" << name << "\".\n";
+                    else
+                        model->setProperty(name, realValue);
+                }
+            }
+        }
+    }
+
+    qDebug() << Q_FUNC_INFO << "It took " << ct.elapsed() << " milliseconds to read in the component models.\n";
 }
-//END class ComponentModelLibrary
+// END class ComponentModelLibrary

@@ -14,7 +14,7 @@
 //#include <kactionclasses.h>
 #include <KSelectAction>
 
-//class K3PopupMenu;
+// class K3PopupMenu;
 class QUrl;
 class QMenu;
 
@@ -24,56 +24,56 @@ Adapted to work around strange bug occuring.
 */
 class RecentFilesAction : public KSelectAction
 {
-	Q_OBJECT
-	public:
-		RecentFilesAction( const QString & configGroupName, const QString & text, const QObject * receiver, const char* slot, QObject* parent, const char * name );
-		
-		~RecentFilesAction() override;
-		
-		/**
-		 *  Loads the recent files entries from a given KConfig object.
-		 *  You can provide the name of the group used to load the entries.
-		 *  If the groupname is empty, entries are load from a group called 'RecentFiles'
-		 *
-		 *  This method does not effect the active group of KConfig.
-		 */
-		void loadEntries();
-		/**
-		 *  Saves the current recent files entries to a given KConfig object.
-		 *  You can provide the name of the group used to load the entries.
-		 *  If the groupname is empty, entries are saved to a group called 'RecentFiles'
-		 *
-		 *  This method does not effect the active group of KConfig.
-		 */
-		void saveEntries();
-		/**
-		 *  Add URL to recent files list.
-		 *
-		 *  @param url The URL of the file
-		 */
-		void addUrl( const QUrl& url );
-		
-	signals:
-		/**
-		 *  This signal gets emited when the user selects an URL.
-		 *
-		 *  @param url The URL thats the user selected.
-		 */
-		void urlSelected( const QUrl& url );
-		
-	protected slots:
-		void itemSelected( const QString& string );
-		void menuAboutToShow();
-		void menuItemActivated( QAction *action );
-		void slotClicked();
-		virtual void slotActivated(int);
-		virtual void slotActivated(const QString& );
-		virtual void slotActivated();
+    Q_OBJECT
+public:
+    RecentFilesAction(const QString &configGroupName, const QString &text, const QObject *receiver, const char *slot, QObject *parent, const char *name);
 
-	protected:
-		unsigned m_maxItems;
-		QMenu * m_popup;
-		QString m_configGroupName;
+    ~RecentFilesAction() override;
+
+    /**
+     *  Loads the recent files entries from a given KConfig object.
+     *  You can provide the name of the group used to load the entries.
+     *  If the groupname is empty, entries are load from a group called 'RecentFiles'
+     *
+     *  This method does not effect the active group of KConfig.
+     */
+    void loadEntries();
+    /**
+     *  Saves the current recent files entries to a given KConfig object.
+     *  You can provide the name of the group used to load the entries.
+     *  If the groupname is empty, entries are saved to a group called 'RecentFiles'
+     *
+     *  This method does not effect the active group of KConfig.
+     */
+    void saveEntries();
+    /**
+     *  Add URL to recent files list.
+     *
+     *  @param url The URL of the file
+     */
+    void addUrl(const QUrl &url);
+
+signals:
+    /**
+     *  This signal gets emited when the user selects an URL.
+     *
+     *  @param url The URL thats the user selected.
+     */
+    void urlSelected(const QUrl &url);
+
+protected slots:
+    void itemSelected(const QString &string);
+    void menuAboutToShow();
+    void menuItemActivated(QAction *action);
+    void slotClicked();
+    virtual void slotActivated(int);
+    virtual void slotActivated(const QString &);
+    virtual void slotActivated();
+
+protected:
+    unsigned m_maxItems;
+    QMenu *m_popup;
+    QString m_configGroupName;
 };
 
 #endif

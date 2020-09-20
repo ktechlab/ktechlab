@@ -20,17 +20,17 @@
 class ECCurrentSignal : public Component
 {
 public:
-	ECCurrentSignal( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECCurrentSignal() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    ECCurrentSignal(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECCurrentSignal() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
 protected:
-	void drawShape( QPainter &p ) override;
-	void dataChanged() override;
-	
-	CurrentSignal *m_currentSignal;
+    void drawShape(QPainter &p) override;
+    void dataChanged() override;
+
+    CurrentSignal *m_currentSignal;
 };
 
 #endif

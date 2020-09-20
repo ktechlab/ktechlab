@@ -8,34 +8,34 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include "scopescreenview.h"
 #include "oscilloscope.h"
 #include "oscilloscopedata.h"
 #include "probe.h"
-#include "scopescreenview.h"
-#include "simulator.h"
 #include "probepositioner.h"
+#include "simulator.h"
 
+#include <QDebug>
 #include <QPainter>
 #include <QTimer>
-#include <QDebug>
 
 #include <cmath>
 #define FADESPEED 1
 
 ScopeScreenView::ScopeScreenView(QWidget *parent, const char *name)
-: ScopeViewBase(parent, name),
-m_intervalsX(10),
-m_ticksPerIntervalX(10000),
-m_offsetX(0)
+    : ScopeViewBase(parent, name)
+    , m_intervalsX(10)
+    , m_ticksPerIntervalX(10000)
+    , m_offsetX(0)
 {
-	m_updateViewTmr = new QTimer(this);
-	connect( m_updateViewTmr, SIGNAL(timeout()), this, SLOT(updateViewTimeout()) );
-	m_updateViewTmr->start(50);
+    m_updateViewTmr = new QTimer(this);
+    connect(m_updateViewTmr, SIGNAL(timeout()), this, SLOT(updateViewTimeout()));
+    m_updateViewTmr->start(50);
 }
 
-
 ScopeScreenView::~ScopeScreenView()
-{}
+{
+}
 
 #if 0
 void ScopeScreenView::drawContents(QPainter * p)
@@ -221,56 +221,53 @@ void ScopeScreenView::drawContents(QPainter * p)
 	}
 }
 #endif
-void ScopeScreenView::setIntervalsX( int value )
+void ScopeScreenView::setIntervalsX(int value)
 {
-	m_intervalsX = value;
+    m_intervalsX = value;
 }
 
-void ScopeScreenView::setTicksPerIntervalX( int value )
+void ScopeScreenView::setTicksPerIntervalX(int value)
 {
-	m_ticksPerIntervalX = value;
+    m_ticksPerIntervalX = value;
 }
 
-void ScopeScreenView::setOffsetX( int value )
+void ScopeScreenView::setOffsetX(int value)
 {
-	m_offsetX = value;
+    m_offsetX = value;
 }
 
-void ScopeScreenView::updateViewTimeout( )
+void ScopeScreenView::updateViewTimeout()
 {
-	repaint();
+    repaint();
 }
 
-void ScopeScreenView::drawBackground( QPainter & p )
+void ScopeScreenView::drawBackground(QPainter &p)
 {
-	QRect cr = contentsRect();
-	
-	for(int i =1; i < m_intervalsX; i++)
-	{
-		int x = cr.left() + cr.width()*i/m_intervalsX;
-		p.drawLine(x, cr.top(), x, cr.bottom());
-	}
-	
-	///\todo REMOVE THIS NOTICE
- 		
-	p.drawText(cr.left(), cr.top(), "NOT YET IMPLEMENTED");
-	
+    QRect cr = contentsRect();
+
+    for (int i = 1; i < m_intervalsX; i++) {
+        int x = cr.left() + cr.width() * i / m_intervalsX;
+        p.drawLine(x, cr.top(), x, cr.bottom());
+    }
+
+    ///\todo REMOVE THIS NOTICE
+
+    p.drawText(cr.left(), cr.top(), "NOT YET IMPLEMENTED");
 }
 
-void ScopeScreenView::drawMidLine( QPainter & p, ProbeData * probe )
+void ScopeScreenView::drawMidLine(QPainter &p, ProbeData *probe)
 {
-	const int midHeight = Oscilloscope::self()->probePositioner->probePosition(probe);
-	
-	// Draw the horizontal line indicating the midpoint of our output
-	p.setPen( QColor( 228, 228, 228 ) );
-	p.drawLine( 0, midHeight, width(), midHeight );
+    const int midHeight = Oscilloscope::self()->probePositioner->probePosition(probe);
+
+    // Draw the horizontal line indicating the midpoint of our output
+    p.setPen(QColor(228, 228, 228));
+    p.drawLine(0, midHeight, width(), midHeight);
 }
 
-
-void ScopeScreenView::drawProbe( QPainter & p, LogicProbeData * probe )
+void ScopeScreenView::drawProbe(QPainter &p, LogicProbeData *probe)
 {
 }
 
-void ScopeScreenView::drawProbe( QPainter & p, FloatingProbeData * probe )
+void ScopeScreenView::drawProbe(QPainter &p, FloatingProbeData *probe)
 {
 }

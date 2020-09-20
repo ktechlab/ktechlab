@@ -20,16 +20,16 @@
 class ReadPort : public FlowPart
 {
 public:
-	ReadPort( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ReadPort() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    ReadPort(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ReadPort() override;
 
-	void generateMicrobe( FlowCode * ) override;
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    void generateMicrobe(FlowCode *) override;
 
 protected:
-	void dataChanged() override;
+    void dataChanged() override;
 };
 
 #endif

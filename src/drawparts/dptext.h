@@ -19,29 +19,29 @@
 */
 class DPText : public DrawPart
 {
-	public:
-		DPText( ItemDocument *itemDocument, bool newItem, const char *id = nullptr );
-		~DPText() override;
+public:
+    DPText(ItemDocument *itemDocument, bool newItem, const char *id = nullptr);
+    ~DPText() override;
 
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
-		static LibraryItem *libraryItemOld();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+    static LibraryItem *libraryItemOld();
 
-		void setSelected( bool yes ) override;
-	
-		QSize minimumSize() const override;
+    void setSelected(bool yes) override;
 
-	protected:
-		void postResize() override;
-	
-	private:
-		void drawShape( QPainter &p ) override;
-		void dataChanged() override;
-		QString m_text;
-		bool b_displayBackground;
-		QColor m_backgroundColor;
-		QColor m_frameColor;
-		RectangularOverlay *m_rectangularOverlay;
+    QSize minimumSize() const override;
+
+protected:
+    void postResize() override;
+
+private:
+    void drawShape(QPainter &p) override;
+    void dataChanged() override;
+    QString m_text;
+    bool b_displayBackground;
+    QColor m_backgroundColor;
+    QColor m_frameColor;
+    RectangularOverlay *m_rectangularOverlay;
 };
 
 #endif

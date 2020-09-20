@@ -8,10 +8,10 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "circuitdocument.h"
-#include "connector.h"
-#include "cnitem.h"
 #include "documentiface.h"
+#include "circuitdocument.h"
+#include "cnitem.h"
+#include "connector.h"
 #include "flowcodedocument.h"
 #include "itemlibrary.h"
 #include "libraryitem.h"
@@ -19,432 +19,415 @@
 #include "textdocument.h"
 #include "view.h"
 
-
-//BEGIN class DocumentIface
-DocumentIface::DocumentIface( Document * document )
-	: DCOPObject( /* TODO "Document" */ )
+// BEGIN class DocumentIface
+DocumentIface::DocumentIface(Document *document)
+    : DCOPObject(/* TODO "Document" */)
 {
-	m_pDocument = document;
+    m_pDocument = document;
 }
-
 
 DocumentIface::~DocumentIface()
 {
 }
 
-void DocumentIface::selectAll( )
+void DocumentIface::selectAll()
 {
-	m_pDocument->selectAll();
+    m_pDocument->selectAll();
 }
 
-void DocumentIface::redo( )
+void DocumentIface::redo()
 {
-	m_pDocument->redo();
+    m_pDocument->redo();
 }
 
-void DocumentIface::undo( )
+void DocumentIface::undo()
 {
-	m_pDocument->undo();
+    m_pDocument->undo();
 }
 
-void DocumentIface::paste( )
+void DocumentIface::paste()
 {
-	m_pDocument->paste();
+    m_pDocument->paste();
 }
 
-void DocumentIface::copy( )
+void DocumentIface::copy()
 {
-	m_pDocument->copy();
+    m_pDocument->copy();
 }
 
-void DocumentIface::cut( )
+void DocumentIface::cut()
 {
-	m_pDocument->cut();
+    m_pDocument->cut();
 }
 
-void DocumentIface::print( )
+void DocumentIface::print()
 {
-	m_pDocument->print();
+    m_pDocument->print();
 }
 
-
-bool DocumentIface::close( )
+bool DocumentIface::close()
 {
-	return m_pDocument->fileClose();
+    return m_pDocument->fileClose();
 }
 
-void DocumentIface::saveAs( )
+void DocumentIface::saveAs()
 {
-	m_pDocument->fileSaveAs();
+    m_pDocument->fileSaveAs();
 }
 
-void DocumentIface::save( )
+void DocumentIface::save()
 {
-	m_pDocument->fileSave();
+    m_pDocument->fileSave();
 }
 
-bool DocumentIface::isRedoAvailable( )
+bool DocumentIface::isRedoAvailable()
 {
-	return m_pDocument->isRedoAvailable();
+    return m_pDocument->isRedoAvailable();
 }
 
-bool DocumentIface::isUndoAvailable( )
+bool DocumentIface::isUndoAvailable()
 {
-	return m_pDocument->isUndoAvailable();
+    return m_pDocument->isUndoAvailable();
 }
 
-bool DocumentIface::isModified( )
+bool DocumentIface::isModified()
 {
-	return m_pDocument->isModified();
+    return m_pDocument->isModified();
 }
 
-bool DocumentIface::openURL( const QString & url )
+bool DocumentIface::openURL(const QString &url)
 {
-	return m_pDocument->openURL(QUrl(url));
+    return m_pDocument->openURL(QUrl(url));
 }
 
-QString DocumentIface::url( )
+QString DocumentIface::url()
 {
-	return m_pDocument->url().url();
+    return m_pDocument->url().url();
 }
 
-uint DocumentIface::numberOfViews( )
+uint DocumentIface::numberOfViews()
 {
-	return m_pDocument->numberOfViews();
+    return m_pDocument->numberOfViews();
 }
 
-DCOPRef DocumentIface::activeView( )
+DCOPRef DocumentIface::activeView()
 {
-	return viewToRef( m_pDocument->activeView() );
+    return viewToRef(m_pDocument->activeView());
 }
 
-QString DocumentIface::caption( ) const
+QString DocumentIface::caption() const
 {
-	return m_pDocument->caption();
+    return m_pDocument->caption();
 }
 
-DCOPRef DocumentIface::viewToRef( View * /*view*/ )
+DCOPRef DocumentIface::viewToRef(View * /*view*/)
 {
-	return DCOPRef(); //  view->dcopObject() ); TODO
+    return DCOPRef(); //  view->dcopObject() ); TODO
 }
-//END class DocumentIface
+// END class DocumentIface
 
-
-
-//BEGIN class FlowCodeDocumentIface
-FlowCodeDocumentIface::FlowCodeDocumentIface( FlowCodeDocument * document )
-	: ICNDocumentIface(document)
+// BEGIN class FlowCodeDocumentIface
+FlowCodeDocumentIface::FlowCodeDocumentIface(FlowCodeDocument *document)
+    : ICNDocumentIface(document)
 {
-	m_pFlowCodeDocument = document;
+    m_pFlowCodeDocument = document;
 }
 
-void FlowCodeDocumentIface::setPicType( const QString & id )
+void FlowCodeDocumentIface::setPicType(const QString &id)
 {
-	m_pFlowCodeDocument->setPicType(id);
+    m_pFlowCodeDocument->setPicType(id);
 }
 
-void FlowCodeDocumentIface::convertToMicrobe()		
+void FlowCodeDocumentIface::convertToMicrobe()
 {
-	m_pFlowCodeDocument->convertToMicrobe();
+    m_pFlowCodeDocument->convertToMicrobe();
 }
 
-void FlowCodeDocumentIface::convertToHex()		
+void FlowCodeDocumentIface::convertToHex()
 {
-	m_pFlowCodeDocument->convertToHex();
+    m_pFlowCodeDocument->convertToHex();
 }
 
 void FlowCodeDocumentIface::convertToPIC()
 {
-	m_pFlowCodeDocument->convertToPIC();
+    m_pFlowCodeDocument->convertToPIC();
 }
 
 void FlowCodeDocumentIface::convertToAssembly()
 {
-	m_pFlowCodeDocument->convertToAssembly();
+    m_pFlowCodeDocument->convertToAssembly();
 }
-//END class FlowCodeDocumentIface
+// END class FlowCodeDocumentIface
 
-
-
-//BEGIN class CircuitDocumentIface
-CircuitDocumentIface::CircuitDocumentIface( CircuitDocument * document )
-	: ICNDocumentIface(document)
+// BEGIN class CircuitDocumentIface
+CircuitDocumentIface::CircuitDocumentIface(CircuitDocument *document)
+    : ICNDocumentIface(document)
 {
-	m_pCircuitDocument = document;
+    m_pCircuitDocument = document;
 }
 
-void CircuitDocumentIface::setOrientation0( )
+void CircuitDocumentIface::setOrientation0()
 {
-	m_pCircuitDocument->setOrientation0();
+    m_pCircuitDocument->setOrientation0();
 }
 
-void CircuitDocumentIface::setOrientation90( )
+void CircuitDocumentIface::setOrientation90()
 {
-	m_pCircuitDocument->setOrientation90();
+    m_pCircuitDocument->setOrientation90();
 }
 
-void CircuitDocumentIface::setOrientation180( )
+void CircuitDocumentIface::setOrientation180()
 {
-	m_pCircuitDocument->setOrientation180();
+    m_pCircuitDocument->setOrientation180();
 }
 
-void CircuitDocumentIface::setOrientation270( )
+void CircuitDocumentIface::setOrientation270()
 {
-	m_pCircuitDocument->setOrientation270();
+    m_pCircuitDocument->setOrientation270();
 }
 
-void CircuitDocumentIface::rotateCounterClockwise( )
+void CircuitDocumentIface::rotateCounterClockwise()
 {
-	m_pCircuitDocument->rotateCounterClockwise();
+    m_pCircuitDocument->rotateCounterClockwise();
 }
 
-void CircuitDocumentIface::rotateClockwise( )
+void CircuitDocumentIface::rotateClockwise()
 {
-	m_pCircuitDocument->rotateClockwise();
+    m_pCircuitDocument->rotateClockwise();
 }
 
 void CircuitDocumentIface::flipHorizontally()
 {
-	m_pCircuitDocument->flipHorizontally();
+    m_pCircuitDocument->flipHorizontally();
 }
 
 void CircuitDocumentIface::flipVertically()
 {
-	m_pCircuitDocument->flipVertically();
+    m_pCircuitDocument->flipVertically();
 }
 
-void CircuitDocumentIface::displayEquations( )
+void CircuitDocumentIface::displayEquations()
 {
-	m_pCircuitDocument->displayEquations();
+    m_pCircuitDocument->displayEquations();
 }
 
-void CircuitDocumentIface::createSubcircuit( )
+void CircuitDocumentIface::createSubcircuit()
 {
-	m_pCircuitDocument->createSubcircuit();
+    m_pCircuitDocument->createSubcircuit();
 }
-//END class CircuitDocumentIface
+// END class CircuitDocumentIface
 
-
-
-//BEGIN class ICNDocumentIface
-ICNDocumentIface::ICNDocumentIface( ICNDocument * document )
-	: ItemDocumentIface(document)
+// BEGIN class ICNDocumentIface
+ICNDocumentIface::ICNDocumentIface(ICNDocument *document)
+    : ItemDocumentIface(document)
 {
-	m_pICNDocument = document;
+    m_pICNDocument = document;
 }
 
-void ICNDocumentIface::exportToImage( )
+void ICNDocumentIface::exportToImage()
 {
-	m_pICNDocument->exportToImage();
+    m_pICNDocument->exportToImage();
 }
 
-QStringList ICNDocumentIface::nodeIDs( const QString & id )
+QStringList ICNDocumentIface::nodeIDs(const QString &id)
 {
-	CNItem * item = m_pICNDocument->cnItemWithID(id);
-	
-	QStringList ids;
-	if ( !item )
-		return ids;
-	
-	const NodeInfoMap nm = item->nodeMap();
-	const NodeInfoMap::const_iterator end = nm.end();
-	for ( NodeInfoMap::const_iterator it = nm.begin(); it != end; ++it )
-		ids.append( it.key().toAscii() );
-	
-	return ids;
+    CNItem *item = m_pICNDocument->cnItemWithID(id);
+
+    QStringList ids;
+    if (!item)
+        return ids;
+
+    const NodeInfoMap nm = item->nodeMap();
+    const NodeInfoMap::const_iterator end = nm.end();
+    for (NodeInfoMap::const_iterator it = nm.begin(); it != end; ++it)
+        ids.append(it.key().toAscii());
+
+    return ids;
 }
 
-QString ICNDocumentIface::makeConnection( const QString & item1, const QString & node1, const QString & item2, const QString & node2 )
+QString ICNDocumentIface::makeConnection(const QString &item1, const QString &node1, const QString &item2, const QString &node2)
 {
-	CNItem * i1 = m_pICNDocument->cnItemWithID(item1);
-	CNItem * i2 = m_pICNDocument->cnItemWithID(item2);
-	
-	if ( !i1 || !i2 )
-		return QString::null;
-	
-	Node * n1 = m_pICNDocument->nodeWithID( i1->nodeId(node1) );
-	Node * n2 = m_pICNDocument->nodeWithID( i2->nodeId(node2) );
-	
-	if ( !n1 || !n2 )
-		return QString::null;
-	
-	Connector * connector = m_pICNDocument->createConnector( n1, n2 );
-	return connector ? connector->id() : QString::null;
+    CNItem *i1 = m_pICNDocument->cnItemWithID(item1);
+    CNItem *i2 = m_pICNDocument->cnItemWithID(item2);
+
+    if (!i1 || !i2)
+        return QString::null;
+
+    Node *n1 = m_pICNDocument->nodeWithID(i1->nodeId(node1));
+    Node *n2 = m_pICNDocument->nodeWithID(i2->nodeId(node2));
+
+    if (!n1 || !n2)
+        return QString::null;
+
+    Connector *connector = m_pICNDocument->createConnector(n1, n2);
+    return connector ? connector->id() : QString::null;
 }
 
-void ICNDocumentIface::selectConnector( const QString & id )
+void ICNDocumentIface::selectConnector(const QString &id)
 {
-	m_pICNDocument->select( m_pICNDocument->connectorWithID(id) );
+    m_pICNDocument->select(m_pICNDocument->connectorWithID(id));
 }
 
-void ICNDocumentIface::unselectConnector( const QString & id )
+void ICNDocumentIface::unselectConnector(const QString &id)
 {
-	m_pItemDocument->unselect( m_pICNDocument->connectorWithID(id) );
+    m_pItemDocument->unselect(m_pICNDocument->connectorWithID(id));
 }
-//END class ICNDocumentIface
+// END class ICNDocumentIface
 
-
-
-//BEGIN class ItemDocumentIface
-ItemDocumentIface::ItemDocumentIface( ItemDocument * document )
-	: DocumentIface(document)
+// BEGIN class ItemDocumentIface
+ItemDocumentIface::ItemDocumentIface(ItemDocument *document)
+    : DocumentIface(document)
 {
-	m_pItemDocument = document;
+    m_pItemDocument = document;
 }
 
-QStringList ItemDocumentIface::validItemIDs( )
+QStringList ItemDocumentIface::validItemIDs()
 {
-	QStringList validIDs;
-	
-	LibraryItemList * allItems = itemLibrary()->items();
-	const LibraryItemList::iterator end = allItems->end();
-	for ( LibraryItemList::iterator it = allItems->begin(); it != end; ++it )
-	{
-		QString id = (*it)->activeID();
-		if ( m_pItemDocument->isValidItem(id) )
-			validIDs << id.toUtf8();
-	}
-	return validIDs;
+    QStringList validIDs;
+
+    LibraryItemList *allItems = itemLibrary()->items();
+    const LibraryItemList::iterator end = allItems->end();
+    for (LibraryItemList::iterator it = allItems->begin(); it != end; ++it) {
+        QString id = (*it)->activeID();
+        if (m_pItemDocument->isValidItem(id))
+            validIDs << id.toUtf8();
+    }
+    return validIDs;
 }
 
-QString ItemDocumentIface::addItem( const QString & id, int x, int y )
+QString ItemDocumentIface::addItem(const QString &id, int x, int y)
 {
-	Item * item = m_pItemDocument->addItem( id, QPoint( x, y ), true );
-	return item ? item->id() : QString::null;
+    Item *item = m_pItemDocument->addItem(id, QPoint(x, y), true);
+    return item ? item->id() : QString::null;
 }
 
-void ItemDocumentIface::selectItem( const QString & id )
+void ItemDocumentIface::selectItem(const QString &id)
 {
-	m_pItemDocument->select( m_pItemDocument->itemWithID(id) );
+    m_pItemDocument->select(m_pItemDocument->itemWithID(id));
 }
 
-void ItemDocumentIface::unselectItem( const QString & id )
+void ItemDocumentIface::unselectItem(const QString &id)
 {
-	m_pItemDocument->unselect( m_pItemDocument->itemWithID(id) );
+    m_pItemDocument->unselect(m_pItemDocument->itemWithID(id));
 }
 
-void ItemDocumentIface::deleteSelection( )
+void ItemDocumentIface::deleteSelection()
 {
-	m_pItemDocument->deleteSelection();
+    m_pItemDocument->deleteSelection();
 }
 
-void ItemDocumentIface::clearHistory( )
+void ItemDocumentIface::clearHistory()
 {
-	m_pItemDocument->clearHistory();
+    m_pItemDocument->clearHistory();
 }
 
-void ItemDocumentIface::unselectAll( )
+void ItemDocumentIface::unselectAll()
 {
-	m_pItemDocument->unselectAll();
+    m_pItemDocument->unselectAll();
 }
 
-void ItemDocumentIface::alignHorizontally( )
+void ItemDocumentIface::alignHorizontally()
 {
-	m_pItemDocument->alignHorizontally();
+    m_pItemDocument->alignHorizontally();
 }
 
-void ItemDocumentIface::alignVertically( )
+void ItemDocumentIface::alignVertically()
 {
-	m_pItemDocument->alignVertically();
+    m_pItemDocument->alignVertically();
 }
 
-void ItemDocumentIface::distributeHorizontally( )
+void ItemDocumentIface::distributeHorizontally()
 {
-	m_pItemDocument->distributeHorizontally();
+    m_pItemDocument->distributeHorizontally();
 }
 
-void ItemDocumentIface::distributeVertically( )
+void ItemDocumentIface::distributeVertically()
 {
-	m_pItemDocument->distributeVertically();
+    m_pItemDocument->distributeVertically();
 }
-//END class ItemDocumentIface
+// END class ItemDocumentIface
 
-
-
-//BEGIN class TextDocumentIface
-TextDocumentIface::TextDocumentIface( TextDocument * document )
-	: DocumentIface(document)
+// BEGIN class TextDocumentIface
+TextDocumentIface::TextDocumentIface(TextDocument *document)
+    : DocumentIface(document)
 {
-	m_pTextDocument = document;
+    m_pTextDocument = document;
 }
 
-void TextDocumentIface::debugStepOver( )
+void TextDocumentIface::debugStepOver()
 {
-	m_pTextDocument->debugStepOver();
+    m_pTextDocument->debugStepOver();
 }
 
-void TextDocumentIface::debugStepOut( )
+void TextDocumentIface::debugStepOut()
 {
-	m_pTextDocument->debugStepOut();
+    m_pTextDocument->debugStepOut();
 }
 
-void TextDocumentIface::debugStep( )
+void TextDocumentIface::debugStep()
 {
-	m_pTextDocument->debugStep();
+    m_pTextDocument->debugStep();
 }
 
-void TextDocumentIface::debugStop( )
+void TextDocumentIface::debugStop()
 {
-	m_pTextDocument->debugStop();
+    m_pTextDocument->debugStop();
 }
 
-void TextDocumentIface::debugInterrupt( )
+void TextDocumentIface::debugInterrupt()
 {
-	m_pTextDocument->debugInterrupt();
+    m_pTextDocument->debugInterrupt();
 }
 
-void TextDocumentIface::debugRun( )
+void TextDocumentIface::debugRun()
 {
-	m_pTextDocument->debugRun();
+    m_pTextDocument->debugRun();
 }
 
-bool TextDocumentIface::isDebugging( )
+bool TextDocumentIface::isDebugging()
 {
 #ifndef NO_GPSIM
-	return m_pTextDocument->debuggerIsRunning();
+    return m_pTextDocument->debuggerIsRunning();
 #else
-	return false;
+    return false;
 #endif
 }
 
-void TextDocumentIface::clearBookmarks( )
+void TextDocumentIface::clearBookmarks()
 {
-	m_pTextDocument->clearBookmarks();
+    m_pTextDocument->clearBookmarks();
 }
 
-void TextDocumentIface::convertToAssembly( )
+void TextDocumentIface::convertToAssembly()
 {
-	m_pTextDocument->convertToAssembly();
+    m_pTextDocument->convertToAssembly();
 }
 
-void TextDocumentIface::convertToPIC( )
+void TextDocumentIface::convertToPIC()
 {
-	m_pTextDocument->convertToPIC();
+    m_pTextDocument->convertToPIC();
 }
 
-void TextDocumentIface::convertToHex( )
+void TextDocumentIface::convertToHex()
 {
-	m_pTextDocument->convertToHex();
+    m_pTextDocument->convertToHex();
 }
 
-void TextDocumentIface::convertToMicrobe( )
+void TextDocumentIface::convertToMicrobe()
 {
-	m_pTextDocument->convertToMicrobe();
+    m_pTextDocument->convertToMicrobe();
 }
 
-void TextDocumentIface::formatAssembly( )
+void TextDocumentIface::formatAssembly()
 {
-	m_pTextDocument->formatAssembly();
+    m_pTextDocument->formatAssembly();
 }
-//END class TextDocumentIface
+// END class TextDocumentIface
 
-
-
-//BEGIN class MechanicsDocumentIface
-MechanicsDocumentIface::MechanicsDocumentIface( MechanicsDocument * document )
-	: ItemDocumentIface(document)
+// BEGIN class MechanicsDocumentIface
+MechanicsDocumentIface::MechanicsDocumentIface(MechanicsDocument *document)
+    : ItemDocumentIface(document)
 {
-	m_pMechanicsDocument = document;
+    m_pMechanicsDocument = document;
 }
-//END class MechanicsDocumentIface
-
+// END class MechanicsDocumentIface

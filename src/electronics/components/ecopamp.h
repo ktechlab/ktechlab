@@ -19,15 +19,15 @@
 */
 class ECOpAmp : public Component
 {
-	public:
-		ECOpAmp( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~ECOpAmp() override;
-		
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
+public:
+    ECOpAmp(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECOpAmp() override;
 
-	protected:
-		void drawShape( QPainter & p ) override;
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+protected:
+    void drawShape(QPainter &p) override;
 };
 
 #endif

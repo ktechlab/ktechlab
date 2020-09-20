@@ -21,256 +21,246 @@
 /// Minimum value before an entry is deemed "zero"
 const double epsilon = 1e-50;
 
-Matrix::Matrix( CUI n, CUI m )
-	: m_n(n)
+Matrix::Matrix(CUI n, CUI m)
+    : m_n(n)
 {
-	unsigned int size = m_n+m;
-	
-	m_mat = new QuickMatrix(size);
-	m_lu = new QuickMatrix(size);
+    unsigned int size = m_n + m;
 
-	m_y = new double[size];
-	m_inMap = new int[size];
+    m_mat = new QuickMatrix(size);
+    m_lu = new QuickMatrix(size);
 
-	for ( unsigned int i=0; i<size; i++ )
-		m_inMap[i] = i;
+    m_y = new double[size];
+    m_inMap = new int[size];
+
+    for (unsigned int i = 0; i < size; i++)
+        m_inMap[i] = i;
 }
 
 Matrix::~Matrix()
 {
-	delete m_mat;
-	delete m_lu;
-	delete [] m_y;
-	delete [] m_inMap;
+    delete m_mat;
+    delete m_lu;
+    delete[] m_y;
+    delete[] m_inMap;
 }
 
 void Matrix::zero()
 {
-//??????  do we really want the matrixes to be 0 or do we want them initialized to Identity?
+    //??????  do we really want the matrixes to be 0 or do we want them initialized to Identity?
 
-	m_mat->fillWithZero();
-	m_lu->fillWithZero();
-	unsigned int size = m_mat->size_m();
+    m_mat->fillWithZero();
+    m_lu->fillWithZero();
+    unsigned int size = m_mat->size_m();
 
-	for ( unsigned int i=0; i<size; i++ )
-		m_inMap[i] = i;
+    for (unsigned int i = 0; i < size; i++)
+        m_inMap[i] = i;
 
-	max_k = 0;
+    max_k = 0;
 }
 
-void Matrix::swapRows( CUI a, CUI b )
+void Matrix::swapRows(CUI a, CUI b)
 {
-	if ( a == b ) return;
-	m_mat->swapRows( a, b );
-	
-	const int old = m_inMap[a];
-	m_inMap[a] = m_inMap[b];
-	m_inMap[b] = old;
-	
-	max_k = 0;
+    if (a == b)
+        return;
+    m_mat->swapRows(a, b);
+
+    const int old = m_inMap[a];
+    m_inMap[a] = m_inMap[b];
+    m_inMap[b] = old;
+
+    max_k = 0;
 }
 
 void Matrix::performLU()
 {
-	unsigned int n = m_mat->size_m();
-	if ( n == 0 ) return;
-	
-	// Copy the affected segment to LU
-	for ( uint i=max_k; i<n; i++ ) {
-		for ( uint j=max_k; j<n; j++ ) {
-			(*m_lu)[i][j] = (*m_mat)[i][j];
-		}
-	}
-	
-	// LU decompose the matrix, and store result back in matrix
-	for ( uint k=0; k<n-1; k++ ) {
+    unsigned int n = m_mat->size_m();
+    if (n == 0)
+        return;
 
-		double * const lu_K_K = &(*m_lu)[k][k];
-		unsigned foo = std::max(k,max_k)+1;
+    // Copy the affected segment to LU
+    for (uint i = max_k; i < n; i++) {
+        for (uint j = max_k; j < n; j++) {
+            (*m_lu)[i][j] = (*m_mat)[i][j];
+        }
+    }
 
+    // LU decompose the matrix, and store result back in matrix
+    for (uint k = 0; k < n - 1; k++) {
+        double *const lu_K_K = &(*m_lu)[k][k];
+        unsigned foo = std::max(k, max_k) + 1;
 
-// detect singular matrixes...
-		if ( std::abs(*lu_K_K) < 1e-10 ) {
+        // detect singular matrixes...
+        if (std::abs(*lu_K_K) < 1e-10) {
+            if (*lu_K_K < 0.)
+                *lu_K_K = -1e-10;
+            else
+                *lu_K_K = 1e-10;
+        }
+        // #############
 
+        for (uint i = foo; i < n; i++) {
+            (*m_lu)[i][k] /= *lu_K_K;
+        }
 
-			if ( *lu_K_K < 0. ) *lu_K_K = -1e-10;
-			else *lu_K_K = 1e-10;
-		}
-// #############
+        for (uint i = std::max(k, max_k) + 1; i < n; i++) {
+            const double lu_I_K = (*m_lu)[i][k];
+            if (std::abs(lu_I_K) > 1e-12) {
+                m_lu->partialSAF(k, i, foo, -lu_I_K);
+            }
+        }
+    }
 
-		for ( uint i= foo; i<n; i++ ) {
-			(*m_lu)[i][k] /= *lu_K_K;
-		}
-
-		for ( uint i=std::max(k,max_k)+1; i<n; i++ ) {
-			const double lu_I_K = (*m_lu)[i][k];
-			if ( std::abs(lu_I_K) > 1e-12 )	{
-				m_lu->partialSAF(k, i, foo, -lu_I_K);
-			}
-		}
-	}
-
-	max_k = n;
+    max_k = n;
 }
 
-void Matrix::fbSub( QuickVector* b )
+void Matrix::fbSub(QuickVector *b)
 {
-	unsigned int size = m_mat->size_m();
+    unsigned int size = m_mat->size_m();
 
-	for ( uint i=0; i<size; i++ )
-	{
-		m_y[m_inMap[i]] = (*b)[i];
-	}
-	
-	// Forward substitution
-	for ( uint i = 1; i<size; i++ )
-	{
-		double sum = 0;
-		for ( unsigned int j=0; j<i; j++ )
-		{
-			sum += (*m_lu)[i][j]*m_y[j];
-		}
-		m_y[i] -= sum;
-	}
-	
-	// Back substitution
-	m_y[size - 1] /= (*m_lu)[size - 1][size - 1];
-	for ( int i = size - 2; i >= 0; i-- )
-	{
-		double sum = 0;
-		for ( uint j=i+1; j<size; j++ )
-		{
-			sum += (*m_lu)[i][j]*m_y[j];
-		}
-		m_y[i] -= sum;
-		m_y[i] /= (*m_lu)[i][i];
-	}
+    for (uint i = 0; i < size; i++) {
+        m_y[m_inMap[i]] = (*b)[i];
+    }
 
-// I think we don't need to reverse the mapping because we only permute rows, not columns. 
-	for ( uint i=0; i<size; i++ )
-		(*b)[i] = m_y[i];
+    // Forward substitution
+    for (uint i = 1; i < size; i++) {
+        double sum = 0;
+        for (unsigned int j = 0; j < i; j++) {
+            sum += (*m_lu)[i][j] * m_y[j];
+        }
+        m_y[i] -= sum;
+    }
+
+    // Back substitution
+    m_y[size - 1] /= (*m_lu)[size - 1][size - 1];
+    for (int i = size - 2; i >= 0; i--) {
+        double sum = 0;
+        for (uint j = i + 1; j < size; j++) {
+            sum += (*m_lu)[i][j] * m_y[j];
+        }
+        m_y[i] -= sum;
+        m_y[i] /= (*m_lu)[i][i];
+    }
+
+    // I think we don't need to reverse the mapping because we only permute rows, not columns.
+    for (uint i = 0; i < size; i++)
+        (*b)[i] = m_y[i];
 }
 
-void Matrix::multiply(const QuickVector *rhs, QuickVector *result )
+void Matrix::multiply(const QuickVector *rhs, QuickVector *result)
 {
-	if ( !rhs || !result ) return;
-	result->fillWithZeros();
+    if (!rhs || !result)
+        return;
+    result->fillWithZeros();
 
-	unsigned int size = m_mat->size_m();
-	for ( uint _i=0; _i<size; _i++ )
-	{
-		uint i = m_inMap[_i];
-/* hmm, we should move the resolution of pointers involving i out of the inner loop but
-there doesn't appear to be a way to obtain direct pointers into our classes inner structures.
-While it is a good safety feature of our classes, it doesn't facilitate optimization in this
-instance... Furthermore, our matrix class has an accelerator for this operation however it is
-ignorant of row permutations and it allocates new memory for the result matrix, breaking the
-interface of this method. 
-*/
-		for ( uint j=0; j<size; j++ ) {
-			result->atAdd(_i, (*m_mat)[i][j] * (*rhs)[j]);
-		}
-	}
+    unsigned int size = m_mat->size_m();
+    for (uint _i = 0; _i < size; _i++) {
+        uint i = m_inMap[_i];
+        /* hmm, we should move the resolution of pointers involving i out of the inner loop but
+        there doesn't appear to be a way to obtain direct pointers into our classes inner structures.
+        While it is a good safety feature of our classes, it doesn't facilitate optimization in this
+        instance... Furthermore, our matrix class has an accelerator for this operation however it is
+        ignorant of row permutations and it allocates new memory for the result matrix, breaking the
+        interface of this method.
+        */
+        for (uint j = 0; j < size; j++) {
+            result->atAdd(_i, (*m_mat)[i][j] * (*rhs)[j]);
+        }
+    }
 }
 
 void Matrix::displayMatrix()
 {
-	uint n = m_mat->size_m();
-	for ( uint _i=0; _i<n; _i++ )
-	{
-		uint i = m_inMap[_i];
-		for ( uint j=0; j<n; j++ )
-		{
-			if ( j > 0 && (*m_mat)[i][j] >= 0 ) qDebug() << "+";
-			qDebug() << (*m_mat)[i][j] << "("<<j<<")";
-		}
-		qDebug()  << endl;
-	}
+    uint n = m_mat->size_m();
+    for (uint _i = 0; _i < n; _i++) {
+        uint i = m_inMap[_i];
+        for (uint j = 0; j < n; j++) {
+            if (j > 0 && (*m_mat)[i][j] >= 0)
+                qDebug() << "+";
+            qDebug() << (*m_mat)[i][j] << "(" << j << ")";
+        }
+        qDebug() << endl;
+    }
 }
 
 void Matrix::displayLU()
 {
-	uint n = m_mat->size_m();
-	for ( uint _i=0; _i<n; _i++ )
-	{
-		uint i = m_inMap[_i];
-// 		uint i = _i;
-		for ( uint j=0; j<n; j++ )
-		{
-			if ( j > 0 && (*m_lu)[i][j] >= 0 ) std::cout << "+";
-			std::cout << (*m_lu)[i][j] << "("<<j<<")";
-		}
-		std::cout << std::endl;
-	}
-	std::cout << "m_inMap:    ";
-	for ( uint i=0; i<n; i++ )
-	{
-		std::cout << i<<"->"<<m_inMap[i]<<"  ";
-	}
-	std::cout << std::endl;
-	/*cout << "m_outMap:   ";
-	for ( uint i=0; i<n; i++ )
-	{
-		cout << i<<"->"<<m_outMap[i]<<"  ";
-	}
-	cout << endl;*/
+    uint n = m_mat->size_m();
+    for (uint _i = 0; _i < n; _i++) {
+        uint i = m_inMap[_i];
+        // 		uint i = _i;
+        for (uint j = 0; j < n; j++) {
+            if (j > 0 && (*m_lu)[i][j] >= 0)
+                std::cout << "+";
+            std::cout << (*m_lu)[i][j] << "(" << j << ")";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "m_inMap:    ";
+    for (uint i = 0; i < n; i++) {
+        std::cout << i << "->" << m_inMap[i] << "  ";
+    }
+    std::cout << std::endl;
+    /*cout << "m_outMap:   ";
+    for ( uint i=0; i<n; i++ )
+    {
+        cout << i<<"->"<<m_outMap[i]<<"  ";
+    }
+    cout << endl;*/
 }
 
 // ###############################################################################
 
 Matrix22::Matrix22()
 {
-	reset();
+    reset();
 }
 
 bool Matrix22::solve()
 {
-	const double old_x1 = m_x1;
-	const double old_x2 = m_x2;
-	
-	const bool e11 = std::abs((m_a11))<epsilon;
-	const bool e12 = std::abs((m_a12))<epsilon;
-	const bool e21 = std::abs((m_a21))<epsilon;
-	const bool e22 = std::abs((m_a22))<epsilon;
-	
-	if (e11) {
-		if ( e12||e21 )
-			return false;
-		m_x2 = m_b1/m_a12;
-		m_x1 = (m_b2-(m_a22*m_x2))/m_a21;
-	} else if (e12) {
-		if ( e11||e22 )
-			return false;
-		m_x1 = m_b1/m_a11;
-		m_x2 = (m_b2-(m_a21*m_x1))/m_a22;
-	} else if (e21) {
-		if ( e11||e22 )
-			return false;
-		m_x2 = m_b2/m_a22;
-		m_x1 = (m_b1-(m_a12*m_x2))/m_a11;
-	} else if (e22) {
-		if ( e12||e21 )
-			return false;
-		m_x1 = m_b2/m_a21;
-		m_x2 = (m_b1-(m_a11*m_x1))/m_a12;
-	} else {
-		m_x2 = (m_b2-(m_a21*m_b1/m_a11))/(m_a22-(m_a21*m_a12/m_a11));
-		m_x1 = (m_b1-(m_a12*m_x2))/m_a11;
-	}
+    const double old_x1 = m_x1;
+    const double old_x2 = m_x2;
 
-	if ( !std::isfinite(m_x1) || !std::isfinite(m_x2) )
-	{
-		m_x1 = old_x1;
-		m_x2 = old_x2;
-		return false;
-	}
-	return true;
+    const bool e11 = std::abs((m_a11)) < epsilon;
+    const bool e12 = std::abs((m_a12)) < epsilon;
+    const bool e21 = std::abs((m_a21)) < epsilon;
+    const bool e22 = std::abs((m_a22)) < epsilon;
+
+    if (e11) {
+        if (e12 || e21)
+            return false;
+        m_x2 = m_b1 / m_a12;
+        m_x1 = (m_b2 - (m_a22 * m_x2)) / m_a21;
+    } else if (e12) {
+        if (e11 || e22)
+            return false;
+        m_x1 = m_b1 / m_a11;
+        m_x2 = (m_b2 - (m_a21 * m_x1)) / m_a22;
+    } else if (e21) {
+        if (e11 || e22)
+            return false;
+        m_x2 = m_b2 / m_a22;
+        m_x1 = (m_b1 - (m_a12 * m_x2)) / m_a11;
+    } else if (e22) {
+        if (e12 || e21)
+            return false;
+        m_x1 = m_b2 / m_a21;
+        m_x2 = (m_b1 - (m_a11 * m_x1)) / m_a12;
+    } else {
+        m_x2 = (m_b2 - (m_a21 * m_b1 / m_a11)) / (m_a22 - (m_a21 * m_a12 / m_a11));
+        m_x1 = (m_b1 - (m_a12 * m_x2)) / m_a11;
+    }
+
+    if (!std::isfinite(m_x1) || !std::isfinite(m_x2)) {
+        m_x1 = old_x1;
+        m_x2 = old_x2;
+        return false;
+    }
+    return true;
 }
 
 void Matrix22::reset()
 {
-	m_a11=m_a12=m_a21=m_a22=0.;
-	m_b1=m_b2=0.;
-	m_x1=m_x2=0.;
+    m_a11 = m_a12 = m_a21 = m_a22 = 0.;
+    m_b1 = m_b2 = 0.;
+    m_x1 = m_x2 = 0.;
 }
-

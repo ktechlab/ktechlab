@@ -10,11 +10,10 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include "propertyeditorinput.h"
 #include "doublespinbox.h"
 #include "iteminterface.h"
-#include "propertyeditorinput.h"
 #include "property.h"
-
 
 #include <KLineEdit>
 #include <KLocalizedString>
@@ -22,40 +21,37 @@
 #include <QDebug>
 //#include <qiconset.h>
 #include <QIcon>
-#include <QToolButton>
 #include <QKeyEvent>
+#include <QToolButton>
 
 #include <limits.h>
 
-//BEGIN class PropertyEditorInput
-PropertyEditorInput::PropertyEditorInput( QWidget * parent, Property * property, const char * name )
-	: PropertySubEditor( parent, property, name )
+// BEGIN class PropertyEditorInput
+PropertyEditorInput::PropertyEditorInput(QWidget *parent, Property *property, const char *name)
+    : PropertySubEditor(parent, property, name)
 {
-	m_lineedit = new KLineEdit(this);
-	m_lineedit->resize(width(), height());
+    m_lineedit = new KLineEdit(this);
+    m_lineedit->resize(width(), height());
 
-	m_lineedit->setText(property->value().toString());
-	m_lineedit->show();
+    m_lineedit->setText(property->value().toString());
+    m_lineedit->show();
 
-	setWidget(m_lineedit);
+    setWidget(m_lineedit);
 
-	connect( m_lineedit, SIGNAL(textChanged(const QString &)), this, SLOT(slotTextChanged(const QString &)));
-	connect( m_property, SIGNAL(valueChanged( const QString& )), m_lineedit, SLOT(setText(const QString &)) );
+    connect(m_lineedit, SIGNAL(textChanged(const QString &)), this, SLOT(slotTextChanged(const QString &)));
+    connect(m_property, SIGNAL(valueChanged(const QString &)), m_lineedit, SLOT(setText(const QString &)));
 }
 
-
-void PropertyEditorInput::slotTextChanged( const QString & text )
+void PropertyEditorInput::slotTextChanged(const QString &text)
 {
-	m_property->setValue( text );
-	ItemInterface::self()->setProperty( m_property );
+    m_property->setValue(text);
+    ItemInterface::self()->setProperty(m_property);
 }
-//END class PropertyEditorInput
+// END class PropertyEditorInput
 
-
-
-//BEGIN class PropIntSpinBox
-PropIntSpinBox::PropIntSpinBox( int lower, int upper, int step, int value, int base=10, QWidget *parent = nullptr, const char *name = nullptr)
-: QSpinBox(parent /*, name */)
+// BEGIN class PropIntSpinBox
+PropIntSpinBox::PropIntSpinBox(int lower, int upper, int step, int value, int base = 10, QWidget *parent = nullptr, const char *name = nullptr)
+    : QSpinBox(parent /*, name */)
 {
     setMinimum(lower);
     setMaximum(upper);
@@ -63,169 +59,143 @@ PropIntSpinBox::PropIntSpinBox( int lower, int upper, int step, int value, int b
     setValue(value);
     setDisplayIntegerBase(base);
     setObjectName(name);
-	lineEdit()->setAlignment(Qt::AlignLeft);
+    lineEdit()->setAlignment(Qt::AlignLeft);
 }
-
 
 bool PropIntSpinBox::eventFilter(QObject *o, QEvent *e)
 {
-	if(o == lineEdit())
-	{
-		if(e->type() == QEvent::KeyPress)
-		{
-			QKeyEvent* ev = static_cast<QKeyEvent*>(e);
-			if((ev->key()==Qt::Key_Up || ev->key()==Qt::Key_Down) && ev->modifiers()!=Qt::ControlModifier)
-			{
-				parentWidget()->eventFilter(o, e);
-				return true;
-			}
-		}
-	}
+    if (o == lineEdit()) {
+        if (e->type() == QEvent::KeyPress) {
+            QKeyEvent *ev = static_cast<QKeyEvent *>(e);
+            if ((ev->key() == Qt::Key_Up || ev->key() == Qt::Key_Down) && ev->modifiers() != Qt::ControlModifier) {
+                parentWidget()->eventFilter(o, e);
+                return true;
+            }
+        }
+    }
 
-	return QSpinBox::eventFilter(o, e);
+    return QSpinBox::eventFilter(o, e);
 }
-//END class PropIntSpinBox
+// END class PropIntSpinBox
 
-
-
-//BEGIN class PropertyEditorSpin
-PropertyEditorSpin::PropertyEditorSpin( QWidget * parent, Property * property, const char * name )
- : PropertySubEditor(parent,property, name)
+// BEGIN class PropertyEditorSpin
+PropertyEditorSpin::PropertyEditorSpin(QWidget *parent, Property *property, const char *name)
+    : PropertySubEditor(parent, property, name)
 {
-	m_leaveTheSpaceForRevertButton = true;
+    m_leaveTheSpaceForRevertButton = true;
 
-	m_spinBox = new PropIntSpinBox( (int)property->minValue(), (int)property->maxValue(), 1, 0, 10, this );
+    m_spinBox = new PropIntSpinBox((int)property->minValue(), (int)property->maxValue(), 1, 0, 10, this);
 
-	m_spinBox->resize(width(), height());
-	m_spinBox->setValue(property->value().toInt());
-	m_spinBox->show();
+    m_spinBox->resize(width(), height());
+    m_spinBox->setValue(property->value().toInt());
+    m_spinBox->show();
 
-	setWidget( m_spinBox, m_spinBox->editor() );
-	connect( m_spinBox, SIGNAL(valueChanged( int )), this, SLOT(valueChange( int )));
-	connect( m_property, SIGNAL(valueChanged( int )), m_spinBox, SLOT(setValue( int )) );
+    setWidget(m_spinBox, m_spinBox->editor());
+    connect(m_spinBox, SIGNAL(valueChanged(int)), this, SLOT(valueChange(int)));
+    connect(m_property, SIGNAL(valueChanged(int)), m_spinBox, SLOT(setValue(int)));
 }
 
-
-void PropertyEditorSpin::valueChange( int value )
+void PropertyEditorSpin::valueChange(int value)
 {
-	m_property->setValue( value );
-	ItemInterface::self()->setProperty( m_property );
+    m_property->setValue(value);
+    ItemInterface::self()->setProperty(m_property);
 }
-//END class PropertyEditorSpin
+// END class PropertyEditorSpin
 
-
-
-//BEGIN class PropDoubleSpinBox
+// BEGIN class PropDoubleSpinBox
 PropDoubleSpinBox::PropDoubleSpinBox(double lower, double upper, double minAbs, double value, const QString &unit, QWidget *parent = nullptr)
-	: DoubleSpinBox( lower, upper, minAbs, value, unit, parent )
+    : DoubleSpinBox(lower, upper, minAbs, value, unit, parent)
 {
-	lineEdit()->setAlignment(Qt::AlignLeft);
+    lineEdit()->setAlignment(Qt::AlignLeft);
 }
-
 
 bool PropDoubleSpinBox::eventFilter(QObject *o, QEvent *e)
 {
-	if(o == lineEdit())
-	{
-		if(e->type() == QEvent::KeyPress)
-		{
-			QKeyEvent* ev = static_cast<QKeyEvent*>(e);
-			if((ev->key()==Qt::Key_Up || ev->key()==Qt::Key_Down) && ev->modifiers()!=Qt::ControlModifier)
-			{
-				parentWidget()->eventFilter(o, e);
-				return true;
-			}
-		}
-	}
+    if (o == lineEdit()) {
+        if (e->type() == QEvent::KeyPress) {
+            QKeyEvent *ev = static_cast<QKeyEvent *>(e);
+            if ((ev->key() == Qt::Key_Up || ev->key() == Qt::Key_Down) && ev->modifiers() != Qt::ControlModifier) {
+                parentWidget()->eventFilter(o, e);
+                return true;
+            }
+        }
+    }
 
-	return DoubleSpinBox::eventFilter(o, e);
+    return DoubleSpinBox::eventFilter(o, e);
 }
-//END class PropDoubleSpinBox
+// END class PropDoubleSpinBox
 
-
-
-//BEGIN class PropertyEditorDblSpin
-PropertyEditorDblSpin::PropertyEditorDblSpin( QWidget * parent, Property * property, const char * name )
-	: PropertySubEditor( parent, property, name )
+// BEGIN class PropertyEditorDblSpin
+PropertyEditorDblSpin::PropertyEditorDblSpin(QWidget *parent, Property *property, const char *name)
+    : PropertySubEditor(parent, property, name)
 {
-	m_leaveTheSpaceForRevertButton = true;
-	m_spinBox = new PropDoubleSpinBox( property->minValue(), property->maxValue(), property->minAbsValue(), property->value().toDouble(), property->unit(), this );
-	m_spinBox->resize(width(), height());
-	m_spinBox->show();
+    m_leaveTheSpaceForRevertButton = true;
+    m_spinBox = new PropDoubleSpinBox(property->minValue(), property->maxValue(), property->minAbsValue(), property->value().toDouble(), property->unit(), this);
+    m_spinBox->resize(width(), height());
+    m_spinBox->show();
 
-	setWidget( m_spinBox, m_spinBox->editor());
-	connect( m_spinBox, SIGNAL(valueChanged(double)), this, SLOT(valueChange(double)));
-	connect( m_property, SIGNAL(valueChanged( double )), m_spinBox, SLOT(setValue( double )) );
+    setWidget(m_spinBox, m_spinBox->editor());
+    connect(m_spinBox, SIGNAL(valueChanged(double)), this, SLOT(valueChange(double)));
+    connect(m_property, SIGNAL(valueChanged(double)), m_spinBox, SLOT(setValue(double)));
 }
 
-
-void PropertyEditorDblSpin::valueChange( double value )
+void PropertyEditorDblSpin::valueChange(double value)
 {
-	m_property->setValue( value );
-	ItemInterface::self()->setProperty( m_property );
+    m_property->setValue(value);
+    ItemInterface::self()->setProperty(m_property);
 }
-//END class PropertyEditorDblSpin
+// END class PropertyEditorDblSpin
 
-
-
-//BEGIN class PropertyEditorBool
-PropertyEditorBool::PropertyEditorBool( QWidget * parent, Property * property, const char * name )
-	: PropertySubEditor( parent, property, name )
+// BEGIN class PropertyEditorBool
+PropertyEditorBool::PropertyEditorBool(QWidget *parent, Property *property, const char *name)
+    : PropertySubEditor(parent, property, name)
 {
-	m_toggle = new QToolButton(this);
-	m_toggle->setFocusPolicy(Qt::NoFocus);
-	m_toggle->setCheckable(true);
-	m_toggle->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    m_toggle = new QToolButton(this);
+    m_toggle->setFocusPolicy(Qt::NoFocus);
+    m_toggle->setCheckable(true);
+    m_toggle->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     // 2018.12.02: see above
-	//m_toggle->setTextPosition(QToolButton::Right); //js BesideIcon -didnt work before qt3.2);
-	m_toggle->resize(width(), height());
+    // m_toggle->setTextPosition(QToolButton::Right); //js BesideIcon -didnt work before qt3.2);
+    m_toggle->resize(width(), height());
 
-	connect( m_toggle, SIGNAL(toggled(bool)), this, SLOT(setState(bool)));
-	connect( m_property, SIGNAL(valueChanged( bool )), m_toggle, SLOT(setChecked(bool)) );
+    connect(m_toggle, SIGNAL(toggled(bool)), this, SLOT(setState(bool)));
+    connect(m_property, SIGNAL(valueChanged(bool)), m_toggle, SLOT(setChecked(bool)));
 
-	if(property->value().toBool())
-		m_toggle->setChecked(true);
-	else
-	{
-		m_toggle->toggle();
-		m_toggle->setChecked(false);
-	}
+    if (property->value().toBool())
+        m_toggle->setChecked(true);
+    else {
+        m_toggle->toggle();
+        m_toggle->setChecked(false);
+    }
 
-	m_toggle->show();
-	setWidget(m_toggle);
-	installEventFilter(this);
+    m_toggle->show();
+    setWidget(m_toggle);
+    installEventFilter(this);
 }
 
-
-bool PropertyEditorBool::eventFilter(QObject* watched, QEvent* e)
+bool PropertyEditorBool::eventFilter(QObject *watched, QEvent *e)
 {
-	if(e->type() == QEvent::KeyPress)
-	{
-		QKeyEvent* ev = static_cast<QKeyEvent*>(e);
-		if(ev->key() == Qt::Key_Space)
-		{
-			m_toggle->toggle();
-			return true;
-		}
-	}
-	return PropertySubEditor::eventFilter(watched, e);
+    if (e->type() == QEvent::KeyPress) {
+        QKeyEvent *ev = static_cast<QKeyEvent *>(e);
+        if (ev->key() == Qt::Key_Space) {
+            m_toggle->toggle();
+            return true;
+        }
+    }
+    return PropertySubEditor::eventFilter(watched, e);
 }
 
-
-void PropertyEditorBool::setState( bool state )
+void PropertyEditorBool::setState(bool state)
 {
-	if(state)
-	{
-		m_toggle->setIcon(QIcon::fromTheme("dialog-ok"));
-		m_toggle->setToolTip(i18n("Yes"));
-	}
-	else
-	{
-		m_toggle->setIcon(QIcon::fromTheme("dialog-cancel"));
-		m_toggle->setToolTip(i18n("No"));
-	}
+    if (state) {
+        m_toggle->setIcon(QIcon::fromTheme("dialog-ok"));
+        m_toggle->setToolTip(i18n("Yes"));
+    } else {
+        m_toggle->setIcon(QIcon::fromTheme("dialog-cancel"));
+        m_toggle->setToolTip(i18n("No"));
+    }
 
-	m_property->setValue( state );
-	ItemInterface::self()->setProperty( m_property );
+    m_property->setValue(state);
+    ItemInterface::self()->setProperty(m_property);
 }
-//END class PropertyEditorBool
+// END class PropertyEditorBool

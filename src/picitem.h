@@ -25,38 +25,37 @@ class PinSettings;
 */
 class PinItem : /*public QObject, */ public KtlQCanvasRectangle
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	PinItem( FlowCodeDocument* _view, QPoint position, bool _onLeft, PinSettings *_pinSettings );
+    PinItem(FlowCodeDocument *_view, QPoint position, bool _onLeft, PinSettings *_pinSettings);
 
-	QRect boundingRect () const override;
-	void switchState();
+    QRect boundingRect() const override;
+    void switchState();
 
-	QString id();
+    QString id();
 
-	/**
-	 * Called from ICNDocument when the pin item was dragged
-	 */
-	void dragged( int dx );
+    /**
+     * Called from ICNDocument when the pin item was dragged
+     */
+    void dragged(int dx);
 
-	void moveBy ( double dx, double dy ) override;
+    void moveBy(double dx, double dy) override;
 
 public slots:
-	void updateDrawing();
+    void updateDrawing();
 
 private:
-	void initItem();
-	void drawShape( QPainter& p ) override;
-	void calcTextRect();
+    void initItem();
+    void drawShape(QPainter &p) override;
+    void calcTextRect();
 
-	FlowCodeDocument *view; // Pointer to canvas view that the component item is currently on
-	bool onLeft;
-	PinSettings * m_pinSettings;
-	QRect m_textRect;
-	QFont m_font;
+    FlowCodeDocument *view; // Pointer to canvas view that the component item is currently on
+    bool onLeft;
+    PinSettings *m_pinSettings;
+    QRect m_textRect;
+    QFont m_font;
 };
-typedef QList<PinItem*> PinItemList;
-
+typedef QList<PinItem *> PinItemList;
 
 /**
 Allows visual editing of inital PIC settings
@@ -64,40 +63,46 @@ Allows visual editing of inital PIC settings
 */
 class PicItem : public CNItem
 {
-	Q_OBJECT
-	public:
-		PicItem( ICNDocument *icnDocument, bool newItem, const char *id, MicroSettings *_microSettings );
-		~PicItem() override;
-	
-		void drawShape( QPainter &p ) override;
-	
-		void buttonStateChanged( const QString &id, bool state ) override;
-		bool isMovable() const override { return false; }
-	
-		static QString typeString() { return "microitem"; }
-		void updateZ( int baseZ ) override;
+    Q_OBJECT
+public:
+    PicItem(ICNDocument *icnDocument, bool newItem, const char *id, MicroSettings *_microSettings);
+    ~PicItem() override;
 
-		bool mousePressEvent( const EventInfo &info ) override;
-		bool mouseReleaseEvent( const EventInfo &info ) override;
-		bool mouseMoveEvent( const EventInfo &info ) override;
+    void drawShape(QPainter &p) override;
 
-	protected slots:
-		void slotMicroSettingsDlgAccepted();
+    void buttonStateChanged(const QString &id, bool state) override;
+    bool isMovable() const override
+    {
+        return false;
+    }
 
-	protected:
-		void updateVisibility();
+    static QString typeString()
+    {
+        return "microitem";
+    }
+    void updateZ(int baseZ) override;
 
-		MicroSettings *microSettings;
-		PinItemList m_pinItemList;
-		ICNDocument *p_icnDocument;
-		bool m_bExpanded;
-		int m_innerHeight;
+    bool mousePressEvent(const EventInfo &info) override;
+    bool mouseReleaseEvent(const EventInfo &info) override;
+    bool mouseMoveEvent(const EventInfo &info) override;
 
-	private:
-		QPoint m_pos;
-		int m_dx;
-		bool m_pressed;
-		bool m_dragged;
+protected slots:
+    void slotMicroSettingsDlgAccepted();
+
+protected:
+    void updateVisibility();
+
+    MicroSettings *microSettings;
+    PinItemList m_pinItemList;
+    ICNDocument *p_icnDocument;
+    bool m_bExpanded;
+    int m_innerHeight;
+
+private:
+    QPoint m_pos;
+    int m_dx;
+    bool m_pressed;
+    bool m_dragged;
 };
 
 #endif

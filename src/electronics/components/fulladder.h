@@ -20,17 +20,17 @@
 class FullAdder : public CallbackClass, public Component
 {
 public:
-	FullAdder( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~FullAdder() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
+    FullAdder(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~FullAdder() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
 protected:
-	void inStateChanged( bool newState );
-	
-	LogicIn *ALogic, *BLogic, *inLogic;
-	LogicOut *outLogic, *SLogic;
+    void inStateChanged(bool newState);
+
+    LogicIn *ALogic, *BLogic, *inLogic;
+    LogicOut *outLogic, *SLogic;
 };
 
 #endif

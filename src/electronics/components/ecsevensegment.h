@@ -23,27 +23,30 @@ class ECNode;
 class ECSevenSegment : public Component
 {
 public:
-	ECSevenSegment( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECSevenSegment() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
-	void stepNonLogic() override;
-	bool doesStepNonLogic() const override { return true; }
-	void dataChanged() override;
-	
-private:
-	void drawShape( QPainter &p ) override;
+    ECSevenSegment(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECSevenSegment() override;
 
-	bool m_bCommonCathode;
-	double lastUpdatePeriod;
-	double avg_brightness[8];
-	uint last_brightness[8];
-	Diode *m_diodes[8];
-	ECNode *m_nodes[8];
-	ECNode *m_nNode;
-	double r, g, b;
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    void stepNonLogic() override;
+    bool doesStepNonLogic() const override
+    {
+        return true;
+    }
+    void dataChanged() override;
+
+private:
+    void drawShape(QPainter &p) override;
+
+    bool m_bCommonCathode;
+    double lastUpdatePeriod;
+    double avg_brightness[8];
+    uint last_brightness[8];
+    Diode *m_diodes[8];
+    ECNode *m_nodes[8];
+    ECNode *m_nNode;
+    double r, g, b;
 };
 
 #endif

@@ -14,16 +14,14 @@
 
 void KtlQCanvasItemList::sort()
 {
-    //qHeapSort(*  /* ((QList<KtlQCanvasItemPtr>*)) */ this); // 2018.12.07
-    qSort( *this );
+    // qHeapSort(*  /* ((QList<KtlQCanvasItemPtr>*)) */ this); // 2018.12.07
+    qSort(*this);
 }
-
 
 KtlQCanvasItemList KtlQCanvasItemList::operator+(const KtlQCanvasItemList &l) const
 {
     KtlQCanvasItemList l2(*this);
-    for(const_iterator it = l.begin(); it != l.end(); ++it)
+    for (const_iterator it = l.begin(); it != l.end(); ++it)
         l2.append(*it);
     return l2;
 }
-

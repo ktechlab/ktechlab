@@ -10,42 +10,36 @@
 
 #include "interrupt.h"
 
-#include "libraryitem.h"
 #include "flowcode.h"
+#include "libraryitem.h"
 
 #include <KLocalizedString>
 
-Item* Interrupt::construct( ItemDocument *itemDocument, bool newItem, const char *id )
+Item *Interrupt::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-	return new Interrupt( (ICNDocument*)itemDocument, newItem, id );
+    return new Interrupt((ICNDocument *)itemDocument, newItem, id);
 }
 
-LibraryItem* Interrupt::libraryItem()
+LibraryItem *Interrupt::libraryItem()
 {
-	return new LibraryItem(
-		QStringList(QString("flow/interrupt")),
-		i18n("Interrupt"),
-		i18n("Common"),
-		"interrupt.png",
-		LibraryItem::lit_flowpart,
-		Interrupt::construct );
+    return new LibraryItem(QStringList(QString("flow/interrupt")), i18n("Interrupt"), i18n("Common"), "interrupt.png", LibraryItem::lit_flowpart, Interrupt::construct);
 }
 
-Interrupt::Interrupt( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowContainer( icnDocument, newItem, id ? id : "interrupt" )
+Interrupt::Interrupt(ICNDocument *icnDocument, bool newItem, const char *id)
+    : FlowContainer(icnDocument, newItem, id ? id : "interrupt")
 {
-	m_name = i18n("Interrupt");
-	
-	QStringList interruptTypes;
-	interruptTypes.append("changed");
-	interruptTypes.append("external");
-	interruptTypes.append("timer");
-	interruptTypes.append("trigger");
+    m_name = i18n("Interrupt");
 
-	createProperty( "interrupt", Variant::Type::Select );
-	property("interrupt")->setAllowed(interruptTypes);
-	property("interrupt")->setCaption( i18n("Interrupt") );
-	property("interrupt")->setValue("trigger");
+    QStringList interruptTypes;
+    interruptTypes.append("changed");
+    interruptTypes.append("external");
+    interruptTypes.append("timer");
+    interruptTypes.append("trigger");
+
+    createProperty("interrupt", Variant::Type::Select);
+    property("interrupt")->setAllowed(interruptTypes);
+    property("interrupt")->setCaption(i18n("Interrupt"));
+    property("interrupt")->setValue("trigger");
 }
 
 Interrupt::~Interrupt()
@@ -54,14 +48,12 @@ Interrupt::~Interrupt()
 
 void Interrupt::dataChanged()
 {
-	setCaption( i18n("Interrupt %1", dataString("interrupt")) );
+    setCaption(i18n("Interrupt %1", dataString("interrupt")));
 }
 
-void Interrupt::generateMicrobe( FlowCode *code )
+void Interrupt::generateMicrobe(FlowCode *code)
 {
-	code->addCode( "\ninterrupt "+dataString("interrupt")+"\n{" );
-	code->addCodeBranch( outputPart("int_in") );
-	code->addCode("}");
+    code->addCode("\ninterrupt " + dataString("interrupt") + "\n{");
+    code->addCodeBranch(outputPart("int_in"));
+    code->addCode("}");
 }
-
-

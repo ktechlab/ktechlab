@@ -18,17 +18,17 @@
 */
 class Gplib : public ExternalLanguage
 {
-	public:
-		Gplib( ProcessChain *processChain );
-		~Gplib() override;
-	
-		void processInput( ProcessOptions options ) override;
-		MessageInfo extractMessageInfo( const QString &text ) override;
-		ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const override;
-	
-	protected:
-		bool isError( const QString &message ) const override;
-		bool isWarning( const QString &message ) const override;
+public:
+    Gplib(ProcessChain *processChain);
+    ~Gplib() override;
+
+    void processInput(ProcessOptions options) override;
+    MessageInfo extractMessageInfo(const QString &text) override;
+    ProcessOptions::ProcessPath::Path outputPath(ProcessOptions::ProcessPath::Path inputPath) const override;
+
+protected:
+    bool isError(const QString &message) const override;
+    bool isWarning(const QString &message) const override;
 };
 
 #endif

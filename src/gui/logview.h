@@ -17,23 +17,31 @@ class KTechlab;
 #include <KTextEdit>
 #include <QMap>
 
-namespace KateMDI { class ToolView; }
+namespace KateMDI
+{
+class ToolView;
+}
 
 class MessageInfo
 {
-	public:
-		MessageInfo();
-		MessageInfo( QString fileURL, int fileLine );
+public:
+    MessageInfo();
+    MessageInfo(QString fileURL, int fileLine);
 
-		QString fileURL() const { return m_fileURL; }
-		int fileLine() const { return m_fileLine; }
+    QString fileURL() const
+    {
+        return m_fileURL;
+    }
+    int fileLine() const
+    {
+        return m_fileLine;
+    }
 
-	protected:
-		QString m_fileURL;
-		int m_fileLine;
+protected:
+    QString m_fileURL;
+    int m_fileLine;
 };
-typedef QMap<int,MessageInfo> MessageInfoMap;
-
+typedef QMap<int, MessageInfo> MessageInfoMap;
 
 /**
 Base class for logviews (eg GpasmInterface) which output information, warnings, errors to a viewable log
@@ -42,47 +50,46 @@ Base class for logviews (eg GpasmInterface) which output information, warnings, 
 */
 class LogView : public KTextEdit
 {
-	Q_OBJECT
-	public:
-		LogView( KateMDI::ToolView * parent, const char *name = nullptr );
-		~LogView() override;
-	
-		enum OutputType
-		{
-			ot_important,	// Bold
-			ot_info,		// Italic
-			ot_message,		// Plain
-			ot_warning,		// Grey
-			ot_error		// Red
-		};
+    Q_OBJECT
+public:
+    LogView(KateMDI::ToolView *parent, const char *name = nullptr);
+    ~LogView() override;
 
-	signals:
-		/**
-		 * Emitted when the user clicks on a paragraph in the log view
-		 */
-		void paraClicked( const QString &text, MessageInfo messageInfo );
+    enum OutputType {
+        ot_important, // Bold
+        ot_info,      // Italic
+        ot_message,   // Plain
+        ot_warning,   // Grey
+        ot_error      // Red
+    };
 
-	public slots:
-		virtual void clear();
-		void addOutput( QString text, OutputType outputType, MessageInfo messageInfo = MessageInfo() );
+signals:
+    /**
+     * Emitted when the user clicks on a paragraph in the log view
+     */
+    void paraClicked(const QString &text, MessageInfo messageInfo);
 
-	protected:
-		virtual QMenu * createPopupMenu( const QPoint & pos );
-		/**
-		 * Replaces "&" with &amp;, "<" with &lt;, etc
-		 */
-		void tidyText( QString &t );
-		/**
-		 * Replaces "&lt;" with "<", "&amp;" with "&", etc
-		 */
-		void untidyText( QString &t );
+public slots:
+    virtual void clear();
+    void addOutput(QString text, OutputType outputType, MessageInfo messageInfo = MessageInfo());
 
-		MessageInfoMap m_messageInfoMap;
+protected:
+    virtual QMenu *createPopupMenu(const QPoint &pos);
+    /**
+     * Replaces "&" with &amp;, "<" with &lt;, etc
+     */
+    void tidyText(QString &t);
+    /**
+     * Replaces "&lt;" with "<", "&amp;" with "&", etc
+     */
+    void untidyText(QString &t);
 
-        void mouseDoubleClickEvent ( QMouseEvent * e ) override;
+    MessageInfoMap m_messageInfoMap;
 
-	private slots:
-		void slotParaClicked( int para, int pos );
+    void mouseDoubleClickEvent(QMouseEvent *e) override;
+
+private slots:
+    void slotParaClicked(int para, int pos);
 };
 
 #endif

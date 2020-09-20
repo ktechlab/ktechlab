@@ -13,33 +13,36 @@
 
 using namespace std;
 
-//BEGIN class ProbeData
-ProbeData::ProbeData( int id)
-	: m_id(id), m_drawPosition(0.5),
-	m_resetTime(Simulator::self()->time()), m_color(Qt::black)
-{}
+// BEGIN class ProbeData
+ProbeData::ProbeData(int id)
+    : m_id(id)
+    , m_drawPosition(0.5)
+    , m_resetTime(Simulator::self()->time())
+    , m_color(Qt::black)
+{
+}
 
 ProbeData::~ProbeData()
 {
-	unregisterProbe(m_id);
+    unregisterProbe(m_id);
 }
 
-void ProbeData::setColor( QColor color)
+void ProbeData::setColor(QColor color)
 {
-	m_color = color;
-	emit displayAttributeChanged();
+    m_color = color;
+    emit displayAttributeChanged();
 }
-//END class ProbeData
+// END class ProbeData
 
-
-//BEGIN class LogicProbeData
-LogicProbeData::LogicProbeData( int id)
-	: ProbeData(id)
+// BEGIN class LogicProbeData
+LogicProbeData::LogicProbeData(int id)
+    : ProbeData(id)
 {
-	m_data = new vector<LogicDataPoint>;
+    m_data = new vector<LogicDataPoint>;
 }
 
-void LogicProbeData::addDataPoint( LogicDataPoint data) {
+void LogicProbeData::addDataPoint(LogicDataPoint data)
+{
     if (m_data->size() < MAX_PROBE_DATA_SIZE) {
         m_data->push_back(data);
     }
@@ -47,71 +50,74 @@ void LogicProbeData::addDataPoint( LogicDataPoint data) {
 
 void LogicProbeData::eraseData()
 {
-	bool lastValue = false;
-	bool hasLastValue = false;
+    bool lastValue = false;
+    bool hasLastValue = false;
 
-	if(!m_data->empty()) {
-		lastValue = m_data->back().value;
-		hasLastValue = true;
-	}
+    if (!m_data->empty()) {
+        lastValue = m_data->back().value;
+        hasLastValue = true;
+    }
 
-	delete m_data;
-	m_data = new vector<LogicDataPoint>;
+    delete m_data;
+    m_data = new vector<LogicDataPoint>;
 
-	m_resetTime = Simulator::self()->time();
+    m_resetTime = Simulator::self()->time();
 
-	if(hasLastValue) addDataPoint( LogicDataPoint( lastValue, m_resetTime));
+    if (hasLastValue)
+        addDataPoint(LogicDataPoint(lastValue, m_resetTime));
 }
 
-uint64_t LogicProbeData::findPos( uint64_t time) const
+uint64_t LogicProbeData::findPos(uint64_t time) const
 {
-	unsigned int pos = m_data->size();
-	if(!time || !pos) return 0;
+    unsigned int pos = m_data->size();
+    if (!time || !pos)
+        return 0;
 
-	// binary search
+    // binary search
 
-// TODO: test and debug this code. 
-	unsigned int top = pos;
-	pos >>=1;
-	unsigned int bottom = 0;
+    // TODO: test and debug this code.
+    unsigned int top = pos;
+    pos >>= 1;
+    unsigned int bottom = 0;
 
-	do {
-		uint64_t datatime = (*m_data)[pos].time;
-		if(datatime == time) return pos;
+    do {
+        uint64_t datatime = (*m_data)[pos].time;
+        if (datatime == time)
+            return pos;
 
-		if(datatime >= time) {
-			top = pos;
-			pos -= (top - bottom) >> 1;
-		} else {
-			bottom = pos;
-			pos += (top - bottom) >> 1;
-		}
-		// try to avoid infinite loop when top-bottom==1
-		if(top - bottom == 1){
-			if(datatime >= time)
-				bottom = top;
-			else
-				top = bottom;
-		}
+        if (datatime >= time) {
+            top = pos;
+            pos -= (top - bottom) >> 1;
+        } else {
+            bottom = pos;
+            pos += (top - bottom) >> 1;
+        }
+        // try to avoid infinite loop when top-bottom==1
+        if (top - bottom == 1) {
+            if (datatime >= time)
+                bottom = top;
+            else
+                top = bottom;
+        }
 
-	} while (top != bottom && pos != bottom);
+    } while (top != bottom && pos != bottom);
 
-	return pos;
+    return pos;
 }
-//END class LogicProbeData
+// END class LogicProbeData
 
-
-//BEGIN class FloatingProbeData
-FloatingProbeData::FloatingProbeData( int id)
-	: ProbeData(id)
+// BEGIN class FloatingProbeData
+FloatingProbeData::FloatingProbeData(int id)
+    : ProbeData(id)
 {
-	m_data = new vector<float>;
-	m_scaling = Linear;
-	m_upperAbsValue = 10.0;
-	m_lowerAbsValue = 0.1;
+    m_data = new vector<float>;
+    m_scaling = Linear;
+    m_upperAbsValue = 10.0;
+    m_lowerAbsValue = 0.1;
 }
 
-void FloatingProbeData::addDataPoint( float data) {
+void FloatingProbeData::addDataPoint(float data)
+{
     if (m_data->size() < MAX_PROBE_DATA_SIZE) {
         m_data->push_back(data);
     }
@@ -119,55 +125,57 @@ void FloatingProbeData::addDataPoint( float data) {
 
 void FloatingProbeData::eraseData()
 {
-	delete m_data;
-	m_data = new vector<float>;
+    delete m_data;
+    m_data = new vector<float>;
 
-	m_resetTime = Simulator::self()->time();
+    m_resetTime = Simulator::self()->time();
 }
 
-uint64_t FloatingProbeData::findPos( uint64_t time) const
+uint64_t FloatingProbeData::findPos(uint64_t time) const
 {
-	if( time <= 0 || uint64_t(time) <= m_resetTime) return 0;
+    if (time <= 0 || uint64_t(time) <= m_resetTime)
+        return 0;
 
-	uint64_t at = uint64_t((time-m_resetTime)*double(LINEAR_UPDATE_RATE)/double(LOGIC_UPDATE_RATE));
+    uint64_t at = uint64_t((time - m_resetTime) * double(LINEAR_UPDATE_RATE) / double(LOGIC_UPDATE_RATE));
 
-    if (m_data->size() <= at) {  // index is out of bound
+    if (m_data->size() <= at) { // index is out of bound
         if (at > 0) {
             --at;
         }
     }
 
-	return at;
+    return at;
 }
 
 uint64_t FloatingProbeData::toTime(uint64_t at) const
 {
-	return uint64_t(m_resetTime + (at * LOGIC_UPDATE_RATE * LINEAR_UPDATE_PERIOD));
+    return uint64_t(m_resetTime + (at * LOGIC_UPDATE_RATE * LINEAR_UPDATE_PERIOD));
 }
 
-void FloatingProbeData::setScaling( Scaling scaling)
+void FloatingProbeData::setScaling(Scaling scaling)
 {
-	if( m_scaling == scaling) return;
+    if (m_scaling == scaling)
+        return;
 
-	m_scaling = scaling;
-	emit displayAttributeChanged();
+    m_scaling = scaling;
+    emit displayAttributeChanged();
 }
 
-void FloatingProbeData::setUpperAbsValue( double upperAbsValue)
+void FloatingProbeData::setUpperAbsValue(double upperAbsValue)
 {
-	if( m_upperAbsValue == upperAbsValue)
-		return;
-	
-	m_upperAbsValue = upperAbsValue;
-	emit displayAttributeChanged();
+    if (m_upperAbsValue == upperAbsValue)
+        return;
+
+    m_upperAbsValue = upperAbsValue;
+    emit displayAttributeChanged();
 }
 
-void FloatingProbeData::setLowerAbsValue( double lowerAbsValue)
+void FloatingProbeData::setLowerAbsValue(double lowerAbsValue)
 {
-	if( m_lowerAbsValue == lowerAbsValue)
-		return;
-	
-	m_lowerAbsValue = lowerAbsValue;
-	emit displayAttributeChanged();
+    if (m_lowerAbsValue == lowerAbsValue)
+        return;
+
+    m_lowerAbsValue = lowerAbsValue;
+    emit displayAttributeChanged();
 }
-//END class FloatingProbeData
+// END class FloatingProbeData

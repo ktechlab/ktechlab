@@ -20,16 +20,16 @@
 class Interrupt : public FlowContainer
 {
 public:
-	Interrupt( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~Interrupt() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
-	void generateMicrobe( FlowCode *code ) override;
+    Interrupt(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~Interrupt() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    void generateMicrobe(FlowCode *code) override;
 
 protected:
-	void dataChanged() override;
+    void dataChanged() override;
 };
 
 #endif

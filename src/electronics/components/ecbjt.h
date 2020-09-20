@@ -21,21 +21,21 @@ class BJT;
 */
 class ECBJT : public Component
 {
-	public:
-		ECBJT( bool isNPN, ICNDocument *icnDocument, bool newItem, const char * id = nullptr );
-		~ECBJT() override;
-	
-		static Item * constructNPN( ItemDocument * itemDocument, bool newItem, const char * id );
-		static Item * constructPNP( ItemDocument * itemDocument, bool newItem, const char * id );
-		static LibraryItem * libraryItemNPN();
-		static LibraryItem * libraryItemPNP();
+public:
+    ECBJT(bool isNPN, ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECBJT() override;
 
-	protected:
-		void dataChanged() override;
-		void drawShape( QPainter &p ) override;
-		
-		bool m_bIsNPN;
-		BJT * m_pBJT;
+    static Item *constructNPN(ItemDocument *itemDocument, bool newItem, const char *id);
+    static Item *constructPNP(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItemNPN();
+    static LibraryItem *libraryItemPNP();
+
+protected:
+    void dataChanged() override;
+    void drawShape(QPainter &p) override;
+
+    bool m_bIsNPN;
+    BJT *m_pBJT;
 };
 
 #endif

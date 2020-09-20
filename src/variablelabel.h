@@ -15,12 +15,10 @@
 #ifndef VARIABLELABEL_H
 #define VARIABLELABEL_H
 
-#include <QPointer>
 #include <QLabel>
-
+#include <QPointer>
 
 class TextView;
-
 
 /**
 Used for displaying the value of a variable when the user hovers his mouse over
@@ -30,31 +28,31 @@ a variable while debugging.
  */
 class VariableLabel : public QLabel
 {
-	Q_OBJECT
-	public:
-		VariableLabel( TextView * parent );
-		/**
-		 * Sets the register that this label is displaying the value of.
-		 */
-		void setRegister( RegisterInfo * info, const QString & name );
-		/**
-		 * Sets the value that this label is displaying. This is an alternative
-		 * to setRegister.
-		 */
-		void setValue( unsigned value );
+    Q_OBJECT
+public:
+    VariableLabel(TextView *parent);
+    /**
+     * Sets the register that this label is displaying the value of.
+     */
+    void setRegister(RegisterInfo *info, const QString &name);
+    /**
+     * Sets the value that this label is displaying. This is an alternative
+     * to setRegister.
+     */
+    void setValue(unsigned value);
 
-	protected slots:
-		/**
-		 * Updates what is displayed from m_pRegisterInfo.
-		 */
-		void updateText();
+protected slots:
+    /**
+     * Updates what is displayed from m_pRegisterInfo.
+     */
+    void updateText();
 
-	protected:
-		void disconnectRegisterInfo();
+protected:
+    void disconnectRegisterInfo();
 
-		QPointer<RegisterInfo> m_pRegisterInfo;
-		QString m_registerName;
-		int m_value;
+    QPointer<RegisterInfo> m_pRegisterInfo;
+    QString m_registerName;
+    int m_value;
 };
 
 #endif

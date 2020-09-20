@@ -21,28 +21,28 @@ class RectangularOverlay;
 */
 class DPRectangle : public DrawPart
 {
-	public:
-		DPRectangle( ItemDocument *itemDocument, bool newItem, const char *id = nullptr );
-		~DPRectangle() override;
+public:
+    DPRectangle(ItemDocument *itemDocument, bool newItem, const char *id = nullptr);
+    ~DPRectangle() override;
 
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-		void setSelected( bool yes ) override;
-	
-		QSize minimumSize() const override;
+    void setSelected(bool yes) override;
 
-	protected:
-		void drawShape( QPainter &p ) override;
-		void dataChanged() override;
-		void postResize() override;
-		
-		/** Returns the rectangle to draw in, taking into account the line
-		  * width */
-		QRect drawRect() const;
+    QSize minimumSize() const override;
 
-	private:
-		RectangularOverlay *m_pRectangularOverlay;
+protected:
+    void drawShape(QPainter &p) override;
+    void dataChanged() override;
+    void postResize() override;
+
+    /** Returns the rectangle to draw in, taking into account the line
+     * width */
+    QRect drawRect() const;
+
+private:
+    RectangularOverlay *m_pRectangularOverlay;
 };
 
 /**
@@ -51,18 +51,18 @@ class DPRectangle : public DrawPart
 */
 class DPEllipse : public DPRectangle
 {
-	public:
-		DPEllipse( ItemDocument *itemDocument, bool newItem, const char *id = nullptr );
-		~DPEllipse() override;
+public:
+    DPEllipse(ItemDocument *itemDocument, bool newItem, const char *id = nullptr);
+    ~DPEllipse() override;
 
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-	protected:
-		void postResize() override;
-	
-	private:
-		void drawShape( QPainter &p ) override;
+protected:
+    void postResize() override;
+
+private:
+    void drawShape(QPainter &p) override;
 };
 
 #endif

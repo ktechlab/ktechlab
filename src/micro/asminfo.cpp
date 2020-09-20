@@ -16,53 +16,48 @@ AsmInfo::AsmInfo()
 {
 }
 
-
 AsmInfo::~AsmInfo()
 {
 }
 
-
-void AsmInfo::addInstruction( const QString & operand, const QString & description, const QString & opcode )
+void AsmInfo::addInstruction(const QString &operand, const QString &description, const QString &opcode)
 {
-	Instruction instruction;
-	instruction.operand = operand;
-	instruction.description = description;
-	instruction.opcode = opcode;
-	m_instructionList.append( instruction );
-	m_operandList.append( operand );
+    Instruction instruction;
+    instruction.operand = operand;
+    instruction.description = description;
+    instruction.opcode = opcode;
+    m_instructionList.append(instruction);
+    m_operandList.append(operand);
 }
 
-
-QString AsmInfo::setToString( Set set )
+QString AsmInfo::setToString(Set set)
 {
-	switch (set)
-	{
-		case AsmInfo::PIC12:
-			return QString::fromLatin1("PIC12");
+    switch (set) {
+    case AsmInfo::PIC12:
+        return QString::fromLatin1("PIC12");
 
-		case AsmInfo::PIC14:
-			return QString::fromLatin1("PIC14");
+    case AsmInfo::PIC14:
+        return QString::fromLatin1("PIC14");
 
-		case AsmInfo::PIC16:
-			return QString::fromLatin1("PIC16");
-	}
+    case AsmInfo::PIC16:
+        return QString::fromLatin1("PIC16");
+    }
 
-	qWarning() << Q_FUNC_INFO << "Unrecognized set="<<set<<endl;
-	return QString::null;
+    qWarning() << Q_FUNC_INFO << "Unrecognized set=" << set << endl;
+    return QString::null;
 }
 
-
-AsmInfo::Set AsmInfo::stringToSet( const QString & set )
+AsmInfo::Set AsmInfo::stringToSet(const QString &set)
 {
-	if ( set == QString::fromLatin1("PIC12") )
-		return PIC12;
+    if (set == QString::fromLatin1("PIC12"))
+        return PIC12;
 
-	if ( set == QString::fromLatin1("PIC14") )
-		return PIC14;
+    if (set == QString::fromLatin1("PIC14"))
+        return PIC14;
 
-	if ( set == QString::fromLatin1("PIC16") )
-		return PIC16;
+    if (set == QString::fromLatin1("PIC16"))
+        return PIC16;
 
-// 	qWarning() << Q_FUNC_INFO << "Unrecognized set="<<set<<endl;
-	return PIC14;
+    // 	qWarning() << Q_FUNC_INFO << "Unrecognized set="<<set<<endl;
+    return PIC14;
 }

@@ -22,29 +22,29 @@
 */
 class RAM : public CallbackClass, public Component
 {
-	public:
-		RAM( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~RAM() override;
-	
-		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem * libraryItem();
+public:
+    RAM(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~RAM() override;
 
-	protected:
-		void initPins();
-		void dataChanged() override;
-		void inStateChanged( bool newState );
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-		QBitArray m_data;
-		LogicIn * m_pCS; // Chip select
-		LogicIn * m_pOE; // Output enable
-		LogicIn * m_pWE; // Write enable
+protected:
+    void initPins();
+    void dataChanged() override;
+    void inStateChanged(bool newState);
 
-		int m_wordSize;
-		int m_addressSize;
+    QBitArray m_data;
+    LogicIn *m_pCS; // Chip select
+    LogicIn *m_pOE; // Output enable
+    LogicIn *m_pWE; // Write enable
 
-		QVector<LogicIn*> m_address;
-		QVector<LogicIn*> m_dataIn;
-		QVector<LogicOut*> m_dataOut;
+    int m_wordSize;
+    int m_addressSize;
+
+    QVector<LogicIn *> m_address;
+    QVector<LogicIn *> m_dataIn;
+    QVector<LogicOut *> m_dataOut;
 };
 
 #endif

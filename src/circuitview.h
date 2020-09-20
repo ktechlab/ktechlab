@@ -20,17 +20,17 @@ class CircuitDocument;
 */
 class CircuitView : public ICNView
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-	CircuitView( CircuitDocument *circuitDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr );
-	~CircuitView() override;
+    CircuitView(CircuitDocument *circuitDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr);
+    ~CircuitView() override;
 
 public slots:
-	virtual void slotUpdateRunningStatus( bool isRunning );
+    virtual void slotUpdateRunningStatus(bool isRunning);
 
 protected:
-	void dragEnterEvent( QDragEnterEvent * e ) override;
-	CircuitDocument *p_circuitDocument;
+    void dragEnterEvent(QDragEnterEvent *e) override;
+    CircuitDocument *p_circuitDocument;
 };
 
 #endif

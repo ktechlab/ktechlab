@@ -8,103 +8,97 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "cnitem.h"
 #include "doublespinbox.h"
+#include "cnitem.h"
 
 #include <KLocalizedString>
 
 #include <QDebug>
-#include <QLocale>
 #include <QLineEdit>
+#include <QLocale>
 #include <QRegExp>
 #include <QTimer>
-#include <QDebug>
 
 #include <algorithm>
 #include <cmath>
 
 using namespace std;
 
-
-static bool isDoubleSpinboxDebugEnabled() {
+static bool isDoubleSpinboxDebugEnabled()
+{
     return false; // note: in the future, loggers should be used
 }
 
 static QString DoubleSpinBox_nullDebug;
 
-static QDebug DoubleSpinbox_qDebug() {
+static QDebug DoubleSpinbox_qDebug()
+{
     if (isDoubleSpinboxDebugEnabled()) {
         return qDebug();
     } else {
         DoubleSpinBox_nullDebug.clear();
-        return QDebug( &DoubleSpinBox_nullDebug );
+        return QDebug(&DoubleSpinBox_nullDebug);
     }
 }
 
-
-inline int roundDouble( double val )
+inline int roundDouble(double val)
 {
-	return (val > 0) ? int(val+0.5) : int(val-0.5);
+    return (val > 0) ? int(val + 0.5) : int(val - 0.5);
 }
 
-
-DoubleSpinBox::DoubleSpinBox( double lower, double upper, double minAbs, double value, const QString &unit, QWidget * parent )
-	: QDoubleSpinBox( parent )
+DoubleSpinBox::DoubleSpinBox(double lower, double upper, double minAbs, double value, const QString &unit, QWidget *parent)
+    : QDoubleSpinBox(parent)
 {
-    DoubleSpinbox_qDebug() << " lower=" << lower << " upper=" << upper << " minAbs=" << minAbs << " value=" << value
-            << " unit=" << unit << " parent=" << parent;
+    DoubleSpinbox_qDebug() << " lower=" << lower << " upper=" << upper << " minAbs=" << minAbs << " value=" << value << " unit=" << unit << " parent=" << parent;
 
     setDecimals(20); // should be enough
 
-// 	m_lastEmittedValue = value;
-	m_unit = unit;
-// 	m_minValue = lower;
-    setMinimum( lower );
-// 	m_maxValue = upper;
-    setMaximum( upper );
-	m_minAbsValue = minAbs;
-// 	m_queuedSuffix = QString::null;
-	
-	init();
-	setValue( value );
+    // 	m_lastEmittedValue = value;
+    m_unit = unit;
+    // 	m_minValue = lower;
+    setMinimum(lower);
+    // 	m_maxValue = upper;
+    setMaximum(upper);
+    m_minAbsValue = minAbs;
+    // 	m_queuedSuffix = QString::null;
+
+    init();
+    setValue(value);
 }
 
-
-DoubleSpinBox::DoubleSpinBox( QWidget * parent )
-	: QDoubleSpinBox( parent )
+DoubleSpinBox::DoubleSpinBox(QWidget *parent)
+    : QDoubleSpinBox(parent)
 {
     setDecimals(20); // should be enough
 
-	m_lastEmittedValue = 0;
-// 	m_minValue = 0;
-    setMinimum( 0 );
-// 	m_maxValue = 1e9;
-    setMaximum( 1e9 );
-	m_minAbsValue = 1e-9;
-// 	m_queuedSuffix = QString::null;
-	
-	init();
-	setValue( 0 );
-}
+    m_lastEmittedValue = 0;
+    // 	m_minValue = 0;
+    setMinimum(0);
+    // 	m_maxValue = 1e9;
+    setMaximum(1e9);
+    m_minAbsValue = 1e-9;
+    // 	m_queuedSuffix = QString::null;
 
+    init();
+    setValue(0);
+}
 
 void DoubleSpinBox::init()
 {
-	lineEdit()->setAlignment( Qt::AlignRight );
-	
-// 	connect( this, SIGNAL(valueChanged(double)), this, SLOT(checkIfChanged()) );
-// 	QSpinBox::setMinValue( -(1<<30) );
-// 	QSpinBox::setMaxValue( +(1<<30) );
-	
-	// setValidator( 0 ); // apparently in Qt4 there is no validator
-}
+    lineEdit()->setAlignment(Qt::AlignRight);
 
+    // 	connect( this, SIGNAL(valueChanged(double)), this, SLOT(checkIfChanged()) );
+    // 	QSpinBox::setMinValue( -(1<<30) );
+    // 	QSpinBox::setMaxValue( +(1<<30) );
+
+    // setValidator( 0 ); // apparently in Qt4 there is no validator
+}
 
 DoubleSpinBox::~DoubleSpinBox()
 {
 }
 
-QValidator::State DoubleSpinBox::validate(QString& text, int& pos) const
+QValidator::State DoubleSpinBox::validate(QString &text, int &pos) const
 {
     DoubleSpinbox_qDebug() << Q_FUNC_INFO << "text = |" << text << "| pos= " << pos;
     return QValidator::Acceptable; // QValidator::Intermediate; // don't bother
@@ -120,7 +114,6 @@ QValidator::State DoubleSpinBox::validate(QString& text, int& pos) const
 //     DoubleSpinbox_qDebug() << "value() toRet = " << toRet;
 // 	return toRet;
 // }
-
 
 // void DoubleSpinBox::setValue( double value )
 // {
@@ -147,27 +140,24 @@ QValidator::State DoubleSpinBox::validate(QString& text, int& pos) const
 // 	QSpinBox::setValue( toBeStoredValue );
 // }
 
-
 // void DoubleSpinBox::setUnit( const QString & unit )
 // {
 // 	updateSuffix( value() );
 // 	m_unit = unit;
 // }
 
-
-void DoubleSpinBox::updateSuffix( double value )
+void DoubleSpinBox::updateSuffix(double value)
 {
-    QString nextSuffix = " " + CNItem::getNumberMag( value ) + m_unit;
-    setSuffix( nextSuffix );
-// 	m_queuedSuffix = " " + CNItem::getNumberMag( value ) + m_unit;
-//
-// 	Set suffix to be empty if it is nothing but white space
-// 	if ( m_queuedSuffix.trimmed().isEmpty() )
-// 		m_queuedSuffix = "";
-//
-// 	QTimer::singleShot( 0, this, SLOT(setQueuedSuffix()) );
+    QString nextSuffix = " " + CNItem::getNumberMag(value) + m_unit;
+    setSuffix(nextSuffix);
+    // 	m_queuedSuffix = " " + CNItem::getNumberMag( value ) + m_unit;
+    //
+    // 	Set suffix to be empty if it is nothing but white space
+    // 	if ( m_queuedSuffix.trimmed().isEmpty() )
+    // 		m_queuedSuffix = "";
+    //
+    // 	QTimer::singleShot( 0, this, SLOT(setQueuedSuffix()) );
 }
-
 
 // void DoubleSpinBox::setQueuedSuffix()
 // {
@@ -183,7 +173,8 @@ void DoubleSpinBox::updateSuffix( double value )
 // 		emit valueChanged( value() );
 // }
 
-DoubleSpinBox::StepEnabled DoubleSpinBox::stepEnabled () const {
+DoubleSpinBox::StepEnabled DoubleSpinBox::stepEnabled() const
+{
     return QDoubleSpinBox::StepDownEnabled | QDoubleSpinBox::StepUpEnabled;
 }
 
@@ -192,34 +183,34 @@ void DoubleSpinBox::stepBy(int steps)
     double workVal = value();
     while (steps != 0) {
         if (steps > 0) {
-            workVal = getNextUpStepValue( workVal );
+            workVal = getNextUpStepValue(workVal);
             steps--;
         } else {
-            workVal = getNextDownStepValue( workVal );
+            workVal = getNextDownStepValue(workVal);
             steps++;
         }
     }
-    setValue( workVal );
+    setValue(workVal);
 }
 
-double DoubleSpinBox::getNextUpStepValue( double in )
+double DoubleSpinBox::getNextUpStepValue(double in)
 {
     DoubleSpinbox_qDebug() << Q_FUNC_INFO << " in = " << in;
 
-    double value = roundToOneSF( in );
+    double value = roundToOneSF(in);
 
-    if ( value == 0 ) {
+    if (value == 0) {
         value = m_minAbsValue;
-    } else if ( value > 0 ) {
-        value += std::pow( 10., std::floor( std::log10(value) ) );
-    } else  {
-        double sub = std::pow(10., std::floor( std::log10(std::abs(value))-1) );
-        value += std::pow( 10., std::floor( std::log10(std::abs(value)-sub) ) );
+    } else if (value > 0) {
+        value += std::pow(10., std::floor(std::log10(value)));
+    } else {
+        double sub = std::pow(10., std::floor(std::log10(std::abs(value)) - 1));
+        value += std::pow(10., std::floor(std::log10(std::abs(value) - sub)));
     }
 
     value *= 1.00001;
 
-    if ( std::abs(value) < m_minAbsValue ) {
+    if (std::abs(value) < m_minAbsValue) {
         value = 0.;
     }
 
@@ -227,25 +218,25 @@ double DoubleSpinBox::getNextUpStepValue( double in )
     return value;
 }
 
-double DoubleSpinBox::getNextDownStepValue( double in )
+double DoubleSpinBox::getNextDownStepValue(double in)
 {
     DoubleSpinbox_qDebug() << Q_FUNC_INFO << " in = " << in;
 
-    double value = roundToOneSF( in );
+    double value = roundToOneSF(in);
 
-    if ( value == 0 ) {
+    if (value == 0) {
         value = -m_minAbsValue;
-    } else if ( value > 0 ) {
-        double sub = std::pow(10., std::floor( std::log10(value)-1) );
-        value -= std::pow( 10., std::floor( std::log10(value-sub) ) );
+    } else if (value > 0) {
+        double sub = std::pow(10., std::floor(std::log10(value) - 1));
+        value -= std::pow(10., std::floor(std::log10(value - sub)));
     } else {
-        double add = std::pow(10., std::floor( std::log10(std::abs(value))-1) );
-        value -= std::pow( 10., std::floor( std::log10(std::abs(value)+add) ) );
+        double add = std::pow(10., std::floor(std::log10(std::abs(value)) - 1));
+        value -= std::pow(10., std::floor(std::log10(std::abs(value) + add)));
     }
 
     value *= 1.00001;
 
-    if ( std::abs(value) < m_minAbsValue ) {
+    if (std::abs(value) < m_minAbsValue) {
         value = 0.;
     }
 
@@ -253,8 +244,6 @@ double DoubleSpinBox::getNextDownStepValue( double in )
 
     return value;
 }
-
-
 
 // double DoubleSpinBox::getMult()
 // {
@@ -286,7 +275,6 @@ double DoubleSpinBox::getNextDownStepValue( double in )
 // 		return 1;
 // }
 
-
 // double DoubleSpinBox::getDisplayedNumber( bool * ok )
 // {
 // 	KLocale * locale = KGlobal::locale();
@@ -301,7 +289,6 @@ double DoubleSpinBox::getNextDownStepValue( double in )
 //
 // 	return locale->readNumber( number, ok );
 // }
-
 
 // int DoubleSpinBox::mapTextToValue( bool * ok )
 // {
@@ -327,20 +314,17 @@ double DoubleSpinBox::getNextDownStepValue( double in )
 // }
 //
 
-double DoubleSpinBox::valueFromText( const QString & text ) const {
-
+double DoubleSpinBox::valueFromText(const QString &text) const
+{
     DoubleSpinbox_qDebug() << Q_FUNC_INFO << "text = " << text;
 
     QLocale locale;
 
     // Fetch the characters that we don't want to discard
-    const QString exclude = QString(locale.decimalPoint())
-            + locale.groupSeparator()
-            + locale.positiveSign()
-            + locale.negativeSign();
+    const QString exclude = QString(locale.decimalPoint()) + locale.groupSeparator() + locale.positiveSign() + locale.negativeSign();
 
-    QString textToStrip( text );
-    QString numberToRead = textToStrip.remove( QRegExp("[^"+exclude+"\\d]") );
+    QString textToStrip(text);
+    QString numberToRead = textToStrip.remove(QRegExp("[^" + exclude + "\\d]"));
 
     bool ok;
     double value = locale.toDouble(numberToRead, &ok);
@@ -350,46 +334,45 @@ double DoubleSpinBox::valueFromText( const QString & text ) const {
     }
     DoubleSpinbox_qDebug() << Q_FUNC_INFO << "numberToRead = " << numberToRead << ", value = " << value;
 
-    if ( value > maximum() ) {
+    if (value > maximum()) {
         value = maximum();
-    } else if ( value < minimum() ) {
+    } else if (value < minimum()) {
         value = minimum();
     }
 
-    if ( std::abs(value) < m_minAbsValue*0.9999 ) {
+    if (std::abs(value) < m_minAbsValue * 0.9999) {
         value = 0.0;
     }
 
     double multiplier = 1.0;
-    //updateSuffix( value );
-    QString textForSuffix( text );
+    // updateSuffix( value );
+    QString textForSuffix(text);
 
-    if ( textForSuffix.length() != 0 ) {
-
-        if ( textForSuffix.endsWith( m_unit, Qt::CaseInsensitive ) ) {
-            textForSuffix = textForSuffix.remove( textForSuffix.length() - m_unit.length(), m_unit.length() );
+    if (textForSuffix.length() != 0) {
+        if (textForSuffix.endsWith(m_unit, Qt::CaseInsensitive)) {
+            textForSuffix = textForSuffix.remove(textForSuffix.length() - m_unit.length(), m_unit.length());
         }
 
         textForSuffix = textForSuffix.trimmed();
 
         QChar siExp;
         if (textForSuffix.length() > 0) {
-            siExp = textForSuffix[ textForSuffix.length()-1 ];
+            siExp = textForSuffix[textForSuffix.length() - 1];
         } else {
             siExp = '1';
         }
 
         DoubleSpinbox_qDebug() << Q_FUNC_INFO << "SI exp = " << siExp;
 
-        if ( siExp.isLetter() || siExp.isSymbol() ) {
-            multiplier = CNItem::getMultiplier( QString(siExp) );
+        if (siExp.isLetter() || siExp.isSymbol()) {
+            multiplier = CNItem::getMultiplier(QString(siExp));
         } else {
             multiplier = 1;
         }
     }
     DoubleSpinbox_qDebug() << Q_FUNC_INFO << "multiplier = " << multiplier;
 
-    //value /= Item::getMultiplier( value );
+    // value /= Item::getMultiplier( value );
     value *= multiplier;
 
     DoubleSpinbox_qDebug() << Q_FUNC_INFO << "value = " << value;
@@ -416,28 +399,27 @@ QString DoubleSpinBox::textFromValue(double value) const
 {
     DoubleSpinbox_qDebug() << Q_FUNC_INFO << " value = " << value;
 
-//     int leftDigits = (int)floor( log10( abs( value ) ) ) + 1;
-//     if ( leftDigits < 0 ) {
-//         leftDigits = 0;
-//     } else if ( leftDigits > 3 ) {
-//         leftDigits = 3;
-//     }
-    double multiplier = Item::getMultiplier( value );
+    //     int leftDigits = (int)floor( log10( abs( value ) ) ) + 1;
+    //     if ( leftDigits < 0 ) {
+    //         leftDigits = 0;
+    //     } else if ( leftDigits > 3 ) {
+    //         leftDigits = 3;
+    //     }
+    double multiplier = Item::getMultiplier(value);
 
     double toDisplayNr = value / multiplier;
 
     DoubleSpinbox_qDebug() << Q_FUNC_INFO << "toDisplayNr = " << toDisplayNr;
 
-    QString numberStr = QLocale().toString( toDisplayNr, 'f', 0 /* 3-leftDigits */ );
+    QString numberStr = QLocale().toString(toDisplayNr, 'f', 0 /* 3-leftDigits */);
 
-    QString magStr = Item::getNumberMag( value );
+    QString magStr = Item::getNumberMag(value);
 
     QString toRet = numberStr + " " + magStr + m_unit;
 
     DoubleSpinbox_qDebug() << Q_FUNC_INFO << " text = " << toRet;
     return toRet;
 }
-
 
 // void DoubleSpinBox::checkIfChanged()
 // {
@@ -450,18 +432,16 @@ QString DoubleSpinBox::textFromValue(double value) const
 // 	emit valueChanged( m_lastEmittedValue );
 // }
 
-
-double DoubleSpinBox::roundToOneSF( double value )
+double DoubleSpinBox::roundToOneSF(double value)
 {
-	if ( value == 0.0 )
-		return 0.0;
-	
-	value *= 1.000001;
-	double tens = pow( 10.0, floor(log10( abs(value) )) );
-	
-	return int ( value / tens ) * tens;
-}
+    if (value == 0.0)
+        return 0.0;
 
+    value *= 1.000001;
+    double tens = pow(10.0, floor(log10(abs(value))));
+
+    return int(value / tens) * tens;
+}
 
 // void DoubleSpinBox::stepUp()
 // {
@@ -486,7 +466,6 @@ double DoubleSpinBox::roundToOneSF( double value )
 //
 // 	setValue( value );
 // }
-
 
 // void DoubleSpinBox::stepDown()
 // {

@@ -10,44 +10,37 @@
 
 #include "varassignment.h"
 
-#include "libraryitem.h"
 #include "flowcode.h"
+#include "libraryitem.h"
 
 #include <KLocalizedString>
 
-Item* VarAssignment::construct( ItemDocument *itemDocument, bool newItem, const char *id )
+Item *VarAssignment::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-	return new VarAssignment( (ICNDocument*)itemDocument, newItem, id );
+    return new VarAssignment((ICNDocument *)itemDocument, newItem, id);
 }
 
-LibraryItem* VarAssignment::libraryItem()
+LibraryItem *VarAssignment::libraryItem()
 {
-	return new LibraryItem(
-		QStringList(QString("flow/varassignment")),
-		i18n("Assignment"),
-		i18n("Variables"),
-		"assignment.png",
-		LibraryItem::lit_flowpart,
-		VarAssignment::construct );
+    return new LibraryItem(QStringList(QString("flow/varassignment")), i18n("Assignment"), i18n("Variables"), "assignment.png", LibraryItem::lit_flowpart, VarAssignment::construct);
 }
 
-VarAssignment::VarAssignment( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, id ? id : "varassignment" )
+VarAssignment::VarAssignment(ICNDocument *icnDocument, bool newItem, const char *id)
+    : FlowPart(icnDocument, newItem, id ? id : "varassignment")
 {
-	m_name = i18n("Variable Assignment");
-	initProcessSymbol();
-	createStdInput();
-	createStdOutput();
-	
-	createProperty( "0-var1", Variant::Type::VarName );
-	property("0-var1")->setCaption( i18n("Variable") );
-	property("0-var1")->setValue("x");
-	
-	createProperty( "2-var2", Variant::Type::Combo );
-	property("2-var2")->setToolbarCaption(" = ");
-	property("2-var2")->setEditorCaption( i18n("Value") );
-	property("2-var2")->setValue("0");
-	
+    m_name = i18n("Variable Assignment");
+    initProcessSymbol();
+    createStdInput();
+    createStdOutput();
+
+    createProperty("0-var1", Variant::Type::VarName);
+    property("0-var1")->setCaption(i18n("Variable"));
+    property("0-var1")->setValue("x");
+
+    createProperty("2-var2", Variant::Type::Combo);
+    property("2-var2")->setToolbarCaption(" = ");
+    property("2-var2")->setEditorCaption(i18n("Value"));
+    property("2-var2")->setValue("0");
 }
 
 VarAssignment::~VarAssignment()
@@ -56,13 +49,13 @@ VarAssignment::~VarAssignment()
 
 void VarAssignment::dataChanged()
 {
-	setCaption( dataString("0-var1") + " " + "=" /*dataString("1-op")*/ + " " + dataString("2-var2") );
+    setCaption(dataString("0-var1") + " " + "=" /*dataString("1-op")*/ + " " + dataString("2-var2"));
 }
 
-void VarAssignment::generateMicrobe( FlowCode *code )
+void VarAssignment::generateMicrobe(FlowCode *code)
 {
-	code->addCode( dataString("0-var1")+" "+"="/*dataString("1-op")*/+" "+dataString("2-var2") );
-	code->addCodeBranch( outputPart("stdoutput") );
+    code->addCode(dataString("0-var1") + " " + "=" /*dataString("1-op")*/ + " " + dataString("2-var2"));
+    code->addCodeBranch(outputPart("stdoutput"));
 
 #if 0
 	QString var1 = dataString("0-var1");

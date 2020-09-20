@@ -11,65 +11,59 @@
 #include "propertysubeditor.h"
 #include "propertyeditor.h"
 
-#include <QVariant>
-#include <QKeyEvent>
 #include <QDebug>
+#include <QKeyEvent>
+#include <QVariant>
 
-PropertySubEditor::PropertySubEditor( QWidget * parent, Property * property, const char * name )
- : QWidget( parent /*, name */ )
+PropertySubEditor::PropertySubEditor(QWidget *parent, Property *property, const char *name)
+    : QWidget(parent /*, name */)
 {
-    setObjectName( name );
-	m_childWidget = nullptr;
-	m_property = property;
-	m_leaveTheSpaceForRevertButton = false;
+    setObjectName(name);
+    m_childWidget = nullptr;
+    m_property = property;
+    m_leaveTheSpaceForRevertButton = false;
 }
 
-bool
-PropertySubEditor::eventFilter(QObject* /*watched*/, QEvent* e)
+bool PropertySubEditor::eventFilter(QObject * /*watched*/, QEvent *e)
 {
-	if ( e->type() == QEvent::KeyPress ) // || e->type()==QEvent::AccelOverride)
-	{
-		QKeyEvent * ev = static_cast<QKeyEvent*>(e);
-		PropertyEditor *list = dynamic_cast<PropertyEditor*>( parentWidget()->parentWidget() );
-		if (!list)
-			return false; //for sanity
-		return list->handleKeyPress(ev);
-	}
-	return false;
+    if (e->type() == QEvent::KeyPress) // || e->type()==QEvent::AccelOverride)
+    {
+        QKeyEvent *ev = static_cast<QKeyEvent *>(e);
+        PropertyEditor *list = dynamic_cast<PropertyEditor *>(parentWidget()->parentWidget());
+        if (!list)
+            return false; // for sanity
+        return list->handleKeyPress(ev);
+    }
+    return false;
 }
 
-void
-PropertySubEditor::resizeEvent(QResizeEvent *ev)
+void PropertySubEditor::resizeEvent(QResizeEvent *ev)
 {
-	if(m_childWidget)
-	{
-		m_childWidget->resize(ev->size());
-	}
+    if (m_childWidget) {
+        m_childWidget->resize(ev->size());
+    }
 }
 
-void
-PropertySubEditor::setWidget(QWidget *w, QWidget* focusProxy)
+void PropertySubEditor::setWidget(QWidget *w, QWidget *focusProxy)
 {
-	if (m_childWidget)
-		m_childWidget->removeEventFilter(this);
+    if (m_childWidget)
+        m_childWidget->removeEventFilter(this);
 
-	m_childWidget = w;
+    m_childWidget = w;
 
-	if(!m_childWidget)
-		return;
-	if (focusProxy && focusProxy->focusPolicy()!=Qt::NoFocus) {
-		setFocusProxy(focusProxy);
-		focusProxy->installEventFilter(this);
-	}
-	else if (m_childWidget->focusPolicy()!=Qt::NoFocus)
-		setFocusProxy(m_childWidget);
+    if (!m_childWidget)
+        return;
+    if (focusProxy && focusProxy->focusPolicy() != Qt::NoFocus) {
+        setFocusProxy(focusProxy);
+        focusProxy->installEventFilter(this);
+    } else if (m_childWidget->focusPolicy() != Qt::NoFocus)
+        setFocusProxy(m_childWidget);
 
-	m_childWidget->installEventFilter(this);
-//	if (m_childWidget->inherits("QFrame")) {
-//		static_cast<QFrame*>(m_childWidget)->setFrameStyle( QFrame::Box | QFrame::Plain );
-//	}
+    m_childWidget->installEventFilter(this);
+    //	if (m_childWidget->inherits("QFrame")) {
+    //		static_cast<QFrame*>(m_childWidget)->setFrameStyle( QFrame::Box | QFrame::Plain );
+    //	}
 }
-
 
 PropertySubEditor::~PropertySubEditor()
 {

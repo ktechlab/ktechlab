@@ -23,40 +23,49 @@ PIC ID
 */
 class AsmParser
 {
-	public:
-		/// @param url a path to a file in the local filesystem
-		AsmParser( const QString &url );
-		~AsmParser();
-		
-		enum Type { Relocatable, Absolute };
-		
-		/**
-		 * Read in data from file, return success status.
-		 * @param debugger if this is non-null, then source-line markers read
-		 * from the assembly file (such as those beginning with ";#CSRC" will be
-		 * passed to hllDebugger).
-		 */
-		bool parse( GpsimDebugger * debugger = nullptr );
-		/**
-		 * Returns the PIC ID
-		 */
-		QString picID() const { return m_picID; }
-		/**
-		 * Returns whether or not the assembly file contained the "set radix"
-		 * directive
-		 */
-		bool containsRadix() const { return m_bContainsRadix; }
-		/**
-		 * If the assembly file contains any of several key words that identify
-		 * it as a relocatable object, then this will return Relocatable.
-		 */
-		Type type() const { return m_type; }
-		
-	protected:
-		const QString m_url;
-		QString m_picID;
-		bool m_bContainsRadix;
-		Type m_type;
+public:
+    /// @param url a path to a file in the local filesystem
+    AsmParser(const QString &url);
+    ~AsmParser();
+
+    enum Type { Relocatable, Absolute };
+
+    /**
+     * Read in data from file, return success status.
+     * @param debugger if this is non-null, then source-line markers read
+     * from the assembly file (such as those beginning with ";#CSRC" will be
+     * passed to hllDebugger).
+     */
+    bool parse(GpsimDebugger *debugger = nullptr);
+    /**
+     * Returns the PIC ID
+     */
+    QString picID() const
+    {
+        return m_picID;
+    }
+    /**
+     * Returns whether or not the assembly file contained the "set radix"
+     * directive
+     */
+    bool containsRadix() const
+    {
+        return m_bContainsRadix;
+    }
+    /**
+     * If the assembly file contains any of several key words that identify
+     * it as a relocatable object, then this will return Relocatable.
+     */
+    Type type() const
+    {
+        return m_type;
+    }
+
+protected:
+    const QString m_url;
+    QString m_picID;
+    bool m_bContainsRadix;
+    Type m_type;
 };
 
 #endif

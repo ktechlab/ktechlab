@@ -134,7 +134,6 @@ from the X Consortium.
 
 */
 
-
 /*
  *     scanfill.h
  *
@@ -173,55 +172,54 @@ from the X Consortium.
  *  If it is moving to the left, then we don't want it to flip until
  *  we traverse an entire pixel.
  */
-#define BRESINITPGON(dy, x1, x2, xStart, d, m, m1, incr1, incr2) { \
-    int dx;      /* local storage */ \
-\
-    /* \
-     *  if the edge is horizontal, then it is ignored \
-     *  and assumed not to be processed.  Otherwise, do this stuff. \
-     */ \
-    if ((dy) != 0) { \
-        xStart = (x1); \
-        dx = (x2) - xStart; \
-        if (dx < 0) { \
-            m = dx / (dy); \
-            m1 = m - 1; \
-            incr1 = -2 * dx + 2 * (dy) * m1; \
-            incr2 = -2 * dx + 2 * (dy) * m; \
-            d = 2 * m * (dy) - 2 * dx - 2 * (dy); \
-        } else { \
-            m = dx / (dy); \
-            m1 = m + 1; \
-            incr1 = 2 * dx - 2 * (dy) * m1; \
-            incr2 = 2 * dx - 2 * (dy) * m; \
-            d = -2 * m * (dy) + 2 * dx; \
-        } \
-    } \
-}
-
-#define BRESINCRPGON(d, minval, m, m1, incr1, incr2) { \
-    if (m1 > 0) { \
-        if (d > 0) { \
-            minval += m1; \
-            d += incr1; \
-        } \
-        else { \
-            minval += m; \
-            d += incr2; \
-        } \
-    } else {\
-        if (d >= 0) { \
-            minval += m1; \
-            d += incr1; \
-        } \
-        else { \
-            minval += m; \
-            d += incr2; \
-        } \
-    } \
-}
+#define BRESINITPGON(dy, x1, x2, xStart, d, m, m1, incr1, incr2)                                                                                                                                                                               \
+    {                                                                                                                                                                                                                                          \
+        int dx; /* local storage */                                                                                                                                                                                                            \
+                                                                                                                                                                                                                                               \
+        /*                                                                                                                                                                                                                                     \
+         *  if the edge is horizontal, then it is ignored                                                                                                                                                                                      \
+         *  and assumed not to be processed.  Otherwise, do this stuff.                                                                                                                                                                        \
+         */                                                                                                                                                                                                                                    \
+        if ((dy) != 0) {                                                                                                                                                                                                                       \
+            xStart = (x1);                                                                                                                                                                                                                     \
+            dx = (x2)-xStart;                                                                                                                                                                                                                  \
+            if (dx < 0) {                                                                                                                                                                                                                      \
+                m = dx / (dy);                                                                                                                                                                                                                 \
+                m1 = m - 1;                                                                                                                                                                                                                    \
+                incr1 = -2 * dx + 2 * (dy)*m1;                                                                                                                                                                                                 \
+                incr2 = -2 * dx + 2 * (dy)*m;                                                                                                                                                                                                  \
+                d = 2 * m * (dy)-2 * dx - 2 * (dy);                                                                                                                                                                                            \
+            } else {                                                                                                                                                                                                                           \
+                m = dx / (dy);                                                                                                                                                                                                                 \
+                m1 = m + 1;                                                                                                                                                                                                                    \
+                incr1 = 2 * dx - 2 * (dy)*m1;                                                                                                                                                                                                  \
+                incr2 = 2 * dx - 2 * (dy)*m;                                                                                                                                                                                                   \
+                d = -2 * m * (dy) + 2 * dx;                                                                                                                                                                                                    \
+            }                                                                                                                                                                                                                                  \
+        }                                                                                                                                                                                                                                      \
+    }
 
-
+#define BRESINCRPGON(d, minval, m, m1, incr1, incr2)                                                                                                                                                                                           \
+    {                                                                                                                                                                                                                                          \
+        if (m1 > 0) {                                                                                                                                                                                                                          \
+            if (d > 0) {                                                                                                                                                                                                                       \
+                minval += m1;                                                                                                                                                                                                                  \
+                d += incr1;                                                                                                                                                                                                                    \
+            } else {                                                                                                                                                                                                                           \
+                minval += m;                                                                                                                                                                                                                   \
+                d += incr2;                                                                                                                                                                                                                    \
+            }                                                                                                                                                                                                                                  \
+        } else {                                                                                                                                                                                                                               \
+            if (d >= 0) {                                                                                                                                                                                                                      \
+                minval += m1;                                                                                                                                                                                                                  \
+                d += incr1;                                                                                                                                                                                                                    \
+            } else {                                                                                                                                                                                                                           \
+                minval += m;                                                                                                                                                                                                                   \
+                d += incr2;                                                                                                                                                                                                                    \
+            }                                                                                                                                                                                                                                  \
+        }                                                                                                                                                                                                                                      \
+    }
+
 /*
  *     This structure contains all of the information needed
  *     to run the bresenham algorithm.
@@ -230,44 +228,36 @@ from the X Consortium.
  *     register declarations.
  */
 typedef struct {
-    int minor;         /* minor axis        */
-    int d;           /* decision variable */
-    int m, m1;       /* slope and slope+1 */
+    int minor;        /* minor axis        */
+    int d;            /* decision variable */
+    int m, m1;        /* slope and slope+1 */
     int incr1, incr2; /* error increments */
 } BRESINFO;
 
+#define BRESINITPGONSTRUCT(dmaj, min1, min2, bres) BRESINITPGON(dmaj, min1, min2, bres.minor, bres.d, bres.m, bres.m1, bres.incr1, bres.incr2)
 
-#define BRESINITPGONSTRUCT(dmaj, min1, min2, bres) \
-        BRESINITPGON(dmaj, min1, min2, bres.minor, bres.d, \
-                     bres.m, bres.m1, bres.incr1, bres.incr2)
-
-#define BRESINCRPGONSTRUCT(bres) \
-        BRESINCRPGON(bres.d, bres.minor, bres.m, bres.m1, bres.incr1, bres.incr2)
-
+#define BRESINCRPGONSTRUCT(bres) BRESINCRPGON(bres.d, bres.minor, bres.m, bres.m1, bres.incr1, bres.incr2)
 
 typedef struct _EdgeTableEntry {
-     int ymax;             /* ycoord at which we exit this edge. */
-     BRESINFO bres;        /* Bresenham info to run the edge     */
-     struct _EdgeTableEntry *next;       /* next in the list     */
-     struct _EdgeTableEntry *back;       /* for insertion sort   */
-     struct _EdgeTableEntry *nextWETE;   /* for winding num rule */
-     int ClockWise;        /* flag for winding number rule       */
+    int ymax;                         /* ycoord at which we exit this edge. */
+    BRESINFO bres;                    /* Bresenham info to run the edge     */
+    struct _EdgeTableEntry *next;     /* next in the list     */
+    struct _EdgeTableEntry *back;     /* for insertion sort   */
+    struct _EdgeTableEntry *nextWETE; /* for winding num rule */
+    int ClockWise;                    /* flag for winding number rule       */
 } EdgeTableEntry;
 
-
-typedef struct _ScanLineList{
-     int scanline;              /* the scanline represented */
-     EdgeTableEntry *edgelist;  /* header node              */
-     struct _ScanLineList *next;  /* next in the list       */
+typedef struct _ScanLineList {
+    int scanline;               /* the scanline represented */
+    EdgeTableEntry *edgelist;   /* header node              */
+    struct _ScanLineList *next; /* next in the list       */
 } ScanLineList;
 
-
 typedef struct {
-     int ymax;                 /* ymax for the polygon     */
-     int ymin;                 /* ymin for the polygon     */
-     ScanLineList scanlines;   /* header node              */
+    int ymax;               /* ymax for the polygon     */
+    int ymin;               /* ymin for the polygon     */
+    ScanLineList scanlines; /* header node              */
 } EdgeTable;
-
 
 /*
  * Here is a struct to help with storage allocation
@@ -277,8 +267,8 @@ typedef struct {
 #define SLLSPERBLOCK 25
 
 typedef struct _ScanLineListBlock {
-     ScanLineList SLLs[SLLSPERBLOCK];
-     struct _ScanLineListBlock *next;
+    ScanLineList SLLs[SLLSPERBLOCK];
+    struct _ScanLineListBlock *next;
 } ScanLineListBlock;
 
 /*
@@ -300,21 +290,20 @@ typedef struct _ScanLineListBlock {
  *     the caller when the edge has been removed so he
  *     can reorder the Winding Active Edge Table.
  */
-#define EVALUATEEDGEWINDING(pAET, pPrevAET, y, fixWAET) { \
-   if (pAET->ymax == y) {          /* leaving this edge */ \
-      pPrevAET->next = pAET->next; \
-      pAET = pPrevAET->next; \
-      fixWAET = 1; \
-      if (pAET) \
-         pAET->back = pPrevAET; \
-   } \
-   else { \
-      BRESINCRPGONSTRUCT(pAET->bres); \
-      pPrevAET = pAET; \
-      pAET = pAET->next; \
-   } \
-}
-
+#define EVALUATEEDGEWINDING(pAET, pPrevAET, y, fixWAET)                                                                                                                                                                                        \
+    {                                                                                                                                                                                                                                          \
+        if (pAET->ymax == y) { /* leaving this edge */                                                                                                                                                                                         \
+            pPrevAET->next = pAET->next;                                                                                                                                                                                                       \
+            pAET = pPrevAET->next;                                                                                                                                                                                                             \
+            fixWAET = 1;                                                                                                                                                                                                                       \
+            if (pAET)                                                                                                                                                                                                                          \
+                pAET->back = pPrevAET;                                                                                                                                                                                                         \
+        } else {                                                                                                                                                                                                                               \
+            BRESINCRPGONSTRUCT(pAET->bres);                                                                                                                                                                                                    \
+            pPrevAET = pAET;                                                                                                                                                                                                                   \
+            pAET = pAET->next;                                                                                                                                                                                                                 \
+        }                                                                                                                                                                                                                                      \
+    }
 
 /*
  *     Evaluate the given edge at the given scanline.
@@ -323,19 +312,19 @@ typedef struct _ScanLineListBlock {
  *     x value to be ready for the next scanline.
  *     The even-odd rule is in effect.
  */
-#define EVALUATEEDGEEVENODD(pAET, pPrevAET, y) { \
-   if (pAET->ymax == y) {          /* leaving this edge */ \
-      pPrevAET->next = pAET->next; \
-      pAET = pPrevAET->next; \
-      if (pAET) \
-         pAET->back = pPrevAET; \
-   } \
-   else { \
-      BRESINCRPGONSTRUCT(pAET->bres) \
-      pPrevAET = pAET; \
-      pAET = pAET->next; \
-   } \
-}
+#define EVALUATEEDGEEVENODD(pAET, pPrevAET, y)                                                                                                                                                                                                 \
+    {                                                                                                                                                                                                                                          \
+        if (pAET->ymax == y) { /* leaving this edge */                                                                                                                                                                                         \
+            pPrevAET->next = pAET->next;                                                                                                                                                                                                       \
+            pAET = pPrevAET->next;                                                                                                                                                                                                             \
+            if (pAET)                                                                                                                                                                                                                          \
+                pAET->back = pPrevAET;                                                                                                                                                                                                         \
+        } else {                                                                                                                                                                                                                               \
+            BRESINCRPGONSTRUCT(pAET->bres)                                                                                                                                                                                                     \
+            pPrevAET = pAET;                                                                                                                                                                                                                   \
+            pAET = pAET->next;                                                                                                                                                                                                                 \
+        }                                                                                                                                                                                                                                      \
+    }
 
 /***********************************************************
 
@@ -406,9 +395,7 @@ SOFTWARE.
  *     bucket.  Finally, we can insert it.
  *
  */
-static bool
-miInsertEdgeInET(EdgeTable *ET, EdgeTableEntry *ETE,
-        int scanline, ScanLineListBlock **SLLBlock, int *iSLLBlock)
+static bool miInsertEdgeInET(EdgeTable *ET, EdgeTableEntry *ETE, int scanline, ScanLineListBlock **SLLBlock, int *iSLLBlock)
 {
     register EdgeTableEntry *start, *prev;
     register ScanLineList *pSLL, *pPrevSLL;
@@ -419,8 +406,7 @@ miInsertEdgeInET(EdgeTable *ET, EdgeTableEntry *ETE,
      */
     pPrevSLL = &ET->scanlines;
     pSLL = pPrevSLL->next;
-    while (pSLL && (pSLL->scanline < scanline))
-    {
+    while (pSLL && (pSLL->scanline < scanline)) {
         pPrevSLL = pSLL;
         pSLL = pSLL->next;
     }
@@ -428,12 +414,9 @@ miInsertEdgeInET(EdgeTable *ET, EdgeTableEntry *ETE,
     /*
      * reassign pSLL (pointer to ScanLineList) if necessary
      */
-    if ((!pSLL) || (pSLL->scanline > scanline))
-    {
-        if (*iSLLBlock > SLLSPERBLOCK-1)
-        {
-            tmpSLLBlock =
-                  (ScanLineListBlock *)malloc(sizeof(ScanLineListBlock));
+    if ((!pSLL) || (pSLL->scanline > scanline)) {
+        if (*iSLLBlock > SLLSPERBLOCK - 1) {
+            tmpSLLBlock = (ScanLineListBlock *)malloc(sizeof(ScanLineListBlock));
             if (!tmpSLLBlock)
                 return false;
             (*SLLBlock)->next = tmpSLLBlock;
@@ -454,8 +437,7 @@ miInsertEdgeInET(EdgeTable *ET, EdgeTableEntry *ETE,
      */
     prev = nullptr;
     start = pSLL->edgelist;
-    while (start && (start->bres.minor < ETE->bres.minor))
-    {
+    while (start && (start->bres.minor < ETE->bres.minor)) {
         prev = start;
         start = start->next;
     }
@@ -467,7 +449,7 @@ miInsertEdgeInET(EdgeTable *ET, EdgeTableEntry *ETE,
         pSLL->edgelist = ETE;
     return true;
 }
-
+
 /*
  *     CreateEdgeTable
  *
@@ -505,22 +487,18 @@ typedef struct {
 /*
  *     Clean up our act.
  */
-static void
-miFreeStorage(ScanLineListBlock   *pSLLBlock)
+static void miFreeStorage(ScanLineListBlock *pSLLBlock)
 {
-    register ScanLineListBlock   *tmpSLLBlock;
+    register ScanLineListBlock *tmpSLLBlock;
 
-    while (pSLLBlock)
-    {
+    while (pSLLBlock) {
         tmpSLLBlock = pSLLBlock->next;
         free(pSLLBlock);
         pSLLBlock = tmpSLLBlock;
     }
 }
 
-static bool
-miCreateETandAET(int count, DDXPointPtr pts, EdgeTable *ET,
-        EdgeTableEntry *AET, EdgeTableEntry *pETEs, ScanLineListBlock *pSLLBlock)
+static bool miCreateETandAET(int count, DDXPointPtr pts, EdgeTable *ET, EdgeTableEntry *AET, EdgeTableEntry *pETEs, ScanLineListBlock *pSLLBlock)
 {
     register DDXPointPtr top, bottom;
     register DDXPointPtr PrevPt, CurrPt;
@@ -528,7 +506,8 @@ miCreateETandAET(int count, DDXPointPtr pts, EdgeTable *ET,
 
     int dy;
 
-    if (count < 2)  return true;
+    if (count < 2)
+        return true;
 
     /*
      *  initialize the Active Edge Table
@@ -546,27 +525,23 @@ miCreateETandAET(int count, DDXPointPtr pts, EdgeTable *ET,
     ET->ymin = MAXINT;
     pSLLBlock->next = nullptr;
 
-    PrevPt = &pts[count-1];
+    PrevPt = &pts[count - 1];
 
     /*
      *  for each vertex in the array of points.
      *  In this loop we are dealing with two vertices at
      *  a time -- these make up one edge of the polygon.
      */
-    while (count--)
-    {
+    while (count--) {
         CurrPt = pts++;
 
         /*
          *  find out which point is above and which is below.
          */
-        if (PrevPt->y > CurrPt->y)
-        {
+        if (PrevPt->y > CurrPt->y) {
             bottom = PrevPt, top = CurrPt;
             pETEs->ClockWise = 0;
-        }
-        else
-        {
+        } else {
             bottom = CurrPt, top = PrevPt;
             pETEs->ClockWise = 1;
         }
@@ -574,9 +549,8 @@ miCreateETandAET(int count, DDXPointPtr pts, EdgeTable *ET,
         /*
          * don't add horizontal edges to the Edge table.
          */
-        if (bottom->y != top->y)
-        {
-            pETEs->ymax = bottom->y-1;  /* -1 so we don't get last scanline */
+        if (bottom->y != top->y) {
+            pETEs->ymax = bottom->y - 1; /* -1 so we don't get last scanline */
 
             /*
              *  initialize integer edge algorithm
@@ -584,8 +558,7 @@ miCreateETandAET(int count, DDXPointPtr pts, EdgeTable *ET,
             dy = bottom->y - top->y;
             BRESINITPGONSTRUCT(dy, top->x, bottom->x, pETEs->bres)
 
-            if (!miInsertEdgeInET(ET, pETEs, top->y, &pSLLBlock, &iSLLBlock))
-            {
+            if (!miInsertEdgeInET(ET, pETEs, top->y, &pSLLBlock, &iSLLBlock)) {
                 miFreeStorage(pSLLBlock->next);
                 return false;
             }
@@ -599,7 +572,7 @@ miCreateETandAET(int count, DDXPointPtr pts, EdgeTable *ET,
     }
     return true;
 }
-
+
 /*
  *     loadAET
  *
@@ -609,18 +582,15 @@ miCreateETandAET(int count, DDXPointPtr pts, EdgeTable *ET,
  *
  */
 
-static void
-miloadAET(EdgeTableEntry *AET, EdgeTableEntry *ETEs)
+static void miloadAET(EdgeTableEntry *AET, EdgeTableEntry *ETEs)
 {
     register EdgeTableEntry *pPrevAET;
     register EdgeTableEntry *tmp;
 
     pPrevAET = AET;
     AET = AET->next;
-    while (ETEs)
-    {
-        while (AET && (AET->bres.minor < ETEs->bres.minor))
-        {
+    while (ETEs) {
+        while (AET && (AET->bres.minor < ETEs->bres.minor)) {
             pPrevAET = AET;
             AET = AET->next;
         }
@@ -635,7 +605,7 @@ miloadAET(EdgeTableEntry *AET, EdgeTableEntry *ETEs)
         ETEs = tmp;
     }
 }
-
+
 /*
  *     computeWAET
  *
@@ -656,8 +626,7 @@ miloadAET(EdgeTableEntry *AET, EdgeTableEntry *ETEs)
  *         V------------------->       V---> ...
  *
  */
-static void
-micomputeWAET(EdgeTableEntry *AET)
+static void micomputeWAET(EdgeTableEntry *AET)
 {
     register EdgeTableEntry *pWETE;
     register int inside = 1;
@@ -666,16 +635,13 @@ micomputeWAET(EdgeTableEntry *AET)
     AET->nextWETE = nullptr;
     pWETE = AET;
     AET = AET->next;
-    while (AET)
-    {
+    while (AET) {
         if (AET->ClockWise)
             isInside++;
         else
             isInside--;
 
-        if ((!inside && !isInside) ||
-            (inside &&  isInside))
-        {
+        if ((!inside && !isInside) || (inside && isInside)) {
             pWETE->nextWETE = AET;
             pWETE = AET;
             inside = !inside;
@@ -684,7 +650,7 @@ micomputeWAET(EdgeTableEntry *AET)
     }
     pWETE->nextWETE = nullptr;
 }
-
+
 /*
  *     InsertionSort
  *
@@ -694,8 +660,7 @@ micomputeWAET(EdgeTableEntry *AET)
  *
  */
 
-static int
-miInsertionSort(EdgeTableEntry *AET)
+static int miInsertionSort(EdgeTableEntry *AET)
 {
     register EdgeTableEntry *pETEchase;
     register EdgeTableEntry *pETEinsert;
@@ -703,16 +668,14 @@ miInsertionSort(EdgeTableEntry *AET)
     register int changed = 0;
 
     AET = AET->next;
-    while (AET)
-    {
+    while (AET) {
         pETEinsert = AET;
         pETEchase = AET;
         while (pETEchase->back->bres.minor > AET->bres.minor)
             pETEchase = pETEchase->back;
 
         AET = AET->next;
-        if (pETEchase != pETEinsert)
-        {
+        if (pETEchase != pETEinsert) {
             pETEchaseBackTMP = pETEchase->back;
             pETEinsert->back->next = AET;
             if (AET)
@@ -730,7 +693,7 @@ miInsertionSort(EdgeTableEntry *AET)
 /*!
     \overload
 */
-void KtlQ3PolygonScanner::scan(const QPolygon& pa, bool winding, int index, int npoints)
+void KtlQ3PolygonScanner::scan(const QPolygon &pa, bool winding, int index, int npoints)
 {
     scan(pa, winding, index, npoints, true);
 }
@@ -741,10 +704,9 @@ void KtlQ3PolygonScanner::scan(const QPolygon& pa, bool winding, int index, int 
     If \a stitchable is false, the right and bottom edges of the
     polygon are included. This causes adjacent polygons to overlap.
 */
-void KtlQ3PolygonScanner::scan(const QPolygon& pa, bool winding, int index, int npoints, bool stitchable)
+void KtlQ3PolygonScanner::scan(const QPolygon &pa, bool winding, int index, int npoints, bool stitchable)
 {
-    scan(pa, winding, index, npoints,
-        stitchable ? Edge(Left+Top) : Edge(Left+Right+Top+Bottom));
+    scan(pa, winding, index, npoints, stitchable ? Edge(Left + Top) : Edge(Left + Right + Top + Bottom));
 }
 
 /*!
@@ -766,10 +728,8 @@ void KtlQ3PolygonScanner::scan(const QPolygon& pa, bool winding, int index, int 
     \warning The edges feature does not work properly.
 
 */
-void KtlQ3PolygonScanner::scan(const QPolygon& pa, bool winding, int index, int npoints, Edge edges)
+void KtlQ3PolygonScanner::scan(const QPolygon &pa, bool winding, int index, int npoints, Edge edges)
 {
-
-
     DDXPointPtr ptsIn = (DDXPointPtr)pa.data();
     ptsIn += index;
     register EdgeTableEntry *pAET;  /* the Active Edge Table   */
@@ -777,15 +737,15 @@ void KtlQ3PolygonScanner::scan(const QPolygon& pa, bool winding, int index, int 
     register int nPts = 0;          /* number of pts in buffer */
     register EdgeTableEntry *pWETE; /* Winding Edge Table      */
     register ScanLineList *pSLL;    /* Current ScanLineList    */
-    register DDXPointPtr ptsOut;      /* ptr to output buffers   */
+    register DDXPointPtr ptsOut;    /* ptr to output buffers   */
     int *width;
     DDXPointRec FirstPoint[NUMPTSTOBUFFER]; /* the output buffers */
     int FirstWidth[NUMPTSTOBUFFER];
-    EdgeTableEntry *pPrevAET;       /* previous AET entry      */
-    EdgeTable ET;                   /* Edge Table header node  */
-    EdgeTableEntry AET;             /* Active ET header node   */
-    EdgeTableEntry *pETEs;          /* Edge Table Entries buff */
-    ScanLineListBlock SLLBlock;     /* header for ScanLineList */
+    EdgeTableEntry *pPrevAET;   /* previous AET entry      */
+    EdgeTable ET;               /* Edge Table header node  */
+    EdgeTableEntry AET;         /* Active ET header node   */
+    EdgeTableEntry *pETEs;      /* Edge Table Entries buff */
+    ScanLineListBlock SLLBlock; /* header for ScanLineList */
     int fixWAET = 0;
     int edge_l = (edges & Left) ? 1 : 0;
     int edge_r = (edges & Right) ? 1 : 0;
@@ -798,31 +758,26 @@ void KtlQ3PolygonScanner::scan(const QPolygon& pa, bool winding, int index, int 
     if (npoints < 3)
         return;
 
-    if(!(pETEs = (EdgeTableEntry *)
-        malloc(sizeof(EdgeTableEntry) * npoints)))
+    if (!(pETEs = (EdgeTableEntry *)malloc(sizeof(EdgeTableEntry) * npoints)))
         return;
     ptsOut = FirstPoint;
     width = FirstWidth;
-    if (!miCreateETandAET(npoints, ptsIn, &ET, &AET, pETEs, &SLLBlock))
-    {
+    if (!miCreateETandAET(npoints, ptsIn, &ET, &AET, pETEs, &SLLBlock)) {
         free(pETEs);
         return;
     }
     pSLL = ET.scanlines.next;
 
-    if (!winding)
-    {
+    if (!winding) {
         /*
          *  for each scanline
          */
-        for (y = ET.ymin+1-edge_t; y < ET.ymax+edge_b; y++)
-        {
+        for (y = ET.ymin + 1 - edge_t; y < ET.ymax + edge_b; y++) {
             /*
              *  Add a new edge to the active edge table when we
              *  get to the next edge.
              */
-            if (pSLL && y == pSLL->scanline)
-            {
+            if (pSLL && y == pSLL->scanline) {
                 miloadAET(&AET, pSLL->edgelist);
                 pSLL = pSLL->next;
             }
@@ -832,20 +787,17 @@ void KtlQ3PolygonScanner::scan(const QPolygon& pa, bool winding, int index, int 
             /*
              *  for each active edge
              */
-            while (pAET)
-            {
+            while (pAET) {
                 ptsOut->x = pAET->bres.minor + 1 - edge_l;
                 ptsOut++->y = y;
-                *width++ = pAET->next->bres.minor - pAET->bres.minor
-                    - 1 + edge_l + edge_r;
+                *width++ = pAET->next->bres.minor - pAET->bres.minor - 1 + edge_l + edge_r;
                 nPts++;
 
                 /*
                  *  send out the buffer when its full
                  */
-                if (nPts == NUMPTSTOBUFFER)
-                {
-                    processSpans(nPts, (QPoint*)FirstPoint, FirstWidth);
+                if (nPts == NUMPTSTOBUFFER) {
+                    processSpans(nPts, (QPoint *)FirstPoint, FirstWidth);
                     ptsOut = FirstPoint;
                     width = FirstWidth;
                     nPts = 0;
@@ -855,20 +807,17 @@ void KtlQ3PolygonScanner::scan(const QPolygon& pa, bool winding, int index, int 
             }
             miInsertionSort(&AET);
         }
-    }
-    else      /* default to WindingNumber */
+    } else /* default to WindingNumber */
     {
         /*
          *  for each scanline
          */
-        for (y = ET.ymin+1-edge_t; y < ET.ymax+edge_b; y++)
-        {
+        for (y = ET.ymin + 1 - edge_t; y < ET.ymax + edge_b; y++) {
             /*
              *  Add a new edge to the active edge table when we
              *  get to the next edge.
              */
-            if (pSLL && y == pSLL->scanline)
-            {
+            if (pSLL && y == pSLL->scanline) {
                 miloadAET(&AET, pSLL->edgelist);
                 micomputeWAET(&AET);
                 pSLL = pSLL->next;
@@ -880,15 +829,13 @@ void KtlQ3PolygonScanner::scan(const QPolygon& pa, bool winding, int index, int 
             /*
              *  for each active edge
              */
-            while (pAET)
-            {
+            while (pAET) {
                 /*
                  *  if the next edge in the active edge table is
                  *  also the next edge in the winding active edge
                  *  table.
                  */
-                if (pWETE == pAET)
-                {
+                if (pWETE == pAET) {
                     ptsOut->x = pAET->bres.minor + 1 - edge_l;
                     ptsOut++->y = y;
                     *width++ = pAET->nextWETE->bres.minor - pAET->bres.minor - 1 + edge_l + edge_r;
@@ -897,11 +844,10 @@ void KtlQ3PolygonScanner::scan(const QPolygon& pa, bool winding, int index, int 
                     /*
                      *  send out the buffer
                      */
-                    if (nPts == NUMPTSTOBUFFER)
-                    {
-                        processSpans(nPts, (QPoint*)FirstPoint, FirstWidth);
+                    if (nPts == NUMPTSTOBUFFER) {
+                        processSpans(nPts, (QPoint *)FirstPoint, FirstWidth);
                         ptsOut = FirstPoint;
-                        width  = FirstWidth;
+                        width = FirstWidth;
                         nPts = 0;
                     }
 
@@ -918,8 +864,7 @@ void KtlQ3PolygonScanner::scan(const QPolygon& pa, bool winding, int index, int 
              *  reevaluate the Winding active edge table if we
              *  just had to resort it or if we just exited an edge.
              */
-            if (miInsertionSort(&AET) || fixWAET)
-            {
+            if (miInsertionSort(&AET) || fixWAET) {
                 micomputeWAET(&AET);
                 fixWAET = 0;
             }
@@ -930,8 +875,7 @@ void KtlQ3PolygonScanner::scan(const QPolygon& pa, bool winding, int index, int 
      *     Get any spans that we missed by buffering
      */
 
-
-    processSpans(nPts, (QPoint*)FirstPoint, FirstWidth);
+    processSpans(nPts, (QPoint *)FirstPoint, FirstWidth);
     free(pETEs);
     miFreeStorage(SLLBlock.next);
 }

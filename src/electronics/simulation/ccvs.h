@@ -23,18 +23,21 @@ Branches b0 and b1 are for control and output
 class CCVS : public Element
 {
 public:
-	CCVS( const double gain );
-	~CCVS() override;
-	
-	Type type() const override { return Element_CCVS; }
-	void setGain( const double g );
+    CCVS(const double gain);
+    ~CCVS() override;
+
+    Type type() const override
+    {
+        return Element_CCVS;
+    }
+    void setGain(const double g);
 
 protected:
-	void updateCurrents() override;
-	void add_initial_dc() override;
+    void updateCurrents() override;
+    void add_initial_dc() override;
 
 private:
-	double m_g; // Conductance
+    double m_g; // Conductance
 };
 
 #endif

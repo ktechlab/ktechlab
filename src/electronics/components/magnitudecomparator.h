@@ -21,29 +21,29 @@
  */
 class MagnitudeComparator : public CallbackClass, public Component
 {
-	public:
-		MagnitudeComparator( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~MagnitudeComparator() override;
+public:
+    MagnitudeComparator(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~MagnitudeComparator() override;
 
-		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem * libraryItem();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-	protected:
-		void initPins();
-		void dataChanged() override;
-		void inStateChanged();
+protected:
+    void initPins();
+    void dataChanged() override;
+    void inStateChanged();
 
-		int m_oldABLogicCount;
-		int cascadingInputs;
-		int outputs;
-		bool firstTime;
+    int m_oldABLogicCount;
+    int cascadingInputs;
+    int outputs;
+    bool firstTime;
 
-		QBitArray m_data;
+    QBitArray m_data;
 
-		QVector<LogicIn*> m_aLogic;
-		QVector<LogicIn*> m_bLogic;
-		QVector<LogicIn*> m_cLogic;
-		QVector<LogicOut*> m_output;
+    QVector<LogicIn *> m_aLogic;
+    QVector<LogicIn *> m_bLogic;
+    QVector<LogicIn *> m_cLogic;
+    QVector<LogicOut *> m_output;
 };
 
 #endif

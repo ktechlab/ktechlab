@@ -8,33 +8,31 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "mechanicsdocument.h"
 #include "mechanicsview.h"
+#include "mechanicsdocument.h"
 #include "viewiface.h"
 
 #include <QDragEnterEvent>
 #include <QMimeData>
 
-MechanicsView::MechanicsView( MechanicsDocument *mechanicsDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name )
-	: ItemView( mechanicsDocument, viewContainer, viewAreaId, name )
+MechanicsView::MechanicsView(MechanicsDocument *mechanicsDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name)
+    : ItemView(mechanicsDocument, viewContainer, viewAreaId, name)
 {
-	setXMLFile( "ktechlabmechanicsui.rc", true );
-	m_pViewIface = new MechanicsViewIface(this);
+    setXMLFile("ktechlabmechanicsui.rc", true);
+    m_pViewIface = new MechanicsViewIface(this);
 }
-
 
 MechanicsView::~MechanicsView()
 {
-	delete m_pViewIface;
+    delete m_pViewIface;
 }
 
-
-void MechanicsView::dragEnterEvent( QDragEnterEvent * e )
+void MechanicsView::dragEnterEvent(QDragEnterEvent *e)
 {
-	ItemView::dragEnterEvent(e);
-	if ( e->isAccepted() )
-		return;
-	
-	//e->setAccepted( e->provides("ktechlab/mechanical") ); // 2019.04.14
-    e->setAccepted( e->mimeData()->hasFormat("ktechlab/mechanical") );
+    ItemView::dragEnterEvent(e);
+    if (e->isAccepted())
+        return;
+
+    // e->setAccepted( e->provides("ktechlab/mechanical") ); // 2019.04.14
+    e->setAccepted(e->mimeData()->hasFormat("ktechlab/mechanical"));
 }

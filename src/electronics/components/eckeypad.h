@@ -19,23 +19,23 @@
 */
 class ECKeyPad : public Component
 {
-	public:
-		ECKeyPad( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~ECKeyPad() override;
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
-	
-		void buttonStateChanged( const QString &id, bool state ) override;
+public:
+    ECKeyPad(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECKeyPad() override;
 
-	protected:
-		void dataChanged() override;
-		void initPins( unsigned numCols);
-		QString buttonID( int row, int col ) const;
-		int sideLength( unsigned numButtons ) const;
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-		Switch *m_switch[4][11];
-		unsigned m_numCols;
+    void buttonStateChanged(const QString &id, bool state) override;
+
+protected:
+    void dataChanged() override;
+    void initPins(unsigned numCols);
+    QString buttonID(int row, int col) const;
+    int sideLength(unsigned numButtons) const;
+
+    Switch *m_switch[4][11];
+    unsigned m_numCols;
 };
 
 #endif

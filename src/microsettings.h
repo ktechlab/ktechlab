@@ -22,32 +22,30 @@ class MicroInfo;
 class VariableInfo
 {
 public:
-	VariableInfo();
-	
-	// Returns the value as a string
-	QString valueAsString() const;
-	
-	// MicroSettings::VariableType (don't rely on this just yet...)
-	int type;
-	
-	// Sets the value
-	void setValue( const QVariant & value );
-	
-	// If true, the variable will be initialised at the start of the FlowCode
-	// to the given value
-	bool initAtStart;
-	
-	// True if the variable was "created" by the user in the variable dialog,
-	// as opposed to being from a variable name entry box
-	bool permanent;
-	
+    VariableInfo();
+
+    // Returns the value as a string
+    QString valueAsString() const;
+
+    // MicroSettings::VariableType (don't rely on this just yet...)
+    int type;
+
+    // Sets the value
+    void setValue(const QVariant &value);
+
+    // If true, the variable will be initialised at the start of the FlowCode
+    // to the given value
+    bool initAtStart;
+
+    // True if the variable was "created" by the user in the variable dialog,
+    // as opposed to being from a variable name entry box
+    bool permanent;
+
 private:
-	QVariant value;
+    QVariant value;
 };
 
-
-typedef QMap< QString, VariableInfo > VariableMap; // Variable name, variable info
-
+typedef QMap<QString, VariableInfo> VariableMap; // Variable name, variable info
 
 /**
 @short Stores pic pin settings - type/state
@@ -55,51 +53,55 @@ typedef QMap< QString, VariableInfo > VariableMap; // Variable name, variable in
 */
 class PinSettings : public QObject
 {
-	Q_OBJECT
-	public:
-		enum pin_type
-		{
-			pt_input,
-			pt_output
-		};
-	
-		enum pin_state
-		{
-			ps_on,
-			ps_off
-		};
-	
-		PinSettings();
-		PinSettings( PinSettings::pin_type _type, PinSettings::pin_state _state, const QString &id, const QString &port );
-	
-		PinSettings::pin_type type() const { return m_type; }
-		PinSettings::pin_state state() const { return m_state; }
-		QString id() const { return m_id; }
-		QString port() const { return m_port; }
-	
-		void setType( PinSettings::pin_type type );
-		void setState( PinSettings::pin_state state );
-		
-	signals:
-		/**
-		 * Emitted when either the type or the state is changed.
-		 */
-		void settingsChanged();
-	
-	private:
-		PinSettings::pin_type m_type;
-		PinSettings::pin_state m_state;
-		QString m_id;
-		QString m_port;
+    Q_OBJECT
+public:
+    enum pin_type { pt_input, pt_output };
+
+    enum pin_state { ps_on, ps_off };
+
+    PinSettings();
+    PinSettings(PinSettings::pin_type _type, PinSettings::pin_state _state, const QString &id, const QString &port);
+
+    PinSettings::pin_type type() const
+    {
+        return m_type;
+    }
+    PinSettings::pin_state state() const
+    {
+        return m_state;
+    }
+    QString id() const
+    {
+        return m_id;
+    }
+    QString port() const
+    {
+        return m_port;
+    }
+
+    void setType(PinSettings::pin_type type);
+    void setState(PinSettings::pin_state state);
+
+signals:
+    /**
+     * Emitted when either the type or the state is changed.
+     */
+    void settingsChanged();
+
+private:
+    PinSettings::pin_type m_type;
+    PinSettings::pin_state m_state;
+    QString m_id;
+    QString m_port;
 };
-typedef QList<PinSettings*> PinSettingsList;
+typedef QList<PinSettings *> PinSettingsList;
 
 class PinMapping;
-typedef QMap< QString, PinMapping > PinMappingMap;
-typedef QMap< QString, PinSettingsList > PortList;
+typedef QMap<QString, PinMapping> PinMappingMap;
+typedef QMap<QString, PinSettingsList> PortList;
 
 /**
-This class stores PIC settings that are specific to the PIC program being devloped. 
+This class stores PIC settings that are specific to the PIC program being devloped.
 This includes such things as port settings and variable settings.
 This is different from PIC info, which includes stuff such as PIC pin names
 
@@ -108,104 +110,102 @@ This is different from PIC info, which includes stuff such as PIC pin names
 */
 class MicroSettings : public QObject
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-    enum VariableType
-	{
-    	vt_signedInteger,
-		vt_unsignedInteger,
-		vt_unknown
-	};
-    MicroSettings( MicroInfo *microInfo );
+    enum VariableType { vt_signedInteger, vt_unsignedInteger, vt_unknown };
+    MicroSettings(MicroInfo *microInfo);
     ~MicroSettings() override;
-	/**
-	 * Returns microdata to describe the microsettings.
-	 * This includes ports settins and variable settings
-	 */
-	MicroData microData() const;
-	void restoreFromMicroData( const MicroData &microData );
-	/**
-	 * Returns a pointer to the MicroInfo object for the PIC in use
-	 */
-	MicroInfo *microInfo() const { return _microInfo; }
-	/**
-	 * Set the pin with the given id to the given initial type (input/output)
-	 */
-	void setPinType( const QString &id, PinSettings::pin_type type );
-	/**
-	 * Set the pin with the given id to the given initial state (on/off)
-	 */
-	void setPinState( const QString &id, PinSettings::pin_state state );
-	/**
-	 * Returns a pointer to the PinSettings for the pin with the given id,
-	 * or null if no such pin exists.
-	 */
-	PinSettings* pinWithID( const QString &id );
-	/**
-	 * Returns the initial port state (on/off) for the given port.
-	 * Each pin state occupies one bit of the returned integer. 
-	 */
-	int portState( const QString &port );
-	/**
-	 * Sets the port with the given name to the given state
-	 */
-	void setPortState( const QString &port, int state );
-	/**
-	 * Sets the port with the given name to the given type
-	 */
-	void setPortType( const QString &port, int type );
-	/**
-	 * Returns the initial port type (intput/output) for the given port.
-	 * Each pin type occupies one bit of the returned integer. 
-	 */
-	int portType( const QString &port );
-	/**
-	 * Sets the variable "name" to the initial value "value. If the variable
-	 * already exists, its value will be changed. Else, the variable will be
-	 * created.
-	 */
-	void setVariable( const QString &name, QVariant value, bool permanent = true );
-	/**
-	 * Returns the list of initial variables as a QStringList, just the names
-	 * without the values. Generated from the VariableMap m_variables.
-	 */
-	QStringList variableNames();
-	/**
-	 * Returns a pointer to the variable info with the given name, or nullptr
-	 * if the variable is not found
-	 */
-	VariableInfo *variableInfo( const QString &name );
-	/**
-	 * Deletes the variable with the given name, returns true if successul
-	 * (i.e. a variable with that name existed), or false if not
-	 */
-	bool deleteVariable( const QString &name );
-	/**
-	 * Removes all variables
-	 */
-	void removeAllVariables();
-	/**
-	 * Sets the list of Pin Mappings to that given.
-	 */
-	void setPinMappings( const PinMappingMap & pinMappings );
-	/**
-	 * Returns the pic pin mapping with the given id.
-	 */
-	PinMapping pinMapping( const QString & id ) const;
-	/**
-	 * Returns the list of different Pin Mappings;
-	 */
-	PinMappingMap pinMappings() const;
-	
+    /**
+     * Returns microdata to describe the microsettings.
+     * This includes ports settins and variable settings
+     */
+    MicroData microData() const;
+    void restoreFromMicroData(const MicroData &microData);
+    /**
+     * Returns a pointer to the MicroInfo object for the PIC in use
+     */
+    MicroInfo *microInfo() const
+    {
+        return _microInfo;
+    }
+    /**
+     * Set the pin with the given id to the given initial type (input/output)
+     */
+    void setPinType(const QString &id, PinSettings::pin_type type);
+    /**
+     * Set the pin with the given id to the given initial state (on/off)
+     */
+    void setPinState(const QString &id, PinSettings::pin_state state);
+    /**
+     * Returns a pointer to the PinSettings for the pin with the given id,
+     * or null if no such pin exists.
+     */
+    PinSettings *pinWithID(const QString &id);
+    /**
+     * Returns the initial port state (on/off) for the given port.
+     * Each pin state occupies one bit of the returned integer.
+     */
+    int portState(const QString &port);
+    /**
+     * Sets the port with the given name to the given state
+     */
+    void setPortState(const QString &port, int state);
+    /**
+     * Sets the port with the given name to the given type
+     */
+    void setPortType(const QString &port, int type);
+    /**
+     * Returns the initial port type (intput/output) for the given port.
+     * Each pin type occupies one bit of the returned integer.
+     */
+    int portType(const QString &port);
+    /**
+     * Sets the variable "name" to the initial value "value. If the variable
+     * already exists, its value will be changed. Else, the variable will be
+     * created.
+     */
+    void setVariable(const QString &name, QVariant value, bool permanent = true);
+    /**
+     * Returns the list of initial variables as a QStringList, just the names
+     * without the values. Generated from the VariableMap m_variables.
+     */
+    QStringList variableNames();
+    /**
+     * Returns a pointer to the variable info with the given name, or nullptr
+     * if the variable is not found
+     */
+    VariableInfo *variableInfo(const QString &name);
+    /**
+     * Deletes the variable with the given name, returns true if successul
+     * (i.e. a variable with that name existed), or false if not
+     */
+    bool deleteVariable(const QString &name);
+    /**
+     * Removes all variables
+     */
+    void removeAllVariables();
+    /**
+     * Sets the list of Pin Mappings to that given.
+     */
+    void setPinMappings(const PinMappingMap &pinMappings);
+    /**
+     * Returns the pic pin mapping with the given id.
+     */
+    PinMapping pinMapping(const QString &id) const;
+    /**
+     * Returns the list of different Pin Mappings;
+     */
+    PinMappingMap pinMappings() const;
+
 signals:
-	void pinMappingsChanged();
-	
+    void pinMappingsChanged();
+
 private:
-	PinMappingMap m_pinMappings;
-	PinSettingsList m_pinSettingsList;
-	MicroInfo *_microInfo;
-	VariableMap m_variableMap;
-	PortList m_ports;
+    PinMappingMap m_pinMappings;
+    PinSettingsList m_pinSettingsList;
+    MicroInfo *_microInfo;
+    VariableMap m_variableMap;
+    PortList m_ports;
 };
 
 #endif

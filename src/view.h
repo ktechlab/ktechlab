@@ -11,18 +11,17 @@
 #ifndef VIEW_H
 #define VIEW_H
 
-#include "viewcontainer.h"
 #include "document.h"
+#include "viewcontainer.h"
 
 #include <KXMLGUIClient>
 
+#include <QEvent>
+#include <QPainter>
+#include <QPixmap>
+#include <QPointer>
 #include <QStatusBar>
 #include <QUrl>
-#include <QPointer>
-#include <QPixmap>
-#include <QPainter>
-#include <QEvent>
-
 
 class DCOPObject;
 class Document;
@@ -37,26 +36,26 @@ class QLabel;
 
 class ViewStatusBar : public QStatusBar
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-	ViewStatusBar( View *view );
+    ViewStatusBar(View *view);
 
 public:
     void setStatusText(const QString &statusText);
 
 public slots:
-	void slotModifiedStateChanged();
-	void slotFileNameChanged( const QUrl &url );
-	void slotViewFocused( View * );
-	void slotViewUnfocused();
+    void slotModifiedStateChanged();
+    void slotFileNameChanged(const QUrl &url);
+    void slotViewFocused(View *);
+    void slotViewUnfocused();
 
 protected:
-	View *p_view;
-	QLabel* m_statusLabel;
-	QLabel* m_modifiedLabel;
-	KSqueezedTextLabel* m_fileNameLabel;
-	QPixmap m_modifiedPixmap;
-	QPixmap m_unmodifiedPixmap;
+    View *p_view;
+    QLabel *m_statusLabel;
+    QLabel *m_modifiedLabel;
+    KSqueezedTextLabel *m_fileNameLabel;
+    QPixmap m_modifiedPixmap;
+    QPixmap m_unmodifiedPixmap;
 };
 
 /**
@@ -64,95 +63,112 @@ protected:
 */
 class View : public QWidget, public KXMLGUIClient
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-	View( Document *document, ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr );
-	~View() override;
+    View(Document *document, ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr);
+    ~View() override;
 
+    QAction *actionByName(const QString &name) const;
+    /**
+     * Pointer to the parent document
+     */
+    Document *document() const
+    {
+        return m_pDocument;
+    }
+    /**
+     * Returns the DCOP object from this view
+     */
+    DCOPObject *dcopObject() const;
+    /**
+     * Returns the dcop suffix for this view - a unique ID for the current the
+     * view within all views associated with the parent document. DCOP name
+     * will become "View#docID#viewID".
+     */
+    unsigned dcopID() const
+    {
+        return m_dcopID;
+    }
+    /**
+     * Sets the dcop suffix. The DCOP object for this view will be renamed.
+     * @see dcopID
+     */
+    void setDCOPID(unsigned id);
+    /**
+     * Pointer to the ViewContainer that we're in
+     */
+    ViewContainer *viewContainer() const
+    {
+        return p_viewContainer;
+    }
+    /**
+     * Tells the view container which contains this view to close this view,
+     * returning true if successful (i.e. not both last view and unsaved, etc)
+     */
+    virtual bool closeView();
+    /**
+     * Returns the unique (for the view container) view area id associated with this view
+     */
+    uint viewAreaId() const
+    {
+        return m_viewAreaId;
+    }
+    /**
+     * Zoom in
+     */
+    virtual void viewZoomIn() {};
+    /**
+     * Zoom out
+     */
+    virtual void viewZoomOut() {};
+    virtual bool canZoomIn() const
+    {
+        return true;
+    }
+    virtual bool canZoomOut() const
+    {
+        return true;
+    }
+    /**
+     * Restore view to actual size
+     */
+    virtual void actualSize() {};
 
-	QAction * actionByName( const QString & name ) const;
-	/**
-	 * Pointer to the parent document
-	 */
-	Document * document() const { return m_pDocument; }
-	/**
-	 * Returns the DCOP object from this view
-	 */
-	DCOPObject * dcopObject() const;
-	/**
-	 * Returns the dcop suffix for this view - a unique ID for the current the
-	 * view within all views associated with the parent document. DCOP name
-	 * will become "View#docID#viewID".
-	 */
-	unsigned dcopID() const { return m_dcopID; }
-	/**
-	 * Sets the dcop suffix. The DCOP object for this view will be renamed.
-	 * @see dcopID
-	 */
-	void setDCOPID( unsigned id );
-	/**
-	 * Pointer to the ViewContainer that we're in
-	 */
-	ViewContainer *viewContainer() const { return p_viewContainer; }
-	/**
-	 * Tells the view container which contains this view to close this view,
-	 * returning true if successful (i.e. not both last view and unsaved, etc)
-	 */
-	virtual bool closeView();
-	/**
-	 * Returns the unique (for the view container) view area id associated with this view
-	 */
-	uint viewAreaId() const { return m_viewAreaId; }
-	/**
-	 * Zoom in
-	 */
-	virtual void viewZoomIn() {};
-	/**
-	 * Zoom out
-	 */
-	virtual void viewZoomOut() {};
-	virtual bool canZoomIn() const { return true; }
-	virtual bool canZoomOut() const { return true; }
-	/**
-	 * Restore view to actual size
-	 */
-	virtual void actualSize() {};
-
-	virtual void toggleBreakpoint() {};
-	bool eventFilter( QObject * watched, QEvent * e ) override;
+    virtual void toggleBreakpoint() {};
+    bool eventFilter(QObject *watched, QEvent *e) override;
 
 protected slots:
-	/**
-	 * Called when the user changes the configuration.
-	 */
-	virtual void slotUpdateConfiguration() {};
+    /**
+     * Called when the user changes the configuration.
+     */
+    virtual void slotUpdateConfiguration() {};
 
 signals:
-	/**
-	 * Emitted when the view receives focus. @p view is a pointer to this class.
-	 */
-	void focused( View * view );
-	/**
-	 * Emitted when the view looses focus.
-	 */
-	void unfocused();
+    /**
+     * Emitted when the view receives focus. @p view is a pointer to this class.
+     */
+    void focused(View *view);
+    /**
+     * Emitted when the view looses focus.
+     */
+    void unfocused();
 
 protected:
-	/**
-	 * This function should be called in the constructor of the child class
-	 * (e.g. in ItemView or TextView) to set the widget which receives focus
-	 * events.
-	 */
-	void setFocusWidget( QWidget * focusWidget );
+    /**
+     * This function should be called in the constructor of the child class
+     * (e.g. in ItemView or TextView) to set the widget which receives focus
+     * events.
+     */
+    void setFocusWidget(QWidget *focusWidget);
 
-	QPointer<Document> m_pDocument;
-	QPointer<ViewContainer> p_viewContainer;
-	uint m_viewAreaId;
-	ViewStatusBar * m_statusBar;
-	QVBoxLayout * m_layout;
-	ViewIface * m_pViewIface;
-	unsigned m_dcopID;
-	QWidget * m_pFocusWidget;
+    QPointer<Document> m_pDocument;
+    QPointer<ViewContainer> p_viewContainer;
+    uint m_viewAreaId;
+    ViewStatusBar *m_statusBar;
+    QVBoxLayout *m_layout;
+    ViewIface *m_pViewIface;
+    unsigned m_dcopID;
+    QWidget *m_pFocusWidget;
 };
 
 /*
@@ -174,21 +190,23 @@ protected:
 class KVSSBSep : public QWidget
 {
 public:
-	KVSSBSep( View * parent = nullptr) : QWidget(parent)
-	{
-		setFixedHeight( 2 );
-	}
+    KVSSBSep(View *parent = nullptr)
+        : QWidget(parent)
+    {
+        setFixedHeight(2);
+    }
+
 protected:
-	void paintEvent( QPaintEvent *e ) override;
-// 	{
-// 		QPainter p( this );
-// 		//p.setPen( colorGroup().shadow() );
-//         QColorGroup colorGroup(palette());
-//         p.setPen( colorGroup.shadow() );
-// 		p.drawLine( e->rect().left(), 0, e->rect().right(), 0 );
-// 		p.setPen( ((View*)parentWidget())->hasFocus() ? colorGroup.light() : colorGroup.midlight() );
-// 		p.drawLine( e->rect().left(), 1, e->rect().right(), 1 );
-// 	}
+    void paintEvent(QPaintEvent *e) override;
+    // 	{
+    // 		QPainter p( this );
+    // 		//p.setPen( colorGroup().shadow() );
+    //         QColorGroup colorGroup(palette());
+    //         p.setPen( colorGroup.shadow() );
+    // 		p.drawLine( e->rect().left(), 0, e->rect().right(), 0 );
+    // 		p.setPen( ((View*)parentWidget())->hasFocus() ? colorGroup.light() : colorGroup.midlight() );
+    // 		p.drawLine( e->rect().left(), 1, e->rect().right(), 1 );
+    // 	}
 };
 
 #endif

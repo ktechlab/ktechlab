@@ -20,37 +20,43 @@ typedef Variant Property;
 
 class PropertySubEditor : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-		PropertySubEditor( QWidget * parent, Property * property, const char * name = nullptr );
-		~PropertySubEditor() override;
+public:
+    PropertySubEditor(QWidget *parent, Property *property, const char *name = nullptr);
+    ~PropertySubEditor() override;
 
-		bool eventFilter( QObject * watched, QEvent * e ) override;
-		Property * property() const { return m_property; }
+    bool eventFilter(QObject *watched, QEvent *e) override;
+    Property *property() const
+    {
+        return m_property;
+    }
 
-		/**
-		 * Sets \a w as editor 's widget, ie the widget which events are
-		 * filtered and which is resized. If \a focusProxy is not 0, it will be
-		 * used as focus proxy instead of \a w.
-		*/
-		void setWidget(QWidget *w, QWidget* focusProxy = nullptr);
-		/**
-		 * \sa m_leaveTheSpaceForRevertButton description.
-		 */
-		bool leavesTheSpaceForRevertButton() const { return m_leaveTheSpaceForRevertButton; }
+    /**
+     * Sets \a w as editor 's widget, ie the widget which events are
+     * filtered and which is resized. If \a focusProxy is not 0, it will be
+     * used as focus proxy instead of \a w.
+     */
+    void setWidget(QWidget *w, QWidget *focusProxy = nullptr);
+    /**
+     * \sa m_leaveTheSpaceForRevertButton description.
+     */
+    bool leavesTheSpaceForRevertButton() const
+    {
+        return m_leaveTheSpaceForRevertButton;
+    }
 
-	protected:
-		void resizeEvent(QResizeEvent *ev) override;
+protected:
+    void resizeEvent(QResizeEvent *ev) override;
 
-		Property * m_property;
-		QWidget * m_childWidget;
-		/**
-		 * true if there should be left space at the right hand for the Revert
-		 * Button. false by default. Integer editor (spinbox) sets this to true
-		 * to avoid spin arrows clicking inconvenience.
-		 */
-		bool m_leaveTheSpaceForRevertButton;
+    Property *m_property;
+    QWidget *m_childWidget;
+    /**
+     * true if there should be left space at the right hand for the Revert
+     * Button. false by default. Integer editor (spinbox) sets this to true
+     * to avoid spin arrows clicking inconvenience.
+     */
+    bool m_leaveTheSpaceForRevertButton;
 };
 
 #endif

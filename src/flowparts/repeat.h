@@ -19,16 +19,16 @@
 class Repeat : public FlowContainer
 {
 public:
-	Repeat( ICNDocument *icnDocument, bool newItem, const char *id );
-	~Repeat() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
-	void generateMicrobe( FlowCode * ) override;
-	
+    Repeat(ICNDocument *icnDocument, bool newItem, const char *id);
+    ~Repeat() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    void generateMicrobe(FlowCode *) override;
+
 protected:
-	void dataChanged() override;
+    void dataChanged() override;
 };
 
 #endif

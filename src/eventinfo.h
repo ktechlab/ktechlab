@@ -29,31 +29,31 @@ system, as well as holding lots of useful information.
 class EventInfo
 {
 public:
-	EventInfo();
-	EventInfo( ItemView *itemView, QMouseEvent *e );
-	EventInfo( ItemView *itemView, QWheelEvent *e );
-	EventInfo( ItemView *itemView, QEvent *e );
-	
-	QMouseEvent *mousePressEvent( int dx, int dy ) const;
-	QMouseEvent *mouseReleaseEvent( int dx, int dy ) const;
-	QMouseEvent *mouseDoubleClickEvent( int dx, int dy ) const;
-	QMouseEvent *mouseMoveEvent( int dx, int dy ) const;
-	QWheelEvent *wheelEvent( int dx, int dy ) const;
-	
-	QPoint pos;
-	QPoint globalPos;
-	KtlQCanvasItem * qcanvasItemClickedOn;
-	short scrollDelta;
-	Qt::Orientation scrollOrientation;
-	bool isRightClick;
-	bool isMiddleClick;
-	bool ctrlPressed;
-	bool shiftPressed;
-	bool altPressed;
-	
+    EventInfo();
+    EventInfo(ItemView *itemView, QMouseEvent *e);
+    EventInfo(ItemView *itemView, QWheelEvent *e);
+    EventInfo(ItemView *itemView, QEvent *e);
+
+    QMouseEvent *mousePressEvent(int dx, int dy) const;
+    QMouseEvent *mouseReleaseEvent(int dx, int dy) const;
+    QMouseEvent *mouseDoubleClickEvent(int dx, int dy) const;
+    QMouseEvent *mouseMoveEvent(int dx, int dy) const;
+    QWheelEvent *wheelEvent(int dx, int dy) const;
+
+    QPoint pos;
+    QPoint globalPos;
+    KtlQCanvasItem *qcanvasItemClickedOn;
+    short scrollDelta;
+    Qt::Orientation scrollOrientation;
+    bool isRightClick;
+    bool isMiddleClick;
+    bool ctrlPressed;
+    bool shiftPressed;
+    bool altPressed;
+
 protected:
-	void extractPos( ItemView * itemView, const QPoint & contentsMouseClick );
-	void reset();
+    void extractPos(ItemView *itemView, const QPoint &contentsMouseClick);
+    void reset();
 };
 
 #endif

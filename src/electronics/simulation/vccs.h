@@ -22,18 +22,21 @@ CNodes n2 and n3 are used for the current output.
 class VCCS : public Element
 {
 public:
-	VCCS( const double gain );
-	~VCCS() override;
+    VCCS(const double gain);
+    ~VCCS() override;
 
-	Type type() const override { return Element_VCCS; }
-	void setGain( const double g );
+    Type type() const override
+    {
+        return Element_VCCS;
+    }
+    void setGain(const double g);
 
 protected:
-	void updateCurrents() override;
-	void add_initial_dc() override;
+    void updateCurrents() override;
+    void add_initial_dc() override;
 
 private:
-	double m_g; // Conductance
+    double m_g; // Conductance
 };
 
 #endif

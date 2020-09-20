@@ -10,53 +10,51 @@
 
 #include "varcomparison.h"
 
-#include "libraryitem.h"
 #include "flowcode.h"
+#include "libraryitem.h"
 
 #include <KLocalizedString>
 
-Item* VarComparison::construct( ItemDocument *itemDocument, bool newItem, const char *id )
+Item *VarComparison::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-	return new VarComparison( (ICNDocument*)itemDocument, newItem, id );
+    return new VarComparison((ICNDocument *)itemDocument, newItem, id);
 }
 
-LibraryItem* VarComparison::libraryItem()
+LibraryItem *VarComparison::libraryItem()
 {
-	return new LibraryItem(
-		QStringList(QString("flow/varcomparison")),
-		i18n("Comparison"),
-		i18n("Variables"),
-		"branch.png",
-		LibraryItem::lit_flowpart,
-		VarComparison::construct );
+    return new LibraryItem(QStringList(QString("flow/varcomparison")), i18n("Comparison"), i18n("Variables"), "branch.png", LibraryItem::lit_flowpart, VarComparison::construct);
 }
 
-VarComparison::VarComparison( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, id ? id : "varcomparison" )
+VarComparison::VarComparison(ICNDocument *icnDocument, bool newItem, const char *id)
+    : FlowPart(icnDocument, newItem, id ? id : "varcomparison")
 {
-	m_name = i18n("Variable Comparison");
-	initDecisionSymbol();
-	createStdInput();
-	createStdOutput();
-	createAltOutput();
-	
-	createProperty( "0var1", Variant::Type::Combo );
-	property("0var1")->setCaption( i18n("Variable") );
-	property("0var1")->setValue("x");
-	
-	createProperty( "1op", Variant::Type::Select );
-	property("1op")->setAllowed( (QStringList("==") << "<" << ">" << "<=" << ">=" << "!=" ) );
-	property("1op")->setValue("==");
-	property("1op")->setToolbarCaption(" ");
-	property("1op")->setEditorCaption( i18n("Operation") );
-	
-	createProperty( "2var2", Variant::Type::Combo );
-	property("2var2")->setToolbarCaption(" ");
-	property("2var2")->setEditorCaption( i18n("Value") );
-	property("2var2")->setValue("0");
-	
-	addDisplayText( "output_false", QRect( offsetX()+width(), 2, 40, 20 ), "No" );
-	addDisplayText( "output_true", QRect( 0, offsetY()+height(), 50, 20 ), "Yes" ); 
+    m_name = i18n("Variable Comparison");
+    initDecisionSymbol();
+    createStdInput();
+    createStdOutput();
+    createAltOutput();
+
+    createProperty("0var1", Variant::Type::Combo);
+    property("0var1")->setCaption(i18n("Variable"));
+    property("0var1")->setValue("x");
+
+    createProperty("1op", Variant::Type::Select);
+    property("1op")->setAllowed((QStringList("==") << "<"
+                                                   << ">"
+                                                   << "<="
+                                                   << ">="
+                                                   << "!="));
+    property("1op")->setValue("==");
+    property("1op")->setToolbarCaption(" ");
+    property("1op")->setEditorCaption(i18n("Operation"));
+
+    createProperty("2var2", Variant::Type::Combo);
+    property("2var2")->setToolbarCaption(" ");
+    property("2var2")->setEditorCaption(i18n("Value"));
+    property("2var2")->setValue("0");
+
+    addDisplayText("output_false", QRect(offsetX() + width(), 2, 40, 20), "No");
+    addDisplayText("output_true", QRect(0, offsetY() + height(), 50, 20), "Yes");
 }
 
 VarComparison::~VarComparison()
@@ -65,28 +63,35 @@ VarComparison::~VarComparison()
 
 void VarComparison::dataChanged()
 {
-	setCaption( dataString("0var1") + " " + dataString("1op") + " " + dataString("2var2") + " ?" );
+    setCaption(dataString("0var1") + " " + dataString("1op") + " " + dataString("2var2") + " ?");
 }
 
-QString VarComparison::oppOp( const QString &op )
+QString VarComparison::oppOp(const QString &op)
 {
-	if		( op == "==" )	return "!=";
-	if		( op == "!=" )	return "==";
-	else if ( op == "<" )	return ">=";
-	else if ( op == ">=" )	return "<";
-	else if ( op == ">" )	return "<=";
-	else if ( op == "<=" )	return ">";
-	else return "__UNKNOWN_OP__";
+    if (op == "==")
+        return "!=";
+    if (op == "!=")
+        return "==";
+    else if (op == "<")
+        return ">=";
+    else if (op == ">=")
+        return "<";
+    else if (op == ">")
+        return "<=";
+    else if (op == "<=")
+        return ">";
+    else
+        return "__UNKNOWN_OP__";
 }
 
-void VarComparison::generateMicrobe( FlowCode *code )
+void VarComparison::generateMicrobe(FlowCode *code)
 {
-	QString var1 = dataString("0var1");
-	QString var2 = dataString("2var2");
-	QString test = dataString("1op");
-	
-	handleIfElse( code, var1+" "+test+" "+var2, var1+" "+oppOp(test)+" "+var2, "stdoutput", "altoutput" );
-	
+    QString var1 = dataString("0var1");
+    QString var2 = dataString("2var2");
+    QString test = dataString("1op");
+
+    handleIfElse(code, var1 + " " + test + " " + var2, var1 + " " + oppOp(test) + " " + var2, "stdoutput", "altoutput");
+
 #if 0
 	code->addCode( "if "+var1+" "+test+" "+var2+"\n{\n" );
 	code->addCodeBranch( outputPart("stdoutput") );
@@ -98,7 +103,7 @@ void VarComparison::generateMicrobe( FlowCode *code )
 		code->addCode("}");
 	}
 #endif
-	
+
 #if 0
 	QString newCode;
 	

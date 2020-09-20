@@ -57,13 +57,19 @@ class KtlQ3Frame : public QFrame
     Q_PROPERTY(QRect contentsRect READ contentsRect)
 
 public:
-    KtlQ3Frame(QWidget* parent, const char* name = nullptr, Qt::WindowFlags f = {});
+    KtlQ3Frame(QWidget *parent, const char *name = nullptr, Qt::WindowFlags f = {});
     ~KtlQ3Frame() override;
 #ifndef qdoc
-    bool        lineShapesOk()  const { return true; }
+    bool lineShapesOk() const
+    {
+        return true;
+    }
 #endif
 
-    int margin() const { return marg; }
+    int margin() const
+    {
+        return marg;
+    }
     void setMargin(int);
 
     QRect contentsRect() const;

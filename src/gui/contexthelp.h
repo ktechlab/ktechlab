@@ -13,8 +13,8 @@
 
 #include <ui_contexthelpwidget.h>
 
-#include <QPointer>
 #include <KTextEdit>
+#include <QPointer>
 
 class Item;
 class ContextHelp;
@@ -27,8 +27,14 @@ class QLabel;
 class QTextBrowser;
 class QWidgetStack;
 
-namespace KateMDI { class ToolView; }
-namespace KParts { class URLArgs; }
+namespace KateMDI
+{
+class ToolView;
+}
+namespace KParts
+{
+class URLArgs;
+}
 
 /**
 Sidebar that provides context-sensitive help for whatever the user is currently
@@ -40,105 +46,106 @@ in a ICNDocument.
 */
 class ContextHelp : public QWidget, public Ui::ContextHelpWidget
 {
-	Q_OBJECT
-	public:
-		static ContextHelp * self( KateMDI::ToolView * parent = nullptr );
-		static QString toolViewIdentifier() { return "ContextHelp"; }
-		
-		~ContextHelp() override;
-		/**
-		 * Replace special tags with appropriate html formatting code.
-		 */
-		void parseInfo( QString &info );
-		/**
-		 * Used as an event filter in context help.
-		 */
-		bool eventFilter( QObject * watched, QEvent * e ) override;
-	
-	public slots:
-		void slotClear();
-		void slotMultipleSelected();
-		void slotUpdate( Item * item );
-		void setContextHelp( QString name, QString help );
-		/**
-		 * Set the help browser to the given location.
-		 */
-		void setBrowserItem( const QString & type );
-		void openURL( const QUrl& url /*, const KParts::OpenUrlArguments& */ );
+    Q_OBJECT
+public:
+    static ContextHelp *self(KateMDI::ToolView *parent = nullptr);
+    static QString toolViewIdentifier()
+    {
+        return "ContextHelp";
+    }
 
-	protected slots:
-		/**
-		 * Called when the user clicks the "Edit" button.
-		 */
-		void slotEdit();
-		/**
-		 * Called when the user clicks the "Save" button.
-		 */
-		void slotSave();
-		/**
-		 * Called when the user clicks the "Reset" button.
-		 */
-		void slotEditReset();
-		/**
-		 * Called from the language select combo when the current selection
-		 * changes.
-		 */
-		void setCurrentLanguage(int languageIndex);
-		/**
-		 * Request a directory from the user for storing the context help in.
-		 */
-		void requestItemDescriptionsDirectory();
+    ~ContextHelp() override;
+    /**
+     * Replace special tags with appropriate html formatting code.
+     */
+    void parseInfo(QString &info);
+    /**
+     * Used as an event filter in context help.
+     */
+    bool eventFilter(QObject *watched, QEvent *e) override;
 
-	protected:
-		enum LinkType
-		{
-			HelpLink, ///< Context help item (that exists)
-			NewHelpLink, ///< Context help item that doesn't yet exist
-			ExampleLink, ///< Example circuit or flowcode
-			ExternalLink  ///< External website, etc
-		};
-		/**
-		 * Looks at url and tries to determine the link type. Will return
-		 * ExternalLink if the url can not be identified as any other type.
-		 */
-		static LinkType extractLinkType( const QUrl & url );
-		/**
-		 * Adjusts the appearance of links depending on their LinkType (e.g
-		 * external links are given an "external" icon, and new help links are
-		 * colored in red.
-		 */
-		static void addLinkTypeAppearances( QString * html );
-		/**
-		 * @return the physical location of the example file from an example url
-		 * (e.g. "/mosfets/and.circuit" might return
-		 * "/usr/share/apps/ktechlab/mosfets/and.circuit").
-		 */
-		static QString examplePathToFullPath( QString path );
+public slots:
+    void slotClear();
+    void slotMultipleSelected();
+    void slotUpdate(Item *item);
+    void setContextHelp(QString name, QString help);
+    /**
+     * Set the help browser to the given location.
+     */
+    void setBrowserItem(const QString &type);
+    void openURL(const QUrl &url /*, const KParts::OpenUrlArguments& */);
 
-		/**
-		 * Saves the current editor text for the given language.
-		 * @return if all ok (e.g. if the file could be written successfully).
-		 */
-		bool saveDescription( const QString & language );
-		bool isEditChanged();
-		QString m_currentLanguage;
-		QString m_lastItemType;
-		KHTMLPart * m_pBrowser;
-		KHTMLView * m_pBrowserView;
-		RichTextEditor * m_pEditor;
+protected slots:
+    /**
+     * Called when the user clicks the "Edit" button.
+     */
+    void slotEdit();
+    /**
+     * Called when the user clicks the "Save" button.
+     */
+    void slotSave();
+    /**
+     * Called when the user clicks the "Reset" button.
+     */
+    void slotEditReset();
+    /**
+     * Called from the language select combo when the current selection
+     * changes.
+     */
+    void setCurrentLanguage(int languageIndex);
+    /**
+     * Request a directory from the user for storing the context help in.
+     */
+    void requestItemDescriptionsDirectory();
 
-	private slots:
-		/**
-		 * This has to be called after itemlibrary has constructed itself
-		 * and a list of languages (i.e. a little bit after the constructor).
-		 */
-		void slotInitializeLanguageList();
+protected:
+    enum LinkType {
+        HelpLink,    ///< Context help item (that exists)
+        NewHelpLink, ///< Context help item that doesn't yet exist
+        ExampleLink, ///< Example circuit or flowcode
+        ExternalLink ///< External website, etc
+    };
+    /**
+     * Looks at url and tries to determine the link type. Will return
+     * ExternalLink if the url can not be identified as any other type.
+     */
+    static LinkType extractLinkType(const QUrl &url);
+    /**
+     * Adjusts the appearance of links depending on their LinkType (e.g
+     * external links are given an "external" icon, and new help links are
+     * colored in red.
+     */
+    static void addLinkTypeAppearances(QString *html);
+    /**
+     * @return the physical location of the example file from an example url
+     * (e.g. "/mosfets/and.circuit" might return
+     * "/usr/share/apps/ktechlab/mosfets/and.circuit").
+     */
+    static QString examplePathToFullPath(QString path);
 
-	private:
-		ContextHelp( KateMDI::ToolView * parent );
+    /**
+     * Saves the current editor text for the given language.
+     * @return if all ok (e.g. if the file could be written successfully).
+     */
+    bool saveDescription(const QString &language);
+    bool isEditChanged();
+    QString m_currentLanguage;
+    QString m_lastItemType;
+    KHTMLPart *m_pBrowser;
+    KHTMLView *m_pBrowserView;
+    RichTextEditor *m_pEditor;
 
-		static ContextHelp * m_pSelf;
+private slots:
+    /**
+     * This has to be called after itemlibrary has constructed itself
+     * and a list of languages (i.e. a little bit after the constructor).
+     */
+    void slotInitializeLanguageList();
+
+private:
+    ContextHelp(KateMDI::ToolView *parent);
+
+    static ContextHelp *m_pSelf;
 };
 
 #endif
-

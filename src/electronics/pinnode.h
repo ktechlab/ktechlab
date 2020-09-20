@@ -20,20 +20,23 @@ An ECNode class with type() == ec_pin
 class PinNode : public ECNode
 {
 public:
-	PinNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* id = nullptr);
+    PinNode(ICNDocument *icnDocument, int dir, const QPoint &pos, QString *id = nullptr);
 
-	~PinNode() override;
+    ~PinNode() override;
 
-	/** Returns the node's type. This member will be removed one day */
-	virtual node_type type() const { return Node::ec_pin; }
+    /** Returns the node's type. This member will be removed one day */
+    virtual node_type type() const
+    {
+        return Node::ec_pin;
+    }
 
-	/**
-	 *  draws the PinNode
-	 */
-	void drawShape( QPainter &p ) override;
-	
+    /**
+     *  draws the PinNode
+     */
+    void drawShape(QPainter &p) override;
+
 protected:
-	void initPoints() override;
+    void initPoints() override;
 };
 
 #endif

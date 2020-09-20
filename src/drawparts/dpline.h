@@ -20,21 +20,21 @@ class LineOverlay;
 */
 class DPLine : public DrawPart
 {
-	public:
-		DPLine( ItemDocument *itemDocument, bool newItem, const char *id = nullptr );
-		~DPLine() override;
+public:
+    DPLine(ItemDocument *itemDocument, bool newItem, const char *id = nullptr);
+    ~DPLine() override;
 
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-		void setSelected( bool yes ) override;
+    void setSelected(bool yes) override;
 
-	protected:
-		void postResize() override;
-		void dataChanged() override;
-		void drawShape( QPainter &p ) override;
+protected:
+    void postResize() override;
+    void dataChanged() override;
+    void drawShape(QPainter &p) override;
 
-		LineOverlay * m_pLineOverlay;
+    LineOverlay *m_pLineOverlay;
 };
 
 /**
@@ -42,17 +42,17 @@ class DPLine : public DrawPart
 */
 class DPArrow : public DPLine
 {
-	public:
-		DPArrow( ItemDocument *itemDocument, bool newItem, const char *id = nullptr );
-		~DPArrow() override;
+public:
+    DPArrow(ItemDocument *itemDocument, bool newItem, const char *id = nullptr);
+    ~DPArrow() override;
 
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-	protected:
-		void dataChanged() override;
-		void drawShape( QPainter &p ) override;
-		double m_headAngle;
+protected:
+    void dataChanged() override;
+    void drawShape(QPainter &p) override;
+    double m_headAngle;
 };
 
 #endif

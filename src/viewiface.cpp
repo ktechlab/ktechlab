@@ -8,135 +8,123 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include "viewiface.h"
 #include "circuitview.h"
 #include "document.h"
 #include "flowcodeview.h"
 #include "mechanicsview.h"
 #include "textview.h"
-#include "viewiface.h"
 
-
-//BEGIN class ViewIface
-ViewIface::ViewIface( View * view )
-	: DCOPObject( /* "View" TODO */ )
+// BEGIN class ViewIface
+ViewIface::ViewIface(View *view)
+    : DCOPObject(/* "View" TODO */)
 {
-	m_pView = view;
+    m_pView = view;
 }
 
-ViewIface::~ ViewIface( )
+ViewIface::~ViewIface()
 {
 }
 
-DCOPRef ViewIface::document( )
+DCOPRef ViewIface::document()
 {
-	return DCOPRef(); // TODO m_pView->document()->dcopObject() );
+    return DCOPRef(); // TODO m_pView->document()->dcopObject() );
 }
 
-bool ViewIface::hasFocus( )
+bool ViewIface::hasFocus()
 {
-	return m_pView->hasFocus();
+    return m_pView->hasFocus();
 }
 
-bool ViewIface::close( )
+bool ViewIface::close()
 {
-	return m_pView->closeView();
+    return m_pView->closeView();
 }
 
-void ViewIface::zoomIn( )
+void ViewIface::zoomIn()
 {
-	m_pView->viewZoomIn();
+    m_pView->viewZoomIn();
 }
 
-void ViewIface::zoomOut( )
+void ViewIface::zoomOut()
 {
-	m_pView->viewZoomOut();
+    m_pView->viewZoomOut();
 }
 
-bool ViewIface::canZoomIn( )
+bool ViewIface::canZoomIn()
 {
-	return m_pView->canZoomIn();
+    return m_pView->canZoomIn();
 }
 
-bool ViewIface::canZoomOut( )
+bool ViewIface::canZoomOut()
 {
-	return m_pView->canZoomOut();
+    return m_pView->canZoomOut();
 }
 
-void ViewIface::actualSize( )
+void ViewIface::actualSize()
 {
-	m_pView->actualSize();
+    m_pView->actualSize();
 }
-//END class ViewIface
+// END class ViewIface
 
-
-
-//BEGIN class TextViewIface
-TextViewIface::TextViewIface( TextView * view )
-	: ViewIface(view)
+// BEGIN class TextViewIface
+TextViewIface::TextViewIface(TextView *view)
+    : ViewIface(view)
 {
-	m_pTextView = view;
+    m_pTextView = view;
 }
 
-void TextViewIface::toggleBreakpoint( )
+void TextViewIface::toggleBreakpoint()
 {
-	m_pTextView->toggleBreakpoint();
+    m_pTextView->toggleBreakpoint();
 }
 
-bool TextViewIface::gotoLine( const int line )
+bool TextViewIface::gotoLine(const int line)
 {
-	return m_pTextView->gotoLine(line);
+    return m_pTextView->gotoLine(line);
 }
-//END class TextViewIface
+// END class TextViewIface
 
-
-
-//BEGIN class ItemViewIface
-ItemViewIface::ItemViewIface( ItemView * view )
-	: ViewIface(view)
+// BEGIN class ItemViewIface
+ItemViewIface::ItemViewIface(ItemView *view)
+    : ViewIface(view)
 {
-	m_pItemView = view;
+    m_pItemView = view;
 }
 
-double ItemViewIface::zoomLevel( )
+double ItemViewIface::zoomLevel()
 {
-	return m_pItemView->zoomLevel();
+    return m_pItemView->zoomLevel();
 }
-//END class ItemViewIface
+// END class ItemViewIface
 
-
-
-//BEGIN class MechanicsViewIface
-MechanicsViewIface::MechanicsViewIface( MechanicsView * view )
-	: ItemViewIface(view)
+// BEGIN class MechanicsViewIface
+MechanicsViewIface::MechanicsViewIface(MechanicsView *view)
+    : ItemViewIface(view)
 {
-	m_pMechanicsView = view;
+    m_pMechanicsView = view;
 }
-//END class ICNViewIface
+// END class ICNViewIface
 
-
-
-//BEGIN class ICNViewIface
-ICNViewIface::ICNViewIface( ICNView * view )
-	: ItemViewIface(view)
+// BEGIN class ICNViewIface
+ICNViewIface::ICNViewIface(ICNView *view)
+    : ItemViewIface(view)
 {
-	m_pICNView = view;
+    m_pICNView = view;
 }
-//END class ICNViewIface
+// END class ICNViewIface
 
-
-
-//BEGIN class CircuitViewIface
-CircuitViewIface::CircuitViewIface( CircuitView * view )
-	: ICNViewIface(view)
+// BEGIN class CircuitViewIface
+CircuitViewIface::CircuitViewIface(CircuitView *view)
+    : ICNViewIface(view)
 {
-	m_pCircuitView = view;
+    m_pCircuitView = view;
 }
-//END class CircuitViewIface
+// END class CircuitViewIface
 
-
-//BEGIN class FlowCodeViewIface
-FlowCodeViewIface::FlowCodeViewIface( FlowCodeView * view )
-	: ICNViewIface(view)
+// BEGIN class FlowCodeViewIface
+FlowCodeViewIface::FlowCodeViewIface(FlowCodeView *view)
+    : ICNViewIface(view)
 {
 }
-//END class FlowCodeViewIface
+// END class FlowCodeViewIface

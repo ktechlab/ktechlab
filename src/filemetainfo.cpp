@@ -12,188 +12,165 @@
 #include "textdocument.h"
 #include "textview.h"
 
-#include <KConfigGroup>
 #include <KConfig>
+#include <KConfigGroup>
 
 #include <QStandardPaths>
 
-//BEGIN class MetaInfo
+// BEGIN class MetaInfo
 MetaInfo::MetaInfo()
 {
-	m_cursorLine = 0;
-	m_cursorColumn = 0;
+    m_cursorLine = 0;
+    m_cursorColumn = 0;
 }
-
 
 bool MetaInfo::hasDefaultData() const
 {
-	return bookmarks().isEmpty() &&
-			breakpoints().isEmpty()  &&
-			(m_outputMethodInfo.method() == OutputMethodInfo::Method::Direct ) &&
-			(m_cursorLine == 0) &&
-			(m_cursorColumn == 0);
+    return bookmarks().isEmpty() && breakpoints().isEmpty() && (m_outputMethodInfo.method() == OutputMethodInfo::Method::Direct) && (m_cursorLine == 0) && (m_cursorColumn == 0);
 }
 
-
-void MetaInfo::save( KConfigGroup* conf )
+void MetaInfo::save(KConfigGroup *conf)
 {
-	conf->writeEntry( "Bookmarks", bookmarks() );
-	conf->writeEntry( "Breakpoints", breakpoints() );
-	conf->writeEntry( "OutputMethod", toID(outputMethodInfo().method()) );
-	conf->writePathEntry( "OutputPath", outputMethodInfo().outputFile().toDisplayString(QUrl::PreferLocalFile) );
-	conf->writeEntry( "OutputPicID", outputMethodInfo().picID() );
-	conf->writeEntry( "CursorLine", cursorLine() );
-	conf->writeEntry( "CursorColumn", cursorColumn() );
+    conf->writeEntry("Bookmarks", bookmarks());
+    conf->writeEntry("Breakpoints", breakpoints());
+    conf->writeEntry("OutputMethod", toID(outputMethodInfo().method()));
+    conf->writePathEntry("OutputPath", outputMethodInfo().outputFile().toDisplayString(QUrl::PreferLocalFile));
+    conf->writeEntry("OutputPicID", outputMethodInfo().picID());
+    conf->writeEntry("CursorLine", cursorLine());
+    conf->writeEntry("CursorColumn", cursorColumn());
 }
 
-
-void MetaInfo::load( KConfigGroup* conf )
+void MetaInfo::load(KConfigGroup *conf)
 {
-	setBookmarks( conf->readEntry("Bookmarks", IntList()) );
-	setBreakpoints( conf->readEntry("Breakpoints", IntList()) );
-	m_outputMethodInfo.setMethod( toMethod( conf->readEntry("OutputMethod") ) );
-	m_outputMethodInfo.setOutputFile( QUrl::fromUserInput(conf->readPathEntry("OutputPath", QString())) );
-	m_outputMethodInfo.setPicID( conf->readEntry("OutputPicID") );
-	setCursorLine( conf->readEntry( "CursorLine", 0 ) );
-	setCursorColumn( conf->readEntry( "CursorColumn", 0 ) );
+    setBookmarks(conf->readEntry("Bookmarks", IntList()));
+    setBreakpoints(conf->readEntry("Breakpoints", IntList()));
+    m_outputMethodInfo.setMethod(toMethod(conf->readEntry("OutputMethod")));
+    m_outputMethodInfo.setOutputFile(QUrl::fromUserInput(conf->readPathEntry("OutputPath", QString())));
+    m_outputMethodInfo.setPicID(conf->readEntry("OutputPicID"));
+    setCursorLine(conf->readEntry("CursorLine", 0));
+    setCursorColumn(conf->readEntry("CursorColumn", 0));
 }
 
-
-OutputMethodInfo::Method::Type MetaInfo::toMethod( const QString & id )
+OutputMethodInfo::Method::Type MetaInfo::toMethod(const QString &id)
 {
-	if ( id == "SaveAndLoad" )
-		return OutputMethodInfo::Method::SaveAndLoad;
-	
-	else if ( id == "SaveAndForget" )
-		return OutputMethodInfo::Method::SaveAndForget;
-	
-	return OutputMethodInfo::Method::Direct;
+    if (id == "SaveAndLoad")
+        return OutputMethodInfo::Method::SaveAndLoad;
+
+    else if (id == "SaveAndForget")
+        return OutputMethodInfo::Method::SaveAndForget;
+
+    return OutputMethodInfo::Method::Direct;
 }
 
-
-QString MetaInfo::toID( OutputMethodInfo::Method::Type method )
+QString MetaInfo::toID(OutputMethodInfo::Method::Type method)
 {
-	switch (method)
-	{
-		case OutputMethodInfo::Method::SaveAndLoad:
-			return "SaveAndLoad";
-			
-		case OutputMethodInfo::Method::SaveAndForget:
-			return "SaveAndForget";
-			
-		case OutputMethodInfo::Method::Direct:
-		default:
-			return "Direct";
-	}
+    switch (method) {
+    case OutputMethodInfo::Method::SaveAndLoad:
+        return "SaveAndLoad";
+
+    case OutputMethodInfo::Method::SaveAndForget:
+        return "SaveAndForget";
+
+    case OutputMethodInfo::Method::Direct:
+    default:
+        return "Direct";
+    }
 }
-//END class MetaInfo
+// END class MetaInfo
 
-
-//BEGIN class FileMetaInfo
+// BEGIN class FileMetaInfo
 FileMetaInfo::FileMetaInfo()
-	: QObject()
+    : QObject()
 {
-	//m_metaInfoConfig = new KConfig( "metainfo", false, false, "appdata" );
-    m_metaInfoConfig = new KConfig( "metainfo", KConfig::SimpleConfig, QStandardPaths::AppDataLocation );
-	loadAllMetaInfo();
+    // m_metaInfoConfig = new KConfig( "metainfo", false, false, "appdata" );
+    m_metaInfoConfig = new KConfig("metainfo", KConfig::SimpleConfig, QStandardPaths::AppDataLocation);
+    loadAllMetaInfo();
 }
-
 
 FileMetaInfo::~FileMetaInfo()
 {
-	saveAllMetaInfo();
-	delete m_metaInfoConfig;
+    saveAllMetaInfo();
+    delete m_metaInfoConfig;
 }
 
-
-void FileMetaInfo::grabMetaInfo( const QUrl & url, TextDocument * textDocument )
+void FileMetaInfo::grabMetaInfo(const QUrl &url, TextDocument *textDocument)
 {
-	if (!textDocument)
-		return;
-	
-	m_metaInfoMap[url].setBookmarks( textDocument->bookmarkList() );
-	m_metaInfoMap[url].setBreakpoints( textDocument->breakpointList() );
+    if (!textDocument)
+        return;
+
+    m_metaInfoMap[url].setBookmarks(textDocument->bookmarkList());
+    m_metaInfoMap[url].setBreakpoints(textDocument->breakpointList());
 }
 
-
-void FileMetaInfo::initializeFromMetaInfo( const QUrl & url, TextDocument * textDocument )
+void FileMetaInfo::initializeFromMetaInfo(const QUrl &url, TextDocument *textDocument)
 {
-	if (!textDocument)
-		return;
-	
-	textDocument->setBookmarks(m_metaInfoMap[url].bookmarks());
-	textDocument->setBreakpoints(m_metaInfoMap[url].breakpoints());
+    if (!textDocument)
+        return;
+
+    textDocument->setBookmarks(m_metaInfoMap[url].bookmarks());
+    textDocument->setBreakpoints(m_metaInfoMap[url].breakpoints());
 }
 
-
-void FileMetaInfo::grabMetaInfo( const QUrl & url, TextView * textView )
+void FileMetaInfo::grabMetaInfo(const QUrl &url, TextView *textView)
 {
-	if (!textView)
-		return;
-	
-	m_metaInfoMap[url].setCursorLine( textView->currentLine() );
-	m_metaInfoMap[url].setCursorColumn( textView->currentColumn() );
+    if (!textView)
+        return;
+
+    m_metaInfoMap[url].setCursorLine(textView->currentLine());
+    m_metaInfoMap[url].setCursorColumn(textView->currentColumn());
 }
 
-
-void FileMetaInfo::initializeFromMetaInfo( const QUrl & url, TextView * textView )
+void FileMetaInfo::initializeFromMetaInfo(const QUrl &url, TextView *textView)
 {
-	if (!textView)
-		return;
-	
-	textView->setCursorPosition( m_metaInfoMap[url].cursorLine(), m_metaInfoMap[url].cursorColumn() );
+    if (!textView)
+        return;
+
+    textView->setCursorPosition(m_metaInfoMap[url].cursorLine(), m_metaInfoMap[url].cursorColumn());
 }
 
-
-void FileMetaInfo::grabMetaInfo( const QUrl & url, OutputMethodDlg * dlg )
+void FileMetaInfo::grabMetaInfo(const QUrl &url, OutputMethodDlg *dlg)
 {
-	if (!dlg)
-		return;
-	
-	m_metaInfoMap[url].setOutputMethodInfo( dlg->info() );
+    if (!dlg)
+        return;
+
+    m_metaInfoMap[url].setOutputMethodInfo(dlg->info());
 }
 
-
-void FileMetaInfo::initializeFromMetaInfo( const QUrl & url, OutputMethodDlg * dlg )
+void FileMetaInfo::initializeFromMetaInfo(const QUrl &url, OutputMethodDlg *dlg)
 {
-	if ( !dlg || url.isEmpty() || !m_metaInfoMap.contains(url) )
-		return;
-	
-	OutputMethodInfo::Method::Type method = m_metaInfoMap[url].outputMethodInfo().method();
-	dlg->setMethod(method);
-	
-	if ( method != OutputMethodInfo::Method::Direct )
-		dlg->setOutputFile( m_metaInfoMap[url].outputMethodInfo().outputFile() );
-	
-	dlg->setPicID( m_metaInfoMap[url].outputMethodInfo().picID() );
-}
+    if (!dlg || url.isEmpty() || !m_metaInfoMap.contains(url))
+        return;
 
+    OutputMethodInfo::Method::Type method = m_metaInfoMap[url].outputMethodInfo().method();
+    dlg->setMethod(method);
+
+    if (method != OutputMethodInfo::Method::Direct)
+        dlg->setOutputFile(m_metaInfoMap[url].outputMethodInfo().outputFile());
+
+    dlg->setPicID(m_metaInfoMap[url].outputMethodInfo().picID());
+}
 
 void FileMetaInfo::saveAllMetaInfo()
 {
-	const MetaInfoMap::iterator end = m_metaInfoMap.end();
-	for ( MetaInfoMap::iterator it = m_metaInfoMap.begin(); it != end; ++it )
-	{
-		if ( it.value().hasDefaultData() )
-			m_metaInfoConfig->deleteGroup(it.key().toDisplayString());
-		
-		else
-		{
-			KConfigGroup grUrl = m_metaInfoConfig->group( it.key().toDisplayString() );
-			it.value().save( &grUrl );
-		}
-	}
-}
+    const MetaInfoMap::iterator end = m_metaInfoMap.end();
+    for (MetaInfoMap::iterator it = m_metaInfoMap.begin(); it != end; ++it) {
+        if (it.value().hasDefaultData())
+            m_metaInfoConfig->deleteGroup(it.key().toDisplayString());
 
+        else {
+            KConfigGroup grUrl = m_metaInfoConfig->group(it.key().toDisplayString());
+            it.value().save(&grUrl);
+        }
+    }
+}
 
 void FileMetaInfo::loadAllMetaInfo()
 {
-	QStringList urlList = m_metaInfoConfig->groupList();
-	const QStringList::iterator end = urlList.end();
-	for ( QStringList::iterator it = urlList.begin(); it != end; ++it )
-	{
-		KConfigGroup grUrl = m_metaInfoConfig->group(*it);
-		m_metaInfoMap[QUrl::fromUserInput(*it)].load(&grUrl);
-	}
+    QStringList urlList = m_metaInfoConfig->groupList();
+    const QStringList::iterator end = urlList.end();
+    for (QStringList::iterator it = urlList.begin(); it != end; ++it) {
+        KConfigGroup grUrl = m_metaInfoConfig->group(*it);
+        m_metaInfoMap[QUrl::fromUserInput(*it)].load(&grUrl);
+    }
 }
-//END class FileMetaInfo
+// END class FileMetaInfo

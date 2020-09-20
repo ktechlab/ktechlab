@@ -20,14 +20,14 @@
 class ECGround : public Component
 {
 public:
-	ECGround( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECGround() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    ECGround(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECGround() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
 private:
-	void drawShape( QPainter &p ) override;
+    void drawShape(QPainter &p) override;
 };
 
 #endif

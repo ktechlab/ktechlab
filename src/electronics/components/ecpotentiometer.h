@@ -22,22 +22,22 @@ class QSlider;
 class ECPotentiometer : public Component
 {
 public:
-	ECPotentiometer( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECPotentiometer() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
-	void sliderValueChanged( const QString &id, int newValue ) override;
-	
-private:
-	void dataChanged() override;
-	void drawShape( QPainter &p ) override;
+    ECPotentiometer(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECPotentiometer() override;
 
-	ECNode * m_p1;
-	Resistance *m_r1, *m_r2;
-	double m_resistance;
-	double m_sliderProp;
-	QSlider * m_pSlider;
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    void sliderValueChanged(const QString &id, int newValue) override;
+
+private:
+    void dataChanged() override;
+    void drawShape(QPainter &p) override;
+
+    ECNode *m_p1;
+    Resistance *m_r1, *m_r2;
+    double m_resistance;
+    double m_sliderProp;
+    QSlider *m_pSlider;
 };
 #endif

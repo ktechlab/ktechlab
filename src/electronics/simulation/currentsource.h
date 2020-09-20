@@ -21,18 +21,21 @@ cnode n0 has current flowing otu of it, cnode n1 has current flowing into it
 class CurrentSource : public Element
 {
 public:
-	CurrentSource( const double current );
-	~CurrentSource() override;
-	
-	Type type() const override { return Element_CurrentSource; }
-	void setCurrent( const double i );
+    CurrentSource(const double current);
+    ~CurrentSource() override;
+
+    Type type() const override
+    {
+        return Element_CurrentSource;
+    }
+    void setCurrent(const double i);
 
 protected:
-	void updateCurrents() override;
-	void add_initial_dc() override;
-	
+    void updateCurrents() override;
+    void add_initial_dc() override;
+
 private:
-	double m_i; // Current
+    double m_i; // Current
 };
 
 #endif

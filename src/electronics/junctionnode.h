@@ -19,21 +19,23 @@
 class JunctionNode : public ECNode
 {
 public:
-	JunctionNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* id = nullptr);
+    JunctionNode(ICNDocument *icnDocument, int dir, const QPoint &pos, QString *id = nullptr);
 
-	~JunctionNode() override;
+    ~JunctionNode() override;
 
-	/** Returns the node's type. This member will be removed one day */
-	virtual node_type type() const { return Node::ec_junction; }
+    /** Returns the node's type. This member will be removed one day */
+    virtual node_type type() const
+    {
+        return Node::ec_junction;
+    }
 
-	/**
-	 *  draws the JunctionNode
-	 */
-    	void drawShape( QPainter &p ) override;
+    /**
+     *  draws the JunctionNode
+     */
+    void drawShape(QPainter &p) override;
 
 protected:
-	void initPoints() override;
-
+    void initPoints() override;
 };
 
 #endif

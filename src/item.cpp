@@ -13,298 +13,269 @@
 #include "ktechlab.h"
 #include "richtexteditor.h"
 
-#include <cmath>
-#include <KTextEdit>
 #include <KStandardGuiItem>
+#include <KTextEdit>
+#include <cmath>
 
-#include <QDebug>
 #include <QBitArray>
-#include <QTimer>
+#include <QDebug>
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QPushButton>
+#include <QTimer>
 #include <QVBoxLayout>
 
 #include <ktlconfig.h>
 
 const int minPrefixExp = -24;
 const int maxPrefixExp = 24;
-const int numPrefix = int((maxPrefixExp-minPrefixExp)/3)+1;
-const QString SIprefix[] = {"y","z","a","f","p","n",QChar(0xB5),"m","","k","M","G","T","P","E","Z","Y"};
+const int numPrefix = int((maxPrefixExp - minPrefixExp) / 3) + 1;
+const QString SIprefix[] = {"y", "z", "a", "f", "p", "n", QChar(0xB5), "m", "", "k", "M", "G", "T", "P", "E", "Z", "Y"};
 
-
-Item::Item( ItemDocument *itemDocument, bool newItem, const QString &id )
-	: //QObject(),
-        KtlQCanvasPolygon( itemDocument ? itemDocument->canvas() : nullptr )
+Item::Item(ItemDocument *itemDocument, bool newItem, const QString &id)
+    : // QObject(),
+    KtlQCanvasPolygon(itemDocument ? itemDocument->canvas() : nullptr)
 {
     QString name(QString("Item-%1").arg(id));
     setObjectName(name.toLatin1().data());
     qDebug() << Q_FUNC_INFO << " this=" << this;
 
-	m_bDynamicContent = false;
-	m_bIsRaised = false;
-	m_bDoneCreation = false;
-	p_parentItem = nullptr;
-	b_deleted = false;
-	p_itemDocument = itemDocument;
-	m_baseZ = -1;
+    m_bDynamicContent = false;
+    m_bIsRaised = false;
+    m_bDoneCreation = false;
+    p_parentItem = nullptr;
+    b_deleted = false;
+    p_itemDocument = itemDocument;
+    m_baseZ = -1;
 
-	if ( p_itemDocument )
-	{
-		if (newItem)
-			m_id = p_itemDocument->generateUID(id);
-		else {
-			m_id = id;
-			p_itemDocument->registerUID(id);
-		}
-	}
+    if (p_itemDocument) {
+        if (newItem)
+            m_id = p_itemDocument->generateUID(id);
+        else {
+            m_id = id;
+            p_itemDocument->registerUID(id);
+        }
+    }
 
-	m_pPropertyChangedTimer = new QTimer( this );
-	connect( m_pPropertyChangedTimer, SIGNAL(timeout()), this, SLOT(dataChanged()) );
+    m_pPropertyChangedTimer = new QTimer(this);
+    connect(m_pPropertyChangedTimer, SIGNAL(timeout()), this, SLOT(dataChanged()));
 }
-
 
 Item::~Item()
 {
-	if ( p_itemDocument )
-	{
-		p_itemDocument->requestEvent( ItemDocument::ItemDocumentEvent::ResizeCanvasToItems );
-		p_itemDocument->unregisterUID( id() );
-	}
+    if (p_itemDocument) {
+        p_itemDocument->requestEvent(ItemDocument::ItemDocumentEvent::ResizeCanvasToItems);
+        p_itemDocument->unregisterUID(id());
+    }
 
-	KtlQCanvasPolygon::hide();
+    KtlQCanvasPolygon::hide();
 
-	const VariantDataMap::iterator variantDataEnd = m_variantData.end();
-	for ( VariantDataMap::iterator it = m_variantData.begin(); it != variantDataEnd; ++it )
-		delete it.value();
-	m_variantData.clear();
+    const VariantDataMap::iterator variantDataEnd = m_variantData.end();
+    for (VariantDataMap::iterator it = m_variantData.begin(); it != variantDataEnd; ++it)
+        delete it.value();
+    m_variantData.clear();
 }
-
 
 void Item::removeItem()
 {
-	if (b_deleted)
-		return;
-	b_deleted = true;
+    if (b_deleted)
+        return;
+    b_deleted = true;
 
-	hide();
-	setCanvas(nullptr);
-	emit removed(this);
-	p_itemDocument->appendDeleteList(this);
+    hide();
+    setCanvas(nullptr);
+    emit removed(this);
+    p_itemDocument->appendDeleteList(this);
 }
-
 
 QFont Item::font() const
 {
-	if ( KTechlab::self() )
-		return KTechlab::self()->itemFont();
-	else
-		return QFont();
+    if (KTechlab::self())
+        return KTechlab::self()->itemFont();
+    else
+        return QFont();
 }
 
-
-void Item::moveBy( double dx, double dy )
+void Item::moveBy(double dx, double dy)
 {
-	KtlQCanvasPolygon::moveBy(dx,dy);
-	emit movedBy( dx, dy );
+    KtlQCanvasPolygon::moveBy(dx, dy);
+    emit movedBy(dx, dy);
 }
-
 
 void Item::setChanged()
 {
-	if (b_deleted)
-		return;
+    if (b_deleted)
+        return;
 
-	if (canvas())
-		canvas()->setChanged(boundingRect());
+    if (canvas())
+        canvas()->setChanged(boundingRect());
 }
 
-
-void Item::setItemPoints( const QPolygon & pa, bool setSizeFromPoints )
+void Item::setItemPoints(const QPolygon &pa, bool setSizeFromPoints)
 {
-	m_itemPoints = pa;
-	if (setSizeFromPoints)
-		setSize( m_itemPoints.boundingRect() );
-	itemPointsChanged();
+    m_itemPoints = pa;
+    if (setSizeFromPoints)
+        setSize(m_itemPoints.boundingRect());
+    itemPointsChanged();
 }
-
 
 void Item::itemPointsChanged()
 {
-	setPoints(m_itemPoints);
+    setPoints(m_itemPoints);
 }
 
-
-void Item::setSize( QRect sizeRect, bool forceItemPoints )
+void Item::setSize(QRect sizeRect, bool forceItemPoints)
 {
-	if ( !canvas() )
-		return;
+    if (!canvas())
+        return;
 
-	if ( m_sizeRect == sizeRect && !forceItemPoints )
-		return;
+    if (m_sizeRect == sizeRect && !forceItemPoints)
+        return;
 
-	if ( !preResize(sizeRect) )
-		return;
+    if (!preResize(sizeRect))
+        return;
 
-	canvas()->setChanged(areaPoints().boundingRect());
-	m_sizeRect = sizeRect;
-	if ( m_itemPoints.isEmpty() || forceItemPoints )
-	{
-		setItemPoints( QPolygon( m_sizeRect ), false );
-	}
-	canvas()->setChanged(areaPoints().boundingRect());
-	postResize();
-	emit resized();
+    canvas()->setChanged(areaPoints().boundingRect());
+    m_sizeRect = sizeRect;
+    if (m_itemPoints.isEmpty() || forceItemPoints) {
+        setItemPoints(QPolygon(m_sizeRect), false);
+    }
+    canvas()->setChanged(areaPoints().boundingRect());
+    postResize();
+    emit resized();
 }
-
 
 ItemData Item::itemData() const
 {
-	ItemData itemData;
+    ItemData itemData;
 
-	itemData.type = m_type;
-	itemData.x = x();
-	itemData.y = y();
+    itemData.type = m_type;
+    itemData.x = x();
+    itemData.y = y();
 
-	if ( !parentItem() )
-		itemData.z = m_baseZ;
+    if (!parentItem())
+        itemData.z = m_baseZ;
 
-	itemData.size = m_sizeRect;
-	itemData.setSize = canResize();
+    itemData.size = m_sizeRect;
+    itemData.setSize = canResize();
 
-	if (p_parentItem)
-		itemData.parentId = p_parentItem->id();
+    if (p_parentItem)
+        itemData.parentId = p_parentItem->id();
 
-	const VariantDataMap::const_iterator end = m_variantData.end();
-	for ( VariantDataMap::const_iterator it = m_variantData.begin(); it != end; ++it )
-	{
-		switch( it.value()->type() )
-		{
-			case Variant::Type::String:
-			case Variant::Type::FileName:
-			case Variant::Type::Port:
-			case Variant::Type::Pin:
-			case Variant::Type::VarName:
-			case Variant::Type::Combo:
-			case Variant::Type::Select:
-			case Variant::Type::Multiline:
-			case Variant::Type::RichText:
-			case Variant::Type::SevenSegment:
-			case Variant::Type::KeyPad:
-			{
-				itemData.dataString[it.key()] = it.value()->value().toString();
-				break;
-			}
-			case Variant::Type::Int:
-			case Variant::Type::Double:
-			{
-				itemData.dataNumber[it.key()] = it.value()->value().toDouble();
-				break;
-			}
-			case Variant::Type::Color:
-			{
-				itemData.dataColor[it.key()] = it.value()->value().value<QColor>();
-				break;
-			}
-			case Variant::Type::Bool:
-			{
-				itemData.dataBool[it.key()] = it.value()->value().toBool();
-				break;
-			}
-			case Variant::Type::Raw:
-			{
-				itemData.dataRaw[it.key()] = it.value()->value().toBitArray();
-				break;
-			}
-			case Variant::Type::PenStyle:
-			case Variant::Type::PenCapStyle:
-			{
-				// These types are only created from DrawPart, and that class
-				// deals with these, so we can ignore them
-				break;
-			}
-			case Variant::Type::None:
-			{
-				// ? Maybe obsoleted data...
-				break;
-			}
-		}
-	}
+    const VariantDataMap::const_iterator end = m_variantData.end();
+    for (VariantDataMap::const_iterator it = m_variantData.begin(); it != end; ++it) {
+        switch (it.value()->type()) {
+        case Variant::Type::String:
+        case Variant::Type::FileName:
+        case Variant::Type::Port:
+        case Variant::Type::Pin:
+        case Variant::Type::VarName:
+        case Variant::Type::Combo:
+        case Variant::Type::Select:
+        case Variant::Type::Multiline:
+        case Variant::Type::RichText:
+        case Variant::Type::SevenSegment:
+        case Variant::Type::KeyPad: {
+            itemData.dataString[it.key()] = it.value()->value().toString();
+            break;
+        }
+        case Variant::Type::Int:
+        case Variant::Type::Double: {
+            itemData.dataNumber[it.key()] = it.value()->value().toDouble();
+            break;
+        }
+        case Variant::Type::Color: {
+            itemData.dataColor[it.key()] = it.value()->value().value<QColor>();
+            break;
+        }
+        case Variant::Type::Bool: {
+            itemData.dataBool[it.key()] = it.value()->value().toBool();
+            break;
+        }
+        case Variant::Type::Raw: {
+            itemData.dataRaw[it.key()] = it.value()->value().toBitArray();
+            break;
+        }
+        case Variant::Type::PenStyle:
+        case Variant::Type::PenCapStyle: {
+            // These types are only created from DrawPart, and that class
+            // deals with these, so we can ignore them
+            break;
+        }
+        case Variant::Type::None: {
+            // ? Maybe obsoleted data...
+            break;
+        }
+        }
+    }
 
-	return itemData;
+    return itemData;
 }
 
-
-void Item::restoreFromItemData( const ItemData &itemData )
+void Item::restoreFromItemData(const ItemData &itemData)
 {
-	move( itemData.x, itemData.y );
-	if ( canResize() )
-		setSize( itemData.size );
+    move(itemData.x, itemData.y);
+    if (canResize())
+        setSize(itemData.size);
 
-	Item *parentItem = p_itemDocument->itemWithID( itemData.parentId );
-	if (parentItem)
-		setParentItem(parentItem);
-	else
-		m_baseZ = itemData.z;
+    Item *parentItem = p_itemDocument->itemWithID(itemData.parentId);
+    if (parentItem)
+        setParentItem(parentItem);
+    else
+        m_baseZ = itemData.z;
 
-	//BEGIN Restore data
-	const QStringMap::const_iterator stringEnd = itemData.dataString.end();
-	for ( QStringMap::const_iterator it = itemData.dataString.begin(); it != stringEnd; ++it )
-	{
-		if ( hasProperty(it.key()) )
-			property( it.key() )->setValue( it.value() );
-	}
+    // BEGIN Restore data
+    const QStringMap::const_iterator stringEnd = itemData.dataString.end();
+    for (QStringMap::const_iterator it = itemData.dataString.begin(); it != stringEnd; ++it) {
+        if (hasProperty(it.key()))
+            property(it.key())->setValue(it.value());
+    }
 
-	const DoubleMap::const_iterator numberEnd = itemData.dataNumber.end();
-	for ( DoubleMap::const_iterator it = itemData.dataNumber.begin(); it != numberEnd; ++it )
-	{
-		if ( hasProperty(it.key()) )
-			property( it.key() )->setValue( it.value() );
-	}
+    const DoubleMap::const_iterator numberEnd = itemData.dataNumber.end();
+    for (DoubleMap::const_iterator it = itemData.dataNumber.begin(); it != numberEnd; ++it) {
+        if (hasProperty(it.key()))
+            property(it.key())->setValue(it.value());
+    }
 
-	const QColorMap::const_iterator colorEnd = itemData.dataColor.end();
-	for ( QColorMap::const_iterator it = itemData.dataColor.begin(); it != colorEnd; ++it )
-	{
-		if ( hasProperty(it.key()) )
-			property( it.key() )->setValue( it.value() );
-	}
+    const QColorMap::const_iterator colorEnd = itemData.dataColor.end();
+    for (QColorMap::const_iterator it = itemData.dataColor.begin(); it != colorEnd; ++it) {
+        if (hasProperty(it.key()))
+            property(it.key())->setValue(it.value());
+    }
 
-	const BoolMap::const_iterator boolEnd = itemData.dataBool.end();
-	for ( BoolMap::const_iterator it = itemData.dataBool.begin(); it != boolEnd; ++it )
-	{
-		if ( hasProperty(it.key()) )
-			property( it.key() )->setValue( QVariant( it.value() /*, 0*/ ) );
-	}
+    const BoolMap::const_iterator boolEnd = itemData.dataBool.end();
+    for (BoolMap::const_iterator it = itemData.dataBool.begin(); it != boolEnd; ++it) {
+        if (hasProperty(it.key()))
+            property(it.key())->setValue(QVariant(it.value() /*, 0*/));
+    }
 
-	const QBitArrayMap::const_iterator rawEnd = itemData.dataRaw.end();
-	for ( QBitArrayMap::const_iterator it = itemData.dataRaw.begin(); it != rawEnd; ++it )
-	{
-		if ( hasProperty(it.key()) )
-			property( it.key() )->setValue( it.value() );
-	}
-	//END Restore Data
+    const QBitArrayMap::const_iterator rawEnd = itemData.dataRaw.end();
+    for (QBitArrayMap::const_iterator it = itemData.dataRaw.begin(); it != rawEnd; ++it) {
+        if (hasProperty(it.key()))
+            property(it.key())->setValue(it.value());
+    }
+    // END Restore Data
 }
 
-
-bool Item::mousePressEvent( const EventInfo &eventInfo )
+bool Item::mousePressEvent(const EventInfo &eventInfo)
 {
-	Q_UNUSED(eventInfo);
-	return false;
+    Q_UNUSED(eventInfo);
+    return false;
 }
-bool Item::mouseReleaseEvent( const EventInfo &eventInfo )
+bool Item::mouseReleaseEvent(const EventInfo &eventInfo)
 {
-	Q_UNUSED(eventInfo);
-	return false;
+    Q_UNUSED(eventInfo);
+    return false;
 }
-bool Item::mouseMoveEvent( const EventInfo &eventInfo )
+bool Item::mouseMoveEvent(const EventInfo &eventInfo)
 {
-	Q_UNUSED(eventInfo);
-	return false;
+    Q_UNUSED(eventInfo);
+    return false;
 }
-bool Item::wheelEvent( const EventInfo &eventInfo )
+bool Item::wheelEvent(const EventInfo &eventInfo)
 {
-	Q_UNUSED(eventInfo);
-	return false;
+    Q_UNUSED(eventInfo);
+    return false;
 }
 void Item::enterEvent(QEvent *)
 {
@@ -313,49 +284,45 @@ void Item::leaveEvent(QEvent *)
 {
 }
 
-bool Item::mouseDoubleClickEvent( const EventInfo & eventInfo )
+bool Item::mouseDoubleClickEvent(const EventInfo &eventInfo)
 {
-	Q_UNUSED(eventInfo);
+    Q_UNUSED(eventInfo);
 
-	Property * property = nullptr;
-	Variant::Type::Value type = Variant::Type::None;
+    Property *property = nullptr;
+    Variant::Type::Value type = Variant::Type::None;
 
-	const VariantDataMap::iterator variantDataEnd = m_variantData.end();
-	for ( VariantDataMap::iterator it = m_variantData.begin(); it != variantDataEnd; ++it )
-	{
-		Property * current = *it;
+    const VariantDataMap::iterator variantDataEnd = m_variantData.end();
+    for (VariantDataMap::iterator it = m_variantData.begin(); it != variantDataEnd; ++it) {
+        Property *current = *it;
 
-		if ( current->type() == Variant::Type::Multiline ||
-				   current->type() == Variant::Type::RichText )
-		{
-			property = current;
-			type = current->type();
-			break;
-		}
-	}
-	if ( !property )
-		return false;
+        if (current->type() == Variant::Type::Multiline || current->type() == Variant::Type::RichText) {
+            property = current;
+            type = current->type();
+            break;
+        }
+    }
+    if (!property)
+        return false;
 
-	if ( type == Variant::Type::Multiline )
-	{
+    if (type == Variant::Type::Multiline) {
         QDialog *dlg = new QDialog(nullptr);
         dlg->setModal(true);
-        dlg->setWindowTitle( property->editorCaption() );
+        dlg->setWindowTitle(property->editorCaption());
         QVBoxLayout *mainLayout = new QVBoxLayout;
         dlg->setLayout(mainLayout);
 
-        //QFrame *frame = dlg->makeMainWidget();
-		QFrame *frame = new QFrame(dlg);
+        // QFrame *frame = dlg->makeMainWidget();
+        QFrame *frame = new QFrame(dlg);
         mainLayout->addWidget(frame);
-		QVBoxLayout *layout = new QVBoxLayout( frame );
+        QVBoxLayout *layout = new QVBoxLayout(frame);
         layout->setMargin(0);
-		KTextEdit *textEdit = new KTextEdit( frame );
-		//textEdit->setTextFormat( Qt::PlainText ); // 2018.12.02
+        KTextEdit *textEdit = new KTextEdit(frame);
+        // textEdit->setTextFormat( Qt::PlainText ); // 2018.12.02
         textEdit->setAcceptRichText(false);
-		textEdit->setText( property->value().toString() );
-		layout->addWidget( textEdit, 10 );
-		textEdit->setFocus();
-        QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+        textEdit->setText(property->value().toString());
+        layout->addWidget(textEdit, 10);
+        textEdit->setFocus();
+        QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
         QPushButton *clearButton = new QPushButton(buttonBox);
         KGuiItem::assign(clearButton, KStandardGuiItem::clear());
         buttonBox->addButton(clearButton, QDialogButtonBox::ActionRole);
@@ -366,299 +333,270 @@ bool Item::mouseDoubleClickEvent( const EventInfo & eventInfo )
         connect(buttonBox, &QDialogButtonBox::accepted, dlg, &QDialog::accept);
         connect(buttonBox, &QDialogButtonBox::rejected, dlg, &QDialog::reject);
         connect(clearButton, &QPushButton::clicked, textEdit, &KTextEdit::clear);
-		dlg->setMinimumWidth( 600 );
+        dlg->setMinimumWidth(600);
 
-		if ( dlg->exec() == QDialog::Accepted )
-		{
-			property->setValue( textEdit->toPlainText() );
-			dataChanged();
-			p_itemDocument->setModified(true);
-		}
-		delete dlg;
-	}
-	else
-	{
-		// Is rich text
-		RichTextEditorDlg * dlg = new RichTextEditorDlg( nullptr, property->editorCaption() );
-		dlg->setText( property->value().toString() );
+        if (dlg->exec() == QDialog::Accepted) {
+            property->setValue(textEdit->toPlainText());
+            dataChanged();
+            p_itemDocument->setModified(true);
+        }
+        delete dlg;
+    } else {
+        // Is rich text
+        RichTextEditorDlg *dlg = new RichTextEditorDlg(nullptr, property->editorCaption());
+        dlg->setText(property->value().toString());
 
-		if ( dlg->exec() == QDialog::Accepted )
-		{
-			property->setValue( dlg->text() );
-			dataChanged();
-			p_itemDocument->setModified(true);
-		}
-		delete dlg;
-	}
+        if (dlg->exec() == QDialog::Accepted) {
+            property->setValue(dlg->text());
+            dataChanged();
+            p_itemDocument->setModified(true);
+        }
+        delete dlg;
+    }
 
-	return true;
+    return true;
 }
 
-
-void Item::setSelected( bool yes )
+void Item::setSelected(bool yes)
 {
-	if ( isSelected() == yes )
-		return;
-	KtlQCanvasPolygon::setSelected(yes);
-	emit selectionChanged();
+    if (isSelected() == yes)
+        return;
+    KtlQCanvasPolygon::setSelected(yes);
+    emit selectionChanged();
 }
 
-
-void Item::setParentItem( Item *newParentItem )
+void Item::setParentItem(Item *newParentItem)
 {
-// 	qDebug() << Q_FUNC_INFO << "this = "<<this<<" newParentItem = "<<newParentItem<<endl;
-	if ( newParentItem == p_parentItem )
-		return;
+    // 	qDebug() << Q_FUNC_INFO << "this = "<<this<<" newParentItem = "<<newParentItem<<endl;
+    if (newParentItem == p_parentItem)
+        return;
 
-	Item *oldParentItem = p_parentItem;
+    Item *oldParentItem = p_parentItem;
 
-	if (oldParentItem)
-	{
-		disconnect( oldParentItem, SIGNAL(removed(Item*)), this, SLOT(removeItem()) );
-		oldParentItem->removeChild(this);
-	}
+    if (oldParentItem) {
+        disconnect(oldParentItem, SIGNAL(removed(Item *)), this, SLOT(removeItem()));
+        oldParentItem->removeChild(this);
+    }
 
-	if (newParentItem)
-	{
-		if ( newParentItem->contains(this) );
-// 			qCritical() << Q_FUNC_INFO << "Already a child of " << newParentItem << endl;
-		else
-		{
-			connect( newParentItem, SIGNAL(removed(Item*)), this, SLOT(removeItem()) );
-			newParentItem->addChild(this);
-		}
-	}
+    if (newParentItem) {
+        if (newParentItem->contains(this))
+            ;
+        // 			qCritical() << Q_FUNC_INFO << "Already a child of " << newParentItem << endl;
+        else {
+            connect(newParentItem, SIGNAL(removed(Item *)), this, SLOT(removeItem()));
+            newParentItem->addChild(this);
+        }
+    }
 
-	p_parentItem = newParentItem;
-	(void)level();
-	reparented( oldParentItem, newParentItem );
-	p_itemDocument->slotUpdateZOrdering();
+    p_parentItem = newParentItem;
+    (void)level();
+    reparented(oldParentItem, newParentItem);
+    p_itemDocument->slotUpdateZOrdering();
 }
-
 
 int Item::level() const
 {
-	return p_parentItem ? p_parentItem->level()+1 : 0;
+    return p_parentItem ? p_parentItem->level() + 1 : 0;
 }
 
-
-ItemList Item::children( bool includeGrandChildren ) const
+ItemList Item::children(bool includeGrandChildren) const
 {
-	if (!includeGrandChildren)
-		return m_children;
+    if (!includeGrandChildren)
+        return m_children;
 
-	ItemList children = m_children;
-	ItemList::const_iterator end = m_children.end();
-	for ( ItemList::const_iterator it = m_children.begin(); it != end; ++it )
-	{
-		if (!*it)
-			continue;
+    ItemList children = m_children;
+    ItemList::const_iterator end = m_children.end();
+    for (ItemList::const_iterator it = m_children.begin(); it != end; ++it) {
+        if (!*it)
+            continue;
 
-		children += (*it)->children(true);
-	}
+        children += (*it)->children(true);
+    }
 
-	return children;
+    return children;
 }
 
-
-void Item::addChild( Item *child )
+void Item::addChild(Item *child)
 {
-	if ( !child )
-		return;
+    if (!child)
+        return;
 
-	if ( child->contains(this) )
-	{
-// 		qCritical() << Q_FUNC_INFO << "Attempting to add a child to this item that is already a parent of this item. Incest results in stack overflow." << endl;
-		return;
-	}
+    if (child->contains(this)) {
+        // 		qCritical() << Q_FUNC_INFO << "Attempting to add a child to this item that is already a parent of this item. Incest results in stack overflow." << endl;
+        return;
+    }
 
-	if ( contains( child, true ) )
-	{
-// 		qCritical() << Q_FUNC_INFO << "Already have child " << child << endl;
-		return;
-	}
+    if (contains(child, true)) {
+        // 		qCritical() << Q_FUNC_INFO << "Already have child " << child << endl;
+        return;
+    }
 
-	m_children.append(child);
-	connect( child, SIGNAL(removed(Item* )), this, SLOT(removeChild(Item* )) );
+    m_children.append(child);
+    connect(child, SIGNAL(removed(Item *)), this, SLOT(removeChild(Item *)));
 
-	child->setParentItem(this);
-	childAdded(child);
-	p_itemDocument->slotUpdateZOrdering();
+    child->setParentItem(this);
+    childAdded(child);
+    p_itemDocument->slotUpdateZOrdering();
 }
 
-
-void Item::removeChild( Item *child )
+void Item::removeChild(Item *child)
 {
-	if ( !child || !m_children.contains(child) )
-		return;
+    if (!child || !m_children.contains(child))
+        return;
 
-	m_children.removeAll(child);
-	disconnect( child, SIGNAL(removed(Item* )), this, SLOT(removeChild(Item* )) );
+    m_children.removeAll(child);
+    disconnect(child, SIGNAL(removed(Item *)), this, SLOT(removeChild(Item *)));
 
-	childRemoved(child);
-	p_itemDocument->slotUpdateZOrdering();
+    childRemoved(child);
+    p_itemDocument->slotUpdateZOrdering();
 }
 
-
-bool Item::contains( Item *item, bool direct ) const
+bool Item::contains(Item *item, bool direct) const
 {
-	const ItemList::const_iterator end = m_children.end();
-	for ( ItemList::const_iterator it = m_children.begin(); it != end; ++it )
-	{
-		if ( (Item*)*it == item || ( !direct && (*it)->contains( item, false ) ) )
-			return true;
-	}
-	return false;
+    const ItemList::const_iterator end = m_children.end();
+    for (ItemList::const_iterator it = m_children.begin(); it != end; ++it) {
+        if ((Item *)*it == item || (!direct && (*it)->contains(item, false)))
+            return true;
+    }
+    return false;
 }
 
-
-void Item::setRaised( bool isRaised )
+void Item::setRaised(bool isRaised)
 {
-	m_bIsRaised = isRaised;
-	// We'll get called later to update our Z
+    m_bIsRaised = isRaised;
+    // We'll get called later to update our Z
 }
 
-
-void Item::updateZ( int baseZ )
+void Item::updateZ(int baseZ)
 {
-	m_baseZ = baseZ;
-	double z = ItemDocument::Z::Item + (ItemDocument::Z::DeltaItem)*baseZ;
+    m_baseZ = baseZ;
+    double z = ItemDocument::Z::Item + (ItemDocument::Z::DeltaItem)*baseZ;
 
-	if ( isRaised() )
-		z += ItemDocument::Z::RaisedItem - ItemDocument::Z::Item;
+    if (isRaised())
+        z += ItemDocument::Z::RaisedItem - ItemDocument::Z::Item;
 
-	setZ(z);
+    setZ(z);
 
-	const ItemList::const_iterator end = m_children.end();
-	for ( ItemList::const_iterator it = m_children.begin(); it != end; ++it )
-	{
-		if (*it)
-			(*it)->updateZ(baseZ+1);
-	}
+    const ItemList::const_iterator end = m_children.end();
+    for (ItemList::const_iterator it = m_children.begin(); it != end; ++it) {
+        if (*it)
+            (*it)->updateZ(baseZ + 1);
+    }
 }
 
-
-int Item::getNumberPre( double num )
+int Item::getNumberPre(double num)
 {
-	return (int)(num/getMultiplier(num));
+    return (int)(num / getMultiplier(num));
 }
 
-QString Item::getNumberMag( double num )
+QString Item::getNumberMag(double num)
 {
-	if ( num == 0. ) return "";
-	const double exp_n = std::log10(std::abs(num));
-	if ( exp_n < minPrefixExp+3 ) return SIprefix[0];
-	else if ( exp_n >= maxPrefixExp ) return SIprefix[numPrefix-1];
-	else return SIprefix[(int)std::floor((double)(exp_n/3))-(int)floor(double(minPrefixExp/3))];
+    if (num == 0.)
+        return "";
+    const double exp_n = std::log10(std::abs(num));
+    if (exp_n < minPrefixExp + 3)
+        return SIprefix[0];
+    else if (exp_n >= maxPrefixExp)
+        return SIprefix[numPrefix - 1];
+    else
+        return SIprefix[(int)std::floor((double)(exp_n / 3)) - (int)floor(double(minPrefixExp / 3))];
 }
 
-double Item::getMultiplier( double num )
+double Item::getMultiplier(double num)
 {
-	if ( num == 0. ) return 1.;
-	else return std::pow( 10, 3*std::floor(std::log10(std::abs(num))/3) );
+    if (num == 0.)
+        return 1.;
+    else
+        return std::pow(10, 3 * std::floor(std::log10(std::abs(num)) / 3));
 }
 
-double Item::getMultiplier( const QString &_mag )
+double Item::getMultiplier(const QString &_mag)
 {
-	QString mag;
-	// Allow the user to enter in "u" instead of mu, as unfortunately many keyboards don't have the mu key
-	if ( _mag == "u" )
-		mag = QChar(0xB5);
-	else
-		mag = _mag;
+    QString mag;
+    // Allow the user to enter in "u" instead of mu, as unfortunately many keyboards don't have the mu key
+    if (_mag == "u")
+        mag = QChar(0xB5);
+    else
+        mag = _mag;
 
-	for ( int i=0; i<numPrefix; ++i )
-	{
-		if ( mag == SIprefix[i] )
-		{
-			return std::pow( 10., (i*3)+minPrefixExp );
-		}
-	}
+    for (int i = 0; i < numPrefix; ++i) {
+        if (mag == SIprefix[i]) {
+            return std::pow(10., (i * 3) + minPrefixExp);
+        }
+    }
 
-	// I think it is safer to return '1' if the unit is unknown
-	return 1.;
-// 	return pow( 10., maxPrefixExp+3. );
+    // I think it is safer to return '1' if the unit is unknown
+    return 1.;
+    // 	return pow( 10., maxPrefixExp+3. );
 }
 
-
-
-//BEGIN Data stuff
-double Item::dataDouble( const QString & id ) const
+// BEGIN Data stuff
+double Item::dataDouble(const QString &id) const
 {
-	Variant * variant = property(id);
-	return variant ? variant->value().toDouble() : 0.0;
+    Variant *variant = property(id);
+    return variant ? variant->value().toDouble() : 0.0;
 }
 
-
-int Item::dataInt( const QString & id ) const
+int Item::dataInt(const QString &id) const
 {
-	Variant * variant = property(id);
-	return variant ? variant->value().toInt() : 0;
+    Variant *variant = property(id);
+    return variant ? variant->value().toInt() : 0;
 }
 
-
-bool Item::dataBool( const QString & id ) const
+bool Item::dataBool(const QString &id) const
 {
-	Variant * variant = property(id);
-	return variant ? variant->value().toBool() : false;
+    Variant *variant = property(id);
+    return variant ? variant->value().toBool() : false;
 }
 
-
-QString Item::dataString( const QString & id ) const
+QString Item::dataString(const QString &id) const
 {
-	Variant * variant = property(id);
-	return variant ? variant->value().toString() : QString::null;
+    Variant *variant = property(id);
+    return variant ? variant->value().toString() : QString::null;
 }
 
-
-QColor Item::dataColor( const QString & id ) const
+QColor Item::dataColor(const QString &id) const
 {
-	Variant * variant = property(id);
-	return variant ? variant->value().value<QColor>() : Qt::black;
+    Variant *variant = property(id);
+    return variant ? variant->value().value<QColor>() : Qt::black;
 }
 
-
-Variant * Item::createProperty( const QString & id, Variant::Type::Value type )
+Variant *Item::createProperty(const QString &id, Variant::Type::Value type)
 {
-	if ( !m_variantData.contains(id) )
-	{
-		m_variantData[id] = new Variant( id, type );
-		connect( m_variantData[id], SIGNAL(valueChanged(QVariant,QVariant)), this, SLOT(propertyChangedInitial()) );
-	}
+    if (!m_variantData.contains(id)) {
+        m_variantData[id] = new Variant(id, type);
+        connect(m_variantData[id], SIGNAL(valueChanged(QVariant, QVariant)), this, SLOT(propertyChangedInitial()));
+    }
 
-	return m_variantData[id];
+    return m_variantData[id];
 }
 
-
-Variant * Item::property( const QString & id ) const
+Variant *Item::property(const QString &id) const
 {
-	if ( m_variantData.contains(id) )
-		return m_variantData[id];
+    if (m_variantData.contains(id))
+        return m_variantData[id];
 
-	qCritical() << Q_FUNC_INFO << " No such property with id " << id << endl;
-	return nullptr;
+    qCritical() << Q_FUNC_INFO << " No such property with id " << id << endl;
+    return nullptr;
 }
 
-
-bool Item::hasProperty( const QString & id ) const
+bool Item::hasProperty(const QString &id) const
 {
-	return m_variantData.contains(id);
+    return m_variantData.contains(id);
 }
 
-
-void Item::finishedCreation( )
+void Item::finishedCreation()
 {
-	m_bDoneCreation = true;
-	dataChanged();
+    m_bDoneCreation = true;
+    dataChanged();
 }
-
 
 void Item::propertyChangedInitial()
 {
-	if ( !m_bDoneCreation )
-		return;
+    if (!m_bDoneCreation)
+        return;
 
     m_pPropertyChangedTimer->setSingleShot(true);
-	m_pPropertyChangedTimer->start( 0 /*, true */ );
+    m_pPropertyChangedTimer->start(0 /*, true */);
 }
-//END Data stuff
+// END Data stuff

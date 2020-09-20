@@ -20,17 +20,17 @@
 class ECCurrentSource : public Component
 {
 public:
-	ECCurrentSource( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECCurrentSource() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    ECCurrentSource(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECCurrentSource() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
 private:
-	void drawShape( QPainter &p ) override;
-	void dataChanged() override;
-	
-	CurrentSource *m_currentSource;
+    void drawShape(QPainter &p) override;
+    void dataChanged() override;
+
+    CurrentSource *m_currentSource;
 };
 
 #endif

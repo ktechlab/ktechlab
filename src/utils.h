@@ -5,71 +5,70 @@
 #include <QPoint>
 #include <cmath>
 
-inline int roundDown( int x, int roundness )
+inline int roundDown(int x, int roundness)
 {
-	if ( x < 0 )
-		return (x-roundness+1) / roundness;
-	else
-		return (x / roundness);
+    if (x < 0)
+        return (x - roundness + 1) / roundness;
+    else
+        return (x / roundness);
 }
-inline int roundDown( double x, int roundness )
+inline int roundDown(double x, int roundness)
 {
-	return roundDown( int(x), roundness );
-}
-
-inline QPoint roundDown( const QPoint & p, int roundness )
-{
-	return QPoint( roundDown( p.x(), roundness ), roundDown( p.y(), roundness ) );
+    return roundDown(int(x), roundness);
 }
 
-inline int toCanvas( int pos )
+inline QPoint roundDown(const QPoint &p, int roundness)
 {
-    return pos*8+4;
-}
-inline int fromCanvas( int pos )
-{
-	return roundDown( pos-4, 8 );
+    return QPoint(roundDown(p.x(), roundness), roundDown(p.y(), roundness));
 }
 
-inline QPoint toCanvas( const QPoint * pos )
+inline int toCanvas(int pos)
 {
-	return QPoint( toCanvas(pos->x()), toCanvas(pos->y()) );
+    return pos * 8 + 4;
 }
-inline QPoint fromCanvas( const QPoint * pos )
+inline int fromCanvas(int pos)
 {
-	return QPoint( fromCanvas(pos->x()), fromCanvas(pos->y()) );
-}
-
-inline QPoint toCanvas( const QPoint & pos )
-{
-	return QPoint( toCanvas(pos.x()), toCanvas(pos.y()) );
-}
-inline QPoint fromCanvas( const QPoint & pos )
-{
-	return QPoint( fromCanvas(pos.x()), fromCanvas(pos.y()) );
+    return roundDown(pos - 4, 8);
 }
 
-inline int roundDouble( double x )
+inline QPoint toCanvas(const QPoint *pos)
 {
-	return int(std::floor(x+0.5));
+    return QPoint(toCanvas(pos->x()), toCanvas(pos->y()));
+}
+inline QPoint fromCanvas(const QPoint *pos)
+{
+    return QPoint(fromCanvas(pos->x()), fromCanvas(pos->y()));
 }
 
-inline double qpoint_distance( const QPoint & p1, const QPoint & p2 )
+inline QPoint toCanvas(const QPoint &pos)
 {
-	double dx = p1.x() - p2.x();
-	double dy = p1.y() - p2.y();
-
-	return std::sqrt( dx*dx + dy*dy );
+    return QPoint(toCanvas(pos.x()), toCanvas(pos.y()));
+}
+inline QPoint fromCanvas(const QPoint &pos)
+{
+    return QPoint(fromCanvas(pos.x()), fromCanvas(pos.y()));
 }
 
-
-inline int snapToCanvas( int x )
+inline int roundDouble(double x)
 {
-	return roundDown( x, 8 )*8 + 4;
+    return int(std::floor(x + 0.5));
 }
-inline int snapToCanvas( double x )
+
+inline double qpoint_distance(const QPoint &p1, const QPoint &p2)
 {
-	return snapToCanvas( int(x) );
+    double dx = p1.x() - p2.x();
+    double dy = p1.y() - p2.y();
+
+    return std::sqrt(dx * dx + dy * dy);
+}
+
+inline int snapToCanvas(int x)
+{
+    return roundDown(x, 8) * 8 + 4;
+}
+inline int snapToCanvas(double x)
+{
+    return snapToCanvas(int(x));
 }
 
 #endif

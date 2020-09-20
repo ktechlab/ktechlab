@@ -11,8 +11,8 @@
 #ifndef VOLTAGESIGNAL_H
 #define VOLTAGESIGNAL_H
 
-#include "reactive.h"
 #include "elementsignal.h"
+#include "reactive.h"
 
 /**
 @short VoltageSignal
@@ -21,20 +21,26 @@
 class VoltageSignal : public Reactive, public ElementSignal
 {
 public:
-	VoltageSignal( const double delta, const double voltage );
-	~VoltageSignal() override;
+    VoltageSignal(const double delta, const double voltage);
+    ~VoltageSignal() override;
 
-	Element::Type type() const override { return Element_VoltageSignal; }
-	void setVoltage( const double voltage );
-	double voltage() { return m_voltage; }
-	void time_step() override;
+    Element::Type type() const override
+    {
+        return Element_VoltageSignal;
+    }
+    void setVoltage(const double voltage);
+    double voltage()
+    {
+        return m_voltage;
+    }
+    void time_step() override;
 
 protected:
-	void updateCurrents() override;
-	void add_initial_dc() override;
+    void updateCurrents() override;
+    void add_initial_dc() override;
 
 private:
-	double m_voltage; // Voltage
+    double m_voltage; // Voltage
 };
 
 #endif

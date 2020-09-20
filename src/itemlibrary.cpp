@@ -9,12 +9,12 @@
 
 #include "config.h"
 
-#include "cnitem.h"
 #include "canvasitemparts.h"
-#include "electronics/circuitdocument.h"
+#include "cnitem.h"
 #include "component.h"
-#include "ecsubcircuit.h"
 #include "ecnode.h"
+#include "ecsubcircuit.h"
+#include "electronics/circuitdocument.h"
 #include "itemlibrary.h"
 #include "libraryitem.h"
 #include "node.h"
@@ -22,28 +22,27 @@
 #include "subcircuits.h"
 
 #include <KConfigGroup>
-#include <KSharedConfig>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <KSharedConfig>
 
-#include <QLocale>
 #include <QApplication>
 #include <QBitmap>
 #include <QDebug>
 #include <QDir>
 #include <QFile>
 #include <QImage>
+#include <QLocale>
 #include <QPainter>
 #include <QPixmap>
 #include <QPushButton>
 #include <QRegExp>
-#include <QTimer>
 #include <QStandardPaths>
+#include <QTimer>
 
 #include <cassert>
 
-
-//BEGIN Item includes
+// BEGIN Item includes
 #ifdef MECHANICS
 #include "chassiscircular2.h"
 #endif
@@ -58,9 +57,9 @@
 #include "delay.h"
 #include "embed.h"
 #include "end.h"
+#include "forloop.h"
 #include "inputbutton.h"
 #include "interrupt.h"
-#include "forloop.h"
 #include "keypad.h"
 #include "pulse.h"
 #include "readport.h"
@@ -95,18 +94,18 @@
 #include "multiplexer.h"
 #include "parallelportcomponent.h"
 #include "piccomponent.h"
-#include "pushswitch.h"
 #include "probe.h"
+#include "pushswitch.h"
 #include "ram.h"
 #include "resistordip.h"
 #include "rotoswitch.h"
 #include "serialportcomponent.h"
 #include "toggleswitch.h"
 
+#include "capacitor.h"
 #include "ec555.h"
 #include "ecbcdto7segment.h"
 #include "ecbjt.h"
-#include "capacitor.h"
 #include "ecclockinput.h"
 #include "eccurrentsignal.h"
 #include "eccurrentsource.h"
@@ -115,310 +114,293 @@
 #include "ecground.h"
 #include "ecjfet.h"
 #include "eckeypad.h"
-#include "led.h"
-#include "ledbargraphdisplay.h"
 #include "ecmosfet.h"
 #include "ecopamp.h"
 #include "ecpotentiometer.h"
-#include "resistor.h"
 #include "ecsevensegment.h"
 #include "ecsignallamp.h"
-#include "variablecapacitor.h"
-#include "variableresistor.h"
 #include "ecvoltagesignal.h"
 #include "ecvoltagesource.h"
+#include "led.h"
+#include "ledbargraphdisplay.h"
+#include "resistor.h"
+#include "variablecapacitor.h"
+#include "variableresistor.h"
 
-
-//END Item includes
-
+// END Item includes
 
 KLocalizedString ItemLibrary::m_emptyItemDescription = ki18n("This help item does not yet exist for the %1 language. Help out with KTechlab by creating one via the \"Edit\" button.");
 
-
 ItemLibrary::ItemLibrary()
 {
-	addFlowParts();
-	addComponents();
-	addMechanics();
-	addDrawParts();
+    addFlowParts();
+    addComponents();
+    addMechanics();
+    addDrawParts();
 
-	loadItemDescriptions();
+    loadItemDescriptions();
 }
-
 
 ItemLibrary::~ItemLibrary()
 {
-// 	qDebug() << "m_itemDescriptions[\"en_US\"].size()="<<m_itemDescriptions["en_US"].size()<<endl;
+    // 	qDebug() << "m_itemDescriptions[\"en_US\"].size()="<<m_itemDescriptions["en_US"].size()<<endl;
 
-	const LibraryItemList::iterator end = m_items.end();
-	for ( LibraryItemList::iterator it = m_items.begin(); it != end; ++it )
-	{
-		delete *it;
-	}
-	m_items.clear();
+    const LibraryItemList::iterator end = m_items.end();
+    for (LibraryItemList::iterator it = m_items.begin(); it != end; ++it) {
+        delete *it;
+    }
+    m_items.clear();
 }
-
 
 void ItemLibrary::addFlowParts()
 {
-	// Container loops
-	addLibraryItem( Repeat::libraryItem() );
-	addLibraryItem( While::libraryItem() );
-	addLibraryItem( ForLoop::libraryItem() );
+    // Container loops
+    addLibraryItem(Repeat::libraryItem());
+    addLibraryItem(While::libraryItem());
+    addLibraryItem(ForLoop::libraryItem());
 
-	// Variable operations
-	addLibraryItem( Unary::libraryItem() );
-	addLibraryItem( VarAssignment::libraryItem() );
-	addLibraryItem( VarComparison::libraryItem() );
+    // Variable operations
+    addLibraryItem(Unary::libraryItem());
+    addLibraryItem(VarAssignment::libraryItem());
+    addLibraryItem(VarComparison::libraryItem());
 
-	// I/O
-	addLibraryItem( SetPin::libraryItem() );
-	addLibraryItem( TestPin::libraryItem() );
-	addLibraryItem( WritePort::libraryItem() );
-	addLibraryItem( ReadPort::libraryItem() );
+    // I/O
+    addLibraryItem(SetPin::libraryItem());
+    addLibraryItem(TestPin::libraryItem());
+    addLibraryItem(WritePort::libraryItem());
+    addLibraryItem(ReadPort::libraryItem());
 
-	// Functions
-	addLibraryItem( SevenSeg::libraryItem() );
-// 	addLibraryItem( Pulse::libraryItem() );
-	addLibraryItem( Keypad::libraryItem() );
-// 	addLibraryItem( Count::libraryItem() );
-// 	addLibraryItem( InputButton::libraryItem() );
-	addLibraryItem( Delay::libraryItem() );
+    // Functions
+    addLibraryItem(SevenSeg::libraryItem());
+    // 	addLibraryItem( Pulse::libraryItem() );
+    addLibraryItem(Keypad::libraryItem());
+    // 	addLibraryItem( Count::libraryItem() );
+    // 	addLibraryItem( InputButton::libraryItem() );
+    addLibraryItem(Delay::libraryItem());
 
-	// Common
-	addLibraryItem( Embed::libraryItem() );
-	addLibraryItem( CallSub::libraryItem() );
-//  	addLibraryItem( Interrupt::libraryItem() );
-	addLibraryItem( Sub::libraryItem() );
-	addLibraryItem( End::libraryItem() );
-	addLibraryItem( Start::libraryItem() );
+    // Common
+    addLibraryItem(Embed::libraryItem());
+    addLibraryItem(CallSub::libraryItem());
+    //  	addLibraryItem( Interrupt::libraryItem() );
+    addLibraryItem(Sub::libraryItem());
+    addLibraryItem(End::libraryItem());
+    addLibraryItem(Start::libraryItem());
 }
-
 
 void ItemLibrary::addComponents()
 {
-	// Integrated Circuits
-	addLibraryItem( ECBCDTo7Segment::libraryItem() );
-	addLibraryItem( MatrixDisplayDriver::libraryItem() );
-	addLibraryItem( BinaryCounter::libraryItem() );
-	addLibraryItem( DAC::libraryItem() );
-	addLibraryItem( ADC::libraryItem() );
-	addLibraryItem( ECOpAmp::libraryItem() );
-	addLibraryItem( MagnitudeComparator::libraryItem() );
-	addLibraryItem( Demultiplexer::libraryItem() );
-	addLibraryItem( Multiplexer::libraryItem() );
-	addLibraryItem( FullAdder::libraryItem() );
-	addLibraryItem( RAM::libraryItem() );
-	addLibraryItem( EC555::libraryItem() );
-	addLibraryItem( ECDFlipFlop::libraryItem() );
-	addLibraryItem( ECSRFlipFlop::libraryItem() );
-	addLibraryItem( ECJKFlipFlop::libraryItem() );
+    // Integrated Circuits
+    addLibraryItem(ECBCDTo7Segment::libraryItem());
+    addLibraryItem(MatrixDisplayDriver::libraryItem());
+    addLibraryItem(BinaryCounter::libraryItem());
+    addLibraryItem(DAC::libraryItem());
+    addLibraryItem(ADC::libraryItem());
+    addLibraryItem(ECOpAmp::libraryItem());
+    addLibraryItem(MagnitudeComparator::libraryItem());
+    addLibraryItem(Demultiplexer::libraryItem());
+    addLibraryItem(Multiplexer::libraryItem());
+    addLibraryItem(FullAdder::libraryItem());
+    addLibraryItem(RAM::libraryItem());
+    addLibraryItem(EC555::libraryItem());
+    addLibraryItem(ECDFlipFlop::libraryItem());
+    addLibraryItem(ECSRFlipFlop::libraryItem());
+    addLibraryItem(ECJKFlipFlop::libraryItem());
 #ifndef NO_GPSIM
-	addLibraryItem( PICComponent::libraryItem() );
+    addLibraryItem(PICComponent::libraryItem());
 #endif
 
-	// Connections
-	addLibraryItem( ParallelPortComponent::libraryItem() );
-	addLibraryItem( SerialPortComponent::libraryItem() );
-	addLibraryItem( ExternalConnection::libraryItem() );
-	addLibraryItem( BusSplitter::libraryItem() );
+    // Connections
+    addLibraryItem(ParallelPortComponent::libraryItem());
+    addLibraryItem(SerialPortComponent::libraryItem());
+    addLibraryItem(ExternalConnection::libraryItem());
+    addLibraryItem(BusSplitter::libraryItem());
 
-	// Logic
-	addLibraryItem( ECXnor::libraryItem() );
-	addLibraryItem( ECXor::libraryItem() );
-	addLibraryItem( ECNor::libraryItem() );
-	addLibraryItem( ECOr::libraryItem() );
-	addLibraryItem( ECNand::libraryItem() );
-	addLibraryItem( ECAnd::libraryItem() );
-	addLibraryItem( Inverter::libraryItem() );
-	addLibraryItem( Buffer::libraryItem() );
-	addLibraryItem( ECClockInput::libraryItem() );
-	addLibraryItem( ECLogicOutput::libraryItem() );
-	addLibraryItem( ECLogicInput::libraryItem() );
+    // Logic
+    addLibraryItem(ECXnor::libraryItem());
+    addLibraryItem(ECXor::libraryItem());
+    addLibraryItem(ECNor::libraryItem());
+    addLibraryItem(ECOr::libraryItem());
+    addLibraryItem(ECNand::libraryItem());
+    addLibraryItem(ECAnd::libraryItem());
+    addLibraryItem(Inverter::libraryItem());
+    addLibraryItem(Buffer::libraryItem());
+    addLibraryItem(ECClockInput::libraryItem());
+    addLibraryItem(ECLogicOutput::libraryItem());
+    addLibraryItem(ECLogicInput::libraryItem());
 
-	// Outputs
-// 	addLibraryItem( FrequencyMeter::libraryItem() );
-	addLibraryItem( CurrentProbe::libraryItem() );
-	addLibraryItem( VoltageProbe::libraryItem() );
-	addLibraryItem( LogicProbe::libraryItem() );
-	addLibraryItem( ECAmmeter::libraryItem() );
-	addLibraryItem( ECVoltMeter::libraryItem() );
-	addLibraryItem( LEDBarGraphDisplay::libraryItem() );
-	addLibraryItem( MatrixDisplay::libraryItem() );
-	addLibraryItem( ECSevenSegment::libraryItem() );
-	addLibraryItem( BiDirLED::libraryItem() );
-	addLibraryItem( ECSignalLamp::libraryItem() );
-	addLibraryItem( LED::libraryItem() );
+    // Outputs
+    // 	addLibraryItem( FrequencyMeter::libraryItem() );
+    addLibraryItem(CurrentProbe::libraryItem());
+    addLibraryItem(VoltageProbe::libraryItem());
+    addLibraryItem(LogicProbe::libraryItem());
+    addLibraryItem(ECAmmeter::libraryItem());
+    addLibraryItem(ECVoltMeter::libraryItem());
+    addLibraryItem(LEDBarGraphDisplay::libraryItem());
+    addLibraryItem(MatrixDisplay::libraryItem());
+    addLibraryItem(ECSevenSegment::libraryItem());
+    addLibraryItem(BiDirLED::libraryItem());
+    addLibraryItem(ECSignalLamp::libraryItem());
+    addLibraryItem(LED::libraryItem());
 
-	// Switches
-	addLibraryItem( ECRotoSwitch::libraryItem() );
-	addLibraryItem( ECDPDT::libraryItem() );
-	addLibraryItem( ECSPDT::libraryItem() );
-	addLibraryItem( ECDPST::libraryItem() );
-	addLibraryItem( ECSPST::libraryItem() );
-	addLibraryItem( ECKeyPad::libraryItem() );
-	addLibraryItem( ECPTBSwitch::libraryItem() );
-	addLibraryItem( ECPTMSwitch::libraryItem() );
+    // Switches
+    addLibraryItem(ECRotoSwitch::libraryItem());
+    addLibraryItem(ECDPDT::libraryItem());
+    addLibraryItem(ECSPDT::libraryItem());
+    addLibraryItem(ECDPST::libraryItem());
+    addLibraryItem(ECSPST::libraryItem());
+    addLibraryItem(ECKeyPad::libraryItem());
+    addLibraryItem(ECPTBSwitch::libraryItem());
+    addLibraryItem(ECPTMSwitch::libraryItem());
 
-	// Nonlinear
-// 	addLibraryItem( ECMOSFET::libraryItemPDM() );
-// 	addLibraryItem( ECMOSFET::libraryItemNDM() );
-	addLibraryItem( ECMOSFET::libraryItemPEM() );
-	addLibraryItem( ECMOSFET::libraryItemNEM() );
-	addLibraryItem( ECJFET::libraryItemPJFET() );
-	addLibraryItem( ECJFET::libraryItemNJFET() );
-	addLibraryItem( ECBJT::libraryItemPNP() );
-	addLibraryItem( ECBJT::libraryItemNPN() );
-	addLibraryItem( ECDiode::libraryItem() );
+    // Nonlinear
+    // 	addLibraryItem( ECMOSFET::libraryItemPDM() );
+    // 	addLibraryItem( ECMOSFET::libraryItemNDM() );
+    addLibraryItem(ECMOSFET::libraryItemPEM());
+    addLibraryItem(ECMOSFET::libraryItemNEM());
+    addLibraryItem(ECJFET::libraryItemPJFET());
+    addLibraryItem(ECJFET::libraryItemNJFET());
+    addLibraryItem(ECBJT::libraryItemPNP());
+    addLibraryItem(ECBJT::libraryItemNPN());
+    addLibraryItem(ECDiode::libraryItem());
 
-	// Discrete
-//	addLibraryItem( VoltageRegulator::libraryItem() );
-	addLibraryItem( VariableResistor::libraryItem() );
-	addLibraryItem( VariableCapacitor::libraryItem() );
-	addLibraryItem( ECPotentiometer::libraryItem() );
-	addLibraryItem( ResistorDIP::libraryItem() );
-	addLibraryItem( Inductor::libraryItem() );
-	addLibraryItem( Capacitor::libraryItem() );
-	addLibraryItem( Resistor::libraryItem() );
+    // Discrete
+    //	addLibraryItem( VoltageRegulator::libraryItem() );
+    addLibraryItem(VariableResistor::libraryItem());
+    addLibraryItem(VariableCapacitor::libraryItem());
+    addLibraryItem(ECPotentiometer::libraryItem());
+    addLibraryItem(ResistorDIP::libraryItem());
+    addLibraryItem(Inductor::libraryItem());
+    addLibraryItem(Capacitor::libraryItem());
+    addLibraryItem(Resistor::libraryItem());
 
-	// Dependent Sources
-	addLibraryItem( ECVCVS::libraryItem() );
-	addLibraryItem( ECVCCS::libraryItem() );
-	addLibraryItem( ECCCVS::libraryItem() );
-	addLibraryItem( ECCCCS::libraryItem() );
+    // Dependent Sources
+    addLibraryItem(ECVCVS::libraryItem());
+    addLibraryItem(ECVCCS::libraryItem());
+    addLibraryItem(ECCCVS::libraryItem());
+    addLibraryItem(ECCCCS::libraryItem());
 
-	// Independent Sources
-	addLibraryItem( ECCurrentSignal::libraryItem() );
-	addLibraryItem( ECVoltageSignal::libraryItem() );
-	addLibraryItem( ECCurrentSource::libraryItem() );
-	addLibraryItem( ECGround::libraryItem() );
-	addLibraryItem( ECFixedVoltage::libraryItem() );
-	addLibraryItem( ECCell::libraryItem() );
+    // Independent Sources
+    addLibraryItem(ECCurrentSignal::libraryItem());
+    addLibraryItem(ECVoltageSignal::libraryItem());
+    addLibraryItem(ECCurrentSource::libraryItem());
+    addLibraryItem(ECGround::libraryItem());
+    addLibraryItem(ECFixedVoltage::libraryItem());
+    addLibraryItem(ECCell::libraryItem());
 
-	// Other
-	addLibraryItem( ECSubcircuit::libraryItem() );
-	addLibraryItem( PIC_IC::libraryItem() );
+    // Other
+    addLibraryItem(ECSubcircuit::libraryItem());
+    addLibraryItem(PIC_IC::libraryItem());
 }
-
 
 void ItemLibrary::addDrawParts()
 {
-	addLibraryItem( DPImage::libraryItem() );
-	addLibraryItem( DPText::libraryItem() );
-	addLibraryItem( DPLine::libraryItem() );
-	addLibraryItem( DPArrow::libraryItem() );
-	addLibraryItem( DPRectangle::libraryItem() );
-	addLibraryItem( DPEllipse::libraryItem() );
+    addLibraryItem(DPImage::libraryItem());
+    addLibraryItem(DPText::libraryItem());
+    addLibraryItem(DPLine::libraryItem());
+    addLibraryItem(DPArrow::libraryItem());
+    addLibraryItem(DPRectangle::libraryItem());
+    addLibraryItem(DPEllipse::libraryItem());
 }
-
 
 void ItemLibrary::addMechanics()
 {
 #ifdef MECHANICS
-	addLibraryItem( ChassisCircular2::libraryItem() );
+    addLibraryItem(ChassisCircular2::libraryItem());
 #endif
 }
 
-
-void ItemLibrary::addLibraryItem( LibraryItem *item )
+void ItemLibrary::addLibraryItem(LibraryItem *item)
 {
-	m_items.prepend(item);
+    m_items.prepend(item);
 }
 
-
-LibraryItem * ItemLibrary::libraryItem( QString type ) const
+LibraryItem *ItemLibrary::libraryItem(QString type) const
 {
-	if ( type.startsWith(QString::fromLatin1("/")) )
-	{
-		// Possibly change e.g. "/ec/capacitor" to "ec/capacitor"
-		type.remove( 0, 1 );
-	}
+    if (type.startsWith(QString::fromLatin1("/"))) {
+        // Possibly change e.g. "/ec/capacitor" to "ec/capacitor"
+        type.remove(0, 1);
+    }
 
-	LibraryItemList::const_iterator end = m_items.end();
-	LibraryItemList::const_iterator it = m_items.begin();
-	for ( ; it != end; ++it )
-	{
-		if ( (*it)->allIDs().contains( type ) )
-			return *it;
-	}
-	return nullptr;
+    LibraryItemList::const_iterator end = m_items.end();
+    LibraryItemList::const_iterator it = m_items.begin();
+    for (; it != end; ++it) {
+        if ((*it)->allIDs().contains(type))
+            return *it;
+    }
+    return nullptr;
 }
 
-
-Item * ItemLibrary::createItem( const QString &id, ItemDocument *itemDocument, bool newItem, const char *newId, bool finishCreation  )
+Item *ItemLibrary::createItem(const QString &id, ItemDocument *itemDocument, bool newItem, const char *newId, bool finishCreation)
 {
-	Item *item = nullptr;
-	if ( id.startsWith(QString::fromLatin1("sc/")) )
-	{
-		// Is a subcircuit...
+    Item *item = nullptr;
+    if (id.startsWith(QString::fromLatin1("sc/"))) {
+        // Is a subcircuit...
 
-		CircuitDocument *circuitDocument = dynamic_cast<CircuitDocument*>(itemDocument);
-		if (!circuitDocument)
-		{
-			qWarning() << "Cannot create subcircuit without a circuit document" << endl;
-			return nullptr;
-		}
+        CircuitDocument *circuitDocument = dynamic_cast<CircuitDocument *>(itemDocument);
+        if (!circuitDocument) {
+            qWarning() << "Cannot create subcircuit without a circuit document" << endl;
+            return nullptr;
+        }
 
-		QString temp = id;
-		int numId = temp.remove(QString::fromLatin1("sc/")).toInt();
+        QString temp = id;
+        int numId = temp.remove(QString::fromLatin1("sc/")).toInt();
 
-		item = subcircuits()->createSubcircuit( numId,  circuitDocument, newItem, newId );
-	} else {
-		LibraryItem * li = libraryItem( id );
+        item = subcircuits()->createSubcircuit(numId, circuitDocument, newItem, newId);
+    } else {
+        LibraryItem *li = libraryItem(id);
 
-		if ( !li )
-			qWarning() << "Could not find the item constructor for id " << id << endl;
-		else {
-			item = li->createItemFnPtr()( itemDocument, newItem, newId );
-			item->m_type = li->activeID();
-		}
-	}
+        if (!li)
+            qWarning() << "Could not find the item constructor for id " << id << endl;
+        else {
+            item = li->createItemFnPtr()(itemDocument, newItem, newId);
+            item->m_type = li->activeID();
+        }
+    }
 
-	if ( finishCreation && item )
-		item->finishedCreation();
+    if (finishCreation && item)
+        item->finishedCreation();
 
-	return item;
+    return item;
 }
 
-
-QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
+QImage ItemLibrary::componentImage(Component *component, const uint maxSize)
 {
-	// Default orientation for painting
-	const int angleDegrees = component->angleDegrees();
-	const bool flipped = component->flipped();
-	component->setAngleDegrees( 0 );
-	component->setFlipped( false );
+    // Default orientation for painting
+    const int angleDegrees = component->angleDegrees();
+    const bool flipped = component->flipped();
+    component->setAngleDegrees(0);
+    component->setFlipped(false);
 
-	QRect bound = component->boundingRect().normalized();
-	bound.setLeft( bound.left()-8 );
-	bound.setRight( bound.right()+8 );
-	bound.setTop( bound.top()-8 );
-	bound.setBottom( bound.bottom()+8 );
+    QRect bound = component->boundingRect().normalized();
+    bound.setLeft(bound.left() - 8);
+    bound.setRight(bound.right() + 8);
+    bound.setTop(bound.top() - 8);
+    bound.setBottom(bound.bottom() + 8);
 
-	// We want a nice square bounding rect
-	const int dy = bound.width() - bound.height();
-	if ( dy > 0 ) {
-		bound.setTop( bound.top()-(dy/2) );
-		bound.setBottom( bound.bottom()+(dy/2) );
-	} else if ( dy < 0 ) {
-		bound.setLeft( bound.left()+(dy/2) );
-		bound.setRight( bound.right()-(dy/2) );
-	}
+    // We want a nice square bounding rect
+    const int dy = bound.width() - bound.height();
+    if (dy > 0) {
+        bound.setTop(bound.top() - (dy / 2));
+        bound.setBottom(bound.bottom() + (dy / 2));
+    } else if (dy < 0) {
+        bound.setLeft(bound.left() + (dy / 2));
+        bound.setRight(bound.right() - (dy / 2));
+    }
 
-	const bool cache = ((bound.width()*bound.height()) > (int)maxSize);
-	QString type;
-	if ( cache && m_imageMap.contains(component->type()) )
-		return m_imageMap[component->type()];
+    const bool cache = ((bound.width() * bound.height()) > (int)maxSize);
+    QString type;
+    if (cache && m_imageMap.contains(component->type()))
+        return m_imageMap[component->type()];
 
-	// Create pixmap big enough to contain CNItem and surrounding nodes
-	// and copy the button grab to it
+    // Create pixmap big enough to contain CNItem and surrounding nodes
+    // and copy the button grab to it
 
-	QPixmap pm( bound.size() );
+    QPixmap pm(bound.size());
 
-	QBitmap mask( bound.size() );
-	mask.fill( Qt::color0 );
+    QBitmap mask(bound.size());
+    mask.fill(Qt::color0);
 
-	//QPainter maskPainter(&mask); // 2016.05.03 - initialize painter explicitly
+    // QPainter maskPainter(&mask); // 2016.05.03 - initialize painter explicitly
     QPainter maskPainter;
     {
         const bool isSuccess = maskPainter.begin(&mask);
@@ -426,304 +408,280 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
             qWarning() << Q_FUNC_INFO << " painter not active at line " << __LINE__;
         }
     }
-	maskPainter.translate( -bound.x(), -bound.y() );
-	maskPainter.setPen( Qt::color1 );
-	maskPainter.setBrush( Qt::color1 );
+    maskPainter.translate(-bound.x(), -bound.y());
+    maskPainter.setPen(Qt::color1);
+    maskPainter.setBrush(Qt::color1);
 
-    //BEGIN painting on the pixmap
+    // BEGIN painting on the pixmap
     {
-	//QPainter p(&pm); // 2016.05.03 - initialize painter explicitly
-    QPainter p;
-    const bool isBeginSuccess = p.begin(&pm);
-    if (!isBeginSuccess) {
-        qWarning() << Q_FUNC_INFO << " painter not active at line " << __LINE__;
+        // QPainter p(&pm); // 2016.05.03 - initialize painter explicitly
+        QPainter p;
+        const bool isBeginSuccess = p.begin(&pm);
+        if (!isBeginSuccess) {
+            qWarning() << Q_FUNC_INFO << " painter not active at line " << __LINE__;
+        }
+        p.translate(-bound.x(), -bound.y());
+        p.setPen(component->pen());
+        p.setBrush(component->brush());
+
+        // BEGIN Draw the component
+        const bool sel = component->isSelected();
+
+        if (sel) {
+            // We block the signals as we end up in an infinite loop with component emitting a selected signal
+            component->blockSignals(true);
+            component->setSelected(false);
+            component->blockSignals(false);
+        }
+
+        component->drawShape(p);
+        component->drawShape(maskPainter);
+
+        if (sel) {
+            component->blockSignals(true);
+            component->setSelected(sel);
+            component->blockSignals(false);
+        }
+        // END Draw the component
+
+        maskPainter.setPen(Qt::color1);
+        maskPainter.setBrush(Qt::color1);
+
+        QMatrix transMatrix; // Matrix to apply to the image
+
+        NodeInfoMap nodes = component->nodeMap();
+        const NodeInfoMap::iterator nodesEnd = nodes.end();
+        for (NodeInfoMap::iterator it = nodes.begin(); it != nodesEnd; ++it) {
+            Node *node = it.value().node;
+            const bool sel = node->isSelected();
+            if (sel)
+                node->setSelected(false);
+            if (ECNode *ecnode = dynamic_cast<ECNode *>(node)) {
+                bool showVB = ecnode->showVoltageBars();
+                bool showVC = ecnode->showVoltageColor();
+
+                ecnode->setShowVoltageBars(false);
+                ecnode->setShowVoltageColor(false);
+
+                ecnode->drawShape(p);
+                ecnode->drawShape(maskPainter);
+
+                ecnode->setShowVoltageBars(showVB);
+                ecnode->setShowVoltageColor(showVC);
+            } else {
+                node->drawShape(p);
+                node->drawShape(maskPainter);
+            }
+
+            if (sel)
+                node->setSelected(sel);
+        }
+
+        p.setPen(Qt::black);
+        TextMap text = component->textMap();
+        const TextMap::iterator textEnd = text.end();
+        for (TextMap::iterator it = text.begin(); it != textEnd; ++it) {
+            it.value()->drawShape(p);
+            it.value()->drawShape(maskPainter);
+        }
+
+        // 	maskPainter.setPen( Qt::color1 );
+        // 	maskPainter.setBrush( Qt::color1 );
+        component->drawWidgets(p);
+        // 	component->drawWidgets(maskPainter);
     }
-	p.translate( -bound.x(), -bound.y() );
-	p.setPen( component->pen() );
-	p.setBrush( component->brush() );
+    // END painting on the pixmap
 
-	//BEGIN Draw the component
-	const bool sel = component->isSelected();
+    pm.setMask(mask); // pm needs not to have active painters on it
 
-	if (sel) {
-		// We block the signals as we end up in an infinite loop with component emitting a selected signal
-		component->blockSignals(true);
-		component->setSelected(false);
-		component->blockSignals(false);
-	}
+    // Now, rotate the image so that it's the right way up, and scale it to size
+    QImage im = pm.toImage();
+    // im = im.smoothScale( 50, 50, Qt::ScaleMin ); //2018.12.01
+    im = im.scaled(QSize(50, 50), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
-	component->drawShape(p);
-	component->drawShape(maskPainter);
+    if (cache)
+        m_imageMap[component->type()] = im;
 
-	if (sel) {
-		component->blockSignals(true);
-		component->setSelected(sel);
-		component->blockSignals(false);
-	}
-	//END Draw the component
+    // Restore original orientation
+    component->setAngleDegrees(angleDegrees);
+    component->setFlipped(flipped);
 
-	maskPainter.setPen( Qt::color1 );
-	maskPainter.setBrush( Qt::color1 );
+    return im;
+}
 
-	QMatrix transMatrix; // Matrix to apply to the image
-
-
-	NodeInfoMap nodes = component->nodeMap();
-	const NodeInfoMap::iterator nodesEnd = nodes.end();
-	for ( NodeInfoMap::iterator it = nodes.begin(); it != nodesEnd; ++it )
-	{
-		Node *node = it.value().node;
-		const bool sel = node->isSelected();
-		if (sel)
-			node->setSelected(false);
-		if ( ECNode *ecnode = dynamic_cast<ECNode*>(node)  )
-		{
-			bool showVB = ecnode->showVoltageBars();
-			bool showVC = ecnode->showVoltageColor();
-
-			ecnode->setShowVoltageBars( false );
-			ecnode->setShowVoltageColor( false );
-
-			ecnode->drawShape(p);
-			ecnode->drawShape( maskPainter );
-
-			ecnode->setShowVoltageBars( showVB );
-			ecnode->setShowVoltageColor( showVC );
-		} else {
-			node->drawShape(p);
-			node->drawShape(maskPainter);
-		}
-
-		if (sel) node->setSelected(sel);
-	}
-
-	p.setPen(Qt::black);
-	TextMap text = component->textMap();
-	const TextMap::iterator textEnd = text.end();
-	for ( TextMap::iterator it = text.begin(); it != textEnd; ++it )
-	{
-		it.value()->drawShape(p);
-		it.value()->drawShape(maskPainter);
-	}
-
-// 	maskPainter.setPen( Qt::color1 );
-// 	maskPainter.setBrush( Qt::color1 );
-	component->drawWidgets(p);
-// 	component->drawWidgets(maskPainter);
+QPixmap ItemLibrary::itemIconFull(const QString &id)
+{
+    LibraryItemList::iterator end = m_items.end();
+    for (LibraryItemList::iterator it = m_items.begin(); it != end; ++it) {
+        if (*it && (*it)->allIDs().contains(id)) {
+            return (*it)->iconFull();
+        }
     }
-    //END painting on the pixmap
-
-	pm.setMask(mask); // pm needs not to have active painters on it
-
-	// Now, rotate the image so that it's the right way up, and scale it to size
-	QImage im = pm.toImage();
-	//im = im.smoothScale( 50, 50, Qt::ScaleMin ); //2018.12.01
-    im = im.scaled( QSize( 50, 50 ), Qt::KeepAspectRatio, Qt::SmoothTransformation );
-
-	if (cache)
-		m_imageMap[component->type()] = im;
-
-	// Restore original orientation
-	component->setAngleDegrees( angleDegrees );
-	component->setFlipped( flipped );
-
-	return im;
+    return QPixmap();
 }
 
-QPixmap ItemLibrary::itemIconFull( const QString &id )
+bool ItemLibrary::saveDescriptions(const QString &languageCode)
 {
-	LibraryItemList::iterator end = m_items.end();
-	for ( LibraryItemList::iterator it = m_items.begin(); it != end; ++it )
-	{
-		if ( *it && (*it)->allIDs().contains(id) )
-		{
-			return (*it)->iconFull();
-		}
-	}
-	return QPixmap();
+    QString url = itemDescriptionsFile(languageCode);
+
+    QFile file(url);
+    if (!file.open(QIODevice::WriteOnly)) {
+        KMessageBox::sorry(nullptr, i18n("Could not open item descriptions file \"%1\" for writing.", url));
+        return false;
+    }
+
+    QTextStream stream(&file);
+
+    const QStringMap itemDescriptions = m_itemDescriptions[languageCode];
+    for (auto descIt = itemDescriptions.begin(), end = itemDescriptions.end(); descIt != end; ++descIt) {
+        stream << QString::fromLatin1("<!-- item: %1 -->\n").arg(descIt.key());
+        stream << descIt.value() << endl;
+    }
+
+    file.close();
+
+    return true;
 }
 
-
-bool ItemLibrary::saveDescriptions( const QString & languageCode )
+bool ItemLibrary::haveDescription(QString type, const QString &languageCode) const
 {
-	QString url = itemDescriptionsFile( languageCode );
+    if (type.startsWith(QString::fromLatin1("/"))) {
+        // Possibly change e.g. "/ec/capacitor" to "ec/capacitor"
+        type.remove(0, 1);
+    }
 
-	QFile file( url );
-	if ( !file.open( QIODevice::WriteOnly ) )
-	{
-		KMessageBox::sorry( nullptr, i18n("Could not open item descriptions file \"%1\" for writing.", url) );
-		return false;
-	}
+    if (!m_itemDescriptions[languageCode].contains(type)) {
+        return libraryItem(type);
+    }
 
-	QTextStream stream( & file );
-
-	const QStringMap itemDescriptions = m_itemDescriptions[ languageCode ];
-	for (auto descIt = itemDescriptions.begin(), end = itemDescriptions.end(); descIt != end; ++descIt) {
-		stream << QString::fromLatin1("<!-- item: %1 -->\n").arg( descIt.key() );
-		stream << descIt.value() << endl;
-	}
-
-	file.close();
-
-	return true;
+    return !m_itemDescriptions[languageCode][type].isEmpty();
 }
 
-
-bool ItemLibrary::haveDescription( QString type, const QString & languageCode ) const
+QString ItemLibrary::description(QString type, const QString &languageCode) const
 {
-	if ( type.startsWith(QString::fromLatin1("/")) )
-	{
-		// Possibly change e.g. "/ec/capacitor" to "ec/capacitor"
-		type.remove( 0, 1 );
-	}
+    if (type.startsWith(QString::fromLatin1("/"))) {
+        // Possibly change e.g. "/ec/capacitor" to "ec/capacitor"
+        type.remove(0, 1);
+    }
 
-	if ( !m_itemDescriptions[ languageCode ].contains( type ) )
-	{
-		return libraryItem( type );
-	}
+    QString current = m_itemDescriptions[languageCode][type];
 
-	return ! m_itemDescriptions[ languageCode ][ type ].isEmpty();
+    if (current.isEmpty()) {
+        // Try english-language description
+        current = m_itemDescriptions[QString::fromLatin1("en_US")][type];
+        if (current.isEmpty())
+            return emptyItemDescription(languageCode);
+    }
+
+    return current;
 }
-
-
-QString ItemLibrary::description( QString type, const QString & languageCode ) const
-{
-	if ( type.startsWith(QString::fromLatin1("/")) )
-	{
-		// Possibly change e.g. "/ec/capacitor" to "ec/capacitor"
-		type.remove( 0, 1 );
-	}
-
-	QString current = m_itemDescriptions[ languageCode ][ type ];
-
-	if ( current.isEmpty() )
-	{
-		// Try english-language description
-		current = m_itemDescriptions[ QString::fromLatin1("en_US") ][ type ];
-		if ( current.isEmpty() )
-			return emptyItemDescription( languageCode );
-	}
-
-	return current;
-}
-
 
 QString ItemLibrary::emptyItemDescription(const QString &languageCode) const
 {
-	//return m_emptyItemDescription.arg( KGlobal::locale()->twoAlphaToLanguageName( language ) );
+    // return m_emptyItemDescription.arg( KGlobal::locale()->twoAlphaToLanguageName( language ) );
     return m_emptyItemDescription.subs(QLocale(languageCode).nativeLanguageName()).toString();
 }
 
-
-bool ItemLibrary::setDescription(QString type, const QString & description, const QString & languageCode)
+bool ItemLibrary::setDescription(QString type, const QString &description, const QString &languageCode)
 {
-	if ( type.startsWith(QString::fromLatin1("/")) )
-	{
-		// Possibly change e.g. "/ec/capacitor" to "ec/capacitor"
-		type.remove( 0, 1 );
-	}
+    if (type.startsWith(QString::fromLatin1("/"))) {
+        // Possibly change e.g. "/ec/capacitor" to "ec/capacitor"
+        type.remove(0, 1);
+    }
 
-	m_itemDescriptions[ languageCode ][ type ] = description;
-	return saveDescriptions( languageCode );
+    m_itemDescriptions[languageCode][type] = description;
+    return saveDescriptions(languageCode);
 }
 
-
-void ItemLibrary::setItemDescriptionsDirectory( QString dir )
+void ItemLibrary::setItemDescriptionsDirectory(QString dir)
 {
-	if ( !dir.isEmpty() && !dir.endsWith(QString::fromLatin1("/")) )
-		dir += QString::fromLatin1("/");
+    if (!dir.isEmpty() && !dir.endsWith(QString::fromLatin1("/")))
+        dir += QString::fromLatin1("/");
 
-	KSharedConfigPtr conf = KSharedConfig::openConfig();
-	//QString prevGroup = conf->group();
+    KSharedConfigPtr conf = KSharedConfig::openConfig();
+    // QString prevGroup = conf->group();
 
-	KConfigGroup grGen = conf->group("General");
-	grGen.writePathEntry( "ItemDescriptionsDirectory", dir );
-	//conf->setGroup( prevGroup );
+    KConfigGroup grGen = conf->group("General");
+    grGen.writePathEntry("ItemDescriptionsDirectory", dir);
+    // conf->setGroup( prevGroup );
 }
-
 
 QString ItemLibrary::itemDescriptionsDirectory() const
 {
-	KSharedConfigPtr conf = KSharedConfig::openConfig();
-	//QString prevGroup = conf->group();
+    KSharedConfigPtr conf = KSharedConfig::openConfig();
+    // QString prevGroup = conf->group();
 
-	KConfigGroup grGen = conf->group("General");
-	QString dir = grGen.readPathEntry( "ItemDescriptionsDirectory", QStandardPaths::locate( QStandardPaths::AppDataLocation, "contexthelp/", QStandardPaths::LocateDirectory) );
-	//conf->setGroup( prevGroup );
+    KConfigGroup grGen = conf->group("General");
+    QString dir = grGen.readPathEntry("ItemDescriptionsDirectory", QStandardPaths::locate(QStandardPaths::AppDataLocation, "contexthelp/", QStandardPaths::LocateDirectory));
+    // conf->setGroup( prevGroup );
 
-	if ( !dir.isEmpty() && !dir.endsWith(QString::fromLatin1("/")) )
-		dir += QString::fromLatin1("/");
+    if (!dir.isEmpty() && !dir.endsWith(QString::fromLatin1("/")))
+        dir += QString::fromLatin1("/");
 
-	return dir;
+    return dir;
 }
 
-
-QString ItemLibrary::itemDescriptionsFile( const QString & languageCode) const
+QString ItemLibrary::itemDescriptionsFile(const QString &languageCode) const
 {
-	QString dir( itemDescriptionsDirectory() );
-	if ( dir.isEmpty() )
-		return QString::null;
+    QString dir(itemDescriptionsDirectory());
+    if (dir.isEmpty())
+        return QString::null;
 
-	const QString url = dir + QLatin1String("help-") + languageCode;
+    const QString url = dir + QLatin1String("help-") + languageCode;
 
-	return url;
+    return url;
 }
-
 
 void ItemLibrary::loadItemDescriptions()
 {
-	// Create an entry for the default language (American English)
-	// and the current language
-//     KLocale * locale = KLocale::global();
-// 	m_itemDescriptions[ locale->defaultLanguage() ];
-// 	m_itemDescriptions[ locale->language() ];
-	
-	m_itemDescriptions[QLocale().name()];
+    // Create an entry for the default language (American English)
+    // and the current language
+    //     KLocale * locale = KLocale::global();
+    // 	m_itemDescriptions[ locale->defaultLanguage() ];
+    // 	m_itemDescriptions[ locale->language() ];
 
-	const QStringList languages = descriptionLanguages();
-	QStringList::const_iterator end = languages.end();
-	for ( QStringList::const_iterator it = languages.begin(); it != end; ++it )
-	{
-		QString url = itemDescriptionsFile( *it );
+    m_itemDescriptions[QLocale().name()];
 
-		QFile file( url );
-		if ( !file.open( QIODevice::ReadOnly ) )
-		{
-			qWarning() << Q_FUNC_INFO << "Could not open file \"" << url << "\"" << endl;
-			continue;
-		}
+    const QStringList languages = descriptionLanguages();
+    QStringList::const_iterator end = languages.end();
+    for (QStringList::const_iterator it = languages.begin(); it != end; ++it) {
+        QString url = itemDescriptionsFile(*it);
 
-		QTextStream stream( & file );
+        QFile file(url);
+        if (!file.open(QIODevice::ReadOnly)) {
+            qWarning() << Q_FUNC_INFO << "Could not open file \"" << url << "\"" << endl;
+            continue;
+        }
 
-		QString type;
-		QString description;
-		while ( !stream.atEnd() )
-		{
-			QString line = stream.readLine();
-			if ( line.startsWith( QString::fromLatin1("<!-- item: ") ) )
-			{
-				// Save the previous description
-				if ( !type.isEmpty() )
-					m_itemDescriptions[ *it ][ type ] = description.trimmed();
+        QTextStream stream(&file);
 
-				line.remove( QString::fromLatin1("<!-- item: ") );
-				line.remove( QString::fromLatin1(" -->") );
+        QString type;
+        QString description;
+        while (!stream.atEnd()) {
+            QString line = stream.readLine();
+            if (line.startsWith(QString::fromLatin1("<!-- item: "))) {
+                // Save the previous description
+                if (!type.isEmpty())
+                    m_itemDescriptions[*it][type] = description.trimmed();
 
-				type = line.trimmed();
-				if ( type.startsWith(QString::fromLatin1("/")) )
-				{
-					// Possibly change e.g. "/ec/capacitor" to "ec/capacitor"
-					type.remove( 0, 1 );
-				}
+                line.remove(QString::fromLatin1("<!-- item: "));
+                line.remove(QString::fromLatin1(" -->"));
 
-				description = QString::null;
-			} else description += line + '\n';
-		}
+                type = line.trimmed();
+                if (type.startsWith(QString::fromLatin1("/"))) {
+                    // Possibly change e.g. "/ec/capacitor" to "ec/capacitor"
+                    type.remove(0, 1);
+                }
 
-		// Save the previous description
-		if ( !type.isEmpty() )
-			m_itemDescriptions[ *it ][ type ] = description.trimmed();
+                description = QString::null;
+            } else
+                description += line + '\n';
+        }
 
-		file.close();
-	}
+        // Save the previous description
+        if (!type.isEmpty())
+            m_itemDescriptions[*it][type] = description.trimmed();
+
+        file.close();
+    }
 }

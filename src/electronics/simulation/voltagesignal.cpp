@@ -8,53 +8,49 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "matrix.h"
 #include "voltagesignal.h"
 #include "elementset.h"
+#include "matrix.h"
 
-VoltageSignal::VoltageSignal( const double delta, const double voltage )
-	: Reactive::Reactive(delta)
+VoltageSignal::VoltageSignal(const double delta, const double voltage)
+    : Reactive::Reactive(delta)
 {
-	m_voltage = voltage;
-	m_numCNodes = 2;
-	m_numCBranches = 1;
+    m_voltage = voltage;
+    m_numCNodes = 2;
+    m_numCBranches = 1;
 }
-
 
 VoltageSignal::~VoltageSignal()
 {
 }
 
-
-void VoltageSignal::setVoltage( const double v )
+void VoltageSignal::setVoltage(const double v)
 {
-	m_voltage = v;
+    m_voltage = v;
 }
 
 void VoltageSignal::add_initial_dc()
 {
-	if (!b_status)
-		return;
-	
-	A_b( 0, 0 ) = -1;
-	A_c( 0, 0 ) = -1;
-	A_b( 1, 0 ) = 1;
-	A_c( 0, 1 ) = 1;
-}
+    if (!b_status)
+        return;
 
+    A_b(0, 0) = -1;
+    A_c(0, 0) = -1;
+    A_b(1, 0) = 1;
+    A_c(0, 1) = 1;
+}
 
 void VoltageSignal::time_step()
 {
-	if (!b_status) return;
-	b_v( 0 ) =  m_voltage*advance(m_delta);
+    if (!b_status)
+        return;
+    b_v(0) = m_voltage * advance(m_delta);
 }
-
 
 void VoltageSignal::updateCurrents()
 {
-	if (!b_status) return;
-	m_cnodeI[1] = p_cbranch[0]->i;
-	m_cnodeI[0] = -m_cnodeI[1];
+    if (!b_status)
+        return;
+    m_cnodeI[1] = p_cbranch[0]->i;
+    m_cnodeI[0] = -m_cnodeI[1];
 }
-
-

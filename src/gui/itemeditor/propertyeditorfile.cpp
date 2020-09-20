@@ -8,45 +8,43 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "iteminterface.h"
 #include "propertyeditorfile.h"
+#include "iteminterface.h"
 #include "property.h"
 
 #include <KLineEdit>
 #include <KLocalizedString>
 
+#include <QCursor>
 #include <QDebug>
 #include <QFileDialog>
-#include <QPushButton>
-#include <QString>
-#include <QPixmap>
-#include <QVariant>
-#include <QResizeEvent>
 #include <QKeyEvent>
 #include <QLabel>
-#include <QCursor>
+#include <QPixmap>
+#include <QPushButton>
+#include <QResizeEvent>
+#include <QString>
+#include <QVariant>
 
-
-PropertyEditorFile::PropertyEditorFile( QWidget * parent, Property * property, const char * name )
-	: PropertySubEditor( parent, property, name )
+PropertyEditorFile::PropertyEditorFile(QWidget *parent, Property *property, const char *name)
+    : PropertySubEditor(parent, property, name)
 {
-	m_lineedit = new KLineEdit(this);
-	m_lineedit->resize(width(), height()-2);
+    m_lineedit = new KLineEdit(this);
+    m_lineedit->resize(width(), height() - 2);
 
-	m_button = new QPushButton(i18n(" ... "), this);
-	m_button->resize(height(), height()-10);
-	m_button->move(width() - m_button->width() -1, 1);
+    m_button = new QPushButton(i18n(" ... "), this);
+    m_button->resize(height(), height() - 10);
+    m_button->move(width() - m_button->width() - 1, 1);
 
-	m_lineedit->setText(property->value().toString());
-	m_lineedit->show();
-	m_button->show();
+    m_lineedit->setText(property->value().toString());
+    m_lineedit->show();
+    m_button->show();
 
-	setWidget(m_lineedit);
+    setWidget(m_lineedit);
 
-	connect( m_button, SIGNAL(clicked()), this, SLOT(selectFile()) );
-	connect( property, SIGNAL(valueChanged( const QString& )), m_lineedit, SLOT(setText(const QString &)) );
+    connect(m_button, SIGNAL(clicked()), this, SLOT(selectFile()));
+    connect(property, SIGNAL(valueChanged(const QString &)), m_lineedit, SLOT(setText(const QString &)));
 }
-
 
 void PropertyEditorFile::selectFile()
 {
@@ -54,31 +52,27 @@ void PropertyEditorFile::selectFile()
     qDebug() << Q_FUNC_INFO << "got QString: " << filePath;
     if (!filePath.isEmpty()) {
         qDebug() << Q_FUNC_INFO << "url is not valid, not setting it";
-		return;
+        return;
     }
 
     m_property->setValue(filePath);
-	ItemInterface::self()->setProperty( m_property );
+    ItemInterface::self()->setProperty(m_property);
 }
-
 
 void PropertyEditorFile::resizeEvent(QResizeEvent *ev)
 {
-	m_lineedit->resize(ev->size());
-	m_button->move(ev->size().width() - m_button->width()-1, 1);
+    m_lineedit->resize(ev->size());
+    m_button->move(ev->size().width() - m_button->width() - 1, 1);
 }
 
-
-bool PropertyEditorFile::eventFilter(QObject* watched, QEvent* e)
+bool PropertyEditorFile::eventFilter(QObject *watched, QEvent *e)
 {
-	if(e->type() == QEvent::KeyPress)
-	{
-		QKeyEvent* ev = static_cast<QKeyEvent*>(e);
-		if((ev->key() == Qt::Key_Enter) || (ev->key()== Qt::Key_Space) || (ev->key() == Qt::Key_Return))
-		{
-			m_button->animateClick();
-			return true;
-		}
-	}
-	return PropertySubEditor::eventFilter(watched, e);
+    if (e->type() == QEvent::KeyPress) {
+        QKeyEvent *ev = static_cast<QKeyEvent *>(e);
+        if ((ev->key() == Qt::Key_Enter) || (ev->key() == Qt::Key_Space) || (ev->key() == Qt::Key_Return)) {
+            m_button->animateClick();
+            return true;
+        }
+    }
+    return PropertySubEditor::eventFilter(watched, e);
 }

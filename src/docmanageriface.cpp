@@ -8,62 +8,58 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "docmanager.h"
 #include "docmanageriface.h"
+#include "docmanager.h"
 #include "document.h"
 
-
-DocManagerIface::DocManagerIface( DocManager * docManager )
-	: DCOPObject( /* TODO "DocumentManager" */ )
+DocManagerIface::DocManagerIface(DocManager *docManager)
+    : DCOPObject(/* TODO "DocumentManager" */)
 {
-	m_pDocManager = docManager;
+    m_pDocManager = docManager;
 }
-
 
 DocManagerIface::~DocManagerIface()
 {
 }
 
-bool DocManagerIface::closeAll( )
+bool DocManagerIface::closeAll()
 {
-	return m_pDocManager->closeAll();
+    return m_pDocManager->closeAll();
 }
 
-DCOPRef DocManagerIface::openURL( const QString & url )
+DCOPRef DocManagerIface::openURL(const QString &url)
 {
-	return docToRef( m_pDocManager->openURL(QUrl(url)) );
+    return docToRef(m_pDocManager->openURL(QUrl(url)));
 }
 
-void DocManagerIface::gotoTextLine( const QString & url, int line )
+void DocManagerIface::gotoTextLine(const QString &url, int line)
 {
-	m_pDocManager->gotoTextLine(QUrl(url), line );
+    m_pDocManager->gotoTextLine(QUrl(url), line);
 }
 
-DCOPRef DocManagerIface::createTextDocument( )
+DCOPRef DocManagerIface::createTextDocument()
 {
-	return docToRef( (Document*)m_pDocManager->createTextDocument() );
+    return docToRef((Document *)m_pDocManager->createTextDocument());
 }
 
-DCOPRef DocManagerIface::createCircuitDocument( )
+DCOPRef DocManagerIface::createCircuitDocument()
 {
-	return docToRef( (Document*)m_pDocManager->createCircuitDocument() );
+    return docToRef((Document *)m_pDocManager->createCircuitDocument());
 }
 
-DCOPRef DocManagerIface::createFlowCodeDocument( )
+DCOPRef DocManagerIface::createFlowCodeDocument()
 {
-	return docToRef( (Document*)m_pDocManager->createFlowCodeDocument() );
+    return docToRef((Document *)m_pDocManager->createFlowCodeDocument());
 }
 
-DCOPRef DocManagerIface::createMechanicsDocument( )
+DCOPRef DocManagerIface::createMechanicsDocument()
 {
-	return docToRef( (Document*)m_pDocManager->createMechanicsDocument() );
+    return docToRef((Document *)m_pDocManager->createMechanicsDocument());
 }
 
-DCOPRef DocManagerIface::docToRef( Document * document )
+DCOPRef DocManagerIface::docToRef(Document *document)
 {
-	if (document)
-		return DCOPRef(); // TODO document->dcopObject());
-	return DCOPRef();
+    if (document)
+        return DCOPRef(); // TODO document->dcopObject());
+    return DCOPRef();
 }
-
-

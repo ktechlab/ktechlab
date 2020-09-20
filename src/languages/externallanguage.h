@@ -26,74 +26,81 @@ class provides functionality for dealing with external processes.
 */
 class ExternalLanguage : public Language
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-	ExternalLanguage( ProcessChain *processChain, const QString &name );
-	~ExternalLanguage() override;
-	
+    ExternalLanguage(ProcessChain *processChain, const QString &name);
+    ~ExternalLanguage() override;
+
 protected slots:
-	void processStdout();
-	void processStderr();
-	void processExited( int, QProcess::ExitStatus );
-	
+    void processStdout();
+    void processStderr();
+    void processExited(int, QProcess::ExitStatus);
+
 protected:
-	/**
-	 * Call this to start the language process. ExternalLanguage will ensure
-	 * that communication et all is properly set up.
-	 * @return true on success, false on error
-	 */
-	bool start();
-	/**
-	 * @returns whether the string outputted to stdout is an error or not
-	 */
-	virtual bool isError( const QString &message ) const = 0;
-	/**
-	 * @returns whether the string outputted to stderr is fatal (stopped compilation)
-	 */
-	virtual bool isStderrOutputFatal( const QString & message ) const { Q_UNUSED(message); return true; }
-	/**
-	 * @returns whether the string outputted to stdout is a warning or not
-	 */
-	virtual bool isWarning( const QString &message ) const = 0;
-	/**
-	 * Called when the process outputs a (non warning/error) message
-	 */
-	virtual void outputtedMessage( const QString &/*message*/ ) {};
-	/**
-	 * Called when the process outputs a warning
-	 */
-	virtual void outputtedWarning( const QString &/*message*/ ) {};
-	/**
-	 * Called when the process outputs an error
-	 */
-	virtual void outputtedError( const QString &/*message*/ ) {};
-	/**
-	 * Called when the process exits (called before any signals are emitted,
-	 * etc). If you reinherit this function, you should return whether 
-	 * everything is OK.
-	 */
-	virtual bool processExited( bool successfully ) { return successfully; }
-	/**
-	 * Call this function if your process could not be started - the process
-	 * will be deleted, and a failure signal emitted.
-	 */
-	void processInitFailed();
-	/**
-	 * Disconnects and deletes the language's process.
-	 */
-	void deleteLanguageProcess();
-	/**
-	 * Creates process and makes connections, ready for the derived class to
-	 * add arguments and start the process.
-	 */
-	void resetLanguageProcess();
-	/**
-	 * Prints out the command used for running the process, with any arguments
-	 * that contain spaces put into quotation marks.
-	 */
-	void displayProcessCommand();
-	
-	KProcess * m_languageProcess;
+    /**
+     * Call this to start the language process. ExternalLanguage will ensure
+     * that communication et all is properly set up.
+     * @return true on success, false on error
+     */
+    bool start();
+    /**
+     * @returns whether the string outputted to stdout is an error or not
+     */
+    virtual bool isError(const QString &message) const = 0;
+    /**
+     * @returns whether the string outputted to stderr is fatal (stopped compilation)
+     */
+    virtual bool isStderrOutputFatal(const QString &message) const
+    {
+        Q_UNUSED(message);
+        return true;
+    }
+    /**
+     * @returns whether the string outputted to stdout is a warning or not
+     */
+    virtual bool isWarning(const QString &message) const = 0;
+    /**
+     * Called when the process outputs a (non warning/error) message
+     */
+    virtual void outputtedMessage(const QString & /*message*/) {};
+    /**
+     * Called when the process outputs a warning
+     */
+    virtual void outputtedWarning(const QString & /*message*/) {};
+    /**
+     * Called when the process outputs an error
+     */
+    virtual void outputtedError(const QString & /*message*/) {};
+    /**
+     * Called when the process exits (called before any signals are emitted,
+     * etc). If you reinherit this function, you should return whether
+     * everything is OK.
+     */
+    virtual bool processExited(bool successfully)
+    {
+        return successfully;
+    }
+    /**
+     * Call this function if your process could not be started - the process
+     * will be deleted, and a failure signal emitted.
+     */
+    void processInitFailed();
+    /**
+     * Disconnects and deletes the language's process.
+     */
+    void deleteLanguageProcess();
+    /**
+     * Creates process and makes connections, ready for the derived class to
+     * add arguments and start the process.
+     */
+    void resetLanguageProcess();
+    /**
+     * Prints out the command used for running the process, with any arguments
+     * that contain spaces put into quotation marks.
+     */
+    void displayProcessCommand();
+
+    KProcess *m_languageProcess;
 };
 
 #endif

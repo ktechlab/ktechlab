@@ -16,15 +16,13 @@
 
 class KtlQCanvasItem;
 
-typedef std::multimap< double, KtlQCanvasItem* > SortedCanvasItems;
+typedef std::multimap<double, KtlQCanvasItem *> SortedCanvasItems;
 
-
-class KtlQCanvasItemList : public QList<KtlQCanvasItem*>
+class KtlQCanvasItemList : public QList<KtlQCanvasItem *>
 {
-    public:
-        void sort();
-        KtlQCanvasItemList operator+(const KtlQCanvasItemList &l) const;
+public:
+    void sort();
+    KtlQCanvasItemList operator+(const KtlQCanvasItemList &l) const;
 };
-
 
 #endif // KTL_CANVASITEMLIST_H_

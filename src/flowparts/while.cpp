@@ -10,49 +10,47 @@
 
 #include "while.h"
 
-#include "libraryitem.h"
 #include "flowcode.h"
+#include "libraryitem.h"
 
 #include <KLocalizedString>
 
-Item* While::construct( ItemDocument *itemDocument, bool newItem, const char *id )
+Item *While::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-	return new While( (ICNDocument*)itemDocument, newItem, id );
+    return new While((ICNDocument *)itemDocument, newItem, id);
 }
 
-LibraryItem* While::libraryItem()
+LibraryItem *While::libraryItem()
 {
-	return new LibraryItem(
-		QStringList(QString("flow/while")),
-		i18n("While"),
-		i18n("Loops"),
-		"while.png",
-		LibraryItem::lit_flowpart,
-		While::construct );
+    return new LibraryItem(QStringList(QString("flow/while")), i18n("While"), i18n("Loops"), "while.png", LibraryItem::lit_flowpart, While::construct);
 }
 
-While::While( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowContainer( icnDocument, newItem, id ? id : "whileloop" )
+While::While(ICNDocument *icnDocument, bool newItem, const char *id)
+    : FlowContainer(icnDocument, newItem, id ? id : "whileloop")
 {
-	m_name = i18n("While");
-	createTopContainerNode();
-	createBotContainerNode();
-	
-	createProperty( "0var1", Variant::Type::Combo );
-	property("0var1")->setToolbarCaption( "while" );
-	property("0var1")->setEditorCaption( i18n("Variable") );
-	property("0var1")->setValue("x");
-	
-	createProperty( "1op", Variant::Type::Select );
-	property("1op")->setToolbarCaption(" ");
-	property("1op")->setEditorCaption( i18n("Operation") );
-	property("1op")->setAllowed( (QStringList("==") << "<" << ">" << "<=" << ">=" << "!=" ) );
-	property("1op")->setValue("==");
-	
-	createProperty( "2var2", Variant::Type::Combo );
-	property("2var2")->setToolbarCaption(" ");
-	property("2var2")->setEditorCaption( i18n("Value") );
-	property("2var2")->setValue("0");
+    m_name = i18n("While");
+    createTopContainerNode();
+    createBotContainerNode();
+
+    createProperty("0var1", Variant::Type::Combo);
+    property("0var1")->setToolbarCaption("while");
+    property("0var1")->setEditorCaption(i18n("Variable"));
+    property("0var1")->setValue("x");
+
+    createProperty("1op", Variant::Type::Select);
+    property("1op")->setToolbarCaption(" ");
+    property("1op")->setEditorCaption(i18n("Operation"));
+    property("1op")->setAllowed((QStringList("==") << "<"
+                                                   << ">"
+                                                   << "<="
+                                                   << ">="
+                                                   << "!="));
+    property("1op")->setValue("==");
+
+    createProperty("2var2", Variant::Type::Combo);
+    property("2var2")->setToolbarCaption(" ");
+    property("2var2")->setEditorCaption(i18n("Value"));
+    property("2var2")->setValue("0");
 }
 
 While::~While()
@@ -61,18 +59,13 @@ While::~While()
 
 void While::dataChanged()
 {
-	setCaption( i18n("while %1 %2 %3", dataString("0var1"), dataString("1op"), dataString("2var2")) );
+    setCaption(i18n("while %1 %2 %3", dataString("0var1"), dataString("1op"), dataString("2var2")));
 }
 
-void While::generateMicrobe( FlowCode *code )
+void While::generateMicrobe(FlowCode *code)
 {
-	code->addCode("while "+dataString("0var1")+" "+dataString("1op")+" " + dataString("2var2")+"\n{" );
-	code->addCodeBranch( outputPart("int_in") );
-	code->addCode("}");
-	code->addCodeBranch( outputPart("ext_out") );
+    code->addCode("while " + dataString("0var1") + " " + dataString("1op") + " " + dataString("2var2") + "\n{");
+    code->addCodeBranch(outputPart("int_in"));
+    code->addCode("}");
+    code->addCodeBranch(outputPart("ext_out"));
 }
-
-
-
-
-

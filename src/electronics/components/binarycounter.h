@@ -30,33 +30,33 @@ The inputs are:
 class BinaryCounter : public CallbackClass, public Component
 {
 public:
-	BinaryCounter( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~BinaryCounter() override;
+    BinaryCounter(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~BinaryCounter() override;
 
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
 protected:
-	void inStateChanged( bool state ); // Input
-	void rStateChanged( bool state ); // Reset
-	void enStateChanged( bool state ); // Enable
-	void udStateChanged( bool state ); // Up/Down
-	void outputValue();
-	void dataChanged() override;
-	void initPins( unsigned numBits );
+    void inStateChanged(bool state); // Input
+    void rStateChanged(bool state);  // Reset
+    void enStateChanged(bool state); // Enable
+    void udStateChanged(bool state); // Up/Down
+    void outputValue();
+    void dataChanged() override;
+    void initPins(unsigned numBits);
 
-	LogicIn *enLogic, *inLogic, *rLogic, *udLogic;
-	LogicOut * m_pLogicOut[26];
+    LogicIn *enLogic, *inLogic, *rLogic, *udLogic;
+    LogicOut *m_pLogicOut[26];
 
-	unsigned m_numBits;
-	bool b_triggerHigh;
-	bool b_en; // Enable
-	bool b_ud; // Up/Down
-	bool b_oldIn;
-	bool b_reset;
-	long m_value;
-	long m_maxValue;
-	bool m_bDoneLogicIn;
+    unsigned m_numBits;
+    bool b_triggerHigh;
+    bool b_en; // Enable
+    bool b_ud; // Up/Down
+    bool b_oldIn;
+    bool b_reset;
+    long m_value;
+    long m_maxValue;
+    bool m_bDoneLogicIn;
 };
 
 #endif

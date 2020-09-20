@@ -22,19 +22,22 @@ class Resistance;
 class ECSignalLamp : public Component
 {
 public:
-	ECSignalLamp( ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
-	~ECSignalLamp() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
-	void stepNonLogic() override;
-	bool doesStepNonLogic() const override { return true; }
+    ECSignalLamp(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECSignalLamp() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    void stepNonLogic() override;
+    bool doesStepNonLogic() const override
+    {
+        return true;
+    }
 
 private:
-	void drawShape( QPainter &p ) override;
-	double avgPower;
-	uint advanceSinceUpdate;
+    void drawShape(QPainter &p) override;
+    double avgPower;
+    uint advanceSinceUpdate;
 };
 
 #endif

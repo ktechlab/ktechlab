@@ -8,80 +8,76 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include "outputmethoddlg.h"
 #include "docmanager.h"
 #include "filemetainfo.h"
-#include "textdocument.h"
-#include "outputmethoddlg.h"
 #include "microlibrary.h"
 #include "microselectwidget.h"
 #include "projectmanager.h"
+#include "textdocument.h"
 
 #include <KUrlRequester>
 
-#include <QDebug>
 #include <QCheckBox>
-#include <QFile>
-#include <QTemporaryFile>
+#include <QDebug>
 #include <QDialogButtonBox>
+#include <QFile>
 #include <QPushButton>
+#include <QTemporaryFile>
 #include <QVBoxLayout>
 
 #include <ui_outputmethodwidget.h>
 
-
-class OutputMethodWidget : public QWidget, public Ui::OutputMethodWidget {
-    public:
-    OutputMethodWidget(QWidget *parent) : QWidget(parent) {
+class OutputMethodWidget : public QWidget, public Ui::OutputMethodWidget
+{
+public:
+    OutputMethodWidget(QWidget *parent)
+        : QWidget(parent)
+    {
         setupUi(this);
     }
 };
 
-
-//BEGIN class OutputMethodInfo
+// BEGIN class OutputMethodInfo
 OutputMethodInfo::OutputMethodInfo()
 {
-	m_method = Method::Direct;
-	m_bAddToProject = false;
+    m_method = Method::Direct;
+    m_bAddToProject = false;
 }
 
-
-void OutputMethodInfo::initialize( OutputMethodDlg * dlg )
+void OutputMethodInfo::initialize(OutputMethodDlg *dlg)
 {
-	if ( dlg->m_widget->displayDirectCheck->isChecked() )
-	{
-		m_method = Method::Direct;
-		//K3TempFile f( QString::null, dlg->m_outputExtension );
+    if (dlg->m_widget->displayDirectCheck->isChecked()) {
+        m_method = Method::Direct;
+        // K3TempFile f( QString::null, dlg->m_outputExtension );
         QTemporaryFile f(QDir::tempPath() + QLatin1String("/ktechlab_XXXXXX") + dlg->m_outputExtension);
         f.setAutoRemove(false);
         if (!f.open()) {
             qWarning() << "failed to open " << f.fileName() << " because " << f.errorString();
         }
-		f.close();
-		m_outputFile = QUrl::fromLocalFile(f.fileName());
-		m_bAddToProject = false;
-	}
-	
-	else
-	{
-		if ( dlg->m_widget->loadFileCheck->isChecked() )
-			m_method = Method::SaveAndLoad;
-		
-		else
-			m_method = Method::SaveAndForget;
-		
-		m_outputFile = dlg->m_widget->outputFileURL->url();
-		m_bAddToProject = dlg->m_widget->addToProjectCheck->isChecked();
-	}
-	
-	m_picID = dlg->m_widget->m_pMicroSelect->micro();
+        f.close();
+        m_outputFile = QUrl::fromLocalFile(f.fileName());
+        m_bAddToProject = false;
+    }
+
+    else {
+        if (dlg->m_widget->loadFileCheck->isChecked())
+            m_method = Method::SaveAndLoad;
+
+        else
+            m_method = Method::SaveAndForget;
+
+        m_outputFile = dlg->m_widget->outputFileURL->url();
+        m_bAddToProject = dlg->m_widget->addToProjectCheck->isChecked();
+    }
+
+    m_picID = dlg->m_widget->m_pMicroSelect->micro();
 }
-//END class OutputMethodInfo
+// END class OutputMethodInfo
 
+// BEGIN class OutputMethodDlg
 
-
-//BEGIN class OutputMethodDlg
-
-OutputMethodDlg::OutputMethodDlg( const QString &caption, const QUrl & inputURL, bool showPICSelect, QWidget *parent, const char *name )
+OutputMethodDlg::OutputMethodDlg(const QString &caption, const QUrl &inputURL, bool showPICSelect, QWidget *parent, const char *name)
     : QDialog(parent)
 {
     setObjectName(name);
@@ -91,27 +87,26 @@ OutputMethodDlg::OutputMethodDlg( const QString &caption, const QUrl & inputURL,
     QVBoxLayout *mainLayout = new QVBoxLayout;
     setLayout(mainLayout);
 
-	m_inputURL = inputURL;
-	m_widget = new OutputMethodWidget(this);
-	
-	m_widget->addToProjectCheck->setEnabled( ProjectManager::self()->currentProject() );
-	
-	if (!showPICSelect)
-	{
-		m_widget->m_pMicroSelect->hide();
-		m_widget->adjustSize();
-	}
+    m_inputURL = inputURL;
+    m_widget = new OutputMethodWidget(this);
+
+    m_widget->addToProjectCheck->setEnabled(ProjectManager::self()->currentProject());
+
+    if (!showPICSelect) {
+        m_widget->m_pMicroSelect->hide();
+        m_widget->adjustSize();
+    }
 
     m_widget->outputFileURL->setMode(KFile::File | KFile::LocalOnly);
     m_widget->outputFileURL->setAcceptMode(QFileDialog::AcceptSave);
 
     connect(m_widget->saveFileCheck, SIGNAL(toggled(bool)), m_widget->groupBoxSaveOptions, SLOT(setEnabled(bool)));
 
-	fileMetaInfo()->initializeFromMetaInfo( m_inputURL, this );
-	
+    fileMetaInfo()->initializeFromMetaInfo(m_inputURL, this);
+
     mainLayout->addWidget(m_widget);
 
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     mainLayout->addWidget(buttonBox);
 
     QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
@@ -121,68 +116,59 @@ OutputMethodDlg::OutputMethodDlg( const QString &caption, const QUrl & inputURL,
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
-
 OutputMethodDlg::~OutputMethodDlg()
 {
 }
 
-
-void OutputMethodDlg::setOutputExtension( const QString & extension )
+void OutputMethodDlg::setOutputExtension(const QString &extension)
 {
-	m_outputExtension = extension;
+    m_outputExtension = extension;
 }
 
-
-void OutputMethodDlg::setFilter( const QString &filter )
+void OutputMethodDlg::setFilter(const QString &filter)
 {
-	m_widget->outputFileURL->setFilter(filter);
+    m_widget->outputFileURL->setFilter(filter);
 }
 
-
-void OutputMethodDlg::setMethod( OutputMethodInfo::Method::Type m )
+void OutputMethodDlg::setMethod(OutputMethodInfo::Method::Type m)
 {
-	switch (m)
-	{
-		case OutputMethodInfo::Method::Direct:
-			m_widget->displayDirectCheck->setChecked(true);
-			break;
-			
-		case OutputMethodInfo::Method::SaveAndForget:
-			m_widget->saveFileCheck->setChecked(true);
-			m_widget->loadFileCheck->setChecked(false);
-			break;
-			
-		case OutputMethodInfo::Method::SaveAndLoad:
-			m_widget->saveFileCheck->setChecked(true);
-			m_widget->loadFileCheck->setChecked(true);
-			break;
-	};
+    switch (m) {
+    case OutputMethodInfo::Method::Direct:
+        m_widget->displayDirectCheck->setChecked(true);
+        break;
+
+    case OutputMethodInfo::Method::SaveAndForget:
+        m_widget->saveFileCheck->setChecked(true);
+        m_widget->loadFileCheck->setChecked(false);
+        break;
+
+    case OutputMethodInfo::Method::SaveAndLoad:
+        m_widget->saveFileCheck->setChecked(true);
+        m_widget->loadFileCheck->setChecked(true);
+        break;
+    };
 }
 
-
-void OutputMethodDlg::setPicID( const QString & id )
+void OutputMethodDlg::setPicID(const QString &id)
 {
-	m_widget->m_pMicroSelect->setMicro(id);
+    m_widget->m_pMicroSelect->setMicro(id);
 }
 
-
-void OutputMethodDlg::setOutputFile( const QUrl & out )
+void OutputMethodDlg::setOutputFile(const QUrl &out)
 {
-	m_widget->outputFileURL->setUrl(out);
+    m_widget->outputFileURL->setUrl(out);
 }
-
 
 void OutputMethodDlg::accept()
 {
-	m_outputMethodInfo.initialize(this);
-	fileMetaInfo()->grabMetaInfo( m_inputURL, this );
+    m_outputMethodInfo.initialize(this);
+    fileMetaInfo()->grabMetaInfo(m_inputURL, this);
 
     QDialog::accept();
 }
 
-
-MicroSelectWidget * OutputMethodDlg::microSelect() const
+MicroSelectWidget *OutputMethodDlg::microSelect() const
 {
-	return m_widget->m_pMicroSelect;
+    return m_widget->m_pMicroSelect;
 }
-//END class OutputMethodDlg
+// END class OutputMethodDlg

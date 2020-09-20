@@ -23,21 +23,21 @@ class Wire;
 */
 class BusSplitter : public Component
 {
-	public:
-		BusSplitter( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~BusSplitter() override;
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
+public:
+    BusSplitter(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~BusSplitter() override;
 
-	protected:
-		QString outNodeID( unsigned node ) const;
-		void dataChanged() override;
-		void drawShape( QPainter &p ) override;
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-		unsigned m_busSize;
-		QVector<QPointer<Wire> > m_pWires;
-		ECNode * m_pInNode;
+protected:
+    QString outNodeID(unsigned node) const;
+    void dataChanged() override;
+    void drawShape(QPainter &p) override;
+
+    unsigned m_busSize;
+    QVector<QPointer<Wire>> m_pWires;
+    ECNode *m_pInNode;
 };
 
 #endif

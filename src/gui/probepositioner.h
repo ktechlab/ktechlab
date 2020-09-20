@@ -14,7 +14,7 @@
 #include <QWidget>
 
 class ProbeData;
-typedef QMap< int, ProbeData* > ProbeDataMap;
+typedef QMap<int, ProbeData *> ProbeDataMap;
 
 const float probeArrowWidth = 9;
 const float probeArrowHeight = 12;
@@ -25,53 +25,53 @@ Widget for positioning the output of Probes in the OscilloscopeView
 */
 class ProbePositioner : public QWidget
 {
-	Q_OBJECT
-	public:
-		ProbePositioner(QWidget *parent = nullptr, const char *name = nullptr);
-		~ProbePositioner() override;
-		/**
-		 * Returns the amount of space (height in pixels) that a probe output
-		 * takes up
-		 */
-		int probeOutputHeight() const;
-		/**
-		 * Returns the probe position (from the top) in pixels that the probe
-		 * with the given id should be displayed at, or -1 if probe with the
-		 * given id couldn't be found
-		 */
-		int probePosition( ProbeData *probeData ) const;
-		/**
-		 * Sets the probe position relative to the top of this widget (and hence
-		 * relative to the top of the oscilloscope view) in pixels
-		 */
-		void setProbePosition( ProbeData *probeData, int position );
-		/**
-		 * Returns the probe at the given position (plus or minus an arrow),
-		 * or nullptr if none. Records the offset of the position from the mouse
-		 * in m_probePosOffset.
-		 */
-		ProbeData* probeAtPosition( const QPoint &pos );
+    Q_OBJECT
+public:
+    ProbePositioner(QWidget *parent = nullptr, const char *name = nullptr);
+    ~ProbePositioner() override;
+    /**
+     * Returns the amount of space (height in pixels) that a probe output
+     * takes up
+     */
+    int probeOutputHeight() const;
+    /**
+     * Returns the probe position (from the top) in pixels that the probe
+     * with the given id should be displayed at, or -1 if probe with the
+     * given id couldn't be found
+     */
+    int probePosition(ProbeData *probeData) const;
+    /**
+     * Sets the probe position relative to the top of this widget (and hence
+     * relative to the top of the oscilloscope view) in pixels
+     */
+    void setProbePosition(ProbeData *probeData, int position);
+    /**
+     * Returns the probe at the given position (plus or minus an arrow),
+     * or nullptr if none. Records the offset of the position from the mouse
+     * in m_probePosOffset.
+     */
+    ProbeData *probeAtPosition(const QPoint &pos);
 
-	public slots:
-		void forceRepaint();
+public slots:
+    void forceRepaint();
 
-	protected slots:
-		void slotProbeDataRegistered( int id, ProbeData *probe );
-		void slotProbeDataUnregistered( int id );
+protected slots:
+    void slotProbeDataRegistered(int id, ProbeData *probe);
+    void slotProbeDataUnregistered(int id);
 
-	protected:
-		void mousePressEvent( QMouseEvent * e ) override;
-		void mouseReleaseEvent( QMouseEvent * e ) override;
-		void mouseMoveEvent( QMouseEvent * e ) override;
-		void paintEvent( QPaintEvent *e ) override;
-		void resizeEvent( QResizeEvent *event ) override;
+protected:
+    void mousePressEvent(QMouseEvent *e) override;
+    void mouseReleaseEvent(QMouseEvent *e) override;
+    void mouseMoveEvent(QMouseEvent *e) override;
+    void paintEvent(QPaintEvent *e) override;
+    void resizeEvent(QResizeEvent *event) override;
 
-		ProbeDataMap m_probeDataMap;
-		ProbeData *p_draggedProbe;
-		int m_probePosOffset;
+    ProbeDataMap m_probeDataMap;
+    ProbeData *p_draggedProbe;
+    int m_probePosOffset;
 
-		bool b_needRedraw;
-		QPixmap *m_pixmap;
+    bool b_needRedraw;
+    QPixmap *m_pixmap;
 };
 
 #endif

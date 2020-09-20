@@ -26,7 +26,7 @@ class QTimer;
 
 typedef long long llong;
 
-///base class of oscilloscope views
+/// base class of oscilloscope views
 /**
  *
  * This is a refactoring of OscilloscopeView and my ScopeScreenView to promote
@@ -41,39 +41,37 @@ class ScopeViewBase : public QFrame
     Q_OBJECT
 public:
     ScopeViewBase(QWidget *parent = nullptr, const char *name = nullptr);
-	virtual void drawBackground(QPainter & p) = 0;
-	void resizeEvent( QResizeEvent *event ) override;
-	void updateOutputHeight();
+    virtual void drawBackground(QPainter &p) = 0;
+    void resizeEvent(QResizeEvent *event) override;
+    void updateOutputHeight();
 
-
-	
     ~ScopeViewBase() override;
+
 protected:
-	///Draw the horizontal line indicating the midpoint of our output for \c probe
- 	virtual void drawMidLine(QPainter & p, ProbeData * probe) = 0;
+    /// Draw the horizontal line indicating the midpoint of our output for \c probe
+    virtual void drawMidLine(QPainter &p, ProbeData *probe) = 0;
 
-	///\TODO: remove virtual; draw one logic probe
-	virtual void drawProbe(QPainter& p, LogicProbeData * probe) = 0;
-	///\TODO: remove virtual; draw one floating-point probe
-	virtual void drawProbe(QPainter& p, FloatingProbeData * probe) = 0;
+    ///\TODO: remove virtual; draw one logic probe
+    virtual void drawProbe(QPainter &p, LogicProbeData *probe) = 0;
+    ///\TODO: remove virtual; draw one floating-point probe
+    virtual void drawProbe(QPainter &p, FloatingProbeData *probe) = 0;
 
-	/// gives the first Simulator tick visible in the view
-	virtual llong visibleStartTime() const = 0;
-	/// gives the last Simulator tick visible in the view
-	virtual llong visibleEndTime() const = 0;
+    /// gives the first Simulator tick visible in the view
+    virtual llong visibleStartTime() const = 0;
+    /// gives the last Simulator tick visible in the view
+    virtual llong visibleEndTime() const = 0;
 
-	virtual double ticksPerPixel() const = 0;
-	virtual llong pixelsPerTick() const = 0;
+    virtual double ticksPerPixel() const = 0;
+    virtual llong pixelsPerTick() const = 0;
 
-	bool b_needRedraw;
-	QPixmap *m_pixmap;
-	double m_halfOutputHeight;
+    bool b_needRedraw;
+    QPixmap *m_pixmap;
+    double m_halfOutputHeight;
 
 private:
-	///draws a mapping of probes
-	template<typename T>
-		void drawProbeMap(QPainter& p, QMap<int, T*>& map);
-	void paintEvent( QPaintEvent *event ) override;
+    /// draws a mapping of probes
+    template<typename T> void drawProbeMap(QPainter &p, QMap<int, T *> &map);
+    void paintEvent(QPaintEvent *event) override;
 };
 
 #endif

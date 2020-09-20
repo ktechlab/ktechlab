@@ -15,16 +15,15 @@
 
 class DiodeSettings
 {
-	public:
-		DiodeSettings();
-		void reset();
+public:
+    DiodeSettings();
+    void reset();
 
-		double I_S;	///< Diode saturation current
-		double N;	///< Emission coefficient
-		double V_B;	///< Reverse breakdown
-// 		double R;	///< Series resistance
+    double I_S; ///< Diode saturation current
+    double N;   ///< Emission coefficient
+    double V_B; ///< Reverse breakdown
+    // 		double R;	///< Series resistance
 };
-
 
 /**
 This simulates a diode. The simulated diode characteristics are:
@@ -41,33 +40,38 @@ This simulates a diode. The simulated diode characteristics are:
 */
 class Diode : public NonLinear
 {
-	public:
-		Diode();
-		~Diode() override;
-	
-		void update_dc() override;
-		void add_initial_dc() override;
-		Element::Type type() const override { return Element_Diode; }
-		DiodeSettings settings() const { return m_diodeSettings; }
-		void setDiodeSettings( const DiodeSettings & settings );
-		/**
-		 * Returns the current flowing through the diode
-		 */
-		double current() const;
+public:
+    Diode();
+    ~Diode() override;
 
-	protected:
-		void updateCurrents() override;
-		void calc_eq();
-		void calcIg( double V, double * I, double * g ) const;
-		void updateLim();
+    void update_dc() override;
+    void add_initial_dc() override;
+    Element::Type type() const override
+    {
+        return Element_Diode;
+    }
+    DiodeSettings settings() const
+    {
+        return m_diodeSettings;
+    }
+    void setDiodeSettings(const DiodeSettings &settings);
+    /**
+     * Returns the current flowing through the diode
+     */
+    double current() const;
 
-		double g_new, g_old;
-		double I_new, I_old;
-		double V_prev;
-		double V_lim;
+protected:
+    void updateCurrents() override;
+    void calc_eq();
+    void calcIg(double V, double *I, double *g) const;
+    void updateLim();
 
-		DiodeSettings m_diodeSettings;
+    double g_new, g_old;
+    double I_new, I_old;
+    double V_prev;
+    double V_lim;
+
+    DiodeSettings m_diodeSettings;
 };
 
 #endif
-

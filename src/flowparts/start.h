@@ -20,13 +20,13 @@
 class Start : public FlowPart
 {
 public:
-	Start( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~Start() override;
+    Start(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~Start() override;
 
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-	void generateMicrobe( FlowCode * ) override;
+    void generateMicrobe(FlowCode *) override;
 };
 
 #endif

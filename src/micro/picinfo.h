@@ -22,10 +22,10 @@ structure used here :-)
 */
 class PicInfo : public MicroInfo
 {
-	public:
-		PicInfo();
-		~PicInfo() override;
-		AsmInfo * instructionSet() override = 0;
+public:
+    PicInfo();
+    ~PicInfo() override;
+    AsmInfo *instructionSet() override = 0;
 };
 
 #endif

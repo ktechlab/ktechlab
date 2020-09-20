@@ -10,42 +10,35 @@
 
 #include "start.h"
 
-#include "libraryitem.h"
 #include "flowcode.h"
+#include "libraryitem.h"
 
 #include <KLocalizedString>
 
-Item* Start::construct( ItemDocument *itemDocument, bool newItem, const char *id )
+Item *Start::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-	return new Start( (ICNDocument*)itemDocument, newItem, id );
+    return new Start((ICNDocument *)itemDocument, newItem, id);
 }
 
-LibraryItem* Start::libraryItem()
+LibraryItem *Start::libraryItem()
 {
-	return new LibraryItem(
-		QStringList(QString("flow/start")),
-		i18n("Start"),
-		i18n("Common"),
-		"start.png",
-		LibraryItem::lit_flowpart,
-		Start::construct );
+    return new LibraryItem(QStringList(QString("flow/start")), i18n("Start"), i18n("Common"), "start.png", LibraryItem::lit_flowpart, Start::construct);
 }
 
-Start::Start( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, id ? id : "START" )
+Start::Start(ICNDocument *icnDocument, bool newItem, const char *id)
+    : FlowPart(icnDocument, newItem, id ? id : "START")
 {
-	m_name = i18n("Start");
-	initRoundedRectSymbol();
-	createStdOutput();
-	setCaption( i18n("Start") );
+    m_name = i18n("Start");
+    initRoundedRectSymbol();
+    createStdOutput();
+    setCaption(i18n("Start"));
 }
 
 Start::~Start()
 {
 }
 
-void Start::generateMicrobe( FlowCode *code )
+void Start::generateMicrobe(FlowCode *code)
 {
-	code->addCodeBranch( outputPart("stdoutput") );
+    code->addCodeBranch(outputPart("stdoutput"));
 }
-

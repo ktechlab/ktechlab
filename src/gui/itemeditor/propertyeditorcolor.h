@@ -19,21 +19,23 @@ class QResizeEvent;
 
 class PropertyEditorColor : public PropertySubEditor
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-		PropertyEditorColor( QWidget * parent, Property * property, const char * name = nullptr );
-		~PropertyEditorColor() override {;}
+public:
+    PropertyEditorColor(QWidget *parent, Property *property, const char *name = nullptr);
+    ~PropertyEditorColor() override
+    {
+        ;
+    }
 
-		bool eventFilter( QObject * watched, QEvent * e ) override;
+    bool eventFilter(QObject *watched, QEvent *e) override;
 
-	protected slots:
-		void valueChanged(const QColor &color);
+protected slots:
+    void valueChanged(const QColor &color);
 
-	protected:
-		ColorCombo * m_pColorCombo;
-		QColor m_color;
+protected:
+    ColorCombo *m_pColorCombo;
+    QColor m_color;
 };
 
 #endif
-

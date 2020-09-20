@@ -20,20 +20,20 @@ Interface to the GNU Pic Disassembler
 class Gpdasm : public ExternalLanguage
 {
 public:
-	Gpdasm( ProcessChain *processChain );
-	~Gpdasm() override;
-	
-	void processInput( ProcessOptions options ) override;
-	MessageInfo extractMessageInfo( const QString &text ) override;
-	ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const override;
+    Gpdasm(ProcessChain *processChain);
+    ~Gpdasm() override;
+
+    void processInput(ProcessOptions options) override;
+    MessageInfo extractMessageInfo(const QString &text) override;
+    ProcessOptions::ProcessPath::Path outputPath(ProcessOptions::ProcessPath::Path inputPath) const override;
 
 protected:
-	void outputtedMessage( const QString &message ) override;
-	bool isError( const QString &message ) const override;
-	bool isWarning( const QString &message ) const override;
-	bool processExited( bool successfully ) override;
+    void outputtedMessage(const QString &message) override;
+    bool isError(const QString &message) const override;
+    bool isWarning(const QString &message) const override;
+    bool processExited(bool successfully) override;
 
-	QString m_asmOutput; // Outputed by gpdasm
+    QString m_asmOutput; // Outputed by gpdasm
 };
 
 #endif

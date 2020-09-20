@@ -9,29 +9,26 @@
 
 #include "lineedit.h"
 
-LineEdit::LineEdit( QWidget * parent, const char * name )
-	: KLineEdit( parent )
+LineEdit::LineEdit(QWidget *parent, const char *name)
+    : KLineEdit(parent)
 {
-    setObjectName( name );
+    setObjectName(name);
 }
 
-
-LineEdit::LineEdit( const QString & text, QWidget * parent, const char * name )
-	: KLineEdit( text, parent )
+LineEdit::LineEdit(const QString &text, QWidget *parent, const char *name)
+    : KLineEdit(text, parent)
 {
-    setObjectName( name );
+    setObjectName(name);
 }
-
 
 LineEdit::~LineEdit()
 {
 }
 
-
-void LineEdit::setText( const QString & text )
+void LineEdit::setText(const QString &text)
 {
-	if ( this->text() == text )
-		return;
-	
-	KLineEdit::setText( text );
+    if (this->text() == text)
+        return;
+
+    KLineEdit::setText(text);
 }

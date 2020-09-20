@@ -21,15 +21,18 @@ node 2: inverting input
 */
 class OpAmp : public Element
 {
-	public:
-		OpAmp();
-		~OpAmp() override;
-	
-		Type type() const override { return Element_OpAmp; }
+public:
+    OpAmp();
+    ~OpAmp() override;
 
-	protected:
-		void updateCurrents() override;
-		void add_initial_dc() override;
+    Type type() const override
+    {
+        return Element_OpAmp;
+    }
+
+protected:
+    void updateCurrents() override;
+    void add_initial_dc() override;
 };
 
 #endif

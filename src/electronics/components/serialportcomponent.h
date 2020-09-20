@@ -11,8 +11,8 @@
 #ifndef SERIALPORTCOMPONENT_H
 #define SERIALPORTCOMPONENT_H
 
-#include "logic.h"
 #include "component.h"
+#include "logic.h"
 
 class SerialPort;
 
@@ -21,40 +21,43 @@ class SerialPort;
 */
 class SerialPortComponent : public CallbackClass, public Component
 {
-	public:
-		SerialPortComponent( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-		~SerialPortComponent() override;
-	
-		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem * libraryItem();
-		
-		void stepNonLogic() override;
-		bool doesStepNonLogic() const override { return true; }
+public:
+    SerialPortComponent(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~SerialPortComponent() override;
 
-	protected:
-		/**
-		 * @param baudRate as defined in <bits/termios.h>
-		 */
-		void initPort( const QString & port, unsigned baudRate );
-		void dataChanged() override;
-		void drawShape( QPainter & p ) override;
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-		void tdCallback( bool isHigh );
-		void dtrCallback( bool isHigh );
-		void dsrCallback( bool isHigh );
-		void rtsCallback( bool isHigh );
+    void stepNonLogic() override;
+    bool doesStepNonLogic() const override
+    {
+        return true;
+    }
 
-		LogicIn * m_pTD;
-		LogicIn * m_pDTR;
-// 		LogicIn * m_pDSR;
-// 		LogicIn * m_pRTS;
+protected:
+    /**
+     * @param baudRate as defined in <bits/termios.h>
+     */
+    void initPort(const QString &port, unsigned baudRate);
+    void dataChanged() override;
+    void drawShape(QPainter &p) override;
 
-		LogicOut * m_pCD;
-// 		LogicOut * m_pRD;
-		LogicOut * m_pCTS;
-		LogicOut * m_pRI;
+    void tdCallback(bool isHigh);
+    void dtrCallback(bool isHigh);
+    void dsrCallback(bool isHigh);
+    void rtsCallback(bool isHigh);
 
-		SerialPort * m_pSerialPort;
+    LogicIn *m_pTD;
+    LogicIn *m_pDTR;
+    // 		LogicIn * m_pDSR;
+    // 		LogicIn * m_pRTS;
+
+    LogicOut *m_pCD;
+    // 		LogicOut * m_pRD;
+    LogicOut *m_pCTS;
+    LogicOut *m_pRI;
+
+    SerialPort *m_pSerialPort;
 };
 
 #endif

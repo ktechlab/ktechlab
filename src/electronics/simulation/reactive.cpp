@@ -8,26 +8,25 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-
 #include "reactive.h"
 
-Reactive::Reactive( const double delta )
-	: Element()
+Reactive::Reactive(const double delta)
+    : Element()
 {
-	m_delta = delta;
+    m_delta = delta;
 }
 
 Reactive::~Reactive()
 {
 }
 
-void Reactive::setDelta( double delta )
+void Reactive::setDelta(double delta)
 {
-	m_delta = delta;
-	updateStatus();
+    m_delta = delta;
+    updateStatus();
 }
 
 bool Reactive::updateStatus()
 {
-	return Element::updateStatus();
+    return Element::updateStatus();
 }

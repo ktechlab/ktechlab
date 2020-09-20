@@ -8,623 +8,643 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "circuitdocument.h"
-#include "component.h"
 #include "connector.h"
-#include "conrouter.h"
+#include "circuitdocument.h"
 #include "cnitem.h"
+#include "component.h"
+#include "conrouter.h"
 #include "ecnode.h"
-#include "junctionnode.h"
 #include "itemdocumentdata.h"
-#include "wire.h"
+#include "junctionnode.h"
 #include "utils.h"
+#include "wire.h"
 
 #include <QDebug>
 #include <QPainter>
 
-#include <cstdlib>
 #include <cmath>
+#include <cstdlib>
 
 #include <ktlconfig.h>
 
-
-//BEGIN class Connector
+// BEGIN class Connector
 Connector::Connector(Node * /*startNode*/, Node * /*endNode*/, ICNDocument *icnDocument, QString *id)
-		: //QObject(icnDocument),
-		KtlQCanvasPolygon(icnDocument->canvas()) {
-
+    : // QObject(icnDocument),
+    KtlQCanvasPolygon(icnDocument->canvas())
+{
     QString name("Connector");
     if (id) {
-        name.append(QString( "-%1").arg(*id));
+        name.append(QString("-%1").arg(*id));
     } else {
         name.append("-Unknown");
     }
     setObjectName(name.toLatin1().data());
     qDebug() << Q_FUNC_INFO << " this=" << this;
 
-	m_currentAnimationOffset = 0.0;
-	p_parentContainer = nullptr;
-	p_nodeGroup    = nullptr;
-	b_semiHidden   = false;
-	b_deleted      = false;
-	b_pointsAdded  = false;
-	b_manualPoints = false;
-	p_icnDocument  = icnDocument;
-	m_conRouter    = new ConRouter(p_icnDocument);
+    m_currentAnimationOffset = 0.0;
+    p_parentContainer = nullptr;
+    p_nodeGroup = nullptr;
+    b_semiHidden = false;
+    b_deleted = false;
+    b_pointsAdded = false;
+    b_manualPoints = false;
+    p_icnDocument = icnDocument;
+    m_conRouter = new ConRouter(p_icnDocument);
 
-	if (id) {
-		m_id = *id;
-		if ( !p_icnDocument->registerUID(*id) ) {
-                    qDebug() << Q_FUNC_INFO << "Connector attempted to register given ID, but ID already in use: " << *id << endl;
-                    m_id = p_icnDocument->generateUID( *id );
-                    qDebug() << "Creating a new one: " << m_id << endl;
-		}
-	} else m_id = p_icnDocument->generateUID("connector");
+    if (id) {
+        m_id = *id;
+        if (!p_icnDocument->registerUID(*id)) {
+            qDebug() << Q_FUNC_INFO << "Connector attempted to register given ID, but ID already in use: " << *id << endl;
+            m_id = p_icnDocument->generateUID(*id);
+            qDebug() << "Creating a new one: " << m_id << endl;
+        }
+    } else
+        m_id = p_icnDocument->generateUID("connector");
 
-	p_icnDocument->registerItem(this);
-	p_icnDocument->requestRerouteInvalidatedConnectors();
+    p_icnDocument->registerItem(this);
+    p_icnDocument->requestRerouteInvalidatedConnectors();
 
-	setVisible(true);
+    setVisible(true);
 }
 
+Connector::~Connector()
+{
+    p_icnDocument->unregisterUID(id());
 
-Connector::~Connector() {
-	p_icnDocument->unregisterUID(id());
+    delete m_conRouter;
 
-	delete m_conRouter;
+    for (int i = 0; i < m_wires.size(); i++)
+        delete m_wires[i];
 
-	for (int i = 0; i < m_wires.size(); i++)
-		delete m_wires[i];
-
-//	m_wires.resize(0);
+    //	m_wires.resize(0);
 }
 
-
-void Connector::setParentContainer(const QString &cnItemId) {
-// 	// We only allow the node to be parented once
-// 	if ( p_parentContainer || !ICNDocument->itemWithID(cnItemId) ) return;
-	p_parentContainer = p_icnDocument->cnItemWithID(cnItemId);
+void Connector::setParentContainer(const QString &cnItemId)
+{
+    // 	// We only allow the node to be parented once
+    // 	if ( p_parentContainer || !ICNDocument->itemWithID(cnItemId) ) return;
+    p_parentContainer = p_icnDocument->cnItemWithID(cnItemId);
 }
 
+void Connector::removeConnector(Node *)
+{
+    if (b_deleted)
+        return;
 
-void Connector::removeConnector(Node*) {
-	if (b_deleted) return;
+    b_deleted = true;
 
-	b_deleted = true;
+    // Remove 'penalty' points for this connector from the ICNDocument
+    updateConnectorPoints(false);
 
-	// Remove 'penalty' points for this connector from the ICNDocument
-	updateConnectorPoints(false);
+    emit selected(false);
+    emit removed(this);
 
-	emit selected(false);
-	emit removed(this);
+    if (startNode())
+        startNode()->removeConnector(this);
+    if (endNode())
+        endNode()->removeConnector(this);
 
-	if (startNode()) startNode()->removeConnector(this);
-	if (endNode())	 endNode()->removeConnector(this);
-
-	p_icnDocument->appendDeleteList(this);
+    p_icnDocument->appendDeleteList(this);
 }
 
+int getSlope(float x1, float y1, float x2, float y2)
+{
+    enum slope {
+        s_n = 0, //	.
+        s_v,     //	|
+        s_h,     //	-
+        s_s,     //	/
+        s_d      //	\ (backwards slash)
+    };
 
-int getSlope(float x1, float y1, float x2, float y2) {
-	enum slope {
-		s_n = 0,//	.
-		s_v,	//	|
-		s_h,	//	-
-		s_s,	//	/
-		s_d	//	\ (backwards slash)
-	};
-
-	if (x1 == x2) {
-		if (y1 == y2) return s_n;
-		return s_v;
-	} else if (y1 == y2) {
-		return s_h;
-	} else if ((y2 - y1) / (x2 - x1) > 0) {
-		return s_s;
-	} else 	return s_d;
+    if (x1 == x2) {
+        if (y1 == y2)
+            return s_n;
+        return s_v;
+    } else if (y1 == y2) {
+        return s_h;
+    } else if ((y2 - y1) / (x2 - x1) > 0) {
+        return s_s;
+    } else
+        return s_d;
 }
 
+void Connector::updateDrawList()
+{
+    if (!startNode() || !endNode() || !canvas())
+        return;
 
-void Connector::updateDrawList() {
-	if (!startNode() || !endNode() || !canvas()) return;
+    QPointList drawLineList;
 
-	QPointList drawLineList;
+    int prevX = (*m_conRouter->cellPointList()->begin()).x();
+    int prevY = (*m_conRouter->cellPointList()->begin()).y();
 
-	int prevX = (*m_conRouter->cellPointList()->begin()).x();
-	int prevY = (*m_conRouter->cellPointList()->begin()).y();
+    int prevX_canvas = toCanvas(prevX);
+    int prevY_canvas = toCanvas(prevY);
 
-	int prevX_canvas = toCanvas(prevX);
-	int prevY_canvas = toCanvas(prevY);
+    Cells *cells = p_icnDocument->cells();
 
-	Cells *cells = p_icnDocument->cells();
+    bool bumpNow = false;
+    for (QPoint p : *m_conRouter->cellPointList()) {
+        const int x = p.x();
+        const int y = p.y();
 
-	bool bumpNow = false;
-	for (QPoint p: *m_conRouter->cellPointList()) {
-		const int x = p.x();
-		const int y = p.y();
+        const int numCon = cells->haveCell(x, y) ? cells->cell(x, y).numCon : 0;
 
-		const int numCon = cells->haveCell(x, y) ? cells->cell(x, y).numCon : 0;
+        const int y_canvas = toCanvas(y);
+        const int x_canvas = toCanvas(x);
 
-		const int y_canvas = toCanvas(y);
-		const int x_canvas = toCanvas(x);
+        const bool bumpNext = (prevX == x && numCon > 1 && std::abs(y_canvas - startNode()->y()) > 8 && std::abs(y_canvas - endNode()->y()) > 8);
 
-		const bool bumpNext = (prevX == x
-		                       && numCon > 1
-		                       && std::abs(y_canvas - startNode()->y()) > 8
-		                       && std::abs(y_canvas - endNode()->y())   > 8);
+        int x0 = prevX_canvas;
+        int x2 = x_canvas;
+        int x1 = (x0 + x2) / 2;
 
-		int x0 = prevX_canvas;
-		int x2 = x_canvas;
-		int x1 = (x0 + x2) / 2;
+        int y0 = prevY_canvas;
+        int y3 = y_canvas;
+        int y1 = (y0 == y3) ? y0 : ((y0 < y3) ? y0 + 3 : y0 - 3);
+        int y2 = (y0 == y3) ? y3 : ((y0 < y3) ? y3 - 3 : y3 + 3);
 
-		int y0 = prevY_canvas;
-		int y3 = y_canvas;
-		int y1 = (y0 == y3) ? y0 : ((y0 < y3) ? y0 + 3 : y0 - 3);
-		int y2 = (y0 == y3) ? y3 : ((y0 < y3) ? y3 - 3 : y3 + 3);
+        if (bumpNow)
+            x0 += 3;
+        if (bumpNext)
+            x2 += 3;
 
-		if (bumpNow)  x0 += 3;
-		if (bumpNext) x2 += 3;
+        if (!bumpNow && !bumpNext) {
+            drawLineList += QPoint(x0, y0);
+            drawLineList += QPoint(x2, y3);
+        } else if (bumpNow) {
+            drawLineList += QPoint(x0, y0);
+            drawLineList += QPoint(x1, y1);
+            drawLineList += QPoint(x2, y3);
+        } else if (bumpNext) {
+            drawLineList += QPoint(x0, y0);
+            drawLineList += QPoint(x1, y2);
+            drawLineList += QPoint(x2, y3);
+        } else {
+            drawLineList += QPoint(x0, y0);
+            drawLineList += QPoint(x1, y1);
+            drawLineList += QPoint(x1, y2);
+            drawLineList += QPoint(x2, y3);
+        }
 
-		if (!bumpNow && !bumpNext) {
-			drawLineList += QPoint(x0, y0);
-			drawLineList += QPoint(x2, y3);
-		} else if (bumpNow) {
-			drawLineList += QPoint(x0, y0);
-			drawLineList += QPoint(x1, y1);
-			drawLineList += QPoint(x2, y3);
-		} else if (bumpNext) {
-			drawLineList += QPoint(x0, y0);
-			drawLineList += QPoint(x1, y2);
-			drawLineList += QPoint(x2, y3);
-		} else {
-			drawLineList += QPoint(x0, y0);
-			drawLineList += QPoint(x1, y1);
-			drawLineList += QPoint(x1, y2);
-			drawLineList += QPoint(x2, y3);
-		}
+        prevX = x;
+        prevY = y;
 
-		prevX = x;
-		prevY = y;
+        prevY_canvas = y_canvas;
+        prevX_canvas = x_canvas;
+        bumpNow = bumpNext;
+    }
 
-		prevY_canvas = y_canvas;
-		prevX_canvas = x_canvas;
-		bumpNow = bumpNext;
-	}
+    // Now, remove redundant points (i.e. those that are either repeated or are
+    // in the same direction as the previous points)
 
-	// Now, remove redundant points (i.e. those that are either repeated or are
-	// in the same direction as the previous points)
+    if (drawLineList.size() < 3)
+        return;
 
-	if (drawLineList.size() < 3) return;
+    const QPointList::iterator dllEnd = drawLineList.end();
 
-	const QPointList::iterator dllEnd = drawLineList.end();
+    QPointList::iterator previous = drawLineList.begin();
+    QPointList::iterator current = previous;
+    current++;
+    QPointList::const_iterator next = current;
+    next++;
 
-	QPointList::iterator previous = drawLineList.begin();
-	QPointList::iterator current = previous;
-	current++;
-	QPointList::const_iterator next = current;
-	next++;
+    int invalid = -(1 << 30);
 
-	int invalid = -(1 << 30);
+    while (previous != dllEnd && current != dllEnd && next != dllEnd) {
+        const int slope1 = getSlope((*previous).x(), (*previous).y(), (*current).x(), (*current).y());
+        const int slope2 = getSlope((*current).x(), (*current).y(), (*next).x(), (*next).y());
 
-	while (previous != dllEnd && current != dllEnd && next != dllEnd) {
-		const int slope1 = getSlope((*previous).x(), (*previous).y(), (*current).x(), (*current).y());
-		const int slope2  = getSlope((*current).x(), (*current).y(), (*next).x(), (*next).y());
+        if (slope1 == slope2 || slope1 == 0 || slope2 == 0) {
+            *current = QPoint(invalid, invalid);
+        } else
+            previous = current;
 
-		if (slope1 == slope2 || slope1 == 0 || slope2 == 0) {
-			*current = QPoint(invalid, invalid);
-		} else 	previous = current;
+        current++;
+        next++;
+    }
 
-		current++;
-		next++;
-	}
+    drawLineList.removeAll(QPoint(invalid, invalid));
 
-	drawLineList.removeAll(QPoint(invalid, invalid));
+    // Find the bounding rect
+    {
+        int x1 = invalid, y1 = invalid, x2 = invalid, y2 = invalid;
 
-	// Find the bounding rect
-	{
-		int x1 = invalid, y1 = invalid, x2 = invalid, y2 = invalid;
+        for (const QPoint p : drawLineList) {
+            if (p.x() < x1 || x1 == invalid)
+                x1 = p.x();
+            if (p.x() > x2 || x2 == invalid)
+                x2 = p.x();
 
-		for (const QPoint p: drawLineList) {
-			if (p.x() < x1 || x1 == invalid) x1 = p.x();
-			if (p.x() > x2 || x2 == invalid) x2 = p.x();
+            if (p.y() < y1 || y1 == invalid)
+                y1 = p.y();
+            if (p.y() > y2 || y2 == invalid)
+                y2 = p.y();
+        }
 
-			if (p.y() < y1 || y1 == invalid) y1 = p.y();
-			if (p.y() > y2 || y2 == invalid) y2 = p.y();
-		}
+        QRect boundRect(x1, y1, x2 - x1, y2 - y1);
 
-		QRect boundRect(x1, y1, x2 - x1, y2 - y1);
+        if (boundRect != m_oldBoundRect) {
+            canvas()->setChanged(boundRect | m_oldBoundRect);
+            m_oldBoundRect = boundRect;
+        }
+    }
 
-		if (boundRect != m_oldBoundRect) {
-			canvas()->setChanged(boundRect | m_oldBoundRect);
-			m_oldBoundRect = boundRect;
-		}
-	}
+    // BEGIN build up ConnectorLine list
+    for (ConnectorLine *line : m_connectorLineList)
+        delete line;
 
-	//BEGIN build up ConnectorLine list
-	for (ConnectorLine* line: m_connectorLineList)
-		delete line;
+    m_connectorLineList.clear();
 
-	m_connectorLineList.clear();
+    if (drawLineList.size() > 1) {
+        QPoint prev = drawLineList.first();
+        int pixelOffset = 0;
 
-	if (drawLineList.size() > 1) {
-		QPoint prev = drawLineList.first();
-		int pixelOffset = 0;
+        for (QPoint next : drawLineList) {
+            ConnectorLine *line = new ConnectorLine(this, pixelOffset);
+            m_connectorLineList.append(line);
 
-		for (QPoint next: drawLineList) {
-			ConnectorLine *line = new ConnectorLine(this, pixelOffset);
-			m_connectorLineList.append(line);
+            line->setPoints(prev.x(), prev.y(), next.x(), next.y());
 
-			line->setPoints(prev.x(), prev.y(), next.x(), next.y());
+            // (note that only one of the following QABS will be non-zero)
+            pixelOffset += abs(prev.x() - next.x()) + abs(prev.y() - next.y());
 
-			// (note that only one of the following QABS will be non-zero)
-			pixelOffset += abs(prev.x() - next.x()) + abs(prev.y() - next.y());
+            prev = next;
+        }
+    }
 
-			prev = next;
-		}
-	}
+    updateConnectorLines();
 
-	updateConnectorLines();
-
-	//END build up ConnectorPoint list
+    // END build up ConnectorPoint list
 }
 
+void Connector::setSemiHidden(bool semiHidden)
+{
+    if (!canvas() || semiHidden == b_semiHidden)
+        return;
 
-void Connector::setSemiHidden(bool semiHidden) {
-	if (!canvas() || semiHidden == b_semiHidden)
-		return;
-
-	b_semiHidden = semiHidden;
-	updateConnectorLines();
+    b_semiHidden = semiHidden;
+    updateConnectorLines();
 }
 
+void Connector::updateConnectorPoints(bool add)
+{
+    if (!canvas())
+        return;
 
-void Connector::updateConnectorPoints(bool add) {
-	if (!canvas()) return;
+    if (b_deleted || !isVisible())
+        add = false;
 
-	if (b_deleted || !isVisible()) add = false;
+    // Check we haven't already added/removed the points...
+    if (b_pointsAdded == add)
+        return;
 
-	// Check we haven't already added/removed the points...
-	if (b_pointsAdded == add) return;
+    b_pointsAdded = add;
 
-	b_pointsAdded = add;
+    // We don't include the end points in the mapping
+    if (m_conRouter->cellPointList()->size() < 3)
+        return;
 
-	// We don't include the end points in the mapping
-	if (m_conRouter->cellPointList()->size() < 3) return;
+    Cells *cells = p_icnDocument->cells();
 
-	Cells * cells = p_icnDocument->cells();
+    const int mult = (add) ? 1 : -1;
+    for (QPoint p : *m_conRouter->cellPointList()) {
+        int x = p.x();
+        int y = p.y();
 
-	const int mult = (add) ? 1 : -1;
-	for (QPoint p: *m_conRouter->cellPointList()) {
-		int x = p.x();
-		int y = p.y();
+        // Add the points of this connector to the cell array in the ICNDocument,
+        // so that other connectors still to calculate their points know to try
+        // and avoid this connector
 
-		// Add the points of this connector to the cell array in the ICNDocument,
-		// so that other connectors still to calculate their points know to try
-		// and avoid this connector
+        p_icnDocument->addCPenalty(x, y - 1, mult * ICNDocument::hs_connector / 2);
+        p_icnDocument->addCPenalty(x - 1, y, mult * ICNDocument::hs_connector / 2);
+        p_icnDocument->addCPenalty(x, y, mult * ICNDocument::hs_connector);
+        p_icnDocument->addCPenalty(x + 1, y, mult * ICNDocument::hs_connector / 2);
+        p_icnDocument->addCPenalty(x, y + 1, mult * ICNDocument::hs_connector / 2);
 
-		p_icnDocument->addCPenalty(x    , y - 1, mult*ICNDocument::hs_connector / 2);
-		p_icnDocument->addCPenalty(x - 1, y    , mult*ICNDocument::hs_connector / 2);
-		p_icnDocument->addCPenalty(x    , y    , mult*ICNDocument::hs_connector    );
-		p_icnDocument->addCPenalty(x + 1, y    , mult*ICNDocument::hs_connector / 2);
-		p_icnDocument->addCPenalty(x    , y + 1, mult*ICNDocument::hs_connector / 2);
+        if (cells->haveCell(x, y))
+            cells->cell(x, y).numCon += mult;
+    }
 
-		if (cells->haveCell(x , y))
-			cells->cell(x, y).numCon += mult;
-	}
-
-// 	updateDrawList();
+    // 	updateDrawList();
 }
 
+void Connector::setRoutePoints(QPointList pointList, bool setManual, bool checkEndPoints)
+{
+    if (!canvas())
+        return;
 
-void Connector::setRoutePoints(QPointList pointList, bool setManual, bool checkEndPoints) {
-	if (!canvas())	return;
+    updateConnectorPoints(false);
 
-	updateConnectorPoints(false);
+    bool reversed = pointsAreReverse(pointList);
 
-	bool reversed = pointsAreReverse(pointList);
+    // a little performance boost: don't call (start|end)Node 4 times
+    Node *l_endNode = endNode();
+    Node *l_startNode = startNode();
 
-	// a little performance boost: don't call (start|end)Node 4 times
-	Node* l_endNode = endNode();
-	Node* l_startNode = startNode();
+    if (checkEndPoints) {
+        if (reversed) {
+            pointList.prepend(QPoint(int(l_endNode->x()), int(l_endNode->y())));
+            pointList.append(QPoint(int(l_startNode->x()), int(l_startNode->y())));
+        } else {
+            pointList.prepend(QPoint(int(l_startNode->x()), int(l_startNode->y())));
+            pointList.append(QPoint(int(l_endNode->x()), int(l_endNode->y())));
+        }
+    }
 
-	if (checkEndPoints) {
-		if (reversed) {
-			pointList.prepend(QPoint(int(l_endNode->x()),  int(l_endNode->y())));
-			pointList.append(QPoint(int(l_startNode->x()), int(l_startNode->y())));
-		} else {
-			pointList.prepend(QPoint(int(l_startNode->x()), int(l_startNode->y())));
-			pointList.append(QPoint(int(l_endNode->x()),    int(l_endNode->y())));
-		}
-	}
+    m_conRouter->setPoints(pointList, reversed);
 
-	m_conRouter->setPoints(pointList, reversed);
-
-	b_manualPoints = setManual;
-	updateConnectorPoints(true);
+    b_manualPoints = setManual;
+    updateConnectorPoints(true);
 }
 
+bool Connector::pointsAreReverse(const QPointList &pointList) const
+{
+    if (!startNode() || !endNode()) {
+        qWarning() << Q_FUNC_INFO << "Cannot determine orientation as no start and end nodes" << endl;
+        return false;
+    }
 
-bool Connector::pointsAreReverse(const QPointList &pointList) const {
-	if (!startNode() || !endNode()) {
-		qWarning() << Q_FUNC_INFO << "Cannot determine orientation as no start and end nodes" << endl;
-		return false;
-	}
+    if (pointList.isEmpty())
+        return false;
 
-	if (pointList.isEmpty()) return false;
+    int plsx = pointList.first().x();
+    int plsy = pointList.first().y();
+    int plex = pointList.last().x();
+    int pley = pointList.last().y();
 
-	int plsx = pointList.first().x();
-	int plsy = pointList.first().y();
-	int plex =  pointList.last().x();
-	int pley =  pointList.last().y();
+    double nsx = startNode()->x();
+    double nsy = startNode()->y();
+    double nex = endNode()->x();
+    double ney = endNode()->y();
 
-	double nsx = startNode()->x();
-	double nsy = startNode()->y();
-	double nex =   endNode()->x();
-	double ney =   endNode()->y();
+    double dist_normal = (nsx - plsx) * (nsx - plsx) + (nsy - plsy) * (nsy - plsy) + (nex - plex) * (nex - plex) + (ney - pley) * (ney - pley);
 
-	double dist_normal = (nsx - plsx) * (nsx - plsx)
-			   + (nsy - plsy) * (nsy - plsy)
-			   + (nex - plex) * (nex - plex)
-			   + (ney - pley) * (ney - pley);
+    double dist_reverse = (nsx - plex) * (nsx - plex) + (nsy - pley) * (nsy - pley) + (nex - plsx) * (nex - plsx) + (ney - plsy) * (ney - plsy);
 
-	double dist_reverse = (nsx - plex) * (nsx - plex)
-			    + (nsy - pley) * (nsy - pley)
-			    + (nex - plsx) * (nex - plsx)
-			    + (ney - plsy) * (ney - plsy);
-
-	return dist_reverse < dist_normal;
+    return dist_reverse < dist_normal;
 }
 
+void Connector::rerouteConnector()
+{
+    if (!isVisible())
+        return;
 
-void Connector::rerouteConnector() {
-	if (!isVisible()) return;
+    if (nodeGroup()) {
+        qWarning() << Q_FUNC_INFO << "Connector is controlled by a NodeGroup! Use that to reroute the connector" << endl;
+        return;
+    }
 
-	if (nodeGroup()) {
-		qWarning() << Q_FUNC_INFO << "Connector is controlled by a NodeGroup! Use that to reroute the connector" << endl;
-		return;
-	}
+    if (!startNode() || !endNode())
+        return;
 
-	if (!startNode() || !endNode()) return;
+    updateConnectorPoints(false);
 
-	updateConnectorPoints(false);
+    m_conRouter->mapRoute(int(startNode()->x()), int(startNode()->y()), int(endNode()->x()), int(endNode()->y()));
 
-	m_conRouter->mapRoute(int(startNode()->x()),
-			      int(startNode()->y()),
-			      int(endNode()->x()),
-                              int(endNode()->y()));
-
-	b_manualPoints = false;
-	updateConnectorPoints(true);
+    b_manualPoints = false;
+    updateConnectorPoints(true);
 }
 
-
-void Connector::translateRoute(int dx, int dy) {
-	updateConnectorPoints(false);
-	m_conRouter->translateRoute(dx, dy);
-	updateConnectorPoints(true);
-	updateDrawList();
+void Connector::translateRoute(int dx, int dy)
+{
+    updateConnectorPoints(false);
+    m_conRouter->translateRoute(dx, dy);
+    updateConnectorPoints(true);
+    updateDrawList();
 }
 
-
-void Connector::restoreFromConnectorData(const ConnectorData &connectorData) {
-	updateConnectorPoints(false);
-	b_manualPoints = connectorData.manualRoute;
-	m_conRouter->setRoutePoints(connectorData.route);
-	updateConnectorPoints(true);
-	updateDrawList();
+void Connector::restoreFromConnectorData(const ConnectorData &connectorData)
+{
+    updateConnectorPoints(false);
+    b_manualPoints = connectorData.manualRoute;
+    m_conRouter->setRoutePoints(connectorData.route);
+    updateConnectorPoints(true);
+    updateDrawList();
 }
 
+ConnectorData Connector::connectorData() const
+{
+    ConnectorData connectorData;
 
-ConnectorData Connector::connectorData() const {
-	ConnectorData connectorData;
+    if (!startNode() || !endNode()) {
+        qDebug() << Q_FUNC_INFO << " m_startNode=" << startNode() << " m_endNode=" << endNode() << endl;
+        return connectorData;
+    }
 
-	if (!startNode() || !endNode()) {
-		qDebug() << Q_FUNC_INFO << " m_startNode=" << startNode() << " m_endNode=" << endNode() << endl;
-		return connectorData;
-	}
+    connectorData.manualRoute = usesManualPoints();
 
-	connectorData.manualRoute = usesManualPoints();
+    connectorData.route = *m_conRouter->cellPointList();
 
-	connectorData.route = *m_conRouter->cellPointList();
+    if (startNode()->isChildNode()) {
+        connectorData.startNodeIsChild = true;
+        connectorData.startNodeCId = startNode()->childId();
+        connectorData.startNodeParent = startNode()->parentItem()->id();
+    } else {
+        connectorData.startNodeIsChild = false;
+        connectorData.startNodeId = startNode()->id();
+    }
 
-	if (startNode()->isChildNode()) {
-		connectorData.startNodeIsChild = true;
-		connectorData.startNodeCId = startNode()->childId();
-		connectorData.startNodeParent = startNode()->parentItem()->id();
-	} else {
-		connectorData.startNodeIsChild = false;
-		connectorData.startNodeId = startNode()->id();
-	}
+    if (endNode()->isChildNode()) {
+        connectorData.endNodeIsChild = true;
+        connectorData.endNodeCId = endNode()->childId();
+        connectorData.endNodeParent = endNode()->parentItem()->id();
+    } else {
+        connectorData.endNodeIsChild = false;
+        connectorData.endNodeId = endNode()->id();
+    }
 
-	if (endNode()->isChildNode()) {
-		connectorData.endNodeIsChild = true;
-		connectorData.endNodeCId = endNode()->childId();
-		connectorData.endNodeParent = endNode()->parentItem()->id();
-	} else {
-		connectorData.endNodeIsChild = false;
-		connectorData.endNodeId = endNode()->id();
-	}
-
-	return connectorData;
+    return connectorData;
 }
 
+void Connector::setVisible(bool yes)
+{
+    if (!canvas() || isVisible() == yes)
+        return;
 
-void Connector::setVisible(bool yes) {
-	if (!canvas() || isVisible() == yes) return;
-
-	KtlQCanvasPolygon::setVisible(yes);
-	updateConnectorLines();
+    KtlQCanvasPolygon::setVisible(yes);
+    updateConnectorLines();
 }
 
-Wire *Connector::wire(unsigned num) const {
+Wire *Connector::wire(unsigned num) const
+{
     return (num < m_wires.size()) ? m_wires[num] : nullptr;
 }
 
-void Connector::setSelected(bool yes) {
-	if (!canvas() || isSelected() == yes) return;
+void Connector::setSelected(bool yes)
+{
+    if (!canvas() || isSelected() == yes)
+        return;
 
-	KtlQCanvasPolygon::setSelected(yes);
-	updateConnectorLines();
+    KtlQCanvasPolygon::setSelected(yes);
+    updateConnectorLines();
 
-	emit selected(yes);
+    emit selected(yes);
 }
 
+void Connector::updateConnectorLines(bool forceRedraw)
+{
+    QColor color;
 
-void Connector::updateConnectorLines(bool forceRedraw) {
-	QColor color;
+    if (b_semiHidden)
+        color = Qt::gray;
+    else if (isSelected())
+        color = QColor(101, 134, 192);
+    else if (!KTLConfig::showVoltageColor())
+        color = Qt::black;
+    else
+        color = Component::voltageColor(wire() ? wire()->voltage() : 0.0);
 
-	if (b_semiHidden) color = Qt::gray;
-	else if (isSelected()) color = QColor(101, 134, 192);
-	else if (!KTLConfig::showVoltageColor()) color = Qt::black;
-	else color = Component::voltageColor(wire() ? wire()->voltage() : 0.0);
+    int z = ICNDocument::Z::Connector + (isSelected() ? 5 : 0);
 
-	int z = ICNDocument::Z::Connector + (isSelected() ? 5 : 0);
+    QPen pen(color, (numWires() > 1) ? 2 : 1);
 
-	QPen pen(color, (numWires() > 1) ? 2 : 1);
+    bool animateWires = KTLConfig::animateWires();
+    for (KtlQCanvasPolygonalItem *item : m_connectorLineList) {
+        bool changed = (item->z() != z) || (item->pen() != pen) || (item->isVisible() != isVisible());
 
-	bool animateWires = KTLConfig::animateWires();
-	for (KtlQCanvasPolygonalItem *item: m_connectorLineList) {
-		bool changed = (item->z() != z)
-			    || (item->pen() != pen)
-			    || (item->isVisible() != isVisible());
+        if (!changed) {
+            if (forceRedraw)
+                canvas()->setChanged(item->boundingRect());
+            continue;
+        }
 
-		if (!changed) {
-			if (forceRedraw)
-				canvas()->setChanged(item->boundingRect());
-			continue;
-		}
-
-		item->setZ(z);
-		item->setPen(pen);
-		item->setVisible(isVisible());
-	}
+        item->setZ(z);
+        item->setPen(pen);
+        item->setVisible(isVisible());
+    }
 }
 
-
-QList<QPointList> Connector::splitConnectorPoints(const QPoint & pos) const {
-	return m_conRouter->splitPoints(pos);
+QList<QPointList> Connector::splitConnectorPoints(const QPoint &pos) const
+{
+    return m_conRouter->splitPoints(pos);
 }
 
-
-QPointList Connector::connectorPoints(bool reverse) const {
-	bool doReverse = (reverse != pointsAreReverse(m_conRouter->pointList(false)));
-	return m_conRouter->pointList(doReverse);
+QPointList Connector::connectorPoints(bool reverse) const
+{
+    bool doReverse = (reverse != pointsAreReverse(m_conRouter->pointList(false)));
+    return m_conRouter->pointList(doReverse);
 }
 
+void Connector::incrementCurrentAnimation(double deltaTime)
+{
+    // The values and equations used in this function have just been developed
+    // empircally to be able to show a nice range of currents while still giving
+    // a good indication of the amount of current flowing
 
-void Connector::incrementCurrentAnimation(double deltaTime) {
-	// The values and equations used in this function have just been developed
-	// empircally to be able to show a nice range of currents while still giving
-	// a good indication of the amount of current flowing
+    double I_min = 1e-4;
+    double sf = 3.0; // scaling factor
 
-	double I_min = 1e-4;
-	double sf    = 3.0; // scaling factor
+    for (int i = 0; i < m_wires.size(); ++i) {
+        if (!m_wires[i])
+            continue;
 
-	for (int i = 0; i < m_wires.size(); ++i) {
-		if (!m_wires[i]) continue;
+        double I = m_wires[i]->current();
+        double sign = (I > 0) ? 1 : -1;
+        double I_abs = I * sign;
+        double prop = (I_abs > I_min) ? std::log(I_abs / I_min) : 0.0;
 
-		double I = m_wires[i]->current();
-		double sign  = (I > 0) ? 1 : -1;
-		double I_abs = I * sign;
-		double prop  = (I_abs > I_min) ? std::log(I_abs / I_min) : 0.0;
-
-		m_currentAnimationOffset += deltaTime * sf * std::pow(prop, 1.3) * sign;
-	}
+        m_currentAnimationOffset += deltaTime * sf * std::pow(prop, 1.3) * sign;
+    }
 }
-//END class Connector
+// END class Connector
 
-
-//BEGIN class ConnectorLine
-ConnectorLine::ConnectorLine(Connector * connector, int pixelOffset)
-		: //QObject(connector),
-            KtlQCanvasLine(connector->canvas()) {
+// BEGIN class ConnectorLine
+ConnectorLine::ConnectorLine(Connector *connector, int pixelOffset)
+    : // QObject(connector),
+    KtlQCanvasLine(connector->canvas())
+{
     qDebug() << Q_FUNC_INFO << " this=" << this;
-	m_pConnector = connector;
-	m_pixelOffset = pixelOffset;
+    m_pConnector = connector;
+    m_pixelOffset = pixelOffset;
 }
-
 
 /**
  * @returns x, possibly moving it to the closest bound if it is out of bounds.
  */
-int boundify(int x, int bound1, int bound2) {
-	if (bound2 < bound1) {
-		// swap bounds
-		int temp = bound2;
-		bound2   = bound1;
-		bound1   = temp;
-	}
+int boundify(int x, int bound1, int bound2)
+{
+    if (bound2 < bound1) {
+        // swap bounds
+        int temp = bound2;
+        bound2 = bound1;
+        bound1 = temp;
+    }
 
-	// now, have bound1 <= bound2
-	if (x < bound1)	     return bound1;
-	else if (x > bound2) return bound2;
-	else	return x;
+    // now, have bound1 <= bound2
+    if (x < bound1)
+        return bound1;
+    else if (x > bound2)
+        return bound2;
+    else
+        return x;
 }
 
+void ConnectorLine::drawShape(QPainter &p)
+{
+    if (!m_bAnimateCurrent) {
+        KtlQCanvasLine::drawShape(p);
+        return;
+    }
 
-void ConnectorLine::drawShape(QPainter & p) {
-	if (!m_bAnimateCurrent) {
-		KtlQCanvasLine::drawShape(p);
-		return;
-	}
+    int ss = 3;  // segment spacing
+    int sl = 13; // segment length (includes segment spacing)
 
-	int ss = 3; // segment spacing
-	int sl = 13; // segment length (includes segment spacing)
+    int offset = int(m_pConnector->currentAnimationOffset() - m_pixelOffset);
+    offset = ((offset % sl) - sl) % sl;
 
-	int offset = int(m_pConnector->currentAnimationOffset() - m_pixelOffset);
-	offset = ((offset % sl) - sl) % sl;
+    int x1 = startPoint().x();
+    int y1 = startPoint().y();
+    int x2 = endPoint().x();
+    int y2 = endPoint().y();
 
-	int x1 = startPoint().x();
-	int y1 = startPoint().y();
-	int x2 = endPoint().x();
-	int y2 = endPoint().y();
+    QPen pen = p.pen();
+    // 	pen.setStyle( Qt::DashDotLine );
+    p.setPen(pen);
 
-	QPen pen = p.pen();
-// 	pen.setStyle( Qt::DashDotLine );
-	p.setPen(pen);
+    if (x1 == x2) {
+        int _x = int(x() + x1);
+        int y_end = int(y() + y2);
 
-	if (x1 == x2) {
-		int _x = int(x() + x1);
-		int y_end = int(y() + y2);
+        if (y1 > y2) {
+            // up connector line
+            for (int _y = int(y() + y1 - offset); _y >= y_end; _y -= sl) {
+                int y_1 = boundify(_y, int(y() + y1), y_end);
+                int y_2 = boundify(_y - (sl - ss), int(y() + y1), y_end);
+                p.drawLine(_x, y_1, _x, y_2);
+            }
+        } else {
+            // down connector line
+            for (int _y = int(y() + y1 + offset); _y <= y_end; _y += sl) {
+                int y_1 = boundify(_y, int(y() + y1), y_end);
+                int y_2 = boundify(_y + (sl - ss), int(y() + y1), y_end);
+                p.drawLine(_x, y_1, _x, y_2);
+            }
+        }
+    } else {
+        // y1 == y2
 
-		if (y1 > y2) {
-			// up connector line
-			for (int _y = int(y() + y1 - offset); _y >= y_end; _y -= sl) {
-				int y_1 = boundify(_y, int(y() + y1), y_end);
-				int y_2 = boundify(_y - (sl - ss), int(y() + y1), y_end);
-				p.drawLine(_x, y_1, _x, y_2);
-			}
-		} else {
-			// down connector line
-			for (int _y = int(y() + y1 + offset); _y <= y_end; _y += sl) {
-				int y_1 = boundify(_y, int(y() + y1), y_end);
-				int y_2 = boundify(_y + (sl - ss), int(y() + y1), y_end);
-				p.drawLine(_x, y_1, _x, y_2);
-			}
-		}
-	} else {
-		// y1 == y2
+        int _y = int(y() + y1);
+        int x_end = int(x() + x2);
 
-		int _y    = int(y() + y1);
-		int x_end = int(x() + x2);
+        if (x1 > x2) {
+            // left connector line
+            int x_start = int(x() + x1 - offset);
 
-		if (x1 > x2) {
-			// left connector line
-			int x_start = int(x() + x1 - offset);
-
-			for (int _x = x_start; _x >= x_end; _x -= sl) {
-				int x_1 = boundify(_x, int(x() + x1), x_end);
-				int x_2 = boundify(_x - (sl - ss), int(x() + x1), x_end);
-				p.drawLine(x_1, _y, x_2, _y);
-			}
-		} else {
-			// right connector line
-			for (int _x = int(x() + x1 + offset); _x <= x_end; _x += sl) {
-				int x_1 = boundify(_x, int(x() + x1), x_end);
-				int x_2 = boundify(_x + (sl - ss), int(x() + x1), x_end);
-				p.drawLine(x_1, _y, x_2, _y);
-			}
-		}
-	}
+            for (int _x = x_start; _x >= x_end; _x -= sl) {
+                int x_1 = boundify(_x, int(x() + x1), x_end);
+                int x_2 = boundify(_x - (sl - ss), int(x() + x1), x_end);
+                p.drawLine(x_1, _y, x_2, _y);
+            }
+        } else {
+            // right connector line
+            for (int _x = int(x() + x1 + offset); _x <= x_end; _x += sl) {
+                int x_1 = boundify(_x, int(x() + x1), x_end);
+                int x_2 = boundify(_x + (sl - ss), int(x() + x1), x_end);
+                p.drawLine(x_1, _y, x_2, _y);
+            }
+        }
+    }
 }
-//END class ConnectorLine
+// END class ConnectorLine

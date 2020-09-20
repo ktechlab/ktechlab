@@ -11,14 +11,11 @@
 #include "picinfo.h"
 
 PicInfo::PicInfo()
-	: MicroInfo()
+    : MicroInfo()
 {
-	m_package = nullptr;
+    m_package = nullptr;
 }
-
 
 PicInfo::~PicInfo()
 {
 }
-
-

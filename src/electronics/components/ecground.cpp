@@ -17,49 +17,40 @@
 #include <KLocalizedString>
 #include <QPainter>
 
-Item* ECGround::construct( ItemDocument *itemDocument, bool newItem, const char *id )
+Item *ECGround::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-	return new ECGround( (ICNDocument*)itemDocument, newItem, id );
+    return new ECGround((ICNDocument *)itemDocument, newItem, id);
 }
-LibraryItem* ECGround::libraryItem()
+LibraryItem *ECGround::libraryItem()
 {
-	return new LibraryItem(
-		QStringList(QString("ec/ground")),
-		i18n("Ground (0V)"),
-		i18n("Sources"),
-		"ground.png",
-		LibraryItem::lit_component,
-		ECGround::construct );
+    return new LibraryItem(QStringList(QString("ec/ground")), i18n("Ground (0V)"), i18n("Sources"), "ground.png", LibraryItem::lit_component, ECGround::construct);
 }
 
-ECGround::ECGround( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "ground" )
+ECGround::ECGround(ICNDocument *icnDocument, bool newItem, const char *id)
+    : Component(icnDocument, newItem, (id) ? id : "ground")
 {
-	m_name = i18n("Ground");
-	setSize( -8, -8, 16, 16 );
-	init1PinRight();
-	m_pPNode[0]->pin()->setGroundType( Pin::gt_always );
-	setAngleDegrees(270);
+    m_name = i18n("Ground");
+    setSize(-8, -8, 16, 16);
+    init1PinRight();
+    m_pPNode[0]->pin()->setGroundType(Pin::gt_always);
+    setAngleDegrees(270);
 }
 
 ECGround::~ECGround()
 {
 }
 
-void ECGround::drawShape( QPainter &p )
+void ECGround::drawShape(QPainter &p)
 {
-	initPainter(p);
-	int _x = (int)x()-8;
-	int _y = (int)y()-8;
-	QPen pen;
-	pen.setWidth(2);
-	pen.setColor( p.pen().color() );
-	p.setPen(pen);
-	p.drawLine( _x+15, _y, _x+15, _y+16 );
-	p.drawLine( _x+10, _y+3, _x+10, _y+13 );
-	p.drawLine( _x+5, _y+6, _x+5, _y+10 );
-	deinitPainter(p);
+    initPainter(p);
+    int _x = (int)x() - 8;
+    int _y = (int)y() - 8;
+    QPen pen;
+    pen.setWidth(2);
+    pen.setColor(p.pen().color());
+    p.setPen(pen);
+    p.drawLine(_x + 15, _y, _x + 15, _y + 16);
+    p.drawLine(_x + 10, _y + 3, _x + 10, _y + 13);
+    p.drawLine(_x + 5, _y + 6, _x + 5, _y + 10);
+    deinitPainter(p);
 }
-
-
-

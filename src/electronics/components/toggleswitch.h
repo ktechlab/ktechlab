@@ -20,25 +20,24 @@
 class ECDPDT : public Component
 {
 public:
-	ECDPDT( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECDPDT() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
-	void buttonStateChanged( const QString &id, bool state ) override;
-	void dataChanged() override;
-	
+    ECDPDT(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECDPDT() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    void buttonStateChanged(const QString &id, bool state) override;
+    void dataChanged() override;
+
 private:
-	void drawShape( QPainter &p ) override;
+    void drawShape(QPainter &p) override;
 
-	Switch *m_switch1;
-	Switch *m_switch2;
-	Switch *m_switch3;
-	Switch *m_switch4;
-	bool pressed;
+    Switch *m_switch1;
+    Switch *m_switch2;
+    Switch *m_switch3;
+    Switch *m_switch4;
+    bool pressed;
 };
-
 
 /**
 @short Double Pole Single Throw
@@ -47,23 +46,22 @@ private:
 class ECDPST : public Component
 {
 public:
-	ECDPST( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECDPST() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
-	void buttonStateChanged( const QString &id, bool state ) override;
-	void dataChanged() override;
-	
+    ECDPST(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECDPST() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    void buttonStateChanged(const QString &id, bool state) override;
+    void dataChanged() override;
+
 private:
-	void drawShape( QPainter &p ) override;
+    void drawShape(QPainter &p) override;
 
-	Switch *m_switch1;
-	Switch *m_switch2;
-	bool pressed;
+    Switch *m_switch1;
+    Switch *m_switch2;
+    bool pressed;
 };
-
 
 /**
 @short Single Pole Double Throw
@@ -72,23 +70,22 @@ private:
 class ECSPDT : public Component
 {
 public:
-	ECSPDT( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECSPDT() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
-	void buttonStateChanged( const QString &id, bool state ) override;
-	void dataChanged() override;
-	
+    ECSPDT(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECSPDT() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    void buttonStateChanged(const QString &id, bool state) override;
+    void dataChanged() override;
+
 private:
-	void drawShape( QPainter &p ) override;
+    void drawShape(QPainter &p) override;
 
-	Switch *m_switch1;
-	Switch *m_switch2;
-	bool pressed;
+    Switch *m_switch1;
+    Switch *m_switch2;
+    bool pressed;
 };
-
 
 /**
 @short Single-Pole Single-Throw Switch
@@ -97,19 +94,19 @@ private:
 class ECSPST : public Component
 {
 public:
-	ECSPST( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
-	~ECSPST() override;
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
-	void buttonStateChanged( const QString &id, bool state ) override;
-	void dataChanged() override;
-	
+    ECSPST(ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
+    ~ECSPST() override;
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    void buttonStateChanged(const QString &id, bool state) override;
+    void dataChanged() override;
+
 private:
-	void drawShape( QPainter &p ) override;
-	Switch *m_switch;
-	bool pressed;
+    void drawShape(QPainter &p) override;
+    Switch *m_switch;
+    bool pressed;
 };
 
 #endif

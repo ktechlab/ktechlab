@@ -9,61 +9,49 @@
  ***************************************************************************/
 
 #include "inputbutton.h"
-#include "libraryitem.h"
 #include "flowcode.h"
+#include "libraryitem.h"
 
 #include <KLocalizedString>
 
-Item* InputButton::construct( ItemDocument *itemDocument, bool newItem, const char *id )
+Item *InputButton::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-	return new InputButton( (ICNDocument*)itemDocument, newItem, id );
+    return new InputButton((ICNDocument *)itemDocument, newItem, id);
 }
 
-
-LibraryItem* InputButton::libraryItem()
+LibraryItem *InputButton::libraryItem()
 {
-	return new LibraryItem(
-		QStringList(QString("flow/inputbutton")),
-		i18n("InputButton"),
-		i18n("Functions"),
-		"ppinputbutton.png",
-		LibraryItem::lit_flowpart,
-		InputButton::construct
-			);
+    return new LibraryItem(QStringList(QString("flow/inputbutton")), i18n("InputButton"), i18n("Functions"), "ppinputbutton.png", LibraryItem::lit_flowpart, InputButton::construct);
 }
 
-
-InputButton::InputButton( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, id ? id : "inputbutton" )
+InputButton::InputButton(ICNDocument *icnDocument, bool newItem, const char *id)
+    : FlowPart(icnDocument, newItem, id ? id : "inputbutton")
 {
-	m_name = i18n("InputButton");
-	initProcessSymbol();
-	createStdInput();
-	createStdOutput();
-	
-	createProperty( "0-trigger", Variant::Type::Select );
-	property("0-trigger")->setCaption( i18n("Trigger") );
-	property("0-trigger")->setAllowed( (QStringList("rising") << "falling") );
-	property("0-trigger")->setValue("rising");
-	
-	createProperty( "1-pin", Variant::Type::Pin );
-	property("1-pin")->setCaption( i18n("Pin") );
-	property("1-pin")->setValue("RA0");
+    m_name = i18n("InputButton");
+    initProcessSymbol();
+    createStdInput();
+    createStdOutput();
+
+    createProperty("0-trigger", Variant::Type::Select);
+    property("0-trigger")->setCaption(i18n("Trigger"));
+    property("0-trigger")->setAllowed((QStringList("rising") << "falling"));
+    property("0-trigger")->setValue("rising");
+
+    createProperty("1-pin", Variant::Type::Pin);
+    property("1-pin")->setCaption(i18n("Pin"));
+    property("1-pin")->setValue("RA0");
 }
 
 InputButton::~InputButton()
 {
 }
 
-
 void InputButton::dataChanged()
 {
-	setCaption( i18n("Continue on %1 %2", dataString("0-trigger"), dataString("1-pin")) );
+    setCaption(i18n("Continue on %1 %2", dataString("0-trigger"), dataString("1-pin")));
 }
 
-
-void InputButton::generateMicrobe( FlowCode *code )
+void InputButton::generateMicrobe(FlowCode *code)
 {
-	code->addCodeBranch( outputPart("stdoutput") );
+    code->addCodeBranch(outputPart("stdoutput"));
 }
-
