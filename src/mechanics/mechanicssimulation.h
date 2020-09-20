@@ -15,6 +15,7 @@
 #include <QObject>
 #include <QPointer>
 
+class QTimer;
 class MechanicsItem;
 class MechanicsDocument;
 typedef QList<MechanicsItem *> MechanicsItemList;
