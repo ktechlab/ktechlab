@@ -11,6 +11,7 @@
 #ifndef PROBEPOSITIONER_H
 #define PROBEPOSITIONER_H
 
+#include <QMap>
 #include <QWidget>
 
 class ProbeData;
