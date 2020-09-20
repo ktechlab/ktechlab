@@ -15,6 +15,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${ECM_MODULE_PAT
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
+include(KDEClangFormat OPTIONAL RESULT_VARIABLE KDEClangFormat_FOUND)
 
 include(ECMInstallIcons)
 include(FeatureSummary)
@@ -147,3 +148,9 @@ if(BUILD_TESTING)
 endif()
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
+
+# add clang-format target for all our real source files
+if(KDEClangFormat_FOUND)
+    file(GLOB_RECURSE ALL_CLANG_FORMAT_SOURCE_FILES src/*.cpp src/*.h)
+    kde_clang_format(${ALL_CLANG_FORMAT_SOURCE_FILES})
+endif()
