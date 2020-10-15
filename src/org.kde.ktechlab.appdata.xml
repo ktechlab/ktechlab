@@ -263,6 +263,7 @@
       <li xml:lang="x-test">xxUploading the assembly code to PIC using hardware programmerxx</li>
     </ul>
   </description>
+  <content_rating type="oars-1.0" />
   <screenshots>
     <screenshot type="default">
       <image>https://userbase.kde.org/images.userbase/e/e6/Ktechlab_screen.png</image>
@@ -270,6 +271,15 @@
   </screenshots>
   <url type="homepage">https://userbase.kde.org/Special:myLanguage/KTechlab</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=ktechlab</url>
+  <releases>
+    <release version="0.50.0" date="2020-09-21">
+      <description>
+        <p>This release should compile and run on systems where KDELibs4Support libraries are not available.</p>
+      </description>
+
+      <url>https://zoltanp.github.io/2020/09/ktechlab-0-50-0.html</url>
+    </release>
+  </releases>
   <project_group>KDE</project_group>
   <provides>
     <binary>ktechlab</binary>
