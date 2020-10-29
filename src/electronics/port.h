@@ -211,6 +211,7 @@ protected:
     void writeToRegister(Register reg, uchar value);
     void reset();
 
+#ifdef Q_OS_LINUX
     uchar m_reg[3];
 
     /// Mask of the pins that are currently set as input
@@ -221,6 +222,7 @@ protected:
 
     /// File descriptor for the port.
     int m_file;
+#endif
 };
 
 #endif

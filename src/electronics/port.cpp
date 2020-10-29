@@ -22,7 +22,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
-#if !defined(DARWIN) && !defined(__FreeBSD__)
+#ifdef Q_OS_LINUX
 #include <linux/ppdev.h>
 #endif
 
@@ -236,20 +236,10 @@ QStringList SerialPort::ports(unsigned probeResult)
 // Comms class device, in which case it is treated as a serial device.
 // ( Info from Garth Cummings, Apple Developer Technical Support )
 
+#ifdef Q_OS_LINUX
+
 const int IRQ_MODE_BIT = 1 << 20;   // Controls if pin 10 (Ack) causes interrupts
 const int INPUT_MODE_BIT = 1 << 21; // Controls if the data pins are input or output
-
-// No code using these values will be reached on Darwin, this is just to
-// keep the preprocessor happy.
-#if defined(DARWIN) || defined(__FreeBSD__)
-#define PPRDATA 0xFACADE
-#define PPRCONTROL 0xC001D00D
-#define PPWDATA 0xC0EDBABE
-#define PPWCONTROL 0xFEEDFACE
-#define PPRSTATUS 0xBAADF00D
-#define PPCLAIM 0xDEADBEEF
-#define PPRELEASE 0xCAFE
-#endif
 
 const unsigned long IOCTL_REG_READ[3] = {
     PPRDATA,
@@ -269,6 +259,8 @@ const unsigned long IOCTL_REG_WRITE[3] = {
 // 	0x0b, // 00001011
 // };
 
+#endif
+
 ParallelPort::ParallelPort()
 {
     reset();
@@ -280,17 +272,20 @@ ParallelPort::~ParallelPort()
 
 void ParallelPort::reset()
 {
+#ifdef Q_OS_LINUX
     m_file = -1;
     m_reg[Data] = 0;
     m_reg[Status] = 0;
     m_reg[Control] = 0;
     m_outputPins = INPUT_MODE_BIT | IRQ_MODE_BIT;
     m_inputPins = STATUS_PINS | INPUT_MODE_BIT | IRQ_MODE_BIT;
+#endif
 }
 
 // BEGIN Pin-oriented operations
 void ParallelPort::setPinState(int pins, bool state)
 {
+#ifdef Q_OS_LINUX
     // only allow writing to output pins
     pins &= m_outputPins;
 
@@ -299,12 +294,17 @@ void ParallelPort::setPinState(int pins, bool state)
 
     if (pins & CONTROL_PINS)
         setControlState((pins & CONTROL_PINS) >> 16, state);
+#else
+    Q_UNUSED(pins);
+    Q_UNUSED(state);
+#endif
 }
 
 int ParallelPort::pinState(int pins)
 {
     int value = 0;
 
+#ifdef Q_OS_LINUX
     // only allow reading from input pins
     pins &= m_inputPins;
 
@@ -316,6 +316,9 @@ int ParallelPort::pinState(int pins)
 
     if (pins & CONTROL_PINS)
         value |= ((readFromRegister(Control) & ((pins & CONTROL_PINS) >> 16)) << 16);
+#else
+    Q_UNUSED(pins);
+#endif
 
     return value;
 }
@@ -348,10 +351,7 @@ void ParallelPort::setControlState(uchar pins, bool state)
 // BEGIN Register-oriented operations
 uchar ParallelPort::readFromRegister(Register reg)
 {
-#if defined(DARWIN) || defined(__FreeBSD__)
-    return 0;
-#endif
-
+#ifdef Q_OS_LINUX
     if (m_file == -1)
         return 0;
 
@@ -362,14 +362,15 @@ uchar ParallelPort::readFromRegister(Register reg)
     else
         m_reg[reg] = value;
     return value;
+#else
+    Q_UNUSED(reg);
+    return 0;
+#endif
 }
 
 void ParallelPort::writeToRegister(Register reg, uchar value)
 {
-#if defined(DARWIN) || defined(__FreeBSD__)
-    return;
-#endif
-
+#ifdef Q_OS_LINUX
     if (m_file == -1)
         return;
 
@@ -378,6 +379,10 @@ void ParallelPort::writeToRegister(Register reg, uchar value)
         qCritical() << Q_FUNC_INFO << "errno=" << errno << endl;
     else
         m_reg[reg] = value;
+#else
+    Q_UNUSED(reg);
+    Q_UNUSED(value);
+#endif
 }
 
 void ParallelPort::writeToData(uchar value)
@@ -387,8 +392,10 @@ void ParallelPort::writeToData(uchar value)
 
 void ParallelPort::writeToControl(uchar value)
 {
+#ifdef Q_OS_LINUX
     // Set all inputs to ones
     value |= ((m_inputPins & CONTROL_PINS) >> 16);
+#endif
 
     writeToRegister(Control, value);
 }
@@ -397,6 +404,7 @@ void ParallelPort::writeToControl(uchar value)
 // BEGIN Changing pin directions
 void ParallelPort::setDataDirection(Direction dir)
 {
+#ifdef Q_OS_LINUX
     if (dir == Input) {
         m_inputPins |= DATA_PINS;
         m_outputPins &= ~DATA_PINS;
@@ -406,10 +414,14 @@ void ParallelPort::setDataDirection(Direction dir)
     }
 
     setPinState(INPUT_MODE_BIT, dir == Input);
+#else
+    Q_UNUSED(dir);
+#endif
 }
 
 void ParallelPort::setControlDirection(int pins, Direction dir)
 {
+#ifdef Q_OS_LINUX
     pins &= CONTROL_PINS;
 
     if (dir == Input) {
@@ -421,15 +433,16 @@ void ParallelPort::setControlDirection(int pins, Direction dir)
     }
 
     setControlState(0, true);
+#else
+    Q_UNUSED(pins);
+    Q_UNUSED(dir);
+#endif
 }
 // END Changing pin directions
 
 Port::ProbeResult ParallelPort::probe(const QString &port)
 {
-#if defined(DARWIN) || defined(__FreeBSD__)
-    return Port::DoesntExist;
-#endif
-
+#ifdef Q_OS_LINUX
     int file = open(port.toAscii(), O_RDWR);
     if (file == -1)
         return Port::DoesntExist;
@@ -442,16 +455,17 @@ Port::ProbeResult ParallelPort::probe(const QString &port)
     ioctl(file, PPRELEASE);
     close(file);
     return Port::ExistsAndRW;
+#else
+    Q_UNUSED(port);
+    return Port::DoesntExist;
+#endif
 }
 
 QStringList ParallelPort::ports(unsigned probeResult)
 {
     QStringList list;
 
-#if defined(DARWIN) || defined(__FreeBSD__)
-    return list;
-#endif
-
+#ifdef Q_OS_LINUX
     for (unsigned i = 0; i < 8; ++i) {
         QString dev = QString("/dev/parport%1").arg(i);
         if (probe(dev) & probeResult)
@@ -463,20 +477,16 @@ QStringList ParallelPort::ports(unsigned probeResult)
         if (probe(dev) & probeResult)
             list << dev;
     }
+#else
+    Q_UNUSED(probeResult);
+#endif
 
     return list;
 }
 
 bool ParallelPort::openPort(const QString &port)
 {
-#if defined(__FreeBSD__)
-    qWarning() << Q_FUNC_INFO << "Parallel ports disabled on FreeBSD" << endl;
-    return false;
-#elif defined(DARWIN)
-    qWarning() << Q_FUNC_INFO << "Parallel ports disabled on Darwin" << endl;
-    return false;
-#endif
-
+#ifdef Q_OS_LINUX
     if (m_file != -1) {
         qWarning() << Q_FUNC_INFO << "Port already open" << endl;
         return false;
@@ -497,14 +507,15 @@ bool ParallelPort::openPort(const QString &port)
     }
 
     return true;
+#else
+    Q_UNUSED(port);
+    return false;
+#endif
 }
 
 void ParallelPort::closePort()
 {
-#if defined(DARWIN) || defined(__FreeBSD__)
-    return;
-#endif
-
+#ifdef Q_OS_LINUX
     if (m_file == -1)
         return;
 
@@ -515,5 +526,6 @@ void ParallelPort::closePort()
         qCritical() << Q_FUNC_INFO << "res=" << res << endl;
 
     m_file = -1;
+#endif
 }
 // END class ParallelPort
