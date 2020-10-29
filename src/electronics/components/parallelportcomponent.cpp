@@ -23,7 +23,6 @@
 #include <QPainter>
 
 #include <cmath>
-#include <termios.h>
 
 Item *ParallelPortComponent::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
