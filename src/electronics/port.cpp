@@ -17,10 +17,12 @@
 #include "port.h"
 #include <QDebug>
 
+#ifdef Q_OS_UNIX
 #include <errno.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
+#endif
 
 #ifdef Q_OS_LINUX
 #include <linux/ppdev.h>
@@ -44,7 +46,9 @@ QStringList Port::ports(unsigned probeResult)
 // BEGIN class SerialPort
 SerialPort::SerialPort()
 {
+#ifdef Q_OS_UNIX
     m_file = -1;
+#endif
 }
 
 SerialPort::~SerialPort()
@@ -54,6 +58,7 @@ SerialPort::~SerialPort()
 
 void SerialPort::setPinState(Pin pin, bool state)
 {
+#ifdef Q_OS_UNIX
     if (m_file == -1)
         return;
 
@@ -91,10 +96,15 @@ void SerialPort::setPinState(Pin pin, bool state)
 
     if (ioctl(m_file, state ? TIOCMBIS : TIOCMBIC, &flags) == -1)
         qCritical() << Q_FUNC_INFO << "Could not set pin " << pin << " errno = " << errno << endl;
+#else
+    Q_UNUSED(pin);
+    Q_UNUSED(state);
+#endif
 }
 
 bool SerialPort::pinState(Pin pin)
 {
+#ifdef Q_OS_UNIX
     if (m_file == -1)
         return false;
 
@@ -137,10 +147,15 @@ bool SerialPort::pinState(Pin pin)
     }
 
     return bits & mask;
+#else
+    Q_UNUSED(pin);
+    return false;
+#endif
 }
 
 Port::ProbeResult SerialPort::probe(const QString &port)
 {
+#ifdef Q_OS_UNIX
     int file = open(port.toAscii(), O_NOCTTY | O_NONBLOCK | O_RDONLY);
     if (file == -1)
         return Port::DoesntExist;
@@ -153,10 +168,15 @@ Port::ProbeResult SerialPort::probe(const QString &port)
     close(file);
 
     return Port::ExistsAndRW;
+#else
+    Q_UNUSED(port);
+    return Port::DoesntExist;
+#endif
 }
 
-bool SerialPort::openPort(const QString &port, speed_t baudRate)
+bool SerialPort::openPort(const QString &port, unsigned baudRate)
 {
+#ifdef Q_OS_UNIX
     closePort();
 
     m_file = open(port.toAscii(), O_NOCTTY | O_NONBLOCK | O_RDWR);
@@ -178,10 +198,16 @@ bool SerialPort::openPort(const QString &port, speed_t baudRate)
     tcsetattr(m_file, TCSANOW, &state);
 
     return true;
+#else
+    Q_UNUSED(port);
+    Q_UNUSED(baudRate);
+    return false;
+#endif
 }
 
 void SerialPort::closePort()
 {
+#ifdef Q_OS_UNIX
     if (m_file == -1)
         return;
 
@@ -190,12 +216,14 @@ void SerialPort::closePort()
     tcsetattr(m_file, TCSANOW, &m_previousState);
     close(m_file);
     m_file = -1;
+#endif
 }
 
 QStringList SerialPort::ports(unsigned probeResult)
 {
     QStringList list;
 
+#ifdef Q_OS_UNIX
     for (int i = 0; i < 8; ++i) {
         QString dev = QString("/dev/ttyS%1").arg(i);
         if (probe(dev) & probeResult)
@@ -219,6 +247,9 @@ QStringList SerialPort::ports(unsigned probeResult)
         if (probe(dev) & probeResult)
             list << dev;
     }
+#else
+    Q_UNUSED(probeResult);
+#endif
 
     return list;
 }

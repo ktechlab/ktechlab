@@ -13,7 +13,9 @@
 
 #include <QStringList>
 
+#ifdef Q_OS_UNIX
 #include <termios.h>
+#endif
 
 /**
 @author David Saxton
@@ -73,18 +75,20 @@ public:
      * @return if the port could be opened.
      * @param baudRate The baud rate as defined in bits/termios.h
      */
-    bool openPort(const QString &port, speed_t baudRate);
+    bool openPort(const QString &port, unsigned baudRate);
     /**
      * Closes any currently open port.
      */
     void closePort();
 
 protected:
+#ifdef Q_OS_UNIX
     /// Read in on port open; restored on port close
     termios m_previousState;
 
     /// File descriptor for the port.
     int m_file;
+#endif
 };
 
 /**
