@@ -37,11 +37,7 @@ Port::~Port()
 
 QStringList Port::ports(unsigned probeResult)
 {
-#if !defined(DARWIN) && !defined(__FreeBSD__)
     return SerialPort::ports(probeResult) + ParallelPort::ports(probeResult);
-#else
-    return SerialPort::ports(probeResult);
-#endif
 }
 // END class Port
 
