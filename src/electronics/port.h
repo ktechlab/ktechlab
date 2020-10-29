@@ -81,6 +81,8 @@ public:
      */
     void closePort();
 
+    static bool isAvailable();
+
 protected:
 #ifdef Q_OS_UNIX
     /// Read in on port open; restored on port close

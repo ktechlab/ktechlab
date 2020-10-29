@@ -247,6 +247,15 @@ QStringList SerialPort::ports(unsigned probeResult)
 
     return list;
 }
+
+bool SerialPort::isAvailable()
+{
+#ifdef Q_OS_UNIX
+    return true;
+#else
+    return false;
+#endif
+}
 // END class SerialPort
 
 // BEGIN class ParallelPort

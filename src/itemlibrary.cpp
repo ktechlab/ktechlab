@@ -213,7 +213,8 @@ void ItemLibrary::addComponents()
     // Connections
     if (ParallelPort::isAvailable())
         addLibraryItem(ParallelPortComponent::libraryItem());
-    addLibraryItem(SerialPortComponent::libraryItem());
+    if (SerialPort::isAvailable())
+        addLibraryItem(SerialPortComponent::libraryItem());
     addLibraryItem(ExternalConnection::libraryItem());
     addLibraryItem(BusSplitter::libraryItem());
 
