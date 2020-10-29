@@ -8,12 +8,6 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-// This section should be kept at the top to handle detection of os
-#include <QtGlobal>
-#if defined(Q_OS_DARWIN) || defined(Q_OS_MACX)
-#define DARWIN
-#endif
-
 #include "port.h"
 #include <QDebug>
 
