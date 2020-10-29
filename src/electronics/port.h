@@ -208,6 +208,8 @@ public:
      */
     static QStringList ports(unsigned probeResult);
 
+    static bool isAvailable();
+
 protected:
     /**
      * Writes the value to the given register.

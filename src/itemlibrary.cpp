@@ -19,6 +19,7 @@
 #include "libraryitem.h"
 #include "node.h"
 #include "pinmapping.h"
+#include "port.h"
 #include "subcircuits.h"
 
 #include <KConfigGroup>
@@ -210,7 +211,8 @@ void ItemLibrary::addComponents()
 #endif
 
     // Connections
-    addLibraryItem(ParallelPortComponent::libraryItem());
+    if (ParallelPort::isAvailable())
+        addLibraryItem(ParallelPortComponent::libraryItem());
     addLibraryItem(SerialPortComponent::libraryItem());
     addLibraryItem(ExternalConnection::libraryItem());
     addLibraryItem(BusSplitter::libraryItem());

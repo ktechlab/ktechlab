@@ -549,4 +549,13 @@ void ParallelPort::closePort()
     m_file = -1;
 #endif
 }
+
+bool ParallelPort::isAvailable()
+{
+#ifdef Q_OS_LINUX
+    return true;
+#else
+    return false;
+#endif
+}
 // END class ParallelPort
