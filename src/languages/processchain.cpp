@@ -96,10 +96,10 @@ void ProcessChain::compile()
     }
 #define INDIRECT_PROCESS(path, processor, extension)                                                                                                                                                                                           \
     case ProcessOptions::ProcessPath::path: {                                                                                                                                                                                                  \
-        QTemporaryFile f(QDir::tempPath() + QLatin1String("/ktechlab_XXXXXX") + QLatin1String(extension));                                                                                                                                     \
-        f.open();                                                                                                                                                                                                                              \
-        f.close();                                                                                                                                                                                                                             \
-        m_processOptions.setIntermediaryOutput(f.fileName());                                                                                                                                                                                  \
+        QTemporaryFile *f = new QTemporaryFile(QDir::tempPath() + QLatin1String("/ktechlab_XXXXXX") + QLatin1String(extension), processor());                                                                                                  \
+        f->open();                                                                                                                                                                                                                             \
+        f->close();                                                                                                                                                                                                                            \
+        m_processOptions.setIntermediaryOutput(f->fileName());                                                                                                                                                                                 \
         processor()->processInput(m_processOptions);                                                                                                                                                                                           \
         break;                                                                                                                                                                                                                                 \
     }
