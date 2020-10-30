@@ -50,7 +50,7 @@ void PropertyEditorFile::selectFile()
 {
     const QString filePath = QFileDialog::getOpenFileName(this, i18n("Choose File"), QString(), m_property->filter());
     qDebug() << Q_FUNC_INFO << "got QString: " << filePath;
-    if (!filePath.isEmpty()) {
+    if (filePath.isEmpty()) {
         qDebug() << Q_FUNC_INFO << "url is not valid, not setting it";
         return;
     }
