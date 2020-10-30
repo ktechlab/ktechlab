@@ -65,7 +65,7 @@ ProgrammerDlg::ProgrammerDlg(const QString &picID, QWidget *parent, const char *
             c->setItemText(c->currentIndex(), text);
     }
     // Sets up the list of ports
-    m_pProgrammerWidget->m_pPicProgrammerPort->insertItems(m_pProgrammerWidget->m_pPicProgrammerPort->count(), Port::ports(Port::ExistsAndRW));
+    m_pProgrammerWidget->m_pPicProgrammerPort->insertItems(m_pProgrammerWidget->m_pPicProgrammerPort->count(), Port::ports());
     // m_pProgrammerWidget->m_pPicProgrammerPort->setCurrentText( KTLConfig::picProgrammerPort() ); // 2018.12.07
     {
         QComboBox *c = m_pProgrammerWidget->m_pPicProgrammerPort;

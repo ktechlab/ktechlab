@@ -31,9 +31,9 @@ Port::~Port()
 {
 }
 
-QStringList Port::ports(unsigned probeResult)
+QStringList Port::ports()
 {
-    return SerialPort::ports(probeResult) + ParallelPort::ports(probeResult);
+    return SerialPort::ports() + ParallelPort::ports();
 }
 // END class Port
 
@@ -213,36 +213,34 @@ void SerialPort::closePort()
 #endif
 }
 
-QStringList SerialPort::ports(unsigned probeResult)
+QStringList SerialPort::ports()
 {
     QStringList list;
 
 #ifdef Q_OS_UNIX
     for (int i = 0; i < 8; ++i) {
         QString dev = QString("/dev/ttyS%1").arg(i);
-        if (probe(dev) & probeResult)
+        if (probe(dev) & ExistsAndRW)
             list << dev;
     }
 
     for (unsigned i = 0; i < 8; ++i) {
         QString dev = QString("/dev/tts/%1").arg(i);
-        if (probe(dev) & probeResult)
+        if (probe(dev) & ExistsAndRW)
             list << dev;
     }
 
     for (unsigned i = 0; i < 8; ++i) {
         QString dev = QString("/dev/ttyUSB%1").arg(i);
-        if (probe(dev) & probeResult)
+        if (probe(dev) & ExistsAndRW)
             list << dev;
     }
 
     for (unsigned i = 0; i < 8; ++i) {
         QString dev = QString("/dev/usb/tts/%1").arg(i);
-        if (probe(dev) & probeResult)
+        if (probe(dev) & ExistsAndRW)
             list << dev;
     }
-#else
-    Q_UNUSED(probeResult);
 #endif
 
     return list;
@@ -491,24 +489,22 @@ Port::ProbeResult ParallelPort::probe(const QString &port)
 #endif
 }
 
-QStringList ParallelPort::ports(unsigned probeResult)
+QStringList ParallelPort::ports()
 {
     QStringList list;
 
 #ifdef Q_OS_LINUX
     for (unsigned i = 0; i < 8; ++i) {
         QString dev = QString("/dev/parport%1").arg(i);
-        if (probe(dev) & probeResult)
+        if (probe(dev) & ExistsAndRW)
             list << dev;
     }
 
     for (unsigned i = 0; i < 8; ++i) {
         QString dev = QString("/dev/parports/%1").arg(i);
-        if (probe(dev) & probeResult)
+        if (probe(dev) & ExistsAndRW)
             list << dev;
     }
-#else
-    Q_UNUSED(probeResult);
 #endif
 
     return list;

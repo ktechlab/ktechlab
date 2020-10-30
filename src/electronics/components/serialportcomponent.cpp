@@ -102,7 +102,7 @@ SerialPortComponent::SerialPortComponent(ICNDocument *icnDocument, bool newItem,
     m_pRI = createLogicOut(pin, false);
 
     Variant *v = createProperty("port", Variant::Type::Combo);
-    v->setAllowed(SerialPort::ports(Port::ExistsAndRW));
+    v->setAllowed(SerialPort::ports());
     v->setCaption(i18n("Port"));
 
     // 	v = createProperty( "baudRate", Variant::Type::Select );

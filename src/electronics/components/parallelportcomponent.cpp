@@ -128,7 +128,7 @@ ParallelPortComponent::ParallelPortComponent(ICNDocument *icnDocument, bool newI
 #endif
 
     Variant *v = createProperty("port", Variant::Type::Combo);
-    v->setAllowed(ParallelPort::ports(Port::ExistsAndRW));
+    v->setAllowed(ParallelPort::ports());
     v->setCaption(i18n("Port"));
 }
 

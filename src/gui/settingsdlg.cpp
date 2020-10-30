@@ -152,7 +152,7 @@ SettingsDlg::SettingsDlg(QWidget *parent, const char *name, KCoreConfigSkeleton 
 
     m_generalOptionsWidget->kcfg_GridColor->setEnabled(KTLConfig::showGrid());
 
-    m_picProgrammerConfigWidget->kcfg_PicProgrammerPort->insertItems(m_picProgrammerConfigWidget->kcfg_PicProgrammerPort->count(), Port::ports(Port::ExistsAndRW));
+    m_picProgrammerConfigWidget->kcfg_PicProgrammerPort->insertItems(m_picProgrammerConfigWidget->kcfg_PicProgrammerPort->count(), Port::ports());
     slotUpdatePicProgrammerDescription();
 }
 

@@ -29,11 +29,11 @@ public:
     virtual ~Port();
 
     /**
-     * Returns a list of ports, whose probe status AND's with probeResult.
+     * Returns a list of available ports.
      * This function just returns the combination of the lists for
      * SerialPort::ports and ParallelPort::ports.
      */
-    static QStringList ports(unsigned probeResult);
+    static QStringList ports();
 };
 
 /**
@@ -69,7 +69,7 @@ public:
     /**
      * @see Port::ports
      */
-    static QStringList ports(unsigned probeResult);
+    static QStringList ports();
     /**
      * Opens the given port.
      * @return if the port could be opened.
@@ -208,7 +208,7 @@ public:
     /**
      * @see Port::ports
      */
-    static QStringList ports(unsigned probeResult);
+    static QStringList ports();
 
     static bool isAvailable();
 
