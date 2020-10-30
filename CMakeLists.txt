@@ -35,6 +35,7 @@ find_package(Qt5 CONFIG REQUIRED COMPONENTS
     DBus
     Widgets
     PrintSupport
+    SerialPort
     ${QT_ADDITIONAL_COMPONENTS}
     )
 

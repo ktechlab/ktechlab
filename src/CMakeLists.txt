@@ -355,6 +355,7 @@ target_link_libraries( ktechlab
 
     Qt5::Widgets
     Qt5::PrintSupport
+    Qt5::SerialPort
 )
 if(GPSim_FOUND)
     target_link_libraries(ktechlab ${GPSim_LIBRARIES})
@@ -391,6 +392,7 @@ target_link_libraries(test_ktechlab
 
     Qt5::Widgets
     Qt5::PrintSupport
+    Qt5::SerialPort
 )
 
 ########### install files ###############
