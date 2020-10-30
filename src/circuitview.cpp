@@ -10,7 +10,6 @@
 
 #include "circuitview.h"
 #include "circuitdocument.h"
-#include "config.h"
 #include "ktechlab.h"
 #include "simulator.h"
 #include "viewiface.h"

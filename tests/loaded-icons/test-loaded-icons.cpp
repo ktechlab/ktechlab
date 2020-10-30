@@ -12,7 +12,6 @@
 #include <QScrollArea>
 #include <QDebug>
 
-#include "config.h"
 #include <ktechlab_version.h>
 
 #include "icon-list-generated.h"

@@ -121,7 +121,6 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-set( SRC_EXAMPLES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/examples/ )
 set( SRC_TESTS_DATA_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tests/data/ )
 
 CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.cmake

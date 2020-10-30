@@ -21,7 +21,6 @@
  */
 
 #include "../src/ktechlab.h"
-#include "config.h"
 
 #include <KAboutData>
 #include <KLocalizedString>

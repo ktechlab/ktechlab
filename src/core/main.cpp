@@ -13,7 +13,6 @@
 #include "logtofilemsghandler.h"
 
 //#include <dcopclient.h>
-#include <config.h>
 #include <ktechlab_version.h>
 
 #include <KAboutData>
