@@ -16,9 +16,16 @@ include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 include(KDEClangFormat OPTIONAL RESULT_VARIABLE KDEClangFormat_FOUND)
+include(ECMSetupVersion)
 
 include(ECMInstallIcons)
 include(FeatureSummary)
+
+ecm_setup_version(
+    "${VERSION}"
+    VARIABLE_PREFIX KTECHLAB
+    VERSION_HEADER ktechlab_version.h
+)
 
 if(BUILD_TESTING)
     set(QT_ADDITIONAL_COMPONENTS Test)

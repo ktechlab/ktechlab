@@ -14,6 +14,7 @@
 
 //#include <dcopclient.h>
 #include <config.h>
+#include <ktechlab_version.h>
 
 #include <KAboutData>
 #include <KLocalizedString>
@@ -33,7 +34,7 @@ int main(int argc, char **argv)
     KLocalizedString::setApplicationDomain("ktechlab");
 
     KAboutData about(
-        "ktechlab", i18n("KTechLab"), VERSION, i18n("An IDE for microcontrollers and electronics"), KAboutLicense::GPL_V2, i18n("(C) 2003-2017, The KTechLab developers"), "", "https://userbase.kde.org/KTechlab", "ktechlab-devel@kde.org");
+        "ktechlab", i18n("KTechLab"), KTECHLAB_VERSION_STRING, i18n("An IDE for microcontrollers and electronics"), KAboutLicense::GPL_V2, i18n("(C) 2003-2017, The KTechLab developers"), "", "https://userbase.kde.org/KTechlab", "ktechlab-devel@kde.org");
     about.addAuthor(i18n("Alan Grimes"), i18n("Developer, Simulation"), "");
     about.addAuthor(i18n("Zoltan Padrah"), i18n("Developer"), "zoltan_padrah@users.sourceforge.net");
     about.addAuthor(i18n("Julian Bäume"), i18n("Developer, KDE4 Port, GUI"), "julian@svg4all.de");

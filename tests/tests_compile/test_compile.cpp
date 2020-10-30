@@ -29,11 +29,13 @@
 #include <QApplication>
 #include <QCommandLineParser>
 
+#include <ktechlab_version.h>
+
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     KAboutData aboutData(QByteArray("ktechlab"), i18n("KTechLab"),
-                VERSION, i18n("An IDE for microcontrollers and electronics"),
+                KTECHLAB_VERSION_STRING, i18n("An IDE for microcontrollers and electronics"),
                 KAboutLicense::GPL_V2, i18n("(C) 2003-2017, The KTechLab developers"),
                 "", "https://userbase.kde.org/KTechlab", "ktechlab-devel@kde.org" );
     KAboutData::setApplicationData(aboutData);

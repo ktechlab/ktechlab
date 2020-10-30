@@ -13,6 +13,7 @@
 #include <QDebug>
 
 #include "config.h"
+#include <ktechlab_version.h>
 
 #include "icon-list-generated.h"
 
@@ -22,7 +23,7 @@ static void addIcon(QGridLayout *mainLayout, const char *iconName);
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
     KAboutData about("ktechlab", i18n("KTechLab Icon Tester"),
-                VERSION, i18n("An IDE for microcontrollers and electronics"),
+                KTECHLAB_VERSION_STRING, i18n("An IDE for microcontrollers and electronics"),
                 KAboutLicense::GPL_V2, i18n("(C) 2003-2009, The KTechLab developers"),
                 QString(),
                 QStringLiteral("https://userbase.kde.org/KTechlab"));

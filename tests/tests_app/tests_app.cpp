@@ -34,6 +34,8 @@
 #include <QApplication>
 #include <QCommandLineParser>
 
+#include <ktechlab_version.h>
+
 
 class KtlTestsAppFixture : public QObject {
     Q_OBJECT
@@ -50,7 +52,7 @@ private slots:
 
         app = new QApplication(argc, argv);
 
-        KAboutData aboutData("ktechlab", i18n("KTechLab"), VERSION,
+        KAboutData aboutData("ktechlab", i18n("KTechLab"), KTECHLAB_VERSION_STRING,
                     i18n("An IDE for microcontrollers and electronics"),
                     KAboutLicense::GPL_V2, i18n("(C) 2003-2017, The KTechLab developers"),
                     "", "https://userbase.kde.org/KTechlab", "ktechlab-devel@kde.org" );
