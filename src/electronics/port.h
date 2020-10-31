@@ -13,9 +13,7 @@
 
 #include <QStringList>
 
-#ifdef Q_OS_UNIX
-#include <termios.h>
-#endif
+class QSerialPort;
 
 /**
 @author David Saxton
@@ -65,7 +63,6 @@ public:
     void setPinState(Pin pin, bool state);
     bool pinState(Pin pin);
 
-    static ProbeResult probe(const QString &port);
     /**
      * @see Port::ports
      */
@@ -73,9 +70,9 @@ public:
     /**
      * Opens the given port.
      * @return if the port could be opened.
-     * @param baudRate The baud rate as defined in bits/termios.h
+     * @param baudRate The baud rate
      */
-    bool openPort(const QString &port, unsigned baudRate);
+    bool openPort(const QString &port, qint32 baudRate);
     /**
      * Closes any currently open port.
      */
@@ -84,13 +81,7 @@ public:
     static bool isAvailable();
 
 protected:
-#ifdef Q_OS_UNIX
-    /// Read in on port open; restored on port close
-    termios m_previousState;
-
-    /// File descriptor for the port.
-    int m_file;
-#endif
+    QSerialPort *m_port;
 };
 
 /**

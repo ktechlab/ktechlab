@@ -35,10 +35,7 @@ public:
     }
 
 protected:
-    /**
-     * @param baudRate as defined in <bits/termios.h>
-     */
-    void initPort(const QString &port, unsigned baudRate);
+    void initPort(const QString &port, qint32 baudRate);
     void dataChanged() override;
     void drawShape(QPainter &p) override;
 

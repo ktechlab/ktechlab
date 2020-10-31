@@ -11,6 +11,10 @@
 #include "port.h"
 #include <QDebug>
 
+#include <QScopedPointer>
+#include <QSerialPort>
+#include <QSerialPortInfo>
+
 #ifdef Q_OS_UNIX
 #include <errno.h>
 #include <fcntl.h>
@@ -40,9 +44,7 @@ QStringList Port::ports()
 // BEGIN class SerialPort
 SerialPort::SerialPort()
 {
-#ifdef Q_OS_UNIX
-    m_file = -1;
-#endif
+    m_port = nullptr;
 }
 
 SerialPort::~SerialPort()
@@ -50,75 +52,67 @@ SerialPort::~SerialPort()
     closePort();
 }
 
+#ifdef Q_OS_UNIX
+static void unixPinEnable(QSerialPort *port, SerialPort::Pin pin, bool state, int flags)
+{
+    if (ioctl(port->handle(), state ? TIOCMBIS : TIOCMBIC, &flags) == -1)
+        qCritical() << Q_FUNC_INFO << "Could not set pin" << pin << "errno = " << errno;
+}
+#endif
+
 void SerialPort::setPinState(Pin pin, bool state)
 {
-#ifdef Q_OS_UNIX
-    if (m_file == -1)
+    if (!m_port)
         return;
-
-    int flags = -1;
 
     switch (pin) {
     case TD:
-        ioctl(m_file, state ? TIOCSBRK : TIOCCBRK, 0);
+        m_port->setBreakEnabled(state);
         return;
 
     case DTR:
-        flags = TIOCM_DTR;
-        break;
+        m_port->setDataTerminalReady(state);
+        return;
 
     case DSR:
-        flags = TIOCM_DSR;
-        break;
+#ifdef Q_OS_UNIX
+        unixPinEnable(m_port, pin, state, TIOCM_DSR);
+#else
+        qWarning() << Q_FUNC_INFO << "Cannot set pin" << pin << "on non-Unix OS";
+#endif
+        return;
 
     case RTS:
-        flags = TIOCM_RTS;
-        break;
-
-    case CD:
-    case RD:
-    case GND:
-    case CTS:
-    case RI:
-        break;
-    };
-
-    if (flags == -1) {
-        qCritical() << Q_FUNC_INFO << "Bad pin " << pin << endl;
+        m_port->setRequestToSend(state);
         return;
-    }
 
-    if (ioctl(m_file, state ? TIOCMBIS : TIOCMBIC, &flags) == -1)
-        qCritical() << Q_FUNC_INFO << "Could not set pin " << pin << " errno = " << errno << endl;
-#else
-    Q_UNUSED(pin);
-    Q_UNUSED(state);
-#endif
+    default:
+        qCritical() << Q_FUNC_INFO << "Bad pin" << pin;
+    };
 }
 
 bool SerialPort::pinState(Pin pin)
 {
-#ifdef Q_OS_UNIX
-    if (m_file == -1)
+    if (!m_port)
         return false;
 
     int mask = 0;
 
     switch (pin) {
     case CD:
-        mask = TIOCM_CD;
+        mask = QSerialPort::DataCarrierDetectSignal;
         break;
 
     case RD:
-        mask = TIOCM_SR;
+        mask = QSerialPort::SecondaryReceivedDataSignal;
         break;
 
     case CTS:
-        mask = TIOCM_CTS;
+        mask = QSerialPort::ClearToSendSignal;
         break;
 
     case RI:
-        mask = TIOCM_RI;
+        mask = QSerialPort::RingIndicatorSignal;
         break;
 
     case TD:
@@ -134,125 +128,55 @@ bool SerialPort::pinState(Pin pin)
         return false;
     }
 
-    int bits = 0;
-    if (ioctl(m_file, TIOCMGET, &bits) == -1) {
-        qCritical() << Q_FUNC_INFO << "Could not read pin" << pin << " errno = " << errno << endl;
-        return false;
-    }
+    const QSerialPort::PinoutSignals bits = m_port->pinoutSignals();
 
     return bits & mask;
-#else
-    Q_UNUSED(pin);
-    return false;
-#endif
 }
 
-Port::ProbeResult SerialPort::probe(const QString &port)
+bool SerialPort::openPort(const QString &port, qint32 baudRate)
 {
-#ifdef Q_OS_UNIX
-    int file = open(port.toAscii(), O_NOCTTY | O_NONBLOCK | O_RDONLY);
-    if (file == -1)
-        return Port::DoesntExist;
-
-    close(file);
-
-    file = open(port.toAscii(), O_NOCTTY | O_NONBLOCK | O_RDWR);
-    if (file == -1)
-        return Port::ExistsButNotRW;
-    close(file);
-
-    return Port::ExistsAndRW;
-#else
-    Q_UNUSED(port);
-    return Port::DoesntExist;
-#endif
-}
-
-bool SerialPort::openPort(const QString &port, unsigned baudRate)
-{
-#ifdef Q_OS_UNIX
     closePort();
 
-    m_file = open(port.toAscii(), O_NOCTTY | O_NONBLOCK | O_RDWR);
-    if (m_file == -1) {
+    QScopedPointer<QSerialPort> newPort(new QSerialPort(port));
+    newPort->setDataBits(QSerialPort::Data8);
+    newPort->setBaudRate(baudRate);
+    newPort->setStopBits(QSerialPort::OneStop);
+    newPort->setFlowControl(QSerialPort::NoFlowControl);
+    if (!newPort->open(QIODevice::ReadWrite)) {
         qCritical() << Q_FUNC_INFO << "Could not open port " << port << endl;
         return false;
     }
 
-    termios state;
-    tcgetattr(m_file, &state);
-
-    // Save the previous state for restoration in close.
-    m_previousState = state;
-
-    state.c_iflag = IGNBRK | IGNPAR;
-    state.c_oflag = 0;
-    state.c_cflag = baudRate | CS8 | CREAD | CLOCAL;
-    state.c_lflag = 0;
-    tcsetattr(m_file, TCSANOW, &state);
+    m_port = newPort.take();
 
     return true;
-#else
-    Q_UNUSED(port);
-    Q_UNUSED(baudRate);
-    return false;
-#endif
 }
 
 void SerialPort::closePort()
 {
-#ifdef Q_OS_UNIX
-    if (m_file == -1)
+    if (!m_port)
         return;
 
-    ioctl(m_file, TIOCCBRK, 0);
-    usleep(1);
-    tcsetattr(m_file, TCSANOW, &m_previousState);
-    close(m_file);
-    m_file = -1;
-#endif
+    m_port->close();
+    delete m_port;
+    m_port = nullptr;
 }
 
 QStringList SerialPort::ports()
 {
     QStringList list;
 
-#ifdef Q_OS_UNIX
-    for (int i = 0; i < 8; ++i) {
-        QString dev = QString("/dev/ttyS%1").arg(i);
-        if (probe(dev) & ExistsAndRW)
-            list << dev;
+    const auto serialPortInfos = QSerialPortInfo::availablePorts();
+    for (const QSerialPortInfo &serialPortInfo : serialPortInfos) {
+        list << serialPortInfo.systemLocation();
     }
-
-    for (unsigned i = 0; i < 8; ++i) {
-        QString dev = QString("/dev/tts/%1").arg(i);
-        if (probe(dev) & ExistsAndRW)
-            list << dev;
-    }
-
-    for (unsigned i = 0; i < 8; ++i) {
-        QString dev = QString("/dev/ttyUSB%1").arg(i);
-        if (probe(dev) & ExistsAndRW)
-            list << dev;
-    }
-
-    for (unsigned i = 0; i < 8; ++i) {
-        QString dev = QString("/dev/usb/tts/%1").arg(i);
-        if (probe(dev) & ExistsAndRW)
-            list << dev;
-    }
-#endif
 
     return list;
 }
 
 bool SerialPort::isAvailable()
 {
-#ifdef Q_OS_UNIX
     return true;
-#else
-    return false;
-#endif
 }
 // END class SerialPort
 

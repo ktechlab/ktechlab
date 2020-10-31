@@ -23,7 +23,6 @@
 #include <QPainter>
 
 #include <cmath>
-#include <termios.h>
 
 Item *SerialPortComponent::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
@@ -163,10 +162,10 @@ void SerialPortComponent::dataChanged()
 	initPort( dataString("port"), baudRate );
 #endif
 
-    initPort(dataString("port"), B200);
+    initPort(dataString("port"), 200);
 }
 
-void SerialPortComponent::initPort(const QString &port, unsigned baudRate)
+void SerialPortComponent::initPort(const QString &port, qint32 baudRate)
 {
     if (port.isEmpty()) {
         m_pSerialPort->closePort();
