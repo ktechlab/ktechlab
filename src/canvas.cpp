@@ -1369,7 +1369,7 @@ void KtlQCanvasView::drawContents(QPainter *p, int cx, int cy, int cw, int ch)
  */
 void KtlQCanvasView::drawContents(QPainter *p)
 {
-    qDebug() << Q_FUNC_INFO << " called, altough not expected";
+    qDebug() << Q_FUNC_INFO << " called, although not expected";
     drawContents(p, 0, 0, width(), height());
 }
 

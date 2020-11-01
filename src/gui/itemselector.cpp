@@ -235,7 +235,7 @@ QMimeData *ItemSelector::mimeData(const QList<QTreeWidgetItem *> items) const
     } else if (id.startsWith("mech/")) {
         mime->setData("ktechlab/mechanical", data);
     } else {
-        qWarning() << Q_FUNC_INFO << "returning unset mime; uknown id '" << id << "'";
+        qWarning() << Q_FUNC_INFO << "returning unset mime; unknown id '" << id << "'";
     }
 
     // A pixmap cursor is often hard to make out

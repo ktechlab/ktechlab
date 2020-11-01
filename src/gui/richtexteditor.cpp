@@ -379,7 +379,7 @@ void RichTextEditor::setResourcePaths(const QStringList &paths)
         l << "*.png";
         dir.setNameFilters(l);
         QFileInfoList fileInfoList = dir.entryInfoList();
-        qDebug() << Q_FUNC_INFO << " lsit size " << fileInfoList.size();
+        qDebug() << Q_FUNC_INFO << " list size " << fileInfoList.size();
         for (QFileInfoList::iterator itFile = fileInfoList.begin(); itFile != fileInfoList.end(); ++itFile) {
             QFileInfo &fi = *itFile;
 

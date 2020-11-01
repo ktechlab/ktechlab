@@ -108,7 +108,7 @@ bool AsmParser::parse(GpsimDebugger *debugger)
             // QStringList lineParts = QStringList::split( '\t', line ); // 2018.12.01
             QStringList lineParts = line.split('\t', QString::SkipEmptyParts);
             if (lineParts.size() < 2)
-                qWarning() << Q_FUNC_INFO << "Line is in wrong format for extracing source line and file: \"" << line << "\"" << endl;
+                qWarning() << Q_FUNC_INFO << "Line is in wrong format for extracting source line and file: \"" << line << "\"" << endl;
             else {
                 const QString lineAndFile = lineParts[1];
                 int lineFileSplit = lineAndFile.indexOf("; ");
