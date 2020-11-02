@@ -380,20 +380,24 @@ install(TARGETS ktechlab ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 # for helping testing
 
-add_library(test_ktechlab STATIC ${ktechlab_SRCS})
+if(BUILD_TESTING)
 
-target_link_libraries(test_ktechlab
-    KF5::TextEditor
-    KF5::IconThemes
-    KF5::Parts
-    KF5::KHtml
-    KF5::WidgetsAddons
-    KF5::WindowSystem
+    add_library(test_ktechlab STATIC ${ktechlab_SRCS})
 
-    Qt5::Widgets
-    Qt5::PrintSupport
-    Qt5::SerialPort
-)
+    target_link_libraries(test_ktechlab
+        KF5::TextEditor
+        KF5::IconThemes
+        KF5::Parts
+        KF5::KHtml
+        KF5::WidgetsAddons
+        KF5::WindowSystem
+
+        Qt5::Widgets
+        Qt5::PrintSupport
+        Qt5::SerialPort
+    )
+
+endif()
 
 ########### install files ###############
 
