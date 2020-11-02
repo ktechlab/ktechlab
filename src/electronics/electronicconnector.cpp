@@ -49,7 +49,7 @@ void ElectronicConnector::syncWiresWithNodes()
     unsigned newNumWires = 0;
 
     if (isStartNodeJunction || isEndNodeJunction)
-        newNumWires = qMax(startEcNode->numPins(), endEcNode->numPins());
+        newNumWires = std::max(startEcNode->numPins(), endEcNode->numPins());
     else
         newNumWires = std::min(startEcNode->numPins(), endEcNode->numPins());
 

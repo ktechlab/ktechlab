@@ -23,6 +23,8 @@
 // #include "q3tl.h"
 // #include <q3pointarray.h>   // needed for q3polygonscanner
 
+#include <algorithm>
+
 #include <stdlib.h>
 
 using namespace std;
@@ -1155,7 +1157,7 @@ void KtlQCanvas::setTiles(QPixmap p, int h, int v, int tilewidth, int tileheight
     }
     if (h + v > 10) {
         int s = scm(tilewidth, tileheight);
-        retune(s < 128 ? s : qMax(tilewidth, tileheight));
+        retune(s < 128 ? s : std::max(tilewidth, tileheight));
     }
     setAllChanged();
 }

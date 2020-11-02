@@ -34,6 +34,8 @@
 #include <QVBoxLayout>
 // #include <q3paintdevicemetrics.h>
 
+#include <algorithm>
+
 #include <ui_newfilewidget.h>
 
 class NewFileWidget : public QWidget, public Ui::NewFileWidget
@@ -102,7 +104,7 @@ NewFileDlg::NewFileDlg(QWidget *parent)
         } else {
             qDebug() << Q_FUNC_INFO << "W = " << (*it)->icon().availableSizes().first().width() << " H=" << (*it)->icon().availableSizes().first().height();
             minWidth += (*it)->icon().availableSizes().first().width() + 20;
-            minHeight = qMax(minHeight, (*it)->icon().availableSizes().first().height() + 20);
+            minHeight = std::max(minHeight, (*it)->icon().availableSizes().first().height() + 20);
         }
     }
     qDebug() << Q_FUNC_INFO << "minW = " << minWidth << " minH=" << minHeight;

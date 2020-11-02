@@ -17,6 +17,8 @@
 #include <QPainter>
 #include <cmath>
 
+#include <algorithm>
+
 // BEGIN class DPRectangle
 Item *DPRectangle::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
@@ -95,7 +97,7 @@ void DPRectangle::dataChanged()
 
 QSize DPRectangle::minimumSize() const
 {
-    int side = qMax(16, pen().width() + 2);
+    int side = std::max(16, pen().width() + 2);
     return QSize(side, side);
 }
 
