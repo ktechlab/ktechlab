@@ -265,7 +265,7 @@ void PICComponent::attachPICComponentPins()
 
 void PICComponent::slotUpdateFileList()
 {
-    QStringList preFileList = KTechlab::self()->recentFiles();
+    QList<QUrl> preFileList = KTechlab::self()->recentFiles();
 
     QStringList fileList;
 
@@ -275,9 +275,9 @@ void PICComponent::slotUpdateFileList()
             fileList << url.toLocalFile();
     }
 
-    const QStringList::iterator end = preFileList.end();
-    for (QStringList::iterator it = preFileList.begin(); it != end; ++it) {
-        const QUrl recentFile = QUrl::fromUserInput(*it);
+    const QList<QUrl>::iterator end = preFileList.end();
+    for (QList<QUrl>::iterator it = preFileList.begin(); it != end; ++it) {
+        const QUrl recentFile = *it;
         if (!recentFile.isLocalFile())
             continue;
         const QString file = recentFile.toLocalFile();

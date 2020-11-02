@@ -35,7 +35,7 @@ class ViewContainer;
 typedef QMap<int, QString> IntStringMap;
 typedef QList<QPointer<ViewContainer>> ViewContainerList;
 
-class RecentFilesAction;
+class KRecentFilesAction;
 class QTabWidget;
 class KToggleAction;
 class QLabel;
@@ -86,7 +86,7 @@ public:
     /**
      * Returns a list of the recently opened/saved files
      */
-    QStringList recentFiles();
+    QList<QUrl> recentFiles();
     /**
      * The tab and window captions will get updated when we have re-entered
      * the Qt event loop.
@@ -258,8 +258,8 @@ private:
     void setupView();
     void setupTabWidget();
 
-    RecentFilesAction *m_recentFiles;
-    RecentFilesAction *m_recentProjects;
+    KRecentFilesAction *m_recentFiles;
+    KRecentFilesAction *m_recentProjects;
     KToggleAction *m_statusbarAction;
     QTabWidget *m_pViewContainerTabWidget;
     QString m_lastStatusBarMessage;

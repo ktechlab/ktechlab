@@ -62,6 +62,7 @@
 #include <KMessageBox>
 //#include <kpopupmenu.h>
 //#include <kwin.h>
+#include <KRecentFilesAction>
 #include <KShortcutsDialog>
 #include <KStandardAction>
 #include <KToolBarPopupAction>
@@ -159,9 +160,9 @@ void KTechlab::load(const QUrl &url, ViewArea *viewArea)
     DocManager::self()->openURL(url, viewArea);
 }
 
-QStringList KTechlab::recentFiles()
+QList<QUrl> KTechlab::recentFiles()
 {
-    return m_recentFiles->items();
+    return m_recentFiles->urls();
 }
 
 void KTechlab::setupToolDocks()
@@ -502,9 +503,7 @@ void KTechlab::setupActions()
     }
     // END New File popup
 
-    // 	m_recentFiles = KStandardAction::openRecent( this, SLOT(load(const KUrl&)), ac );
-    m_recentFiles = new RecentFilesAction("Recent Files", i18n("Open Recent"), this, SLOT(load(QUrl)), ac, "file_open_recent");
-    ac->addAction(m_recentFiles->objectName(), m_recentFiles);
+    m_recentFiles = KStandardAction::openRecent(this, SLOT(load(QUrl)), ac);
 
     m_statusbarAction = KStandardAction::showStatusbar(this, SLOT(slotOptionsShowStatusbar()), ac);
     ac->addAction(m_statusbarAction->objectName(), m_statusbarAction);
@@ -526,8 +525,9 @@ void KTechlab::setupActions()
         ac->addAction(a->objectName(), a);
     }
     {
-        // 	m_recentProjects = new KRecentFilesAction( i18n("Open &Recent Project..."), 0, ProjectManager::self(), SLOT(slotOpenProject(const KUrl&)), ac, "project_open_recent" );
-        m_recentProjects = new RecentFilesAction("Recent Projects", i18n("Open &Recent Project..."), ProjectManager::self(), SLOT(slotOpenProject(QUrl)), ac, "project_open_recent");
+        m_recentProjects = new KRecentFilesAction(i18n("Open &Recent Project..."), ac);
+        m_recentProjects->setObjectName("project_open_recent");
+        connect(m_recentProjects, SIGNAL(urlSelected(QUrl)), ProjectManager::self(), SLOT(slotOpenProject(QUrl)));
         ac->addAction(m_recentProjects->objectName(), m_recentProjects);
     }
     {
@@ -830,8 +830,9 @@ void KTechlab::readPropertiesInConfig(KConfig *conf)
 {
     startRestore(conf, "KateMDI");
 
-    m_recentFiles->loadEntries();
-    m_recentProjects->loadEntries();
+    KSharedConfigPtr config = KSharedConfig::openConfig();
+    m_recentFiles->loadEntries(config->group("Recent Files"));
+    m_recentProjects->loadEntries(config->group("Recent Projects"));
 
     // BEGIN Restore Open Views
     if (KTLConfig::restoreDocumentsOnStartup()) {
@@ -1139,7 +1140,10 @@ void KTechlab::slotFileOpen()
 
 void KTechlab::addRecentFile(const QUrl &url)
 {
+    KSharedConfigPtr config = KSharedConfig::openConfig();
     m_recentFiles->addUrl(url);
+    m_recentFiles->saveEntries(config->group("Recent Files"));
+    config->sync();
     emit recentFileAdded(url);
 }
 

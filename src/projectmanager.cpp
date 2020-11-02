@@ -23,6 +23,7 @@
 #include <KJobWidgets>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <KRecentFilesAction>
 #include <KXMLGUIFactory>
 
 #include <QDebug>
@@ -816,11 +817,14 @@ bool ProjectInfo::save()
     file.close();
 
     {
-        QAction *recentfilesaction = KTechlab::self()->actionByName("project_open_recent");
-        if (recentfilesaction) {
-            (static_cast<RecentFilesAction *>(recentfilesaction))->addUrl(m_url);
+        KRecentFilesAction *rfa = static_cast<KRecentFilesAction *>(KTechlab::self()->actionByName("project_open_recent"));
+        if (rfa) {
+            KSharedConfigPtr config = KSharedConfig::openConfig();
+            rfa->addUrl(m_url);
+            rfa->saveEntries(config->group("Recent Projects"));
+            config->sync();
         } else {
-            qWarning() << "there is no project_open_recent action in KTechLab!";
+            qWarning() << "there is no project_open_recent action in application";
         }
     }
 
@@ -926,9 +930,12 @@ void ProjectManager::slotOpenProject(const QUrl &url)
         return;
     }
     {
-        RecentFilesAction *rfa = static_cast<RecentFilesAction *>(KTechlab::self()->actionByName("project_open_recent"));
+        KRecentFilesAction *rfa = static_cast<KRecentFilesAction *>(KTechlab::self()->actionByName("project_open_recent"));
         if (rfa) {
+            KSharedConfigPtr config = KSharedConfig::openConfig();
             rfa->addUrl(m_pCurrentProject->url());
+            rfa->saveEntries(config->group("Recent Projects"));
+            config->sync();
         } else {
             qWarning() << "there is no project_open_recent action in application";
         }
