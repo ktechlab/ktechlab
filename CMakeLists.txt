@@ -50,7 +50,6 @@ find_package(KF5 REQUIRED COMPONENTS
     Parts
     TextEditor
     TextWidgets
-    Solid
     WidgetsAddons
     WindowSystem
     XmlGui
