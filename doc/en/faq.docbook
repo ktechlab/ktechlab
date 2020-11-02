@@ -5,37 +5,6 @@
 <qandaset>
 	<qandaentry>
 		<question>
-			<para>CMake cannot find gpsim</para>
-		</question>
-		
-		<answer>
-			<para>CMake will attempt to compile several files to test for gpsim presence; testing for versions 0.21.4, 0.21.11 and 0.26. These files uses part of the gpsim API, that is also used by &ktechlab;, and was introduced in the respective gpsim versions. If it fails in compiling this program, it will display the warning to the user, and PIC simulation support will not be compiled into &ktechlab;. There are a number of possibly reasons for finding gpsim to fail:</para>
-			
-			<itemizedlist>
-				<listitem><para>gpsim >= 0.21.4 is not installed. &ktechlab; does not support gpsim-0.21.2 or gpsim-0.20.14 (or any earlier versions). Later versions may work; but this cannot be tested before they are released. The latest gpsim can be obtained from the <ulink url="http://gpsim.sourceforge.net/gpsim.html">gpsim website</ulink>.</para></listitem>
-										<listitem><para>Gpsim is installed, but the header files could not be found. If gpsim is installed in a non-standard location, you may need to specify the location of the header files with <command>cmake</command> <option>-DGPSim_INCLUDE_DIR=<replaceable>DIR</replaceable></option>. It is also likely you'll need to specify a library location with the CMake option <quote>GPSim_LIBRARY</quote> if the libraries are in a non-standard location.</para></listitem>
-				<listitem><para>Gpsim is installed and the headers are somewhere where CMake can find them, but there is some other glib craziness occurring.</para></listitem>
-			</itemizedlist>
-				
-			<para>CMake generates the file <filename>CMakeError.log</filename> which will contain details of exactly what went wrong. Searching for gpsim in this log should help you decide what's happened. As an example, here is part of the <filename>CMakeError.log</filename> file where one of the gpsim header files is missing:</para>
-			
-			<example><title>Possible CMakeError.log output where gpsim detection failed</title>
-				<programlisting>
-Building CXX object CMakeFiles/cmTryCompileExec4251549203.dir/src.cxx.o
-/usr/share/colorgcc/c++ -DHAVE_GPSIM_0_26 -fexceptions -I/usr/lib64/glib-2.0/include -o CMakeFiles/cmTryCompileExec4251549203.dir/src.cxx.o
--c /home/user/playground-devtools/ktechlab/build/CMakeFiles/CMakeTmp/src.cxx
-/home/user/playground-devtools/ktechlab/build/CMakeFiles/CMakeTmp/src.cxx:1:33: fatal error: gpsim/pic-processor.h: No such file or directory
- #include &lt;gpsim/pic-processor.h&gt;
-                                 ^
-compilation terminated.</programlisting>
-			</example>
-			
-			<para>If the <filename>CMakeError.log</filename> does not help, please contact the &ktechlab; developers with the relevant parts of <filename>CMakeError.log</filename> attached.</para>
-		</answer>
-	</qandaentry>
-	
-	<qandaentry>
-		<question>
 			<para>&ktechlab; uses lots of CPU</para>
 		</question>
 		
