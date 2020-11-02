@@ -30,7 +30,6 @@
 #include "newfiledlg.h"
 #include "oscilloscope.h"
 #include "projectmanager.h"
-#include "recentfilesaction.h"
 #include "scopescreen.h"
 #include "settingsdlg.h"
 #include "subcircuits.h"

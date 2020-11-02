@@ -300,7 +300,6 @@ SET(ktechlab_SRCS
     ./flowcodedocument.cpp
     ./libraryitem.cpp
     ./conrouter.cpp
-    ./recentfilesaction.cpp
     ./canvas.cpp
     ./canvasitems.cpp
     ./flowcontainer.cpp

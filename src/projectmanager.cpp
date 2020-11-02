@@ -17,7 +17,6 @@
 #include "microselectwidget.h"
 #include "programmerdlg.h"
 #include "projectdlgs.h"
-#include "recentfilesaction.h"
 
 #include <KIO/FileCopyJob>
 #include <KJobWidgets>
