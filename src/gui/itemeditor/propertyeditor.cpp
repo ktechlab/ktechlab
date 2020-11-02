@@ -291,7 +291,7 @@ PropertyEditor::PropertyEditor(QWidget *parent, const char *name)
     horizontalHeader()->setContentsMargins(itemMargin, itemMargin, itemMargin, itemMargin);
     // setItemMargin(2); // needed?
     horizontalHeader()->setSectionResizeMode(QHeaderView::QHeaderView::Stretch);
-    horizontalHeader()->setMovable(false);
+    horizontalHeader()->setSectionsMovable(false);
     // header()->setMovingEnabled( false );
     verticalHeader()->setVisible(false);
     // setTreeStepSize(0);
