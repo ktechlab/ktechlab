@@ -47,7 +47,7 @@ ItemList ItemGroup::items(bool excludeParentedItems) const
     ItemList items = m_itemList;
     ItemList parents = m_itemList;
 
-    uint oldSize = items.size();
+    int oldSize = items.size();
     do {
         oldSize = items.size();
         ItemList children;
