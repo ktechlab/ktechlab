@@ -290,7 +290,7 @@ PropertyEditor::PropertyEditor(QWidget *parent, const char *name)
     horizontalHeader()->setSortIndicatorShown(false);
     horizontalHeader()->setContentsMargins(itemMargin, itemMargin, itemMargin, itemMargin);
     // setItemMargin(2); // needed?
-    horizontalHeader()->setResizeMode(QHeaderView::QHeaderView::Stretch);
+    horizontalHeader()->setSectionResizeMode(QHeaderView::QHeaderView::Stretch);
     horizontalHeader()->setMovable(false);
     // header()->setMovingEnabled( false );
     verticalHeader()->setVisible(false);

@@ -130,8 +130,8 @@ SymbolViewer::SymbolViewer(KateMDI::ToolView *parent)
     // m_pSymbolList->setAllColumnsShowFocus( true );    // 2018.06.02 - use QTableWidget
     m_pSymbolList->setEditTriggers(QAbstractItemView::NoEditTriggers);
     QHeaderView *symbolListHeader = m_pSymbolList->horizontalHeader();
-    symbolListHeader->setResizeMode(0, QHeaderView::Stretch);
-    symbolListHeader->setResizeMode(1, QHeaderView::Stretch);
+    symbolListHeader->setSectionResizeMode(0, QHeaderView::Stretch);
+    symbolListHeader->setSectionResizeMode(1, QHeaderView::Stretch);
 }
 
 SymbolViewer::~SymbolViewer()
