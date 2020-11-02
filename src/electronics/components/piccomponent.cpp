@@ -36,7 +36,7 @@
 #include "gpsim/ioports.h"
 #include "gpsim/pic-processor.h"
 
-QString PICComponent::_def_PICComponent_fileName = QString::null;
+QString PICComponent::_def_PICComponent_fileName;
 
 Item *PICComponent::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
@@ -153,7 +153,7 @@ void PICComponent::initPIC(bool forceReload)
         if (newProgram == _def_PICComponent_fileName && !newProgram.isEmpty())
             break;
         KMessageBox::sorry(nullptr, i18n("The file \"%1\" does not exist.", newProgram));
-        m_picFile = QString::null;
+        m_picFile = QString();
         break;
 
     case GpsimProcessor::IncorrectType:
@@ -163,7 +163,7 @@ void PICComponent::initPIC(bool forceReload)
                            i18n("\"%1\" is not a valid PIC program.\nThe file must exist, and the extension should be \".cod\", \".asm\", \".flowcode\", \".basic\", \".microbe\" or \".c\".\n\".hex\" is allowed, provided that there is a "
                                 "corresponding \".cod\" file.",
                                 newProgram));
-        m_picFile = QString::null;
+        m_picFile = QString();
         break;
 
     case GpsimProcessor::Valid:

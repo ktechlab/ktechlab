@@ -307,10 +307,10 @@ QDomElement ItemDocumentData::microDataToElement(QDomDocument &doc)
 
 void ItemDocumentData::elementToMicroData(QDomElement element)
 {
-    QString id = element.attribute("id", QString::null);
+    QString id = element.attribute("id", QString());
 
     if (id.isNull())
-        id = element.attribute("pic", QString::null);
+        id = element.attribute("pic", QString());
 
     if (id.isNull()) {
         qCritical() << Q_FUNC_INFO << "Could not find id in element" << endl;
@@ -327,8 +327,8 @@ void ItemDocumentData::elementToMicroData(QDomElement element)
             const QString tagName = childElement.tagName();
 
             if (tagName == "pinmap") {
-                QString id = childElement.attribute("id", QString::null);
-                QString typeString = childElement.attribute("type", QString::null);
+                QString id = childElement.attribute("id", QString());
+                QString typeString = childElement.attribute("type", QString());
 
                 if (!id.isEmpty() && !typeString.isEmpty()) {
                     PinMapping::Type type = PinMapping::Invalid;
@@ -351,7 +351,7 @@ void ItemDocumentData::elementToMicroData(QDomElement element)
             }
 
             else if (tagName == "pin") {
-                QString pinID = childElement.attribute("id", QString::null);
+                QString pinID = childElement.attribute("id", QString());
                 if (!pinID.isEmpty()) {
                     m_microData.pinMap[pinID].type = (childElement.attribute("type", "input") == "input") ? PinSettings::pt_input : PinSettings::pt_output;
                     m_microData.pinMap[pinID].state = (childElement.attribute("state", "off") == "off") ? PinSettings::ps_off : PinSettings::ps_on;
@@ -359,8 +359,8 @@ void ItemDocumentData::elementToMicroData(QDomElement element)
             }
 
             else if (tagName == "variable") {
-                QString variableId = childElement.attribute("name", QString::null);
-                m_microData.variableMap[variableId] = childElement.attribute("value", QString::null);
+                QString variableId = childElement.attribute("name", QString());
+                m_microData.variableMap[variableId] = childElement.attribute("value", QString());
             }
 
             else
@@ -463,14 +463,14 @@ QDomElement ItemDocumentData::itemDataToElement(QDomDocument &doc, const ItemDat
 
 void ItemDocumentData::elementToItemData(QDomElement element)
 {
-    QString id = element.attribute("id", QString::null);
+    QString id = element.attribute("id", QString());
     if (id.isNull()) {
         qCritical() << Q_FUNC_INFO << "Could not find id in element" << endl;
         return;
     }
 
     ItemData itemData;
-    itemData.type = element.attribute("type", QString::null);
+    itemData.type = element.attribute("type", QString());
     itemData.x = element.attribute("x", "120").toInt();
     itemData.y = element.attribute("y", "120").toInt();
     itemData.z = element.attribute("z", "-1").toInt();
@@ -484,7 +484,7 @@ void ItemDocumentData::elementToItemData(QDomElement element)
     itemData.angleDegrees = element.attribute("angle", "0").toInt();
     itemData.flipped = element.attribute("flip", "0").toInt();
     itemData.orientation = element.attribute("orientation", "-1").toInt();
-    itemData.parentId = element.attribute("parent", QString::null);
+    itemData.parentId = element.attribute("parent", QString());
 
     m_itemDataMap[id] = itemData;
 
@@ -499,16 +499,16 @@ void ItemDocumentData::elementToItemData(QDomElement element)
                 // child items nestled, so we must specify that the new item
                 // has the currently parsed item as its parent.
                 elementToItemData(childElement);
-                QString childId = childElement.attribute("id", QString::null);
+                QString childId = childElement.attribute("id", QString());
                 if (!childId.isNull())
                     m_itemDataMap[childId].parentId = id;
             }
 
             else if (tagName == "data") {
-                QString dataId = childElement.attribute("id", QString::null);
+                QString dataId = childElement.attribute("id", QString());
                 if (!dataId.isNull()) {
-                    QString dataType = childElement.attribute("type", QString::null);
-                    QString value = childElement.attribute("value", QString::null);
+                    QString dataType = childElement.attribute("type", QString());
+                    QString value = childElement.attribute("value", QString());
 
                     if (dataType == "string" || dataType == "multiline")
                         m_itemDataMap[id].dataString[dataId] = value;
@@ -526,13 +526,13 @@ void ItemDocumentData::elementToItemData(QDomElement element)
             }
 
             else if (tagName == "button") {
-                QString buttonId = childElement.attribute("id", QString::null);
+                QString buttonId = childElement.attribute("id", QString());
                 if (!buttonId.isNull())
                     m_itemDataMap[id].buttonMap[buttonId] = childElement.attribute("state", "0").toInt();
             }
 
             else if (tagName == "slider") {
-                QString sliderId = childElement.attribute("id", QString::null);
+                QString sliderId = childElement.attribute("id", QString());
                 if (!sliderId.isNull())
                     m_itemDataMap[id].sliderMap[sliderId] = childElement.attribute("value", "0").toInt();
             }
@@ -558,7 +558,7 @@ QDomElement ItemDocumentData::nodeDataToElement(QDomDocument &doc, const NodeDat
 
 void ItemDocumentData::elementToNodeData(QDomElement element)
 {
-    QString id = element.attribute("id", QString::null);
+    QString id = element.attribute("id", QString());
     if (id.isNull()) {
         qCritical() << Q_FUNC_INFO << "Could not find id in element" << endl;
         return;
@@ -608,7 +608,7 @@ QDomElement ItemDocumentData::connectorDataToElement(QDomDocument &doc, const Co
 
 void ItemDocumentData::elementToConnectorData(QDomElement element)
 {
-    QString id = element.attribute("id", QString::null);
+    QString id = element.attribute("id", QString());
     if (id.isNull()) {
         qCritical() << Q_FUNC_INFO << "Could not find id in element" << endl;
         return;
@@ -636,17 +636,17 @@ void ItemDocumentData::elementToConnectorData(QDomElement element)
 
     connectorData.startNodeIsChild = element.attribute("start-node-is-child", "0").toInt();
     if (connectorData.startNodeIsChild) {
-        connectorData.startNodeCId = element.attribute("start-node-cid", QString::null);
-        connectorData.startNodeParent = element.attribute("start-node-parent", QString::null);
+        connectorData.startNodeCId = element.attribute("start-node-cid", QString());
+        connectorData.startNodeParent = element.attribute("start-node-parent", QString());
     } else
-        connectorData.startNodeId = element.attribute("start-node-id", QString::null);
+        connectorData.startNodeId = element.attribute("start-node-id", QString());
 
     connectorData.endNodeIsChild = element.attribute("end-node-is-child", "0").toInt();
     if (connectorData.endNodeIsChild) {
-        connectorData.endNodeCId = element.attribute("end-node-cid", QString::null);
-        connectorData.endNodeParent = element.attribute("end-node-parent", QString::null);
+        connectorData.endNodeCId = element.attribute("end-node-cid", QString());
+        connectorData.endNodeParent = element.attribute("end-node-parent", QString());
     } else
-        connectorData.endNodeId = element.attribute("end-node-id", QString::null);
+        connectorData.endNodeId = element.attribute("end-node-id", QString());
 
     m_connectorDataMap[id] = connectorData;
 }
@@ -705,8 +705,8 @@ void ItemDocumentData::generateUniqueIDs(ItemDocument *itemDocument)
         return;
 
     QStringMap replaced;
-    replaced[""] = QString::null;
-    replaced[QString::null] = QString::null;
+    replaced[""] = QString();
+    replaced[QString()] = QString();
 
     ItemDataMap newItemDataMap;
     ConnectorDataMap newConnectorDataMap;
@@ -1103,7 +1103,7 @@ MicroData::MicroData()
 
 void MicroData::reset()
 {
-    id = QString::null;
+    id = QString();
     pinMap.clear();
 }
 // END class MicroData

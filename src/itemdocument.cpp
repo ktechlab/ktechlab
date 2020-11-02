@@ -1170,7 +1170,7 @@ void CanvasTip::display(const QPoint &pos)
 QString CanvasTip::displayText(unsigned num) const
 {
     if (m_v.size() <= (int)num)
-        return QString::null;
+        return QString();
 
     return QString("%1%2V  %3%4A")
         .arg(QString::number(m_v[num] / CNItem::getMultiplier(m_v[num]), 'g', 3))

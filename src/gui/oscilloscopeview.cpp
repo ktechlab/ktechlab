@@ -91,7 +91,7 @@ void OscilloscopeView::updateTimeLabel()
         double time = (double(Oscilloscope::self()->scrollTime()) / LOGIC_UPDATE_RATE) + (x / Oscilloscope::self()->pixelsPerSecond());
         Oscilloscope::self()->timeLabel->setText(QString::number(time, 'f', 6));
     } else
-        Oscilloscope::self()->timeLabel->setText(QString::null);
+        Oscilloscope::self()->timeLabel->setText(QString());
 }
 
 void OscilloscopeView::resizeEvent(QResizeEvent *e)

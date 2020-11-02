@@ -41,7 +41,7 @@ void FlowCode::processInput(ProcessOptions options)
     m_processOptions = options;
 
     if (!options.p_flowCodeDocument) {
-        options.p_flowCodeDocument = new FlowCodeDocument(QString::null, nullptr);
+        options.p_flowCodeDocument = new FlowCodeDocument(QString(), nullptr);
         options.p_flowCodeDocument->openURL(QUrl::fromLocalFile(options.inputFiles().first()));
 
         connect(this, SIGNAL(processSucceeded(Language *)), options.p_flowCodeDocument, SLOT(deleteLater()));
@@ -192,7 +192,7 @@ QString FlowCode::generateMicrobe(const ItemList &itemList, MicroSettings *setti
     m_stopParts.clear();
     m_gotos.clear();
     m_labels.clear();
-    m_code = QString::null;
+    m_code = QString();
 
     // PIC type
     {

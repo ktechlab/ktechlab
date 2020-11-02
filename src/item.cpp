@@ -552,7 +552,7 @@ bool Item::dataBool(const QString &id) const
 QString Item::dataString(const QString &id) const
 {
     Variant *variant = property(id);
-    return variant ? variant->value().toString() : QString::null;
+    return variant ? variant->value().toString() : QString();
 }
 
 QColor Item::dataColor(const QString &id) const

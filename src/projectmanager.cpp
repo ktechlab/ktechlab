@@ -99,11 +99,11 @@ QDomElement LinkerOptions::toDomElement(QDomDocument &doc, const QUrl &baseDirUr
 
 void LinkerOptions::domElementToLinkerOptions(const QDomElement &element, const QUrl &baseDirUrl)
 {
-    setHexFormat(stringToHexFormat(element.attribute("hex-format", QString::null)));
+    setHexFormat(stringToHexFormat(element.attribute("hex-format", QString())));
     setOutputMapFile(element.attribute("output-map-file", "0").toInt());
-    setLibraryDir(element.attribute("library-dir", QString::null));
-    setLinkerScript(element.attribute("linker-script", QString::null));
-    setLinkerOther(element.attribute("other", QString::null));
+    setLibraryDir(element.attribute("library-dir", QString()));
+    setLinkerScript(element.attribute("linker-script", QString()));
+    setLinkerOther(element.attribute("other", QString()));
 
     m_linkedInternal.clear();
     m_linkedExternal.clear();
@@ -121,7 +121,7 @@ void LinkerOptions::domElementToLinkerOptions(const QDomElement &element, const 
             if (tagName == "linked-internal")
                 m_linkedInternal << ::resolvedLocalFile(baseDir, childElement.attribute("url", QString()));
             else if (tagName == "linked-external")
-                m_linkedExternal << childElement.attribute("url", QString::null);
+                m_linkedExternal << childElement.attribute("url", QString());
 
             else
                 qCritical() << Q_FUNC_INFO << "Unrecognised element tag name: " << tagName << endl;
@@ -190,7 +190,7 @@ QDomElement ProcessingOptions::toDomElement(QDomDocument &doc, const QUrl &baseD
 void ProcessingOptions::domElementToProcessingOptions(const QDomElement &element, const QUrl &baseDirUrl)
 {
     setOutputURL(baseDirUrl.resolved(QUrl(element.attribute("output", QString()))));
-    setMicroID(element.attribute("micro", QString::null));
+    setMicroID(element.attribute("micro", QString()));
 }
 // END class ProcessingOptions
 
@@ -347,7 +347,7 @@ QString ProjectItem::microID() const
     if (!m_bUseParentMicroID)
         return m_microID;
 
-    return m_pParent ? m_pParent->microID() : QString::null;
+    return m_pParent ? m_pParent->microID() : QString();
 }
 
 void ProjectItem::setMicroID(const QString &id)
@@ -661,7 +661,7 @@ QString ProjectItem::typeToString() const
     case LibraryType:
         return "Library";
     }
-    return QString::null;
+    return QString();
 }
 
 ProjectItem::Type ProjectItem::stringToType(const QString &type)
@@ -683,8 +683,8 @@ ProjectItem::Type ProjectItem::stringToType(const QString &type)
 
 void ProjectItem::domElementToItem(const QDomElement &element, const QUrl &baseDirUrl)
 {
-    Type type = stringToType(element.attribute("type", QString::null));
-    QString name = element.attribute("name", QString::null);
+    Type type = stringToType(element.attribute("type", QString()));
+    QString name = element.attribute("name", QString());
     QUrl url = baseDirUrl.resolved(QUrl(element.attribute("url", QString())));
 
     ProjectItem *createdItem = new ProjectItem(this, type, m_pProjectManager);
@@ -721,7 +721,7 @@ void ProjectItem::domElementToItem(const QDomElement &element, const QUrl &baseD
 ProjectInfo::ProjectInfo(ProjectManager *projectManager)
     : ProjectItem(nullptr, ProjectItem::ProjectType, projectManager)
 {
-    m_microID = QString::null;
+    m_microID = QString();
 }
 
 ProjectInfo::~ProjectInfo()

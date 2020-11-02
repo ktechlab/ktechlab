@@ -108,7 +108,7 @@ public:
     {
         return m_canvasManipulator;
     }
-    void setRepeatedAddId(const QString &repeatedId = QString::null);
+    void setRepeatedAddId(const QString &repeatedId = QString());
     uint cmState() const
     {
         return m_cmState;

@@ -35,12 +35,12 @@ ProgrammerConfig::ProgrammerConfig()
 
 void ProgrammerConfig::reset()
 {
-    initCommand = QString::null;
-    readCommand = QString::null;
-    writeCommand = QString::null;
-    verifyCommand = QString::null;
-    blankCheckCommand = QString::null;
-    eraseCommand = QString::null;
+    initCommand = QString();
+    readCommand = QString();
+    writeCommand = QString();
+    verifyCommand = QString();
+    blankCheckCommand = QString();
+    eraseCommand = QString();
 }
 // END class ProgrammerConfig
 

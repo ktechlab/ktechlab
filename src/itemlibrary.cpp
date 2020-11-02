@@ -628,7 +628,7 @@ QString ItemLibrary::itemDescriptionsFile(const QString &languageCode) const
 {
     QString dir(itemDescriptionsDirectory());
     if (dir.isEmpty())
-        return QString::null;
+        return QString();
 
     const QString url = dir + QLatin1String("help-") + languageCode;
 
@@ -676,7 +676,7 @@ void ItemLibrary::loadItemDescriptions()
                     type.remove(0, 1);
                 }
 
-                description = QString::null;
+                description = QString();
             } else
                 description += line + '\n';
         }

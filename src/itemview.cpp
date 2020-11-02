@@ -397,7 +397,7 @@ void ItemView::contentsMousePressEvent(QMouseEvent *e)
         return;
     }
 
-    p_itemDocument->canvas()->setMessage(QString::null);
+    p_itemDocument->canvas()->setMessage(QString());
     p_itemDocument->m_cmManager->mousePressEvent(eventInfo);
 }
 
@@ -557,7 +557,7 @@ void ItemView::leaveEvent(QEvent *e)
     setCursor(Qt::ArrowCursor);
 
     if (KTechlab::self())
-        KTechlab::self()->slotChangeStatusbar(QString::null);
+        KTechlab::self()->slotChangeStatusbar(QString());
 
     if (p_itemDocument)
         p_itemDocument->m_canvasTip->setVisible(false);

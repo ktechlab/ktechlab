@@ -69,7 +69,7 @@ NewProjectDlg::NewProjectDlg(QWidget *parent)
     connect(m_buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
     // Check if already valid dir
-    locationChanged(QString::null);
+    locationChanged(QString());
 
     m_pWidget->projectLocationURL->setUrl(QUrl::fromLocalFile(QDir::homePath()));
     m_pWidget->projectLocationURL->setMode(KFile::Directory);

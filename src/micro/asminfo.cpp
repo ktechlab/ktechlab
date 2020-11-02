@@ -44,7 +44,7 @@ QString AsmInfo::setToString(Set set)
     }
 
     qWarning() << Q_FUNC_INFO << "Unrecognized set=" << set << endl;
-    return QString::null;
+    return QString();
 }
 
 AsmInfo::Set AsmInfo::stringToSet(const QString &set)

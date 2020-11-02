@@ -251,16 +251,16 @@ QString ICNDocumentIface::makeConnection(const QString &item1, const QString &no
     CNItem *i2 = m_pICNDocument->cnItemWithID(item2);
 
     if (!i1 || !i2)
-        return QString::null;
+        return QString();
 
     Node *n1 = m_pICNDocument->nodeWithID(i1->nodeId(node1));
     Node *n2 = m_pICNDocument->nodeWithID(i2->nodeId(node2));
 
     if (!n1 || !n2)
-        return QString::null;
+        return QString();
 
     Connector *connector = m_pICNDocument->createConnector(n1, n2);
-    return connector ? connector->id() : QString::null;
+    return connector ? connector->id() : QString();
 }
 
 void ICNDocumentIface::selectConnector(const QString &id)
@@ -298,7 +298,7 @@ QStringList ItemDocumentIface::validItemIDs()
 QString ItemDocumentIface::addItem(const QString &id, int x, int y)
 {
     Item *item = m_pItemDocument->addItem(id, QPoint(x, y), true);
-    return item ? item->id() : QString::null;
+    return item ? item->id() : QString();
 }
 
 void ItemDocumentIface::selectItem(const QString &id)

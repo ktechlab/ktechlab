@@ -128,8 +128,8 @@ void ComponentModelLibrary::loadModels()
 
                 // Reset the model
                 model = nullptr;
-                id = QString::null;
-                typeString = QString::null;
+                id = QString();
+                typeString = QString();
 
                 modelCount[type]++;
             } else if (line.startsWith("[")) {

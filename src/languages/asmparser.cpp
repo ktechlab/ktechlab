@@ -38,7 +38,7 @@ bool AsmParser::parse(GpsimDebugger *debugger)
 
     m_type = Absolute;
     m_bContainsRadix = false;
-    m_picID = QString::null;
+    m_picID = QString();
 
     // QStringList nonAbsoluteOps = QStringList::split( ",",
     //		"code,.def,.dim,.direct,endw,extern,.file,global,idata,.ident,.line,.type,udata,udata_acs,udata_ovr,udata_shr" );

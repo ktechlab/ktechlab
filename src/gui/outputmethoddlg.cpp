@@ -49,7 +49,7 @@ void OutputMethodInfo::initialize(OutputMethodDlg *dlg)
 {
     if (dlg->m_widget->displayDirectCheck->isChecked()) {
         m_method = Method::Direct;
-        // K3TempFile f( QString::null, dlg->m_outputExtension );
+        // K3TempFile f( QString(), dlg->m_outputExtension );
         QTemporaryFile f(QDir::tempPath() + QLatin1String("/ktechlab_XXXXXX") + dlg->m_outputExtension);
         f.setAutoRemove(false);
         if (!f.open()) {

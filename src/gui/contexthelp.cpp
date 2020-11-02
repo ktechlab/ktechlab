@@ -206,7 +206,7 @@ void ContextHelp::slotUpdate(Item *item)
         return;
     }
 
-    m_lastItemType = item ? item->type() : QString::null;
+    m_lastItemType = item ? item->type() : QString();
     m_pEditButton->setEnabled(item);
 
     if (!item) {

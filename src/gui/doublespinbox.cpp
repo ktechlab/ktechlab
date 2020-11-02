@@ -60,7 +60,7 @@ DoubleSpinBox::DoubleSpinBox(double lower, double upper, double minAbs, double v
     // 	m_maxValue = upper;
     setMaximum(upper);
     m_minAbsValue = minAbs;
-    // 	m_queuedSuffix = QString::null;
+    // 	m_queuedSuffix = QString();
 
     init();
     setValue(value);
@@ -77,7 +77,7 @@ DoubleSpinBox::DoubleSpinBox(QWidget *parent)
     // 	m_maxValue = 1e9;
     setMaximum(1e9);
     m_minAbsValue = 1e-9;
-    // 	m_queuedSuffix = QString::null;
+    // 	m_queuedSuffix = QString();
 
     init();
     setValue(0);
@@ -167,7 +167,7 @@ void DoubleSpinBox::updateSuffix(double value)
 // 		setSuffix( m_queuedSuffix );
 // 		changed = true;
 // 	}
-// 	m_queuedSuffix = QString::null;
+// 	m_queuedSuffix = QString();
 //
 // 	if ( changed )
 // 		emit valueChanged( value() );

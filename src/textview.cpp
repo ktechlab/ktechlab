@@ -638,7 +638,7 @@ void TextViewEventFilter::hoverTimeout()
 void TextViewEventFilter::gotoSleep()
 {
     m_hoverStatus = Sleeping;
-    m_lastWord = QString::null;
+    m_lastWord = QString();
     emit wordUnhovered();
     m_pHoverTimer->stop();
 }
@@ -693,7 +693,7 @@ void TextViewEventFilter::slotNeedTextHint(const KTextEditor::Cursor &position, 
 
     // Return if we aren't currently in a word
     if (!isWordLetter(d->text(KTextEditor::Range(line, col, line, col + 1)))) {
-        updateHovering(QString::null, line, col);
+        updateHovering(QString(), line, col);
         return;
     }
 

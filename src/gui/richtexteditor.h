@@ -102,7 +102,7 @@ Popup dialog for editing rich text
 class RichTextEditorDlg : public QDialog
 {
 public:
-    RichTextEditorDlg(QWidget *parent = nullptr, const QString &caption = QString::null);
+    RichTextEditorDlg(QWidget *parent = nullptr, const QString &caption = QString());
 
     /**
      * Sets the text being edited (passes it to RichTextEditor).

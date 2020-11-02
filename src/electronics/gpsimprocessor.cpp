@@ -313,7 +313,7 @@ QString GpsimProcessor::generateSymbolFile(const QString &fileName, QObject *rec
     qDebug() << Q_FUNC_INFO << "fileName=" << fileName;
     if (isValidProgramFile(fileName) != GpsimProcessor::Valid) {
         qDebug() << Q_FUNC_INFO << "not valid program file";
-        return QString::null;
+        return QString();
     }
 
     QString extension = fileName.right(fileName.length() - fileName.lastIndexOf('.') - 1).toLower();
@@ -335,7 +335,7 @@ QString GpsimProcessor::generateSymbolFile(const QString &fileName, QObject *rec
         QTemporaryFile tmpFile(QDir::tempPath() + QLatin1String("/ktechlab_XXXXXX.hex"));
         if (!tmpFile.open()) {
             qWarning() << " failed to open " << tmpFile.fileName() << " error " << tmpFile.errorString();
-            return QString::null;
+            return QString();
         }
         const QString hexFile = tmpFile.fileName();
         ProcessOptions o;
@@ -392,7 +392,7 @@ QString GpsimProcessor::generateSymbolFile(const QString &fileName, QObject *rec
 
     if (failMember)
         QTimer::singleShot(0, receiver, failMember);
-    return QString::null;
+    return QString();
 }
 
 void GpsimProcessor::compileMicrobe(const QString &filename, QObject *receiver, const char *successMember, const char *failMember)

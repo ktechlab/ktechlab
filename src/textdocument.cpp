@@ -887,8 +887,8 @@ void TextDocument::slotCODCreationSucceeded()
 void TextDocument::slotCODCreationFailed()
 {
 #ifndef NO_GPSIM
-    m_debugFile = QString::null;
-    m_symbolFile = QString::null;
+    m_debugFile = QString();
+    m_symbolFile = QString();
 #endif // !NO_GPSIM
 }
 
@@ -897,7 +897,7 @@ void TextDocument::slotDebuggerDestroyed()
 #ifndef NO_GPSIM
     slotDebugSetCurrentLine(SourceLine());
     m_pDebugger = nullptr;
-    m_debugFile = QString::null;
+    m_debugFile = QString();
     slotInitDebugActions();
 #endif // !NO_GPSIM
 }
@@ -987,7 +987,7 @@ void TextDocument::setDebugger(GpsimDebugger *debugger, bool ownDebugger)
         return;
 
     // Reset it for use next time
-    m_symbolFile = QString::null;
+    m_symbolFile = QString();
 
     if (m_bOwnDebugger)
         delete m_pDebugger;
