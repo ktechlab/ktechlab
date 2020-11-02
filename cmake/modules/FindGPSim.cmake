@@ -37,7 +37,7 @@ if (GPSim_INCLUDE_DIR AND GPSim_LIBRARY)
     set(GPSim_FIND_QUIETLY TRUE)
 endif ()
 
-find_package(GLib)  # needed for using GPSim
+find_package(GLIB)  # needed for using GPSim
 
 find_path(GPSim_INCLUDE_DIR
     NAMES gpsim/gpsim_interface.h
