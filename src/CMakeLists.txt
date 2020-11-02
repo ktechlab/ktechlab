@@ -345,6 +345,7 @@ target_link_libraries( ktechlab
     KF5::Parts
     KF5::ConfigCore
     KF5::ConfigGui
+    KF5::ConfigWidgets
     KF5::CoreAddons
     KF5::IconThemes
     KF5::KIOCore
@@ -391,6 +392,7 @@ if(BUILD_TESTING)
         KF5::KHtml
         KF5::WidgetsAddons
         KF5::WindowSystem
+        KF5::ConfigWidgets
 
         Qt5::Widgets
         Qt5::PrintSupport
