@@ -15,6 +15,8 @@
 #include "junctionnode.h"
 #include "wire.h"
 
+#include <algorithm>
+
 ElectronicConnector::ElectronicConnector(ECNode *startNode, ECNode *endNode, ICNDocument *_ICNDocument, QString *id)
     : Connector(startNode, endNode, _ICNDocument, id)
 {
@@ -49,7 +51,7 @@ void ElectronicConnector::syncWiresWithNodes()
     if (isStartNodeJunction || isEndNodeJunction)
         newNumWires = qMax(startEcNode->numPins(), endEcNode->numPins());
     else
-        newNumWires = qMin(startEcNode->numPins(), endEcNode->numPins());
+        newNumWires = std::min(startEcNode->numPins(), endEcNode->numPins());
 
     unsigned oldNumWires = m_wires.size();
 

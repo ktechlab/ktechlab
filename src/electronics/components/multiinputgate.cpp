@@ -18,6 +18,8 @@
 #include <QPainter>
 #include <cmath>
 
+#include <algorithm>
+
 #include <ktlconfig.h>
 
 // BEGIN class MultiInputGate
@@ -102,7 +104,7 @@ int MultiInputGate::logicSymbolShapeToWidth() const
 
 void MultiInputGate::dataChanged()
 {
-    updateInputs(qMin(maxGateInput, dataInt("numInput")));
+    updateInputs(std::min(maxGateInput, dataInt("numInput")));
 }
 
 void MultiInputGate::updateInputs(int newNum)
