@@ -11,7 +11,6 @@
 #ifndef BJT_H
 #define BJT_H
 
-#include "matrix.h"
 #include "nonlinear.h"
 
 class BJTState

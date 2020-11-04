@@ -10,7 +10,6 @@
 
 #include "voltagepoint.h"
 #include "elementset.h"
-#include "matrix.h"
 
 VoltagePoint::VoltagePoint(const double voltage)
     : Element::Element()

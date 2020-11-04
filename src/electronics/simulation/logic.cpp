@@ -11,7 +11,6 @@
 #include "logic.h"
 #include "circuit.h"
 #include "elementset.h"
-#include "matrix.h"
 #include "simulator.h"
 #include <vector>
 

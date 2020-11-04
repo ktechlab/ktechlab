@@ -11,7 +11,6 @@
 #ifndef JFET_H
 #define JFET_H
 
-#include "matrix.h"
 #include "nonlinear.h"
 
 class JFETState

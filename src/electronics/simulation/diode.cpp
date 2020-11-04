@@ -10,7 +10,6 @@
 
 #include "diode.h"
 #include "elementset.h"
-#include "matrix.h"
 #include <vector>
 
 #include <cmath>

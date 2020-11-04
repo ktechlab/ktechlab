@@ -10,7 +10,6 @@
 
 #include "vccs.h"
 #include "elementset.h"
-#include "matrix.h"
 
 VCCS::VCCS(const double gain)
     : Element::Element()

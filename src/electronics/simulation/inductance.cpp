@@ -10,7 +10,6 @@
 
 #include "inductance.h"
 #include "elementset.h"
-#include "matrix.h"
 
 Inductance::Inductance(double inductance, double delta)
     : Reactive(delta)

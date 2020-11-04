@@ -10,7 +10,6 @@
 
 #include "ccvs.h"
 #include "elementset.h"
-#include "matrix.h"
 
 CCVS::CCVS(const double gain)
     : Element::Element()

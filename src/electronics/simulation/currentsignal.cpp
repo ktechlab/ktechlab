@@ -10,7 +10,6 @@
 
 #include "currentsignal.h"
 #include "element.h"
-#include "matrix.h"
 
 CurrentSignal::CurrentSignal(double delta, double current)
     : Reactive::Reactive(delta)

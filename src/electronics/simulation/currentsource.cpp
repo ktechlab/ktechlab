@@ -10,7 +10,6 @@
 
 #include "currentsource.h"
 #include "elementset.h"
-#include "matrix.h"
 
 CurrentSource::CurrentSource(const double current)
     : Element::Element()

@@ -9,7 +9,6 @@
  ***************************************************************************/
 
 #include "nonlinear.h"
-#include "matrix.h"
 
 #include <cmath>
 using namespace std;

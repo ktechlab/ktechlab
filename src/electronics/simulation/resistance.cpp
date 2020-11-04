@@ -10,7 +10,6 @@
 
 #include "resistance.h"
 #include "elementset.h"
-#include "matrix.h"
 
 // #include <QDebug>
 

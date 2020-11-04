@@ -10,7 +10,6 @@
 
 #include "voltagesignal.h"
 #include "elementset.h"
-#include "matrix.h"
 
 VoltageSignal::VoltageSignal(const double delta, const double voltage)
     : Reactive::Reactive(delta)

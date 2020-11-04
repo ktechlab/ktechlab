@@ -10,7 +10,6 @@
 
 #include "opamp.h"
 #include "elementset.h"
-#include "matrix.h"
 
 OpAmp::OpAmp()
     : Element::Element()

@@ -10,7 +10,6 @@
 
 #include "voltagesource.h"
 #include "elementset.h"
-#include "matrix.h"
 
 VoltageSource::VoltageSource(const double voltage)
     : Element::Element()

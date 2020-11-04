@@ -11,7 +11,6 @@
 #ifndef MOSFET_H
 #define MOSFET_H
 
-#include "matrix.h"
 #include "nonlinear.h"
 
 class MOSFETState

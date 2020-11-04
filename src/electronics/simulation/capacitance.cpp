@@ -9,7 +9,6 @@
  ***************************************************************************/
 
 #include "capacitance.h"
-#include "matrix.h"
 
 Capacitance::Capacitance(const double capacitance, const double delta)
     : Reactive(delta)
