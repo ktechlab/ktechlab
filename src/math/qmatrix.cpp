@@ -76,43 +76,6 @@ void QuickMatrix::allocator()
 
 // ####################################
 
-QuickMatrix *QuickMatrix::transposeSquare() const
-{
-    QuickMatrix *newmat = new QuickMatrix(n);
-
-    for (unsigned int i = 0; i < n; i++) {
-        for (unsigned int j = 0; j < n; j++) {
-            newmat->values[i][j] = 0;
-            for (unsigned int k = 0; k < m; k++) {
-                newmat->values[i][j] += values[k][i] * values[k][j];
-            }
-        }
-    }
-
-    return newmat;
-}
-
-// #####################################
-
-QuickVector *QuickMatrix::transposeMult(const QuickVector *operandvec) const
-{
-    if (operandvec->size() != m)
-        return nullptr;
-
-    QuickVector *ret = new QuickVector(n);
-
-    for (unsigned int i = 0; i < n; i++) {
-        double sum = 0;
-        for (unsigned int j = 0; j < m; j++)
-            sum += values[j][i] * (*operandvec)[j];
-        (*ret)[i] = sum;
-    }
-
-    return ret;
-}
-
-// ####################################
-
 QuickMatrix::QuickMatrix(CUI m_in, CUI n_in)
     : m(m_in)
     , n(n_in)
@@ -165,25 +128,6 @@ double QuickMatrix::at(CUI m_a, CUI n_a) const
 
 // ####################################
 
-double QuickMatrix::multstep(CUI row, CUI pos, CUI col) const
-{
-    return values[row][pos] * values[pos][col];
-}
-
-// ####################################
-
-double QuickMatrix::multRowCol(CUI row, CUI col, CUI lim) const
-{
-    const double *rowVals = values[row];
-
-    double sum = 0;
-    for (unsigned int i = 0; i < lim; i++)
-        sum += rowVals[i] * values[i][col];
-    return sum;
-}
-
-// ####################################
-
 bool QuickMatrix::atPut(CUI m_a, CUI n_a, const double val)
 {
     if (m_a >= m || n_a >= n)
@@ -220,94 +164,6 @@ bool QuickMatrix::swapRows(CUI m_a, CUI m_b)
 
 // ####################################
 
-bool QuickMatrix::scaleRow(CUI m_a, const double scalor)
-{
-    if (m_a >= m)
-        return false;
-
-    double *arow = values[m_a];
-
-    // iterate over n columns.
-    for (unsigned int j = 0; j < n; j++)
-        arow[j] *= scalor;
-
-    return true;
-}
-
-// ####################################
-
-double QuickMatrix::rowsum(CUI m)
-{
-    if (m >= m)
-        return NAN;
-
-    double *arow = values[m];
-
-    double sum = 0.0;
-
-    // iterate over n columns.
-    for (unsigned int j = 0; j < n; j++)
-        sum += arow[j];
-
-    return sum;
-}
-
-// ####################################
-
-double QuickMatrix::absrowsum(CUI m)
-{
-    if (m >= m)
-        return NAN;
-
-    double *arow = values[m];
-
-    double sum = 0.0;
-
-    // iterate over n columns.
-    for (unsigned int j = 0; j < n; j++)
-        sum += fabs(arow[j]);
-
-    return sum;
-}
-
-// ####################################
-
-// behaves oddly but doesn't crash if m_a == m_b
-bool QuickMatrix::scaleAndAdd(CUI m_a, CUI m_b, const double scalor)
-{
-    if (m_a >= m || m_b >= m)
-        return false;
-
-    const double *arow = values[m_a];
-    double *brow = values[m_b];
-
-    // iterate over n columns.
-    for (unsigned int j = 0; j < n; j++)
-        brow[j] += arow[j] * scalor;
-
-    return true;
-}
-
-// ####################################
-
-// behaves oddly but doesn't crash if m_a == m_b
-bool QuickMatrix::partialScaleAndAdd(CUI m_a, CUI m_b, const double scalor)
-{
-    if (m_a >= m || m_b >= m)
-        return false;
-
-    const double *arow = values[m_a];
-    double *brow = values[m_b];
-
-    // iterate over n - m_a columns.
-    for (unsigned int j = m_a; j < n; j++)
-        brow[j] += arow[j] * scalor;
-
-    return true;
-}
-
-// ########################################
-
 bool QuickMatrix::partialSAF(CUI m_a, CUI m_b, CUI from, const double scalor)
 {
     if (m_a >= m || m_b >= m)
@@ -321,42 +177,6 @@ bool QuickMatrix::partialSAF(CUI m_a, CUI m_b, CUI from, const double scalor)
         brow[j] += arow[j] * scalor;
 
     return true;
-}
-
-// ####################################
-/*
-void QuickMatrix::fillWithRandom() {
-    for(unsigned int j = 0; j < m; j++) {
-        double *row = values[j];
-        for(unsigned int i = 0; i < n; i++) row[i] = drng();
-    }
-}
-*/
-
-// ####################################
-
-QuickVector *QuickMatrix::normalizeRows()
-{
-    QuickVector *ret = new QuickVector(m);
-
-    for (unsigned int j = 0; j < m; j++) {
-        double *row = values[j];
-        unsigned int max_loc = 0;
-
-        for (unsigned int i = 0; i < n; i++) {
-            if (fabs(row[max_loc]) < fabs(row[i]))
-                max_loc = i;
-        }
-
-        double scalar = 1.0 / row[max_loc];
-
-        (*ret)[j] = scalar;
-
-        for (unsigned int i = 0; i < n; i++)
-            row[i] *= scalar;
-    }
-
-    return ret;
 }
 
 // ####################################

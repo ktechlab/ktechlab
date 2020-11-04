@@ -59,29 +59,11 @@ public:
     // functions for some elementary row operations.
     // these are actually procedures because they operate on the current matrix rather than
     // producing a results matrix.
-    bool scaleRow(CUI m_a, const double scalor);
-    // changes B by adding A.
-    bool addRowToRow(CUI m_a, CUI m_b);
-    // changes B by adding the result of A times a scalor
-    bool scaleAndAdd(CUI m_a, CUI m_b, const double scalor);
-    bool partialScaleAndAdd(CUI m_a, CUI m_b, const double scalor);
     bool partialSAF(CUI m_a, CUI m_b, CUI from, const double scalor);
     bool swapRows(CUI m_a, CUI m_b);
 
-    // functions that accelerate certain types of
-    // operations that would otherwise require millions of at()'s
-    double multstep(CUI row, CUI pos, CUI col) const;
-    double multRowCol(CUI row, CUI col, CUI lim) const;
-
-    QuickMatrix *transposeSquare() const; // Multiplies self by transpose.
-    QuickVector *transposeMult(const QuickVector *operandvec) const;
-
     // utility functions:
-    void fillWithRandom();
     void fillWithZero();
-    double rowsum(CUI m);
-    double absrowsum(CUI m);
-    QuickVector *normalizeRows();
 
     // Matrix arithmetic.
     QuickMatrix *operator+=(const QuickMatrix *othermat);
