@@ -39,10 +39,6 @@ public:
      */
     Matrix(CUI n, CUI m);
     ~Matrix();
-    /**
-     * Sets all elements to zero
-     */
-    void zero();
 
     /**
      * Returns true if the matrix is changed since last calling performLU()
@@ -63,10 +59,6 @@ public:
      * with the solution returned in x.
      */
     void fbSub(QuickVector *x);
-    /**
-     * Prints the matrix to stdout
-     */
-    void displayMatrix();
     /**
      * Prints the LU-decomposed matrix to stdout
      */
@@ -126,11 +118,6 @@ public:
     {
         return (*m_mat)[m_inMap[i]][j];
     }
-    /**
-     * Multiplies this matrix by the Vector rhs, and places the result
-     * in the vector pointed to by result. Will fail if wrong size.
-     */
-    void multiply(const QuickVector *rhs, QuickVector *result);
 
 private:
     /**

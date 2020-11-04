@@ -10,16 +10,8 @@
 
 #include "matrix.h"
 
-#include <QDebug>
-
-#include <cassert>
-
 #include <cmath>
 #include <iostream>
-#include <vector>
-
-/// Minimum value before an entry is deemed "zero"
-const double epsilon = 1e-50;
 
 Matrix::Matrix(CUI n, CUI m)
     : m_n(n)
@@ -42,20 +34,6 @@ Matrix::~Matrix()
     delete m_lu;
     delete[] m_y;
     delete[] m_inMap;
-}
-
-void Matrix::zero()
-{
-    //??????  do we really want the matrixes to be 0 or do we want them initialized to Identity?
-
-    m_mat->fillWithZero();
-    m_lu->fillWithZero();
-    unsigned int size = m_mat->size_m();
-
-    for (unsigned int i = 0; i < size; i++)
-        m_inMap[i] = i;
-
-    max_k = 0;
 }
 
 void Matrix::swapRows(CUI a, CUI b)
@@ -144,42 +122,6 @@ void Matrix::fbSub(QuickVector *b)
     // I think we don't need to reverse the mapping because we only permute rows, not columns.
     for (uint i = 0; i < size; i++)
         (*b)[i] = m_y[i];
-}
-
-void Matrix::multiply(const QuickVector *rhs, QuickVector *result)
-{
-    if (!rhs || !result)
-        return;
-    result->fillWithZeros();
-
-    unsigned int size = m_mat->size_m();
-    for (uint _i = 0; _i < size; _i++) {
-        uint i = m_inMap[_i];
-        /* hmm, we should move the resolution of pointers involving i out of the inner loop but
-        there doesn't appear to be a way to obtain direct pointers into our classes inner structures.
-        While it is a good safety feature of our classes, it doesn't facilitate optimization in this
-        instance... Furthermore, our matrix class has an accelerator for this operation however it is
-        ignorant of row permutations and it allocates new memory for the result matrix, breaking the
-        interface of this method.
-        */
-        for (uint j = 0; j < size; j++) {
-            result->atAdd(_i, (*m_mat)[i][j] * (*rhs)[j]);
-        }
-    }
-}
-
-void Matrix::displayMatrix()
-{
-    uint n = m_mat->size_m();
-    for (uint _i = 0; _i < n; _i++) {
-        uint i = m_inMap[_i];
-        for (uint j = 0; j < n; j++) {
-            if (j > 0 && (*m_mat)[i][j] >= 0)
-                qDebug() << "+";
-            qDebug() << (*m_mat)[i][j] << "(" << j << ")";
-        }
-        qDebug() << endl;
-    }
 }
 
 void Matrix::displayLU()
