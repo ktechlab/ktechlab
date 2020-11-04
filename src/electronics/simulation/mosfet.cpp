@@ -13,10 +13,6 @@
 #include <cmath>
 using namespace std;
 
-#ifndef MAX
-#define MAX(x, y) (((x) > (y)) ? (x) : (y))
-#endif
-
 // BEGIN class MOSFETSettings
 MOSFETSettings::MOSFETSettings()
 {

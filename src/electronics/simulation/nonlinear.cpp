@@ -23,10 +23,6 @@ NonLinear::NonLinear()
 {
 }
 
-#ifndef MAX
-#define MAX(x, y) (((x) > (y)) ? (x) : (y))
-#endif
-
 double NonLinear::diodeCurrent(double v, double I_S, double N) const
 {
     return I_S * (exp(std::min<double>(v / (N * V_T), KTL_MAX_EXPONENT)) - 1);
@@ -103,7 +99,7 @@ double NonLinear::fetVoltage(double V, double V_prev, double Vth) const
                     return V;
                 }
 
-                return MAX(V, Vth + 2);
+                return std::max(V, Vth + 2);
             }
 
             // staying on
@@ -116,7 +112,7 @@ double NonLinear::fetVoltage(double V, double V_prev, double Vth) const
         // middle region
         if (delta_V <= 0) {
             // decreasing
-            return MAX(V, Vth - 0.5);
+            return std::max(V, Vth - 0.5);
         }
 
         // increasing
@@ -149,7 +145,7 @@ double NonLinear::fetVoltageDS(double V, double V_prev) const
         if (V > V_prev)
             return std::min(V, 3 * V_prev + 2);
         else if (V < 3.5)
-            return MAX(V, 2);
+            return std::max<double>(V, 2);
 
         return V;
     }
@@ -157,7 +153,7 @@ double NonLinear::fetVoltageDS(double V, double V_prev) const
     if (V > V_prev)
         return std::min<double>(V, 4);
 
-    return MAX(V, -0.5);
+    return std::max(V, -0.5);
 }
 
 void NonLinear::mosDiodeJunction(double V, double I_S, double N, double *I, double *g) const
