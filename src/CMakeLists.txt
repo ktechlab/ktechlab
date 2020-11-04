@@ -342,6 +342,7 @@ target_link_libraries( ktechlab
 	#itemeditor math
     KF5::TextEditor
     KF5::Parts
+    KF5::Completion
     KF5::ConfigCore
     KF5::ConfigGui
     KF5::ConfigWidgets
@@ -392,6 +393,7 @@ if(BUILD_TESTING)
         KF5::WidgetsAddons
         KF5::WindowSystem
         KF5::ConfigWidgets
+        KF5::Completion
 
         Qt5::Widgets
         Qt5::PrintSupport

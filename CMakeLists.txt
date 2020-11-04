@@ -40,6 +40,7 @@ find_package(Qt5 CONFIG REQUIRED COMPONENTS
     )
 
 find_package(KF5 REQUIRED COMPONENTS
+    Completion
     Config
     ConfigWidgets
     CoreAddons
