@@ -73,7 +73,7 @@ public slots:
 
 protected:
     QListWidget *m_pList;
-    ClickLineEdit *m_pSearchEdit;
+    KLineEdit *m_pSearchEdit;
 };
 
 #endif

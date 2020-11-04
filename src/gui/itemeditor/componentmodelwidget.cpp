@@ -48,7 +48,8 @@ ComponentModelWidget::ComponentModelWidget(QWidget *parent, const char *name)
     QWidget *button = new QToolButton(bar);
     button->setObjectName("locationbar_erase"); // TODO what is: "locationbar_erase", 1,
                                                 // button: locationbar_erase is the name of the icon to be displayed on it
-    m_pSearchEdit = new ClickLineEdit(i18n("Filter here..."), bar);
+    m_pSearchEdit = new KLineEdit(bar);
+    m_pSearchEdit->setPlaceholderText(i18n("Filter here..."));
 
     // bar->setStretchableWidget( m_pSearchEdit ); // TODO removed, investigate
     m_pSearchEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
