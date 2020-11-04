@@ -10,6 +10,8 @@
 
 #include "nonlinear.h"
 
+#include <algorithm>
+
 #include <cmath>
 using namespace std;
 
@@ -21,23 +23,19 @@ NonLinear::NonLinear()
 {
 }
 
-#ifndef MIN
-#define MIN(x, y) (((x) < (y)) ? (x) : (y))
-#endif
-
 #ifndef MAX
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 #endif
 
 double NonLinear::diodeCurrent(double v, double I_S, double N) const
 {
-    return I_S * (exp(MIN(v / (N * V_T), KTL_MAX_EXPONENT)) - 1);
+    return I_S * (exp(std::min<double>(v / (N * V_T), KTL_MAX_EXPONENT)) - 1);
 }
 
 double NonLinear::diodeConductance(double v, double I_S, double N) const
 {
     double Vt = V_T * N;
-    return I_S * exp(MIN(v / Vt, KTL_MAX_EXPONENT)) / Vt;
+    return I_S * exp(std::min<double>(v / Vt, KTL_MAX_EXPONENT)) / Vt;
 }
 
 double NonLinear::diodeVoltage(double V, double V_prev, double N, double V_lim) const
@@ -80,7 +78,7 @@ void NonLinear::diodeJunction(double V, double I_S, double N, double *I, double 
         *I = -I_S * (1 + a);
         *g = +I_S * 3 * a / V;
     } else {
-        double e = exp(MIN(V / Vt, KTL_MAX_EXPONENT));
+        double e = exp(std::min<double>(V / Vt, KTL_MAX_EXPONENT));
         *I = I_S * (e - 1);
         *g = I_S * e / Vt;
     }
@@ -122,7 +120,7 @@ double NonLinear::fetVoltage(double V, double V_prev, double Vth) const
         }
 
         // increasing
-        return MIN(V, Vth + 4);
+        return std::min(V, Vth + 4);
     }
 
     //  off
@@ -149,7 +147,7 @@ double NonLinear::fetVoltageDS(double V, double V_prev) const
 {
     if (V_prev >= 3.5) {
         if (V > V_prev)
-            return MIN(V, 3 * V_prev + 2);
+            return std::min(V, 3 * V_prev + 2);
         else if (V < 3.5)
             return MAX(V, 2);
 
@@ -157,7 +155,7 @@ double NonLinear::fetVoltageDS(double V, double V_prev) const
     }
 
     if (V > V_prev)
-        return MIN(V, 4);
+        return std::min<double>(V, 4);
 
     return MAX(V, -0.5);
 }
@@ -170,7 +168,7 @@ void NonLinear::mosDiodeJunction(double V, double I_S, double N, double *I, doub
         *g = I_S / Vt;
         *I = *g * V;
     } else {
-        double e = exp(MIN(V / Vt, KTL_MAX_EXPONENT));
+        double e = exp(std::min<double>(V / Vt, KTL_MAX_EXPONENT));
         *I = I_S * (e - 1);
         *g = I_S * e / Vt;
     }

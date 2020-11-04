@@ -10,6 +10,8 @@
 
 #include "diode.h"
 #include "elementset.h"
+
+#include <algorithm>
 #include <vector>
 
 #include <cmath>
@@ -87,10 +89,6 @@ void Diode::update_dc()
     I_old = I_new;
 }
 
-#ifndef MIN
-#define MIN(x, y) (((x) < (y)) ? (x) : (y))
-#endif
-
 void Diode::calc_eq()
 {
     double N = m_diodeSettings.N;
@@ -100,7 +98,7 @@ void Diode::calc_eq()
     double v = p_cnode[0]->v - p_cnode[1]->v;
 
     // adjust voltage to help convergence
-    if (V_B != 0 && v < MIN(0, -V_B + 10 * N)) {
+    if (V_B != 0 && v < std::min<double>(0, -V_B + 10 * N)) {
         double V = -(v + V_B);
         V = diodeVoltage(V, -(V_prev + V_B), N, V_lim);
         v = -(V + V_B);
