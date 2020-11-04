@@ -19,7 +19,6 @@
 #include "itemeditor.h"
 #include "itemview.h"
 #include "ktechlab.h"
-#include "lineedit.h"
 
 #include <KComboBox>
 #include <KLineEdit>
