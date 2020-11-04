@@ -22,6 +22,7 @@
 #include "lineedit.h"
 
 #include <KComboBox>
+#include <KLineEdit>
 #include <KToolBar>
 #include <KUrlRequester>
 #include <KXMLGUIFactory>
@@ -319,7 +320,7 @@ QWidget *ItemInterface::configWidget()
             break;
         }
         case Variant::Type::String: {
-            LineEdit *edit = new LineEdit(configWidget);
+            KLineEdit *edit = new KLineEdit(configWidget);
 
             edit->setText(vait.value()->value().toString());
             connectMapWidget(edit, SIGNAL(textChanged(const QString &)));
@@ -483,8 +484,8 @@ void ItemInterface::tbDataChanged()
     }
     BoolLock inTbChangedLock(&m_isInTbDataChanged);
     // Manual string values
-    const LineEditMap::iterator m_stringLineEditMapEnd = m_stringLineEditMap.end();
-    for (LineEditMap::iterator leit = m_stringLineEditMap.begin(); leit != m_stringLineEditMapEnd; ++leit) {
+    const KLineEditMap::iterator m_stringLineEditMapEnd = m_stringLineEditMap.end();
+    for (KLineEditMap::iterator leit = m_stringLineEditMap.begin(); leit != m_stringLineEditMapEnd; ++leit) {
         slotSetData(leit.key(), leit.value()->text());
     }
 

@@ -31,12 +31,12 @@ class KComboBox;
 class KToolBar;
 class KUrlRequester;
 class QCheckBox;
-class LineEdit;
+class KLineEdit;
 class QSpinBox;
 
 typedef QMap<QString, Variant *> VariantDataMap;
 typedef QMap<QString, KComboBox *> KComboBoxMap;
-typedef QMap<QString, LineEdit *> LineEditMap;
+typedef QMap<QString, KLineEdit *> KLineEditMap;
 typedef QMap<QString, DoubleSpinBox *> DoubleSpinBoxMap;
 typedef QMap<QString, QSpinBox *> IntSpinBoxMap;
 typedef QMap<QString, ColorCombo *> ColorComboMap;
@@ -111,7 +111,7 @@ protected:
     void connectMapWidget(QWidget *widget, const char *_signal);
 
     // Widget maps.
-    LineEditMap m_stringLineEditMap;
+    KLineEditMap m_stringLineEditMap;
     KComboBoxMap m_stringComboBoxMap;
     KUrlReqMap m_stringURLReqMap;
     DoubleSpinBoxMap m_doubleSpinBoxMap;
