@@ -16,38 +16,6 @@ class Component;
 class QListWidget;
 
 /**
-  This class provides a KLineEdit which contains a greyed-out hinting
-  text as long as the user didn't enter any text
-
-  @short LineEdit with customizable "Click here" text
-  @author Daniel Molkentin
-*/
-class ClickLineEdit : public KLineEdit
-{
-    Q_OBJECT
-    Q_PROPERTY(QString clickMessage READ clickMessage WRITE setClickMessage)
-public:
-    ClickLineEdit(const QString &msg, QWidget *parent, const char *name = nullptr);
-
-    void setClickMessage(const QString &msg);
-    QString clickMessage() const
-    {
-        return mClickMessage;
-    }
-
-    void setText(const QString &txt) override;
-
-protected:
-    virtual void drawContents(QPainter *p);
-    void focusInEvent(QFocusEvent *ev) override;
-    void focusOutEvent(QFocusEvent *ev) override;
-
-private:
-    QString mClickMessage;
-    bool mDrawClickMsg;
-};
-
-/**
 @author David Saxton
 */
 class ComponentModelWidget : public QWidget
