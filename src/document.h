@@ -40,7 +40,7 @@ public:
         dt_text,
         dt_pinMapEditor
     };
-    Document(const QString &caption, const char *name = nullptr);
+    Document(const QString &caption);
     ~Document() override;
     /**
      * If the user has created a new document from the new file dialog, and
@@ -112,7 +112,7 @@ public:
      * functions, you must call handleNewView after creating the view, so that
      * the appropriate slots, pointers, etc can all be initialised.
      */
-    virtual View *createView(ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr) = 0;
+    virtual View *createView(ViewContainer *viewContainer, uint viewAreaId) = 0;
     /**
      * Returns the url of the file that the Document refers to
      */

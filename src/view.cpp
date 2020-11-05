@@ -29,12 +29,11 @@
 #include <cassert>
 
 // BEGIN class View
-View::View(Document *document, ViewContainer *viewContainer, uint viewAreaId, const char *name)
-    : QWidget(viewContainer->viewArea(viewAreaId)
-              /*, name ? name : ("view_" + QString::number(viewAreaId)).toLatin1().data() */)
+View::View(Document *document, ViewContainer *viewContainer, uint viewAreaId)
+    : QWidget(viewContainer->viewArea(viewAreaId))
     , KXMLGUIClient()
 {
-    setObjectName(name ? name : ("view_" + QString::number(viewAreaId)).toLatin1().data());
+    setObjectName("view_" + QString::number(viewAreaId));
     m_pFocusWidget = nullptr;
     m_dcopID = 0;
     m_viewAreaId = viewAreaId;

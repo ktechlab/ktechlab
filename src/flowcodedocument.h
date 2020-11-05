@@ -35,10 +35,10 @@ class FlowCodeDocument : public FlowICNDocument
 {
     Q_OBJECT
 public:
-    FlowCodeDocument(const QString &caption, const char *name = nullptr);
+    FlowCodeDocument(const QString &caption);
     ~FlowCodeDocument() override;
 
-    View *createView(ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr) override;
+    View *createView(ViewContainer *viewContainer, uint viewAreaId) override;
 
     /**
      * Returns a pointer used for the MicroSettings in this FlowCode document

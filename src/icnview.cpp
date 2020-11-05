@@ -21,8 +21,8 @@
 #include <QActionGroup>
 #include <QMenu>
 
-ICNView::ICNView(ICNDocument *icnDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name)
-    : ItemView(icnDocument, viewContainer, viewAreaId, name)
+ICNView::ICNView(ICNDocument *icnDocument, ViewContainer *viewContainer, uint viewAreaId)
+    : ItemView(icnDocument, viewContainer, viewAreaId)
 {
     bool manualRouting = (icnDocument->m_cmManager->cmState() & CMManager::cms_manual_route);
 

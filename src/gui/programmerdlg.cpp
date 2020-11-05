@@ -33,10 +33,9 @@ public:
     }
 };
 
-ProgrammerDlg::ProgrammerDlg(const QString &picID, QWidget *parent, const char *name)
+ProgrammerDlg::ProgrammerDlg(const QString &picID, QWidget *parent)
     : QDialog(parent)
 {
-    setObjectName(name);
     setModal(true);
     setWindowTitle(i18n("PIC Programmer"));
 

@@ -72,7 +72,7 @@ class PinMapEditor : public QDialog
 {
     Q_OBJECT
 public:
-    PinMapEditor(PinMapping *PinMapping, MicroInfo *Info, QWidget *parent, const char *name);
+    PinMapEditor(PinMapping *PinMapping, MicroInfo *Info, QWidget *parent);
 
 protected slots:
     void slotApply();
@@ -124,7 +124,7 @@ class PinMapView : public ICNView
 {
     Q_OBJECT
 public:
-    PinMapView(PinMapDocument *pinMapDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr);
+    PinMapView(PinMapDocument *pinMapDocument, ViewContainer *viewContainer, uint viewAreaId);
     ~PinMapView() override;
 };
 

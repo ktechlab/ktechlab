@@ -25,7 +25,7 @@ class PropertyEditorFile : public PropertySubEditor
     Q_OBJECT
 
 public:
-    PropertyEditorFile(QWidget *parent, Property *property, const char *name = nullptr);
+    PropertyEditorFile(QWidget *parent, Property *property);
     ~PropertyEditorFile() override
     {
         ;

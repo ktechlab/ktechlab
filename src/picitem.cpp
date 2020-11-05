@@ -326,7 +326,8 @@ void PicItem::buttonStateChanged(const QString &id, bool state)
         button("settings")->setState(false);
         update();
 
-        MicroSettingsDlg *dlg = new MicroSettingsDlg(microSettings, nullptr, "microSettingsDlg");
+        MicroSettingsDlg *dlg = new MicroSettingsDlg(microSettings, nullptr);
+        dlg->setObjectName("microSettingsDlg");
         connect(dlg, &MicroSettingsDlg::accepted, this, &PicItem::slotMicroSettingsDlgAccepted);
         connect(dlg, &MicroSettingsDlg::applyClicked, this, &PicItem::slotMicroSettingsDlgAccepted);
         dlg->show();

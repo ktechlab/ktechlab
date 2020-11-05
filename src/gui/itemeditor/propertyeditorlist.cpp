@@ -59,8 +59,8 @@ void PropComboBox::hideList()
 // END class PropComboBox
 
 // BEGIN class PropertyEditorList
-PropertyEditorList::PropertyEditorList(QWidget *parent, Property *property, const char *name)
-    : PropertySubEditor(parent, property, name)
+PropertyEditorList::PropertyEditorList(QWidget *parent, Property *property)
+    : PropertySubEditor(parent, property)
 {
     QWidget *box = new QWidget(this);
     QHBoxLayout *boxLayout = new QHBoxLayout;

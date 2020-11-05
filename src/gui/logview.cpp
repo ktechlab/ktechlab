@@ -20,11 +20,9 @@
 #include <QMenu>
 
 // BEGIN class LogView
-LogView::LogView(KateMDI::ToolView *parent, const char *name)
-    : KTextEdit(parent /* , name */)
+LogView::LogView(KateMDI::ToolView *parent)
+    : KTextEdit(parent)
 {
-    setObjectName(name);
-
     if (parent->layout()) {
         parent->layout()->addWidget(this);
         qDebug() << Q_FUNC_INFO << " added item selector to parent's layout " << parent;

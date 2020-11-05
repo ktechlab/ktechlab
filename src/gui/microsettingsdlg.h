@@ -32,7 +32,7 @@ class MicroSettingsDlg : public QDialog
 {
     Q_OBJECT
 public:
-    MicroSettingsDlg(MicroSettings *_microSettings, QWidget *parent = nullptr, const char *name = nullptr);
+    MicroSettingsDlg(MicroSettings *_microSettings, QWidget *parent = nullptr);
     ~MicroSettingsDlg() override;
 
     void reject() override;

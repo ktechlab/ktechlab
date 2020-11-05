@@ -21,10 +21,9 @@
 #include <algorithm>
 #include <cmath>
 
-ProbePositioner::ProbePositioner(QWidget *parent, const char *name)
-    : QWidget(parent /*, name */ /* , Qt::WNoAutoErase */)
+ProbePositioner::ProbePositioner(QWidget *parent)
+    : QWidget(parent /* , Qt::WNoAutoErase */)
 {
-    setObjectName(name);
     m_probePosOffset = 0;
     p_draggedProbe = nullptr;
     setFixedWidth(int(probeArrowWidth));

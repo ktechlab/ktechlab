@@ -22,7 +22,7 @@ class FlowCodeView : public ICNView
 {
     Q_OBJECT
 public:
-    FlowCodeView(FlowCodeDocument *flowCodeDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr);
+    FlowCodeView(FlowCodeDocument *flowCodeDocument, ViewContainer *viewContainer, uint viewAreaId);
     ~FlowCodeView() override;
 
 protected:

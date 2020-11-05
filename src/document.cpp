@@ -22,8 +22,8 @@
 #include <QFileDialog>
 #include <QTabWidget>
 
-Document::Document(const QString &caption, const char *name)
-    : QObject(KTechlab::self() /* , name */)
+Document::Document(const QString &caption)
+    : QObject(KTechlab::self())
     , b_modified(false)
     , m_pDocumentIface(nullptr)
     , m_bDeleted(false)
@@ -33,7 +33,6 @@ Document::Document(const QString &caption, const char *name)
     , m_dcopID(0)
     , m_nextViewID(0)
 {
-    setObjectName(name);
     connect(KTechlab::self(), SIGNAL(configurationChanged()), this, SLOT(slotUpdateConfiguration()));
 }
 

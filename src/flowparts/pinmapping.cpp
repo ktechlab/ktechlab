@@ -47,10 +47,9 @@ PinMapping::~PinMapping()
 // END class PinMapping
 
 // BEGIN class PinMapEditor
-PinMapEditor::PinMapEditor(PinMapping *pinMapping, MicroInfo *picInfo, QWidget *parent, const char *name)
+PinMapEditor::PinMapEditor(PinMapping *pinMapping, MicroInfo *picInfo, QWidget *parent)
     : QDialog(parent)
 {
-    setObjectName(name);
     setModal(true);
     setWindowTitle(i18n("Pin Map Editor"));
 
@@ -137,7 +136,7 @@ void PinMapEditor::savePinMapping()
 
 // BEGIN class PinMapDocument
 PinMapDocument::PinMapDocument()
-    : CircuitICNDocument(nullptr, nullptr)
+    : CircuitICNDocument(nullptr)
 {
     m_pPicComponent = nullptr;
     m_pKeypad = nullptr;
@@ -303,8 +302,8 @@ PinMapping PinMapDocument::pinMapping() const
 // END class PinMapDocument
 
 // BEGIN class PinMapView
-PinMapView::PinMapView(PinMapDocument *pinMapDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name)
-    : ICNView(pinMapDocument, viewContainer, viewAreaId, name)
+PinMapView::PinMapView(PinMapDocument *pinMapDocument, ViewContainer *viewContainer, uint viewAreaId)
+    : ICNView(pinMapDocument, viewContainer, viewAreaId)
 {
 }
 

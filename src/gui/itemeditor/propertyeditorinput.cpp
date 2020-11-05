@@ -27,8 +27,8 @@
 #include <limits.h>
 
 // BEGIN class PropertyEditorInput
-PropertyEditorInput::PropertyEditorInput(QWidget *parent, Property *property, const char *name)
-    : PropertySubEditor(parent, property, name)
+PropertyEditorInput::PropertyEditorInput(QWidget *parent, Property *property)
+    : PropertySubEditor(parent, property)
 {
     m_lineedit = new KLineEdit(this);
     m_lineedit->resize(width(), height());
@@ -50,15 +50,14 @@ void PropertyEditorInput::slotTextChanged(const QString &text)
 // END class PropertyEditorInput
 
 // BEGIN class PropIntSpinBox
-PropIntSpinBox::PropIntSpinBox(int lower, int upper, int step, int value, int base = 10, QWidget *parent = nullptr, const char *name = nullptr)
-    : QSpinBox(parent /*, name */)
+PropIntSpinBox::PropIntSpinBox(int lower, int upper, int step, int value, int base = 10, QWidget *parent = nullptr)
+    : QSpinBox(parent)
 {
     setMinimum(lower);
     setMaximum(upper);
     setSingleStep(step);
     setValue(value);
     setDisplayIntegerBase(base);
-    setObjectName(name);
     lineEdit()->setAlignment(Qt::AlignLeft);
 }
 
@@ -79,8 +78,8 @@ bool PropIntSpinBox::eventFilter(QObject *o, QEvent *e)
 // END class PropIntSpinBox
 
 // BEGIN class PropertyEditorSpin
-PropertyEditorSpin::PropertyEditorSpin(QWidget *parent, Property *property, const char *name)
-    : PropertySubEditor(parent, property, name)
+PropertyEditorSpin::PropertyEditorSpin(QWidget *parent, Property *property)
+    : PropertySubEditor(parent, property)
 {
     m_leaveTheSpaceForRevertButton = true;
 
@@ -126,8 +125,8 @@ bool PropDoubleSpinBox::eventFilter(QObject *o, QEvent *e)
 // END class PropDoubleSpinBox
 
 // BEGIN class PropertyEditorDblSpin
-PropertyEditorDblSpin::PropertyEditorDblSpin(QWidget *parent, Property *property, const char *name)
-    : PropertySubEditor(parent, property, name)
+PropertyEditorDblSpin::PropertyEditorDblSpin(QWidget *parent, Property *property)
+    : PropertySubEditor(parent, property)
 {
     m_leaveTheSpaceForRevertButton = true;
     m_spinBox = new PropDoubleSpinBox(property->minValue(), property->maxValue(), property->minAbsValue(), property->value().toDouble(), property->unit(), this);
@@ -147,8 +146,8 @@ void PropertyEditorDblSpin::valueChange(double value)
 // END class PropertyEditorDblSpin
 
 // BEGIN class PropertyEditorBool
-PropertyEditorBool::PropertyEditorBool(QWidget *parent, Property *property, const char *name)
-    : PropertySubEditor(parent, property, name)
+PropertyEditorBool::PropertyEditorBool(QWidget *parent, Property *property)
+    : PropertySubEditor(parent, property)
 {
     m_toggle = new QToolButton(this);
     m_toggle->setFocusPolicy(Qt::NoFocus);

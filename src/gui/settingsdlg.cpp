@@ -37,10 +37,9 @@
 class GeneralOptionsWidget : public QWidget, public Ui::GeneralOptionsWidget
 {
 public:
-    GeneralOptionsWidget(QWidget *parent, const char *name = nullptr)
-        : QWidget(parent /*, name */)
+    GeneralOptionsWidget(QWidget *parent)
+        : QWidget(parent)
     {
-        setObjectName(name);
         setupUi(this);
     }
 };
@@ -48,10 +47,9 @@ public:
 class GpasmSettingsWidget : public QWidget, public Ui::GpasmSettingsWidget
 {
 public:
-    GpasmSettingsWidget(QWidget *parent, const char *name = nullptr)
-        : QWidget(parent /*, name*/)
+    GpasmSettingsWidget(QWidget *parent)
+        : QWidget(parent)
     {
-        setObjectName(name);
         setupUi(this);
     }
 };
@@ -59,10 +57,9 @@ public:
 class SDCCOptionsWidget : public QWidget, public Ui::SDCCOptionsWidget
 {
 public:
-    SDCCOptionsWidget(QWidget *parent, const char *name = nullptr)
-        : QWidget(parent /*, name*/)
+    SDCCOptionsWidget(QWidget *parent)
+        : QWidget(parent)
     {
-        setObjectName(name);
         setupUi(this);
     }
 };
@@ -70,10 +67,9 @@ public:
 class AsmFormattingWidget : public QWidget, public Ui::AsmFormattingWidget
 {
 public:
-    AsmFormattingWidget(QWidget *parent, const char *name = nullptr)
-        : QWidget(parent /*, name*/)
+    AsmFormattingWidget(QWidget *parent)
+        : QWidget(parent)
     {
-        setObjectName(name);
         setupUi(this);
     }
 };
@@ -81,10 +77,9 @@ public:
 class LogicWidget : public QWidget, public Ui::LogicWidget
 {
 public:
-    LogicWidget(QWidget *parent, const char *name = nullptr)
-        : QWidget(parent /*, name*/)
+    LogicWidget(QWidget *parent)
+        : QWidget(parent)
     {
-        setObjectName(name);
         setupUi(this);
     }
 };
@@ -92,10 +87,9 @@ public:
 class PicProgrammerConfigWidget : public QWidget, public Ui::PicProgrammerConfigWidget
 {
 public:
-    PicProgrammerConfigWidget(QWidget *parent, const char *name = nullptr)
-        : QWidget(parent /*, name*/)
+    PicProgrammerConfigWidget(QWidget *parent)
+        : QWidget(parent)
     {
-        setObjectName(name);
         setupUi(this);
     }
 };
@@ -103,10 +97,9 @@ public:
 class GplinkSettingsWidget : public QWidget, public Ui::GplinkSettingsWidget
 {
 public:
-    GplinkSettingsWidget(QWidget *parent, const char *name = nullptr)
-        : QWidget(parent /*, name*/)
+    GplinkSettingsWidget(QWidget *parent)
+        : QWidget(parent)
     {
-        setObjectName(name);
         setupUi(this);
     }
 };
@@ -117,13 +110,20 @@ const int defaultRefreshRate = 50;
 SettingsDlg::SettingsDlg(QWidget *parent, const char *name, KCoreConfigSkeleton *config)
     : KConfigDialog(parent, name, config)
 {
-    m_generalOptionsWidget = new GeneralOptionsWidget(this, "generalOptionsWidget");
-    m_gpasmSettingsWidget = new GpasmSettingsWidget(this, "gpasmSettingsWidget");
-    m_sdccOptionsWidget = new SDCCOptionsWidget(this, "sdccOptionsWidget");
-    m_asmFormattingWidget = new AsmFormattingWidget(this, "asmFormattingWidget");
-    m_logicWidget = new LogicWidget(this, "logicWidget");
-    m_picProgrammerConfigWidget = new PicProgrammerConfigWidget(this, "picProgrammerConfigWidget");
-    m_gplinkSettingsWidget = new GplinkSettingsWidget(this, "gplinkSettingsWidget");
+    m_generalOptionsWidget = new GeneralOptionsWidget(this);
+    m_generalOptionsWidget->setObjectName("generalOptionsWidget");
+    m_gpasmSettingsWidget = new GpasmSettingsWidget(this);
+    m_gpasmSettingsWidget->setObjectName("gpasmSettingsWidget");
+    m_sdccOptionsWidget = new SDCCOptionsWidget(this);
+    m_sdccOptionsWidget->setObjectName("sdccOptionsWidget");
+    m_asmFormattingWidget = new AsmFormattingWidget(this);
+    m_asmFormattingWidget->setObjectName("asmFormattingWidget");
+    m_logicWidget = new LogicWidget(this);
+    m_logicWidget->setObjectName("logicWidget");
+    m_picProgrammerConfigWidget = new PicProgrammerConfigWidget(this);
+    m_picProgrammerConfigWidget->setObjectName("picProgrammerConfigWidget");
+    m_gplinkSettingsWidget = new GplinkSettingsWidget(this);
+    m_gplinkSettingsWidget->setObjectName("gplinkSettingsWidget");
 
     m_pPicProgrammerSettings = new PicProgrammerSettings;
 

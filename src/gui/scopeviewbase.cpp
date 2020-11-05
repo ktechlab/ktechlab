@@ -21,13 +21,12 @@
 // for testing
 //#include <valgrind/callgrind.h>
 
-ScopeViewBase::ScopeViewBase(QWidget *parent, const char *name)
-    : QFrame(parent /* ,name */ /* , Qt::WNoAutoErase*/)
+ScopeViewBase::ScopeViewBase(QWidget *parent)
+    : QFrame(parent /* , Qt::WNoAutoErase*/)
     , b_needRedraw(true)
     , m_pixmap(nullptr)
     , m_halfOutputHeight(0.0)
 {
-    setObjectName(name);
 }
 
 ScopeViewBase::~ScopeViewBase()

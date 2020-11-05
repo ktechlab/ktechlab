@@ -22,8 +22,8 @@
 #include <QString>
 
 // BEGIN class PropertyEditorColor
-PropertyEditorColor::PropertyEditorColor(QWidget *parent, Property *property, const char *name)
-    : PropertySubEditor(parent, property, name)
+PropertyEditorColor::PropertyEditorColor(QWidget *parent, Property *property)
+    : PropertySubEditor(parent, property)
 {
     m_pColorCombo = ColorUtils::createColorCombo((ColorUtils::ColorScheme)property->colorScheme(), this);
     m_pColorCombo->setColor(property->value().value<QColor>());

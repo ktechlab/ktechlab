@@ -31,7 +31,7 @@ class PropertyEditorInput : public PropertySubEditor
     Q_OBJECT
 
 public:
-    PropertyEditorInput(QWidget *parent, Property *property, const char *name = nullptr);
+    PropertyEditorInput(QWidget *parent, Property *property);
     ~PropertyEditorInput() override
     {
         ;
@@ -49,7 +49,7 @@ class PropIntSpinBox : public QSpinBox
     Q_OBJECT
 
 public:
-    PropIntSpinBox(int lower, int upper, int step, int value, int base, QWidget *parent, const char *name);
+    PropIntSpinBox(int lower, int upper, int step, int value, int base, QWidget *parent);
     ~PropIntSpinBox() override
     {
         ;
@@ -67,7 +67,7 @@ class PropertyEditorSpin : public PropertySubEditor
     Q_OBJECT
 
 public:
-    PropertyEditorSpin(QWidget *parent, Property *property, const char *name = nullptr);
+    PropertyEditorSpin(QWidget *parent, Property *property);
     ~PropertyEditorSpin() override
     {
         ;
@@ -103,7 +103,7 @@ class PropertyEditorDblSpin : public PropertySubEditor
     Q_OBJECT
 
 public:
-    PropertyEditorDblSpin(QWidget *parent, Property *property, const char *name = nullptr);
+    PropertyEditorDblSpin(QWidget *parent, Property *property);
     ~PropertyEditorDblSpin() override
     {
         ;
@@ -121,7 +121,7 @@ class PropertyEditorBool : public PropertySubEditor
     Q_OBJECT
 
 public:
-    PropertyEditorBool(QWidget *parent, Property *property, const char *name = nullptr);
+    PropertyEditorBool(QWidget *parent, Property *property);
     ~PropertyEditorBool() override
     {
         ;

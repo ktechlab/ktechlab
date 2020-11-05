@@ -29,10 +29,9 @@
 const int _size = 44;
 
 // BEGIN class OrientationWidget
-OrientationWidget::OrientationWidget(QWidget *parent, const char *name)
-    : QWidget(parent /*, name */)
+OrientationWidget::OrientationWidget(QWidget *parent)
+    : QWidget(parent)
 {
-    setObjectName(name);
     QGridLayout *layout = new QGridLayout(this /*, 2, 4, 0, 4 */);
     layout->setMargin(0);
     layout->setSpacing(4);

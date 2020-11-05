@@ -23,7 +23,7 @@ class PropertySubEditor : public QWidget
     Q_OBJECT
 
 public:
-    PropertySubEditor(QWidget *parent, Property *property, const char *name = nullptr);
+    PropertySubEditor(QWidget *parent, Property *property);
     ~PropertySubEditor() override;
 
     bool eventFilter(QObject *watched, QEvent *e) override;

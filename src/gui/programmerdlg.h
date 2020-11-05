@@ -30,7 +30,7 @@ public:
      * options (such as the program to use) will be read in from the
      * settings.
      */
-    ProgrammerDlg(const QString &picID, QWidget *parent = nullptr, const char *name = nullptr);
+    ProgrammerDlg(const QString &picID, QWidget *parent = nullptr);
     ~ProgrammerDlg() override;
 
     /**

@@ -28,7 +28,7 @@ class CircuitICNDocument : public ICNDocument
     Q_OBJECT
 
 public:
-    CircuitICNDocument(const QString &caption, const char *name);
+    CircuitICNDocument(const QString &caption);
 
     ~CircuitICNDocument() override;
 

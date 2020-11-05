@@ -65,10 +65,9 @@ namespace KateMDI
 {
 // BEGIN SPLITTER
 
-Splitter::Splitter(Qt::Orientation o, QWidget *parent, const char *name)
-    : QSplitter(o, parent /*, name*/)
+Splitter::Splitter(Qt::Orientation o, QWidget *parent)
+    : QSplitter(o, parent)
 {
-    setObjectName(name);
 }
 
 Splitter::~Splitter()
@@ -228,7 +227,8 @@ void Sidebar::setSplitter(Splitter *sp)
 {
     m_splitter = sp;
     Qt::Orientation splitOrient = (sidebarPosition() == KMultiTabBar::Top || sidebarPosition() == KMultiTabBar::Bottom) ? Qt::Horizontal : Qt::Vertical;
-    m_ownSplit = new Splitter(splitOrient, m_splitter, "own-Split");
+    m_ownSplit = new Splitter(splitOrient, m_splitter);
+    m_ownSplit->setObjectName("own-Split");
     m_ownSplit->setChildrenCollapsible(false);
     // m_splitter->setResizeMode( m_ownSplit, QSplitter::KeepSize ); // 2018.11.22
     m_splitter->setStretchFactor(m_splitter->indexOf(m_ownSplit), 0);
@@ -602,12 +602,11 @@ void Sidebar::saveSession(KConfigGroup *config)
 
 // BEGIN MAIN WINDOW
 
-MainWindow::MainWindow(QWidget *parentWidget, const char *name)
+MainWindow::MainWindow(QWidget *parentWidget)
     : KParts::MainWindow(parentWidget)
     , m_restoreConfig(nullptr)
     , m_guiClient(new GUIClient(this))
 {
-    setObjectName(name);
     // init the internal widgets
     QWidget *hb = new QWidget(this); // Q3HBox (this);
     QHBoxLayout *hbl = new QHBoxLayout;

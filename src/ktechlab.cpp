@@ -73,8 +73,9 @@
 KTechlab *KTechlab::m_pSelf = nullptr;
 
 KTechlab::KTechlab()
-    : KateMDI::MainWindow(nullptr, "KTechlab")
+    : KateMDI::MainWindow(nullptr)
 {
+    setObjectName("KTechlab");
     m_pSelf = this;
 
     QTime ct;

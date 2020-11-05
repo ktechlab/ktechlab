@@ -31,7 +31,8 @@ ViewContainer::ViewContainer(const QString &caption, QWidget *parent)
     connect(KTechlab::self(), SIGNAL(needUpdateCaptions()), this, SLOT(updateCaption()));
 
     QHBoxLayout *layout = new QHBoxLayout(this);
-    m_baseViewArea = new ViewArea(this, this, 0, false, "viewarea_0");
+    m_baseViewArea = new ViewArea(this, this, 0, false);
+    m_baseViewArea->setObjectName("viewarea_0");
     connect(m_baseViewArea, SIGNAL(destroyed(QObject *)), this, SLOT(baseViewAreaDestroyed(QObject *)));
 
     layout->addWidget(m_baseViewArea);
@@ -269,10 +270,9 @@ void ViewContainer::updateCaption()
 // END class ViewContainer
 
 // BEGIN class ViewArea
-ViewArea::ViewArea(QWidget *parent, ViewContainer *viewContainer, int id, bool showOpenButton, const char *name)
-    : QSplitter(parent /*, name */)
+ViewArea::ViewArea(QWidget *parent, ViewContainer *viewContainer, int id, bool showOpenButton)
+    : QSplitter(parent)
 {
-    setObjectName(name);
     p_viewContainer = viewContainer;
     m_id = id;
     p_view = nullptr;
@@ -308,8 +308,10 @@ ViewArea *ViewArea::createViewArea(Position position, uint id, bool showOpenButt
 
     setOrientation((position == Right) ? Qt::Horizontal : Qt::Vertical);
 
-    p_viewArea1 = new ViewArea(this, p_viewContainer, m_id, false, ("viewarea_" + QString::number(m_id)).toLatin1().data());
-    p_viewArea2 = new ViewArea(this, p_viewContainer, id, showOpenButton, ("viewarea_" + QString::number(id)).toLatin1().data());
+    p_viewArea1 = new ViewArea(this, p_viewContainer, m_id, false);
+    p_viewArea1->setObjectName("viewarea_" + QString::number(m_id));
+    p_viewArea2 = new ViewArea(this, p_viewContainer, id, showOpenButton);
+    p_viewArea2->setObjectName("viewarea_" + QString::number(id));
 
     connect(p_viewArea1, SIGNAL(destroyed(QObject *)), this, SLOT(viewAreaDestroyed(QObject *)));
     connect(p_viewArea2, SIGNAL(destroyed(QObject *)), this, SLOT(viewAreaDestroyed(QObject *)));
@@ -458,7 +460,8 @@ void ViewArea::restoreState(KConfigGroup *config, int id, const QString &groupNa
         else {
             if (contains.size() >= 1) {
                 int viewArea1Id = contains[0];
-                p_viewArea1 = new ViewArea(this, p_viewContainer, viewArea1Id, false, ("viewarea_" + QString::number(viewArea1Id)).toLatin1().data());
+                p_viewArea1 = new ViewArea(this, p_viewContainer, viewArea1Id, false);
+                p_viewArea1->setObjectName("viewarea_" + QString::number(viewArea1Id));
                 connect(p_viewArea1, SIGNAL(destroyed(QObject *)), this, SLOT(viewAreaDestroyed(QObject *)));
                 p_viewArea1->restoreState(config, viewArea1Id, groupName);
                 p_viewArea1->show();
@@ -466,7 +469,8 @@ void ViewArea::restoreState(KConfigGroup *config, int id, const QString &groupNa
 
             if (contains.size() >= 2) {
                 int viewArea2Id = contains[1];
-                p_viewArea2 = new ViewArea(this, p_viewContainer, viewArea2Id, false, ("viewarea_" + QString::number(viewArea2Id)).toLatin1().data());
+                p_viewArea2 = new ViewArea(this, p_viewContainer, viewArea2Id, false);
+                p_viewArea2->setObjectName("viewarea_" + QString::number(viewArea2Id));
                 connect(p_viewArea2, SIGNAL(destroyed(QObject *)), this, SLOT(viewAreaDestroyed(QObject *)));
                 p_viewArea2->restoreState(config, viewArea2Id, groupName);
                 p_viewArea2->show();

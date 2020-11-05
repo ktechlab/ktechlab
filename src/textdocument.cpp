@@ -48,17 +48,17 @@ bool TextDocument::isRedoAvailable() const
     return true; // TODO FIXME fix undo/redo
 }
 
-TextDocument *TextDocument::constructTextDocument(const QString &caption, const char *name)
+TextDocument *TextDocument::constructTextDocument(const QString &caption)
 {
-    TextDocument *textDocument = new TextDocument(caption, name);
+    TextDocument *textDocument = new TextDocument(caption);
     if (textDocument->m_constructorSuccessful)
         return textDocument;
     delete textDocument;
     return nullptr;
 }
 
-TextDocument::TextDocument(const QString &caption, const char *name)
-    : Document(caption, name)
+TextDocument::TextDocument(const QString &caption)
+    : Document(caption)
     , m_doc(nullptr)
 {
     m_constructorSuccessful = false;
@@ -142,9 +142,9 @@ TextView *TextDocument::textView() const
     return static_cast<TextView *>(activeView());
 }
 
-View *TextDocument::createView(ViewContainer *viewContainer, uint viewAreaId, const char *name)
+View *TextDocument::createView(ViewContainer *viewContainer, uint viewAreaId)
 {
-    TextView *textView = new TextView(this, viewContainer, viewAreaId, name);
+    TextView *textView = new TextView(this, viewContainer, viewAreaId);
 
     fileMetaInfo()->initializeFromMetaInfo(url(), textView);
 
@@ -152,10 +152,10 @@ View *TextDocument::createView(ViewContainer *viewContainer, uint viewAreaId, co
     return textView;
 }
 
-KTextEditor::View *TextDocument::createKateView(QWidget *parent, const char * /*name*/)
+KTextEditor::View *TextDocument::createKateView(QWidget *parent)
 {
     // return static_cast<KTextEditor::View*>((m_doc->createView( parent, name ))->qt_cast("Kate::View"));
-    return m_doc->createView(parent /*, name */);
+    return m_doc->createView(parent);
 }
 
 void TextDocument::cut()
@@ -524,7 +524,8 @@ void TextDocument::convertToPIC()
         return;
     }
 
-    ProgrammerDlg *dlg = new ProgrammerDlg(picID, (QWidget *)KTechlab::self(), "Programmer Dlg");
+    ProgrammerDlg *dlg = new ProgrammerDlg(picID, (QWidget *)KTechlab::self());
+    dlg->setObjectName("Programmer Dlg");
 
     if (m_guessedCodeType == TextDocument::ct_c)
         dlg->microSelect()->setAllowedAsmSet(AsmInfo::PIC14 | AsmInfo::PIC16);

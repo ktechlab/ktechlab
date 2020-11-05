@@ -52,10 +52,9 @@ public:
     }
 };
 
-MicroSettingsDlg::MicroSettingsDlg(MicroSettings *microSettings, QWidget *parent, const char *name)
+MicroSettingsDlg::MicroSettingsDlg(MicroSettings *microSettings, QWidget *parent)
     : QDialog(parent)
 {
-    setObjectName(name);
     setModal(true);
     setWindowTitle(i18n("PIC Settings"));
 
@@ -351,7 +350,8 @@ void MicroSettingsDlg::slotModifyPinMap()
     QString name = m_pWidget->pinMapCombo->currentText();
     PinMapping pinMapping = m_pinMappings[name];
 
-    PinMapEditor *pinMapEditor = new PinMapEditor(&pinMapping, m_pMicroSettings->microInfo(), this, "PinMapEditor");
+    PinMapEditor *pinMapEditor = new PinMapEditor(&pinMapping, m_pMicroSettings->microInfo(), this);
+    pinMapEditor->setObjectName("PinMapEditor");
     int accepted = pinMapEditor->exec();
 
     delete pinMapEditor;

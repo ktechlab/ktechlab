@@ -16,8 +16,8 @@
 #include "node.h"
 #include "nodegroup.h"
 
-CNItemGroup::CNItemGroup(ICNDocument *icnDocument, const char *name)
-    : ItemGroup(icnDocument, name)
+CNItemGroup::CNItemGroup(ICNDocument *icnDocument)
+    : ItemGroup(icnDocument)
 {
     p_icnDocument = icnDocument;
     m_connectorCount = 0;

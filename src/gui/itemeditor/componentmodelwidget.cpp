@@ -26,10 +26,9 @@
 #include <QToolButton>
 
 // BEGIN class ComponentModelWidget
-ComponentModelWidget::ComponentModelWidget(QWidget *parent, const char *name)
-    : QWidget(parent /*, name */)
+ComponentModelWidget::ComponentModelWidget(QWidget *parent)
+    : QWidget(parent)
 {
-    setObjectName(name);
     QVBoxLayout *vlayout = new QVBoxLayout(this /*, 0, 6  - 2018.12.07 */);
     vlayout->setMargin(0);
     vlayout->setSpacing(6);

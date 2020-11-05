@@ -37,8 +37,8 @@
 
 #include <ktlconfig.h>
 
-CircuitDocument::CircuitDocument(const QString &caption, const char *name)
-    : CircuitICNDocument(caption, name)
+CircuitDocument::CircuitDocument(const QString &caption)
+    : CircuitICNDocument(caption)
 {
     m_pOrientationAction = new KActionMenu(QIcon::fromTheme("transform-rotate"), i18n("Orientation"), this);
 
@@ -176,9 +176,9 @@ void CircuitDocument::setOrientation270()
     requestRerouteInvalidatedConnectors();
 }
 
-View *CircuitDocument::createView(ViewContainer *viewContainer, uint viewAreaId, const char *name)
+View *CircuitDocument::createView(ViewContainer *viewContainer, uint viewAreaId)
 {
-    View *view = new CircuitView(this, viewContainer, viewAreaId, name);
+    View *view = new CircuitView(this, viewContainer, viewAreaId);
     handleNewView(view);
     return view;
 }

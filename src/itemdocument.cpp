@@ -60,8 +60,8 @@
 // BEGIN class ItemDocument
 int ItemDocument::m_nextActionTicket = 0;
 
-ItemDocument::ItemDocument(const QString &caption, const char *name)
-    : Document(caption, name)
+ItemDocument::ItemDocument(const QString &caption)
+    : Document(caption)
 {
     m_queuedEvents = 0;
     m_nextIdNum = 1;
@@ -69,7 +69,8 @@ ItemDocument::ItemDocument(const QString &caption, const char *name)
     m_currentState = nullptr;
     m_bIsLoading = false;
 
-    m_canvas = new Canvas(this, "canvas");
+    m_canvas = new Canvas(this);
+    m_canvas->setObjectName("canvas");
     m_canvasTip = new CanvasTip(this, m_canvas);
     m_cmManager = new CMManager(this);
 
@@ -1206,8 +1207,8 @@ void CanvasTip::setText(const QString &text)
 // END class CanvasTip
 
 // BEGIN class Canvas
-Canvas::Canvas(ItemDocument *itemDocument, const char *name)
-    : KtlQCanvas(itemDocument, name)
+Canvas::Canvas(ItemDocument *itemDocument)
+    : KtlQCanvas(itemDocument)
 {
     p_itemDocument = itemDocument;
     m_pMessageTimeout = new QTimer(this);

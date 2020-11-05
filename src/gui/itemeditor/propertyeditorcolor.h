@@ -22,7 +22,7 @@ class PropertyEditorColor : public PropertySubEditor
     Q_OBJECT
 
 public:
-    PropertyEditorColor(QWidget *parent, Property *property, const char *name = nullptr);
+    PropertyEditorColor(QWidget *parent, Property *property);
     ~PropertyEditorColor() override
     {
         ;

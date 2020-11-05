@@ -24,7 +24,7 @@ class ScopeScreenView : public ScopeViewBase
 {
     Q_OBJECT
 public:
-    ScopeScreenView(QWidget *parent = nullptr, const char *name = nullptr);
+    ScopeScreenView(QWidget *parent = nullptr);
 
     ~ScopeScreenView() override;
     // virtual void drawContents(QPainter * p);

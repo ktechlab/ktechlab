@@ -22,8 +22,8 @@
 #include <cmath>
 #define FADESPEED 1
 
-ScopeScreenView::ScopeScreenView(QWidget *parent, const char *name)
-    : ScopeViewBase(parent, name)
+ScopeScreenView::ScopeScreenView(QWidget *parent)
+    : ScopeViewBase(parent)
     , m_intervalsX(10)
     , m_ticksPerIntervalX(10000)
     , m_offsetX(0)

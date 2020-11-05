@@ -17,10 +17,9 @@
 #include <QTimer>
 #include <map>
 
-ItemGroup::ItemGroup(ItemDocument *view, const char *name)
-    : QObject(view /*, name */)
+ItemGroup::ItemGroup(ItemDocument *view)
+    : QObject(view)
 {
-    setObjectName(name);
     m_activeItem = nullptr;
     b_itemsAreSameType = true;
     p_view = view;

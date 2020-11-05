@@ -20,8 +20,8 @@
 
 #include <KLocalizedString>
 
-MechanicsDocument::MechanicsDocument(const QString &caption, const char *name)
-    : ItemDocument(caption, name)
+MechanicsDocument::MechanicsDocument(const QString &caption)
+    : ItemDocument(caption)
 {
     m_type = Document::dt_mechanics;
     m_pDocumentIface = new MechanicsDocumentIface(this);
@@ -50,9 +50,9 @@ MechanicsDocument::~MechanicsDocument()
     delete m_mechanicsSimulation;
 }
 
-View *MechanicsDocument::createView(ViewContainer *viewContainer, uint viewAreaId, const char *name)
+View *MechanicsDocument::createView(ViewContainer *viewContainer, uint viewAreaId)
 {
-    ItemView *itemView = new MechanicsView(this, viewContainer, viewAreaId, name);
+    ItemView *itemView = new MechanicsView(this, viewContainer, viewAreaId);
     handleNewView(itemView);
     return itemView;
 }

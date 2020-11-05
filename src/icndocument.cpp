@@ -33,8 +33,8 @@
 #include <QTimer>
 
 // BEGIN class ICNDocument
-ICNDocument::ICNDocument(const QString &caption, const char *name)
-    : ItemDocument(caption, name)
+ICNDocument::ICNDocument(const QString &caption)
+    : ItemDocument(caption)
     , m_cells(nullptr)
 {
     m_canvas->retune(48);
@@ -61,9 +61,9 @@ ICNDocument::~ICNDocument()
     delete m_selectList;
 }
 
-View *ICNDocument::createView(ViewContainer *viewContainer, uint viewAreaId, const char *name)
+View *ICNDocument::createView(ViewContainer *viewContainer, uint viewAreaId)
 {
-    ICNView *icnView = new ICNView(this, viewContainer, viewAreaId, name);
+    ICNView *icnView = new ICNView(this, viewContainer, viewAreaId);
     handleNewView(icnView);
     return icnView;
 }

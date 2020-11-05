@@ -15,8 +15,8 @@
 #include <QDragEnterEvent>
 #include <QMimeData>
 
-MechanicsView::MechanicsView(MechanicsDocument *mechanicsDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name)
-    : ItemView(mechanicsDocument, viewContainer, viewAreaId, name)
+MechanicsView::MechanicsView(MechanicsDocument *mechanicsDocument, ViewContainer *viewContainer, uint viewAreaId)
+    : ItemView(mechanicsDocument, viewContainer, viewAreaId)
 {
     setXMLFile("ktechlabmechanicsui.rc", true);
     m_pViewIface = new MechanicsViewIface(this);

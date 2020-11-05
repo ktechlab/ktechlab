@@ -65,7 +65,7 @@ class View : public QWidget, public KXMLGUIClient
 {
     Q_OBJECT
 public:
-    View(Document *document, ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr);
+    View(Document *document, ViewContainer *viewContainer, uint viewAreaId);
     ~View() override;
 
     QAction *actionByName(const QString &name) const;

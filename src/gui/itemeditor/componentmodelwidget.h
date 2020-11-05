@@ -22,7 +22,7 @@ class ComponentModelWidget : public QWidget
 {
     Q_OBJECT
 public:
-    ComponentModelWidget(QWidget *parent = nullptr, const char *name = nullptr);
+    ComponentModelWidget(QWidget *parent = nullptr);
     ~ComponentModelWidget() override;
     /**
      * Clears the list of component models.

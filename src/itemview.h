@@ -29,7 +29,7 @@ class ItemView : public View
 {
     Q_OBJECT
 public:
-    ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr);
+    ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uint viewAreaId);
     ~ItemView() override;
 
     bool canZoomIn() const override;
@@ -131,7 +131,7 @@ class CVBEditor : public KtlQCanvasView
 {
     Q_OBJECT
 public:
-    CVBEditor(Canvas *canvas, ItemView *itemView, const char *name);
+    CVBEditor(Canvas *canvas, ItemView *itemView);
 
     void setPassEventsToView(bool pass)
     {

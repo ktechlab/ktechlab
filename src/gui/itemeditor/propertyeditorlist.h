@@ -47,7 +47,7 @@ class PropertyEditorList : public PropertySubEditor
     Q_OBJECT
 
 public:
-    PropertyEditorList(QWidget *parent, Property *property, const char *name = nullptr);
+    PropertyEditorList(QWidget *parent, Property *property);
     ~PropertyEditorList() override
     {
         ;

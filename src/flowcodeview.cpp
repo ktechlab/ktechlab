@@ -22,8 +22,8 @@
 #include <QMenu>
 #include <QMimeData>
 
-FlowCodeView::FlowCodeView(FlowCodeDocument *flowCodeDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name)
-    : ICNView(flowCodeDocument, viewContainer, viewAreaId, name)
+FlowCodeView::FlowCodeView(FlowCodeDocument *flowCodeDocument, ViewContainer *viewContainer, uint viewAreaId)
+    : ICNView(flowCodeDocument, viewContainer, viewAreaId)
 {
     KActionCollection *ac = actionCollection();
 

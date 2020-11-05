@@ -39,7 +39,7 @@ class NodeGroup : public QObject
 {
     Q_OBJECT
 public:
-    NodeGroup(ICNDocument *icnDocument, const char *name = nullptr);
+    NodeGroup(ICNDocument *icnDocument);
     ~NodeGroup() override;
     /**
      * Adds a node to the group (this checks to make sure that the node is not

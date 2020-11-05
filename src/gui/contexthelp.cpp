@@ -89,7 +89,8 @@ ContextHelp::ContextHelp(KateMDI::ToolView *parent)
     // Adjust appearance of browser
     m_pBrowserView->setMarginWidth(4);
 
-    m_pEditor = new RichTextEditor(m_pWidgetStack->widget(1), "ContextHelpEditor");
+    m_pEditor = new RichTextEditor(m_pWidgetStack->widget(1));
+    m_pEditor->setObjectName("ContextHelpEditor");
     m_pTopLayout->addWidget(m_pEditor);
 
     m_pEditor->installEventFilter(this);

@@ -233,7 +233,7 @@ struct PropertyEditorStyledItemColValue : public QStyledItemDelegate {
     */
 };
 
-PropertyEditor::PropertyEditor(QWidget *parent, const char *name)
+PropertyEditor::PropertyEditor(QWidget *parent)
     : QTableWidget(parent)
     //, m_items(101, false) // 2018.08.13 - unused
     , justClickedItem(false)
@@ -242,7 +242,6 @@ PropertyEditor::PropertyEditor(QWidget *parent, const char *name)
     , m_colPropertyDelegate(nullptr)
     , m_colValueDelegate(nullptr)
 {
-    setObjectName(name);
     // m_items.setAutoDelete(false); // 2018.08.13 - unused
 
     setColumnCount(2);

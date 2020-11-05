@@ -18,10 +18,9 @@
 #include <cassert>
 #include <cstdlib>
 
-NodeGroup::NodeGroup(ICNDocument *icnDocument, const char *name)
-    : QObject(icnDocument /*, name  */)
+NodeGroup::NodeGroup(ICNDocument *icnDocument)
+    : QObject(icnDocument)
 {
-    setObjectName(name);
     p_icnDocument = icnDocument;
     b_visible = true;
 }

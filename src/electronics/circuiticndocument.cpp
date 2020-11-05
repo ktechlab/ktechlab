@@ -22,8 +22,8 @@
 
 #include <QDebug>
 
-CircuitICNDocument::CircuitICNDocument(const QString &caption, const char *name)
-    : ICNDocument(caption, name)
+CircuitICNDocument::CircuitICNDocument(const QString &caption)
+    : ICNDocument(caption)
 {
 }
 

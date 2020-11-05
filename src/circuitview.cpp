@@ -23,8 +23,8 @@
 #include <QDragEnterEvent>
 #include <QMimeData>
 
-CircuitView::CircuitView(CircuitDocument *circuitDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name)
-    : ICNView(circuitDocument, viewContainer, viewAreaId, name)
+CircuitView::CircuitView(CircuitDocument *circuitDocument, ViewContainer *viewContainer, uint viewAreaId)
+    : ICNView(circuitDocument, viewContainer, viewAreaId)
     , p_circuitDocument(circuitDocument)
 {
     KActionCollection *ac = actionCollection();

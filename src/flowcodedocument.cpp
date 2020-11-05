@@ -29,8 +29,8 @@
 
 #include <QDebug>
 
-FlowCodeDocument::FlowCodeDocument(const QString &caption, const char *name)
-    : FlowICNDocument(caption, name)
+FlowCodeDocument::FlowCodeDocument(const QString &caption)
+    : FlowICNDocument(caption)
 {
     m_pDocumentIface = new FlowCodeDocumentIface(this);
     m_type = Document::dt_flowcode;
@@ -60,9 +60,9 @@ FlowCodeDocument::~FlowCodeDocument()
     delete m_pDocumentIface;
 }
 
-View *FlowCodeDocument::createView(ViewContainer *viewContainer, uint viewAreaId, const char *name)
+View *FlowCodeDocument::createView(ViewContainer *viewContainer, uint viewAreaId)
 {
-    View *view = new FlowCodeView(this, viewContainer, viewAreaId, name);
+    View *view = new FlowCodeView(this, viewContainer, viewAreaId);
     handleNewView(view);
     return view;
 }
@@ -227,7 +227,8 @@ void FlowCodeDocument::convertToHex()
 
 void FlowCodeDocument::convertToPIC()
 {
-    ProgrammerDlg *dlg = new ProgrammerDlg(microSettings()->microInfo()->id(), (QWidget *)KTechlab::self(), "Programmer Dlg");
+    ProgrammerDlg *dlg = new ProgrammerDlg(microSettings()->microInfo()->id(), (QWidget *)KTechlab::self());
+    dlg->setObjectName("Programmer Dlg");
 
     const int accepted = dlg->exec();
     if (accepted != QDialog::Accepted) {

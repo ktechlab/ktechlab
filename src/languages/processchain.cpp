@@ -39,10 +39,9 @@
 #include <ktlconfig.h>
 
 // BEGIN class ProcessChain
-ProcessChain::ProcessChain(ProcessOptions options, const char *name)
-    : QObject(KTechlab::self() /*, name */)
+ProcessChain::ProcessChain(ProcessOptions options)
+    : QObject(KTechlab::self())
 {
-    setObjectName(name);
     m_pFlowCode = nullptr;
     m_pGpasm = nullptr;
     m_pGpdasm = nullptr;
@@ -267,10 +266,9 @@ LanguageFunction(FlowCode, flowCode, m_pFlowCode) LanguageFunction(Gpasm, gpasm,
     // END class ProcessChain
 
     // BEGIN class ProcessListChain
-    ProcessListChain::ProcessListChain(ProcessOptionsList pol, const char *name)
-    : QObject(KTechlab::self() /*, name  */)
+    ProcessListChain::ProcessListChain(ProcessOptionsList pol)
+    : QObject(KTechlab::self())
 {
-    setObjectName(name);
     m_processOptionsList = pol;
 
     // Start us off...

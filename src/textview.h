@@ -35,7 +35,7 @@ class TextView : public View
 {
     Q_OBJECT
 public:
-    TextView(TextDocument *textDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr);
+    TextView(TextDocument *textDocument, ViewContainer *viewContainer, uint viewAreaId);
     ~TextView() override;
 
     bool closeView() override;

@@ -38,10 +38,9 @@
 // #include <q3stylesheet.h>
 
 // BEGIN class RichTextEditor
-RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
-    : QWidget(parent /*, name*/)
+RichTextEditor::RichTextEditor(QWidget *parent)
+    : QWidget(parent)
 {
-    setObjectName(name);
     QVBoxLayout *layout = new QVBoxLayout(this /*, 0, 6 */);
     layout->setMargin(0);
     layout->setSpacing(6);

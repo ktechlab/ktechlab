@@ -12,8 +12,8 @@
 #include "mechanicsdocument.h"
 #include "mechanicsitem.h"
 
-MechanicsGroup::MechanicsGroup(MechanicsDocument *mechanicsDocument, const char *name)
-    : ItemGroup(mechanicsDocument, name)
+MechanicsGroup::MechanicsGroup(MechanicsDocument *mechanicsDocument)
+    : ItemGroup(mechanicsDocument)
 {
     b_isRaised = false;
 }

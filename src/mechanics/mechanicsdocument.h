@@ -28,10 +28,10 @@ class MechanicsDocument : public ItemDocument
 {
     Q_OBJECT
 public:
-    MechanicsDocument(const QString &caption, const char *name = nullptr);
+    MechanicsDocument(const QString &caption);
     ~MechanicsDocument() override;
 
-    View *createView(ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr) override;
+    View *createView(ViewContainer *viewContainer, uint viewAreaId) override;
 
     bool isValidItem(const QString &itemId) override;
     bool isValidItem(Item *item) override;

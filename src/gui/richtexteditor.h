@@ -26,7 +26,7 @@ class RichTextEditor : public QWidget
 {
     Q_OBJECT
 public:
-    RichTextEditor(QWidget *parent = nullptr, const char *name = nullptr);
+    RichTextEditor(QWidget *parent = nullptr);
 
     ~RichTextEditor() override;
     /**.

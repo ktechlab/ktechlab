@@ -27,7 +27,7 @@ class OrientationWidget : public QWidget
 {
     Q_OBJECT
 public:
-    OrientationWidget(QWidget *parent = nullptr, const char *name = nullptr);
+    OrientationWidget(QWidget *parent = nullptr);
     ~OrientationWidget() override;
 
 public slots:

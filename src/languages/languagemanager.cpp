@@ -42,7 +42,8 @@ LanguageManager *LanguageManager::self(KateMDI::ToolView *parent)
 LanguageManager::LanguageManager(KateMDI::ToolView *parent)
     : QObject(KTechlab::self())
 {
-    m_logView = new LogView(parent, "LanguageManager LogView");
+    m_logView = new LogView(parent);
+    m_logView->setObjectName("LanguageManager LogView");
 
     m_logView->setWhatsThis(
         i18n("These messages show the output of language-related functionality such as compiling and assembling.<br><br>For error messages, clicking on the line will automatically open up the file at the position of the error."));

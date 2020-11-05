@@ -44,8 +44,8 @@
 #include <ktlconfig.h>
 
 // BEGIN class ItemView
-ItemView::ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name)
-    : View(itemDocument, viewContainer, viewAreaId, name)
+ItemView::ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uint viewAreaId)
+    : View(itemDocument, viewContainer, viewAreaId)
 {
     KActionCollection *ac = actionCollection();
 
@@ -164,7 +164,8 @@ ItemView::ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uin
     m_pDragItem = nullptr;
     p_itemDocument = itemDocument;
     m_zoomLevel = 1.;
-    m_CVBEditor = new CVBEditor(p_itemDocument->canvas(), this, "cvbEditor");
+    m_CVBEditor = new CVBEditor(p_itemDocument->canvas(), this);
+    m_CVBEditor->setObjectName("cvbEditor");
     m_CVBEditor->setLineWidth(1);
 
     connect(m_CVBEditor, SIGNAL(horizontalSliderReleased()), itemDocument, SLOT(requestCanvasResize()));
@@ -663,8 +664,8 @@ void ItemView::updateStatus()
 // END class ItemView
 
 // BEGIN class CVBEditor
-CVBEditor::CVBEditor(Canvas *canvas, ItemView *itemView, const char *name)
-    : KtlQCanvasView(canvas, itemView, name /*,Qt::WNoAutoErase | Qt::WA_StaticContents */)
+CVBEditor::CVBEditor(Canvas *canvas, ItemView *itemView)
+    : KtlQCanvasView(canvas, itemView /*,Qt::WNoAutoErase | Qt::WA_StaticContents */)
 {
     setAttribute(Qt::WA_StaticContents);
     m_pCanvas = canvas;

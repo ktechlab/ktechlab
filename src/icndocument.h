@@ -37,13 +37,13 @@ class ICNDocument : public ItemDocument
 {
     Q_OBJECT
 public:
-    ICNDocument(const QString &caption, const char *name);
+    ICNDocument(const QString &caption);
 
     ~ICNDocument() override;
 
     enum hit_score { hs_none = 0, hs_connector = 4, hs_item = 1000 };
 
-    View *createView(ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr) override;
+    View *createView(ViewContainer *viewContainer, uint viewAreaId) override;
 
     /**
      * Will attempt to create an item with the given id at position p. Some item

@@ -21,20 +21,17 @@
 #include <QLayout>
 #include <QVariant>
 
-MicroSelectWidget::MicroSelectWidget(QWidget *parent, const char *name, Qt::WFlags)
-    //: Q3GroupBox( 4, Qt::Horizontal, i18n("Microprocessor"), parent, name )
-    : QGroupBox(parent /*, name */)
+MicroSelectWidget::MicroSelectWidget(QWidget *parent, Qt::WFlags)
+    //: Q3GroupBox( 4, Qt::Horizontal, i18n("Microprocessor"), parent )
+    : QGroupBox(parent)
 {
-    setObjectName(name);
     setLayout(new QHBoxLayout);
     setTitle(i18n("Microprocessor"));
 
     m_allowedAsmSet = AsmInfo::AsmSetAll;
     m_allowedGpsimSupport = m_allowedFlowCodeSupport = m_allowedMicrobeSupport = MicroInfo::AllSupport;
 
-    if (!name) {
-        setObjectName("MicroSelectWidget");
-    }
+    setObjectName("MicroSelectWidget");
     m_pMicroFamilyLabel = new QLabel(nullptr);
     m_pMicroFamilyLabel->setObjectName("m_pMicroFamilyLabel");
     m_pMicroFamilyLabel->setText(i18n("Family"));

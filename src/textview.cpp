@@ -45,8 +45,8 @@
 #include <QTimer>
 
 // BEGIN class TextView
-TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name)
-    : View(textDocument, viewContainer, viewAreaId, name)
+TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uint viewAreaId)
+    : View(textDocument, viewContainer, viewAreaId)
 {
     m_view = textDocument->createKateView(this);
     m_view->insertChildClient(this);

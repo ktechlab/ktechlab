@@ -22,7 +22,7 @@ class CircuitView : public ICNView
 {
     Q_OBJECT
 public:
-    CircuitView(CircuitDocument *circuitDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr);
+    CircuitView(CircuitDocument *circuitDocument, ViewContainer *viewContainer, uint viewAreaId);
     ~CircuitView() override;
 
 public slots:

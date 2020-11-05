@@ -26,8 +26,8 @@
 #include <QString>
 #include <QVariant>
 
-PropertyEditorFile::PropertyEditorFile(QWidget *parent, Property *property, const char *name)
-    : PropertySubEditor(parent, property, name)
+PropertyEditorFile::PropertyEditorFile(QWidget *parent, Property *property)
+    : PropertySubEditor(parent, property)
 {
     m_lineedit = new KLineEdit(this);
     m_lineedit->resize(width(), height() - 2);

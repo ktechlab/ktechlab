@@ -60,7 +60,7 @@ class ViewArea : public QSplitter
 public:
     enum Position { Right, Bottom };
 
-    ViewArea(QWidget *parent, ViewContainer *viewContainer, int id, bool showOpenButton, const char *name = nullptr);
+    ViewArea(QWidget *parent, ViewContainer *viewContainer, int id, bool showOpenButton);
     ~ViewArea() override;
 
     ViewContainer *viewContainer() const

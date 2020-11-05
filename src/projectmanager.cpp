@@ -513,7 +513,8 @@ void ProjectItem::upload(ProcessOptionsList *pol)
 {
     build(pol);
 
-    ProgrammerDlg *dlg = new ProgrammerDlg(microID(), (QWidget *)KTechlab::self(), "Programmer Dlg");
+    ProgrammerDlg *dlg = new ProgrammerDlg(microID(), (QWidget *)KTechlab::self());
+    dlg->setObjectName("Programmer Dlg");
 
     const int accepted = dlg->exec();
     if (accepted != QDialog::Accepted) {
@@ -850,12 +851,13 @@ ProjectManager *ProjectManager::self(KateMDI::ToolView *parent)
     if (!m_pSelf) {
         assert(parent);
         m_pSelf = new ProjectManager(parent);
+        m_pSelf->setObjectName("Project Manager");
     }
     return m_pSelf;
 }
 
 ProjectManager::ProjectManager(KateMDI::ToolView *parent)
-    : ItemSelector(parent, "Project Manager")
+    : ItemSelector(parent)
     , m_pCurrentProject(nullptr)
 {
     setWhatsThis(i18n("Displays the list of files in the project.\nTo open or close a project, use the \"Project\" menu. Right click on a file to remove it from the project"));

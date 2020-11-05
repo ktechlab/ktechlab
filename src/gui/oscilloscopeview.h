@@ -27,7 +27,7 @@ class OscilloscopeView : public QFrame
 {
     Q_OBJECT
 public:
-    OscilloscopeView(QWidget *parent, const char *name = nullptr);
+    OscilloscopeView(QWidget *parent);
     ~OscilloscopeView() override;
 
 public slots:

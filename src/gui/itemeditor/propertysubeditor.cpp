@@ -15,10 +15,9 @@
 #include <QKeyEvent>
 #include <QVariant>
 
-PropertySubEditor::PropertySubEditor(QWidget *parent, Property *property, const char *name)
-    : QWidget(parent /*, name */)
+PropertySubEditor::PropertySubEditor(QWidget *parent, Property *property)
+    : QWidget(parent)
 {
-    setObjectName(name);
     m_childWidget = nullptr;
     m_property = property;
     m_leaveTheSpaceForRevertButton = false;

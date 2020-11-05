@@ -263,10 +263,9 @@ void KtlQCanvas::init(const QRect &r, int chunksze, int mxclusters)
     debug_redraw_areas = false;
 }
 
-KtlQCanvas::KtlQCanvas(QObject *parent, const char *name)
-    : QObject(parent /*, name*/)
+KtlQCanvas::KtlQCanvas(QObject *parent)
+    : QObject(parent)
 {
-    setObjectName(name);
     init(0, 0);
 }
 
@@ -1236,8 +1235,8 @@ KtlQCanvasItemList KtlQCanvas::collisions(const QPolygon &chunklist, const KtlQC
     return result;
 }
 
-KtlQCanvasView::KtlQCanvasView(QWidget *parent, const char *name, Qt::WindowFlags f)
-    : KtlQ3ScrollView(parent, name, f /* |Qt::WResizeNoErase |Qt::WStaticContents */)
+KtlQCanvasView::KtlQCanvasView(QWidget *parent, Qt::WindowFlags f)
+    : KtlQ3ScrollView(parent, nullptr, f /* |Qt::WResizeNoErase |Qt::WStaticContents */)
 {
     setAttribute(Qt::WA_StaticContents);
     d = new KtlQCanvasViewData;
@@ -1246,8 +1245,8 @@ KtlQCanvasView::KtlQCanvasView(QWidget *parent, const char *name, Qt::WindowFlag
     connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(cMoving(int, int)));
 }
 
-KtlQCanvasView::KtlQCanvasView(KtlQCanvas *canvas, QWidget *parent, const char *name, Qt::WindowFlags f)
-    : KtlQ3ScrollView(parent, name, f /* |Qt::WResizeNoErase |Qt::WA_StaticContents */)
+KtlQCanvasView::KtlQCanvasView(KtlQCanvas *canvas, QWidget *parent, Qt::WindowFlags f)
+    : KtlQ3ScrollView(parent, nullptr, f /* |Qt::WResizeNoErase |Qt::WA_StaticContents */)
 {
     setAttribute(Qt::WA_StaticContents);
     d = new KtlQCanvasViewData;

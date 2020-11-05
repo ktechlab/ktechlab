@@ -50,10 +50,9 @@ ILVItem::ILVItem(QTreeWidgetItem *parent, const QString &id)
     m_pProjectItem = nullptr;
 }
 
-ItemSelector::ItemSelector(QWidget *parent, const char *name)
-    : QTreeWidget(parent /*, name */)
+ItemSelector::ItemSelector(QWidget *parent)
+    : QTreeWidget(parent)
 {
-    setObjectName(name);
     qDebug() << Q_FUNC_INFO << " this=" << this;
 
     setDragDropMode(QAbstractItemView::DragOnly);
@@ -382,12 +381,13 @@ ComponentSelector *ComponentSelector::self(KateMDI::ToolView *parent)
     if (!m_pSelf) {
         assert(parent);
         m_pSelf = new ComponentSelector(parent);
+        m_pSelf->setObjectName("Component Selector");
     }
     return m_pSelf;
 }
 
 ComponentSelector::ComponentSelector(KateMDI::ToolView *parent)
-    : ItemSelector(parent, "Component Selector")
+    : ItemSelector(parent)
 {
     qDebug() << Q_FUNC_INFO << " creating " << this;
 
@@ -418,12 +418,13 @@ FlowPartSelector *FlowPartSelector::self(KateMDI::ToolView *parent)
     if (!m_pSelf) {
         assert(parent);
         m_pSelf = new FlowPartSelector(parent);
+        m_pSelf->setObjectName("Part Selector");
     }
     return m_pSelf;
 }
 
 FlowPartSelector::FlowPartSelector(KateMDI::ToolView *parent)
-    : ItemSelector((QWidget *)parent, "Part Selector")
+    : ItemSelector((QWidget *)parent)
 {
     setWhatsThis(
         i18n("Add FlowPart to the FlowCode document by dragging them there.<br><br>To add more than one FlowPart of the same type, doubleclick on a FlowPart, and click repeatedly in the FlowChart to place the component. Right click to "
@@ -448,12 +449,13 @@ MechanicsSelector *MechanicsSelector::self(KateMDI::ToolView *parent)
     if (!m_pSelf) {
         assert(parent);
         m_pSelf = new MechanicsSelector((QWidget *)parent);
+        m_pSelf->setObjectName("Mechanics Selector");
     }
     return m_pSelf;
 }
 
 MechanicsSelector::MechanicsSelector(QWidget *parent)
-    : ItemSelector((QWidget *)parent, "Mechanics Selector")
+    : ItemSelector((QWidget *)parent)
 {
     setWhatsThis(i18n("Add mechanical parts to the mechanics work area by dragging them there."));
 

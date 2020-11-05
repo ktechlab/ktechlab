@@ -77,10 +77,9 @@ void OutputMethodInfo::initialize(OutputMethodDlg *dlg)
 
 // BEGIN class OutputMethodDlg
 
-OutputMethodDlg::OutputMethodDlg(const QString &caption, const QUrl &inputURL, bool showPICSelect, QWidget *parent, const char *name)
+OutputMethodDlg::OutputMethodDlg(const QString &caption, const QUrl &inputURL, bool showPICSelect, QWidget *parent)
     : QDialog(parent)
 {
-    setObjectName(name);
     setModal(true);
     setWindowTitle(caption);
 

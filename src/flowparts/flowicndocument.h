@@ -28,7 +28,7 @@ class FlowICNDocument : public ICNDocument
     Q_OBJECT
 
 public:
-    FlowICNDocument(const QString &caption, const char *name);
+    FlowICNDocument(const QString &caption);
 
     ~FlowICNDocument() override;
 

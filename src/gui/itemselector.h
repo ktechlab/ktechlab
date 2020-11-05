@@ -85,7 +85,7 @@ class ItemSelector : public QTreeWidget /* K3ListView */
 {
     Q_OBJECT
 public:
-    ItemSelector(QWidget *parent, const char *name);
+    ItemSelector(QWidget *parent);
     ~ItemSelector() override;
     /**
      * Adds a listview item to the ListView

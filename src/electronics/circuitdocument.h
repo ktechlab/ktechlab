@@ -75,10 +75,10 @@ class CircuitDocument : public CircuitICNDocument
 {
     Q_OBJECT
 public:
-    CircuitDocument(const QString &caption, const char *name = nullptr);
+    CircuitDocument(const QString &caption);
     ~CircuitDocument() override;
 
-    View *createView(ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr) override;
+    View *createView(ViewContainer *viewContainer, uint viewAreaId) override;
 
     void calculateConnectorCurrents();
     /**

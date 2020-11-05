@@ -40,8 +40,8 @@ inline uint64_t min(uint64_t a, uint64_t b)
     return a < b ? a : b;
 }
 
-OscilloscopeView::OscilloscopeView(QWidget *parent, const char *name)
-    : QFrame(parent /*, name */ /*, Qt::WNoAutoErase */)
+OscilloscopeView::OscilloscopeView(QWidget *parent)
+    : QFrame(parent /*, Qt::WNoAutoErase */)
     , b_needRedraw(true)
     , m_pixmap(nullptr)
     , m_fps(10)
@@ -50,7 +50,6 @@ OscilloscopeView::OscilloscopeView(QWidget *parent, const char *name)
     , m_pSimulator(Simulator::self())
     , m_halfOutputHeight(0.0)
 {
-    setObjectName(name);
     // KGlobal::config()->setGroup("Oscilloscope");
     KConfigGroup grOscill(KSharedConfig::openConfig(), "Oscilloscope");
     m_fps = grOscill.readEntry("FPS", 25);
