@@ -70,11 +70,12 @@ OrientationWidget::OrientationWidget(QWidget *parent, const char *name)
 
     for (int row = 0; row < 2; ++row) {
         for (int col = 0; col < 4; ++col) {
-            DrawingPushButton *btn = new DrawingPushButton(this);
+            QPushButton *btn = new QPushButton(this);
             m_toolBtn[row][col] = btn;
             layout->addWidget(btn, row, col);
             btn->setFixedSize(_size + 6, _size + 6);
             // 			btn->setFlat(true);
+            btn->setIconSize(QSize(50, 50));
             btn->setCheckable(true);
             btn->setEnabled(false);
 
@@ -140,9 +141,7 @@ void OrientationWidget::initFromFlowPart(FlowPart *flowPart)
                 m_toolBtn[i][j]->setEnabled(true);
                 QPixmap pm(50, 50);
                 flowPart->orientationPixmap(o, pm);
-                // m_toolBtn[i][j]->setPixmap(pm);
-                m_toolBtn[i][j]->setToDisplayPixmap(pm);
-                m_toolBtn[i][j]->update();
+                m_toolBtn[i][j]->setIcon(QIcon(pm));
             }
         }
     }
@@ -179,9 +178,7 @@ void OrientationWidget::initFromComponent(Component *component)
                 tbPm.convertFromImage(im);
             }
 
-            // m_toolBtn[row][col]->setPixmap(tbPm);
-            m_toolBtn[row][col]->setToDisplayPixmap(tbPm);
-            m_toolBtn[row][col]->update();
+            m_toolBtn[row][col]->setIcon(QIcon(tbPm));
             m_toolBtn[row][col]->setEnabled(true);
         }
     }
@@ -200,10 +197,7 @@ void OrientationWidget::slotClear()
 
     for (int row = 0; row < 2; ++row) {
         for (int col = 0; col < 4; ++col) {
-            // Hmm...this line has crashed before
-            // m_toolBtn[row][col]->setPixmap( QPixmap() );
-            m_toolBtn[row][col]->setToDisplayPixmap(QPixmap());
-            m_toolBtn[row][col]->update();
+            m_toolBtn[row][col]->setIcon(QIcon());
             m_toolBtn[row][col]->setEnabled(false);
         }
     }

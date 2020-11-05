@@ -18,7 +18,7 @@ class CNItemGroup;
 class Component;
 class FlowPart;
 
-class DrawingPushButton;
+class QPushButton;
 
 /**
 @author David Saxton
@@ -49,7 +49,7 @@ protected:
     void initFromComponent(Component *component);
     void initFromFlowPart(FlowPart *flowPart);
 
-    DrawingPushButton *m_toolBtn[2][4];
+    QPushButton *m_toolBtn[2][4];
     QPointer<FlowPart> m_pFlowPart;
     QPointer<Component> m_pComponent;
     QPointer<CNItem> m_pCNItem;  // Either the flowpart or component
