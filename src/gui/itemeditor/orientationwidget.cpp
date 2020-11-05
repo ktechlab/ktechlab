@@ -28,37 +28,6 @@
 
 const int _size = 44;
 
-// BEGIN class DrawingPushButton
-class DrawingPushButton : public QPushButton
-{
-public:
-    DrawingPushButton(QWidget *parent)
-        : QPushButton(parent)
-    {
-    }
-
-    void paintEvent(QPaintEvent *ev) override
-    {
-        QPushButton::paintEvent(ev);
-        // QPainter painter(this);// 2016.05.03 - explicitly initialize painter
-        QPainter painter;
-        const bool isSuccess = painter.begin(this);
-        if (!isSuccess) {
-            qWarning() << Q_FUNC_INFO << " painter not active";
-        }
-        painter.drawPixmap(0, 0, toDiplayPixmap);
-    }
-
-    void setToDisplayPixmap(const QPixmap &pixmap)
-    {
-        toDiplayPixmap = pixmap.copy(); // need to explicitly copy, or all the buttons will look the same
-    }
-
-    QPixmap toDiplayPixmap;
-};
-
-// END class DrawingPushButton
-
 // BEGIN class OrientationWidget
 OrientationWidget::OrientationWidget(QWidget *parent, const char *name)
     : QWidget(parent /*, name */)
