@@ -220,6 +220,7 @@ PicItem::PicItem(ICNDocument *icnDocument, bool newItem, const char *id, MicroSe
 {
     m_name = "PIC";
     m_type = typeString();
+    m_pressed = false;
     p_icnDocument = icnDocument;
     icnDocument->registerItem(this);
 
