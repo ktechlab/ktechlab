@@ -257,44 +257,32 @@ void TextDocument::guessScheme(bool allowDisable)
 
 void TextDocument::slotInitLanguage(CodeType type)
 {
-    QString hlName;
+    QString modeName;
 
     switch (type) {
     case ct_asm:
-        hlName = "PicAsm";
+        modeName = "PicAsm";
         break;
 
     case ct_c:
-        hlName = "C";
+        modeName = "C";
         break;
 
     case ct_hex:
         break;
 
     case ct_microbe:
-        hlName = "Microbe";
+        modeName = "Microbe";
         break;
 
     case ct_unknown:
         break;
     }
 
-    if (!hlName.isEmpty()) {
-        // int i = 0; // 2017.10.01 - comment out unused variable
-        // int hlModeCount = m_doc->hlModeCount();
-        QStringList hlModes = m_doc->highlightingModes();
-        // while ( i<hlModeCount && m_doc->hlModeName(i) != hlName )
-        //	i++;
-        while (!hlModes.isEmpty()) {
-            if (hlModes.first() == hlName) {
-                break;
-            }
-            hlModes.removeFirst();
-        }
-
-        // m_doc->setHlMode(i);
-        if (!hlModes.isEmpty()) {
-            m_doc->setHighlightingMode(hlModes.first());
+    if (!modeName.isEmpty()) {
+        const QStringList modes = m_doc->modes();
+        if (modes.contains(modeName)) {
+            m_doc->setMode(modeName);
         }
     }
 
