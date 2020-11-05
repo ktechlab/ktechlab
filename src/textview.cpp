@@ -17,7 +17,6 @@
 #include "filemetainfo.h"
 #include "gpsimprocessor.h"
 #include "ktechlab.h"
-#include "ktlfindqobjectchild.h"
 #include "symbolviewer.h"
 #include "textdocument.h"
 #include "textview.h"

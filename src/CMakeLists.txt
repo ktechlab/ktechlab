@@ -274,7 +274,6 @@ SET(ktechlab_SRCS
     ./variablelabel.cpp
     ./item.cpp
     ./itemdocumentdata.cpp
-    ./ktlqt3support/ktlfindqobjectchild.cpp
     ./ktlqt3support/ktlq3scrollview.cpp
     ./ktlqt3support/ktlq3polygonscanner.cpp
     ./ktlqt3support/ktlq3frame.cpp
