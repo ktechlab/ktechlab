@@ -151,12 +151,15 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
     // m_view->installPopup( static_cast<Q3PopupMenu*>( KTechlab::self()->factory()->container( "ktexteditor_popup", KTechlab::self() ) ) );
     m_view->setContextMenu(static_cast<QMenu *>(KTechlab::self()->factory()->container("ktexteditor_popup", KTechlab::self())));
 
-    QWidget *internalView = m_view->findChild<QWidget *>("KateViewInternal");
+    // TODO this ought to not use internal widgets of the ktexteditor view,
+    //      and only use KTextEditor::TextHintInterface for the hint instead
+    //      of the own popup logic
+    // QWidget *internalView = m_view->findChild<QWidget *>("KateViewInternal");
 
     connect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View *, const KTextEditor::Cursor &)), this, SLOT(slotCursorPositionChanged()));
     connect(m_view, SIGNAL(selectionChanged(KTextEditor::View *)), this, SLOT(slotSelectionmChanged()));
 
-    setFocusWidget(internalView);
+    // setFocusWidget(internalView);
     connect(this, SIGNAL(focused(View *)), this, SLOT(gotFocus()));
 
     m_layout->insertWidget(0, m_view);
@@ -173,7 +176,7 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
     connect(eventFilter, SIGNAL(wordHoveredOver(const QString &, int, int)), this, SLOT(slotWordHoveredOver(const QString &, int, int)));
     connect(eventFilter, SIGNAL(wordUnhovered()), this, SLOT(slotWordUnhovered()));
 
-    internalView->installEventFilter(eventFilter);
+    // internalView->installEventFilter(eventFilter);
 #endif
 
     // TODO HACK disable some actions which collide with ktechlab's actions.
