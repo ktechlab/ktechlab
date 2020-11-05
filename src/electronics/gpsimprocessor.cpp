@@ -95,11 +95,11 @@ GpsimProcessor::GpsimProcessor(QString symbolFile, QObject *parent)
     m_pDebugger[0] = m_pDebugger[1] = nullptr;
 
     Processor *tempProcessor = nullptr;
-    const char *fileName = symbolFile.toAscii();
+    const QByteArray fileName = QFile::encodeName(symbolFile);
 
 #ifdef GPSIM_0_21_4
-    qDebug() << "GPSIM_0_21_4 GpsimProcessor " << fileName;
-    switch ((cod_errors)load_symbol_file(&tempProcessor, fileName)) {
+    qDebug() << "GPSIM_0_21_4 GpsimProcessor " << symbolFile;
+    switch ((cod_errors)load_symbol_file(&tempProcessor, fileName.constData())) {
     case COD_SUCCESS:
         m_codLoadStatus = CodSuccess;
         break;
@@ -122,12 +122,12 @@ GpsimProcessor::GpsimProcessor(QString symbolFile, QObject *parent)
         m_codLoadStatus = CodUnknown;
     }
 #else // GPSIM_0_21_11+
-    qDebug() << "GPSIM_0_21_11+ GpsimProcessor " << fileName;
-    FILE *pFile = fopen(fileName, "r");
+    qDebug() << "GPSIM_0_21_11+ GpsimProcessor " << symbolFile;
+    FILE *pFile = fopen(fileName.constData(), "r");
     if (!pFile)
         m_codLoadStatus = CodFileUnreadable;
     else
-        m_codLoadStatus = (ProgramFileTypeList::GetList().LoadProgramFile(&tempProcessor, fileName, pFile)) ? CodSuccess : CodFailure;
+        m_codLoadStatus = (ProgramFileTypeList::GetList().LoadProgramFile(&tempProcessor, fileName.constData(), pFile)) ? CodSuccess : CodFailure;
 #endif
     qDebug() << " m_codLoadStatus=" << m_codLoadStatus;
 
