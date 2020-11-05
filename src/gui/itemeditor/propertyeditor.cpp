@@ -39,7 +39,8 @@ struct PropertyEditorStyledItemColProperty : public QStyledItemDelegate {
     PropertyEditor *m_propEditor;
 
     PropertyEditorStyledItemColProperty(PropertyEditor *propEditor)
-        : m_propEditor(propEditor)
+        : QStyledItemDelegate(propEditor)
+        , m_propEditor(propEditor)
     {
     }
 
@@ -111,7 +112,8 @@ struct PropertyEditorStyledItemColValue : public QStyledItemDelegate {
     PropertyEditor *m_propEditor;
 
     PropertyEditorStyledItemColValue(PropertyEditor *propEditor)
-        : m_propEditor(propEditor)
+        : QStyledItemDelegate(propEditor)
+        , m_propEditor(propEditor)
     {
     }
 
