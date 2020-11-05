@@ -841,9 +841,8 @@ void KTechlab::readPropertiesInConfig(KConfig *conf)
 {
     startRestore(conf, "KateMDI");
 
-    KSharedConfigPtr config = KSharedConfig::openConfig();
-    m_recentFiles->loadEntries(config->group("Recent Files"));
-    m_recentProjects->loadEntries(config->group("Recent Projects"));
+    m_recentFiles->loadEntries(conf->group("Recent Files"));
+    m_recentProjects->loadEntries(conf->group("Recent Projects"));
 
     // BEGIN Restore Open Views
     if (KTLConfig::restoreDocumentsOnStartup()) {
