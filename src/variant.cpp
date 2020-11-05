@@ -9,7 +9,7 @@
  ***************************************************************************/
 
 #include "cnitem.h"
-#include "colorcombo.h"
+#include "colorutils.h"
 
 #include <KLocalizedString>
 #include <QDebug>
@@ -27,7 +27,7 @@ Variant::Variant(const QString &id, Type::Value type)
     m_minValue = 1e-6;
     m_maxValue = 1e9;
     m_minAbsValue = 1e-6;
-    m_colorScheme = ColorCombo::QtStandard;
+    m_colorScheme = ColorUtils::QtStandard;
     if (type == Type::Color) {
         // this value is taken from ColorCombo and should ideally be put somewhere...
         m_defaultValue = "#f62a2a";

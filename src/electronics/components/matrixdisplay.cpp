@@ -9,7 +9,7 @@
  ***************************************************************************/
 
 #include "matrixdisplay.h"
-#include "colorcombo.h"
+#include "colorutils.h"
 #include "diode.h"
 #include "ecnode.h"
 #include "led.h"
@@ -65,7 +65,7 @@ MatrixDisplay::MatrixDisplay(ICNDocument *icnDocument, bool newItem, const char 
 
     createProperty("color", Variant::Type::Color);
     property("color")->setCaption(i18n("Color"));
-    property("color")->setColorScheme(ColorCombo::LED);
+    property("color")->setColorScheme(ColorUtils::LED);
 
     createProperty("diode-configuration", Variant::Type::Select);
     property("diode-configuration")->setCaption(i18n("Configuration"));

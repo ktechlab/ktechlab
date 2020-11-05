@@ -9,7 +9,7 @@
  ***************************************************************************/
 
 #include "ecsevensegment.h"
-#include "colorcombo.h"
+#include "colorutils.h"
 #include "diode.h"
 #include "ecnode.h"
 #include "led.h"
@@ -41,7 +41,7 @@ ECSevenSegment::ECSevenSegment(ICNDocument *icnDocument, bool newItem, const cha
 
     createProperty("0-color", Variant::Type::Color);
     property("0-color")->setCaption(i18n("Color"));
-    property("0-color")->setColorScheme(ColorCombo::LED);
+    property("0-color")->setColorScheme(ColorUtils::LED);
 
     createProperty("diode-polarity", Variant::Type::Select);
     property("diode-polarity")->setCaption(i18n("Configuration"));

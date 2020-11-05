@@ -8,7 +8,7 @@
  ***************************************************************************/
 
 #include "ledbargraphdisplay.h"
-#include "colorcombo.h"
+#include "colorutils.h"
 #include "led.h"
 #include "libraryitem.h"
 #include "simulator.h"
@@ -106,7 +106,7 @@ LEDBarGraphDisplay::LEDBarGraphDisplay(ICNDocument *icnDocument, bool newItem, c
 
     createProperty("color", Variant::Type::Color);
     property("color")->setCaption(i18n("Color"));
-    property("color")->setColorScheme(ColorCombo::LED);
+    property("color")->setColorScheme(ColorUtils::LED);
 
     DiodeSettings ds;
 

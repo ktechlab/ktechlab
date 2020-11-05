@@ -13,7 +13,7 @@
 
 #include "propertysubeditor.h"
 
-class ColorCombo;
+class KColorCombo;
 class QLabel;
 class QResizeEvent;
 
@@ -34,7 +34,7 @@ protected slots:
     void valueChanged(const QColor &color);
 
 protected:
-    ColorCombo *m_pColorCombo;
+    KColorCombo *m_pColorCombo;
     QColor m_color;
 };
 

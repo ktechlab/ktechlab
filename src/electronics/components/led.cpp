@@ -9,7 +9,7 @@
  ***************************************************************************/
 
 #include "led.h"
-#include "colorcombo.h"
+#include "colorutils.h"
 #include "diode.h"
 #include "ecnode.h"
 #include "libraryitem.h"
@@ -41,7 +41,7 @@ LED::LED(ICNDocument *icnDocument, bool newItem, const char *id)
 
     createProperty("0-color", Variant::Type::Color);
     property("0-color")->setCaption(i18n("Color"));
-    property("0-color")->setColorScheme(ColorCombo::LED);
+    property("0-color")->setColorScheme(ColorUtils::LED);
 }
 
 LED::~LED()

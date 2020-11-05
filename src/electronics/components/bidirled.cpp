@@ -9,7 +9,7 @@
  ***************************************************************************/
 
 #include "bidirled.h"
-#include "colorcombo.h"
+#include "colorutils.h"
 #include "diode.h"
 #include "ecnode.h"
 #include "led.h"
@@ -50,11 +50,11 @@ BiDirLED::BiDirLED(ICNDocument *icnDocument, bool newItem, const char *id)
 
     createProperty("0-color1", Variant::Type::Color);
     property("0-color1")->setCaption(i18n("Color 1"));
-    property("0-color1")->setColorScheme(ColorCombo::LED);
+    property("0-color1")->setColorScheme(ColorUtils::LED);
 
     createProperty("0-color2", Variant::Type::Color);
     property("0-color2")->setCaption(i18n("Colour 2"));
-    property("0-color2")->setColorScheme(ColorCombo::LED);
+    property("0-color2")->setColorScheme(ColorUtils::LED);
 }
 
 BiDirLED::~BiDirLED()

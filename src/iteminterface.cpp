@@ -12,7 +12,7 @@
 #include "circuitview.h"
 #include "cnitem.h"
 #include "cnitemgroup.h"
-#include "colorcombo.h"
+#include "colorutils.h"
 #include "contexthelp.h"
 #include "doublespinbox.h"
 #include "itemdocument.h"
@@ -20,6 +20,7 @@
 #include "itemview.h"
 #include "ktechlab.h"
 
+#include <KColorCombo>
 #include <KComboBox>
 #include <KLineEdit>
 #include <KToolBar>
@@ -358,7 +359,7 @@ QWidget *ItemInterface::configWidget()
         case Variant::Type::Color: {
             QColor value = vait.value()->value().value<QColor>();
 
-            ColorCombo *colorBox = new ColorCombo((ColorCombo::ColorScheme)vait.value()->colorScheme(), configWidget);
+            KColorCombo *colorBox = ColorUtils::createColorCombo((ColorUtils::ColorScheme)vait.value()->colorScheme(), configWidget);
 
             colorBox->setColor(value);
             connectMapWidget(colorBox, SIGNAL(activated(const QColor &)));
@@ -496,8 +497,8 @@ void ItemInterface::tbDataChanged()
     }
 
     // Colors values from colorcombos
-    const ColorComboMap::iterator m_colorComboMapEnd = m_colorComboMap.end();
-    for (ColorComboMap::iterator ccit = m_colorComboMap.begin(); ccit != m_colorComboMapEnd; ++ccit) {
+    const KColorComboMap::iterator m_colorComboMapEnd = m_colorComboMap.end();
+    for (KColorComboMap::iterator ccit = m_colorComboMap.begin(); ccit != m_colorComboMapEnd; ++ccit) {
         slotSetData(ccit.key(), ccit.value()->color());
     }
 

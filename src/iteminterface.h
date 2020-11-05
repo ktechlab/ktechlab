@@ -26,7 +26,7 @@ class KTechlab;
 class MechanicsGroup;
 class Variant;
 
-class ColorCombo;
+class KColorCombo;
 class KComboBox;
 class KToolBar;
 class KUrlRequester;
@@ -39,7 +39,7 @@ typedef QMap<QString, KComboBox *> KComboBoxMap;
 typedef QMap<QString, KLineEdit *> KLineEditMap;
 typedef QMap<QString, DoubleSpinBox *> DoubleSpinBoxMap;
 typedef QMap<QString, QSpinBox *> IntSpinBoxMap;
-typedef QMap<QString, ColorCombo *> ColorComboMap;
+typedef QMap<QString, KColorCombo *> KColorComboMap;
 typedef QMap<QString, KUrlRequester *> KUrlReqMap;
 typedef QMap<QString, QCheckBox *> QCheckBoxMap;
 
@@ -116,7 +116,7 @@ protected:
     KUrlReqMap m_stringURLReqMap;
     DoubleSpinBoxMap m_doubleSpinBoxMap;
     IntSpinBoxMap m_intSpinBoxMap;
-    ColorComboMap m_colorComboMap;
+    KColorComboMap m_colorComboMap;
     QCheckBoxMap m_boolCheckMap;
 
     // Use by item editor toolbar

@@ -9,10 +9,11 @@
  ***************************************************************************/
 
 #include "propertyeditorcolor.h"
-#include "colorcombo.h"
+#include "colorutils.h"
 #include "iteminterface.h"
 #include "property.h"
 
+#include <KColorCombo>
 #include <KLocalizedString>
 
 #include <QDebug>
@@ -24,7 +25,7 @@
 PropertyEditorColor::PropertyEditorColor(QWidget *parent, Property *property, const char *name)
     : PropertySubEditor(parent, property, name)
 {
-    m_pColorCombo = new ColorCombo((ColorCombo::ColorScheme)property->colorScheme(), this);
+    m_pColorCombo = ColorUtils::createColorCombo((ColorUtils::ColorScheme)property->colorScheme(), this);
     m_pColorCombo->setColor(property->value().value<QColor>());
     m_pColorCombo->resize(width(), height());
     m_pColorCombo->show();
