@@ -143,6 +143,16 @@ void KTechlab::load(const QUrl &url, ViewArea *viewArea)
     if (!url.isValid())
         return;
 
+    loadInternal(url, false, viewArea);
+}
+
+void KTechlab::slotLoadRecent(const QUrl &url)
+{
+    loadInternal(url, true);
+}
+
+void KTechlab::loadInternal(const QUrl &url, bool isRecent, ViewArea *viewArea)
+{
     if (url.fileName().endsWith(".ktechlab", Qt::CaseInsensitive)) {
         // This is a ktechlab project; it has to be handled separetly from a
         // normal file.
@@ -151,7 +161,8 @@ void KTechlab::load(const QUrl &url, ViewArea *viewArea)
         return;
     }
 
-    addRecentFile(url);
+    if (!isRecent)
+        addRecentFile(url);
 
     // set our caption
     setCaption(url.toDisplayString(QUrl::PreferLocalFile));
@@ -503,7 +514,7 @@ void KTechlab::setupActions()
     }
     // END New File popup
 
-    m_recentFiles = KStandardAction::openRecent(this, SLOT(load(QUrl)), ac);
+    m_recentFiles = KStandardAction::openRecent(this, SLOT(slotLoadRecent(QUrl)), ac);
 
     m_statusbarAction = KStandardAction::showStatusbar(this, SLOT(slotOptionsShowStatusbar()), ac);
     ac->addAction(m_statusbarAction->objectName(), m_statusbarAction);

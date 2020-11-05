@@ -250,6 +250,7 @@ private slots:
     void slotOptionsConfigureKeys();
     void slotOptionsConfigureToolbars();
     void slotOptionsPreferences();
+    void slotLoadRecent(const QUrl &url);
 
 private:
     void setupActions();
@@ -257,6 +258,7 @@ private:
     void setupToolDocks();
     void setupView();
     void setupTabWidget();
+    void loadInternal(const QUrl &url, bool isRecent, ViewArea *viewArea = nullptr);
 
     KRecentFilesAction *m_recentFiles;
     KRecentFilesAction *m_recentProjects;
