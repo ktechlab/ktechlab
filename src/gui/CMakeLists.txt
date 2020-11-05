@@ -18,7 +18,6 @@ SET(gui_STAT_SRCS
 #    microselectwidget.cpp
 #    symbolviewer.cpp
 #    programmerdlg.cpp
-#    colorcombo.cpp
 #    scopescreenview.cpp
 #    scopescreen.cpp
 #    scopeviewbase.cpp

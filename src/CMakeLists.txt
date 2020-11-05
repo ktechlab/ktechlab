@@ -91,7 +91,6 @@ SET(ktechlab_SRCS
     ./gui/itemselector.cpp
     ./gui/scopescreenview.cpp
     ./gui/microsettingsdlg.cpp
-    ./gui/colorcombo.cpp
     ./gui/colorutils.cpp
     ./gui/symbolviewer.cpp
     ./gui/oscilloscope.cpp
