@@ -4,6 +4,7 @@
     <comment>KTechlab Circuit</comment>
     <comment xml:lang="ca">Circuit del KTechlab</comment>
     <comment xml:lang="ca@valencia">Circuit del KTechlab</comment>
+    <comment xml:lang="en_GB">KTechlab Circuit</comment>
     <comment xml:lang="es">Circuito de KTechlab</comment>
     <comment xml:lang="eu">KTechlab-eko zirkuitua</comment>
     <comment xml:lang="fr">Circuit pour « KTechlab »</comment>
@@ -22,6 +23,7 @@
     <comment>KTechlab FlowCode</comment>
     <comment xml:lang="ca">FlowCode del KTechlab</comment>
     <comment xml:lang="ca@valencia">FlowCode del KTechlab</comment>
+    <comment xml:lang="en_GB">KTechlab FlowCode</comment>
     <comment xml:lang="es">FlowCode de KTechlab</comment>
     <comment xml:lang="eu">KTechlab FlowCode</comment>
     <comment xml:lang="fr">FlowCode pour « KTechlab »</comment>
@@ -39,6 +41,7 @@
     <comment>KTechlab project</comment>
     <comment xml:lang="ca">Projecte del KTechlab</comment>
     <comment xml:lang="ca@valencia">Projecte del KTechlab</comment>
+    <comment xml:lang="en_GB">KTechlab project</comment>
     <comment xml:lang="es">Proyecto de KTechlab</comment>
     <comment xml:lang="eu">KTechlab-eko proiektua</comment>
     <comment xml:lang="fr">Projet pour « KTechlab »</comment>
@@ -57,6 +60,7 @@
     <comment>KTechlab Microbe</comment>
     <comment xml:lang="ca">Microbe del KTechlab</comment>
     <comment xml:lang="ca@valencia">Microbe del KTechlab</comment>
+    <comment xml:lang="en_GB">KTechlab Microbe</comment>
     <comment xml:lang="es">Microbe de KTechlab</comment>
     <comment xml:lang="eu">KTechlab Microbe</comment>
     <comment xml:lang="fr">Microbe pour « KTechlab »</comment>
