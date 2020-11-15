@@ -43,8 +43,7 @@ ECNode::~ECNode()
         delete m_pinPoint;
     }
 
-    for (unsigned i = 0; i < m_pins.size(); i++)
-        delete m_pins[i];
+    qDeleteAll(m_pins);
     m_pins.resize(0);
 }
 

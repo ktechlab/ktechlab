@@ -29,13 +29,8 @@ Pin::Pin(ECNode *parent)
 
 Pin::~Pin()
 {
-    WireList::iterator end = m_inputWireList.end();
-    for (WireList::iterator it = m_inputWireList.begin(); it != end; ++it)
-        delete (Wire *)(*it);
-
-    end = m_outputWireList.end();
-    for (WireList::iterator it = m_outputWireList.begin(); it != end; ++it)
-        delete (Wire *)(*it);
+    qDeleteAll(m_inputWireList);
+    qDeleteAll(m_outputWireList);
 }
 
 PinList Pin::localConnectedPins() const

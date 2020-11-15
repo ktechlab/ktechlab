@@ -293,8 +293,7 @@ KtlQCanvas::~KtlQCanvas()
 {
     qt_unview(this);
     KtlQCanvasItemList all = allItems();
-    for (KtlQCanvasItemList::Iterator it = all.begin(); it != all.end(); ++it)
-        delete *it;
+    qDeleteAll(all);
     delete[] chunks;
     delete[] grid;
 }

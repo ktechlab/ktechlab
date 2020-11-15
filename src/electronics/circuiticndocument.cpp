@@ -42,9 +42,7 @@ CircuitICNDocument::~CircuitICNDocument()
     // Delete anything that got through the above couple of lines
     ConnectorList connectorsToDelete = m_connectorList;
     connectorsToDelete.clear();
-    const ConnectorList::iterator connectorListEnd = connectorsToDelete.end();
-    for (ConnectorList::iterator it = connectorsToDelete.begin(); it != connectorListEnd; ++it)
-        delete *it;
+    qDeleteAll(connectorsToDelete);
 
     deleteAllNodes();
 }

@@ -265,10 +265,7 @@ PicItem::PicItem(ICNDocument *icnDocument, bool newItem, const char *id, MicroSe
 
 PicItem::~PicItem()
 {
-    const PinItemList::iterator end = m_pinItemList.end();
-    for (PinItemList::iterator it = m_pinItemList.begin(); it != end; ++it)
-        delete *it;
-
+    qDeleteAll(m_pinItemList);
     m_pinItemList.clear();
 }
 

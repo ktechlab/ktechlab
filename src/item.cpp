@@ -70,9 +70,7 @@ Item::~Item()
 
     KtlQCanvasPolygon::hide();
 
-    const VariantDataMap::iterator variantDataEnd = m_variantData.end();
-    for (VariantDataMap::iterator it = m_variantData.begin(); it != variantDataEnd; ++it)
-        delete it.value();
+    qDeleteAll(m_variantData);
     m_variantData.clear();
 }
 

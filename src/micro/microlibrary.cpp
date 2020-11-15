@@ -76,10 +76,7 @@ MicroLibrary::MicroLibrary()
 
 MicroLibrary::~MicroLibrary()
 {
-    const MicroInfoList::iterator end = m_microInfoList.end();
-    for (MicroInfoList::iterator it = m_microInfoList.begin(); it != end; ++it) {
-        delete *it;
-    }
+    qDeleteAll(m_microInfoList);
 }
 
 MicroInfo *MicroLibrary::microInfoWithID(QString id)

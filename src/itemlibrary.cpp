@@ -147,10 +147,7 @@ ItemLibrary::~ItemLibrary()
 {
     // 	qCDebug(KTL_LOG) << "m_itemDescriptions[\"en_US\"].size()="<<m_itemDescriptions["en_US"].size();
 
-    const LibraryItemList::iterator end = m_items.end();
-    for (LibraryItemList::iterator it = m_items.begin(); it != end; ++it) {
-        delete *it;
-    }
+    qDeleteAll(m_items);
     m_items.clear();
 }
 

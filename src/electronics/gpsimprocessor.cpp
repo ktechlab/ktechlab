@@ -421,9 +421,7 @@ GpsimDebugger::~GpsimDebugger()
         debugLinesToDelete += dl;
     }
 
-    const QList<DebugLine *>::iterator end = debugLinesToDelete.end();
-    for (QList<DebugLine *>::iterator it = debugLinesToDelete.begin(); it != end; ++it)
-        delete *it;
+    qDeleteAll(debugLinesToDelete);
 
     delete[] m_addressToLineMap;
 }
@@ -655,8 +653,7 @@ RegisterSet::RegisterSet(pic_processor *picProcessor)
 
 RegisterSet::~RegisterSet()
 {
-    for (unsigned i = 0; i < m_registers.size(); ++i)
-        delete m_registers[i];
+    qDeleteAll(m_registers);
 }
 
 RegisterInfo *RegisterSet::fromAddress(unsigned address)

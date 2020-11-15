@@ -73,8 +73,7 @@ Connector::~Connector()
 
     delete m_conRouter;
 
-    for (int i = 0; i < m_wires.size(); i++)
-        delete m_wires[i];
+    qDeleteAll(m_wires);
 
     //	m_wires.resize(0);
 }
@@ -252,9 +251,7 @@ void Connector::updateDrawList()
     }
 
     // BEGIN build up ConnectorLine list
-    for (ConnectorLine *line : m_connectorLineList)
-        delete line;
-
+    qDeleteAll(m_connectorLineList);
     m_connectorLineList.clear();
 
     if (drawLineList.size() > 1) {

@@ -54,9 +54,7 @@ ICNDocument::~ICNDocument()
 
     GuardedNodeGroupList ngToDelete = m_nodeGroupList;
     m_nodeGroupList.clear();
-    const GuardedNodeGroupList::iterator nglEnd = ngToDelete.end();
-    for (GuardedNodeGroupList::iterator it = ngToDelete.begin(); it != nglEnd; ++it)
-        delete (NodeGroup *)(*it);
+    qDeleteAll(ngToDelete);
 
     delete m_cells;
     delete m_selectList;

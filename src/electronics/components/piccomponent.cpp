@@ -178,9 +178,7 @@ void PICComponent::initPIC(bool forceReload)
 
 void PICComponent::deletePICComponentPins()
 {
-    const PICComponentPinMap::iterator picComponentMapEnd = m_picComponentPinMap.end();
-    for (PICComponentPinMap::iterator it = m_picComponentPinMap.begin(); it != picComponentMapEnd; ++it)
-        delete it.value();
+    qDeleteAll(m_picComponentPinMap);
     m_picComponentPinMap.clear();
 }
 

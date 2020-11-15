@@ -42,9 +42,7 @@ FlowICNDocument::~FlowICNDocument()
     // Delete anything that got through the above couple of lines
     ConnectorList connectorsToDelete = m_connectorList;
     connectorsToDelete.clear();
-    const ConnectorList::iterator connectorListEnd = connectorsToDelete.end();
-    for (ConnectorList::iterator it = connectorsToDelete.begin(); it != connectorListEnd; ++it)
-        delete *it;
+    qDeleteAll(connectorsToDelete);
 
     deleteAllNodes();
 }
@@ -53,9 +51,7 @@ void FlowICNDocument::deleteAllNodes()
 {
     FPNodeMap nodesToDelete = m_flowNodeList;
     m_flowNodeList.clear();
-    const FPNodeMap::iterator nodeListEnd = nodesToDelete.end();
-    for (FPNodeMap::iterator it = nodesToDelete.begin(); it != nodeListEnd; ++it)
-        delete *it;
+    qDeleteAll(nodesToDelete);
 }
 
 bool FlowICNDocument::canConnect(KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *qcanvasItem2) const

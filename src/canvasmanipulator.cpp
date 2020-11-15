@@ -62,10 +62,7 @@ CMManager::~CMManager()
     delete m_allowItemScrollTmr;
     delete m_canvasManipulator;
 
-    const ManipulatorInfoList::iterator end = m_manipulatorInfoList.end();
-    for (ManipulatorInfoList::iterator it = m_manipulatorInfoList.begin(); it != end; ++it) {
-        delete *it;
-    }
+    qDeleteAll(m_manipulatorInfoList);
     m_manipulatorInfoList.clear();
 }
 
@@ -1689,10 +1686,7 @@ ManualConnectorDraw::ManualConnectorDraw(ICNDocument *_icnDocument, const QPoint
 
 ManualConnectorDraw::~ManualConnectorDraw()
 {
-    const QList<KtlQCanvasLine *>::iterator end = m_connectorLines.end();
-    for (QList<KtlQCanvasLine *>::iterator it = m_connectorLines.begin(); it != end; ++it)
-        delete *it;
-
+    qDeleteAll(m_connectorLines);
     m_connectorLines.clear();
 }
 

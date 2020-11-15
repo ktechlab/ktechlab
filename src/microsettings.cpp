@@ -95,10 +95,7 @@ MicroSettings::MicroSettings(MicroInfo *microInfo)
 
 MicroSettings::~MicroSettings()
 {
-    const PinSettingsList::iterator pinListEnd = m_pinSettingsList.end();
-    for (PinSettingsList::iterator it = m_pinSettingsList.begin(); it != pinListEnd; ++it) {
-        delete *it;
-    }
+    qDeleteAll(m_pinSettingsList);
     // 	delete m_variableList;
 }
 
