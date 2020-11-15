@@ -16,6 +16,7 @@
 #include <QDebug>
 #include <QLineEdit>
 #include <QLocale>
+#include <QLoggingCategory>
 #include <QRegExp>
 #include <QTimer>
 
@@ -24,22 +25,7 @@
 
 using namespace std;
 
-static bool isDoubleSpinboxDebugEnabled()
-{
-    return false; // note: in the future, loggers should be used
-}
-
-static QString DoubleSpinBox_nullDebug;
-
-static QDebug DoubleSpinbox_qDebug()
-{
-    if (isDoubleSpinboxDebugEnabled()) {
-        return qDebug();
-    } else {
-        DoubleSpinBox_nullDebug.clear();
-        return QDebug(&DoubleSpinBox_nullDebug);
-    }
-}
+Q_LOGGING_CATEGORY(KTL_DOUBLESPINBOX_LOG, "org.kde.ktechlab.doublespinbox", QtWarningMsg)
 
 inline int roundDouble(double val)
 {
@@ -49,7 +35,7 @@ inline int roundDouble(double val)
 DoubleSpinBox::DoubleSpinBox(double lower, double upper, double minAbs, double value, const QString &unit, QWidget *parent)
     : QDoubleSpinBox(parent)
 {
-    DoubleSpinbox_qDebug() << " lower=" << lower << " upper=" << upper << " minAbs=" << minAbs << " value=" << value << " unit=" << unit << " parent=" << parent;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << " lower=" << lower << " upper=" << upper << " minAbs=" << minAbs << " value=" << value << " unit=" << unit << " parent=" << parent;
 
     setDecimals(20); // should be enough
 
@@ -100,7 +86,7 @@ DoubleSpinBox::~DoubleSpinBox()
 
 QValidator::State DoubleSpinBox::validate(QString &text, int &pos) const
 {
-    DoubleSpinbox_qDebug() << Q_FUNC_INFO << "text = |" << text << "| pos= " << pos;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << "text = |" << text << "| pos= " << pos;
     return QValidator::Acceptable; // QValidator::Intermediate; // don't bother
 }
 
@@ -109,9 +95,9 @@ QValidator::State DoubleSpinBox::validate(QString &text, int &pos) const
 //     const double mult = getMult();
 //     const double displatedNumber = getDisplayedNumber( 0 );
 //     const double toRet = displatedNumber * mult ;
-//     DoubleSpinbox_qDebug() << "value() mult = " << mult;
-//     DoubleSpinbox_qDebug() << "value() displatedNumber = " << displatedNumber;
-//     DoubleSpinbox_qDebug() << "value() toRet = " << toRet;
+//     qCDebug(KTL_DOUBLESPINBOX_LOG) << "value() mult = " << mult;
+//     qCDebug(KTL_DOUBLESPINBOX_LOG) << "value() displatedNumber = " << displatedNumber;
+//     qCDebug(KTL_DOUBLESPINBOX_LOG) << "value() toRet = " << toRet;
 // 	return toRet;
 // }
 
@@ -133,9 +119,9 @@ QValidator::State DoubleSpinBox::validate(QString &text, int &pos) const
 //
 //     const int toBeStoredValue = roundDouble( (value / Item::getMultiplier( value )) /* * 100 */ );
 //
-//     DoubleSpinbox_qDebug() << "value = " << value;
-//     DoubleSpinbox_qDebug() << "value() = " << QSpinBox::value();
-//     DoubleSpinbox_qDebug() << "to be stored = " << toBeStoredValue;
+//     qCDebug(KTL_DOUBLESPINBOX_LOG) << "value = " << value;
+//     qCDebug(KTL_DOUBLESPINBOX_LOG) << "value() = " << QSpinBox::value();
+//     qCDebug(KTL_DOUBLESPINBOX_LOG) << "to be stored = " << toBeStoredValue;
 //
 // 	QSpinBox::setValue( toBeStoredValue );
 // }
@@ -195,7 +181,7 @@ void DoubleSpinBox::stepBy(int steps)
 
 double DoubleSpinBox::getNextUpStepValue(double in)
 {
-    DoubleSpinbox_qDebug() << Q_FUNC_INFO << " in = " << in;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << " in = " << in;
 
     double value = roundToOneSF(in);
 
@@ -214,13 +200,13 @@ double DoubleSpinBox::getNextUpStepValue(double in)
         value = 0.;
     }
 
-    DoubleSpinbox_qDebug() << Q_FUNC_INFO << " out = " << value;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << " out = " << value;
     return value;
 }
 
 double DoubleSpinBox::getNextDownStepValue(double in)
 {
-    DoubleSpinbox_qDebug() << Q_FUNC_INFO << " in = " << in;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << " in = " << in;
 
     double value = roundToOneSF(in);
 
@@ -240,7 +226,7 @@ double DoubleSpinBox::getNextDownStepValue(double in)
         value = 0.;
     }
 
-    DoubleSpinbox_qDebug() << Q_FUNC_INFO << " out = " << value;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << " out = " << value;
 
     return value;
 }
@@ -316,7 +302,7 @@ double DoubleSpinBox::getNextDownStepValue(double in)
 
 double DoubleSpinBox::valueFromText(const QString &text) const
 {
-    DoubleSpinbox_qDebug() << Q_FUNC_INFO << "text = " << text;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << "text = " << text;
 
     QLocale locale;
 
@@ -329,10 +315,10 @@ double DoubleSpinBox::valueFromText(const QString &text) const
     bool ok;
     double value = locale.toDouble(numberToRead, &ok);
     if (!ok) {
-        DoubleSpinbox_qDebug() << Q_FUNC_INFO << "numberToRead = |" << numberToRead << "| NOT OK";
+        qCDebug(KTL_DOUBLESPINBOX_LOG) << "numberToRead = |" << numberToRead << "| NOT OK";
         value = 0;
     }
-    DoubleSpinbox_qDebug() << Q_FUNC_INFO << "numberToRead = " << numberToRead << ", value = " << value;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << "numberToRead = " << numberToRead << ", value = " << value;
 
     if (value > maximum()) {
         value = maximum();
@@ -362,7 +348,7 @@ double DoubleSpinBox::valueFromText(const QString &text) const
             siExp = '1';
         }
 
-        DoubleSpinbox_qDebug() << Q_FUNC_INFO << "SI exp = " << siExp;
+        qCDebug(KTL_DOUBLESPINBOX_LOG) << "SI exp = " << siExp;
 
         if (siExp.isLetter() || siExp.isSymbol()) {
             multiplier = CNItem::getMultiplier(QString(siExp));
@@ -370,12 +356,12 @@ double DoubleSpinBox::valueFromText(const QString &text) const
             multiplier = 1;
         }
     }
-    DoubleSpinbox_qDebug() << Q_FUNC_INFO << "multiplier = " << multiplier;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << "multiplier = " << multiplier;
 
     // value /= Item::getMultiplier( value );
     value *= multiplier;
 
-    DoubleSpinbox_qDebug() << Q_FUNC_INFO << "value = " << value;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << "value = " << value;
 
     return value;
 }
@@ -397,7 +383,7 @@ double DoubleSpinBox::valueFromText(const QString &text) const
 
 QString DoubleSpinBox::textFromValue(double value) const
 {
-    DoubleSpinbox_qDebug() << Q_FUNC_INFO << " value = " << value;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << " value = " << value;
 
     //     int leftDigits = (int)floor( log10( abs( value ) ) ) + 1;
     //     if ( leftDigits < 0 ) {
@@ -409,7 +395,7 @@ QString DoubleSpinBox::textFromValue(double value) const
 
     double toDisplayNr = value / multiplier;
 
-    DoubleSpinbox_qDebug() << Q_FUNC_INFO << "toDisplayNr = " << toDisplayNr;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << "toDisplayNr = " << toDisplayNr;
 
     QString numberStr = QLocale().toString(toDisplayNr, 'f', 0 /* 3-leftDigits */);
 
@@ -417,7 +403,7 @@ QString DoubleSpinBox::textFromValue(double value) const
 
     QString toRet = numberStr + " " + magStr + m_unit;
 
-    DoubleSpinbox_qDebug() << Q_FUNC_INFO << " text = " << toRet;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << " text = " << toRet;
     return toRet;
 }
 
