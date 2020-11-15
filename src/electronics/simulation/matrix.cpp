@@ -10,6 +10,8 @@
 
 #include "matrix.h"
 
+#include "element.h"
+
 #include <cmath>
 #include <iostream>
 
