@@ -26,12 +26,13 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 
-#include <QDebug>
 #include <QDir>
 #include <QFile>
 #include <QTemporaryFile>
 #include <QTextStream>
 #include <QTimer>
+
+#include <ktechlab_debug.h>
 
 // gpsim has problems with dependent include headers
 // clang-format off
@@ -98,7 +99,7 @@ GpsimProcessor::GpsimProcessor(QString symbolFile, QObject *parent)
     const QByteArray fileName = QFile::encodeName(symbolFile);
 
 #ifdef GPSIM_0_21_4
-    qDebug() << "GPSIM_0_21_4 GpsimProcessor " << symbolFile;
+    qCDebug(KTL_LOG) << "GPSIM_0_21_4 GpsimProcessor " << symbolFile;
     switch ((cod_errors)load_symbol_file(&tempProcessor, fileName.constData())) {
     case COD_SUCCESS:
         m_codLoadStatus = CodSuccess;
@@ -122,14 +123,14 @@ GpsimProcessor::GpsimProcessor(QString symbolFile, QObject *parent)
         m_codLoadStatus = CodUnknown;
     }
 #else // GPSIM_0_21_11+
-    qDebug() << "GPSIM_0_21_11+ GpsimProcessor " << symbolFile;
+    qCDebug(KTL_LOG) << "GPSIM_0_21_11+ GpsimProcessor " << symbolFile;
     FILE *pFile = fopen(fileName.constData(), "r");
     if (!pFile)
         m_codLoadStatus = CodFileUnreadable;
     else
         m_codLoadStatus = (ProgramFileTypeList::GetList().LoadProgramFile(&tempProcessor, fileName.constData(), pFile)) ? CodSuccess : CodFailure;
 #endif
-    qDebug() << " m_codLoadStatus=" << m_codLoadStatus;
+    qCDebug(KTL_LOG) << " m_codLoadStatus=" << m_codLoadStatus;
 
     m_pPicProcessor = dynamic_cast<pic_processor *>(tempProcessor);
 
@@ -269,7 +270,7 @@ void GpsimProcessor::reset()
 MicroInfo *GpsimProcessor::microInfo() const
 {
     if (!m_pPicProcessor) {
-        qWarning() << Q_FUNC_INFO << " m_pPicProcessor == nullptr" << endl;
+        qCWarning(KTL_LOG) << " m_pPicProcessor == nullptr" << endl;
         return nullptr;
     }
 
@@ -310,9 +311,9 @@ GpsimProcessor::ProgramFileValidity GpsimProcessor::isValidProgramFile(const QSt
 
 QString GpsimProcessor::generateSymbolFile(const QString &fileName, QObject *receiver, const char *successMember, const char *failMember)
 {
-    qDebug() << Q_FUNC_INFO << "fileName=" << fileName;
+    qCDebug(KTL_LOG) << "fileName=" << fileName;
     if (isValidProgramFile(fileName) != GpsimProcessor::Valid) {
-        qDebug() << Q_FUNC_INFO << "not valid program file";
+        qCDebug(KTL_LOG) << "not valid program file";
         return QString();
     }
 
@@ -334,7 +335,7 @@ QString GpsimProcessor::generateSymbolFile(const QString &fileName, QObject *rec
     } else if (extension == "flowcode") {
         QTemporaryFile tmpFile(QDir::tempPath() + QLatin1String("/ktechlab_XXXXXX.hex"));
         if (!tmpFile.open()) {
-            qWarning() << " failed to open " << tmpFile.fileName() << " error " << tmpFile.errorString();
+            qCWarning(KTL_LOG) << " failed to open " << tmpFile.fileName() << " error " << tmpFile.errorString();
             return QString();
         }
         const QString hexFile = tmpFile.fileName();
@@ -470,7 +471,7 @@ void GpsimDebugger::gpsimRunningStatusChanged(bool isRunning)
 void GpsimDebugger::associateLine(const QString &sourceFile, int sourceLine, const QString &assemblyFile, int assemblyLine)
 {
     if (assemblyLine < 0 || sourceLine < 0) {
-        qWarning() << Q_FUNC_INFO << "Invalid lines: assemblyLine=" << assemblyLine << " sourceLine=" << sourceLine << endl;
+        qCWarning(KTL_LOG) << "Invalid lines: assemblyLine=" << assemblyLine << " sourceLine=" << sourceLine << endl;
         return;
     }
 
@@ -478,7 +479,7 @@ void GpsimDebugger::associateLine(const QString &sourceFile, int sourceLine, con
     SourceLine asmSource = SourceLine(assemblyFile, assemblyLine);
 
     if (m_sourceLineMap.contains(asmSource)) {
-        qWarning() << Q_FUNC_INFO << "Already have an association for assembly (\"" << assemblyFile << "\"," << assemblyLine << ")" << endl;
+        qCWarning(KTL_LOG) << "Already have an association for assembly (\"" << assemblyFile << "\"," << assemblyLine << ")" << endl;
         return;
     }
 
@@ -517,7 +518,7 @@ void GpsimDebugger::initAddressToLineMap()
             std::string stdAsmFile(asmFile.toAscii());
             int fileID = m_pGpsim->picProcessor()->files.Find(stdAsmFile);
             if (fileID == -1) {
-                qWarning() << Q_FUNC_INFO << "Could not find FileContext (asmFile=\"" << asmFile << "\")" << endl;
+                qCWarning(KTL_LOG) << "Could not find FileContext (asmFile=\"" << asmFile << "\")" << endl;
                 continue;
             }
 
@@ -525,7 +526,7 @@ void GpsimDebugger::initAddressToLineMap()
                 asmToLine = m_pGpsim->picProcessor()->files[fileID]->max_line() - 2;
 
             if ((asmFromLine < 0) || (asmToLine < asmFromLine)) {
-                qWarning() << Q_FUNC_INFO << "Invalid lines: asmFromLine=" << asmFromLine << " asmToLine=" << asmToLine << endl;
+                qCWarning(KTL_LOG) << "Invalid lines: asmFromLine=" << asmFromLine << " asmToLine=" << asmToLine << endl;
                 continue;
             }
 
@@ -672,13 +673,13 @@ void GpsimDebugger::stackStep(int dl)
 RegisterSet::RegisterSet(pic_processor *picProcessor)
 {
     unsigned numRegisters = picProcessor->rma.get_size();
-    qDebug() << Q_FUNC_INFO << "numRegisters=" << numRegisters << endl;
+    qCDebug(KTL_LOG) << "numRegisters=" << numRegisters << endl;
     m_registers.resize(numRegisters /*, nullptr - 2018.06.02 - initialized below */);
     for (unsigned i = 0; i < numRegisters; ++i) {
         RegisterInfo *info = new RegisterInfo(&picProcessor->rma[i]);
         m_registers[i] = info;
         m_nameToRegisterMap[info->name()] = info;
-        qDebug() << Q_FUNC_INFO << " add register info " << info->name() << " at pos " << i << " addr " << info;
+        qCDebug(KTL_LOG) << " add register info " << info->name() << " at pos " << i << " addr " << info;
     }
 #if defined(HAVE_GPSIM_0_26)
     RegisterInfo *info = new RegisterInfo(picProcessor->Wreg); // is tihs correct for "W" member? TODO
@@ -687,8 +688,8 @@ RegisterSet::RegisterSet(pic_processor *picProcessor)
 #endif
     m_registers.append(info);
     m_nameToRegisterMap[info->name()] = info;
-    qDebug() << Q_FUNC_INFO << " add register info " << info->name() << " at end, addr " << info;
-    qDebug() << Q_FUNC_INFO << " registers.size " << m_registers.size() << " ; numRegisters " << numRegisters;
+    qCDebug(KTL_LOG) << " add register info " << info->name() << " at end, addr " << info;
+    qCDebug(KTL_LOG) << " registers.size " << m_registers.size() << " ; numRegisters " << numRegisters;
 }
 
 RegisterSet::~RegisterSet()

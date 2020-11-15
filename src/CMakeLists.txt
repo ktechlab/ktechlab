@@ -317,6 +317,13 @@ SET(ktechlab_SRCS
     ./languages/flowcode.cpp
 )
 
+ecm_qt_declare_logging_category(ktechlab_SRCS
+    HEADER ktechlab_debug.h
+    IDENTIFIER KTL_LOG
+    CATEGORY_NAME org.kde.ktechlab
+    DEFAULT_SEVERITY Warning
+)
+
 set(ktechlab_DCOP_SKEL_SRCS
     docmanageriface.h
     viewiface.h

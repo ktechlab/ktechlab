@@ -15,11 +15,13 @@
 #include "probepositioner.h"
 #include "simulator.h"
 
-#include <QDebug>
 #include <QPainter>
 #include <QTimer>
 
 #include <cmath>
+
+#include <ktechlab_debug.h>
+
 #define FADESPEED 1
 
 ScopeScreenView::ScopeScreenView(QWidget *parent)
@@ -52,7 +54,7 @@ void ScopeScreenView::drawContents(QPainter * p)
 	const double ticksPerPixel = m_intervalsX * m_ticksPerIntervalX / cr.width();	
 	//draw the current time
 	int curTimeX = ((Simulator::self()->time() + m_offsetX) % (ticksPerScreen)) * pixelsPerTick;
-	//qDebug() << curTimeX <<endl;
+	//qCDebug(KTL_LOG) << curTimeX <<endl;
 	p->drawLine(curTimeX, cr.top(), curTimeX, cr.bottom());
 	
 	//the following is liberally borrowed from OscilloscopeView::drawFloatingData
@@ -102,7 +104,7 @@ void ScopeScreenView::drawContents(QPainter * p)
 			{
 				prevX = 0;
 			}
-			//qDebug() <<at<<" "<<nextX<<" "<<nextY<<" "<<nextTime<<endl;
+			//qCDebug(KTL_LOG) <<at<<" "<<nextX<<" "<<nextY<<" "<<nextTime<<endl;
 			p->drawLine( prevX, prevY, nextX, nextY );
 			
 			prevTime = nextTime;

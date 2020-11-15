@@ -18,12 +18,13 @@
 
 #include <KLocalizedString>
 
-#include <QDebug>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
 
 #include <cassert>
+
+#include <ktechlab_debug.h>
 
 ItemEditor *ItemEditor::m_pSelf = nullptr;
 
@@ -44,9 +45,9 @@ ItemEditor::ItemEditor(KateMDI::ToolView *parent)
 
     if (parent->layout()) {
         parent->layout()->addWidget(this);
-        qDebug() << Q_FUNC_INFO << " added item selector to parent's layout " << parent;
+        qCDebug(KTL_LOG) << " added item selector to parent's layout " << parent;
     } else {
-        qWarning() << Q_FUNC_INFO << " unexpected null layout on parent " << parent;
+        qCWarning(KTL_LOG) << " unexpected null layout on parent " << parent;
     }
 
     QVBoxLayout *vlayout = new QVBoxLayout(this /*, 0, 6 */);

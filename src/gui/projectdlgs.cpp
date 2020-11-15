@@ -21,7 +21,6 @@
 
 #include <QCheckBox>
 #include <QComboBox>
-#include <QDebug>
 #include <QDialogButtonBox>
 #include <QLabel>
 #include <QPushButton>
@@ -31,6 +30,7 @@
 #include <ui_linkeroptionswidget.h>
 #include <ui_newprojectwidget.h>
 #include <ui_processingoptionswidget.h>
+#include <ktechlab_debug.h>
 
 class NewProjectWidget : public QWidget, public Ui::NewProjectWidget
 {
@@ -86,7 +86,7 @@ void NewProjectDlg::accept()
 void NewProjectDlg::locationChanged(const QString &)
 {
     m_location = m_pWidget->projectLocationURL->url().toLocalFile();
-    qDebug() << "location changed to: " << m_location;
+    qCDebug(KTL_LOG) << "location changed to: " << m_location;
     QDir subDir(m_location);
 
     if (!m_location.endsWith("/"))
@@ -99,7 +99,7 @@ void NewProjectDlg::locationChanged(const QString &)
 
     QDir dir(m_location);
 
-    qDebug() << "dir.exists: " << dir.exists() << " subdir.exists: " << subDir.exists();
+    qCDebug(KTL_LOG) << "dir.exists: " << dir.exists() << " subdir.exists: " << subDir.exists();
 
     QPushButton *okButton = m_buttonBox->button(QDialogButtonBox::Ok);
     if (dir.exists() || !subDir.exists()) {

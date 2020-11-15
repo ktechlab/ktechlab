@@ -18,7 +18,6 @@
 #include <KTextEdit>
 #include <KToolBar>
 
-#include <QDebug>
 #include <QFont>
 #include <QIcon>
 #include <QTextEdit>
@@ -32,6 +31,8 @@
 #include <QTextList>
 #include <QTextListFormat>
 #include <QVBoxLayout>
+
+#include <ktechlab_debug.h>
 
 // #include <q3vbox.h>
 // #include <q3textedit.h>
@@ -378,18 +379,18 @@ void RichTextEditor::setResourcePaths(const QStringList &paths)
         l << "*.png";
         dir.setNameFilters(l);
         QFileInfoList fileInfoList = dir.entryInfoList();
-        qDebug() << Q_FUNC_INFO << " list size " << fileInfoList.size();
+        qCDebug(KTL_LOG) << " list size " << fileInfoList.size();
         for (QFileInfoList::iterator itFile = fileInfoList.begin(); itFile != fileInfoList.end(); ++itFile) {
             QFileInfo &fi = *itFile;
 
             QString fullPath = fi.path() + "/" + fi.fileName();
             QPixmap img(fullPath);
             if (img.isNull()) {
-                qWarning() << Q_FUNC_INFO << " img is null " << fullPath;
+                qCWarning(KTL_LOG) << " img is null " << fullPath;
             }
 
             m_pEditor->document()->addResource(QTextDocument::ImageResource, QUrl(fi.fileName()), QVariant(img));
-            qDebug() << Q_FUNC_INFO << " added resource: " << fi.fileName() << " to " << fullPath;
+            qCDebug(KTL_LOG) << " added resource: " << fi.fileName() << " to " << fullPath;
         }
     }
 }

@@ -14,9 +14,10 @@
 #include "oscilloscopedata.h"
 #include "probepositioner.h"
 
-#include <QDebug>
 #include <QPaintEvent>
 #include <QPainter>
+
+#include <ktechlab_debug.h>
 
 // for testing
 //#include <valgrind/callgrind.h>
@@ -44,7 +45,7 @@ void ScopeViewBase::paintEvent(QPaintEvent *event)
         updateOutputHeight();
 
         if (!m_pixmap) {
-            qWarning() << Q_FUNC_INFO << "unexpected null pixmap in " << this;
+            qCWarning(KTL_LOG) << "unexpected null pixmap in " << this;
             return;
         }
 
@@ -53,7 +54,7 @@ void ScopeViewBase::paintEvent(QPaintEvent *event)
         m_pixmap->fill(palette().color(backgroundRole()));
         const bool startSuccess = p.begin(m_pixmap);
         if ((!startSuccess) || (!p.isActive())) {
-            qWarning() << Q_FUNC_INFO << " painter is not active";
+            qCWarning(KTL_LOG) << " painter is not active";
         }
         p.setClipRegion(event->region());
 
@@ -75,7 +76,7 @@ void ScopeViewBase::paintEvent(QPaintEvent *event)
     QPainter p;
     const bool paintStarted = p.begin(this);
     if (!paintStarted) {
-        qWarning() << Q_FUNC_INFO << " failed to start painting ";
+        qCWarning(KTL_LOG) << " failed to start painting ";
     }
     p.drawImage(r, m_pixmap->toImage(), r);
 }

@@ -26,7 +26,6 @@
 #include <KLocalizedString>
 
 #include <QApplication>
-#include <QDebug>
 #include <QEvent>
 #include <QFontMetrics>
 #include <QHeaderView>
@@ -34,6 +33,8 @@
 #include <QPushButton>
 #include <QStyledItemDelegate>
 #include <QTimer>
+
+#include <ktechlab_debug.h>
 
 struct PropertyEditorStyledItemColProperty : public QStyledItemDelegate {
     PropertyEditor *m_propEditor;
@@ -50,12 +51,12 @@ struct PropertyEditorStyledItemColProperty : public QStyledItemDelegate {
         //             return;
         QTableWidgetItem *itemPtr = m_propEditor->item(index.row(), index.column());
         if (!itemPtr) {
-            qWarning() << Q_FUNC_INFO << " null item";
+            qCWarning(KTL_LOG) << " null item";
             return;
         }
         PropertyEditorItem *itemProp = dynamic_cast<PropertyEditorItem *>(itemPtr);
         if (!itemProp) {
-            qWarning() << Q_FUNC_INFO << " cannot cast item";
+            qCWarning(KTL_LOG) << " cannot cast item";
             return;
         }
 
@@ -71,7 +72,7 @@ struct PropertyEditorStyledItemColProperty : public QStyledItemDelegate {
 
         painter->save();
 
-        // qWarning() << " draw col " << index.column() << " row " << index.row()
+        // qCWarning(KTL_LOG) << " draw col " << index.column() << " row " << index.row()
         //    << " isHighlighted=" << isHighlighted << " state_selected=" << option.state.testFlag(QStyle::State_Selected);
 
         if (isHighlighted || option.state.testFlag(QStyle::State_Selected)) {
@@ -91,7 +92,7 @@ struct PropertyEditorStyledItemColProperty : public QStyledItemDelegate {
         painter->setFont(f);
         painter->drawText(QRect(left + margin, top, width - 1, height - 1), Qt::AlignVCenter, itemProp->text());
 
-        // qWarning() << Q_FUNC_INFO << " draw " << itemProp->text() << " at " << option.rect;
+        // qCWarning(KTL_LOG) << " draw " << itemProp->text() << " at " << option.rect;
 
         painter->setPen(QColor(200, 200, 200)); // like in table view
         painter->drawLine(left + width - 1, top, left + width - 1, top + height - 1);
@@ -124,12 +125,12 @@ struct PropertyEditorStyledItemColValue : public QStyledItemDelegate {
 
         QTableWidgetItem *itemPtr = m_propEditor->item(index.row(), index.column());
         if (!itemPtr) {
-            qWarning() << Q_FUNC_INFO << " null item";
+            qCWarning(KTL_LOG) << " null item";
             return;
         }
         PropertyEditorItem *itemProp = dynamic_cast<PropertyEditorItem *>(itemPtr);
         if (!itemProp) {
-            qWarning() << Q_FUNC_INFO << " cannot cast item";
+            qCWarning(KTL_LOG) << " cannot cast item";
             return;
         }
 
@@ -367,7 +368,7 @@ void PropertyEditor::createEditor(const QModelIndex &index)
 {
     PropertyEditorItem *i = dynamic_cast<PropertyEditorItem *>(item(index.row(), index.column()));
     if (!i) {
-        qWarning() << Q_FUNC_INFO << "no item";
+        qCWarning(KTL_LOG) << "no item";
         return;
     }
 
@@ -404,7 +405,7 @@ void PropertyEditor::createEditor(const QModelIndex &index)
         break;
 
     case Variant::Type::FileName:
-        qDebug() << Q_FUNC_INFO << "creating PropertyEditorFile";
+        qCDebug(KTL_LOG) << "creating PropertyEditorFile";
         editor = new PropertyEditorFile(viewport(), i->property());
         break;
 
@@ -534,7 +535,7 @@ QSize PropertyEditor::sizeHint() const
 
 void PropertyEditor::create(ItemGroup *b)
 {
-    qDebug() << Q_FUNC_INFO << "b=" << b;
+    qCDebug(KTL_LOG) << "b=" << b;
     m_pItemGroup = b;
 
     // QCString selectedPropertyName1, selectedPropertyName2;
@@ -553,10 +554,10 @@ void PropertyEditor::create(ItemGroup *b)
             setItemSelected(item, true);
             scrollToItem(item);
         } else {
-            qWarning() << Q_FUNC_INFO << "no item to select ";
+            qCWarning(KTL_LOG) << "no item to select ";
         }
     */
-    qDebug() << Q_FUNC_INFO << "column count= " << columnCount() << "rowCount=" << rowCount();
+    qCDebug(KTL_LOG) << "column count= " << columnCount() << "rowCount=" << rowCount();
 }
 
 void PropertyEditor::fill()
@@ -564,7 +565,7 @@ void PropertyEditor::fill()
     reset();
 
     if (!m_pItemGroup || !m_pItemGroup->activeItem()) {
-        qWarning() << Q_FUNC_INFO << " no active item " << m_pItemGroup;
+        qCWarning(KTL_LOG) << " no active item " << m_pItemGroup;
         return;
     }
 
@@ -582,7 +583,7 @@ void PropertyEditor::fill()
         if (v->isHidden()) {
             continue;
         }
-        qDebug() << Q_FUNC_INFO << "add variant id=" << v->id() << " v=" << v;
+        qCDebug(KTL_LOG) << "add variant id=" << v->id() << " v=" << v;
 
         switch (v->type()) {
         case Variant::Type::String:
@@ -757,12 +758,12 @@ PropertyEditorItem *PropertyEditor::selectedItem()
         return nullptr;
     }
     if (selList.size() > 1) {
-        qWarning() << Q_FUNC_INFO << " unexpected selection size of " << selList.size();
+        qCWarning(KTL_LOG) << " unexpected selection size of " << selList.size();
     }
     QModelIndex selIndex = selList.first();
     PropertyEditorItem *itemProp = dynamic_cast<PropertyEditorItem *>(item(selIndex.row(), selIndex.column()));
     if (!itemProp) {
-        qWarning() << Q_FUNC_INFO << " failed to cast " << selIndex;
+        qCWarning(KTL_LOG) << " failed to cast " << selIndex;
     }
     return itemProp;
 }

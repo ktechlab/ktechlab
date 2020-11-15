@@ -14,8 +14,9 @@
 #include "icndocument.h"
 #include "itemdocumentdata.h"
 
-#include <QDebug>
 #include <QPainter>
+
+#include <ktechlab_debug.h>
 
 QColor Node::m_selectedColor = QColor(101, 134, 192);
 
@@ -30,7 +31,7 @@ Node::Node(ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint
         name.append("-Unknown");
     }
     setObjectName(name.toLatin1().data());
-    qDebug() << Q_FUNC_INFO << " this=" << this;
+    qCDebug(KTL_LOG) << " this=" << this;
 
     m_length = 8;
     p_nodeGroup = nullptr;
@@ -45,7 +46,7 @@ Node::Node(ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint
         if (id) {
             m_id = *id;
             if (!p_icnDocument->registerUID(*id))
-                qCritical() << Q_FUNC_INFO << "Could not register id " << *id << endl;
+                qCCritical(KTL_LOG) << "Could not register id " << *id << endl;
         } else
             m_id = p_icnDocument->generateUID("node" + QString::number(type));
     }
@@ -110,7 +111,7 @@ void Node::setVisible(bool yes)
 void Node::setParentItem(CNItem *parentItem)
 {
     if (!parentItem) {
-        qCritical() << Q_FUNC_INFO << "no parent item" << endl;
+        qCCritical(KTL_LOG) << "no parent item" << endl;
         return;
     }
 

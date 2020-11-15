@@ -30,7 +30,6 @@
 #include <KRun>
 // #include <k3iconview.h>
 
-#include <QDebug>
 #include <QEvent>
 #include <QFile>
 #include <QFileDialog>
@@ -45,6 +44,8 @@
 #include <QStandardPaths>
 
 #include <cassert>
+
+#include <ktechlab_debug.h>
 
 ContextHelp *ContextHelp::m_pSelf = nullptr;
 
@@ -68,9 +69,9 @@ ContextHelp::ContextHelp(KateMDI::ToolView *parent)
 
     if (parent->layout()) {
         parent->layout()->addWidget(this);
-        qDebug() << Q_FUNC_INFO << " added item selector to parent's layout " << parent;
+        qCDebug(KTL_LOG) << " added item selector to parent's layout " << parent;
     } else {
-        qWarning() << Q_FUNC_INFO << " unexpected null layout on parent " << parent;
+        qCWarning(KTL_LOG) << " unexpected null layout on parent " << parent;
     }
 
     QFont font;
@@ -121,7 +122,7 @@ ContextHelp::~ContextHelp()
 
 bool ContextHelp::eventFilter(QObject *watched, QEvent *e)
 {
-    // 	qDebug() << Q_FUNC_INFO << "watched="<<watched<<endl;
+    // 	qCDebug(KTL_LOG) << "watched="<<watched<<endl;
 
     if ((watched != m_pEditor) && (watched != m_pEditor->editorViewport()))
         return false;

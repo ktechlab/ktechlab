@@ -14,6 +14,8 @@
 
 #include <cassert>
 
+#include <ktechlab_debug.h>
+
 Pin::Pin(ECNode *parent)
 {
     assert(parent);
@@ -38,7 +40,7 @@ Pin::~Pin()
 
 PinList Pin::localConnectedPins() const
 {
-    // 	qDebug() << Q_FUNC_INFO << "Input wires: "<<m_inputWireList.size()<<"   Output wires: " << m_outputWireList.size() << "   Switch connected: " << m_switchConnectedPins.size() << endl;
+    // 	qCDebug(KTL_LOG) << "Input wires: "<<m_inputWireList.size()<<"   Output wires: " << m_outputWireList.size() << "   Switch connected: " << m_switchConnectedPins.size() << endl;
 
     PinList pins;
 
@@ -76,7 +78,7 @@ void Pin::setSwitchCurrentsUnknown()
     if (!m_switchList.empty()) {
         m_switchList.removeAt(0l);
     } else {
-        qDebug() << "Pin::setSwitchCurrentsUnknown - WARN - unexpected empty switch list";
+        qCDebug(KTL_LOG) << "Pin::setSwitchCurrentsUnknown - WARN - unexpected empty switch list";
     }
     m_unknownSwitchCurrents = m_switchList;
 }

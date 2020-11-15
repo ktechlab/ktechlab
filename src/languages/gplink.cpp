@@ -18,11 +18,11 @@
 #include <KMessageBox>
 #include <KProcess>
 
-#include <QDebug>
 #include <QDir>
 #include <QFile>
 
 #include <ktlconfig.h>
+#include <ktechlab_debug.h>
 
 Gplink::Gplink(ProcessChain *processChain)
     : ExternalLanguage(processChain, "Gpasm")
@@ -37,9 +37,9 @@ Gplink::Gplink(ProcessChain *processChain)
     {                                                                                                                                                                                                                                          \
         if (m_sdccLibDir.isEmpty()) {                                                                                                                                                                                                          \
             QFile f(dir);                                                                                                                                                                                                                      \
-            qDebug() << Q_FUNC_INFO << " SDCC lib testing " << dir;                                                                                                                                                                            \
+            qCDebug(KTL_LOG) << " SDCC lib testing " << dir;                                                                                                                                                                            \
             if (f.exists()) {                                                                                                                                                                                                                  \
-                qDebug() << Q_FUNC_INFO << " SDCC lib found " << dir;                                                                                                                                                                          \
+                qCDebug(KTL_LOG) << " SDCC lib found " << dir;                                                                                                                                                                          \
                 m_sdccLibDir = dir;                                                                                                                                                                                                            \
             }                                                                                                                                                                                                                                  \
         }                                                                                                                                                                                                                                      \
@@ -58,12 +58,12 @@ Gplink::Gplink(ProcessChain *processChain)
     SEARCH_FOR_SDCC(QDir::homePath() + "/share/sdcc/lib");
 #undef SEARCH_FOR_SDCC
     if (m_sdccLibDir == "") {
-        qWarning() << Q_FUNC_INFO << "SDCC lib not found. Expect linking errors";
+        qCWarning(KTL_LOG) << "SDCC lib not found. Expect linking errors";
     }
     {
         QFile f(m_sdccLibDir + "/../non-free/lib");
         if (!f.exists()) {
-            qWarning() << Q_FUNC_INFO << "SDCC non-free lib not found. Expect linking errors";
+            qCWarning(KTL_LOG) << "SDCC non-free lib not found. Expect linking errors";
         }
     }
 }
@@ -124,8 +124,8 @@ void Gplink::processInput(ProcessOptions options)
         MicroInfo *info = MicroLibrary::self()->microInfoWithID(options.m_picID);
         if (!info) {
             // be program won't link anyway, but the user can't say that the program didn't try
-            qCritical() << Q_FUNC_INFO << "Couldn't find the requested PIC" << options.m_picID << endl;
-            qWarning() << Q_FUNC_INFO << "Supposing that the pic is pic12 or pic14" << endl;
+            qCCritical(KTL_LOG) << "Couldn't find the requested PIC" << options.m_picID << endl;
+            qCWarning(KTL_LOG) << "Supposing that the pic is pic12 or pic14" << endl;
             *m_languageProcess << "-I" << m_sdccLibDir + "/pic";
         } else {
             QString picLibSubdir;
@@ -141,7 +141,7 @@ void Gplink::processInput(ProcessOptions options)
                 picLibSubdir = "pic16";
                 break;
             default:
-                qWarning() << Q_FUNC_INFO << "Inexpected instruction set: " << (int)info->instructionSet()->set();
+                qCWarning(KTL_LOG) << "Inexpected instruction set: " << (int)info->instructionSet()->set();
                 break;
             }
             *m_languageProcess << "-I" << m_sdccLibDir + "/" + picLibSubdir;

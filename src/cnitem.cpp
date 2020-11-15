@@ -20,11 +20,12 @@
 #include "pinnode.h"
 
 #include <QBitArray>
-#include <QDebug>
 #include <QPainter>
 
 #include <cmath>
 #include <cstdlib>
+
+#include <ktechlab_debug.h>
 
 CNItem::CNItem(ICNDocument *icnDocument, bool newItem, const QString &id)
     : Item(icnDocument, newItem, id)
@@ -32,7 +33,7 @@ CNItem::CNItem(ICNDocument *icnDocument, bool newItem, const QString &id)
     , p_icnDocument(icnDocument)
     , b_pointsAdded(false)
 {
-    qDebug() << Q_FUNC_INFO << " this=" << this;
+    qCDebug(KTL_LOG) << " this=" << this;
 
     setZ(ICNDocument::Z::Item);
     setSelected(false);
@@ -489,7 +490,7 @@ Text *CNItem::addDisplayText(const QString &id, const QRect &pos, const QString 
     Text *text = nullptr;
     TextMap::iterator it = m_textMap.find(id);
     if (it != m_textMap.end()) {
-        // 		qWarning() << "CNItem::addDisplayText: removing old text"<<endl;
+        // 		qCWarning(KTL_LOG) << "CNItem::addDisplayText: removing old text"<<endl;
         delete it.value();
         m_textMap.erase(it);
     }
@@ -509,7 +510,7 @@ void CNItem::setDisplayText(const QString &id, const QString &display)
 {
     TextMap::iterator it = m_textMap.find(id);
     if (it == m_textMap.end()) {
-        qCritical() << "CNItem::setDisplayText: Could not find text with id \"" << id << "\"" << endl;
+        qCCritical(KTL_LOG) << "CNItem::setDisplayText: Could not find text with id \"" << id << "\"" << endl;
         return;
     }
     it.value()->setText(display);
@@ -520,7 +521,7 @@ void CNItem::removeDisplayText(const QString &id)
 {
     TextMap::iterator it = m_textMap.find(id);
     if (it == m_textMap.end()) {
-        // 		qCritical() << "CNItem::removeDisplayText: Could not find text with id \""<<id<<"\""<<endl;
+        // 		qCCritical(KTL_LOG) << "CNItem::removeDisplayText: Could not find text with id \""<<id<<"\""<<endl;
         return;
     }
     it.value()->updateConnectorPoints(false);

@@ -25,7 +25,6 @@
 #include <KRecentFilesAction>
 #include <KXMLGUIFactory>
 
-#include <QDebug>
 #include <QDomDocument>
 #include <QDomElement>
 #include <QFileDialog>
@@ -41,6 +40,7 @@
 #include <cassert>
 
 #include <ktlconfig.h>
+#include <ktechlab_debug.h>
 
 static QString relativeUrl(const QUrl &baseDirUrl, const QUrl &url)
 {
@@ -124,7 +124,7 @@ void LinkerOptions::domElementToLinkerOptions(const QDomElement &element, const 
                 m_linkedExternal << childElement.attribute("url", QString());
 
             else
-                qCritical() << Q_FUNC_INFO << "Unrecognised element tag name: " << tagName << endl;
+                qCCritical(KTL_LOG) << "Unrecognised element tag name: " << tagName << endl;
         }
 
         node = node.nextSibling();
@@ -366,7 +366,7 @@ ProjectItem::OutputType ProjectItem::outputType() const
         // We're a top level build target, so look at our own type
         switch (type()) {
         case ProjectItem::ProjectType:
-            qWarning() << Q_FUNC_INFO << "Parent item and this item are both project items" << endl;
+            qCWarning(KTL_LOG) << "Parent item and this item are both project items" << endl;
             return UnknownOutput;
 
         case ProjectItem::FileType:
@@ -380,7 +380,7 @@ ProjectItem::OutputType ProjectItem::outputType() const
     }
 
     case ProjectItem::FileType: {
-        qWarning() << Q_FUNC_INFO << "Don't know how to handle parent item being a file" << endl;
+        qCWarning(KTL_LOG) << "Don't know how to handle parent item being a file" << endl;
         return UnknownOutput;
     }
 
@@ -710,7 +710,7 @@ void ProjectItem::domElementToItem(const QDomElement &element, const QUrl &baseD
                 createdItem->domElementToItem(childElement, baseDirUrl);
 
             else
-                qCritical() << Q_FUNC_INFO << "Unrecognised element tag name: " << tagName << endl;
+                qCCritical(KTL_LOG) << "Unrecognised element tag name: " << tagName << endl;
         }
 
         node = node.nextSibling();
@@ -783,7 +783,7 @@ bool ProjectInfo::open(const QUrl &url)
                 domElementToItem(element, m_url);
 
             else
-                qWarning() << Q_FUNC_INFO << "Unrecognised element tag name: " << tagName << endl;
+                qCWarning(KTL_LOG) << "Unrecognised element tag name: " << tagName << endl;
         }
 
         node = node.nextSibling();
@@ -824,7 +824,7 @@ bool ProjectInfo::save()
             rfa->saveEntries(config->group("Recent Projects"));
             config->sync();
         } else {
-            qWarning() << "there is no project_open_recent action in application";
+            qCWarning(KTL_LOG) << "there is no project_open_recent action in application";
         }
     }
 
@@ -887,7 +887,7 @@ void ProjectManager::slotNewProject()
 
         QDir dir;
         if (!dir.mkdir(m_pCurrentProject->directory()))
-            qDebug() << "Error in creating directory " << m_pCurrentProject->directory() << endl;
+            qCDebug(KTL_LOG) << "Error in creating directory " << m_pCurrentProject->directory() << endl;
 
         m_pCurrentProject->save();
         updateActions();
@@ -938,7 +938,7 @@ void ProjectManager::slotOpenProject(const QUrl &url)
             rfa->saveEntries(config->group("Recent Projects"));
             config->sync();
         } else {
-            qWarning() << "there is no project_open_recent action in application";
+            qCWarning(KTL_LOG) << "there is no project_open_recent action in application";
         }
     }
 

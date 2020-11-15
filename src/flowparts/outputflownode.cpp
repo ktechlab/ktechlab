@@ -12,8 +12,9 @@
 #include "outputflownode.h"
 #include "connector.h"
 
-#include <QDebug>
 #include <QPainter>
+
+#include <ktechlab_debug.h>
 
 OutputFlowNode::OutputFlowNode(ICNDocument *_icnView, int dir, const QPoint &pos, QString *id)
     : FPNode(_icnView, Node::fp_out, dir, pos, id)
@@ -36,7 +37,7 @@ bool OutputFlowNode::acceptOutput() const
 
 void OutputFlowNode::addInputConnector(Connector *const /*connector*/)
 {
-    qDebug() << Q_FUNC_INFO << "BUG: trying to add input connector to an output node" << endl;
+    qCDebug(KTL_LOG) << "BUG: trying to add input connector to an output node" << endl;
 }
 
 inline QPolygon arrowPoints(int dir)
@@ -97,7 +98,7 @@ void OutputFlowNode::drawShape(QPainter &p)
         pa = arrowPoints(270);
         break;
     default:
-        qCritical() << Q_FUNC_INFO << "BUG: m_dir = " << m_dir << endl;
+        qCCritical(KTL_LOG) << "BUG: m_dir = " << m_dir << endl;
     }
 
     // Note: I have not tested the positioning of the arrows for all combinations.

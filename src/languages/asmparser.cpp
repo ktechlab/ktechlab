@@ -12,10 +12,11 @@
 #include "config.h"
 #include "gpsimprocessor.h"
 
-#include <QDebug>
 #include <QFile>
 #include <QRegExp>
 #include <QStringList>
+
+#include <ktechlab_debug.h>
 
 AsmParser::AsmParser(const QString &url)
     : m_url(url)
@@ -80,7 +81,7 @@ bool AsmParser::parse(GpsimDebugger *debugger)
             int fileLineAt = line.lastIndexOf(" ");
 
             if (fileLineAt == -1)
-                qWarning() << Q_FUNC_INFO << "Syntax error in line \"" << line << "\" while looking for file-line" << endl;
+                qCWarning(KTL_LOG) << "Syntax error in line \"" << line << "\" while looking for file-line" << endl;
             else {
                 // 7 = length_of(";#CSRC\t")
                 QString fileName = line.mid(7, fileLineAt - 7);
@@ -97,7 +98,7 @@ bool AsmParser::parse(GpsimDebugger *debugger)
                 if (ok && fileLine >= 0)
                     debugger->associateLine(fileName, fileLine, m_url, inputAtLine);
                 else
-                    qDebug() << Q_FUNC_INFO << "Not a valid line number: \"" << fileLineString << "\"" << endl;
+                    qCDebug(KTL_LOG) << "Not a valid line number: \"" << fileLineString << "\"" << endl;
             }
         }
 
@@ -108,12 +109,12 @@ bool AsmParser::parse(GpsimDebugger *debugger)
             // QStringList lineParts = QStringList::split( '\t', line ); // 2018.12.01
             QStringList lineParts = line.split('\t', QString::SkipEmptyParts);
             if (lineParts.size() < 2)
-                qWarning() << Q_FUNC_INFO << "Line is in wrong format for extracting source line and file: \"" << line << "\"" << endl;
+                qCWarning(KTL_LOG) << "Line is in wrong format for extracting source line and file: \"" << line << "\"" << endl;
             else {
                 const QString lineAndFile = lineParts[1];
                 int lineFileSplit = lineAndFile.indexOf("; ");
                 if (lineFileSplit == -1)
-                    qDebug() << Q_FUNC_INFO << "Could not find file / line split in \"" << lineAndFile << "\"" << endl;
+                    qCDebug(KTL_LOG) << "Could not find file / line split in \"" << lineAndFile << "\"" << endl;
                 else {
                     QString fileName = lineAndFile.mid(lineFileSplit + 2);
                     QString fileLineString = lineAndFile.left(lineFileSplit);
@@ -129,7 +130,7 @@ bool AsmParser::parse(GpsimDebugger *debugger)
                     if (ok && fileLine >= 0)
                         debugger->associateLine(fileName, fileLine, m_url, inputAtLine);
                     else
-                        qDebug() << Q_FUNC_INFO << "Not a valid line number: \"" << fileLineString << "\"" << endl;
+                        qCDebug(KTL_LOG) << "Not a valid line number: \"" << fileLineString << "\"" << endl;
                 }
             }
         }

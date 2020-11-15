@@ -17,6 +17,7 @@ include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 include(KDEClangFormat OPTIONAL RESULT_VARIABLE KDEClangFormat_FOUND)
 include(ECMSetupVersion)
+include(ECMQtDeclareLoggingCategory)
 
 include(ECMInstallIcons)
 include(FeatureSummary)

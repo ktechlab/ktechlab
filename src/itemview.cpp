@@ -31,7 +31,6 @@
 
 #include <QApplication>
 #include <QCursor>
-#include <QDebug>
 #include <QMatrix>
 #include <QMenu>
 #include <QMimeData>
@@ -42,6 +41,7 @@
 #include <cmath>
 
 #include <ktlconfig.h>
+#include <ktechlab_debug.h>
 
 // BEGIN class ItemView
 ItemView::ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uint viewAreaId)
@@ -419,7 +419,7 @@ void ItemView::contentsMouseDoubleClickEvent(QMouseEvent *e)
 
 void ItemView::contentsMouseMoveEvent(QMouseEvent *e)
 {
-    // 	qDebug() << Q_FUNC_INFO << "state = " << e->state() << endl;
+    // 	qCDebug(KTL_LOG) << "state = " << e->state() << endl;
 
     if (!e || !p_itemDocument)
         return;
@@ -488,7 +488,7 @@ void ItemView::createDragItem(QDragEnterEvent *e)
         }
     }
     if (matchingFormat.isEmpty()) {
-        qWarning() << Q_FUNC_INFO << "Invalid mime data" << mimeData->formats();
+        qCWarning(KTL_LOG) << "Invalid mime data" << mimeData->formats();
         return;
     }
 
@@ -702,7 +702,7 @@ void CVBEditor::canvasResized(const QRect &oldSize, const QRect &newSize)
 
     return;
 
-    qDebug() << Q_FUNC_INFO << endl;
+    qCDebug(KTL_LOG) << endl;
 
     QPoint delta = oldSize.topLeft() - newSize.topLeft();
     delta *= p_itemView->zoomLevel();

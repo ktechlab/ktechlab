@@ -18,8 +18,9 @@
 #include <KMessageBox>
 #include <KProcess>
 
-#include <QDebug>
 #include <QFile>
+
+#include <ktechlab_debug.h>
 
 Microbe::Microbe(ProcessChain *processChain)
     : ExternalLanguage(processChain, "Microbe")
@@ -44,7 +45,7 @@ Microbe::Microbe(ProcessChain *processChain)
 				if (ok) {
 					m_errorMessages[pos] = line.right(line.length()-line.indexOf("#"));
 				} else {
-					qCritical() << Q_FUNC_INFO << "Error parsing Microbe error-message file"<<endl;
+					qCCritical(KTL_LOG) << "Error parsing Microbe error-message file"<<endl;
 				}
 			}
         }

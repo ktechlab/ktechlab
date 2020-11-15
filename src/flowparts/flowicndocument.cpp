@@ -20,7 +20,7 @@
 #include "junctionflownode.h"
 #include "nodegroup.h"
 
-#include <QDebug>
+#include <ktechlab_debug.h>
 
 FlowICNDocument::FlowICNDocument(const QString &caption)
     : ICNDocument(caption)
@@ -132,7 +132,7 @@ bool FlowICNDocument::canConnect(KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *q
                 return false;
         }
     } else
-        qCritical() << Q_FUNC_INFO << "BUG: document type is not dt_flowcode" << endl;
+        qCCritical(KTL_LOG) << "BUG: document type is not dt_flowcode" << endl;
     // END Check we have appropriate input and output allowance
 
     return ICNDocument::canConnect(qcanvasItem1, qcanvasItem2);
@@ -236,7 +236,7 @@ Connector *FlowICNDocument::createConnector(const QString &startNodeId, const QS
     FPNode *endNode = getFPnodeWithID(endNodeId);
 
     if (!startNode || !endNode) {
-        qDebug() << "Either/both the connector start node and end node could not be found" << endl;
+        qCDebug(KTL_LOG) << "Either/both the connector start node and end node could not be found" << endl;
         return nullptr;
     }
 
@@ -245,7 +245,7 @@ Connector *FlowICNDocument::createConnector(const QString &startNodeId, const QS
 
     Connector *connector = endNode->createInputConnector(startNode);
     if (!connector) {
-        qCritical() << Q_FUNC_INFO << "End node did not create the connector" << endl;
+        qCCritical(KTL_LOG) << "End node did not create the connector" << endl;
         return nullptr;
     }
     startNode->addOutputConnector(connector);
@@ -327,7 +327,7 @@ void FlowICNDocument::flushDeleteList()
             m_connectorList.removeAll(con);
 
         else
-            qCritical() << Q_FUNC_INFO << "Unknown qcanvasItem! " << qcanvasItem << endl;
+            qCCritical(KTL_LOG) << "Unknown qcanvasItem! " << qcanvasItem << endl;
 
         qcanvasItem->setCanvas(nullptr);
 
@@ -366,7 +366,7 @@ bool FlowICNDocument::registerItem(KtlQCanvasItem *qcanvasItem)
             m_connectorList.append(connector);
             emit connectorAdded(connector);
         } else {
-            qCritical() << Q_FUNC_INFO << "Unrecognised item" << endl;
+            qCCritical(KTL_LOG) << "Unrecognised item" << endl;
             return false;
         }
     }

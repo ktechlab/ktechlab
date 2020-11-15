@@ -15,9 +15,10 @@
 #include <KProcess>
 #include <KShell>
 
-#include <QDebug>
 #include <QRegExp>
 #include <QTimer>
+
+#include <ktechlab_debug.h>
 
 ExternalLanguage::ExternalLanguage(ProcessChain *processChain, const QString &name)
     : Language(processChain, name)
@@ -85,7 +86,7 @@ void ExternalLanguage::processStderr()
 void ExternalLanguage::processExited(int, QProcess::ExitStatus)
 {
     if (!m_languageProcess) {
-        qDebug() << Q_FUNC_INFO << " m_languageProcess == nullptr, returning";
+        qCDebug(KTL_LOG) << " m_languageProcess == nullptr, returning";
         return;
     }
     bool allOk = processExited((m_languageProcess->exitStatus() == QProcess::NormalExit) && (m_errorCount == 0));

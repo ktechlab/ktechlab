@@ -20,6 +20,7 @@
 #include <KProcess>
 
 #include <ktlconfig.h>
+#include <ktechlab_debug.h>
 
 SDCC::SDCC(ProcessChain *processChain)
     : ExternalLanguage(processChain, "SDCC")
@@ -45,10 +46,10 @@ void SDCC::processInput(ProcessOptions options)
     m_processOptions = options;
 
     if (KTLConfig::sDCC_install_prefix().isEmpty()) {
-        qDebug() << Q_FUNC_INFO << "using system sdcc";
+        qCDebug(KTL_LOG) << "using system sdcc";
         *m_languageProcess << ("sdcc");
     } else {
-        qDebug() << Q_FUNC_INFO << "using sdcc at " << KTLConfig::sDCC_install_prefix();
+        qCDebug(KTL_LOG) << "using sdcc at " << KTLConfig::sDCC_install_prefix();
         *m_languageProcess << (KTLConfig::sDCC_install_prefix().append("/bin/sdcc"));
     }
 
@@ -110,7 +111,7 @@ void SDCC::processInput(ProcessOptions options)
             incDir = "pic16";
             break;
         default:
-            qWarning() << Q_FUNC_INFO << "unsupported PIC instruction set " << info->instructionSet()->set();
+            qCWarning(KTL_LOG) << "unsupported PIC instruction set " << info->instructionSet()->set();
         }
         *m_languageProcess << (QString("-I%1/share/sdcc/include").arg(KTLConfig::sDCC_install_prefix()));
         *m_languageProcess << (QString("-I%1/share/sdcc/include/%2").arg(KTLConfig::sDCC_install_prefix()).arg(incDir));
@@ -166,7 +167,7 @@ bool SDCC::isError(const QString &message) const
 
 bool SDCC::isStderrOutputFatal(const QString &message) const
 {
-    qDebug() << Q_FUNC_INFO << "message=" << message;
+    qCDebug(KTL_LOG) << "message=" << message;
     if (message.startsWith("Processor:"))
         return false;
 

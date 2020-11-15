@@ -21,7 +21,6 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 
-#include <QDebug>
 #include <QDialogButtonBox>
 #include <QGroupBox>
 #include <QLabel>
@@ -31,6 +30,7 @@
 // #include <q3table.h>
 
 #include <ui_newpinmappingwidget.h>
+#include <ktechlab_debug.h>
 
 class MicroSettingsWidget : public QWidget, public Ui::MicroSettingsWidget
 {
@@ -140,7 +140,7 @@ MicroSettingsDlg::MicroSettingsDlg(MicroSettings *microSettings, QWidget *parent
     for (QStringList::iterator it = variableNames.begin(); it != end; ++it) {
         VariableInfo *info = microSettings->variableInfo(*it);
         if (info) {
-            qDebug() << Q_FUNC_INFO << "add var: " << *it << " val: " << info->valueAsString();
+            qCDebug(KTL_LOG) << "add var: " << *it << " val: " << info->valueAsString();
             m_pWidget->variables->insertRow(row);
             QTableWidgetItem *varNameItem = new QTableWidgetItem(*it);
             m_pWidget->variables->setItem(row, 0, varNameItem);
@@ -150,7 +150,7 @@ MicroSettingsDlg::MicroSettingsDlg(MicroSettings *microSettings, QWidget *parent
         }
     }
     m_pWidget->variables->insertRow(row);
-    qDebug() << Q_FUNC_INFO << "row count: " << m_pWidget->variables->rowCount();
+    qCDebug(KTL_LOG) << "row count: " << m_pWidget->variables->rowCount();
 
     connect(m_pWidget->variables, SIGNAL(cellChanged(int, int)), this, SLOT(checkAddVariableRow()));
     // END Initialize initial variable settings
@@ -304,7 +304,7 @@ void MicroSettingsDlg::slotCreatePinMap()
         break;
 
     default:
-        qCritical() << Q_FUNC_INFO << "Unknown selected type " << type << endl;
+        qCCritical(KTL_LOG) << "Unknown selected type " << type << endl;
         break;
     }
 
@@ -450,7 +450,7 @@ void MicroSettingsDlg::saveVariable(int row)
         return;
     }
 
-    qDebug() << Q_FUNC_INFO << "save variable: " << name << " val: " << value;
+    qCDebug(KTL_LOG) << "save variable: " << name << " val: " << value;
 
     m_pMicroSettings->setVariable(name, value, true);
     VariableInfo *info = m_pMicroSettings->variableInfo(name);

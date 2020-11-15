@@ -16,9 +16,10 @@
 #include <KIconLoader>
 #include <KLocalizedString>
 
-#include <QDebug>
 #include <QPainter>
 #include <QTimer>
+
+#include <ktechlab_debug.h>
 
 // BEGIN class ImageScaleThread
 ImageScaleThread::ImageScaleThread()
@@ -38,7 +39,7 @@ ImageScaleThread::ImageScaleThread()
 bool ImageScaleThread::updateSettings(const QString &imageURL, int width, int height)
 {
     if (isRunning()) {
-        qWarning() << Q_FUNC_INFO << "Cannot update settings while running.\n";
+        qCWarning(KTL_LOG) << "Cannot update settings while running.\n";
         return false;
     }
 

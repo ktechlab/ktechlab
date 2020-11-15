@@ -18,12 +18,13 @@
 
 #include <QColor>
 #include <QCursor>
-#include <QDebug>
 #include <QFont>
 #include <QPainter>
 #include <QPixmap>
 #include <QPoint>
 #include <QSize>
+
+#include <ktechlab_debug.h>
 
 // BEGIN Class PropertyEditorItem
 PropertyEditorItem::PropertyEditorItem(PropertyEditorItem *par, Property *property)
@@ -206,7 +207,7 @@ void PropertyEditorItem::updateValue(bool alsoParent)
     if (m_property) {
         text = m_property->displayString();
     }
-    qDebug() << Q_FUNC_INFO << "text= " << text;
+    qCDebug(KTL_LOG) << "text= " << text;
     setText(text);
     if (alsoParent && QObject::parent())
         static_cast<PropertyEditorItem *>(QObject::parent())->updateValue();

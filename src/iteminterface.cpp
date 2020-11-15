@@ -29,11 +29,12 @@
 
 #include <QApplication>
 #include <QCheckBox>
-#include <QDebug>
 #include <QLabel>
 #include <QSpinBox>
 
 #include <cassert>
+
+#include <ktechlab_debug.h>
 
 ItemInterface *ItemInterface::m_pSelf = nullptr;
 
@@ -291,7 +292,7 @@ QWidget *ItemInterface::configWidget()
             break;
         }
         case Variant::Type::FileName: {
-            qDebug() << Q_FUNC_INFO << "create FileName";
+            qCDebug(KTL_LOG) << "create FileName";
             QString value = vait.value()->value().toString();
             if (!vait.value()->allowed().contains(value))
                 vait.value()->appendAllowed(value);
@@ -457,11 +458,11 @@ struct BoolLock {
         : m_flagPtr(flagPtr)
     {
         if (m_flagPtr == nullptr) {
-            qCritical() << Q_FUNC_INFO << "nullptr flagPtr";
+            qCCritical(KTL_LOG) << "nullptr flagPtr";
             return;
         }
         if (*m_flagPtr == true) {
-            qWarning() << Q_FUNC_INFO << "flag expected to be false, addr=" << m_flagPtr << " Doing nothing";
+            qCWarning(KTL_LOG) << "flag expected to be false, addr=" << m_flagPtr << " Doing nothing";
             m_flagPtr = nullptr;
         } else {
             *m_flagPtr = true;
@@ -477,9 +478,9 @@ struct BoolLock {
 
 void ItemInterface::tbDataChanged()
 {
-    qDebug() << Q_FUNC_INFO << "begin";
+    qCDebug(KTL_LOG) << "begin";
     if (m_isInTbDataChanged) {
-        qDebug() << Q_FUNC_INFO << "avoiding recursion, returning";
+        qCDebug(KTL_LOG) << "avoiding recursion, returning";
         return;
     }
     BoolLock inTbChangedLock(&m_isInTbDataChanged);
@@ -492,7 +493,7 @@ void ItemInterface::tbDataChanged()
     // String values from comboboxes
     const KComboBoxMap::iterator m_stringComboBoxMapEnd = m_stringComboBoxMap.end();
     for (KComboBoxMap::iterator cmit = m_stringComboBoxMap.begin(); cmit != m_stringComboBoxMapEnd; ++cmit) {
-        qDebug() << Q_FUNC_INFO << "set KCombo data for " << cmit.key() << " to " << cmit.value()->currentText();
+        qCDebug(KTL_LOG) << "set KCombo data for " << cmit.key() << " to " << cmit.value()->currentText();
         slotSetData(cmit.key(), cmit.value()->currentText());
     }
 
@@ -525,9 +526,9 @@ void ItemInterface::tbDataChanged()
     // Filenames from KUrlRequesters
     const KUrlReqMap::iterator m_stringURLReqMapEnd = m_stringURLReqMap.end();
     for (KUrlReqMap::iterator urlit = m_stringURLReqMap.begin(); urlit != m_stringURLReqMapEnd; ++urlit) {
-        qDebug() << Q_FUNC_INFO << "set kurlrequester data for " << urlit.key() << " to " << urlit.value()->url();
+        qCDebug(KTL_LOG) << "set kurlrequester data for " << urlit.key() << " to " << urlit.value()->url();
         QVariant urlVar(urlit.value()->url().path());
-        qDebug() << Q_FUNC_INFO << "urlVar=" << urlVar << " urlVar.toUrl=" << urlVar.toUrl();
+        qCDebug(KTL_LOG) << "urlVar=" << urlVar << " urlVar.toUrl=" << urlVar.toUrl();
         slotSetData(urlit.key(), urlVar);
     }
 
@@ -543,15 +544,15 @@ void ItemInterface::setProperty(Variant *v)
 void ItemInterface::slotSetData(const QString &id, QVariant value)
 {
     if (!p_itemGroup || (p_itemGroup->itemCount() == 0)) {
-        qDebug() << Q_FUNC_INFO << "p_itemGroup not valid:" << p_itemGroup;
+        qCDebug(KTL_LOG) << "p_itemGroup not valid:" << p_itemGroup;
         return;
     }
 
     if (!p_itemGroup->itemsAreSameType()) {
-        qDebug() << Q_FUNC_INFO << "Items are not the same type!" << endl;
+        qCDebug(KTL_LOG) << "Items are not the same type!" << endl;
         return;
     }
-    qDebug() << Q_FUNC_INFO << "id=" << id << " value=" << value;
+    qCDebug(KTL_LOG) << "id=" << id << " value=" << value;
 
     const ItemList itemList = p_itemGroup->items(true);
     const ItemList::const_iterator end = itemList.end();

@@ -30,13 +30,13 @@
 
 #include <KLocalizedString>
 
-#include <QDebug>
 #include <QDir>
 #include <QFile>
 #include <QTemporaryFile>
 #include <QTimer>
 
 #include <ktlconfig.h>
+#include <ktechlab_debug.h>
 
 // BEGIN class ProcessChain
 ProcessChain::ProcessChain(ProcessOptions options)
@@ -132,10 +132,10 @@ void ProcessChain::compile()
 #undef INDIRECT_PROCESS
 
     case ProcessOptions::ProcessPath::Invalid:
-        qWarning() << Q_FUNC_INFO << "Process path is invalid" << endl;
+        qCWarning(KTL_LOG) << "Process path is invalid" << endl;
 
     case ProcessOptions::ProcessPath::None:
-        qWarning() << Q_FUNC_INFO << "Nothing to do" << endl;
+        qCWarning(KTL_LOG) << "Nothing to do" << endl;
         break;
     }
 }

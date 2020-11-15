@@ -28,13 +28,14 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 
-#include <QDebug>
 #include <QIcon>
 #include <QPointer>
 #include <QStringList>
 
 #include "gpsim/ioports.h"
 #include "gpsim/pic-processor.h"
+
+#include <ktechlab_debug.h>
 
 QString PICComponent::_def_PICComponent_fileName;
 
@@ -119,29 +120,29 @@ PICComponent::~PICComponent()
 
 void PICComponent::dataChanged()
 {
-    qDebug() << Q_FUNC_INFO;
+    qCDebug(KTL_LOG);
     initPIC(false);
 }
 
 void PICComponent::initPIC(bool forceReload)
 {
     if (!m_bCreatedInitialPackage) {
-        qDebug() << Q_FUNC_INFO << " creating initial package";
+        qCDebug(KTL_LOG) << " creating initial package";
         // We are still being created, so other connectors will be expecting us to
         // have grown pins soonish.
         MicroInfo *microInfo = MicroLibrary::self()->microInfoWithID(dataString("lastPackage"));
         if (microInfo) {
             initPackage(microInfo);
         } else {
-            qDebug() << Q_FUNC_INFO << " unknown last package: " << dataString("lastPackage");
+            qCDebug(KTL_LOG) << " unknown last package: " << dataString("lastPackage");
         }
     }
 
     QString newProgram = dataString("program");
-    qDebug() << Q_FUNC_INFO << "newProgram=" << newProgram;
+    qCDebug(KTL_LOG) << "newProgram=" << newProgram;
     bool newFile = (m_picFile != newProgram);
     if (!newFile && !forceReload) {
-        qDebug() << Q_FUNC_INFO << "not new program, not force reload, exiting";
+        qCDebug(KTL_LOG) << "not new program, not force reload, exiting";
         return;
     }
 
@@ -336,7 +337,7 @@ bool PICComponent::mouseDoubleClickEvent(const EventInfo &eventInfo)
 
 QString PICComponent::createSymbolFile()
 {
-    qDebug() << Q_FUNC_INFO;
+    qCDebug(KTL_LOG);
     m_bLoadingProgram = true;
     slotUpdateBtns();
 
@@ -345,7 +346,7 @@ QString PICComponent::createSymbolFile()
 
 void PICComponent::slotCODCreationSucceeded()
 {
-    qDebug() << Q_FUNC_INFO << " m_symbolFile=" << m_symbolFile;
+    qCDebug(KTL_LOG) << " m_symbolFile=" << m_symbolFile;
     m_bLoadingProgram = false;
 
     delete m_pGpsim;
@@ -355,7 +356,7 @@ void PICComponent::slotCODCreationSucceeded()
         MicroInfo *microInfo = m_pGpsim->microInfo();
         if (!microInfo) {
             // FIXME we should be select somehow the type of the PIC. this is only a stability hack.
-            qWarning() << Q_FUNC_INFO << "cannot identify the PIC, defaulting to P16F84" << endl;
+            qCWarning(KTL_LOG) << "cannot identify the PIC, defaulting to P16F84" << endl;
             microInfo = MicroLibrary::self()->microInfoWithID("P16F84");
         }
         property("lastPackage")->setValue(microInfo->id());
@@ -382,7 +383,7 @@ void PICComponent::slotCODCreationFailed()
 
 void PICComponent::programReload()
 {
-    qDebug() << Q_FUNC_INFO;
+    qCDebug(KTL_LOG);
 
     delete m_pGpsim;
     m_pGpsim = nullptr;
@@ -396,7 +397,7 @@ void PICComponent::slotUpdateBtns()
 {
     // We can get called by the destruction of gpsim after our canvas has been set to nullptr
     if (!canvas()) {
-        qDebug() << Q_FUNC_INFO << " no canvas, exiting";
+        qCDebug(KTL_LOG) << " no canvas, exiting";
         return;
     }
 

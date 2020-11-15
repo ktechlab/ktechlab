@@ -19,7 +19,6 @@
 
 #include <KLocalizedString>
 
-#include <QDebug>
 // #include <q3button.h>
 #include <QLabel>
 #include <QScrollBar>
@@ -29,14 +28,16 @@
 
 #include <cassert>
 
+#include <ktechlab_debug.h>
+
 ScopeScreen::ScopeScreen(KateMDI::ToolView *parent)
     : QWidget(parent)
 {
     if (parent->layout()) {
         parent->layout()->addWidget(this);
-        qDebug() << Q_FUNC_INFO << " added item selector to parent's layout " << parent;
+        qCDebug(KTL_LOG) << " added item selector to parent's layout " << parent;
     } else {
-        qWarning() << Q_FUNC_INFO << " unexpected null layout on parent " << parent;
+        qCWarning(KTL_LOG) << " unexpected null layout on parent " << parent;
     }
 
     setupUi(this);

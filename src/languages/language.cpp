@@ -21,11 +21,11 @@
 #include <KMessageBox>
 #include <KProcess>
 
-#include <QDebug>
 #include <QRegExp>
 #include <QTimer>
 
 #include <ktlconfig.h>
+#include <ktechlab_debug.h>
 
 // BEGIN class Language
 Language::Language(ProcessChain *processChain, const QString &name)
@@ -194,7 +194,7 @@ void ProcessOptions::setTextOutputtedTo(TextDocument *outputtedTo)
 void ProcessOptions::setTargetFile(const QString &file)
 {
     if (b_targetFileSet) {
-        qWarning() << "Trying to reset target file!" << endl;
+        qCWarning(KTL_LOG) << "Trying to reset target file!" << endl;
         return;
     }
     m_targetFile = file;

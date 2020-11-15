@@ -29,8 +29,9 @@
 
 #include <QApplication>
 #include <QClipboard>
-#include <QDebug>
 #include <QTimer>
+
+#include <ktechlab_debug.h>
 
 // BEGIN class ICNDocument
 ICNDocument::ICNDocument(const QString &caption)
@@ -211,7 +212,7 @@ bool ICNDocument::canConnect(KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *qcanv
             else if (dl == 1)
                 container[i] = startParentItem[i];
             else
-                qCritical() << Q_FUNC_INFO << " start, i=" << i << " dl=" << dl << endl;
+                qCCritical(KTL_LOG) << " start, i=" << i << " dl=" << dl << endl;
         }
 
         if (endParentItem[i]) {
@@ -221,7 +222,7 @@ bool ICNDocument::canConnect(KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *qcanv
             else if (dl == 1)
                 container[i + 3] = endParentItem[i];
             else
-                qCritical() << Q_FUNC_INFO << " end, i=" << i << " dl=" << dl << endl;
+                qCCritical(KTL_LOG) << " end, i=" << i << " dl=" << dl << endl;
         }
     }
 
@@ -487,7 +488,7 @@ void ICNDocument::appendDeleteList(KtlQCanvasItem *qcanvasItem)
         if (connector)
             connector->removeConnector();
         else
-            qWarning() << Q_FUNC_INFO << "unrecognised KtlQCanvasItem " << qcanvasItem << endl;
+            qCWarning(KTL_LOG) << "unrecognised KtlQCanvasItem " << qcanvasItem << endl;
     }
 }
 
@@ -502,13 +503,13 @@ bool ICNDocument::registerItem(KtlQCanvasItem *qcanvasItem)
             m_nodeList[ node->id() ] = node;
             emit nodeAdded(node);
             */
-            qCritical() << Q_FUNC_INFO << "BUG: this member should have been overridden!" << endl;
+            qCCritical(KTL_LOG) << "BUG: this member should have been overridden!" << endl;
 
         } else if (Connector *connector = dynamic_cast<Connector *>(qcanvasItem)) {
             m_connectorList.append(connector);
             emit connectorAdded(connector);
         } else {
-            qCritical() << Q_FUNC_INFO << "Unrecognised item" << endl;
+            qCCritical(KTL_LOG) << "Unrecognised item" << endl;
             return false;
         }
     }

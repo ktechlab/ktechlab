@@ -17,9 +17,9 @@
 #include <KLocalizedString>
 #include <QPainter>
 
-#include <QDebug>
-
 #include <cmath>
+
+#include <ktechlab_debug.h>
 
 using namespace std;
 
@@ -108,7 +108,7 @@ void ECClockInput::dataChanged()
     m_bLastStepCallbackOut = false;
     m_lastSetTime = m_pSimulator->time();
     if (m_lastSetTime < 0) {
-        qWarning() << Q_FUNC_INFO << " m_lastSetTime = " << m_lastSetTime;
+        qCWarning(KTL_LOG) << " m_lastSetTime = " << m_lastSetTime;
     }
 }
 
@@ -139,7 +139,7 @@ void ECClockInput::stepNonLogic()
     //     { // for testing
     //         const long long remainingLogicSteps = m_pSimulator->time() % LOGIC_UPDATE_PER_STEP;
     //         if (remainingLogicSteps != 0) {
-    //             qWarning() << Q_FUNC_INFO << "remainingLogicSteps should be 0, but got " << remainingLogicSteps;
+    //             qCWarning(KTL_LOG) << "remainingLogicSteps should be 0, but got " << remainingLogicSteps;
     //         }
     //     }
 
@@ -161,7 +161,7 @@ void ECClockInput::stepNonLogic()
 
     m_lastSetTime = upTo;
     if (m_lastSetTime < 0) {
-        qWarning() << Q_FUNC_INFO << " m_lastSetTime = " << m_lastSetTime;
+        qCWarning(KTL_LOG) << " m_lastSetTime = " << m_lastSetTime;
     }
 }
 

@@ -13,9 +13,10 @@
 #include "cnitem.h"
 #include "icndocument.h"
 
-#include <QDebug>
 #include <QPainter>
 #include <QWheelEvent>
+
+#include <ktechlab_debug.h>
 
 // BEGIN Class GuiPart
 GuiPart::GuiPart(CNItem *parent, const QRect &r, KtlQCanvas *canvas)
@@ -460,12 +461,12 @@ void Slider::setValue(int value)
 
 void Slider::mousePressEvent(QMouseEvent *e)
 {
-    qDebug() << Q_FUNC_INFO << "pos " << e->pos() << " x " << int(x()) << " y " << int(y()) << " b " << e->button() << " bs " << e->buttons() << " m " << e->modifiers();
+    qCDebug(KTL_LOG) << "pos " << e->pos() << " x " << int(x()) << " y " << int(y()) << " b " << e->button() << " bs " << e->buttons() << " m " << e->modifiers();
     QMouseEvent event(QEvent::MouseButtonPress, e->pos() - QPoint(int(x()), int(y())), e->button(), e->buttons(), e->modifiers() // e->state() // 2018.12.02
     );
     m_slider->mousePressEvent(&event);
     if (event.isAccepted()) {
-        qDebug() << Q_FUNC_INFO << "accepted " << e;
+        qCDebug(KTL_LOG) << "accepted " << e;
         e->accept();
     }
     canvas()->setChanged(rect());
@@ -473,12 +474,12 @@ void Slider::mousePressEvent(QMouseEvent *e)
 
 void Slider::mouseReleaseEvent(QMouseEvent *e)
 {
-    qDebug() << Q_FUNC_INFO << "pos " << e->pos() << " x " << int(x()) << " y " << int(y()) << " b " << e->button() << " bs " << e->buttons() << " m " << e->modifiers();
+    qCDebug(KTL_LOG) << "pos " << e->pos() << " x " << int(x()) << " y " << int(y()) << " b " << e->button() << " bs " << e->buttons() << " m " << e->modifiers();
     QMouseEvent event(QEvent::MouseButtonRelease, e->pos() - QPoint(int(x()), int(y())), e->button(), e->buttons(), e->modifiers() // e->state() // 2018.12.02
     );
     m_slider->mouseReleaseEvent(&event);
     if (event.isAccepted()) {
-        qDebug() << Q_FUNC_INFO << "accepted " << e;
+        qCDebug(KTL_LOG) << "accepted " << e;
         e->accept();
     }
     canvas()->setChanged(rect());
@@ -518,13 +519,13 @@ void Slider::wheelEvent(QWheelEvent *e)
 
 void Slider::enterEvent(QEvent *e)
 {
-    qDebug() << Q_FUNC_INFO;
+    qCDebug(KTL_LOG);
     m_slider->enterEvent(e);
 }
 
 void Slider::leaveEvent(QEvent *e)
 {
-    qDebug() << Q_FUNC_INFO;
+    qCDebug(KTL_LOG);
     m_slider->leaveEvent(e);
 }
 

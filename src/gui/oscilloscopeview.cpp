@@ -21,7 +21,6 @@
 
 #include <QCheckBox>
 #include <QCursor>
-#include <QDebug>
 #include <QLabel>
 #include <QMenu>
 #include <QPaintEvent>
@@ -32,6 +31,8 @@
 
 #include <algorithm>
 #include <cmath>
+
+#include <ktechlab_debug.h>
 
 using namespace std;
 
@@ -195,7 +196,7 @@ void OscilloscopeView::paintEvent(QPaintEvent *e)
         const double pixelsPerSecond = Oscilloscope::self()->pixelsPerSecond();
 
         if (!m_pixmap) {
-            qWarning() << Q_FUNC_INFO << " unexpected null m_pixmap in " << this;
+            qCWarning(KTL_LOG) << " unexpected null m_pixmap in " << this;
             return;
         }
 
@@ -204,7 +205,7 @@ void OscilloscopeView::paintEvent(QPaintEvent *e)
         m_pixmap->fill(palette().color(backgroundRole()));
         const bool startSuccess = p.begin(m_pixmap);
         if ((!startSuccess) || (!p.isActive())) {
-            qWarning() << Q_FUNC_INFO << " painter is not active";
+            qCWarning(KTL_LOG) << " painter is not active";
         }
 
         p.setClipRegion(e->region());
@@ -257,7 +258,7 @@ void OscilloscopeView::paintEvent(QPaintEvent *e)
     QPainter p;
     const bool paintStarted = p.begin(this);
     if (!paintStarted) {
-        qWarning() << Q_FUNC_INFO << " failed to start painting ";
+        qCWarning(KTL_LOG) << " failed to start painting ";
     }
     p.drawImage(r, m_pixmap->toImage(), r);
 }

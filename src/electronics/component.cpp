@@ -38,13 +38,13 @@
 #include "voltagesource.h"
 
 #include <QBitArray>
-#include <QDebug>
 #include <QMatrix>
 #include <QPainter>
 #include <QWidget>
 #include <cmath>
 
 #include <ktlconfig.h>
+#include <ktechlab_debug.h>
 
 // const int dipWidth = 112;    // 2017.10.01 - comment out unused constants
 // const int pairSep = 32;
@@ -281,7 +281,7 @@ void Component::updateAttachedPositioning()
     const NodeInfoMap::iterator end = m_nodeMap.end();
     for (NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it) {
         if (!it.value().node)
-            qCritical() << Q_FUNC_INFO << "Node in nodemap is null" << endl;
+            qCCritical(KTL_LOG) << "Node in nodemap is null" << endl;
         else {
             int nx = int((std::cos(m_angleDegrees * RPD) * it.value().x) - (std::sin(m_angleDegrees * RPD) * it.value().y));
             int ny = int((std::sin(m_angleDegrees * RPD) * it.value().x) + (std::cos(m_angleDegrees * RPD) * it.value().y));
@@ -432,7 +432,7 @@ void Component::initDIPSymbol(const QStringList &pins, int _width)
     //     QPainter p;
     //     const bool isSuccess = p.begin(&tmpWidget);
     //     if (!isSuccess) {
-    //         qWarning() << Q_FUNC_INFO << " painter not active";
+    //         qCWarning(KTL_LOG) << " painter not active";
     //     }
 
     // p.setFont( font() ); // 2015.01.11 - do not use painter
@@ -576,7 +576,7 @@ void Component::init4PinRight(int h1, int h2, int h3, int h4)
 ECNode *Component::ecNodeWithID(const QString &ecNodeId)
 {
     if (!p_icnDocument) {
-        // 		qDebug() << "Warning: ecNodeWithID("<<ecNodeId<<") does not exist\n";
+        // 		qCDebug(KTL_LOG) << "Warning: ecNodeWithID("<<ecNodeId<<") does not exist\n";
         return createPin(0, 0, 0, ecNodeId);
     }
 
@@ -1034,7 +1034,7 @@ void Component::setAllPinsInterIndependent()
         // PinVector pins = (static_cast<ECNode*>(it.value().node))->pins();
         ECNode *node = dynamic_cast<ECNode *>(it.value().node);
         if (!node) {
-            qWarning() << Q_FUNC_INFO << "skipping not-ECNode node: " << it.value().node;
+            qCWarning(KTL_LOG) << "skipping not-ECNode node: " << it.value().node;
             continue;
         }
         PinVector pins = node->pins();

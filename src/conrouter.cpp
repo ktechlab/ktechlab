@@ -11,11 +11,12 @@
 #include "conrouter.h"
 #include "icndocument.h"
 #include "utils.h"
-#include <QDebug>
 
 #include <cassert>
 #include <cmath>
 #include <cstdlib>
+
+#include <ktechlab_debug.h>
 
 ConRouter::ConRouter(ICNDocument *cv)
 {
@@ -71,8 +72,8 @@ QPointListList ConRouter::splitPoints(const QPoint &pos) const
     QPointList second;
 
     if (!found) {
-        qWarning() << "ConRouter::splitConnectorPoints: Could not find point (" << pos.x() << ", " << pos.y() << ") in connector points" << endl;
-        qWarning() << "ConRouter::splitConnectorPoints: Returning generic list" << endl;
+        qCWarning(KTL_LOG) << "ConRouter::splitConnectorPoints: Could not find point (" << pos.x() << ", " << pos.y() << ") in connector points" << endl;
+        qCWarning(KTL_LOG) << "ConRouter::splitConnectorPoints: Returning generic list" << endl;
 
         first.append(toCanvas(m_cellPointList.first()));
         first.append(pos);
@@ -296,7 +297,7 @@ void ConRouter::mapRoute(int sx, int sy, int ex, int ey)
     cellsPtr = p_icnDocument->cells();
 
     if (!cellsPtr->haveCell(scx, scy) || !cellsPtr->haveCell(ecx, ecy)) {
-        qDebug() << Q_FUNC_INFO << "cellPtr doesn't have cells, giving up";
+        qCDebug(KTL_LOG) << "cellPtr doesn't have cells, giving up";
         return;
     }
 

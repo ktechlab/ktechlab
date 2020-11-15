@@ -20,12 +20,13 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 
-#include <QDebug>
 #include <QGridLayout>
 #include <QHeaderView>
 #include <QLabel>
 
 #include <cassert>
+
+#include <ktechlab_debug.h>
 
 static const int NAME_COLUMN = 0;
 static const int VALUE_COLUMN = 1;
@@ -37,8 +38,8 @@ SymbolViewerItem::SymbolViewerItem(SymbolViewer *symbolViewer, const RegisterInf
     , m_pRegisterInfo(registerInfo)
     , m_pSymbolViewer(symbolViewer)
 {
-    qDebug() << Q_FUNC_INFO << " reg info name " << m_pRegisterInfo->name();
-    qDebug() << Q_FUNC_INFO << " row " << row() << " column " << column();
+    qCDebug(KTL_LOG) << " reg info name " << m_pRegisterInfo->name();
+    qCDebug(KTL_LOG) << " row " << row() << " column " << column();
 
     assert(registerInfo);
     m_pRegisterInfo = registerInfo;
@@ -86,9 +87,9 @@ SymbolViewer::SymbolViewer(KateMDI::ToolView *parent)
 {
     if (parent->layout()) {
         parent->layout()->addWidget(this);
-        qDebug() << Q_FUNC_INFO << " added item selector to parent's layout " << parent;
+        qCDebug(KTL_LOG) << " added item selector to parent's layout " << parent;
     } else {
-        qWarning() << Q_FUNC_INFO << " unexpected null layout on parent " << parent;
+        qCWarning(KTL_LOG) << " unexpected null layout on parent " << parent;
     }
 
     QGridLayout *grid = new QGridLayout(this /*, 1, 1, 0, 6 */);
@@ -201,7 +202,7 @@ void SymbolViewer::setContext(GpsimProcessor *gpsim)
         RegisterInfo *reg = m_pCurrentContext->fromAddress(i);
 
         if (!reg) {
-            qDebug() << " skip null register at " << i;
+            qCDebug(KTL_LOG) << " skip null register at " << i;
             continue;
         }
 
@@ -209,7 +210,7 @@ void SymbolViewer::setContext(GpsimProcessor *gpsim)
             continue;
         }
 
-        qDebug() << Q_FUNC_INFO << " add reg at " << i << " info " << reg;
+        qCDebug(KTL_LOG) << " add reg at " << i << " info " << reg;
 
         m_pSymbolList->insertRow(i);
 
@@ -223,7 +224,7 @@ void SymbolViewer::setContext(GpsimProcessor *gpsim)
 void SymbolViewer::selectRadix(int selectIndex)
 {
     if ((selectIndex < 0) || (selectIndex > 3)) {
-        qWarning() << Q_FUNC_INFO << "Invalid select position for radix: " << selectIndex << endl;
+        qCWarning(KTL_LOG) << "Invalid select position for radix: " << selectIndex << endl;
         return;
     }
 

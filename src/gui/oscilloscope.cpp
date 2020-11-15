@@ -24,7 +24,6 @@
 
 // #include <q3button.h>
 
-#include <QDebug>
 #include <QLabel>
 #include <QScrollBar>
 #include <QSlider>
@@ -32,6 +31,8 @@
 #include <QToolButton>
 
 #include <cassert>
+
+#include <ktechlab_debug.h>
 
 // BEGIN Oscilloscope Class
 QColor probeColors[9] =
@@ -55,9 +56,9 @@ Oscilloscope::Oscilloscope(KateMDI::ToolView *parent)
 
     if (parent->layout()) {
         parent->layout()->addWidget(this);
-        qDebug() << Q_FUNC_INFO << " added item selector to parent's layout " << parent;
+        qCDebug(KTL_LOG) << " added item selector to parent's layout " << parent;
     } else {
-        qWarning() << Q_FUNC_INFO << " unexpected null layout on parent " << parent;
+        qCWarning(KTL_LOG) << " unexpected null layout on parent " << parent;
     }
 
     m_nextColor = 0;
@@ -318,7 +319,7 @@ void addOscilloscopeAsToolView(KTechlab *ktechlab)
 ProbeData *registerProbe(Probe *probe)
 {
     if (!Oscilloscope::isInstantiated()) {
-        qDebug() << Q_FUNC_INFO << "no oscilloscope to register to, doing nothing";
+        qCDebug(KTL_LOG) << "no oscilloscope to register to, doing nothing";
         return nullptr;
     }
     return Oscilloscope::self()->registerProbe(probe);
@@ -327,7 +328,7 @@ ProbeData *registerProbe(Probe *probe)
 void unregisterProbe(int id)
 {
     if (!Oscilloscope::isInstantiated()) {
-        qDebug() << Q_FUNC_INFO << "no oscilloscope to unregister from, doing nothing";
+        qCDebug(KTL_LOG) << "no oscilloscope to unregister from, doing nothing";
         return;
     }
     Oscilloscope::self()->unregisterProbe(id);

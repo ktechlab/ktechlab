@@ -14,9 +14,10 @@
 #include "icndocument.h"
 #include "node.h"
 
-#include <QDebug>
 #include <cassert>
 #include <cstdlib>
+
+#include <ktechlab_debug.h>
 
 NodeGroup::NodeGroup(ICNDocument *icnDocument)
     : QObject(icnDocument)
@@ -128,7 +129,7 @@ void NodeGroup::updateRoutes()
         ConRouter cr(p_icnDocument);
         cr.mapRoute((int)n1->x(), (int)n1->y(), (int)n2->x(), (int)n2->y());
         if (cr.pointList(false).size() <= 0) {
-            qDebug() << Q_FUNC_INFO << "no ConRouter points, giving up";
+            qCDebug(KTL_LOG) << "no ConRouter points, giving up";
             return; // continue might get to an infinite loop
         }
         QPointListList pl = cr.dividePoints(route.size() + 1);
@@ -298,7 +299,7 @@ void NodeGroup::findBestPair(NodeList *list, Node **n1, Node **n2)
     }
 
     if (!*n1) {
-        qCritical() << "NodeGroup::findBestPair: Could not find a routable pair of nodes!" << endl;
+        qCCritical(KTL_LOG) << "NodeGroup::findBestPair: Could not find a routable pair of nodes!" << endl;
     }
 }
 

@@ -17,7 +17,7 @@
 
 // #include <q3button.h>
 
-#include <QDebug>
+#include <ktechlab_debug.h>
 
 CIWidgetMgr::CIWidgetMgr(KtlQCanvas *canvas, CNItem *item)
 {
@@ -112,7 +112,7 @@ Button *CIWidgetMgr::addButton(const QString &id, const QRect &pos, const QStrin
     if (it == m_widgetMap.end()) {
         m_widgetMap[id] = button;
     } else {
-        qWarning() << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous" << endl;
+        qCWarning(KTL_LOG) << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous" << endl;
         delete it.value();
         it.value() = button;
     }
@@ -132,7 +132,7 @@ Button *CIWidgetMgr::addButton(const QString &id, const QRect &pos, const QIcon 
     if (it == m_widgetMap.end()) {
         m_widgetMap[id] = button;
     } else {
-        qWarning() << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous" << endl;
+        qCWarning(KTL_LOG) << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous" << endl;
         delete it.value();
         it.value() = button;
     }
@@ -156,7 +156,7 @@ Slider *CIWidgetMgr::addSlider(const QString &id, int minValue, int maxValue, in
     if (it == m_widgetMap.end()) {
         m_widgetMap[id] = slider;
     } else {
-        qWarning() << "CIWidgetMgr::addSlider: Attempting to re-add slider with same id as previous" << endl;
+        qCWarning(KTL_LOG) << "CIWidgetMgr::addSlider: Attempting to re-add slider with same id as previous" << endl;
         delete slider;
         return nullptr;
     }
@@ -187,7 +187,7 @@ bool CIWidgetMgr::mouseReleaseEvent(const EventInfo &info)
 {
     QMouseEvent *e = info.mouseReleaseEvent(0, 0);
 
-    qDebug() << Q_FUNC_INFO << " button=" << e->button() << " buttons=" << e->buttons();
+    qCDebug(KTL_LOG) << " button=" << e->button() << " buttons=" << e->buttons();
 
     const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
     for (WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it) {

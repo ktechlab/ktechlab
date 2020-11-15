@@ -13,7 +13,7 @@
 
 #include <cassert>
 
-#include <QDebug>
+#include <ktechlab_debug.h>
 
 // BEGIN class Element
 Element::Element()
@@ -70,7 +70,7 @@ void Element::elementSetDeleted()
         return delete this;
 
     b_status = false;
-    // 	qDebug() << "Element::elementSetDeleted(): Setting b_status to false, this="<<this<<endl;
+    // 	qCDebug(KTL_LOG) << "Element::elementSetDeleted(): Setting b_status to false, this="<<this<<endl;
 
     p_eSet = nullptr;
     setCNodes();
@@ -137,7 +137,7 @@ bool Element::updateStatus()
     }
 
     // And return the status :-)
-    // 	qDebug() << "Element::updateStatus(): Setting b_status to "<<(b_status?"true":"false")<<" this="<<this<<endl;
+    // 	qCDebug(KTL_LOG) << "Element::updateStatus(): Setting b_status to "<<(b_status?"true":"false")<<" this="<<this<<endl;
     return b_status;
 }
 

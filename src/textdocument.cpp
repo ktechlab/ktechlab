@@ -27,7 +27,6 @@
 
 // #include <kate/katedocument.h>
 #include <QAction>
-#include <QDebug>
 #include <QDir>
 #include <QTemporaryFile>
 
@@ -36,6 +35,8 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KXMLGUIFactory>
+
+#include <ktechlab_debug.h>
 
 bool TextDocument::isUndoAvailable() const
 {
@@ -194,7 +195,7 @@ void TextDocument::setText(const QString &text, bool asInitial)
     if (asInitial) {
         // m_doc->clearUndo(); // TODO FIXME
         // m_doc->clearRedo(); // TODO FIXME
-        qWarning() << "TextDocument::clearUndo TODO";
+        qCWarning(KTL_LOG) << "TextDocument::clearUndo TODO";
         setModified(false);
 
         connect(m_doc, SIGNAL(undoChanged()), this, SIGNAL(undoRedoStateChanged()));
@@ -307,7 +308,7 @@ void TextDocument::formatAssembly()
 void TextDocument::fileSave(const QUrl &url)
 {
     if (m_doc->url() != url) {
-        qCritical() << Q_FUNC_INFO << "Error: Kate::View url and passed url do not match; cannot save." << endl;
+        qCCritical(KTL_LOG) << "Error: Kate::View url and passed url do not match; cannot save." << endl;
         return;
     }
 
@@ -360,7 +361,7 @@ QString TextDocument::outputFilePath(const QString &ext)
         QTemporaryFile f(QDir::tempPath() + QLatin1String("/ktechlab_XXXXXX") + ext);
         f.setAutoRemove(false);
         if (!f.open()) {
-            qWarning() << Q_FUNC_INFO << " Failed to open temporary file";
+            qCWarning(KTL_LOG) << " Failed to open temporary file";
             return QString();
         }
         QTextStream out(&f);
@@ -419,7 +420,7 @@ void TextDocument::convertToAssembly()
     }
 
     else {
-        qCritical() << "Could not get file type for converting to assembly!" << endl;
+        qCCritical(KTL_LOG) << "Could not get file type for converting to assembly!" << endl;
         return;
     }
 
@@ -458,7 +459,7 @@ void TextDocument::convertToHex()
     }
 
     else {
-        qCritical() << "Could not get file type for converting to hex!" << endl;
+        qCCritical(KTL_LOG) << "Could not get file type for converting to hex!" << endl;
         return;
     }
 
@@ -508,7 +509,7 @@ void TextDocument::convertToPIC()
         break;
 
     case ct_unknown:
-        qCritical() << "Could not get file type for converting to hex!" << endl;
+        qCCritical(KTL_LOG) << "Could not get file type for converting to hex!" << endl;
         return;
     }
 

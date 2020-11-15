@@ -21,6 +21,8 @@
 
 #include <cmath>
 
+#include <ktechlab_debug.h>
+
 const int topStrip = 24;
 const int botStrip = 16;
 
@@ -221,7 +223,7 @@ void FlowContainer::setFullBounds(bool full)
         return;
     }
 
-    // 	qDebug() << Q_FUNC_INFO << "width="<<width()<<" height="<<height()<<endl;
+    // 	qCDebug(KTL_LOG) << "width="<<width()<<" height="<<height()<<endl;
 
     QPolygon pa(10);
     pa[0] = QPoint(0, 0);
@@ -287,7 +289,7 @@ void FlowContainer::setExpanded(bool expanded)
 
 void FlowContainer::postResize()
 {
-    // 	qDebug() << Q_FUNC_INFO << "width="<<width()<<endl;
+    // 	qCDebug(KTL_LOG) << "width="<<width()<<endl;
     setFullBounds(false);
     FlowPart::postResize();
 }

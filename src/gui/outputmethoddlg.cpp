@@ -19,7 +19,6 @@
 #include <KUrlRequester>
 
 #include <QCheckBox>
-#include <QDebug>
 #include <QDialogButtonBox>
 #include <QFile>
 #include <QPushButton>
@@ -27,6 +26,7 @@
 #include <QVBoxLayout>
 
 #include <ui_outputmethodwidget.h>
+#include <ktechlab_debug.h>
 
 class OutputMethodWidget : public QWidget, public Ui::OutputMethodWidget
 {
@@ -53,7 +53,7 @@ void OutputMethodInfo::initialize(OutputMethodDlg *dlg)
         QTemporaryFile f(QDir::tempPath() + QLatin1String("/ktechlab_XXXXXX") + dlg->m_outputExtension);
         f.setAutoRemove(false);
         if (!f.open()) {
-            qWarning() << "failed to open " << f.fileName() << " because " << f.errorString();
+            qCWarning(KTL_LOG) << "failed to open " << f.fileName() << " because " << f.errorString();
         }
         f.close();
         m_outputFile = QUrl::fromLocalFile(f.fileName());

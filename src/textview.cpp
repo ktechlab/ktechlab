@@ -36,13 +36,14 @@
 #include <QActionGroup>
 #include <QApplication>
 #include <QCursor>
-#include <QDebug>
 #include <QVBoxLayout>
 //#include <qobjectlist.h>
 #include <QClipboard>
 #include <QFocusEvent>
 #include <QMenu>
 #include <QTimer>
+
+#include <ktechlab_debug.h>
 
 // BEGIN class TextView
 TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uint viewAreaId)
@@ -183,14 +184,14 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
     //  the proper solution would be to move the actions from KTechLab object level to document level for
     //  all types of documents
     for (QAction *act : actionCollection()->actions()) {
-        qDebug() << Q_FUNC_INFO << "act: " << act->text() << " shortcut " << act->shortcut() << ":" << act;
+        qCDebug(KTL_LOG) << "act: " << act->text() << " shortcut " << act->shortcut() << ":" << act;
 
         if (((act->objectName()) == QLatin1String("file_save")) || ((act->objectName()) == QLatin1String("file_save_as")) || ((act->objectName()) == QLatin1String("file_print")) || ((act->objectName()) == QLatin1String("edit_undo")) ||
             ((act->objectName()) == QLatin1String("edit_redo")) || ((act->objectName()) == QLatin1String("edit_cut")) || ((act->objectName()) == QLatin1String("edit_copy")) || ((act->objectName()) == QLatin1String("edit_paste"))) {
             act->setShortcutContext(Qt::WidgetWithChildrenShortcut);
             // act->setShortcutConfigurable(true);
             act->setShortcut(Qt::Key_unknown);
-            qDebug() << Q_FUNC_INFO << "action " << act << " disabled";
+            qCDebug(KTL_LOG) << "action " << act << " disabled";
         }
     }
 }
@@ -233,7 +234,7 @@ TextDocument *TextView::textDocument() const
 }
 void TextView::undo()
 {
-    qDebug() << Q_FUNC_INFO;
+    qCDebug(KTL_LOG);
     // note: quite a hack, but could not find any more decent way of getting to undo/redo interface
     // note: quite a hack, but could not find any more decent way of getting to undo/redo interface
     QAction *action = actionByName("edit_undo");
@@ -241,18 +242,18 @@ void TextView::undo()
         action->trigger();
         return;
     }
-    qWarning() << Q_FUNC_INFO << "no edit_undo action in text view! no action taken";
+    qCWarning(KTL_LOG) << "no edit_undo action in text view! no action taken";
 }
 void TextView::redo()
 {
-    qDebug() << Q_FUNC_INFO;
+    qCDebug(KTL_LOG);
     // note: quite a hack, but could not find any more decent way of getting to undo/redo interface
     QAction *action = actionByName("edit_redo");
     if (action) {
         action->trigger();
         return;
     }
-    qWarning() << Q_FUNC_INFO << "no edit_redo action in text view! no action taken";
+    qCWarning(KTL_LOG) << "no edit_redo action in text view! no action taken";
 }
 
 void TextView::cut()
@@ -294,7 +295,7 @@ void TextView::disableActions()
             a->setEnabled(false);
             break;
         default:
-            qDebug() << Q_FUNC_INFO << " skip action: " << a;
+            qCDebug(KTL_LOG) << " skip action: " << a;
         }
     }
     // tb->setItemEnabled( TextDocument::AssemblyOutput, false );    // 2018.12.02
@@ -320,14 +321,14 @@ bool TextView::saveAs()
 }
 void TextView::print()
 {
-    qDebug() << Q_FUNC_INFO;
+    qCDebug(KTL_LOG);
     // note: quite a hack, but could not find any more decent way of getting to undo/redo interface
     QAction *action = actionByName("file_print");
     if (action) {
         action->trigger();
         return;
     }
-    qWarning() << Q_FUNC_INFO << "no file_print action in text view! no action taken";
+    qCWarning(KTL_LOG) << "no file_print action in text view! no action taken";
 }
 
 void TextView::gotFocus()
@@ -369,7 +370,7 @@ void TextView::initCodeActions()
             actPicOut = a;
             break;
         default:
-            qDebug() << Q_FUNC_INFO << " skip action: " << a;
+            qCDebug(KTL_LOG) << " skip action: " << a;
         }
     }
 
@@ -580,7 +581,7 @@ TextViewEventFilter::TextViewEventFilter(TextView *textView)
             // connect( view, SIGNAL(needTextHint(const KTextEditor::Cursor &, QString &)),
             //         this, SLOT(slotNeedTextHint(const KTextEditor::Cursor &, QString &)) );
         } else {
-            qWarning() << "KTextEditor::View does not implement TextHintInterface for " << view;
+            qCWarning(KTL_LOG) << "KTextEditor::View does not implement TextHintInterface for " << view;
         }
     }
 
@@ -604,7 +605,7 @@ TextViewEventFilter::~TextViewEventFilter()
 
 QString TextViewEventFilter::textHint(KTextEditor::View * /*view*/, const KTextEditor::Cursor &position)
 {
-    qDebug() << "TextViewEventFilter::textHint: position=" << position.toString();
+    qCDebug(KTL_LOG) << "TextViewEventFilter::textHint: position=" << position.toString();
     QString str;
     slotNeedTextHint(position, str);
     return QString();
@@ -612,7 +613,7 @@ QString TextViewEventFilter::textHint(KTextEditor::View * /*view*/, const KTextE
 
 bool TextViewEventFilter::eventFilter(QObject *, QEvent *e)
 {
-    // 	qDebug() << Q_FUNC_INFO << "e->type() = " << e->type() << endl;
+    // 	qCDebug(KTL_LOG) << "e->type() = " << e->type() << endl;
 
     if (e->type() == QEvent::MouseMove) {
         if (!m_pNoWordTimer->isActive())

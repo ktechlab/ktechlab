@@ -12,12 +12,13 @@
 #include "canvas_private.h"
 
 #include <QBrush>
-#include <QDebug>
 #include <QPainter>
 #include <QPainterPath>
 #include <QPen>
 #include <QPolygon>
 #include <QRect>
+
+#include <ktechlab_debug.h>
 
 static bool isCanvasDebugEnabled()
 {
@@ -36,7 +37,7 @@ KtlQCanvasItem::KtlQCanvasItem(KtlQCanvas *canvas)
     , sel(false)
 {
     if (isCanvasDebugEnabled()) {
-        qDebug() << Q_FUNC_INFO << " this=" << this;
+        qCDebug(KTL_LOG) << " this=" << this;
     }
     if (cnv)
         cnv->addItem(this);
@@ -300,14 +301,14 @@ KtlQCanvasPolygonalItem::KtlQCanvasPolygonalItem(KtlQCanvas *canvas)
     , wind(false)
 {
     if (isCanvasDebugEnabled()) {
-        qDebug() << "created KtlQCanvasPolygonalItem at " << this;
+        qCDebug(KTL_LOG) << "created KtlQCanvasPolygonalItem at " << this;
     }
 }
 
 KtlQCanvasPolygonalItem::~KtlQCanvasPolygonalItem()
 {
     if (isCanvasDebugEnabled()) {
-        qDebug() << "destroying KtlQCanvasPolygonalItem at " << this;
+        qCDebug(KTL_LOG) << "destroying KtlQCanvasPolygonalItem at " << this;
     }
 }
 
@@ -394,7 +395,7 @@ KtlQCanvasPolygon::KtlQCanvasPolygon(KtlQCanvas *canvas)
     , guardAft()
 {
     if (isCanvasDebugEnabled()) {
-        qDebug() << Q_FUNC_INFO << " this=" << this;
+        qCDebug(KTL_LOG) << " this=" << this;
     }
 }
 
@@ -460,7 +461,7 @@ KtlQCanvasLine::KtlQCanvasLine(KtlQCanvas *canvas)
     : KtlQCanvasPolygonalItem(canvas)
 {
     if (isCanvasDebugEnabled()) {
-        qDebug() << Q_FUNC_INFO << " this=" << this;
+        qCDebug(KTL_LOG) << " this=" << this;
     }
     x1 = y1 = x2 = y2 = 0;
 }
@@ -544,7 +545,7 @@ KtlQCanvasRectangle::KtlQCanvasRectangle(KtlQCanvas *canvas)
 {
     setObjectName("KtlQCanvasRectangle");
     if (isCanvasDebugEnabled()) {
-        qDebug() << Q_FUNC_INFO << " this=" << this;
+        qCDebug(KTL_LOG) << " this=" << this;
     }
 }
 
@@ -556,7 +557,7 @@ KtlQCanvasRectangle::KtlQCanvasRectangle(const QRect &r, KtlQCanvas *canvas)
     setObjectName("KtlQCanvasRectangle");
     move(r.x(), r.y());
     if (isCanvasDebugEnabled()) {
-        qDebug() << Q_FUNC_INFO << " this=" << this;
+        qCDebug(KTL_LOG) << " this=" << this;
     }
 }
 
@@ -568,7 +569,7 @@ KtlQCanvasRectangle::KtlQCanvasRectangle(int x, int y, int width, int height, Kt
     setObjectName("KtlQCanvasRectangle");
     move(x, y);
     if (isCanvasDebugEnabled()) {
-        qDebug() << Q_FUNC_INFO << " this=" << this;
+        qCDebug(KTL_LOG) << " this=" << this;
     }
 }
 
@@ -625,7 +626,7 @@ KtlQCanvasEllipse::KtlQCanvasEllipse(KtlQCanvas *canvas)
     , a2(360 * 16)
 {
     if (isCanvasDebugEnabled()) {
-        qDebug() << Q_FUNC_INFO << " this=" << this;
+        qCDebug(KTL_LOG) << " this=" << this;
     }
 }
 
@@ -641,7 +642,7 @@ KtlQCanvasEllipse::KtlQCanvasEllipse(int width, int height, KtlQCanvas *canvas)
     , a2(360 * 16)
 {
     if (isCanvasDebugEnabled()) {
-        qDebug() << Q_FUNC_INFO << " this=" << this;
+        qCDebug(KTL_LOG) << " this=" << this;
     }
 }
 
@@ -653,7 +654,7 @@ KtlQCanvasEllipse::KtlQCanvasEllipse(int width, int height, int startangle, int 
     , a2(angle)
 {
     if (isCanvasDebugEnabled()) {
-        qDebug() << Q_FUNC_INFO << " this=" << this;
+        qCDebug(KTL_LOG) << " this=" << this;
     }
 }
 

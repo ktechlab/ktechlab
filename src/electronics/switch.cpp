@@ -12,7 +12,6 @@
 #include <stdlib.h> // for rand
 #include <time.h>
 
-#include <QDebug>
 #include <QTimer>
 
 #include "circuitdocument.h"
@@ -22,6 +21,8 @@
 #include "resistance.h"
 #include "simulator.h"
 #include "switch.h"
+
+#include <ktechlab_debug.h>
 
 Switch::Switch(Component *parent, Pin *p1, Pin *p2, State state)
 {
@@ -79,7 +80,7 @@ void Switch::startBouncing()
     if (!m_pComponent->circuitDocument())
         return;
 
-    // 	qDebug() << Q_FUNC_INFO << endl;
+    // 	qCDebug(KTL_LOG) << endl;
 
     m_pBounceResistance = m_pComponent->createResistance(m_pP1, m_pP2, 10000);
     m_bounceStart = Simulator::self()->time();
@@ -89,7 +90,7 @@ void Switch::startBouncing()
     // contaminate that many other classes.
 
     //	Simulator::self()->attachSwitch( this );
-    // 	qDebug() << "m_bounceStart="<<m_bounceStart<<" m_bouncePeriod_ms="<<m_bouncePeriod_ms<<endl;
+    // 	qCDebug(KTL_LOG) << "m_bounceStart="<<m_bounceStart<<" m_bouncePeriod_ms="<<m_bouncePeriod_ms<<endl;
 
     // initialize random generator
     srand(time(nullptr));

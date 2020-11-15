@@ -69,6 +69,7 @@
 #include <KXMLGUIFactory>
 
 #include <ktlconfig.h>
+#include <ktechlab_debug.h>
 
 KTechlab *KTechlab::m_pSelf = nullptr;
 
@@ -106,7 +107,7 @@ KTechlab::KTechlab()
     KSharedConfigPtr cfg = KSharedConfig::openConfig();
     readPropertiesInConfig(cfg.data());
 
-    // 	qDebug() << "Constructor time: " << ct.elapsed() << endl;
+    // 	qCDebug(KTL_LOG) << "Constructor time: " << ct.elapsed() << endl;
 }
 
 KTechlab::~KTechlab()
@@ -383,7 +384,7 @@ void KTechlab::setupTabWidget()
     if (centralWidget()->layout()) {
         centralWidget()->layout()->addWidget(m_pViewContainerTabWidget);
     } else {
-        qWarning() << " unexpected null layout for " << centralWidget();
+        qCWarning(KTL_LOG) << " unexpected null layout for " << centralWidget();
     }
     connect(tabWidget(), SIGNAL(currentChanged(int)), this, SLOT(slotViewContainerActivated(int)));
 
@@ -711,7 +712,7 @@ void KTechlab::setupExampleActions()
         // K3PopupMenu * m = static_cast<K3PopupMenu*>(factory()->container( "examples_" + category, this ));
         QMenu *m = static_cast<QMenu *>(factory()->container("examples_" + category, this));
         if (!m) {
-            qWarning() << "failed to cast to popup menu: "
+            qCWarning(KTL_LOG) << "failed to cast to popup menu: "
                        << "examples_" + category;
             continue;
         }
@@ -773,7 +774,7 @@ QAction *KTechlab::actionByName(const QString &name) const
 {
     QAction *action = actionCollection()->action(name);
     if (!action)
-        qCritical() << Q_FUNC_INFO << "No such action: " << name << endl;
+        qCCritical(KTL_LOG) << "No such action: " << name << endl;
     return action;
 }
 

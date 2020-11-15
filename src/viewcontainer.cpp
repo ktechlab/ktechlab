@@ -17,11 +17,12 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 
-#include <QDebug>
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QTabWidget>
 //#include <qobjectlist.h>
+
+#include <ktechlab_debug.h>
 
 // BEGIN class ViewContainer
 ViewContainer::ViewContainer(const QString &caption, QWidget *parent)
@@ -142,7 +143,7 @@ int ViewContainer::createViewArea(int relativeViewArea, ViewArea::Position posit
 
     ViewArea *relative = viewArea(relativeViewArea);
     if (!relative) {
-        qCritical() << Q_FUNC_INFO << "Could not find relative view area" << endl;
+        qCCritical(KTL_LOG) << "Could not find relative view area" << endl;
         return -1;
     }
 
@@ -298,11 +299,11 @@ ViewArea::~ViewArea()
 ViewArea *ViewArea::createViewArea(Position position, uint id, bool showOpenButton)
 {
     if (p_viewArea1 || p_viewArea2) {
-        qCritical() << Q_FUNC_INFO << "Attempting to create ViewArea when already containing ViewAreas!" << endl;
+        qCCritical(KTL_LOG) << "Attempting to create ViewArea when already containing ViewAreas!" << endl;
         return nullptr;
     }
     if (!p_view) {
-        qCritical() << Q_FUNC_INFO << "We don't have a view yet, so creating a new ViewArea is redundant" << endl;
+        qCCritical(KTL_LOG) << "We don't have a view yet, so creating a new ViewArea is redundant" << endl;
         return nullptr;
     }
 
@@ -361,13 +362,13 @@ void ViewArea::setView(View *view)
     delete m_pEmptyViewArea;
 
     if (p_view) {
-        qCritical() << Q_FUNC_INFO << "Attempting to set already contained view!" << endl;
+        qCCritical(KTL_LOG) << "Attempting to set already contained view!" << endl;
         return;
     }
 
     p_view = view;
 
-    // 	qDebug() << Q_FUNC_INFO << "p_view->isFocusEnabled()="<<p_view->isFocusEnabled()<<" p_view->isHidden()="<<p_view->isHidden()<<endl;
+    // 	qCDebug(KTL_LOG) << "p_view->isFocusEnabled()="<<p_view->isFocusEnabled()<<" p_view->isHidden()="<<p_view->isHidden()<<endl;
 
     connect(view, SIGNAL(destroyed()), this, SLOT(viewDestroyed()));
     bool hadFocus = hasFocus();
@@ -455,7 +456,7 @@ void ViewArea::restoreState(KConfigGroup *config, int id, const QString &groupNa
         IntList contains = config->readEntry(containsKey(m_id), IntList());
 
         if (contains.isEmpty() || contains.size() > 2)
-            qCritical() << Q_FUNC_INFO << "Contained list has wrong size of " << contains.size() << endl;
+            qCCritical(KTL_LOG) << "Contained list has wrong size of " << contains.size() << endl;
 
         else {
             if (contains.size() >= 1) {

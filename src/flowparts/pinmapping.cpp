@@ -24,11 +24,12 @@
 
 #include <QAction>
 #include <QApplication>
-#include <QDebug>
 #include <QDialogButtonBox>
 #include <QFrame>
 #include <QPushButton>
 #include <QVBoxLayout>
+
+#include <ktechlab_debug.h>
 
 // BEGIN class PinMapping
 PinMapping::PinMapping(Type type)
@@ -188,7 +189,7 @@ void PinMapDocument::init(const PinMapping &pinMapping, MicroInfo *microInfo)
         break;
 
     case PinMapping::Invalid:
-        qDebug() << Q_FUNC_INFO << "m_pinMappingType == Invalid" << endl;
+        qCDebug(KTL_LOG) << "m_pinMappingType == Invalid" << endl;
         break;
     }
 

@@ -18,7 +18,6 @@
 #include <cmath>
 
 #include <QBitArray>
-#include <QDebug>
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QPushButton>
@@ -26,6 +25,7 @@
 #include <QVBoxLayout>
 
 #include <ktlconfig.h>
+#include <ktechlab_debug.h>
 
 const int minPrefixExp = -24;
 const int maxPrefixExp = 24;
@@ -38,7 +38,7 @@ Item::Item(ItemDocument *itemDocument, bool newItem, const QString &id)
 {
     QString name(QString("Item-%1").arg(id));
     setObjectName(name.toLatin1().data());
-    qDebug() << Q_FUNC_INFO << " this=" << this;
+    qCDebug(KTL_LOG) << " this=" << this;
 
     m_bDynamicContent = false;
     m_bIsRaised = false;
@@ -367,7 +367,7 @@ void Item::setSelected(bool yes)
 
 void Item::setParentItem(Item *newParentItem)
 {
-    // 	qDebug() << Q_FUNC_INFO << "this = "<<this<<" newParentItem = "<<newParentItem<<endl;
+    // 	qCDebug(KTL_LOG) << "this = "<<this<<" newParentItem = "<<newParentItem<<endl;
     if (newParentItem == p_parentItem)
         return;
 
@@ -381,7 +381,7 @@ void Item::setParentItem(Item *newParentItem)
     if (newParentItem) {
         if (newParentItem->contains(this))
             ;
-        // 			qCritical() << Q_FUNC_INFO << "Already a child of " << newParentItem << endl;
+        // 			qCCritical(KTL_LOG) << "Already a child of " << newParentItem << endl;
         else {
             connect(newParentItem, SIGNAL(removed(Item *)), this, SLOT(removeItem()));
             newParentItem->addChild(this);
@@ -422,12 +422,12 @@ void Item::addChild(Item *child)
         return;
 
     if (child->contains(this)) {
-        // 		qCritical() << Q_FUNC_INFO << "Attempting to add a child to this item that is already a parent of this item. Incest results in stack overflow." << endl;
+        // 		qCCritical(KTL_LOG) << "Attempting to add a child to this item that is already a parent of this item. Incest results in stack overflow." << endl;
         return;
     }
 
     if (contains(child, true)) {
-        // 		qCritical() << Q_FUNC_INFO << "Already have child " << child << endl;
+        // 		qCCritical(KTL_LOG) << "Already have child " << child << endl;
         return;
     }
 
@@ -576,7 +576,7 @@ Variant *Item::property(const QString &id) const
     if (m_variantData.contains(id))
         return m_variantData[id];
 
-    qCritical() << Q_FUNC_INFO << " No such property with id " << id << endl;
+    qCCritical(KTL_LOG) << " No such property with id " << id << endl;
     return nullptr;
 }
 

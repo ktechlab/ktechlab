@@ -12,8 +12,11 @@
 #include "colorutils.h"
 
 #include <KLocalizedString>
-#include <QDebug>
+
 #include <cmath>
+
+#include <ktechlab_debug.h>
+
 using namespace std;
 
 Variant::Variant(const QString &id, Type::Value type)
@@ -102,7 +105,7 @@ QString Variant::displayString() const
 
 void Variant::setValue(QVariant val)
 {
-    qDebug() << Q_FUNC_INFO << "val=" << val << " old=" << m_value;
+    qCDebug(KTL_LOG) << "val=" << val << " old=" << m_value;
     if (type() == Variant::Type::Select && !m_allowed.contains(val.toString())) {
         // Our value is being set to an i18n name, not the actual string id.
         // So change val to the id (if it exists)
@@ -145,7 +148,7 @@ void Variant::setValue(QVariant val)
     case Variant::Type::Multiline:
     case Variant::Type::RichText: {
         QString dispString = displayString();
-        qDebug() << Q_FUNC_INFO << "dispString=" << dispString << " value=" << m_value;
+        qCDebug(KTL_LOG) << "dispString=" << dispString << " value=" << m_value;
         emit valueChanged(dispString);
         emit valueChangedStrAndTrue(dispString, true);
     } break;
@@ -170,7 +173,7 @@ void Variant::setValue(QVariant val)
     case Variant::Type::None:
         break;
     }
-    qDebug() << Q_FUNC_INFO << "result m_value=" << m_value;
+    qCDebug(KTL_LOG) << "result m_value=" << m_value;
 }
 
 void Variant::setMinAbsValue(double val)

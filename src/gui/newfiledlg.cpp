@@ -25,7 +25,6 @@
 #include <KLocalizedString>
 
 #include <QCheckBox>
-#include <QDebug>
 #include <QDialogButtonBox>
 #include <QDir>
 #include <QFile>
@@ -37,6 +36,7 @@
 #include <algorithm>
 
 #include <ui_newfilewidget.h>
+#include <ktechlab_debug.h>
 
 class NewFileWidget : public QWidget, public Ui::NewFileWidget
 {
@@ -100,14 +100,14 @@ NewFileDlg::NewFileDlg(QWidget *parent)
 
         QList<QSize> listAvSizes = (*it)->icon().availableSizes();
         if (listAvSizes.isEmpty()) {
-            qWarning() << Q_FUNC_INFO << "no available sizes for " << (*it)->text();
+            qCWarning(KTL_LOG) << "no available sizes for " << (*it)->text();
         } else {
-            qDebug() << Q_FUNC_INFO << "W = " << (*it)->icon().availableSizes().first().width() << " H=" << (*it)->icon().availableSizes().first().height();
+            qCDebug(KTL_LOG) << "W = " << (*it)->icon().availableSizes().first().width() << " H=" << (*it)->icon().availableSizes().first().height();
             minWidth += (*it)->icon().availableSizes().first().width() + 20;
             minHeight = std::max(minHeight, (*it)->icon().availableSizes().first().height() + 20);
         }
     }
-    qDebug() << Q_FUNC_INFO << "minW = " << minWidth << " minH=" << minHeight;
+    qCDebug(KTL_LOG) << "minW = " << minWidth << " minH=" << minHeight;
     m_pNewFileWidget->typeIconView->setMinimumSize(minWidth, minHeight);
     m_pNewFileWidget->typeIconView->setCurrentItem(items[3]);
     m_pNewFileWidget->addToProjectCheck->setChecked(ProjectManager::self()->currentProject());

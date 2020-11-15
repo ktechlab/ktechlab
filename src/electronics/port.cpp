@@ -9,7 +9,6 @@
  ***************************************************************************/
 
 #include "port.h"
-#include <QDebug>
 
 #include <QScopedPointer>
 #include <QSerialPort>
@@ -25,6 +24,8 @@
 #ifdef Q_OS_LINUX
 #include <linux/ppdev.h>
 #endif
+
+#include <ktechlab_debug.h>
 
 // BEGIN class Port
 Port::Port()
@@ -56,7 +57,7 @@ SerialPort::~SerialPort()
 static void unixPinEnable(QSerialPort *port, SerialPort::Pin pin, bool state, int flags)
 {
     if (ioctl(port->handle(), state ? TIOCMBIS : TIOCMBIC, &flags) == -1)
-        qCritical() << Q_FUNC_INFO << "Could not set pin" << pin << "errno = " << errno;
+        qCCritical(KTL_LOG) << "Could not set pin" << pin << "errno = " << errno;
 }
 #endif
 
@@ -78,7 +79,7 @@ void SerialPort::setPinState(Pin pin, bool state)
 #ifdef Q_OS_UNIX
         unixPinEnable(m_port, pin, state, TIOCM_DSR);
 #else
-        qWarning() << Q_FUNC_INFO << "Cannot set pin" << pin << "on non-Unix OS";
+        qCWarning(KTL_LOG) << "Cannot set pin" << pin << "on non-Unix OS";
 #endif
         return;
 
@@ -87,7 +88,7 @@ void SerialPort::setPinState(Pin pin, bool state)
         return;
 
     default:
-        qCritical() << Q_FUNC_INFO << "Bad pin" << pin;
+        qCCritical(KTL_LOG) << "Bad pin" << pin;
     };
 }
 
@@ -124,7 +125,7 @@ bool SerialPort::pinState(Pin pin)
     }
 
     if (mask == 0) {
-        qCritical() << Q_FUNC_INFO << "Bad pin " << pin << endl;
+        qCCritical(KTL_LOG) << "Bad pin " << pin << endl;
         return false;
     }
 
@@ -143,7 +144,7 @@ bool SerialPort::openPort(const QString &port, qint32 baudRate)
     newPort->setStopBits(QSerialPort::OneStop);
     newPort->setFlowControl(QSerialPort::NoFlowControl);
     if (!newPort->open(QIODevice::ReadWrite)) {
-        qCritical() << Q_FUNC_INFO << "Could not open port " << port << endl;
+        qCCritical(KTL_LOG) << "Could not open port " << port << endl;
         return false;
     }
 
@@ -310,7 +311,7 @@ uchar ParallelPort::readFromRegister(Register reg)
     // 	uchar value = inb( m_lpBase + reg ) ^ INVERT_MASK[reg];
     uchar value = 0;
     if (ioctl(m_file, IOCTL_REG_READ[reg], &value))
-        qCritical() << Q_FUNC_INFO << "errno=" << errno << endl;
+        qCCritical(KTL_LOG) << "errno=" << errno << endl;
     else
         m_reg[reg] = value;
     return value;
@@ -328,7 +329,7 @@ void ParallelPort::writeToRegister(Register reg, uchar value)
 
     // 	outb( value ^ INVERT_MASK[reg], m_lpBase + reg );
     if (ioctl(m_file, IOCTL_REG_WRITE[reg], &value))
-        qCritical() << Q_FUNC_INFO << "errno=" << errno << endl;
+        qCCritical(KTL_LOG) << "errno=" << errno << endl;
     else
         m_reg[reg] = value;
 #else
@@ -438,19 +439,19 @@ bool ParallelPort::openPort(const QString &port)
 {
 #ifdef Q_OS_LINUX
     if (m_file != -1) {
-        qWarning() << Q_FUNC_INFO << "Port already open" << endl;
+        qCWarning(KTL_LOG) << "Port already open" << endl;
         return false;
     }
 
     m_file = open(port.toAscii(), O_RDWR);
 
     if (m_file == -1) {
-        qCritical() << Q_FUNC_INFO << "Could not open port \"" << port << "\": errno=" << errno << endl;
+        qCCritical(KTL_LOG) << "Could not open port \"" << port << "\": errno=" << errno << endl;
         return false;
     }
 
     if (ioctl(m_file, PPCLAIM)) {
-        qCritical() << Q_FUNC_INFO << "Port " << port << " must be RW" << endl;
+        qCCritical(KTL_LOG) << "Port " << port << " must be RW" << endl;
         close(m_file);
         m_file = -1;
         return false;
@@ -473,7 +474,7 @@ void ParallelPort::closePort()
     close(m_file);
 
     if (res)
-        qCritical() << Q_FUNC_INFO << "res=" << res << endl;
+        qCCritical(KTL_LOG) << "res=" << res << endl;
 
     m_file = -1;
 #endif

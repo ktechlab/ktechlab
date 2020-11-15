@@ -25,7 +25,6 @@
 
 #include <QBitArray>
 #include <QBitmap>
-#include <QDebug>
 #include <QPainter>
 #include <QPixmap>
 #include <QRegExp>
@@ -33,6 +32,8 @@
 #include <algorithm>
 #include <cassert>
 #include <cmath>
+
+#include <ktechlab_debug.h>
 
 // Degrees per radian
 const double DPR = 57.29577951308232087665461840231273527024;
@@ -101,7 +102,7 @@ void FlowPart::setCaption(const QString &caption)
     //     QPainter p;
     //     const bool isSuccess = p.begin(w);
     //     if (!isSuccess) {
-    //         qWarning() << Q_FUNC_INFO << " painter not active";
+    //         qCWarning(KTL_LOG) << " painter not active";
     //     }
     // 	p.setFont( font() );
     // 	const int text_width = p.boundingRect( boundingRect(), (Qt::SingleLine | Qt::AlignHCenter | Qt::AlignVCenter), caption ).width();
@@ -217,7 +218,7 @@ void FlowPart::initSymbol(FlowPart::FlowSymbol symbol, int width)
         break;
     }
     default:
-        qCritical() << Q_FUNC_INFO << "Unknown flowSymbol: " << symbol << endl;
+        qCCritical(KTL_LOG) << "Unknown flowSymbol: " << symbol << endl;
     }
 }
 
@@ -617,7 +618,7 @@ void FlowPart::updateAttachedPositioning()
     const NodeInfoMap::iterator end = m_nodeMap.end();
     for (NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it) {
         if (!it.value().node) {
-            qCritical() << Q_FUNC_INFO << "Node in nodemap is null" << endl;
+            qCCritical(KTL_LOG) << "Node in nodemap is null" << endl;
             continue;
         }
 
@@ -651,7 +652,7 @@ void FlowPart::restoreFromItemData(const ItemData &itemData)
 void FlowPart::updateNodePositions()
 {
     if (m_orientation > 7) {
-        qWarning() << Q_FUNC_INFO << "Invalid orientation: " << m_orientation << endl;
+        qCWarning(KTL_LOG) << "Invalid orientation: " << m_orientation << endl;
         return;
     }
 
@@ -672,14 +673,14 @@ void FlowPart::updateNodePositions()
         else if (stdOutputInfo)
             stdOutputInfo->orientation = outNodePositioning[m_orientation];
     } else {
-        qWarning() << Q_FUNC_INFO << "Invalid orientation: " << m_orientation << endl;
+        qCWarning(KTL_LOG) << "Invalid orientation: " << m_orientation << endl;
         return;
     }
 
     const NodeInfoMap::iterator end = m_nodeMap.end();
     for (NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it) {
         if (!it.value().node)
-            qCritical() << Q_FUNC_INFO << "Node in nodemap is null" << endl;
+            qCCritical(KTL_LOG) << "Node in nodemap is null" << endl;
         else {
             switch (it.value().orientation) {
             case 0:
@@ -738,7 +739,7 @@ void FlowPart::orientationPixmap(uint orientation, QPixmap &pm) const
     const QSize size = pm.size();
 
     if (!(allowedOrientations() & (1 << orientation))) {
-        qWarning() << Q_FUNC_INFO << "Requesting invalid orientation of " << orientation << endl;
+        qCWarning(KTL_LOG) << "Requesting invalid orientation of " << orientation << endl;
         return;
     }
 
@@ -748,7 +749,7 @@ void FlowPart::orientationPixmap(uint orientation, QPixmap &pm) const
     {
         const bool isSuccess = maskPainter.begin(&mask);
         if (!isSuccess) {
-            qWarning() << Q_FUNC_INFO << " painter not active";
+            qCWarning(KTL_LOG) << " painter not active";
         }
     }
 
@@ -762,7 +763,7 @@ void FlowPart::orientationPixmap(uint orientation, QPixmap &pm) const
         QPainter p;
         const bool isBeginSuccess = p.begin(&pm);
         if (!isBeginSuccess) {
-            qWarning() << Q_FUNC_INFO << " painter not active";
+            qCWarning(KTL_LOG) << " painter not active";
         }
         p.setBrush(m_brushCol);
         p.setPen(Qt::black);

@@ -24,13 +24,14 @@
 #include <KSharedConfig>
 
 // #include <q3dragobject.h>
-#include <QDebug>
 // #include <q3popupmenu.h>
 #include <QLayout>
 #include <QMenu>
 #include <QMimeData>
 
 #include <cassert>
+
+#include <ktechlab_debug.h>
 
 ILVItem::ILVItem(QTreeWidget *parent, const QString &id)
     : QTreeWidgetItem(parent, 0 /* note: add item types */)
@@ -53,7 +54,7 @@ ILVItem::ILVItem(QTreeWidgetItem *parent, const QString &id)
 ItemSelector::ItemSelector(QWidget *parent)
     : QTreeWidget(parent)
 {
-    qDebug() << Q_FUNC_INFO << " this=" << this;
+    qCDebug(KTL_LOG) << " this=" << this;
 
     setDragDropMode(QAbstractItemView::DragOnly);
     setColumnCount(1);
@@ -71,9 +72,9 @@ ItemSelector::ItemSelector(QWidget *parent)
 
     if (parent->layout()) {
         parent->layout()->addWidget(this);
-        qDebug() << Q_FUNC_INFO << " added item selector to parent's layout " << parent;
+        qCDebug(KTL_LOG) << " added item selector to parent's layout " << parent;
     } else {
-        qWarning() << Q_FUNC_INFO << " unexpected null layout on parent " << parent;
+        qCWarning(KTL_LOG) << " unexpected null layout on parent " << parent;
     }
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // ?
@@ -102,7 +103,7 @@ void ItemSelector::clear()
 
 void ItemSelector::addItem(const QString &caption, const QString &id, const QString &_category, const QPixmap &icon, bool removable)
 {
-    qDebug() << Q_FUNC_INFO << "id=" << id;
+    qCDebug(KTL_LOG) << "id=" << id;
     ILVItem *parentItem = nullptr;
 
     QString category = _category;
@@ -138,7 +139,7 @@ void ItemSelector::addItem(const QString &caption, const QString &id, const QStr
         } else {
             QList<QTreeWidgetItem *> foundList = findItems(cat, Qt::MatchExactly);
             if (foundList.size() > 1) {
-                qWarning() << Q_FUNC_INFO << "found multiple categories for '" << cat << "'";
+                qCWarning(KTL_LOG) << "found multiple categories for '" << cat << "'";
             }
             parentItem = dynamic_cast<ILVItem *>(foundList.front());
         }
@@ -147,7 +148,7 @@ void ItemSelector::addItem(const QString &caption, const QString &id, const QStr
     } while (category.contains('/'));
 
     if (!parentItem) {
-        qCritical() << "Unexpected error in finding parent item for category list" << endl;
+        qCCritical(KTL_LOG) << "Unexpected error in finding parent item for category list" << endl;
         return;
     }
 
@@ -171,7 +172,7 @@ void ItemSelector::writeOpenStates()
     for (QStringList::iterator it = m_categories.begin(); it != end; ++it) {
         QList<QTreeWidgetItem *> itemsFound = findItems(*it, Qt::MatchExactly);
         if (itemsFound.size() > 1) {
-            qWarning() << Q_FUNC_INFO << " too many items " << itemsFound.size() << " for category '" << *it << "'";
+            qCWarning(KTL_LOG) << " too many items " << itemsFound.size() << " for category '" << *it << "'";
         }
         QTreeWidgetItem *item = itemsFound.first() /* findItem( *it, 0 ) */;
         if (item) {
@@ -197,27 +198,27 @@ QTreeWidgetItem *ItemSelector::selectedItem() const
         return nullptr;
     }
     if (selectedList.size() > 1) {
-        qWarning() << Q_FUNC_INFO << " expected 1 item in selection, got " << selectedList.size();
+        qCWarning(KTL_LOG) << " expected 1 item in selection, got " << selectedList.size();
     }
     return selectedList.first();
 }
 
 QMimeData *ItemSelector::mimeData(const QList<QTreeWidgetItem *> items) const
 {
-    qDebug() << Q_FUNC_INFO << " begin ";
+    qCDebug(KTL_LOG) << " begin ";
     if (items.size() > 1) {
-        qWarning() << Q_FUNC_INFO << "expected 1 item, got " << items.size();
+        qCWarning(KTL_LOG) << "expected 1 item, got " << items.size();
     }
     QTreeWidgetItem *theItem = items.first();
     if (!theItem) {
-        qWarning() << Q_FUNC_INFO << "unexpected null item";
+        qCWarning(KTL_LOG) << "unexpected null item";
         return nullptr;
     }
-    qDebug() << Q_FUNC_INFO << " theItem = " << theItem;
+    qCDebug(KTL_LOG) << " theItem = " << theItem;
     QVariant idAsVariant = theItem->data(0, ILVItem::DataRole_ID);
-    qDebug() << Q_FUNC_INFO << " idAsVariant = " << idAsVariant;
+    qCDebug(KTL_LOG) << " idAsVariant = " << idAsVariant;
     const QString id = idAsVariant.toString();
-    qDebug() << Q_FUNC_INFO << "id='" << id << "'";
+    qCDebug(KTL_LOG) << "id='" << id << "'";
 
     QMimeData *mime = new QMimeData();
 
@@ -234,7 +235,7 @@ QMimeData *ItemSelector::mimeData(const QList<QTreeWidgetItem *> items) const
     } else if (id.startsWith("mech/")) {
         mime->setData("ktechlab/mechanical", data);
     } else {
-        qWarning() << Q_FUNC_INFO << "returning unset mime; unknown id '" << id << "'";
+        qCWarning(KTL_LOG) << "returning unset mime; unknown id '" << id << "'";
     }
 
     // A pixmap cursor is often hard to make out
@@ -262,16 +263,16 @@ void ItemSelector::slotContextMenuRequested(const QPoint &pos)
 
 void ItemSelector::slotRemoveSelectedItem()
 {
-    qDebug() << Q_FUNC_INFO << "removing selected item";
+    qCDebug(KTL_LOG) << "removing selected item";
     QList<QTreeWidgetItem *> selectedList = selectedItems();
     if (selectedList.empty()) {
-        qDebug() << Q_FUNC_INFO << "selection is empty";
+        qCDebug(KTL_LOG) << "selection is empty";
         return;
     }
     QTreeWidgetItem *selectedItem = selectedList.first();
     ILVItem *item = dynamic_cast<ILVItem *>(selectedItem);
     if (!item) {
-        qDebug() << Q_FUNC_INFO << "no selected item to remove";
+        qCDebug(KTL_LOG) << "no selected item to remove";
         return;
     }
 
@@ -362,7 +363,7 @@ void ItemSelector::slotItemDoubleClicked(QTreeWidgetItem *item, int)
 // 		stream << id;
 // 		d->setEncodedData(data);
 // 	} else {
-//         qWarning() << Q_FUNC_INFO << " null drag returned";
+//         qCWarning(KTL_LOG) << " null drag returned";
 //     }
 //
 // 	// A pixmap cursor is often hard to make out
@@ -389,7 +390,7 @@ ComponentSelector *ComponentSelector::self(KateMDI::ToolView *parent)
 ComponentSelector::ComponentSelector(KateMDI::ToolView *parent)
     : ItemSelector(parent)
 {
-    qDebug() << Q_FUNC_INFO << " creating " << this;
+    qCDebug(KTL_LOG) << " creating " << this;
 
     setWhatsThis(
         i18n("Add components to the circuit diagram by dragging them into the circuit.<br><br>"
@@ -401,7 +402,7 @@ ComponentSelector::ComponentSelector(KateMDI::ToolView *parent)
     setListCaption(i18n("Component"));
 
     LibraryItemList *items = itemLibrary()->items();
-    qDebug() << Q_FUNC_INFO << " there are " << items->count() << " items";
+    qCDebug(KTL_LOG) << " there are " << items->count() << " items";
     const LibraryItemList::iterator end = items->end();
     for (LibraryItemList::iterator it = items->begin(); it != end; ++it) {
         if ((*it)->type() == LibraryItem::lit_component)

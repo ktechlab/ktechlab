@@ -15,7 +15,6 @@
 #include <ktlqt3support/ktlq3scrollview.h>
 
 #include <QApplication>
-#include <QDebug>
 #include <QDesktopWidget>
 //#include "q3ptrdict.h"
 #include <QPainter>
@@ -26,6 +25,8 @@
 #include <algorithm>
 
 #include <stdlib.h>
+
+#include <ktechlab_debug.h>
 
 using namespace std;
 
@@ -309,7 +310,7 @@ KtlQCanvasChunk &KtlQCanvas::chunk(int i, int j) const
     // return chunks[i+m_chunkSize.width()*j];
     const int chunkOffset = i + m_chunkSize.width() * j;
     if ((chunkOffset < 0) || (chunkOffset >= (m_chunkSize.width() * m_chunkSize.height()))) {
-        qWarning() << Q_FUNC_INFO << " invalid chunk coordinates: " << i << " " << j;
+        qCWarning(KTL_LOG) << " invalid chunk coordinates: " << i << " " << j;
         return chunks[0]; // at least it should not crash
     }
     return chunks[chunkOffset];
@@ -460,7 +461,7 @@ void KtlQCanvas::drawViewArea(KtlQCanvasView *view, QPainter *p, const QRect &vr
     QRect all(m_size);
 
     if (!p->isActive()) {
-        qWarning() << Q_FUNC_INFO << " painter is not active";
+        qCWarning(KTL_LOG) << " painter is not active";
     }
 
     if (!all.contains(ivr)) {
@@ -496,7 +497,7 @@ void KtlQCanvas::drawViewArea(KtlQCanvasView *view, QPainter *p, const QRect &vr
         QPainter dbp;
         const bool isSuccess = dbp.begin(&offscr);
         if (!isSuccess) {
-            qWarning() << Q_FUNC_INFO << " painter not active";
+            qCWarning(KTL_LOG) << " painter not active";
         }
 
 		twm.translate(-vr.x(),-vr.y());
@@ -534,7 +535,7 @@ void KtlQCanvas::drawViewArea(KtlQCanvasView *view, QPainter *p, const QRect &vr
 
 void KtlQCanvas::advance()
 {
-    qWarning() << "KtlQCanvas::advance: TODO"; // TODO
+    qCWarning(KTL_LOG) << "KtlQCanvas::advance: TODO"; // TODO
 }
 
 /*!
@@ -570,7 +571,7 @@ void KtlQCanvas::update()
                     QPainter p;
                     const bool startSucces = p.begin( view->viewport() );
                     if (!startSucces) {
-                        qWarning() << Q_FUNC_INFO << " painter is not active ";
+                        qCWarning(KTL_LOG) << " painter is not active ";
                     }
 		  		  // Translate to the coordinate system of drawViewArea().
 					QPoint tl = view->contentsToViewport(QPoint(0,0));
@@ -807,7 +808,7 @@ void KtlQCanvas::drawCanvasArea(const QRect &inarea, QPainter *p, bool double_bu
 		QPainter painter;
         const bool isSucces = painter.begin(&offscr);
         if (!isSucces) {
-            qWarning() << Q_FUNC_INFO << " " << __LINE__ << " painter not active ";
+            qCWarning(KTL_LOG) << " " << __LINE__ << " painter not active ";
         }
 		painter.translate(-area.x(),-area.y());
 		painter.setBrushOrigin(-area.x(),-area.y());
@@ -818,7 +819,7 @@ void KtlQCanvas::drawCanvasArea(const QRect &inarea, QPainter *p, bool double_bu
 			painter.setClipRegion(rgn);
 		}
         if (!painter.isActive()) {
-            qWarning() << Q_FUNC_INFO << " " << __LINE__ << " painter is not active";
+            qCWarning(KTL_LOG) << " " << __LINE__ << " painter is not active";
         }
 
 		drawBackground(painter,area);
@@ -863,12 +864,12 @@ void KtlQCanvas::drawCanvasArea(const QRect &inarea, QPainter *p, bool double_bu
         static int paintSuccessCount = 0;
         static int paintFailCount = 0;
         if (!isSuccess) {
-            //qWarning() << Q_FUNC_INFO << " on view " << view << " viewport " << view->viewport();
-            qWarning() << Q_FUNC_INFO << " " << __LINE__ << " painter not active, applying workaround";
+            //qCWarning(KTL_LOG) << " on view " << view << " viewport " << view->viewport();
+            qCWarning(KTL_LOG) << " " << __LINE__ << " painter not active, applying workaround";
             // TODO fix this workaround for repainting: the painter would try to draw to the widget outside of a paint event,
             //  which is not expected to work. Thus this code just sends an update() to the widget, ensuring correct painting
             ++paintFailCount;
-            qWarning() << Q_FUNC_INFO << " paint success: " << paintSuccessCount << ", fail: " << paintFailCount;
+            qCWarning(KTL_LOG) << " paint success: " << paintSuccessCount << ", fail: " << paintFailCount;
             view->viewport()->update();
             continue;
         } else {
@@ -1192,12 +1193,12 @@ KtlQCanvasItemList KtlQCanvas::collisions(const QRect &r) /* const */
 KtlQCanvasItemList KtlQCanvas::collisions(const QPolygon &chunklist, const KtlQCanvasItem *item, bool exact) const
 {
     if (isCanvasDebugEnabled()) {
-        qDebug() << Q_FUNC_INFO << " test item: " << item;
+        qCDebug(KTL_LOG) << " test item: " << item;
         for (SortedCanvasItems::const_iterator itIt = m_canvasItems.begin(); itIt != m_canvasItems.end(); ++itIt) {
             const KtlQCanvasItem *i = itIt->second;
-            qDebug() << "   in canvas item: " << i;
+            qCDebug(KTL_LOG) << "   in canvas item: " << i;
         }
-        qDebug() << "end canvas item list";
+        qCDebug(KTL_LOG) << "end canvas item list";
     }
 
     // Q3PtrDict<void> seen;
@@ -1222,7 +1223,7 @@ KtlQCanvasItemList KtlQCanvas::collisions(const QPolygon &chunklist, const KtlQC
                             result.append(g);
                         }
                         if (isCanvasDebugEnabled()) {
-                            qDebug() << "test collides " << item << " with " << g;
+                            qCDebug(KTL_LOG) << "test collides " << item << " with " << g;
                         }
                         if (item->collidesWith(g)) {
                             result.append(g);
@@ -1370,7 +1371,7 @@ void KtlQCanvasView::drawContents(QPainter *p, int cx, int cy, int cw, int ch)
  */
 void KtlQCanvasView::drawContents(QPainter *p)
 {
-    qDebug() << Q_FUNC_INFO << " called, although not expected";
+    qCDebug(KTL_LOG) << " called, although not expected";
     drawContents(p, 0, 0, width(), height());
 }
 

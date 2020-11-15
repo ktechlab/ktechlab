@@ -15,7 +15,7 @@
 #include "piccomponent.h"
 #include "piccomponentpin.h"
 
-#include <QDebug>
+#include <ktechlab_debug.h>
 
 PICComponentPin::PICComponentPin(PICComponent *picComponent, PicPin picPin)
     : m_id(picPin.pinID)
@@ -77,17 +77,17 @@ PICComponentPin::~PICComponentPin()
 void PICComponentPin::attach(IOPIN *iopin)
 {
     if (!iopin) {
-        qWarning() << Q_FUNC_INFO << " iopin is nullptr" << endl;
+        qCWarning(KTL_LOG) << " iopin is nullptr" << endl;
         return;
     }
 
     if (m_pStimulusNode) {
-        qWarning() << Q_FUNC_INFO << " Already have a node stimulus" << endl;
+        qCWarning(KTL_LOG) << " Already have a node stimulus" << endl;
         return;
     }
 
     if (m_pIOPIN) {
-        qWarning() << Q_FUNC_INFO << " Already have an iopin" << endl;
+        qCWarning(KTL_LOG) << " Already have an iopin" << endl;
         return;
     }
 

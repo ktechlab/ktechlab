@@ -13,11 +13,12 @@
 #include <KLocalizedString>
 #include <katemdi.h>
 
-#include <QDebug>
 // #include <q3popupmenu.h>
 #include <QEvent>
 #include <QLayout>
 #include <QMenu>
+
+#include <ktechlab_debug.h>
 
 // BEGIN class LogView
 LogView::LogView(KateMDI::ToolView *parent)
@@ -25,9 +26,9 @@ LogView::LogView(KateMDI::ToolView *parent)
 {
     if (parent->layout()) {
         parent->layout()->addWidget(this);
-        qDebug() << Q_FUNC_INFO << " added item selector to parent's layout " << parent;
+        qCDebug(KTL_LOG) << " added item selector to parent's layout " << parent;
     } else {
-        qWarning() << Q_FUNC_INFO << " unexpected null layout on parent " << parent;
+        qCWarning(KTL_LOG) << " unexpected null layout on parent " << parent;
     }
 
     setReadOnly(true);

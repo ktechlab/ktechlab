@@ -19,9 +19,10 @@
 
 #include <QAction>
 #include <QActionGroup>
-#include <QDebug>
 #include <QDragEnterEvent>
 #include <QMimeData>
+
+#include <ktechlab_debug.h>
 
 CircuitView::CircuitView(CircuitDocument *circuitDocument, ViewContainer *viewContainer, uint viewAreaId)
     : ICNView(circuitDocument, viewContainer, viewAreaId)
@@ -146,7 +147,7 @@ void CircuitView::slotUpdateRunningStatus(bool isRunning)
 void CircuitView::dragEnterEvent(QDragEnterEvent *e)
 {
     const QMimeData *mimeData = e->mimeData();
-    qDebug() << Q_FUNC_INFO << mimeData->formats();
+    qCDebug(KTL_LOG) << mimeData->formats();
 
     ICNView::dragEnterEvent(e);
     if (e->isAccepted())

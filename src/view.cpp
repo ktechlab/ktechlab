@@ -22,11 +22,12 @@
 #include <KXMLGUIFactory>
 
 #include <QApplication>
-#include <QDebug>
 #include <QPaintEvent>
 #include <QVBoxLayout>
 
 #include <cassert>
+
+#include <ktechlab_debug.h>
 
 // BEGIN class View
 View::View(Document *document, ViewContainer *viewContainer, uint viewAreaId)
@@ -47,7 +48,7 @@ View::View(Document *document, ViewContainer *viewContainer, uint viewAreaId)
         viewArea->setView(this);
 
     else
-        qDebug() << Q_FUNC_INFO << " viewArea = " << viewArea << endl;
+        qCDebug(KTL_LOG) << " viewArea = " << viewArea << endl;
 
     m_layout = new QVBoxLayout(this);
 
@@ -70,7 +71,7 @@ View::~View()
     // if ( factory() ) {
     //    factory()->removeClient( this );
     //} else {
-    //    qWarning() << Q_FUNC_INFO << "Null factory";
+    //    qCWarning(KTL_LOG) << "Null factory";
     //}
 }
 
@@ -78,7 +79,7 @@ QAction *View::actionByName(const QString &name) const
 {
     QAction *action = actionCollection()->action(name);
     if (!action)
-        qCritical() << Q_FUNC_INFO << "No such action: " << name << endl;
+        qCCritical(KTL_LOG) << "No such action: " << name << endl;
     return action;
 }
 
@@ -108,7 +109,7 @@ void View::setFocusWidget(QWidget *focusWidget)
 
 bool View::eventFilter(QObject *watched, QEvent *e)
 {
-    // 	qDebug() << Q_FUNC_INFO << e->type() << endl;
+    // 	qCDebug(KTL_LOG) << e->type() << endl;
 
     if (watched != m_pFocusWidget)
         return false;
@@ -129,34 +130,34 @@ bool View::eventFilter(QObject *watched, QEvent *e)
             ItemInterface::self()->updateItemActions();
         }
 
-        // 			qDebug() << Q_FUNC_INFO << "Focused In\n";
+        // 			qCDebug(KTL_LOG) << "Focused In\n";
         emit focused(this);
         break;
     }
 
     case QEvent::FocusOut: {
-        // 			qDebug() << Q_FUNC_INFO << "Focused Out.\n";
+        // 			qCDebug(KTL_LOG) << "Focused Out.\n";
         QFocusEvent *fe = static_cast<QFocusEvent *>(e);
 
         if (QWidget *fw = qApp->focusWidget()) {
             QString fwClassName(fw->metaObject()->className());
-            // 				qDebug() << "New focus widget is \""<<fw->name()<<"\" of type " << fwClassName << endl;
+            // 				qCDebug(KTL_LOG) << "New focus widget is \""<<fw->name()<<"\" of type " << fwClassName << endl;
 
             if ((fwClassName != "KateViewInternal") && (fwClassName != "QViewportWidget")) {
-                // 					qDebug() << "Returning as a non-view widget has focus.\n";
+                // 					qCDebug(KTL_LOG) << "Returning as a non-view widget has focus.\n";
                 break;
             }
         } else {
-            // 				qDebug() << "No widget currently has focus.\n";
+            // 				qCDebug(KTL_LOG) << "No widget currently has focus.\n";
         }
 
         if (fe->reason() == Qt::PopupFocusReason) {
-            // 				qDebug() << Q_FUNC_INFO << "Ignoring focus-out event as was a popup.\n";
+            // 				qCDebug(KTL_LOG) << "Ignoring focus-out event as was a popup.\n";
             break;
         }
 
         if (fe->reason() == Qt::ActiveWindowFocusReason) {
-            // 				qDebug() << Q_FUNC_INFO << "Ignoring focus-out event as main window lost focus.\n";
+            // 				qCDebug(KTL_LOG) << "Ignoring focus-out event as main window lost focus.\n";
             break;
         }
 
@@ -254,7 +255,7 @@ void KVSSBSep::paintEvent(QPaintEvent *e)
     QPainter p;
     const bool beginSuccess = p.begin(this);
     if (!beginSuccess) {
-        qWarning() << Q_FUNC_INFO << " painter is not active";
+        qCWarning(KTL_LOG) << " painter is not active";
     }
     // p.setPen( colorGroup().shadow() );
     // QColorGroup colorGroup(palette()); // 2018.12.02
@@ -263,7 +264,7 @@ void KVSSBSep::paintEvent(QPaintEvent *e)
     // p.setPen( ((View*)parentWidget())->hasFocus() ? colorGroup.light() : colorGroup.midlight() );
     View *parentView = dynamic_cast<View *>(parentWidget());
     if (!parentView) {
-        qWarning() << "parent not View for this=" << this << ", parent=" << parentWidget();
+        qCWarning(KTL_LOG) << "parent not View for this=" << this << ", parent=" << parentWidget();
         return;
     }
     p.setPen(parentView->hasFocus() ? palette().light().color() : palette().midlight().color());

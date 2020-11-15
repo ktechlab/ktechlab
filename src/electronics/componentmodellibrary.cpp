@@ -9,12 +9,13 @@
 
 #include "componentmodellibrary.h"
 
-#include <QDebug>
 #include <QFile>
 #include <QStandardPaths>
 #include <QTime>
 
 #include <cassert>
+
+#include <ktechlab_debug.h>
 
 // A prime number slightly larger than the number of models for any particular type
 // const int maxComponentModels = 101;
@@ -76,13 +77,13 @@ void ComponentModelLibrary::loadModels()
     for (QStringList::iterator it = files.begin(); it != end; ++it) {
         QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, "models/" + *it);
         if (fileName.isEmpty()) {
-            qWarning() << Q_FUNC_INFO << "Could not find library file \"" << *it << "\".\n";
+            qCWarning(KTL_LOG) << "Could not find library file \"" << *it << "\".\n";
             continue;
         }
 
         QFile file(fileName);
         if (!file.open(QIODevice::ReadOnly)) {
-            qWarning() << Q_FUNC_INFO << "Could not open library file \"" << fileName << "\" for reading.\n";
+            qCWarning(KTL_LOG) << "Could not open library file \"" << fileName << "\" for reading.\n";
             continue;
         }
 
@@ -108,10 +109,10 @@ void ComponentModelLibrary::loadModels()
                 else if (typeString == "PNP")
                     type = PNP;
                 else
-                    qCritical() << Q_FUNC_INFO << "Unknown type \"" << typeString << "\".\n";
+                    qCCritical(KTL_LOG) << "Unknown type \"" << typeString << "\".\n";
 
                 if (m_componentModelIDs[type].contains(id))
-                    qCritical() << Q_FUNC_INFO << "Already have model with id=\"" << id << "\" for type=\"" << typeString << "\".\n";
+                    qCCritical(KTL_LOG) << "Already have model with id=\"" << id << "\" for type=\"" << typeString << "\".\n";
 
                 if (!m_componentModels.contains(type)) {
                     m_componentModels[type] = ComponentModelDict(/* maxComponentModels */);
@@ -123,7 +124,7 @@ void ComponentModelLibrary::loadModels()
 
                 /* if ( int(modelCount[type] * 1.2) > maxComponentModels )  // 2018.08.14 - not needed
                 {
-                    qWarning() << Q_FUNC_INFO << "There are "<<modelCount[type]<<" models for component type \""<<typeString<<"\". Consider enlarging the dictionary.\n";
+                    qCWarning(KTL_LOG) << "There are "<<modelCount[type]<<" models for component type \""<<typeString<<"\". Consider enlarging the dictionary.\n";
                 } */
 
                 // Reset the model
@@ -160,7 +161,7 @@ void ComponentModelLibrary::loadModels()
                     double realValue = value.toDouble(&ok);
 
                     if (!ok)
-                        qCritical() << Q_FUNC_INFO << "Could not convert \"" << value << "\" to a real number (for property \"" << name << "\".\n";
+                        qCCritical(KTL_LOG) << "Could not convert \"" << value << "\" to a real number (for property \"" << name << "\".\n";
                     else
                         model->setProperty(name, realValue);
                 }
@@ -168,6 +169,6 @@ void ComponentModelLibrary::loadModels()
         }
     }
 
-    qDebug() << Q_FUNC_INFO << "It took " << ct.elapsed() << " milliseconds to read in the component models.\n";
+    qCDebug(KTL_LOG) << "It took " << ct.elapsed() << " milliseconds to read in the component models.\n";
 }
 // END class ComponentModelLibrary

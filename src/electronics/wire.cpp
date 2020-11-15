@@ -10,8 +10,10 @@
 
 #include "wire.h"
 #include "pin.h"
-#include <QDebug>
+
 #include <cassert>
+
+#include <ktechlab_debug.h>
 
 Wire::Wire(Pin *startPin, Pin *endPin)
 {
@@ -119,7 +121,7 @@ double Wire::voltage() const
 {
     double temp;
     if ((temp = m_pStartPin->voltage() - m_pEndPin->voltage())) {
-        qCritical() << "Wire voltage error: " << temp << endl;
+        qCCritical(KTL_LOG) << "Wire voltage error: " << temp << endl;
     }
 
     return m_pStartPin->voltage();

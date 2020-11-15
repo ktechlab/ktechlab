@@ -30,12 +30,12 @@
 #include <KMessageBox>
 #include <KToggleAction>
 
-#include <QDebug>
 #include <QInputDialog>
 #include <QRegExp>
 #include <QTimer>
 
 #include <ktlconfig.h>
+#include <ktechlab_debug.h>
 
 CircuitDocument::CircuitDocument(const QString &caption)
     : CircuitICNDocument(caption)
@@ -287,7 +287,7 @@ void CircuitDocument::deleteCircuits()
 
 void CircuitDocument::requestAssignCircuits()
 {
-    // 	qDebug() << Q_FUNC_INFO << endl;
+    // 	qCDebug(KTL_LOG) << endl;
     if (m_bDeleted) {
         return;
     }
@@ -483,7 +483,7 @@ void CircuitDocument::assignCircuits()
         pinListList.append(pinList);
     }
 
-    // 	qDebug () << "pinListList.size()="<<pinListList.size()<<endl;
+    // 	qCDebug(KTL_LOG) << "pinListList.size()="<<pinListList.size()<<endl;
 
     // Stage 2: Split up each partition into circuits by ground pins
     const PinListList::iterator nllEnd = pinListList.end();
@@ -786,13 +786,13 @@ bool CircuitDocument::isValidItem(Item *item)
 
 void CircuitDocument::displayEquations()
 {
-    qDebug() << "######################################################" << endl;
+    qCDebug(KTL_LOG) << "######################################################" << endl;
     const CircuitList::iterator end = m_circuitList.end();
     int i = 1;
     for (CircuitList::iterator it = m_circuitList.begin(); it != end; ++it) {
-        qDebug() << "Equation set " << i << ":\n";
+        qCDebug(KTL_LOG) << "Equation set " << i << ":\n";
         (*it)->displayEquations();
         i++;
     }
-    qDebug() << "######################################################" << endl;
+    qCDebug(KTL_LOG) << "######################################################" << endl;
 }

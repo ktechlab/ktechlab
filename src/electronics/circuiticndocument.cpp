@@ -20,7 +20,7 @@
 #include "junctionnode.h"
 #include "nodegroup.h"
 
-#include <QDebug>
+#include <ktechlab_debug.h>
 
 CircuitICNDocument::CircuitICNDocument(const QString &caption)
     : ICNDocument(caption)
@@ -53,7 +53,7 @@ void CircuitICNDocument::deleteAllNodes()
 {
     const ECNodeMap::iterator nodeListEnd = m_ecNodeList.end();
     for (ECNodeMap::iterator it = m_ecNodeList.begin(); it != nodeListEnd; ++it) {
-        qDebug() << "CircuitICNDocument::deleteAllNodes removing [" << it.key() << "] " << it.value();
+        qCDebug(KTL_LOG) << "CircuitICNDocument::deleteAllNodes removing [" << it.key() << "] " << it.value();
         // delete *it; // 2015.07.31 - this will not work
 
         // prevent crash on node destructor
@@ -188,7 +188,7 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
     if (!con1a || !con1b || !con2a || !con2b) {
         // This should never happen, as the canConnect function should strictly
         // determine whether the connectors could be created before hand.
-        qWarning() << Q_FUNC_INFO << "Not all the connectors were created, this should never happen" << endl;
+        qCWarning(KTL_LOG) << "Not all the connectors were created, this should never happen" << endl;
 
         if (con1a)
             con1a->removeConnector();
@@ -258,7 +258,7 @@ Connector *CircuitICNDocument::createConnector(const QString &startNodeId, const
     ECNode *endNode = getEcNodeWithID(endNodeId);
 
     if (!startNode || !endNode) {
-        qDebug() << "Either/both the connector start node and end node could not be found" << endl;
+        qCDebug(KTL_LOG) << "Either/both the connector start node and end node could not be found" << endl;
         return nullptr;
     }
 
@@ -267,7 +267,7 @@ Connector *CircuitICNDocument::createConnector(const QString &startNodeId, const
 
     Connector *connector = endNode->createConnector(startNode);
     if (!connector) {
-        qCritical() << Q_FUNC_INFO << "End node did not create the connector" << endl;
+        qCCritical(KTL_LOG) << "End node did not create the connector" << endl;
         return nullptr;
     }
 
@@ -349,7 +349,7 @@ void CircuitICNDocument::flushDeleteList()
         else if (Connector *con = dynamic_cast<Connector *>(qcanvasItem))
             m_connectorList.removeAll(con);
         else
-            qCritical() << Q_FUNC_INFO << "Unknown qcanvasItem! " << qcanvasItem << endl;
+            qCCritical(KTL_LOG) << "Unknown qcanvasItem! " << qcanvasItem << endl;
 
         qcanvasItem->setCanvas(nullptr);
 
@@ -388,7 +388,7 @@ bool CircuitICNDocument::registerItem(KtlQCanvasItem *qcanvasItem)
             m_connectorList.append(connector);
             emit connectorAdded(connector);
         } else {
-            qCritical() << Q_FUNC_INFO << "Unrecognised item" << endl;
+            qCCritical(KTL_LOG) << "Unrecognised item" << endl;
             return false;
         }
     }

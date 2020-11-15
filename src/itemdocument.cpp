@@ -38,7 +38,6 @@
 #include <QCheckBox>
 #include <QClipboard>
 #include <QCursor>
-#include <QDebug>
 #include <QImage>
 #include <QMenu>
 // #include <q3paintdevicemetrics.h>
@@ -56,6 +55,7 @@
 #include <cmath>
 
 #include <ktlconfig.h>
+#include <ktechlab_debug.h>
 
 // BEGIN class ItemDocument
 int ItemDocument::m_nextActionTicket = 0;
@@ -105,7 +105,7 @@ ItemDocument::~ItemDocument()
 
     const ItemMap::iterator end = m_itemList.end();
     for (ItemMap::iterator it = m_itemList.begin(); it != end; ++it) {
-        qDebug() << "ItemDocument::~ItemDocument: deleting [" << it.key() << "] " << it.value();
+        qCDebug(KTL_LOG) << "ItemDocument::~ItemDocument: deleting [" << it.key() << "] " << it.value();
         // delete *it; // 2015.07.31 - this will crash
         it.value()->deleteLater();
     }
@@ -651,7 +651,7 @@ void ItemDocument::updateBackground()
         QPainter p;
         const bool isSuccess = p.begin(&pm);
         if (!isSuccess) {
-            qWarning() << Q_FUNC_INFO << " painter is not active";
+            qCWarning(KTL_LOG) << " painter is not active";
         }
         p.setPen(KTLConfig::gridColor()); // set forecolour
         // note: anything other than 8 borks this
@@ -717,8 +717,8 @@ void ItemDocument::resizeCanvasToItems()
 
         bound |= r;
 
-        // 		qDebug() << "r="<<r<<endl;
-        // 		qDebug() << "bound="<<bound<<endl;
+        // 		qCDebug(KTL_LOG) << "r="<<r<<endl;
+        // 		qCDebug(KTL_LOG) << "bound="<<bound<<endl;
     }
 
     // Make it so that the rectangular offset is a multiple of 8
@@ -867,7 +867,7 @@ void ItemDocument::exportToImage()
         // svg can't be cropped using the qimage method.
         saveArea = cropArea;
     } else {
-        qWarning() << "Unknown type!" << endl;
+        qCWarning(KTL_LOG) << "Unknown type!" << endl;
         return;
     }
 
@@ -876,7 +876,7 @@ void ItemDocument::exportToImage()
     // 	QPainter p;
     //     const bool isBeginSuccess = p.begin(outputImage);
     //     if (!isBeginSuccess) {
-    //         qWarning() << Q_FUNC_INFO << " painter not active";
+    //         qCWarning(KTL_LOG) << " painter not active";
     //     }
     //
     // 	m_canvas->setBackgroundPixmap(QPixmap());
@@ -901,7 +901,7 @@ void ItemDocument::exportToImage()
             if (saveArea.y() < 0) {
                 cropArea.translate(0, -saveArea.y());
             }
-            qDebug() << Q_FUNC_INFO << " cropArea " << cropArea;
+            qCDebug(KTL_LOG) << " cropArea " << cropArea;
             QImage imgCropped = img.copy(cropArea);
             saveResult = imgCropped.save(filePath, type.toLatin1().data());
         }
@@ -926,12 +926,12 @@ void ItemDocument::exportToImage()
 
 void ItemDocument::exportToImageDraw(const QRect &saveArea, QPaintDevice &pDev)
 {
-    qDebug() << Q_FUNC_INFO << " saveArea " << saveArea;
+    qCDebug(KTL_LOG) << " saveArea " << saveArea;
     // QPainter p(outputImage); // 2016.05.03 - explicitly initialize painter
     QPainter p;
     const bool isBeginSuccess = p.begin(&pDev);
     if (!isBeginSuccess) {
-        qWarning() << Q_FUNC_INFO << " painter not active";
+        qCWarning(KTL_LOG) << " painter not active";
     }
 
     QTransform transf;
@@ -1321,7 +1321,7 @@ void Canvas::drawForeground(QPainter &p, const QRect &clip)
 
     // 	if ( w+2*b >= minSize.width() || h+2*b >= minSize.height() )
     // 	{
-    //         qWarning() << Q_FUNC_INFO << "size not good w=" << w << " h=" << h << "b=" << b << " minSize=" << minSize;
+    //         qCWarning(KTL_LOG) << "size not good w=" << w << " h=" << h << "b=" << b << " minSize=" << minSize;
     // 		delete t;
     // 		return;
     // 	}

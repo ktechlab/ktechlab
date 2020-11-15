@@ -15,10 +15,10 @@
 #include "electronicconnector.h"
 #include "pin.h"
 
-#include <QDebug>
 #include <QPainter>
 
 #include <ktlconfig.h>
+#include <ktechlab_debug.h>
 
 ECNode::ECNode(ICNDocument *icnDocument, Node::node_type _type, int dir, const QPoint &pos, QString *_id)
     : Node(icnDocument, _type, dir, pos, _id)
@@ -251,7 +251,7 @@ bool ECNode::handleNewConnector(Connector *connector)
         return false;
 
     if (m_connectorList.contains(connector)) {
-        qWarning() << Q_FUNC_INFO << " Already have connector = " << connector << endl;
+        qCWarning(KTL_LOG) << " Already have connector = " << connector << endl;
         return false;
     }
 

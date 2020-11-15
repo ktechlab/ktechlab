@@ -19,7 +19,6 @@
 #include <KShell>
 
 #include <QApplication>
-#include <QDebug>
 #include <QFile>
 #include <QRegExp>
 #include <QTextStream>
@@ -27,6 +26,7 @@
 #include <stdio.h>
 
 #include <ktlconfig.h>
+#include <ktechlab_debug.h>
 
 // BEGIN class ProgrammerConfig
 ProgrammerConfig::ProgrammerConfig()
@@ -256,7 +256,7 @@ ProgrammerConfig PicProgrammerSettings::config(const QString &name)
 void PicProgrammerSettings::removeConfig(const QString &name)
 {
     if (isPredefined(name)) {
-        qWarning() << Q_FUNC_INFO << "Cannot remove a predefined PIC programmer configuration." << endl;
+        qCWarning(KTL_LOG) << "Cannot remove a predefined PIC programmer configuration." << endl;
         return;
     }
 
@@ -274,7 +274,7 @@ void PicProgrammerSettings::removeConfig(const QString &name)
 void PicProgrammerSettings::saveConfig(const QString &name, const ProgrammerConfig &config)
 {
     if (isPredefined(name)) {
-        qWarning() << Q_FUNC_INFO << "Cannot save to a predefined PIC programmer configuration." << endl;
+        qCWarning(KTL_LOG) << "Cannot save to a predefined PIC programmer configuration." << endl;
         return;
     }
 
@@ -347,7 +347,7 @@ void PicProgrammer::processInput(ProcessOptions options)
 
     QString program = options.m_program;
     if (!settings.configNames(true).contains(program.toLower())) {
-        qCritical() << Q_FUNC_INFO << "Invalid program" << endl;
+        qCCritical(KTL_LOG) << "Invalid program" << endl;
         finish(false);
         return;
     }

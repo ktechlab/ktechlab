@@ -11,19 +11,19 @@
 #include "resistance.h"
 #include "elementset.h"
 
-// #include <QDebug>
+#include <ktechlab_debug.h>
 
 Resistance::Resistance(const double resistance)
     : Element::Element()
 {
     m_g = resistance < 1e-9 ? 1e9 : 1. / resistance;
     m_numCNodes = 2;
-    // 	qDebug() << Q_FUNC_INFO << endl;
+    // 	qCDebug(KTL_LOG) << endl;
 }
 
 Resistance::~Resistance()
 {
-    // 	qDebug() << Q_FUNC_INFO << endl;
+    // 	qCDebug(KTL_LOG) << endl;
 }
 
 void Resistance::setConductance(const double g)

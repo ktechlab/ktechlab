@@ -14,8 +14,9 @@
 #include "flowpart.h"
 #include "icndocument.h"
 
-#include <QDebug>
 #include <QPainter>
+
+#include <ktechlab_debug.h>
 
 FPNode::FPNode(ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id)
     : Node(icnDocument, type, dir, pos, id)
@@ -101,7 +102,7 @@ void FPNode::addOutputConnector(Connector *const connector)
         return;
 
     if (m_outputConnector)
-        qCritical() << Q_FUNC_INFO << "BUG: adding an output connector when we already have one" << endl;
+        qCCritical(KTL_LOG) << "BUG: adding an output connector when we already have one" << endl;
 
     // FIXME dynamic_cast connector
     m_outputConnector = dynamic_cast<FlowConnector *>(connector);
@@ -124,7 +125,7 @@ bool FPNode::handleNewConnector(Connector *connector)
 
     // FIXME dynamic_cast connector
     if (m_inFlowConnList.contains(dynamic_cast<FlowConnector *>(connector)) || ((Connector *)m_outputConnector == connector)) {
-        qWarning() << Q_FUNC_INFO << " Already have connector = " << connector << endl;
+        qCWarning(KTL_LOG) << " Already have connector = " << connector << endl;
         return false;
     }
 

@@ -27,7 +27,7 @@
 
 #include <KLocalizedString>
 
-#include <QDebug>
+#include <ktechlab_debug.h>
 
 FlowCodeDocument::FlowCodeDocument(const QString &caption)
     : FlowICNDocument(caption)
@@ -75,7 +75,7 @@ void FlowCodeDocument::setPicType(const QString &id)
     MicroInfo *microInfo = MicroLibrary::self()->microInfoWithID(id);
 
     if (!microInfo) {
-        qWarning() << "FlowCodeDocument::setPicType: Could not set the pic type to PIC \"" << id << "\"\n";
+        qCWarning(KTL_LOG) << "FlowCodeDocument::setPicType: Could not set the pic type to PIC \"" << id << "\"\n";
         return;
     }
 

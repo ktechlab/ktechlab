@@ -19,10 +19,11 @@
 
 #include <KLocalizedString>
 
-#include <QDebug>
 #include <QPainter>
 
 #include <cmath>
+
+#include <ktechlab_debug.h>
 
 Item *SerialPortComponent::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
@@ -155,7 +156,7 @@ void SerialPortComponent::dataChanged()
 		baudRate = B38400;
 	else
 	{
-		qCritical() << Q_FUNC_INFO << "Unknown baud rate = \""<<baudString<<"\""<<endl;
+		qCCritical(KTL_LOG) << "Unknown baud rate = \""<<baudString<<"\""<<endl;
 		return;
 	}
 	

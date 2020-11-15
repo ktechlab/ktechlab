@@ -19,10 +19,11 @@
 
 #include <KLocalizedString>
 
-#include <QDebug>
 #include <QIcon>
 #include <QMouseEvent>
 #include <QPainter>
+
+#include <ktechlab_debug.h>
 
 static const int InnerWidth = 88;
 static const int SidePadding = 24;
@@ -188,7 +189,7 @@ void PinItem::calcTextRect()
     //     QPainter p;
     //     const bool isBeginSuccess = p.begin(&tmpWidget);
     //     {
-    //         qWarning() << Q_FUNC_INFO << " painter not active";
+    //         qCWarning(KTL_LOG) << " painter not active";
     //     }
     //
     // 	p.setFont(m_font);
@@ -196,7 +197,7 @@ void PinItem::calcTextRect()
     QFontMetrics fontMetrics(m_font);
 
     if (!m_pinSettings) {
-        qDebug() << "PinItem::textRect: No pinSettings!" << endl;
+        qCDebug(KTL_LOG) << "PinItem::textRect: No pinSettings!" << endl;
         return;
     }
     // note: br is assigned but not used; here might be some bug...

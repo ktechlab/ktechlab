@@ -32,12 +32,13 @@
 
 // #include <q3intdict.h>
 #include <QContextMenuEvent>
-#include <QDebug>
 #include <QEvent>
 #include <QHBoxLayout>
 #include <QIcon>
 #include <QMenu>
 #include <QVBoxLayout>
+
+#include <ktechlab_debug.h>
 
 typedef QList<int> IntList;
 
@@ -56,7 +57,7 @@ static void printObjChildren(int startLevel, const QObject *obj)
     QMutableListIterator<QObject *> itCh(chl);
     while (itCh.hasNext()) {
         itCh.next();
-        qDebug() << getSpaces(startLevel) << itCh.value();
+        qCDebug(KTL_LOG) << getSpaces(startLevel) << itCh.value();
         printObjChildren(startLevel + 1, itCh.value());
     }
 }
@@ -281,7 +282,7 @@ ToolView *Sidebar::addWidget(const QPixmap &icon, const QString &text, ToolView 
 
 void Sidebar::updateMinimumSize()
 {
-    // 	qDebug() << "layout()->margin()="<<layout()->margin()<<endl;
+    // 	qCDebug(KTL_LOG) << "layout()->margin()="<<layout()->margin()<<endl;
 
     QSize minSize;
 
@@ -289,8 +290,8 @@ void Sidebar::updateMinimumSize()
     for (QList<ToolView *>::iterator it = m_toolviews.begin(); it != end; ++it) {
         QSize s = (*it)->childrenRect().size();
         minSize = minSize.expandedTo(s);
-        // 		qDebug() << "s="<<s<<"(*it)->minimumSize()="<<(*it)->minimumSize()<<endl;
-        // 		qDebug() << "(*it)->layout()->margin()="<<(*it)->margin()<<endl;
+        // 		qCDebug(KTL_LOG) << "s="<<s<<"(*it)->minimumSize()="<<(*it)->minimumSize()<<endl;
+        // 		qCDebug(KTL_LOG) << "(*it)->layout()->margin()="<<(*it)->margin()<<endl;
     }
 
     minSize.setWidth(minSize.width() - 30);
@@ -389,7 +390,7 @@ void Sidebar::tabClicked(int i)
     ToolView *w = m_idToWidget[i];
 
     if (!w) {
-        qWarning() << Q_FUNC_INFO << " unexpected tab number " << i;
+        qCWarning(KTL_LOG) << " unexpected tab number " << i;
         return;
     }
 
@@ -408,7 +409,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
         QContextMenuEvent *e = (QContextMenuEvent *)ev;
         KMultiTabBarTab *bt = dynamic_cast<KMultiTabBarTab *>(obj);
         if (bt) {
-            qDebug() << "Request for popup" << endl;
+            qCDebug(KTL_LOG) << "Request for popup" << endl;
 
             m_popupButton = bt->id();
 
