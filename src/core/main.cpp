@@ -10,7 +10,6 @@
 
 #include "diagnosticstyle.h"
 #include "ktechlab.h"
-#include "logtofilemsghandler.h"
 
 //#include <dcopclient.h>
 #include <ktechlab_version.h>
@@ -28,7 +27,6 @@ int main(int argc, char **argv)
     QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
 
-    LogToFileMsgHandler logFileHandler;
     QApplication app(argc, argv);
     KLocalizedString::setApplicationDomain("ktechlab");
 

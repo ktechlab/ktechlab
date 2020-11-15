@@ -1,5 +1,4 @@
 SET(core_STAT_SRCS
-#    logtofilemsghandler.cpp
 #    diagnosticstyle.cpp
 #    main.cpp
 )
