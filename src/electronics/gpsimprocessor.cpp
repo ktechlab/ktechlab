@@ -98,38 +98,12 @@ GpsimProcessor::GpsimProcessor(QString symbolFile, QObject *parent)
     Processor *tempProcessor = nullptr;
     const QByteArray fileName = QFile::encodeName(symbolFile);
 
-#ifdef GPSIM_0_21_4
-    qCDebug(KTL_LOG) << "GPSIM_0_21_4 GpsimProcessor " << symbolFile;
-    switch ((cod_errors)load_symbol_file(&tempProcessor, fileName.constData())) {
-    case COD_SUCCESS:
-        m_codLoadStatus = CodSuccess;
-        break;
-    case COD_FILE_NOT_FOUND:
-        m_codLoadStatus = CodFileNotFound;
-        break;
-    case COD_UNRECOGNIZED_PROCESSOR:
-        m_codLoadStatus = CodUnrecognizedProcessor;
-        break;
-    case COD_FILE_NAME_TOO_LONG:
-        m_codLoadStatus = CodFileNameTooLong;
-        break;
-    case COD_LST_NOT_FOUND:
-        m_codLoadStatus = CodLstNotFound;
-        break;
-    case COD_BAD_FILE:
-        m_codLoadStatus = CodBadFile;
-        break;
-    default:
-        m_codLoadStatus = CodUnknown;
-    }
-#else // GPSIM_0_21_11+
     qCDebug(KTL_LOG) << "GPSIM_0_21_11+ GpsimProcessor " << symbolFile;
     FILE *pFile = fopen(fileName.constData(), "r");
     if (!pFile)
         m_codLoadStatus = CodFileUnreadable;
     else
         m_codLoadStatus = (ProgramFileTypeList::GetList().LoadProgramFile(&tempProcessor, fileName.constData(), pFile)) ? CodSuccess : CodFailure;
-#endif
     qCDebug(KTL_LOG) << " m_codLoadStatus=" << m_codLoadStatus;
 
     m_pPicProcessor = dynamic_cast<pic_processor *>(tempProcessor);
@@ -195,12 +169,7 @@ QStringList GpsimProcessor::sourceFileList()
 {
     QStringList files;
 
-    // Work around nasty bug in gpsim 0.21.4 where nsrc_files value might be used uninitiazed
     int max = m_pPicProcessor->files.nsrc_files();
-#ifdef GPSIM_0_21_4
-    if (max > 10)
-        max = 10;
-#endif
 
     for (int i = 0; i < max; ++i) {
         if (!m_pPicProcessor->files[i])
@@ -534,11 +503,7 @@ void GpsimDebugger::initAddressToLineMap()
             bool used = false;
 
             for (int i = asmFromLine; i <= asmToLine; ++i) {
-#ifdef GPSIM_0_21_4
-                int address = m_pGpsim->picProcessor()->pma->find_address_from_line(fileID, i + 1);
-#else // GPSIM_0_21_11
                 int address = m_pGpsim->picProcessor()->pma->find_address_from_line(m_pGpsim->picProcessor()->files[fileID], i + 1);
-#endif
                 if (address != -1) {
                     used = true;
                     m_addressToLineMap[address] = debugLine;
@@ -681,11 +646,7 @@ RegisterSet::RegisterSet(pic_processor *picProcessor)
         m_nameToRegisterMap[info->name()] = info;
         qCDebug(KTL_LOG) << " add register info " << info->name() << " at pos " << i << " addr " << info;
     }
-#if defined(HAVE_GPSIM_0_26)
     RegisterInfo *info = new RegisterInfo(picProcessor->Wreg); // is tihs correct for "W" member? TODO
-#else
-    RegisterInfo *info = new RegisterInfo(picProcessor->W);
-#endif
     m_registers.append(info);
     m_nameToRegisterMap[info->name()] = info;
     qCDebug(KTL_LOG) << " add register info " << info->name() << " at end, addr " << info;

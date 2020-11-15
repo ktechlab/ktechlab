@@ -4,7 +4,6 @@
 #  GPSim_FOUND - system has the GPSim library
 #  GPSim_INCLUDE_DIRS - the include directories needed to use GPSim
 #  GPSim_LIBRARIES - the libraries needed to use GPSim
-#  HAVE_GPSIM_0_26 - whether GPSim is >= 0.26
 
 # Copyright (c) 2017, Pino Toscano <pino@kde.org>
 #
@@ -45,31 +44,8 @@ find_path(GPSim_INCLUDE_DIR
 find_library(GPSim_LIBRARY NAMES gpsim)
 
 if (GPSim_INCLUDE_DIR AND GPSim_LIBRARY AND GLIB_FOUND)
-    # Make a fake config.h to satisfy GPSim's broken headers
-    set(GPSim_KLUDGE_DIR "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/kludge/include")
-    file(MAKE_DIRECTORY "${GPSim_KLUDGE_DIR}")
-    file(WRITE "${GPSim_KLUDGE_DIR}/../config.h" "")
-
-    set(GPSim_INCLUDE_DIRS ${GPSim_INCLUDE_DIR} ${GLIB_INCLUDE_DIRS} ${GPSim_KLUDGE_DIR})
+    set(GPSim_INCLUDE_DIRS ${GPSim_INCLUDE_DIR} ${GLIB_INCLUDE_DIRS})
     set(GPSim_LIBRARIES ${GPSim_LIBRARY} ${GLIB_LIBRARIES})
-
-    include(CheckCXXSourceCompiles)
-    include(CMakePushCheckState)
-
-    cmake_push_check_state()
-    set(CMAKE_REQUIRED_INCLUDES ${GPSim_INCLUDE_DIRS})
-    set(CMAKE_REQUIRED_LIBRARIES ${GPSim_LIBRARIES} -ldl)
-    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC" OR (WIN32 AND "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel"))
-        set(CMAKE_REQUIRED_DEFINITIONS -EHsc)
-    else()
-        set(CMAKE_REQUIRED_DEFINITIONS -fexceptions)
-    endif()
-    check_cxx_source_compiles(
-"#include <gpsim/pic-processor.h>
-int main() { pic_processor *proc = NULL;
-return sizeof (proc->Wreg);
-}" HAVE_GPSIM_0_26)
-    cmake_pop_check_state()
 endif ()
 
 include(FindPackageHandleStandardArgs)
