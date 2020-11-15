@@ -50,7 +50,7 @@ void Subcircuits::initECSubcircuit(int subcircuitId, ECSubcircuit *ecSubcircuit)
 {
     const QString fileName = genFileName(subcircuitId);
     if (!QFile::exists(fileName)) {
-        qCDebug(KTL_LOG) << "Subcircuits::createSubcircuit: Subcircuit \"" << fileName << "\" was not found." << endl;
+        qCDebug(KTL_LOG) << "Subcircuits::createSubcircuit: Subcircuit \"" << fileName << "\" was not found.";
         return;
     }
 
@@ -131,7 +131,7 @@ void Subcircuits::addSubcircuit(const QString &name, const QString &subcircuitXm
     QFile file(fileName);
 
     if (file.open(QIODevice::WriteOnly) == false) {
-        qCCritical(KTL_LOG) << "Subcircuits::addSubcircuit: couldn't open subcircuit save file: " << fileName << endl;
+        qCCritical(KTL_LOG) << "Subcircuits::addSubcircuit: couldn't open subcircuit save file: " << fileName;
         return;
     }
 

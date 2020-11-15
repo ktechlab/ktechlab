@@ -45,7 +45,7 @@ Microbe::Microbe(ProcessChain *processChain)
 				if (ok) {
 					m_errorMessages[pos] = line.right(line.length()-line.indexOf("#"));
 				} else {
-					qCCritical(KTL_LOG) << "Error parsing Microbe error-message file"<<endl;
+					qCCritical(KTL_LOG) << "Error parsing Microbe error-message file";
 				}
 			}
         }

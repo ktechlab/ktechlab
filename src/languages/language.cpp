@@ -194,7 +194,7 @@ void ProcessOptions::setTextOutputtedTo(TextDocument *outputtedTo)
 void ProcessOptions::setTargetFile(const QString &file)
 {
     if (b_targetFileSet) {
-        qCWarning(KTL_LOG) << "Trying to reset target file!" << endl;
+        qCWarning(KTL_LOG) << "Trying to reset target file!";
         return;
     }
     m_targetFile = file;

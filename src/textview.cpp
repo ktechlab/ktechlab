@@ -613,7 +613,7 @@ QString TextViewEventFilter::textHint(KTextEditor::View * /*view*/, const KTextE
 
 bool TextViewEventFilter::eventFilter(QObject *, QEvent *e)
 {
-    // 	qCDebug(KTL_LOG) << "e->type() = " << e->type() << endl;
+    // 	qCDebug(KTL_LOG) << "e->type() = " << e->type();
 
     if (e->type() == QEvent::MouseMove) {
         if (!m_pNoWordTimer->isActive())

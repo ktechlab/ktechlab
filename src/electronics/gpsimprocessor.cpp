@@ -270,7 +270,7 @@ void GpsimProcessor::reset()
 MicroInfo *GpsimProcessor::microInfo() const
 {
     if (!m_pPicProcessor) {
-        qCWarning(KTL_LOG) << " m_pPicProcessor == nullptr" << endl;
+        qCWarning(KTL_LOG) << " m_pPicProcessor == nullptr";
         return nullptr;
     }
 
@@ -471,7 +471,7 @@ void GpsimDebugger::gpsimRunningStatusChanged(bool isRunning)
 void GpsimDebugger::associateLine(const QString &sourceFile, int sourceLine, const QString &assemblyFile, int assemblyLine)
 {
     if (assemblyLine < 0 || sourceLine < 0) {
-        qCWarning(KTL_LOG) << "Invalid lines: assemblyLine=" << assemblyLine << " sourceLine=" << sourceLine << endl;
+        qCWarning(KTL_LOG) << "Invalid lines: assemblyLine=" << assemblyLine << " sourceLine=" << sourceLine;
         return;
     }
 
@@ -479,7 +479,7 @@ void GpsimDebugger::associateLine(const QString &sourceFile, int sourceLine, con
     SourceLine asmSource = SourceLine(assemblyFile, assemblyLine);
 
     if (m_sourceLineMap.contains(asmSource)) {
-        qCWarning(KTL_LOG) << "Already have an association for assembly (\"" << assemblyFile << "\"," << assemblyLine << ")" << endl;
+        qCWarning(KTL_LOG) << "Already have an association for assembly (\"" << assemblyFile << "\"," << assemblyLine << ")";
         return;
     }
 
@@ -518,7 +518,7 @@ void GpsimDebugger::initAddressToLineMap()
             std::string stdAsmFile(asmFile.toAscii());
             int fileID = m_pGpsim->picProcessor()->files.Find(stdAsmFile);
             if (fileID == -1) {
-                qCWarning(KTL_LOG) << "Could not find FileContext (asmFile=\"" << asmFile << "\")" << endl;
+                qCWarning(KTL_LOG) << "Could not find FileContext (asmFile=\"" << asmFile << "\")";
                 continue;
             }
 
@@ -526,7 +526,7 @@ void GpsimDebugger::initAddressToLineMap()
                 asmToLine = m_pGpsim->picProcessor()->files[fileID]->max_line() - 2;
 
             if ((asmFromLine < 0) || (asmToLine < asmFromLine)) {
-                qCWarning(KTL_LOG) << "Invalid lines: asmFromLine=" << asmFromLine << " asmToLine=" << asmToLine << endl;
+                qCWarning(KTL_LOG) << "Invalid lines: asmFromLine=" << asmFromLine << " asmToLine=" << asmToLine;
                 continue;
             }
 
@@ -673,7 +673,7 @@ void GpsimDebugger::stackStep(int dl)
 RegisterSet::RegisterSet(pic_processor *picProcessor)
 {
     unsigned numRegisters = picProcessor->rma.get_size();
-    qCDebug(KTL_LOG) << "numRegisters=" << numRegisters << endl;
+    qCDebug(KTL_LOG) << "numRegisters=" << numRegisters;
     m_registers.resize(numRegisters /*, nullptr - 2018.06.02 - initialized below */);
     for (unsigned i = 0; i < numRegisters; ++i) {
         RegisterInfo *info = new RegisterInfo(&picProcessor->rma[i]);

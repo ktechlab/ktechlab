@@ -122,7 +122,7 @@ ContextHelp::~ContextHelp()
 
 bool ContextHelp::eventFilter(QObject *watched, QEvent *e)
 {
-    // 	qCDebug(KTL_LOG) << "watched="<<watched<<endl;
+    // 	qCDebug(KTL_LOG) << "watched="<<watched;
 
     if ((watched != m_pEditor) && (watched != m_pEditor->editorViewport()))
         return false;

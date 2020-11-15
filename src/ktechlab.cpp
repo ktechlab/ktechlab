@@ -107,7 +107,7 @@ KTechlab::KTechlab()
     KSharedConfigPtr cfg = KSharedConfig::openConfig();
     readPropertiesInConfig(cfg.data());
 
-    // 	qCDebug(KTL_LOG) << "Constructor time: " << ct.elapsed() << endl;
+    // 	qCDebug(KTL_LOG) << "Constructor time: " << ct.elapsed();
 }
 
 KTechlab::~KTechlab()
@@ -774,7 +774,7 @@ QAction *KTechlab::actionByName(const QString &name) const
 {
     QAction *action = actionCollection()->action(name);
     if (!action)
-        qCCritical(KTL_LOG) << "No such action: " << name << endl;
+        qCCritical(KTL_LOG) << "No such action: " << name;
     return action;
 }
 

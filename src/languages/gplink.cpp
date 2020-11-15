@@ -124,8 +124,8 @@ void Gplink::processInput(ProcessOptions options)
         MicroInfo *info = MicroLibrary::self()->microInfoWithID(options.m_picID);
         if (!info) {
             // be program won't link anyway, but the user can't say that the program didn't try
-            qCCritical(KTL_LOG) << "Couldn't find the requested PIC" << options.m_picID << endl;
-            qCWarning(KTL_LOG) << "Supposing that the pic is pic12 or pic14" << endl;
+            qCCritical(KTL_LOG) << "Couldn't find the requested PIC" << options.m_picID;
+            qCWarning(KTL_LOG) << "Supposing that the pic is pic12 or pic14";
             *m_languageProcess << "-I" << m_sdccLibDir + "/pic";
         } else {
             QString picLibSubdir;

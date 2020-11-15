@@ -367,7 +367,7 @@ void Item::setSelected(bool yes)
 
 void Item::setParentItem(Item *newParentItem)
 {
-    // 	qCDebug(KTL_LOG) << "this = "<<this<<" newParentItem = "<<newParentItem<<endl;
+    // 	qCDebug(KTL_LOG) << "this = "<<this<<" newParentItem = "<<newParentItem;
     if (newParentItem == p_parentItem)
         return;
 
@@ -381,7 +381,7 @@ void Item::setParentItem(Item *newParentItem)
     if (newParentItem) {
         if (newParentItem->contains(this))
             ;
-        // 			qCCritical(KTL_LOG) << "Already a child of " << newParentItem << endl;
+        // 			qCCritical(KTL_LOG) << "Already a child of " << newParentItem;
         else {
             connect(newParentItem, SIGNAL(removed(Item *)), this, SLOT(removeItem()));
             newParentItem->addChild(this);
@@ -422,12 +422,12 @@ void Item::addChild(Item *child)
         return;
 
     if (child->contains(this)) {
-        // 		qCCritical(KTL_LOG) << "Attempting to add a child to this item that is already a parent of this item. Incest results in stack overflow." << endl;
+        // 		qCCritical(KTL_LOG) << "Attempting to add a child to this item that is already a parent of this item. Incest results in stack overflow.";
         return;
     }
 
     if (contains(child, true)) {
-        // 		qCCritical(KTL_LOG) << "Already have child " << child << endl;
+        // 		qCCritical(KTL_LOG) << "Already have child " << child;
         return;
     }
 
@@ -576,7 +576,7 @@ Variant *Item::property(const QString &id) const
     if (m_variantData.contains(id))
         return m_variantData[id];
 
-    qCCritical(KTL_LOG) << " No such property with id " << id << endl;
+    qCCritical(KTL_LOG) << " No such property with id " << id;
     return nullptr;
 }
 

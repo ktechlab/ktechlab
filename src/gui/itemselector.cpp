@@ -148,7 +148,7 @@ void ItemSelector::addItem(const QString &caption, const QString &id, const QStr
     } while (category.contains('/'));
 
     if (!parentItem) {
-        qCCritical(KTL_LOG) << "Unexpected error in finding parent item for category list" << endl;
+        qCCritical(KTL_LOG) << "Unexpected error in finding parent item for category list";
         return;
     }
 

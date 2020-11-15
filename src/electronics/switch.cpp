@@ -80,7 +80,7 @@ void Switch::startBouncing()
     if (!m_pComponent->circuitDocument())
         return;
 
-    // 	qCDebug(KTL_LOG) << endl;
+    // 	qCDebug(KTL_LOG);
 
     m_pBounceResistance = m_pComponent->createResistance(m_pP1, m_pP2, 10000);
     m_bounceStart = Simulator::self()->time();
@@ -90,7 +90,7 @@ void Switch::startBouncing()
     // contaminate that many other classes.
 
     //	Simulator::self()->attachSwitch( this );
-    // 	qCDebug(KTL_LOG) << "m_bounceStart="<<m_bounceStart<<" m_bouncePeriod_ms="<<m_bouncePeriod_ms<<endl;
+    // 	qCDebug(KTL_LOG) << "m_bounceStart="<<m_bounceStart<<" m_bouncePeriod_ms="<<m_bouncePeriod_ms;
 
     // initialize random generator
     srand(time(nullptr));

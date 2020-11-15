@@ -299,7 +299,7 @@ void NodeGroup::findBestPair(NodeList *list, Node **n1, Node **n2)
     }
 
     if (!*n1) {
-        qCCritical(KTL_LOG) << "NodeGroup::findBestPair: Could not find a routable pair of nodes!" << endl;
+        qCCritical(KTL_LOG) << "NodeGroup::findBestPair: Could not find a routable pair of nodes!";
     }
 }
 

@@ -224,7 +224,7 @@ void SymbolViewer::setContext(GpsimProcessor *gpsim)
 void SymbolViewer::selectRadix(int selectIndex)
 {
     if ((selectIndex < 0) || (selectIndex > 3)) {
-        qCWarning(KTL_LOG) << "Invalid select position for radix: " << selectIndex << endl;
+        qCWarning(KTL_LOG) << "Invalid select position for radix: " << selectIndex;
         return;
     }
 

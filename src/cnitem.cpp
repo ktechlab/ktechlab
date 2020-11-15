@@ -490,7 +490,7 @@ Text *CNItem::addDisplayText(const QString &id, const QRect &pos, const QString 
     Text *text = nullptr;
     TextMap::iterator it = m_textMap.find(id);
     if (it != m_textMap.end()) {
-        // 		qCWarning(KTL_LOG) << "CNItem::addDisplayText: removing old text"<<endl;
+        // 		qCWarning(KTL_LOG) << "CNItem::addDisplayText: removing old text";
         delete it.value();
         m_textMap.erase(it);
     }
@@ -510,7 +510,7 @@ void CNItem::setDisplayText(const QString &id, const QString &display)
 {
     TextMap::iterator it = m_textMap.find(id);
     if (it == m_textMap.end()) {
-        qCCritical(KTL_LOG) << "CNItem::setDisplayText: Could not find text with id \"" << id << "\"" << endl;
+        qCCritical(KTL_LOG) << "CNItem::setDisplayText: Could not find text with id \"" << id << "\"";
         return;
     }
     it.value()->setText(display);
@@ -521,7 +521,7 @@ void CNItem::removeDisplayText(const QString &id)
 {
     TextMap::iterator it = m_textMap.find(id);
     if (it == m_textMap.end()) {
-        // 		qCCritical(KTL_LOG) << "CNItem::removeDisplayText: Could not find text with id \""<<id<<"\""<<endl;
+        // 		qCCritical(KTL_LOG) << "CNItem::removeDisplayText: Could not find text with id \""<<id<<"\"";
         return;
     }
     it.value()->updateConnectorPoints(false);

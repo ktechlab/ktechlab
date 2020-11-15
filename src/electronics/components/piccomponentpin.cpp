@@ -77,17 +77,17 @@ PICComponentPin::~PICComponentPin()
 void PICComponentPin::attach(IOPIN *iopin)
 {
     if (!iopin) {
-        qCWarning(KTL_LOG) << " iopin is nullptr" << endl;
+        qCWarning(KTL_LOG) << " iopin is nullptr";
         return;
     }
 
     if (m_pStimulusNode) {
-        qCWarning(KTL_LOG) << " Already have a node stimulus" << endl;
+        qCWarning(KTL_LOG) << " Already have a node stimulus";
         return;
     }
 
     if (m_pIOPIN) {
-        qCWarning(KTL_LOG) << " Already have an iopin" << endl;
+        qCWarning(KTL_LOG) << " Already have an iopin";
         return;
     }
 

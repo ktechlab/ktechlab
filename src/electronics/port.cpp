@@ -125,7 +125,7 @@ bool SerialPort::pinState(Pin pin)
     }
 
     if (mask == 0) {
-        qCCritical(KTL_LOG) << "Bad pin " << pin << endl;
+        qCCritical(KTL_LOG) << "Bad pin " << pin;
         return false;
     }
 
@@ -144,7 +144,7 @@ bool SerialPort::openPort(const QString &port, qint32 baudRate)
     newPort->setStopBits(QSerialPort::OneStop);
     newPort->setFlowControl(QSerialPort::NoFlowControl);
     if (!newPort->open(QIODevice::ReadWrite)) {
-        qCCritical(KTL_LOG) << "Could not open port " << port << endl;
+        qCCritical(KTL_LOG) << "Could not open port " << port;
         return false;
     }
 
@@ -311,7 +311,7 @@ uchar ParallelPort::readFromRegister(Register reg)
     // 	uchar value = inb( m_lpBase + reg ) ^ INVERT_MASK[reg];
     uchar value = 0;
     if (ioctl(m_file, IOCTL_REG_READ[reg], &value))
-        qCCritical(KTL_LOG) << "errno=" << errno << endl;
+        qCCritical(KTL_LOG) << "errno=" << errno;
     else
         m_reg[reg] = value;
     return value;
@@ -329,7 +329,7 @@ void ParallelPort::writeToRegister(Register reg, uchar value)
 
     // 	outb( value ^ INVERT_MASK[reg], m_lpBase + reg );
     if (ioctl(m_file, IOCTL_REG_WRITE[reg], &value))
-        qCCritical(KTL_LOG) << "errno=" << errno << endl;
+        qCCritical(KTL_LOG) << "errno=" << errno;
     else
         m_reg[reg] = value;
 #else
@@ -439,19 +439,19 @@ bool ParallelPort::openPort(const QString &port)
 {
 #ifdef Q_OS_LINUX
     if (m_file != -1) {
-        qCWarning(KTL_LOG) << "Port already open" << endl;
+        qCWarning(KTL_LOG) << "Port already open";
         return false;
     }
 
     m_file = open(port.toAscii(), O_RDWR);
 
     if (m_file == -1) {
-        qCCritical(KTL_LOG) << "Could not open port \"" << port << "\": errno=" << errno << endl;
+        qCCritical(KTL_LOG) << "Could not open port \"" << port << "\": errno=" << errno;
         return false;
     }
 
     if (ioctl(m_file, PPCLAIM)) {
-        qCCritical(KTL_LOG) << "Port " << port << " must be RW" << endl;
+        qCCritical(KTL_LOG) << "Port " << port << " must be RW";
         close(m_file);
         m_file = -1;
         return false;
@@ -474,7 +474,7 @@ void ParallelPort::closePort()
     close(m_file);
 
     if (res)
-        qCCritical(KTL_LOG) << "res=" << res << endl;
+        qCCritical(KTL_LOG) << "res=" << res;
 
     m_file = -1;
 #endif

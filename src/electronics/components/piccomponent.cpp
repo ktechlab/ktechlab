@@ -356,7 +356,7 @@ void PICComponent::slotCODCreationSucceeded()
         MicroInfo *microInfo = m_pGpsim->microInfo();
         if (!microInfo) {
             // FIXME we should be select somehow the type of the PIC. this is only a stability hack.
-            qCWarning(KTL_LOG) << "cannot identify the PIC, defaulting to P16F84" << endl;
+            qCWarning(KTL_LOG) << "cannot identify the PIC, defaulting to P16F84";
             microInfo = MicroLibrary::self()->microInfoWithID("P16F84");
         }
         property("lastPackage")->setValue(microInfo->id());

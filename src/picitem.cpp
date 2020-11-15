@@ -197,7 +197,7 @@ void PinItem::calcTextRect()
     QFontMetrics fontMetrics(m_font);
 
     if (!m_pinSettings) {
-        qCDebug(KTL_LOG) << "PinItem::textRect: No pinSettings!" << endl;
+        qCDebug(KTL_LOG) << "PinItem::textRect: No pinSettings!";
         return;
     }
     // note: br is assigned but not used; here might be some bug...

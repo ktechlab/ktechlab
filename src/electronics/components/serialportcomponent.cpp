@@ -156,7 +156,7 @@ void SerialPortComponent::dataChanged()
 		baudRate = B38400;
 	else
 	{
-		qCCritical(KTL_LOG) << "Unknown baud rate = \""<<baudString<<"\""<<endl;
+		qCCritical(KTL_LOG) << "Unknown baud rate = \""<<baudString<<"\"";
 		return;
 	}
 	

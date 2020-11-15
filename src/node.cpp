@@ -46,7 +46,7 @@ Node::Node(ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint
         if (id) {
             m_id = *id;
             if (!p_icnDocument->registerUID(*id))
-                qCCritical(KTL_LOG) << "Could not register id " << *id << endl;
+                qCCritical(KTL_LOG) << "Could not register id " << *id;
         } else
             m_id = p_icnDocument->generateUID("node" + QString::number(type));
     }
@@ -111,7 +111,7 @@ void Node::setVisible(bool yes)
 void Node::setParentItem(CNItem *parentItem)
 {
     if (!parentItem) {
-        qCCritical(KTL_LOG) << "no parent item" << endl;
+        qCCritical(KTL_LOG) << "no parent item";
         return;
     }
 

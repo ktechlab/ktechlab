@@ -251,7 +251,7 @@ bool ECNode::handleNewConnector(Connector *connector)
         return false;
 
     if (m_connectorList.contains(connector)) {
-        qCWarning(KTL_LOG) << " Already have connector = " << connector << endl;
+        qCWarning(KTL_LOG) << " Already have connector = " << connector;
         return false;
     }
 

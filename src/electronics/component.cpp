@@ -281,7 +281,7 @@ void Component::updateAttachedPositioning()
     const NodeInfoMap::iterator end = m_nodeMap.end();
     for (NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it) {
         if (!it.value().node)
-            qCCritical(KTL_LOG) << "Node in nodemap is null" << endl;
+            qCCritical(KTL_LOG) << "Node in nodemap is null";
         else {
             int nx = int((std::cos(m_angleDegrees * RPD) * it.value().x) - (std::sin(m_angleDegrees * RPD) * it.value().y));
             int ny = int((std::sin(m_angleDegrees * RPD) * it.value().x) + (std::cos(m_angleDegrees * RPD) * it.value().y));
@@ -576,7 +576,7 @@ void Component::init4PinRight(int h1, int h2, int h3, int h4)
 ECNode *Component::ecNodeWithID(const QString &ecNodeId)
 {
     if (!p_icnDocument) {
-        // 		qCDebug(KTL_LOG) << "Warning: ecNodeWithID("<<ecNodeId<<") does not exist\n";
+        // 		qCDebug(KTL_LOG) << "Warning: ecNodeWithID("<<ecNodeId<<") does not exist";
         return createPin(0, 0, 0, ecNodeId);
     }
 

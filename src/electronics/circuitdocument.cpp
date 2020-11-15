@@ -287,7 +287,7 @@ void CircuitDocument::deleteCircuits()
 
 void CircuitDocument::requestAssignCircuits()
 {
-    // 	qCDebug(KTL_LOG) << endl;
+    // 	qCDebug(KTL_LOG);
     if (m_bDeleted) {
         return;
     }
@@ -483,7 +483,7 @@ void CircuitDocument::assignCircuits()
         pinListList.append(pinList);
     }
 
-    // 	qCDebug(KTL_LOG) << "pinListList.size()="<<pinListList.size()<<endl;
+    // 	qCDebug(KTL_LOG) << "pinListList.size()="<<pinListList.size();
 
     // Stage 2: Split up each partition into circuits by ground pins
     const PinListList::iterator nllEnd = pinListList.end();
@@ -786,13 +786,13 @@ bool CircuitDocument::isValidItem(Item *item)
 
 void CircuitDocument::displayEquations()
 {
-    qCDebug(KTL_LOG) << "######################################################" << endl;
+    qCDebug(KTL_LOG) << "######################################################";
     const CircuitList::iterator end = m_circuitList.end();
     int i = 1;
     for (CircuitList::iterator it = m_circuitList.begin(); it != end; ++it) {
-        qCDebug(KTL_LOG) << "Equation set " << i << ":\n";
+        qCDebug(KTL_LOG) << "Equation set " << i << ":";
         (*it)->displayEquations();
         i++;
     }
-    qCDebug(KTL_LOG) << "######################################################" << endl;
+    qCDebug(KTL_LOG) << "######################################################";
 }

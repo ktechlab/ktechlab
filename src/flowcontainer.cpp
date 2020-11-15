@@ -223,7 +223,7 @@ void FlowContainer::setFullBounds(bool full)
         return;
     }
 
-    // 	qCDebug(KTL_LOG) << "width="<<width()<<" height="<<height()<<endl;
+    // 	qCDebug(KTL_LOG) << "width="<<width()<<" height="<<height();
 
     QPolygon pa(10);
     pa[0] = QPoint(0, 0);
@@ -289,7 +289,7 @@ void FlowContainer::setExpanded(bool expanded)
 
 void FlowContainer::postResize()
 {
-    // 	qCDebug(KTL_LOG) << "width="<<width()<<endl;
+    // 	qCDebug(KTL_LOG) << "width="<<width();
     setFullBounds(false);
     FlowPart::postResize();
 }

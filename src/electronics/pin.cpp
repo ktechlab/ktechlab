@@ -40,7 +40,7 @@ Pin::~Pin()
 
 PinList Pin::localConnectedPins() const
 {
-    // 	qCDebug(KTL_LOG) << "Input wires: "<<m_inputWireList.size()<<"   Output wires: " << m_outputWireList.size() << "   Switch connected: " << m_switchConnectedPins.size() << endl;
+    // 	qCDebug(KTL_LOG) << "Input wires: "<<m_inputWireList.size()<<"   Output wires: " << m_outputWireList.size() << "   Switch connected: " << m_switchConnectedPins.size();
 
     PinList pins;
 

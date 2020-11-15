@@ -40,7 +40,7 @@ MicroPackage::~MicroPackage()
 void MicroPackage::assignPin(int pinPosition, PicPin::pin_type type, const QString &pinID, const QString &portName, int portPosition)
 {
     if (m_picPinMap.find(pinPosition) != m_picPinMap.end()) {
-        qCCritical(KTL_LOG) << "PicDevice::assignBidirPin: Attempting to reset pin " << pinPosition << endl;
+        qCCritical(KTL_LOG) << "PicDevice::assignBidirPin: Attempting to reset pin " << pinPosition;
         return;
     }
     if (!m_portNames.contains(portName) && !portName.isEmpty()) {

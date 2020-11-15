@@ -39,7 +39,7 @@ ImageScaleThread::ImageScaleThread()
 bool ImageScaleThread::updateSettings(const QString &imageURL, int width, int height)
 {
     if (isRunning()) {
-        qCWarning(KTL_LOG) << "Cannot update settings while running.\n";
+        qCWarning(KTL_LOG) << "Cannot update settings while running.";
         return false;
     }
 

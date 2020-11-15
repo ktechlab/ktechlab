@@ -18,12 +18,12 @@ Resistance::Resistance(const double resistance)
 {
     m_g = resistance < 1e-9 ? 1e9 : 1. / resistance;
     m_numCNodes = 2;
-    // 	qCDebug(KTL_LOG) << endl;
+    // 	qCDebug(KTL_LOG);
 }
 
 Resistance::~Resistance()
 {
-    // 	qCDebug(KTL_LOG) << endl;
+    // 	qCDebug(KTL_LOG);
 }
 
 void Resistance::setConductance(const double g)

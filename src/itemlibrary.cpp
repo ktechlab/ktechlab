@@ -145,7 +145,7 @@ ItemLibrary::ItemLibrary()
 
 ItemLibrary::~ItemLibrary()
 {
-    // 	qCDebug(KTL_LOG) << "m_itemDescriptions[\"en_US\"].size()="<<m_itemDescriptions["en_US"].size()<<endl;
+    // 	qCDebug(KTL_LOG) << "m_itemDescriptions[\"en_US\"].size()="<<m_itemDescriptions["en_US"].size();
 
     const LibraryItemList::iterator end = m_items.end();
     for (LibraryItemList::iterator it = m_items.begin(); it != end; ++it) {
@@ -342,7 +342,7 @@ Item *ItemLibrary::createItem(const QString &id, ItemDocument *itemDocument, boo
 
         CircuitDocument *circuitDocument = dynamic_cast<CircuitDocument *>(itemDocument);
         if (!circuitDocument) {
-            qCWarning(KTL_LOG) << "Cannot create subcircuit without a circuit document" << endl;
+            qCWarning(KTL_LOG) << "Cannot create subcircuit without a circuit document";
             return nullptr;
         }
 
@@ -354,7 +354,7 @@ Item *ItemLibrary::createItem(const QString &id, ItemDocument *itemDocument, boo
         LibraryItem *li = libraryItem(id);
 
         if (!li)
-            qCWarning(KTL_LOG) << "Could not find the item constructor for id " << id << endl;
+            qCWarning(KTL_LOG) << "Could not find the item constructor for id " << id;
         else {
             item = li->createItemFnPtr()(itemDocument, newItem, newId);
             item->m_type = li->activeID();
@@ -653,7 +653,7 @@ void ItemLibrary::loadItemDescriptions()
 
         QFile file(url);
         if (!file.open(QIODevice::ReadOnly)) {
-            qCWarning(KTL_LOG) << "Could not open file \"" << url << "\"" << endl;
+            qCWarning(KTL_LOG) << "Could not open file \"" << url << "\"";
             continue;
         }
 

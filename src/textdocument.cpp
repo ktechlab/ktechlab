@@ -308,7 +308,7 @@ void TextDocument::formatAssembly()
 void TextDocument::fileSave(const QUrl &url)
 {
     if (m_doc->url() != url) {
-        qCCritical(KTL_LOG) << "Error: Kate::View url and passed url do not match; cannot save." << endl;
+        qCCritical(KTL_LOG) << "Error: Kate::View url and passed url do not match; cannot save.";
         return;
     }
 
@@ -420,7 +420,7 @@ void TextDocument::convertToAssembly()
     }
 
     else {
-        qCCritical(KTL_LOG) << "Could not get file type for converting to assembly!" << endl;
+        qCCritical(KTL_LOG) << "Could not get file type for converting to assembly!";
         return;
     }
 
@@ -459,7 +459,7 @@ void TextDocument::convertToHex()
     }
 
     else {
-        qCCritical(KTL_LOG) << "Could not get file type for converting to hex!" << endl;
+        qCCritical(KTL_LOG) << "Could not get file type for converting to hex!";
         return;
     }
 
@@ -509,7 +509,7 @@ void TextDocument::convertToPIC()
         break;
 
     case ct_unknown:
-        qCCritical(KTL_LOG) << "Could not get file type for converting to hex!" << endl;
+        qCCritical(KTL_LOG) << "Could not get file type for converting to hex!";
         return;
     }
 

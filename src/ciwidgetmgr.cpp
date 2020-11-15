@@ -112,7 +112,7 @@ Button *CIWidgetMgr::addButton(const QString &id, const QRect &pos, const QStrin
     if (it == m_widgetMap.end()) {
         m_widgetMap[id] = button;
     } else {
-        qCWarning(KTL_LOG) << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous" << endl;
+        qCWarning(KTL_LOG) << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous";
         delete it.value();
         it.value() = button;
     }
@@ -132,7 +132,7 @@ Button *CIWidgetMgr::addButton(const QString &id, const QRect &pos, const QIcon 
     if (it == m_widgetMap.end()) {
         m_widgetMap[id] = button;
     } else {
-        qCWarning(KTL_LOG) << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous" << endl;
+        qCWarning(KTL_LOG) << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous";
         delete it.value();
         it.value() = button;
     }
@@ -156,7 +156,7 @@ Slider *CIWidgetMgr::addSlider(const QString &id, int minValue, int maxValue, in
     if (it == m_widgetMap.end()) {
         m_widgetMap[id] = slider;
     } else {
-        qCWarning(KTL_LOG) << "CIWidgetMgr::addSlider: Attempting to re-add slider with same id as previous" << endl;
+        qCWarning(KTL_LOG) << "CIWidgetMgr::addSlider: Attempting to re-add slider with same id as previous";
         delete slider;
         return nullptr;
     }

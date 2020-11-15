@@ -121,7 +121,7 @@ double Wire::voltage() const
 {
     double temp;
     if ((temp = m_pStartPin->voltage() - m_pEndPin->voltage())) {
-        qCCritical(KTL_LOG) << "Wire voltage error: " << temp << endl;
+        qCCritical(KTL_LOG) << "Wire voltage error: " << temp;
     }
 
     return m_pStartPin->voltage();

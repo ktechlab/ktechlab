@@ -143,7 +143,7 @@ int ViewContainer::createViewArea(int relativeViewArea, ViewArea::Position posit
 
     ViewArea *relative = viewArea(relativeViewArea);
     if (!relative) {
-        qCCritical(KTL_LOG) << "Could not find relative view area" << endl;
+        qCCritical(KTL_LOG) << "Could not find relative view area";
         return -1;
     }
 
@@ -299,11 +299,11 @@ ViewArea::~ViewArea()
 ViewArea *ViewArea::createViewArea(Position position, uint id, bool showOpenButton)
 {
     if (p_viewArea1 || p_viewArea2) {
-        qCCritical(KTL_LOG) << "Attempting to create ViewArea when already containing ViewAreas!" << endl;
+        qCCritical(KTL_LOG) << "Attempting to create ViewArea when already containing ViewAreas!";
         return nullptr;
     }
     if (!p_view) {
-        qCCritical(KTL_LOG) << "We don't have a view yet, so creating a new ViewArea is redundant" << endl;
+        qCCritical(KTL_LOG) << "We don't have a view yet, so creating a new ViewArea is redundant";
         return nullptr;
     }
 
@@ -362,13 +362,13 @@ void ViewArea::setView(View *view)
     delete m_pEmptyViewArea;
 
     if (p_view) {
-        qCCritical(KTL_LOG) << "Attempting to set already contained view!" << endl;
+        qCCritical(KTL_LOG) << "Attempting to set already contained view!";
         return;
     }
 
     p_view = view;
 
-    // 	qCDebug(KTL_LOG) << "p_view->isFocusEnabled()="<<p_view->isFocusEnabled()<<" p_view->isHidden()="<<p_view->isHidden()<<endl;
+    // 	qCDebug(KTL_LOG) << "p_view->isFocusEnabled()="<<p_view->isFocusEnabled()<<" p_view->isHidden()="<<p_view->isHidden();
 
     connect(view, SIGNAL(destroyed()), this, SLOT(viewDestroyed()));
     bool hadFocus = hasFocus();
@@ -456,7 +456,7 @@ void ViewArea::restoreState(KConfigGroup *config, int id, const QString &groupNa
         IntList contains = config->readEntry(containsKey(m_id), IntList());
 
         if (contains.isEmpty() || contains.size() > 2)
-            qCCritical(KTL_LOG) << "Contained list has wrong size of " << contains.size() << endl;
+            qCCritical(KTL_LOG) << "Contained list has wrong size of " << contains.size();
 
         else {
             if (contains.size() >= 1) {

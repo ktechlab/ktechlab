@@ -158,7 +158,7 @@ bool ItemDocumentData::fromXML(const QString &xml)
                 ; // do nothing - we no longer use this tag
 
             else
-                qCWarning(KTL_LOG) << "Unrecognised element tag name: " << tagName << endl;
+                qCWarning(KTL_LOG) << "Unrecognised element tag name: " << tagName;
         }
 
         node = node.nextSibling();
@@ -314,7 +314,7 @@ void ItemDocumentData::elementToMicroData(QDomElement element)
         id = element.attribute("pic", QString());
 
     if (id.isNull()) {
-        qCCritical(KTL_LOG) << "Could not find id in element" << endl;
+        qCCritical(KTL_LOG) << "Could not find id in element";
         return;
     }
 
@@ -365,7 +365,7 @@ void ItemDocumentData::elementToMicroData(QDomElement element)
             }
 
             else
-                qCCritical(KTL_LOG) << "Unrecognised element tag name: " << tagName << endl;
+                qCCritical(KTL_LOG) << "Unrecognised element tag name: " << tagName;
         }
 
         node = node.nextSibling();
@@ -466,7 +466,7 @@ void ItemDocumentData::elementToItemData(QDomElement element)
 {
     QString id = element.attribute("id", QString());
     if (id.isNull()) {
-        qCCritical(KTL_LOG) << "Could not find id in element" << endl;
+        qCCritical(KTL_LOG) << "Could not find id in element";
         return;
     }
 
@@ -522,7 +522,7 @@ void ItemDocumentData::elementToItemData(QDomElement element)
                     else if (dataType == "bool")
                         m_itemDataMap[id].dataBool[dataId] = bool(value.toInt());
                     else
-                        qCCritical(KTL_LOG) << "Unknown data type of \"" << dataType << "\" with id \"" << dataId << "\"" << endl;
+                        qCCritical(KTL_LOG) << "Unknown data type of \"" << dataType << "\" with id \"" << dataId << "\"";
                 }
             }
 
@@ -542,7 +542,7 @@ void ItemDocumentData::elementToItemData(QDomElement element)
                 ; // Tag name was used in 0.1 file save format
 
             else
-                qCCritical(KTL_LOG) << "Unrecognised element tag name: " << tagName << endl;
+                qCCritical(KTL_LOG) << "Unrecognised element tag name: " << tagName;
         }
 
         node = node.nextSibling();
@@ -561,7 +561,7 @@ void ItemDocumentData::elementToNodeData(QDomElement element)
 {
     QString id = element.attribute("id", QString());
     if (id.isNull()) {
-        qCCritical(KTL_LOG) << "Could not find id in element" << endl;
+        qCCritical(KTL_LOG) << "Could not find id in element";
         return;
     }
 
@@ -611,7 +611,7 @@ void ItemDocumentData::elementToConnectorData(QDomElement element)
 {
     QString id = element.attribute("id", QString());
     if (id.isNull()) {
-        qCCritical(KTL_LOG) << "Could not find id in element" << endl;
+        qCCritical(KTL_LOG) << "Could not find id in element";
         return;
     }
 
@@ -892,7 +892,7 @@ void ItemDocumentData::mergeWithDocument(ItemDocument *itemDocument, bool select
         if (!it.value().type.isEmpty() && !itemDocument->itemWithID(it.key())) {
             Item *item = itemLibrary()->createItem(it.value().type, itemDocument, false, it.key().toLatin1().data(), false);
             if (item && !itemDocument->isValidItem(item)) {
-                qCWarning(KTL_LOG) << "Attempted to create invalid item with id: " << it.key() << endl;
+                qCWarning(KTL_LOG) << "Attempted to create invalid item with id: " << it.key();
                 item->removeItem();
                 itemDocument->flushDeleteList();
                 item = nullptr;
@@ -931,7 +931,7 @@ void ItemDocumentData::mergeWithDocument(ItemDocument *itemDocument, bool select
             if (it.value().startNodeIsChild) {
                 CNItem *item = icnd->cnItemWithID(it.value().startNodeParent);
                 if (!item)
-                    qCCritical(KTL_LOG) << "Unable to find node parent with id: " << it.value().startNodeParent << endl;
+                    qCCritical(KTL_LOG) << "Unable to find node parent with id: " << it.value().startNodeParent;
                 else
                     startNode = item->childNode(it.value().startNodeCId);
             } else
@@ -940,14 +940,14 @@ void ItemDocumentData::mergeWithDocument(ItemDocument *itemDocument, bool select
             if (it.value().endNodeIsChild) {
                 CNItem *item = icnd->cnItemWithID(it.value().endNodeParent);
                 if (!item)
-                    qCCritical(KTL_LOG) << "Unable to find node parent with id: " << it.value().endNodeParent << endl;
+                    qCCritical(KTL_LOG) << "Unable to find node parent with id: " << it.value().endNodeParent;
                 else
                     endNode = item->childNode(it.value().endNodeCId);
             } else
                 endNode = icnd->nodeWithID(it.value().endNodeId);
 
             if (!startNode || !endNode) {
-                qCCritical(KTL_LOG) << "End and start nodes for the connector do not both exist" << endl;
+                qCCritical(KTL_LOG) << "End and start nodes for the connector do not both exist";
             } else {
                 Connector *connector;
 
@@ -958,7 +958,7 @@ void ItemDocumentData::mergeWithDocument(ItemDocument *itemDocument, bool select
                 // this is just a temporary fix; someone should get to the real cause of this problem and fix
                 // ItemDocument
                 if (icnd->connectorWithID(id)) {
-                    qCWarning(KTL_LOG) << "Unregistering connector with ID: " << id << ". This should not delete any of your connections!" << endl;
+                    qCWarning(KTL_LOG) << "Unregistering connector with ID: " << id << ". This should not delete any of your connections!";
                 }
                 icnd->unregisterUID(id);
 
@@ -1020,7 +1020,7 @@ void ItemDocumentData::addConnectors(const ConnectorList &connectorList)
                 addConnectorData((*it)->connectorData(), (*it)->id());
 
             else
-                qCDebug(KTL_LOG) << " *it=" << *it << " (*it)->startNode()=" << (*it)->startNode() << " (*it)->endNode()=" << (*it)->endNode() << endl;
+                qCDebug(KTL_LOG) << " *it=" << *it << " (*it)->startNode()=" << (*it)->startNode() << " (*it)->endNode()=" << (*it)->endNode();
         }
     }
 }
@@ -1037,7 +1037,7 @@ void ItemDocumentData::addNodes(const NodeList &nodeList)
 void ItemDocumentData::addItemData(ItemData itemData, QString id)
 {
     if (m_itemDataMap.contains(id)) {
-        qCWarning(KTL_LOG) << "Overwriting item: " << id << endl;
+        qCWarning(KTL_LOG) << "Overwriting item: " << id;
     }
     m_itemDataMap[id] = itemData;
 }
@@ -1045,7 +1045,7 @@ void ItemDocumentData::addItemData(ItemData itemData, QString id)
 void ItemDocumentData::addConnectorData(ConnectorData connectorData, QString id)
 {
     if (m_connectorDataMap.contains(id)) {
-        qCWarning(KTL_LOG) << "Overwriting connector: " << id << endl;
+        qCWarning(KTL_LOG) << "Overwriting connector: " << id;
     }
     m_connectorDataMap[id] = connectorData;
 }
@@ -1053,7 +1053,7 @@ void ItemDocumentData::addConnectorData(ConnectorData connectorData, QString id)
 void ItemDocumentData::addNodeData(NodeData nodeData, QString id)
 {
     if (m_nodeDataMap.contains(id)) {
-        qCWarning(KTL_LOG) << "Overwriting node: " << id << endl;
+        qCWarning(KTL_LOG) << "Overwriting node: " << id;
     }
     m_nodeDataMap[id] = nodeData;
 }

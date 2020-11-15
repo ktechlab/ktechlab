@@ -48,7 +48,7 @@ View::View(Document *document, ViewContainer *viewContainer, uint viewAreaId)
         viewArea->setView(this);
 
     else
-        qCDebug(KTL_LOG) << " viewArea = " << viewArea << endl;
+        qCDebug(KTL_LOG) << " viewArea = " << viewArea;
 
     m_layout = new QVBoxLayout(this);
 
@@ -79,7 +79,7 @@ QAction *View::actionByName(const QString &name) const
 {
     QAction *action = actionCollection()->action(name);
     if (!action)
-        qCCritical(KTL_LOG) << "No such action: " << name << endl;
+        qCCritical(KTL_LOG) << "No such action: " << name;
     return action;
 }
 
@@ -109,7 +109,7 @@ void View::setFocusWidget(QWidget *focusWidget)
 
 bool View::eventFilter(QObject *watched, QEvent *e)
 {
-    // 	qCDebug(KTL_LOG) << e->type() << endl;
+    // 	qCDebug(KTL_LOG) << e->type();
 
     if (watched != m_pFocusWidget)
         return false;
@@ -130,34 +130,34 @@ bool View::eventFilter(QObject *watched, QEvent *e)
             ItemInterface::self()->updateItemActions();
         }
 
-        // 			qCDebug(KTL_LOG) << "Focused In\n";
+        // 			qCDebug(KTL_LOG) << "Focused In";
         emit focused(this);
         break;
     }
 
     case QEvent::FocusOut: {
-        // 			qCDebug(KTL_LOG) << "Focused Out.\n";
+        // 			qCDebug(KTL_LOG) << "Focused Out.";
         QFocusEvent *fe = static_cast<QFocusEvent *>(e);
 
         if (QWidget *fw = qApp->focusWidget()) {
             QString fwClassName(fw->metaObject()->className());
-            // 				qCDebug(KTL_LOG) << "New focus widget is \""<<fw->name()<<"\" of type " << fwClassName << endl;
+            // 				qCDebug(KTL_LOG) << "New focus widget is \""<<fw->name()<<"\" of type " << fwClassName;
 
             if ((fwClassName != "KateViewInternal") && (fwClassName != "QViewportWidget")) {
-                // 					qCDebug(KTL_LOG) << "Returning as a non-view widget has focus.\n";
+                // 					qCDebug(KTL_LOG) << "Returning as a non-view widget has focus.";
                 break;
             }
         } else {
-            // 				qCDebug(KTL_LOG) << "No widget currently has focus.\n";
+            // 				qCDebug(KTL_LOG) << "No widget currently has focus.";
         }
 
         if (fe->reason() == Qt::PopupFocusReason) {
-            // 				qCDebug(KTL_LOG) << "Ignoring focus-out event as was a popup.\n";
+            // 				qCDebug(KTL_LOG) << "Ignoring focus-out event as was a popup.";
             break;
         }
 
         if (fe->reason() == Qt::ActiveWindowFocusReason) {
-            // 				qCDebug(KTL_LOG) << "Ignoring focus-out event as main window lost focus.\n";
+            // 				qCDebug(KTL_LOG) << "Ignoring focus-out event as main window lost focus.";
             break;
         }
 

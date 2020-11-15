@@ -37,7 +37,7 @@ bool OutputFlowNode::acceptOutput() const
 
 void OutputFlowNode::addInputConnector(Connector *const /*connector*/)
 {
-    qCDebug(KTL_LOG) << "BUG: trying to add input connector to an output node" << endl;
+    qCDebug(KTL_LOG) << "BUG: trying to add input connector to an output node";
 }
 
 inline QPolygon arrowPoints(int dir)
@@ -98,7 +98,7 @@ void OutputFlowNode::drawShape(QPainter &p)
         pa = arrowPoints(270);
         break;
     default:
-        qCCritical(KTL_LOG) << "BUG: m_dir = " << m_dir << endl;
+        qCCritical(KTL_LOG) << "BUG: m_dir = " << m_dir;
     }
 
     // Note: I have not tested the positioning of the arrows for all combinations.

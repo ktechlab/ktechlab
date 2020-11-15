@@ -189,7 +189,7 @@ void PinMapDocument::init(const PinMapping &pinMapping, MicroInfo *microInfo)
         break;
 
     case PinMapping::Invalid:
-        qCDebug(KTL_LOG) << "m_pinMappingType == Invalid" << endl;
+        qCDebug(KTL_LOG) << "m_pinMappingType == Invalid";
         break;
     }
 

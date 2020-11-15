@@ -212,7 +212,7 @@ bool ICNDocument::canConnect(KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *qcanv
             else if (dl == 1)
                 container[i] = startParentItem[i];
             else
-                qCCritical(KTL_LOG) << " start, i=" << i << " dl=" << dl << endl;
+                qCCritical(KTL_LOG) << " start, i=" << i << " dl=" << dl;
         }
 
         if (endParentItem[i]) {
@@ -222,7 +222,7 @@ bool ICNDocument::canConnect(KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *qcanv
             else if (dl == 1)
                 container[i + 3] = endParentItem[i];
             else
-                qCCritical(KTL_LOG) << " end, i=" << i << " dl=" << dl << endl;
+                qCCritical(KTL_LOG) << " end, i=" << i << " dl=" << dl;
         }
     }
 
@@ -488,7 +488,7 @@ void ICNDocument::appendDeleteList(KtlQCanvasItem *qcanvasItem)
         if (connector)
             connector->removeConnector();
         else
-            qCWarning(KTL_LOG) << "unrecognised KtlQCanvasItem " << qcanvasItem << endl;
+            qCWarning(KTL_LOG) << "unrecognised KtlQCanvasItem " << qcanvasItem;
     }
 }
 
@@ -503,13 +503,13 @@ bool ICNDocument::registerItem(KtlQCanvasItem *qcanvasItem)
             m_nodeList[ node->id() ] = node;
             emit nodeAdded(node);
             */
-            qCCritical(KTL_LOG) << "BUG: this member should have been overridden!" << endl;
+            qCCritical(KTL_LOG) << "BUG: this member should have been overridden!";
 
         } else if (Connector *connector = dynamic_cast<Connector *>(qcanvasItem)) {
             m_connectorList.append(connector);
             emit connectorAdded(connector);
         } else {
-            qCCritical(KTL_LOG) << "Unrecognised item" << endl;
+            qCCritical(KTL_LOG) << "Unrecognised item";
             return false;
         }
     }

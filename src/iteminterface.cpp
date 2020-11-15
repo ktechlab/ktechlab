@@ -549,7 +549,7 @@ void ItemInterface::slotSetData(const QString &id, QVariant value)
     }
 
     if (!p_itemGroup->itemsAreSameType()) {
-        qCDebug(KTL_LOG) << "Items are not the same type!" << endl;
+        qCDebug(KTL_LOG) << "Items are not the same type!";
         return;
     }
     qCDebug(KTL_LOG) << "id=" << id << " value=" << value;

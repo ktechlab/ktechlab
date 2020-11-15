@@ -218,7 +218,7 @@ void FlowPart::initSymbol(FlowPart::FlowSymbol symbol, int width)
         break;
     }
     default:
-        qCCritical(KTL_LOG) << "Unknown flowSymbol: " << symbol << endl;
+        qCCritical(KTL_LOG) << "Unknown flowSymbol: " << symbol;
     }
 }
 
@@ -618,7 +618,7 @@ void FlowPart::updateAttachedPositioning()
     const NodeInfoMap::iterator end = m_nodeMap.end();
     for (NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it) {
         if (!it.value().node) {
-            qCCritical(KTL_LOG) << "Node in nodemap is null" << endl;
+            qCCritical(KTL_LOG) << "Node in nodemap is null";
             continue;
         }
 
@@ -652,7 +652,7 @@ void FlowPart::restoreFromItemData(const ItemData &itemData)
 void FlowPart::updateNodePositions()
 {
     if (m_orientation > 7) {
-        qCWarning(KTL_LOG) << "Invalid orientation: " << m_orientation << endl;
+        qCWarning(KTL_LOG) << "Invalid orientation: " << m_orientation;
         return;
     }
 
@@ -673,14 +673,14 @@ void FlowPart::updateNodePositions()
         else if (stdOutputInfo)
             stdOutputInfo->orientation = outNodePositioning[m_orientation];
     } else {
-        qCWarning(KTL_LOG) << "Invalid orientation: " << m_orientation << endl;
+        qCWarning(KTL_LOG) << "Invalid orientation: " << m_orientation;
         return;
     }
 
     const NodeInfoMap::iterator end = m_nodeMap.end();
     for (NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it) {
         if (!it.value().node)
-            qCCritical(KTL_LOG) << "Node in nodemap is null" << endl;
+            qCCritical(KTL_LOG) << "Node in nodemap is null";
         else {
             switch (it.value().orientation) {
             case 0:
@@ -739,7 +739,7 @@ void FlowPart::orientationPixmap(uint orientation, QPixmap &pm) const
     const QSize size = pm.size();
 
     if (!(allowedOrientations() & (1 << orientation))) {
-        qCWarning(KTL_LOG) << "Requesting invalid orientation of " << orientation << endl;
+        qCWarning(KTL_LOG) << "Requesting invalid orientation of " << orientation;
         return;
     }
 

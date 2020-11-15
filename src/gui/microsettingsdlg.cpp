@@ -304,7 +304,7 @@ void MicroSettingsDlg::slotCreatePinMap()
         break;
 
     default:
-        qCCritical(KTL_LOG) << "Unknown selected type " << type << endl;
+        qCCritical(KTL_LOG) << "Unknown selected type " << type;
         break;
     }
 

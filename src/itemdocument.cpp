@@ -717,8 +717,8 @@ void ItemDocument::resizeCanvasToItems()
 
         bound |= r;
 
-        // 		qCDebug(KTL_LOG) << "r="<<r<<endl;
-        // 		qCDebug(KTL_LOG) << "bound="<<bound<<endl;
+        // 		qCDebug(KTL_LOG) << "r="<<r;
+        // 		qCDebug(KTL_LOG) << "bound="<<bound;
     }
 
     // Make it so that the rectangular offset is a multiple of 8
@@ -867,7 +867,7 @@ void ItemDocument::exportToImage()
         // svg can't be cropped using the qimage method.
         saveArea = cropArea;
     } else {
-        qCWarning(KTL_LOG) << "Unknown type!" << endl;
+        qCWarning(KTL_LOG) << "Unknown type!";
         return;
     }
 

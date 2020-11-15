@@ -124,7 +124,7 @@ void LinkerOptions::domElementToLinkerOptions(const QDomElement &element, const 
                 m_linkedExternal << childElement.attribute("url", QString());
 
             else
-                qCCritical(KTL_LOG) << "Unrecognised element tag name: " << tagName << endl;
+                qCCritical(KTL_LOG) << "Unrecognised element tag name: " << tagName;
         }
 
         node = node.nextSibling();
@@ -366,7 +366,7 @@ ProjectItem::OutputType ProjectItem::outputType() const
         // We're a top level build target, so look at our own type
         switch (type()) {
         case ProjectItem::ProjectType:
-            qCWarning(KTL_LOG) << "Parent item and this item are both project items" << endl;
+            qCWarning(KTL_LOG) << "Parent item and this item are both project items";
             return UnknownOutput;
 
         case ProjectItem::FileType:
@@ -380,7 +380,7 @@ ProjectItem::OutputType ProjectItem::outputType() const
     }
 
     case ProjectItem::FileType: {
-        qCWarning(KTL_LOG) << "Don't know how to handle parent item being a file" << endl;
+        qCWarning(KTL_LOG) << "Don't know how to handle parent item being a file";
         return UnknownOutput;
     }
 
@@ -710,7 +710,7 @@ void ProjectItem::domElementToItem(const QDomElement &element, const QUrl &baseD
                 createdItem->domElementToItem(childElement, baseDirUrl);
 
             else
-                qCCritical(KTL_LOG) << "Unrecognised element tag name: " << tagName << endl;
+                qCCritical(KTL_LOG) << "Unrecognised element tag name: " << tagName;
         }
 
         node = node.nextSibling();
@@ -783,7 +783,7 @@ bool ProjectInfo::open(const QUrl &url)
                 domElementToItem(element, m_url);
 
             else
-                qCWarning(KTL_LOG) << "Unrecognised element tag name: " << tagName << endl;
+                qCWarning(KTL_LOG) << "Unrecognised element tag name: " << tagName;
         }
 
         node = node.nextSibling();
@@ -887,7 +887,7 @@ void ProjectManager::slotNewProject()
 
         QDir dir;
         if (!dir.mkdir(m_pCurrentProject->directory()))
-            qCDebug(KTL_LOG) << "Error in creating directory " << m_pCurrentProject->directory() << endl;
+            qCDebug(KTL_LOG) << "Error in creating directory " << m_pCurrentProject->directory();
 
         m_pCurrentProject->save();
         updateActions();

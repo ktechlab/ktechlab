@@ -43,7 +43,7 @@ QString AsmInfo::setToString(Set set)
         return QString::fromLatin1("PIC16");
     }
 
-    qCWarning(KTL_LOG) << "Unrecognized set=" << set << endl;
+    qCWarning(KTL_LOG) << "Unrecognized set=" << set;
     return QString();
 }
 
@@ -58,6 +58,6 @@ AsmInfo::Set AsmInfo::stringToSet(const QString &set)
     if (set == QString::fromLatin1("PIC16"))
         return PIC16;
 
-    // 	qCWarning(KTL_LOG) << "Unrecognized set="<<set<<endl;
+    // 	qCWarning(KTL_LOG) << "Unrecognized set="<<set;
     return PIC14;
 }

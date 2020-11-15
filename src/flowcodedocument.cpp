@@ -75,7 +75,7 @@ void FlowCodeDocument::setPicType(const QString &id)
     MicroInfo *microInfo = MicroLibrary::self()->microInfoWithID(id);
 
     if (!microInfo) {
-        qCWarning(KTL_LOG) << "FlowCodeDocument::setPicType: Could not set the pic type to PIC \"" << id << "\"\n";
+        qCWarning(KTL_LOG) << "FlowCodeDocument::setPicType: Could not set the pic type to PIC \"" << id << "\"";
         return;
     }
 

@@ -282,7 +282,7 @@ ToolView *Sidebar::addWidget(const QPixmap &icon, const QString &text, ToolView 
 
 void Sidebar::updateMinimumSize()
 {
-    // 	qCDebug(KTL_LOG) << "layout()->margin()="<<layout()->margin()<<endl;
+    // 	qCDebug(KTL_LOG) << "layout()->margin()="<<layout()->margin();
 
     QSize minSize;
 
@@ -290,8 +290,8 @@ void Sidebar::updateMinimumSize()
     for (QList<ToolView *>::iterator it = m_toolviews.begin(); it != end; ++it) {
         QSize s = (*it)->childrenRect().size();
         minSize = minSize.expandedTo(s);
-        // 		qCDebug(KTL_LOG) << "s="<<s<<"(*it)->minimumSize()="<<(*it)->minimumSize()<<endl;
-        // 		qCDebug(KTL_LOG) << "(*it)->layout()->margin()="<<(*it)->margin()<<endl;
+        // 		qCDebug(KTL_LOG) << "s="<<s<<"(*it)->minimumSize()="<<(*it)->minimumSize();
+        // 		qCDebug(KTL_LOG) << "(*it)->layout()->margin()="<<(*it)->margin();
     }
 
     minSize.setWidth(minSize.width() - 30);
@@ -409,7 +409,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
         QContextMenuEvent *e = (QContextMenuEvent *)ev;
         KMultiTabBarTab *bt = dynamic_cast<KMultiTabBarTab *>(obj);
         if (bt) {
-            qCDebug(KTL_LOG) << "Request for popup" << endl;
+            qCDebug(KTL_LOG) << "Request for popup";
 
             m_popupButton = bt->id();
 

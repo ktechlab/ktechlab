@@ -188,7 +188,7 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
     if (!con1a || !con1b || !con2a || !con2b) {
         // This should never happen, as the canConnect function should strictly
         // determine whether the connectors could be created before hand.
-        qCWarning(KTL_LOG) << "Not all the connectors were created, this should never happen" << endl;
+        qCWarning(KTL_LOG) << "Not all the connectors were created, this should never happen";
 
         if (con1a)
             con1a->removeConnector();
@@ -258,7 +258,7 @@ Connector *CircuitICNDocument::createConnector(const QString &startNodeId, const
     ECNode *endNode = getEcNodeWithID(endNodeId);
 
     if (!startNode || !endNode) {
-        qCDebug(KTL_LOG) << "Either/both the connector start node and end node could not be found" << endl;
+        qCDebug(KTL_LOG) << "Either/both the connector start node and end node could not be found";
         return nullptr;
     }
 
@@ -267,7 +267,7 @@ Connector *CircuitICNDocument::createConnector(const QString &startNodeId, const
 
     Connector *connector = endNode->createConnector(startNode);
     if (!connector) {
-        qCCritical(KTL_LOG) << "End node did not create the connector" << endl;
+        qCCritical(KTL_LOG) << "End node did not create the connector";
         return nullptr;
     }
 
@@ -349,7 +349,7 @@ void CircuitICNDocument::flushDeleteList()
         else if (Connector *con = dynamic_cast<Connector *>(qcanvasItem))
             m_connectorList.removeAll(con);
         else
-            qCCritical(KTL_LOG) << "Unknown qcanvasItem! " << qcanvasItem << endl;
+            qCCritical(KTL_LOG) << "Unknown qcanvasItem! " << qcanvasItem;
 
         qcanvasItem->setCanvas(nullptr);
 
@@ -388,7 +388,7 @@ bool CircuitICNDocument::registerItem(KtlQCanvasItem *qcanvasItem)
             m_connectorList.append(connector);
             emit connectorAdded(connector);
         } else {
-            qCCritical(KTL_LOG) << "Unrecognised item" << endl;
+            qCCritical(KTL_LOG) << "Unrecognised item";
             return false;
         }
     }

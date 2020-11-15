@@ -132,10 +132,10 @@ void ProcessChain::compile()
 #undef INDIRECT_PROCESS
 
     case ProcessOptions::ProcessPath::Invalid:
-        qCWarning(KTL_LOG) << "Process path is invalid" << endl;
+        qCWarning(KTL_LOG) << "Process path is invalid";
 
     case ProcessOptions::ProcessPath::None:
-        qCWarning(KTL_LOG) << "Nothing to do" << endl;
+        qCWarning(KTL_LOG) << "Nothing to do";
         break;
     }
 }
