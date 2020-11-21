@@ -54,7 +54,7 @@ CircuitDocument::CircuitDocument(const QString &caption)
     m_cmManager->addManipulatorInfo(CMItemDrag::manipulatorInfo());
 
     connect(this, SIGNAL(connectorAdded(Connector *)), this, SLOT(requestAssignCircuits()));
-    connect(this, SIGNAL(connectorAdded(Connector *)), this, SLOT(connectorAdded(Connector *)));
+    connect(this, SIGNAL(connectorAdded(Connector *)), this, SLOT(connectorAddedSlot(Connector *)));
 
     m_updateCircuitsTmr = new QTimer();
     connect(m_updateCircuitsTmr, SIGNAL(timeout()), this, SLOT(assignCircuits()));
@@ -67,7 +67,7 @@ CircuitDocument::~CircuitDocument()
     m_bDeleted = true;
 
     disconnect(m_updateCircuitsTmr, SIGNAL(timeout()), this, SLOT(assignCircuits()));
-    disconnect(this, SIGNAL(connectorAdded(Connector *)), this, SLOT(connectorAdded(Connector *)));
+    disconnect(this, SIGNAL(connectorAdded(Connector *)), this, SLOT(connectorAddedSlot(Connector *)));
     disconnect(this, SIGNAL(connectorAdded(Connector *)), this, SLOT(requestAssignCircuits()));
 
     for (ConnectorList::Iterator itConn = m_connectorList.begin(); itConn != m_connectorList.end(); ++itConn) {
@@ -297,7 +297,7 @@ void CircuitDocument::requestAssignCircuits()
     m_updateCircuitsTmr->start(0 /*, true */);
 }
 
-void CircuitDocument::connectorAdded(Connector *connector)
+void CircuitDocument::connectorAddedSlot(Connector *connector)
 {
     if (connector) {
         connect(connector, SIGNAL(numWiresChanged(unsigned)), this, SLOT(requestAssignCircuits()));

@@ -110,7 +110,7 @@ public slots:
     void requestAssignCircuits();
     void componentAdded(Item *item);
     void componentRemoved(Item *item);
-    void connectorAdded(Connector *connector);
+    void connectorAddedSlot(Connector *connector);
     void slotUpdateConfiguration() override;
 
 protected:
