@@ -64,7 +64,7 @@ signals:
 #undef protected
 
 signals:
-    void pinMappingsChanged();
+    void pinMappingsChangedFlowCode();
 
 public slots:
     /**

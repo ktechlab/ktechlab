@@ -71,7 +71,7 @@ FlowPart::FlowPart(ICNDocument *icnDocument, bool newItem, const QString &id)
         assert(m_pFlowCodeDocument);
 
         connect(m_pFlowCodeDocument, SIGNAL(picTypeChanged()), this, SLOT(slotUpdateFlowPartVariables()));
-        connect(m_pFlowCodeDocument, SIGNAL(pinMappingsChanged()), this, SLOT(slotUpdateFlowPartVariables()));
+        connect(m_pFlowCodeDocument, SIGNAL(pinMappingsChangedFlowCode()), this, SLOT(slotUpdateFlowPartVariables()));
     }
 }
 
