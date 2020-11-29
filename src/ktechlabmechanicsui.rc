@@ -1,5 +1,6 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KTechlabMechanics" version="2">
+<?xml version="1.0"?>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui name="KTechlabMechanics" version="2">
 	<MenuBar>
 	</MenuBar>
 	
@@ -7,5 +8,4 @@
 		<text>Item Editor</text>
 <!-- 		<Action name="null_action"/> -->
 	</ToolBar>
-</kpartgui>
-
+</gui>

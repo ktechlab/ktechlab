@@ -1,5 +1,6 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KTechlabItemView" version="9">
+<?xml version="1.0"?>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui name="KTechlabItemView" version="9">
 	<MenuBar>
 		<Menu name="file">
 			<text>&amp;File</text>
@@ -34,5 +35,4 @@
 		<Action name="view_zoom_in" />
 		<Action name="view_zoom_out" />
 	</ToolBar>
-</kpartgui>
-
+</gui>

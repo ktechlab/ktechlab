@@ -1,5 +1,6 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KTechlabFlowCode" version="6">
+<?xml version="1.0"?>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui name="KTechlabFlowCode" version="6">
 	<MenuBar>
 		<Menu name="tools"><text>&amp;Tools</text>
 			<Separator/>
@@ -27,5 +28,4 @@
 		<text>Item Editor</text>
 <!-- 		<Action name="null_action"/> -->
 	</ToolBar>
-</kpartgui>
-
+</gui>

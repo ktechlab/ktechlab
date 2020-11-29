@@ -1,5 +1,6 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KTechlabText" version="10">
+<?xml version="1.0"?>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui name="KTechlabText" version="10">
 	<MenuBar>
 		<Menu name="file">
 			<text>&amp;File</text>
@@ -117,5 +118,4 @@
 		<Action name="decFontSizes" />
 		<Action name="program_convert"/>
 	</ToolBar>
-</kpartgui>
-
+</gui>

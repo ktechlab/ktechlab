@@ -1,5 +1,6 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KTechlabCircuit" version="7">
+<?xml version="1.0"?>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui name="KTechlabCircuit" version="7">
 	<MenuBar>
 		<Menu name="tools" merge="1">
 			<text>&amp;Tools</text>
@@ -37,5 +38,4 @@
 	<Menu name="item_popup">
 		<Action name="circuit_create_subcircuit"/>
 	</Menu>
-</kpartgui>
-
+</gui>
