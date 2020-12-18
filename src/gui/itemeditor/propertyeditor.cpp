@@ -476,8 +476,19 @@ void PropertyEditor::showDefaultsButton(bool show)
 
 void PropertyEditor::updateDefaultsButton()
 {
-    if (!m_editItem)
+    QTableWidgetItem *currItem = currentItem();
+    if (!currItem) {
+        m_editItem = nullptr;
         return;
+    }
+    m_editItem = dynamic_cast<PropertyEditorItem*>(currItem);
+    if (!m_editItem) {
+        qCWarning(KTL_LOG) << "failed to cast current item to PropertyEditorItem, " << currItem;
+        return;
+    }
+    qCDebug(KTL_LOG) << "currentItem=" << currentItem();
+    qCDebug(KTL_LOG) << "m_editItem=" << m_editItem;
+    qCDebug(KTL_LOG) << "m_editItem->property=" << m_editItem->property();
     showDefaultsButton(m_editItem->property()->changed());
     repaint(); // m_editItem->repaint();
 }
