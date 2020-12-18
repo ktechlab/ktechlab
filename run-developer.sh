@@ -36,5 +36,6 @@ esac
 . "$SCRIPTDIR/build-developer/prefix.sh"
 
 export ASAN_OPTIONS=new_delete_type_mismatch=0
+export QT_MESSAGE_PATTERN="%{file} : %{line} %{type} %{function} -- %{message}"
 
 "$SCRIPTDIR/inst-developer/bin/ktechlab" 2>&1 | tee "$SCRIPTDIR/developer-run.log"
