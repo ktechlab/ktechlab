@@ -261,6 +261,7 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path(MediaType fr
         case Microbe:
         case Object:
         case Unknown:
+        default:
             return Invalid;
         }
 
@@ -282,6 +283,7 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path(MediaType fr
         case FlowCode:
         case Microbe:
         case Unknown:
+        default:
             return Invalid;
         }
 
@@ -304,6 +306,7 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path(MediaType fr
         case FlowCode:
         case Microbe:
         case Unknown:
+        default:
             return Invalid;
         }
 
@@ -328,6 +331,7 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path(MediaType fr
         case Library:
         case Object:
         case Unknown:
+        default:
             return Invalid;
         }
 
@@ -351,6 +355,7 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path(MediaType fr
         case Microbe:
         case Object:
         case Unknown:
+        default:
             return Invalid;
         }
 
@@ -372,6 +377,7 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path(MediaType fr
         case Microbe:
         case Object:
         case Unknown:
+        default:
             return Invalid;
         }
 
@@ -394,6 +400,7 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path(MediaType fr
         case Object:
         case Program:
         case Unknown:
+        default:
             return Invalid;
         }
 

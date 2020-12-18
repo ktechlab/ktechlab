@@ -621,7 +621,8 @@ void ItemView::updateStatus()
             break;
         case CanvasManipulator::ManualConnector:
             statusbar = i18n("Right click to cancel the connector");
-            // no break
+            cursor = Qt::CrossCursor;
+            break;
         case CanvasManipulator::AutoConnector:
             cursor = Qt::CrossCursor;
             break;

@@ -133,7 +133,8 @@ void ProcessChain::compile()
 
     case ProcessOptions::ProcessPath::Invalid:
         qCWarning(KTL_LOG) << "Process path is invalid";
-
+        qCWarning(KTL_LOG) << "Nothing to do";
+        break;
     case ProcessOptions::ProcessPath::None:
         qCWarning(KTL_LOG) << "Nothing to do";
         break;

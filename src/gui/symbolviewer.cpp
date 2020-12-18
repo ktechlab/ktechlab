@@ -160,13 +160,17 @@ void SymbolViewer::readProperties(KConfig *config)
     int pos = 4;
     switch (m_valueRadix) {
     case Binary:
-        pos--;
+        pos = 0;
+        break;
     case Octal:
-        pos--;
+        pos = 1;
+        break;
     case Decimal:
-        pos--;
+        pos = 2;
+        break;
     case Hexadecimal:
-        pos--;
+        pos = 3;
+        break;
     }
     m_pRadixCombo->setCurrentIndex(pos);
 
