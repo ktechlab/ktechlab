@@ -753,7 +753,7 @@ void KTechlab::openExample(QAction *action)
     DocManager::self()->openURL(QUrl::fromLocalFile(m_exampleFiles[id]));
 }
 
-void KTechlab::slotViewContainerActivated(int index)
+void KTechlab::slotViewContainerActivated(int /*index*/)
 {
     QWidget *viewContainer = m_pViewContainerTabWidget->currentWidget();
     if (!viewContainer) {

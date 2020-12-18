@@ -27,7 +27,7 @@
 #include <ktechlab_debug.h>
 
 // BEGIN Class PropertyEditorItem
-PropertyEditorItem::PropertyEditorItem(PropertyEditorItem *par, Property *property)
+PropertyEditorItem::PropertyEditorItem(PropertyEditorItem * /*par*/, Property *property)
     : QTableWidgetItem(property->editorCaption() /*, property->displayString() */)
 {
     // setParent(par); // table takes ownership of the item

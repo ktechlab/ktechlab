@@ -266,10 +266,10 @@ void ScopeScreenView::drawMidLine(QPainter &p, ProbeData *probe)
     p.drawLine(0, midHeight, width(), midHeight);
 }
 
-void ScopeScreenView::drawProbe(QPainter &p, LogicProbeData *probe)
+void ScopeScreenView::drawProbe(QPainter & /*p*/, LogicProbeData */*probe*/)
 {
 }
 
-void ScopeScreenView::drawProbe(QPainter &p, FloatingProbeData *probe)
+void ScopeScreenView::drawProbe(QPainter &/*p*/, FloatingProbeData */*probe*/)
 {
 }

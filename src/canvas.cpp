@@ -445,7 +445,7 @@ void KtlQCanvas::setUpdatePeriod(int ms)
 
 // Don't call this unless you know what you're doing.
 // p is in the content's co-ordinate example.
-void KtlQCanvas::drawViewArea(KtlQCanvasView *view, QPainter *p, const QRect &vr, bool dbuf /* always false */)
+void KtlQCanvas::drawViewArea(KtlQCanvasView *view, QPainter *p, const QRect &vr, bool /* dbuf */ /* always false */)
 {
     QPoint tl = view->contentsToViewport(QPoint(0, 0));
 
@@ -755,7 +755,7 @@ void KtlQCanvas::drawArea(const QRect &clip, QPainter *painter)
         drawCanvasArea(clip, painter, false);
 }
 
-void KtlQCanvas::drawCanvasArea(const QRect &inarea, QPainter *p, bool double_buffer /* 2018.03.11 - always false */)
+void KtlQCanvas::drawCanvasArea(const QRect &inarea, QPainter *p, bool /* double_buffer */ /* 2018.03.11 - always false */)
 {
     QRect area = inarea.intersect(m_size);
 
