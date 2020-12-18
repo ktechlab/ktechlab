@@ -124,9 +124,9 @@ void RAM::initPins()
         rightPins << QString("DO%1").arg(QString::number(i - 1));
 
     // Make pin lists of consistent sizes
-    for (unsigned i = leftPins.size(); i < rightPins.size(); ++i)
+    for (int i = leftPins.size(); i < rightPins.size(); ++i)
         leftPins.append("");
-    for (unsigned i = rightPins.size(); i < leftPins.size(); ++i)
+    for (int i = rightPins.size(); i < leftPins.size(); ++i)
         rightPins.prepend("");
 
     QStringList pins = leftPins + rightPins;

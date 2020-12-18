@@ -466,7 +466,7 @@ void Connector::setVisible(bool yes)
 
 Wire *Connector::wire(unsigned num) const
 {
-    return (num < m_wires.size()) ? m_wires[num] : nullptr;
+    return (int(num) < m_wires.size()) ? m_wires[num] : nullptr;
 }
 
 void Connector::setSelected(bool yes)

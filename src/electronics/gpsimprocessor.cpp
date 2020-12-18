@@ -658,7 +658,7 @@ RegisterSet::~RegisterSet()
 
 RegisterInfo *RegisterSet::fromAddress(unsigned address)
 {
-    return (address < m_registers.size()) ? m_registers[address] : nullptr;
+    return (int(address) < m_registers.size()) ? m_registers[address] : nullptr;
 }
 
 RegisterInfo *RegisterSet::fromName(const QString &name)
@@ -680,7 +680,7 @@ RegisterInfo *RegisterSet::fromName(const QString &name)
 
 void RegisterSet::update()
 {
-    for (unsigned i = 0; i < m_registers.size(); ++i)
+    for (int i = 0; i < m_registers.size(); ++i)
         m_registers[i]->update();
 }
 // END class RegisterSet

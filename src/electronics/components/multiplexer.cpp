@@ -78,7 +78,7 @@ void Multiplexer::dataChanged()
 void Multiplexer::inStateChanged(bool /*state*/)
 {
     unsigned long long pos = 0;
-    for (unsigned i = 0; i < m_aLogic.size(); ++i) {
+    for (int i = 0; i < m_aLogic.size(); ++i) {
         if (m_aLogic[i]->isHigh())
             pos += 1 << i;
     }

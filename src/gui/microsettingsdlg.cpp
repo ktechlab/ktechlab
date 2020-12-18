@@ -201,7 +201,7 @@ void MicroSettingsDlg::slotApplyClicked()
 
 void MicroSettingsDlg::slotSaveStuff()
 {
-    for (unsigned i = 0; i < m_portNames.size(); i++)
+    for (int i = 0; i < m_portNames.size(); i++)
         savePort(i);
 
     m_pMicroSettings->removeAllVariables();
@@ -224,7 +224,7 @@ QValidator::State MicroSettingsDlg::validatePinMapName(QString &name) const
     if (name.isEmpty())
         return QValidator::Intermediate;
 
-    for (unsigned i = 0; i < name.length(); ++i) {
+    for (int i = 0; i < name.length(); ++i) {
         if (!name[i].isLetterOrNumber() && name[i] != '_')
             return QValidator::Invalid;
     }

@@ -90,7 +90,7 @@ void ECSubcircuit::dataChanged()
 
 void ECSubcircuit::setExtConName(unsigned numId, const QString &name)
 {
-    if (numId > m_conNames.size())
+    if (int(numId) > m_conNames.size())
         return;
 
     m_conNames[numId] = name;
@@ -99,7 +99,7 @@ void ECSubcircuit::setExtConName(unsigned numId, const QString &name)
 void ECSubcircuit::doneSCInit()
 {
     QStringList pins;
-    for (unsigned i = 0; i < m_conNames.size(); ++i)
+    for (int i = 0; i < m_conNames.size(); ++i)
         pins << m_conNames[i];
     initDIPSymbol(pins, 80);
 }

@@ -732,7 +732,7 @@ void KTechlab::setupExampleActions()
 
                 // Capitalize the start of each word
                 bool prevWasSpace = true;
-                for (unsigned i = 0; i < name.length(); ++i) {
+                for (int i = 0; i < name.length(); ++i) {
                     if (prevWasSpace)
                         name[i] = name[i].toUpper();
                     prevWasSpace = name[i].isSpace();

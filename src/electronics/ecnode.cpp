@@ -69,7 +69,7 @@ void ECNode::setNumPins(unsigned num)
 
 Pin *ECNode::pin(unsigned num) const
 {
-    return (num < m_pins.size()) ? m_pins[num] : nullptr;
+    return (int(num) < m_pins.size()) ? m_pins[num] : nullptr;
 }
 
 void ECNode::setNodeChanged()
@@ -103,13 +103,13 @@ void ECNode::setParentItem(CNItem *parentItem)
 
 void ECNode::removeElement(Element *e)
 {
-    for (unsigned i = 0; i < m_pins.size(); i++)
+    for (int i = 0; i < m_pins.size(); i++)
         m_pins[i]->removeElement(e);
 }
 
 void ECNode::removeSwitch(Switch *sw)
 {
-    for (unsigned i = 0; i < m_pins.size(); i++)
+    for (int i = 0; i < m_pins.size(); i++)
         m_pins[i]->removeSwitch(sw);
 }
 

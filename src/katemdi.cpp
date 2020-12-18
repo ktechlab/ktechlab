@@ -497,11 +497,11 @@ public:
 void Sidebar::restoreSession(KConfigGroup *configGr)
 {
     // get the last correct placed toolview
-    unsigned int firstWrong = 0;
+    int firstWrong = 0;
     for (; firstWrong < m_toolviews.size(); ++firstWrong) {
         ToolView *tv = m_toolviews[firstWrong];
 
-        unsigned int pos = configGr->readEntry(QString("Kate-MDI-ToolView-%1-Sidebar-Position").arg(tv->id), firstWrong);
+        int pos = configGr->readEntry(QString("Kate-MDI-ToolView-%1-Sidebar-Position").arg(tv->id), firstWrong);
 
         if (pos != firstWrong)
             break;
@@ -511,7 +511,7 @@ void Sidebar::restoreSession(KConfigGroup *configGr)
     if (firstWrong < m_toolviews.size()) {
         // first: collect the items to reshuffle
         QList<TmpToolViewSorter> toSort;
-        for (unsigned int i = firstWrong; i < m_toolviews.size(); ++i) {
+        for (int i = firstWrong; i < m_toolviews.size(); ++i) {
             TmpToolViewSorter s;
             s.tv = m_toolviews[i];
             s.pos = configGr->readEntry(QString("Kate-MDI-ToolView-%1-Sidebar-Position").arg(m_toolviews[i]->id), i);
@@ -519,8 +519,8 @@ void Sidebar::restoreSession(KConfigGroup *configGr)
         }
 
         // now: sort the stuff we need to reshuffle
-        for (unsigned int m = 0; m < toSort.size(); ++m)
-            for (unsigned int n = m + 1; n < toSort.size(); ++n)
+        for (int m = 0; m < toSort.size(); ++m)
+            for (int n = m + 1; n < toSort.size(); ++n)
                 if (toSort[n].pos < toSort[m].pos) {
                     TmpToolViewSorter tmp = toSort[n];
                     toSort[n] = toSort[m];
@@ -534,7 +534,7 @@ void Sidebar::restoreSession(KConfigGroup *configGr)
         }
 
         // insert the reshuffled things in order :)
-        for (unsigned int i = 0; i < toSort.size(); ++i) {
+        for (int i = 0; i < toSort.size(); ++i) {
             ToolView *tv = toSort[i].tv;
 
             m_toolviews[firstWrong + i] = tv;
@@ -559,7 +559,7 @@ void Sidebar::restoreSession(KConfigGroup *configGr)
 
     // show only correct toolviews, remember persistent values ;)
     bool anyVis = false;
-    for (unsigned int i = 0; i < m_toolviews.size(); ++i) {
+    for (int i = 0; i < m_toolviews.size(); ++i) {
         ToolView *tv = m_toolviews[i];
 
         tv->persistent = configGr->readEntry(QString("Kate-MDI-ToolView-%1-Persistent").arg(tv->id), false);
@@ -589,7 +589,7 @@ void Sidebar::saveSession(KConfigGroup *config)
     config->writeEntry(QString("Kate-MDI-Sidebar-%1-Splitter").arg(sidebarPosition()), s);
 
     // store the data about all toolviews in this sidebar ;)
-    for (unsigned int i = 0; i < m_toolviews.size(); ++i) {
+    for (int i = 0; i < m_toolviews.size(); ++i) {
         ToolView *tv = m_toolviews[i];
 
         config->writeEntry(QString("Kate-MDI-ToolView-%1-Position").arg(tv->id), (int)tv->sidebar()->sidebarPosition());
@@ -835,7 +835,7 @@ void MainWindow::finishRestore()
 
         // reshuffle toolviews only if needed
         KConfigGroup grRest = m_restoreConfig->group(m_restoreGroup);
-        for (unsigned int i = 0; i < m_toolviews.size(); ++i) {
+        for (int i = 0; i < m_toolviews.size(); ++i) {
             KMultiTabBar::KMultiTabBarPosition newPos = (KMultiTabBar::KMultiTabBarPosition)grRest.readEntry(QString("Kate-MDI-ToolView-%1-Position").arg(m_toolviews[i]->id), (int)m_toolviews[i]->sidebar()->sidebarPosition());
 
             if (m_toolviews[i]->sidebar()->sidebarPosition() != newPos) {
