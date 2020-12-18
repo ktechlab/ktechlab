@@ -497,7 +497,7 @@ void Connector::updateConnectorLines(bool forceRedraw)
 
     QPen pen(color, (numWires() > 1) ? 2 : 1);
 
-    bool animateWires = KTLConfig::animateWires();
+    //bool animateWires = KTLConfig::animateWires();
     for (KtlQCanvasPolygonalItem *item : m_connectorLineList) {
         bool changed = (item->z() != z) || (item->pen() != pen) || (item->isVisible() != isVisible());
 

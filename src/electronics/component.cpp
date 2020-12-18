@@ -818,7 +818,7 @@ LogicIn *Component::createLogicIn(Pin *node)
     QList<Pin *> pins;
     pins << node;
 
-    ElementMapList::iterator it = handleElement(e, pins);
+    /*ElementMapList::iterator it = */ handleElement(e, pins);
     return e;
 }
 

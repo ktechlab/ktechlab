@@ -338,7 +338,7 @@ void KtlQCanvas::resize(const QRect &newSize)
     if (newSize == m_size)
         return;
 
-    KtlQCanvasItem *item;
+    //KtlQCanvasItem *item;
     QList<KtlQCanvasItem *> hidden;
     SortedCanvasItems::iterator end = m_canvasItems.end();
     for (SortedCanvasItems::iterator it = m_canvasItems.begin(); it != end; ++it) {

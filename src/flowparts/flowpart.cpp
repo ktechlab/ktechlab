@@ -384,16 +384,16 @@ FlowPart *FlowPart::endPart(QStringList ids, FlowPartList *previousParts)
 
     const QStringList::iterator idsEnd = ids.end();
     for (QStringList::iterator it = ids.begin(); it != idsEnd; ++it) {
-        int prevLevel = level();
+        //int prevLevel = level();
         FlowPartList validParts;
         FlowPart *part = outputPart(*it);
         while (part) {
             if (!validParts.contains(part)) {
                 validParts.append(part);
                 // 				if ( part->level() >= level() ) {
-                const int _l = part->level();
+                //const int _l = part->level();
                 part = part->endPart(QStringList(), previousParts);
-                prevLevel = _l;
+                //prevLevel = _l;
                 // 				} else {
                 // 					part = nullptr;
                 // 				}

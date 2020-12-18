@@ -29,7 +29,7 @@
 #include <QCommandLineParser>
 
 #include <ktechlab_version.h>
-
+#include <ktechlab_debug.h>
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
@@ -45,4 +45,5 @@ int main(int argc, char *argv[]) {
     aboutData.processCommandLine(&parser);
 
     KTechlab *ktechlab = new KTechlab();
+    qCInfo(KTL_LOG) << "ktechlab instance:" << ktechlab;
 }
