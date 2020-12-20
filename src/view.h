@@ -11,7 +11,6 @@
 #ifndef VIEW_H
 #define VIEW_H
 
-#include "document.h"
 #include "viewcontainer.h"
 
 #include <KXMLGUIClient>
@@ -71,11 +70,9 @@ public:
     QAction *actionByName(const QString &name) const;
     /**
      * Pointer to the parent document
+     * Out of line to avoid needing to include document.h, leading to recursive includes.
      */
-    Document *document() const
-    {
-        return m_pDocument;
-    }
+    Document *document() const;
     /**
      * Returns the DCOP object from this view
      */

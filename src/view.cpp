@@ -83,6 +83,11 @@ QAction *View::actionByName(const QString &name) const
     return action;
 }
 
+Document *View::document() const
+{
+    return m_pDocument;
+}
+
 DCOPObject *View::dcopObject() const
 {
     return m_pViewIface;
