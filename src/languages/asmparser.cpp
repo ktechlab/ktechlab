@@ -134,6 +134,8 @@ bool AsmParser::parse(GpsimDebugger *debugger)
                 }
             }
         }
+#else
+        Q_UNUSED(debugger);
 #endif // !NO_GPSIM
         inputAtLine++;
     }

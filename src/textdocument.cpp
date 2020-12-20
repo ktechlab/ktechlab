@@ -684,6 +684,8 @@ void TextDocument::setBreakpoints(const IntList &lines)
     const IntList::const_iterator end = lines.end();
     for (IntList::const_iterator it = lines.begin(); it != end; ++it)
         setBreakpoint(*it, true);
+#else
+    Q_UNUSED(lines);
 #endif // !NO_GPSIM
 }
 
@@ -728,6 +730,9 @@ void TextDocument::setBreakpoint(uint line, bool isBreakpoint)
         if (m_pDebugger)
             m_pDebugger->setBreakpoint(m_debugFile, line, false);
     }
+#else
+    Q_UNUSED(line);
+    Q_UNUSED(isBreakpoint);
 #endif // !NO_GPSIM
 }
 
@@ -843,6 +848,8 @@ void TextDocument::slotDebugSetCurrentLine(const SourceLine &line)
         textView()->setCursorPosition(textLine, 0);
 
     m_lastDebugLineAt = textLine;
+#else
+    Q_UNUSED(line);
 #endif // !NO_GPSIM
 }
 

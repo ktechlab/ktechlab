@@ -553,6 +553,9 @@ void TextView::slotWordHoveredOver(const QString &word, int line, int /*col*/)
 
     m_pTextViewLabel->move(mapFromGlobal(QCursor::pos()) + QPoint(0, 20));
     m_pTextViewLabel->show();
+#else
+    Q_UNUSED(word);
+    Q_UNUSED(line);
 #endif // !NO_GPSIM
 }
 
