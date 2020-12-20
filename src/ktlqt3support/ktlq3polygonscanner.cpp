@@ -42,6 +42,7 @@
 #include "ktlq3polygonscanner.h"
 
 #include <QPolygon>
+#include <limits>
 #include <stdlib.h>
 
 QT_BEGIN_NAMESPACE
@@ -374,9 +375,6 @@ SOFTWARE.
 
 ******************************************************************/
 
-#define MAXINT 0x7fffffff
-#define MININT -MAXINT
-
 /*
  *     fillUtils.c
  *
@@ -512,14 +510,14 @@ static bool miCreateETandAET(int count, DDXPointPtr pts, EdgeTable *ET, EdgeTabl
     AET->next = nullptr;
     AET->back = nullptr;
     AET->nextWETE = nullptr;
-    AET->bres.minor = MININT;
+    AET->bres.minor = std::numeric_limits<typeof AET->bres.minor>::min();
 
     /*
      *  initialize the Edge Table.
      */
     ET->scanlines.next = nullptr;
-    ET->ymax = MININT;
-    ET->ymin = MAXINT;
+    ET->ymax = std::numeric_limits<typeof ET->ymax>::min();
+    ET->ymin = std::numeric_limits<typeof ET->ymin>::max();
     pSLLBlock->next = nullptr;
 
     PrevPt = &pts[count - 1];
