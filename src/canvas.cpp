@@ -610,7 +610,7 @@ void KtlQCanvas::setAllChanged()
  */
 void KtlQCanvas::setChanged(const QRect &area)
 {
-    QRect thearea = area.intersect(m_size);
+    QRect thearea = area.intersected(m_size);
 
     int mx = toChunkScaling(thearea.x() + thearea.width() + chunksize);
     int my = toChunkScaling(thearea.y() + thearea.height() + chunksize);
@@ -637,7 +637,7 @@ void KtlQCanvas::setChanged(const QRect &area)
  */
 void KtlQCanvas::setUnchanged(const QRect &area)
 {
-    QRect thearea = area.intersect(m_size);
+    QRect thearea = area.intersected(m_size);
 
     int mx = toChunkScaling(thearea.x() + thearea.width() + chunksize);
     int my = toChunkScaling(thearea.y() + thearea.height() + chunksize);
@@ -659,7 +659,7 @@ void KtlQCanvas::setUnchanged(const QRect &area)
 
 QRect KtlQCanvas::changeBounds(const QRect &inarea)
 {
-    QRect area = inarea.intersect(m_size);
+    QRect area = inarea.intersected(m_size);
 
     int mx = toChunkScaling(area.x() + area.width() + chunksize);
     int my = toChunkScaling(area.y() + area.height() + chunksize);
@@ -706,7 +706,7 @@ QRect KtlQCanvas::changeBounds(const QRect &inarea)
  */
 void KtlQCanvas::drawChanges(const QRect &inarea)
 {
-    QRect area = inarea.intersect(m_size);
+    QRect area = inarea.intersected(m_size);
 
     KtlQCanvasClusterizer clusters(maxclusters);
 
@@ -757,7 +757,7 @@ void KtlQCanvas::drawArea(const QRect &clip, QPainter *painter)
 
 void KtlQCanvas::drawCanvasArea(const QRect &inarea, QPainter *p, bool /* double_buffer */ /* 2018.03.11 - always false */)
 {
-    QRect area = inarea.intersect(m_size);
+    QRect area = inarea.intersected(m_size);
 
     if (!m_viewList.first() && !p)
         return; // Nothing to do.
