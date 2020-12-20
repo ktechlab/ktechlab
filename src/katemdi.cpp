@@ -51,7 +51,7 @@ static QString getSpaces(int count)
     return s;
 }
 
-static void printObjChildren(int startLevel, const QObject *obj)
+inline void printObjChildren(int startLevel, const QObject *obj)
 {
     QObjectList chl = obj->children();
     QMutableListIterator<QObject *> itCh(chl);
