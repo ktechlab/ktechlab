@@ -448,7 +448,7 @@ QImage ItemLibrary::componentImage(Component *component, const uint maxSize)
         maskPainter.setPen(Qt::color1);
         maskPainter.setBrush(Qt::color1);
 
-        QMatrix transMatrix; // Matrix to apply to the image
+        QTransform transMatrix; // Matrix to apply to the image
 
         NodeInfoMap nodes = component->nodeMap();
         const NodeInfoMap::iterator nodesEnd = nodes.end();

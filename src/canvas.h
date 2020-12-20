@@ -205,9 +205,9 @@ public:
     }
     void setCanvas(KtlQCanvas *v);
 
-    const QMatrix &worldMatrix() const;
-    const QMatrix &inverseWorldMatrix() const;
-    bool setWorldMatrix(const QMatrix &);
+    const QTransform &worldMatrix() const;
+    const QTransform &inverseWorldMatrix() const;
+    bool setWorldTransform(const QTransform &);
 
 protected:
     /** overrides KtlQ3ScrollView::drawContents() */ // override paintEvent?

@@ -13,7 +13,6 @@
 #include "libraryitem.h"
 
 #include <KLocalizedString>
-#include <QMatrix>
 #include <QPainter>
 #include <QPainterPath>
 
@@ -46,7 +45,7 @@ ChassisCircular2::ChassisCircular2(MechanicsDocument *mechanicsDocument, bool ne
     path.addEllipse(-25, -25, 50, 50);
     QPolygon pa = path.toFillPolygon().toPolygon();
 
-    QMatrix m(4, 0, 0, 4, 0, 0);
+    QTransform m(4, 0, 0, 4, 0, 0);
     // m.setTransformationMode( QMatrix::Areas ); // TODO find a replacement
     pa = m.map(pa);
     setItemPoints(pa);

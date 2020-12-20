@@ -166,7 +166,7 @@ void MechanicsItemOverlay::slotUpdateResizeHandles()
     pa[7] = (pa[6] + pa[0]) / 2;
     pa[8] = QPoint(0, 0);
 
-    QMatrix m;
+    QTransform m;
     m.rotate(absPos.angle() * DPR);
 
     pa = m.map(pa);

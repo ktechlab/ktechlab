@@ -24,7 +24,6 @@ class Node;
 class QSlider;
 class QString;
 class QToolButton;
-class QMatrix;
 class Slider;
 class Text;
 

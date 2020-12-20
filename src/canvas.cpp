@@ -449,11 +449,11 @@ void KtlQCanvas::drawViewArea(KtlQCanvasView *view, QPainter *p, const QRect &vr
 {
     QPoint tl = view->contentsToViewport(QPoint(0, 0));
 
-    QMatrix wm = view->worldMatrix();
-    QMatrix iwm = wm.inverted();
+    QTransform wm = view->worldMatrix();
+    QTransform iwm = wm.inverted();
     // ivr = covers all chunks in vr
     QRect ivr = iwm.mapRect(vr);
-    QMatrix twm;
+    QTransform twm;
     twm.translate(tl.x(), tl.y());
 
     // 	QRect all(0,0,width(),height());
@@ -525,7 +525,7 @@ void KtlQCanvas::drawViewArea(KtlQCanvasView *view, QPainter *p, const QRect &vr
             // 2015.11.27 - do not clip, in order to fix drawing of garbage on the screen.
             // p->setClipRect(r);
         }
-        p->setWorldMatrix(wm * twm);
+        p->setWorldTransform(wm * twm);
 
         p->setBrushOrigin(tl.x(), tl.y());
         drawCanvasArea(ivr, p, false);
@@ -553,7 +553,7 @@ void KtlQCanvas::update()
     for (QList<KtlQCanvasView *>::iterator itView = m_viewList.begin(); itView != m_viewList.end(); ++itView) {
         KtlQCanvasView *view = *itView;
 
-        QMatrix wm = view->worldMatrix();
+        QTransform wm = view->worldMatrix();
 
         QRect area(view->contentsX(), view->contentsY(), view->visibleWidth(), view->visibleHeight());
         if (area.width() > 0 && area.height() > 0) {
@@ -1278,17 +1278,17 @@ void KtlQCanvasView::setCanvas(KtlQCanvas *canvas)
         updateContentsSize();
 }
 
-const QMatrix &KtlQCanvasView::worldMatrix() const
+const QTransform &KtlQCanvasView::worldMatrix() const
 {
     return d->xform;
 }
 
-const QMatrix &KtlQCanvasView::inverseWorldMatrix() const
+const QTransform &KtlQCanvasView::inverseWorldMatrix() const
 {
     return d->ixform;
 }
 
-bool KtlQCanvasView::setWorldMatrix(const QMatrix &wm)
+bool KtlQCanvasView::setWorldTransform(const QTransform &wm)
 {
     bool ok = wm.isInvertible();
     if (ok) {

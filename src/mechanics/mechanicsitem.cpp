@@ -16,7 +16,6 @@
 
 #include <QBitArray>
 #include <QDebug>
-#include <QMatrix>
 #include <QPainter>
 #include <cmath>
 
@@ -155,7 +154,7 @@ void MechanicsItem::updateCanvasPoints()
 
     PositionInfo abs = absolutePosition();
 
-    QMatrix m;
+    QTransform m;
     m.rotate(abs.angle() * DPR);
     m.translate(m_sizeRect.left(), m_sizeRect.top());
     m.scale(scalex, scaley);

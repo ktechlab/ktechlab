@@ -107,8 +107,8 @@ public:
         : repaint_from_moving(false)
     {
     }
-    QMatrix xform;
-    QMatrix ixform;
+    QTransform xform;
+    QTransform ixform;
     bool repaint_from_moving;
 };
 

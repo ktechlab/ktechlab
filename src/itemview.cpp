@@ -31,7 +31,6 @@
 
 #include <QApplication>
 #include <QCursor>
-#include <QMatrix>
 #include <QMenu>
 #include <QMimeData>
 #include <QMouseEvent>
@@ -282,8 +281,8 @@ void ItemView::zoomOut()
 void ItemView::actualSize()
 {
     m_zoomLevel = 1.0;
-    QMatrix m(m_zoomLevel, 0.0, 0.0, m_zoomLevel, 1.0, 1.0);
-    m_CVBEditor->setWorldMatrix(m);
+    QTransform m(m_zoomLevel, 0.0, 0.0, m_zoomLevel, 1.0, 1.0);
+    m_CVBEditor->setWorldTransform(m);
 
     p_itemDocument->requestEvent(ItemDocument::ItemDocumentEvent::ResizeCanvasToItems);
     updateZoomActions();
@@ -714,12 +713,12 @@ void CVBEditor::updateWorldMatrix()
 {
     double z = p_itemView->zoomLevel();
     QRect r = m_pCanvas->rect();
-    // 	QMatrix m( z, 0.0, 0.0, z, -r.left(), -r.top() );
-    // 	QMatrix m( z, 0.0, 0.0, z, 0.0, 0.0 );
-    QMatrix m;
+    // 	QTransform m( z, 0.0, 0.0, z, -r.left(), -r.top() );
+    // 	QTransform m( z, 0.0, 0.0, z, 0.0, 0.0 );
+    QTransform m;
     m.scale(z, z);
     m.translate(-r.left(), -r.top());
-    setWorldMatrix(m);
+    setWorldTransform(m);
 }
 
 void CVBEditor::contentsWheelEvent(QWheelEvent *e)

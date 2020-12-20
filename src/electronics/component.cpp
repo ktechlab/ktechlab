@@ -38,7 +38,6 @@
 #include "voltagesource.h"
 
 #include <QBitArray>
-#include <QMatrix>
 #include <QPainter>
 #include <QWidget>
 #include <cmath>
@@ -246,9 +245,9 @@ ItemData Component::itemData() const
     return itemData;
 }
 
-QMatrix Component::transMatrix(int angleDegrees, bool flipped, int x, int y, bool inverse)
+QTransform Component::transMatrix(int angleDegrees, bool flipped, int x, int y, bool inverse)
 {
-    QMatrix m;
+    QTransform m;
     m.translate(x, y);
     if (inverse) {
         m.rotate(-angleDegrees);
@@ -305,7 +304,7 @@ void Component::updateAttachedPositioning()
     // END Transform the nodes
 
     // BEGIN Transform the GuiParts
-    QMatrix m;
+    QTransform m;
 
     if (b_flipped)
         m.scale(-1, 1);
