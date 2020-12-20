@@ -300,7 +300,7 @@ void TextDocument::formatAssembly()
 {
     AsmFormatter formatter;
     // QStringList lines = QStringList::split( "\n", m_doc->text(), true ); // 2018.12.01
-    QStringList lines = m_doc->text().split("\n", QString::KeepEmptyParts);
+    QStringList lines = m_doc->text().split("\n", Qt::KeepEmptyParts);
     setText(formatter.tidyAsm(lines), false);
     setModified(true);
 }
