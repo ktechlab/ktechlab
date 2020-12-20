@@ -142,7 +142,7 @@ void NodeGroup::updateRoutes()
             Node *next = (routeIt == routeEnd) ? n2 : (Node *)*(routeIt++);
             removeRoutedNodes(&currentList, prev, next);
             QPointList pointList = *it;
-            if (prev != n1) {
+            if (!pointList.isEmpty() && prev != n1) {
                 QPoint first = pointList.first();
                 prev->moveBy(first.x() - prev->x(), first.y() - prev->y());
             }
