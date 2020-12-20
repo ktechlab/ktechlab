@@ -397,8 +397,8 @@ SOFTWARE.
  */
 static bool miInsertEdgeInET(EdgeTable *ET, EdgeTableEntry *ETE, int scanline, ScanLineListBlock **SLLBlock, int *iSLLBlock)
 {
-    register EdgeTableEntry *start, *prev;
-    register ScanLineList *pSLL, *pPrevSLL;
+    EdgeTableEntry *start, *prev;
+    ScanLineList *pSLL, *pPrevSLL;
     ScanLineListBlock *tmpSLLBlock;
 
     /*
@@ -486,7 +486,7 @@ typedef struct {
  */
 static void miFreeStorage(ScanLineListBlock *pSLLBlock)
 {
-    register ScanLineListBlock *tmpSLLBlock;
+    ScanLineListBlock *tmpSLLBlock;
 
     while (pSLLBlock) {
         tmpSLLBlock = pSLLBlock->next;
@@ -497,8 +497,8 @@ static void miFreeStorage(ScanLineListBlock *pSLLBlock)
 
 static bool miCreateETandAET(int count, DDXPointPtr pts, EdgeTable *ET, EdgeTableEntry *AET, EdgeTableEntry *pETEs, ScanLineListBlock *pSLLBlock)
 {
-    register DDXPointPtr top, bottom;
-    register DDXPointPtr PrevPt, CurrPt;
+    DDXPointPtr top, bottom;
+    DDXPointPtr PrevPt, CurrPt;
     int iSLLBlock = 0;
 
     int dy;
@@ -581,8 +581,8 @@ static bool miCreateETandAET(int count, DDXPointPtr pts, EdgeTable *ET, EdgeTabl
 
 static void miloadAET(EdgeTableEntry *AET, EdgeTableEntry *ETEs)
 {
-    register EdgeTableEntry *pPrevAET;
-    register EdgeTableEntry *tmp;
+    EdgeTableEntry *pPrevAET;
+    EdgeTableEntry *tmp;
 
     pPrevAET = AET;
     AET = AET->next;
@@ -625,9 +625,9 @@ static void miloadAET(EdgeTableEntry *AET, EdgeTableEntry *ETEs)
  */
 static void micomputeWAET(EdgeTableEntry *AET)
 {
-    register EdgeTableEntry *pWETE;
-    register int inside = 1;
-    register int isInside = 0;
+    EdgeTableEntry *pWETE;
+    int inside = 1;
+    int isInside = 0;
 
     AET->nextWETE = nullptr;
     pWETE = AET;
@@ -659,10 +659,10 @@ static void micomputeWAET(EdgeTableEntry *AET)
 
 static int miInsertionSort(EdgeTableEntry *AET)
 {
-    register EdgeTableEntry *pETEchase;
-    register EdgeTableEntry *pETEinsert;
-    register EdgeTableEntry *pETEchaseBackTMP;
-    register int changed = 0;
+    EdgeTableEntry *pETEchase;
+    EdgeTableEntry *pETEinsert;
+    EdgeTableEntry *pETEchaseBackTMP;
+    int changed = 0;
 
     AET = AET->next;
     while (AET) {
@@ -729,12 +729,12 @@ void KtlQ3PolygonScanner::scan(const QPolygon &pa, bool winding, int index, int 
 {
     DDXPointPtr ptsIn = (DDXPointPtr)pa.data();
     ptsIn += index;
-    register EdgeTableEntry *pAET;  /* the Active Edge Table   */
-    register int y;                 /* the current scanline    */
-    register int nPts = 0;          /* number of pts in buffer */
-    register EdgeTableEntry *pWETE; /* Winding Edge Table      */
-    register ScanLineList *pSLL;    /* Current ScanLineList    */
-    register DDXPointPtr ptsOut;    /* ptr to output buffers   */
+    EdgeTableEntry *pAET;  /* the Active Edge Table   */
+    int y;                 /* the current scanline    */
+    int nPts = 0;          /* number of pts in buffer */
+    EdgeTableEntry *pWETE; /* Winding Edge Table      */
+    ScanLineList *pSLL;    /* Current ScanLineList    */
+    DDXPointPtr ptsOut;    /* ptr to output buffers   */
     int *width;
     DDXPointRec FirstPoint[NUMPTSTOBUFFER]; /* the output buffers */
     int FirstWidth[NUMPTSTOBUFFER];
