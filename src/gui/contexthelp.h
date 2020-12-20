@@ -20,8 +20,7 @@ class Item;
 class ContextHelp;
 class RichTextEditor;
 
-class KHTMLPart;
-class KHTMLView;
+class QTextBRowser;
 class QUrl;
 class QLabel;
 class QTextBrowser;
@@ -131,8 +130,7 @@ protected:
     bool isEditChanged();
     QString m_currentLanguage;
     QString m_lastItemType;
-    KHTMLPart *m_pBrowser;
-    KHTMLView *m_pBrowserView;
+    QTextBrowser *m_pBrowserView;
     RichTextEditor *m_pEditor;
 
 private slots:

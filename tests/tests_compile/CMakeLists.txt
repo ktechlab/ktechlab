@@ -37,7 +37,6 @@ target_link_libraries( test_compile
     KF5::ConfigCore
     KF5::ConfigGui
     KF5::KIOCore
-    KF5::KHtml
     KF5::CoreAddons
     KF5::XmlGui
     KF5::TextEditor

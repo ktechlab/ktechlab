@@ -122,7 +122,7 @@ Required dependencies
 - Extra Cmake Modules (ECM)
 - KDE Frameworks 5 libraries -dev  (at the time of writing:
    Config CoreAddons DocTools IconThemes I18n KDELibs4Support
-    KHtml KIO Parts TextEditor TextWidgets WidgetsAddons
+    KIO Parts TextEditor TextWidgets WidgetsAddons
     WindowSystem XmlGui)
 
 Optional dependencies

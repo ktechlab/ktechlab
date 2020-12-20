@@ -18,8 +18,6 @@
 #include "libraryitem.h"
 #include "richtexteditor.h"
 
-#include <KHTMLPart>
-#include <KHTMLView>
 #include <KIO/Global>
 #include <KIconLoader>
 #include <KLocalizedString>
@@ -42,6 +40,7 @@
 // #include <q3widgetstack.h>
 #include <QMimeData>
 #include <QStandardPaths>
+#include <QTextBrowser>
 
 #include <cassert>
 
@@ -81,14 +80,13 @@ ContextHelp::ContextHelp(KateMDI::ToolView *parent)
     m_pNameLabel->setFont(font);
     m_pNameLabel->setTextFormat(Qt::RichText);
 
-    m_pBrowser = new KHTMLPart(m_pWidgetStack->widget(0));
-    m_pBrowserView = m_pBrowser->view();
+    m_pBrowserView = new QTextBrowser;
+    m_pBrowserView->setOpenLinks(false);
+
     m_pBrowserView->setFocusPolicy(Qt::NoFocus);
     m_pBrowserLayout->addWidget(m_pBrowserView);
-    connect(m_pBrowser->browserExtension(), &KParts::BrowserExtension::openUrlRequest, this, &ContextHelp::openURL);
 
-    // Adjust appearance of browser
-    m_pBrowserView->setMarginWidth(4);
+    connect(m_pBrowserView, &QTextBrowser::anchorClicked, this, &ContextHelp::openURL);
 
     m_pEditor = new RichTextEditor(m_pWidgetStack->widget(1));
     m_pEditor->setObjectName("ContextHelpEditor");
@@ -265,20 +263,14 @@ void ContextHelp::setContextHelp(QString name, QString help)
     addLinkTypeAppearances(&help);
     // END modify help string as appropriate
 
-    // HACK Adjust top spacing according to whether the item description uses <p>.
-    // This is because the help editor uses paragraphs, but old item help stored
-    // in the items just uses <br>
-    QFont f;
-    int fontPixelSize = QFontInfo(f).pixelSize();
-    if (help.contains("<p>"))
-        m_pBrowserView->setMarginHeight(3 - fontPixelSize);
-    else
-        m_pBrowserView->setMarginHeight(3);
-
     m_pNameLabel->setText(name);
-    m_pBrowser->begin(QUrl::fromLocalFile(itemLibrary()->itemDescriptionsDirectory()));
-    m_pBrowser->write(help);
-    m_pBrowser->end();
+    m_pBrowserView->setSearchPaths({itemLibrary()->itemDescriptionsDirectory()});
+    m_pBrowserView->clear();
+    if (help.startsWith("<html>")) {
+        m_pBrowserView->insertHtml(help);
+    } else {
+        m_pBrowserView->insertPlainText(help);
+    }
 }
 
 void ContextHelp::parseInfo(QString &info)

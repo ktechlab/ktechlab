@@ -353,7 +353,6 @@ target_link_libraries( ktechlab
     KF5::CoreAddons
     KF5::IconThemes
     KF5::KIOCore
-    KF5::KHtml
     KF5::XmlGui
     KF5::WidgetsAddons
     KF5::WindowSystem
@@ -393,7 +392,6 @@ if(BUILD_TESTING)
         KF5::TextEditor
         KF5::IconThemes
         KF5::Parts
-        KF5::KHtml
         KF5::WidgetsAddons
         KF5::WindowSystem
         KF5::ConfigWidgets

@@ -48,7 +48,6 @@ find_package(KF5 REQUIRED COMPONENTS
     DocTools
     IconThemes
     I18n
-    KHtml
     KIO
     Parts
     TextEditor
