@@ -475,14 +475,11 @@ static bool miInsertEdgeInET(EdgeTable *ET, EdgeTableEntry *ETE, int scanline, S
  *
  */
 
+namespace { // anonymous namespace, don't export
 typedef struct {
-#if defined(Q_OS_MAC)
-    int y, x;
-#else
     int x, y;
-#endif
-
 } DDXPointRec, *DDXPointPtr;
+}
 
 /*
  *     Clean up our act.
