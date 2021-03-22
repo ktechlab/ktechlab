@@ -225,9 +225,18 @@ QPoint ECNode::findConnectorDivergePoint(bool *found)
     if (!gotP1 || !gotP2)
         return QPoint(0, 0);
 
-    unsigned maxLength = p1.size() > p2.size() ? p1.size() : p2.size();
+    // If they are differing lengths, return the end of the shortest
+    if (p1.size() < p2.size()) {
+        *found = true;
+        return p1.last();
+    } else if (p2.size() < p1.size()) {
+        *found = true;
+        return p2.last();
+    }
 
-    for (unsigned i = 1; i < maxLength; ++i) {
+    Q_ASSERT(p1.size() == p2.size());
+
+    for (unsigned i = 1; i < qMin(p1.size(), p2.size()); ++i) {
         if (p1[i] != p2[i]) {
             *found = true;
             return p1[i - 1];
