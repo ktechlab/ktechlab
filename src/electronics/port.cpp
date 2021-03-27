@@ -53,85 +53,75 @@ SerialPort::~SerialPort()
     closePort();
 }
 
-#ifdef Q_OS_UNIX
-static void unixPinEnable(QSerialPort *port, SerialPort::Pin pin, bool state, int flags)
-{
-    if (ioctl(port->handle(), state ? TIOCMBIS : TIOCMBIC, &flags) == -1)
-        qCCritical(KTL_LOG) << "Could not set pin" << pin << "errno = " << errno;
-}
-#endif
-
-void SerialPort::setPinState(Pin pin, bool state)
+void SerialPort::setBreakEnabled(bool state)
 {
     if (!m_port)
         return;
 
-    switch (pin) {
-    case TD:
-        m_port->setBreakEnabled(state);
+    m_port->setBreakEnabled(state);
+}
+
+void SerialPort::setDataTerminalReady(bool state)
+{
+    if (!m_port)
         return;
 
-    case DTR:
-        m_port->setDataTerminalReady(state);
+    m_port->setDataTerminalReady(state);
+}
+
+void SerialPort::setDataSetReady(bool state)
+{
+    if (!m_port)
         return;
 
-    case DSR:
 #ifdef Q_OS_UNIX
-        unixPinEnable(m_port, pin, state, TIOCM_DSR);
+    const int flags = TIOCM_DSR;
+    if (ioctl(m_port->handle(), state ? TIOCMBIS : TIOCMBIC, &flags) == -1)
+        qCCritical(KTL_LOG) << "Could not set DSR, errno = " << errno;
 #else
-        qCWarning(KTL_LOG) << "Cannot set pin" << pin << "on non-Unix OS";
+    Q_UNUSED(state);
+    qCWarning(KTL_LOG) << "Cannot set DSR on non-Unix OS";
 #endif
-        return;
-
-    case RTS:
-        m_port->setRequestToSend(state);
-        return;
-
-    default:
-        qCCritical(KTL_LOG) << "Bad pin" << pin;
-    };
 }
 
-bool SerialPort::pinState(Pin pin)
+void SerialPort::setRequestToSend(bool state)
+{
+    if (!m_port)
+        return;
+
+    m_port->setRequestToSend(state);
+}
+
+bool SerialPort::getDataCarrierDetectSignal()
 {
     if (!m_port)
         return false;
 
-    int mask = 0;
+    return m_port->pinoutSignals() & QSerialPort::DataCarrierDetectSignal;
+}
 
-    switch (pin) {
-    case CD:
-        mask = QSerialPort::DataCarrierDetectSignal;
-        break;
-
-    case RD:
-        mask = QSerialPort::SecondaryReceivedDataSignal;
-        break;
-
-    case CTS:
-        mask = QSerialPort::ClearToSendSignal;
-        break;
-
-    case RI:
-        mask = QSerialPort::RingIndicatorSignal;
-        break;
-
-    case TD:
-    case DTR:
-    case GND:
-    case DSR:
-    case RTS:
-        break;
-    }
-
-    if (mask == 0) {
-        qCCritical(KTL_LOG) << "Bad pin " << pin;
+bool SerialPort::getSecondaryReceivedDataSignal()
+{
+    if (!m_port)
         return false;
-    }
 
-    const QSerialPort::PinoutSignals bits = m_port->pinoutSignals();
+    return m_port->pinoutSignals() & QSerialPort::SecondaryReceivedDataSignal;
+}
 
-    return bits & mask;
+bool SerialPort::getClearToSendSignal()
+{
+    if (!m_port)
+        return false;
+
+    return m_port->pinoutSignals() & QSerialPort::ClearToSendSignal;
+}
+
+bool SerialPort::getRingIndicatorSignal()
+{
+    if (!m_port)
+        return false;
+
+    return m_port->pinoutSignals() & QSerialPort::RingIndicatorSignal;
 }
 
 bool SerialPort::openPort(const QString &port, qint32 baudRate)

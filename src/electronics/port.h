@@ -42,26 +42,18 @@ Abstraction for a serial port, allowing control over individual pins.
 class SerialPort : public Port
 {
 public:
-    enum Pin {
-        CD = 1,  // Carrier detect
-        RD = 2,  // Received data
-        TD = 3,  // Transmitted data
-        DTR = 4, // Data terminal ready
-        GND = 5, // Signal ground
-        DSR = 6, // Data set ready
-        RTS = 7, // Request to send
-        CTS = 8, // Clear to send
-        RI = 9   // Ring indicator
-    };
-
     SerialPort();
     ~SerialPort() override;
 
-    /**
-     * Writes state (high or low) to the given pin.
-     */
-    void setPinState(Pin pin, bool state);
-    bool pinState(Pin pin);
+    void setBreakEnabled(bool state);
+    void setDataTerminalReady(bool state);
+    void setDataSetReady(bool state);
+    void setRequestToSend(bool state);
+
+    bool getDataCarrierDetectSignal();
+    bool getSecondaryReceivedDataSignal();
+    bool getClearToSendSignal();
+    bool getRingIndicatorSignal();
 
     /**
      * @see Port::ports

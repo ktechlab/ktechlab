@@ -181,30 +181,30 @@ void SerialPortComponent::initPort(const QString &port, qint32 baudRate)
 
 void SerialPortComponent::stepNonLogic()
 {
-    m_pCD->setHigh(m_pSerialPort->pinState(SerialPort::CD));
-    // 	m_pRD->setHigh( m_pSerialPort->pinState( SerialPort::RD ) );
-    m_pCTS->setHigh(m_pSerialPort->pinState(SerialPort::CTS));
-    m_pRI->setHigh(m_pSerialPort->pinState(SerialPort::RI));
+    m_pCD->setHigh(m_pSerialPort->getDataCarrierDetectSignal());
+    // 	m_pRD->setHigh(m_pSerialPort->getSecondaryReceivedDataSignal());
+    m_pCTS->setHigh(m_pSerialPort->getClearToSendSignal());
+    m_pRI->setHigh(m_pSerialPort->getRingIndicatorSignal());
 }
 
 void SerialPortComponent::tdCallback(bool isHigh)
 {
-    m_pSerialPort->setPinState(SerialPort::TD, isHigh);
+    m_pSerialPort->setBreakEnabled(isHigh);
 }
 
 void SerialPortComponent::dtrCallback(bool isHigh)
 {
-    m_pSerialPort->setPinState(SerialPort::DTR, isHigh);
+    m_pSerialPort->setDataTerminalReady(isHigh);
 }
 
 void SerialPortComponent::dsrCallback(bool isHigh)
 {
-    m_pSerialPort->setPinState(SerialPort::DSR, isHigh);
+    m_pSerialPort->setDataSetReady(isHigh);
 }
 
 void SerialPortComponent::rtsCallback(bool isHigh)
 {
-    m_pSerialPort->setPinState(SerialPort::RTS, isHigh);
+    m_pSerialPort->setRequestToSend(isHigh);
 }
 
 void SerialPortComponent::drawShape(QPainter &p)
