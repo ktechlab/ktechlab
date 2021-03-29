@@ -206,7 +206,7 @@ void Expression::doOp( Operation op, BTreeNode *left, BTreeNode *right )
 		case unset:
 		case extpin:
 		case keypad:
-			qCritical() << Q_FUNC_INFO << "Bad left->type(): " << left->type() << endl;
+			qCritical() << Q_FUNC_INFO << "Bad left->type(): " << left->type();
 	};
 
 	PIC14::LocationType rightType = PIC14::work;
@@ -227,7 +227,7 @@ void Expression::doOp( Operation op, BTreeNode *left, BTreeNode *right )
 		case unset:
 		case extpin:
 		case keypad:
-			qCritical() << Q_FUNC_INFO << "Bad right->type(): " << right->type() << endl;
+			qCritical() << Q_FUNC_INFO << "Bad right->type(): " << right->type();
 	};
 
 	switch(op)

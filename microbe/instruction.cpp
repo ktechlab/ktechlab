@@ -952,7 +952,7 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 		case Register::WORKING:
 		case Register::none:
 		{
-// 			qCritical() << Q_FUNC_INFO << "Bad register: " << reg << endl;
+// 			qCritical() << Q_FUNC_INFO << "Bad register: " << reg;
 		}
 	}
 }
@@ -1786,7 +1786,7 @@ void RegisterBit::initFromName()
 	{
 		m_registerType = Register::none;
 		m_bitPos = 0;
-		qCritical() << Q_FUNC_INFO << "Unknown bit: " << m_name << endl;
+		qCritical() << Q_FUNC_INFO << "Unknown bit: " << m_name;
 	}
 }
 //END class RegisterBit
@@ -2586,7 +2586,7 @@ void Instruction::makeOutputLinks( Code::iterator current, bool firstOutput, boo
 	++current;
 	if ( !*current )
 	{
-		qWarning() << Q_FUNC_INFO << "current+1 is null"<<endl;
+		qWarning() << Q_FUNC_INFO << "current+1 is null";
 		return;
 	}
 	if ( firstOutput )
