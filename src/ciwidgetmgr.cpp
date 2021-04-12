@@ -106,7 +106,7 @@ Button *CIWidgetMgr::addButton(const QString &id, const QRect &pos, const QStrin
     WidgetMap::iterator it;
 
     Button *button = new Button(id, p_cnItem, toggle, pos, p_canvas);
-    (dynamic_cast<QToolButton *>(button->widget()))->setText(display);
+    (qobject_cast<QToolButton *>(button->widget()))->setText(display);
 
     it = m_widgetMap.find(id);
     if (it == m_widgetMap.end()) {
@@ -144,7 +144,7 @@ Button *CIWidgetMgr::addButton(const QString &id, const QRect &pos, const QIcon 
 Slider *CIWidgetMgr::addSlider(const QString &id, int minValue, int maxValue, int pageStep, int value, Qt::Orientation orientation, const QRect &pos)
 {
     Slider *slider = new Slider(id, p_cnItem, pos, p_canvas);
-    QSlider *qslider = dynamic_cast<QSlider *>(slider->widget());
+    QSlider *qslider = qobject_cast<QSlider *>(slider->widget());
 
     qslider->setMinimum(minValue);
     qslider->setMaximum(maxValue);

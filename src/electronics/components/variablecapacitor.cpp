@@ -80,7 +80,7 @@ VariableCapacitor::VariableCapacitor(ICNDocument *icnDocument, bool newItem, con
     property("minimum capacitance")->setValue(m_minCapacitance);
 
     Slider *s = addSlider("slider", 0, 100, 1, 50, Qt::Horizontal, QRect(-16, 10, 32, 16));
-    m_pSlider = static_cast<QSlider *>(s->widget());
+    m_pSlider = qobject_cast<QSlider *>(s->widget());
 }
 
 VariableCapacitor::~VariableCapacitor()
