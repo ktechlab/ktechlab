@@ -45,11 +45,11 @@ OrientationWidget::OrientationWidget(QWidget *parent)
             // 			btn->setFlat(true);
             btn->setIconSize(QSize(50, 50));
             btn->setCheckable(true);
-            btn->setEnabled(false);
 
             connect(btn, SIGNAL(clicked()), this, SLOT(slotButtonClicked()));
         }
     }
+    setVisible(false);
 }
 
 OrientationWidget::~OrientationWidget()
@@ -147,11 +147,11 @@ void OrientationWidget::initFromComponent(Component *component)
             }
 
             m_toolBtn[row][col]->setIcon(QIcon(tbPm));
-            m_toolBtn[row][col]->setEnabled(true);
         }
     }
 
     updateShownOrientation();
+    setVisible(true);
 }
 
 void OrientationWidget::slotClear()
@@ -163,12 +163,7 @@ void OrientationWidget::slotClear()
     m_pFlowPart = nullptr;
     m_pCNItem = nullptr;
 
-    for (int row = 0; row < 2; ++row) {
-        for (int col = 0; col < 4; ++col) {
-            m_toolBtn[row][col]->setIcon(QIcon());
-            m_toolBtn[row][col]->setEnabled(false);
-        }
-    }
+    setVisible(false);
 }
 
 void OrientationWidget::slotButtonClicked()
