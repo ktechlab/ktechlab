@@ -120,8 +120,11 @@ bool Wire::calculateCurrent()
 double Wire::voltage() const
 {
     double temp;
+
+    // TODO: the external connections trigger this, need to figure out how
+    // the Probe classes manage to get away with unknown voltages.
     if ((temp = m_pStartPin->voltage() - m_pEndPin->voltage())) {
-        qCCritical(KTL_LOG) << "Wire voltage error: " << temp;
+        qCWarning(KTL_LOG) << "Wire voltage error: " << temp << m_pStartPin->voltage() << m_pEndPin->voltage();
     }
 
     return m_pStartPin->voltage();
