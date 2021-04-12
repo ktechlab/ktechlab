@@ -105,9 +105,9 @@ void PinNode::drawShape(QPainter &p)
             length++;
 
         if ((m_dir > 270) || (m_dir <= 90))
-            p.drawLine(3, 0, 3, length);
+            p.drawLine(3, -thickness/2, 3, length);
         else
-            p.drawLine(3, 0, 3, -length);
+            p.drawLine(3, thickness/2, 3, -length);
     }
 
     pen.setWidth((numPins() > 1) ? 2 : 1);
