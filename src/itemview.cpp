@@ -627,7 +627,7 @@ void ItemView::updateStatus()
             break;
         case CanvasManipulator::ItemMove:
         case CanvasManipulator::MechItemMove:
-            cursor = Qt::SizeAllCursor;
+            cursor = Qt::ClosedHandCursor;
             break;
         case CanvasManipulator::Draw:
             cursor = Qt::CrossCursor;
@@ -637,19 +637,20 @@ void ItemView::updateStatus()
         }
 
     } else if (KtlQCanvasItem *qcanvasItem = itemDocument->itemAtTop(pos)) {
-        if (Connector *con = dynamic_cast<Connector *>(qcanvasItem)) {
+        if (Connector *con = qobject_cast<Connector *>(qcanvasItem)) {
             cursor = Qt::CrossCursor;
             if (itemDocument->type() == Document::dt_circuit) {
                 canvasTip->displayVI(con, pos);
                 displayTip = true;
             }
-        } else if (Node *node = dynamic_cast<Node *>(qcanvasItem)) {
+        } else if (Node *node = qobject_cast<Node *>(qcanvasItem)) {
             cursor = Qt::CrossCursor;
-            if (ECNode *ecnode = dynamic_cast<ECNode *>(node)) {
+            if (ECNode *ecnode = qobject_cast<ECNode *>(node)) {
                 canvasTip->displayVI(ecnode, pos);
                 displayTip = true;
             }
-        } else if (CNItem *item = dynamic_cast<CNItem *>(qcanvasItem)) {
+        } else if (CNItem *item = qobject_cast<CNItem *>(qcanvasItem)) {
+            cursor = Qt::OpenHandCursor;
             statusbar = item->name();
         }
     }
