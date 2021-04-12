@@ -236,7 +236,7 @@ QPoint ECNode::findConnectorDivergePoint(bool *found)
 
     Q_ASSERT(p1.size() == p2.size());
 
-    for (unsigned i = 1; i < qMin(p1.size(), p2.size()); ++i) {
+    for (int i = 1; i < qMin(p1.size(), p2.size()); ++i) {
         if (p1[i] != p2[i]) {
             *found = true;
             return p1[i - 1];
