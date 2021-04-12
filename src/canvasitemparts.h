@@ -241,6 +241,13 @@ public:
         QToolButton::leaveEvent(nullptr);
     }
 
+    // Not overriding because it complains about it being wrong for some
+    // reason, so just wrap the function.
+    void initStyleOpt(QStyleOptionToolButton *option) const
+    {
+        QToolButton::initStyleOption(option);
+    }
+
     void setAngleDegrees(int angleDegrees)
     {
         m_angleDegrees = angleDegrees;
@@ -283,6 +290,8 @@ public:
     void setIcon(const QIcon &);
     void setState(bool state);
     QRect recommendedRect() const override;
+
+    void drawShape(QPainter &p) override;
 
 protected:
     void posChanged() override;
@@ -328,6 +337,13 @@ public:
     {
         QSlider::leaveEvent(nullptr);
     }
+
+    // Not overriding because it complains about it being wrong for some
+    // reason, so just wrap the function.
+    void initStyleOpt(QStyleOptionSlider *option) const
+    {
+        QSlider::initStyleOption(option);
+    }
 };
 
 /**
@@ -353,6 +369,8 @@ public:
     int value() const;
     void setValue(int value);
     void setOrientation(Qt::Orientation o);
+
+    void drawShape(QPainter &p) override;
 
 protected:
     void posChanged() override;

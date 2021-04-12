@@ -15,6 +15,9 @@
 
 #include <QPainter>
 #include <QWheelEvent>
+#include <QStyle>
+#include <QStyleOptionSlider>
+#include <QStyleOptionToolButton>
 
 #include <ktechlab_debug.h>
 
@@ -262,6 +265,23 @@ Button::Button(const QString &id, CNItem *parent, bool isToggle, const QRect &r,
 Button::~Button()
 {
     delete m_button;
+}
+
+void Button::drawShape(QPainter &p)
+{
+    const QTransform transform = p.worldTransform();
+    p.setTransform(QTransform());
+
+    QStyleOptionToolButton opt;
+    opt.initFrom(m_button);
+    m_button->initStyleOpt(&opt);
+
+    opt.rect.translate(x(), y());
+    opt.rect = transform.mapRect(opt.rect);
+
+    m_button->style()->drawComplexControl(QStyle::CC_ToolButton, &opt, &p, m_button);
+
+    p.setTransform(transform);
 }
 
 void Button::setToggle(bool toggle)
@@ -538,6 +558,22 @@ void Slider::setOrientation(Qt::Orientation o)
 {
     m_orientation = o;
     posChanged();
+}
+
+void Slider::drawShape(QPainter &p)
+{
+    QStyleOptionSlider opt;
+    opt.initFrom(m_slider);
+    m_slider->initStyleOpt(&opt);
+    opt.subControls = QStyle::SC_All;
+
+    opt.rect.translate(x(), y());
+    opt.rect = p.worldTransform().mapRect(opt.rect);
+
+    p.setWorldMatrixEnabled(false);
+    m_slider->style()->drawComplexControl(QStyle::CC_Slider, &opt, &p, m_slider);
+    p.setWorldMatrixEnabled(true);
+
 }
 
 void Slider::posChanged()
