@@ -32,6 +32,7 @@ ViewContainer::ViewContainer(const QString &caption, QWidget *parent)
     connect(KTechlab::self(), SIGNAL(needUpdateCaptions()), this, SLOT(updateCaption()));
 
     QHBoxLayout *layout = new QHBoxLayout(this);
+    layout->setMargin(0);
     m_baseViewArea = new ViewArea(this, this, 0, false);
     m_baseViewArea->setObjectName("viewarea_0");
     connect(m_baseViewArea, SIGNAL(destroyed(QObject *)), this, SLOT(baseViewAreaDestroyed(QObject *)));
