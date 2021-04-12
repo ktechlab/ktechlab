@@ -394,6 +394,7 @@ void CNItem::drawShape(QPainter &p)
 
 void CNItem::initPainter(QPainter &p)
 {
+    p.setRenderHint(QPainter::Antialiasing);
     if (isSelected())
         p.setPen(m_selectedCol);
 }
