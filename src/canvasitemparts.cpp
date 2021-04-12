@@ -416,12 +416,7 @@ Slider::Slider(const QString &id, CNItem *parent, const QRect &r, KtlQCanvas *ca
 
     m_slider = new SliderWidget(nullptr);
     QPalette p;
-    p.setColor(m_slider->foregroundRole(), Qt::white);
-    p.setColor(m_slider->backgroundRole(), Qt::transparent);
-    // m_slider->setPaletteBackgroundColor(Qt::white);   // 2018.12.02
-    // m_slider->setPaletteForegroundColor(Qt::white);
-    // m_slider->setEraseColor(Qt::white);
-    // m_slider->setBackgroundMode( Qt::NoBackground );
+    p.setColor(m_slider->backgroundRole(), Qt::white);
     m_slider->setPalette(p);
     connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged(int)));
     posChanged();
@@ -562,6 +557,14 @@ void Slider::posChanged()
     else {
         nowInverted = angleDegrees() == 0 || angleDegrees() == 90;
         m_slider->setOrientation((m_angleDegrees % 180 == 0) ? Qt::Horizontal : Qt::Vertical);
+    }
+
+    if (m_slider->orientation() == Qt::Vertical) {
+        m_slider->setFixedWidth(m_slider->sizeHint().width());
+        m_slider->setFixedHeight(height());
+    } else {
+        m_slider->setFixedWidth(width());
+        m_slider->setFixedHeight(m_slider->sizeHint().height());
     }
 
     if (nowInverted != m_bSliderInverted) {
