@@ -65,27 +65,25 @@ NewFileDlg::NewFileDlg(QWidget *parent)
     // m_pNewFileWidget->typeIconView->setMode(K3IconView::Select); // 2017.12.01 - convert to qlistwidget
     m_pNewFileWidget->typeIconView->setIconSize(QSize(KIconLoader::SizeHuge, KIconLoader::SizeHuge));
 
-    KIconLoader *loader = KIconLoader::global();
-
     QList<QListWidgetItem *> items;
 
     // BEGIN insert icons
     QString text = QString("%1 (.asm)").arg(i18n("Assembly Code"));
-    items << new QListWidgetItem(loader->loadIcon("source", KIconLoader::NoGroup, KIconLoader::SizeHuge), text, m_pNewFileWidget->typeIconView);
+    items << new QListWidgetItem(QIcon::fromTheme("source"), text, m_pNewFileWidget->typeIconView);
 
     text = "C (.c)";
-    items << new QListWidgetItem(loader->loadIcon("text-x-csrc", KIconLoader::NoGroup, KIconLoader::SizeHuge), text, m_pNewFileWidget->typeIconView);
+    items << new QListWidgetItem(QIcon::fromTheme("text-x-csrc"), text, m_pNewFileWidget->typeIconView);
 
     text = QString("%1 (.circuit)").arg(i18n("Circuit"));
-    items << new QListWidgetItem(loader->loadIcon("application-x-circuit", KIconLoader::NoGroup, KIconLoader::SizeHuge), text, m_pNewFileWidget->typeIconView);
+    items << new QListWidgetItem(QIcon::fromTheme("application-x-circuit"), text, m_pNewFileWidget->typeIconView);
 
-    items << new QListWidgetItem(loader->loadIcon("application-x-flowcode", KIconLoader::NoGroup, KIconLoader::SizeHuge), "FlowCode (.flowcode)", m_pNewFileWidget->typeIconView);
+    items << new QListWidgetItem(QIcon::fromTheme("application-x-flowcode"), "FlowCode (.flowcode)", m_pNewFileWidget->typeIconView);
 
 #ifdef MECHANICS
-    items << new QListWidgetItem(loader->loadIcon("exec", KIconLoader::NoGroup, KIconLoader::SizeHuge), "Mechanics (.mechanics)", m_pNewFileWidget->typeIconView);
+    items << new QListWidgetItem(QIcon::fromTheme(QIcon::fromTheme("exec")), "Mechanics (.mechanics)", m_pNewFileWidget->typeIconView);
 #endif
 
-    items << new QListWidgetItem(loader->loadIcon("application-x-microbe", KIconLoader::NoGroup, KIconLoader::SizeHuge), "Microbe (.microbe)", m_pNewFileWidget->typeIconView);
+    items << new QListWidgetItem(QIcon::fromTheme("application-x-microbe"), "Microbe (.microbe)", m_pNewFileWidget->typeIconView);
     // END insert icons
 
     int minWidth = 20 + m_pNewFileWidget->typeIconView->spacing() * items.size();
