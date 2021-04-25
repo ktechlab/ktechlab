@@ -13,7 +13,6 @@
 #include "libraryitem.h"
 #include "resizeoverlay.h"
 
-#include <KIconLoader>
 #include <KLocalizedString>
 
 #include <QPainter>
@@ -127,7 +126,7 @@ Item *DPImage::construct(ItemDocument *itemDocument, bool newItem, const char *i
 
 LibraryItem *DPImage::libraryItem()
 {
-    return new LibraryItem(QStringList(QString("dp/image")), i18n("Image"), i18n("Other"), KIconLoader::global()->loadIcon("text", KIconLoader::Small), LibraryItem::lit_drawpart, DPImage::construct);
+    return new LibraryItem(QStringList(QString("dp/image")), i18n("Image"), i18n("Other"), QIcon::fromTheme("text"), LibraryItem::lit_drawpart, DPImage::construct);
 }
 
 DPImage::DPImage(ItemDocument *itemDocument, bool newItem, const char *id)

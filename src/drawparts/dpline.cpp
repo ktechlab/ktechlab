@@ -13,7 +13,6 @@
 #include "resizeoverlay.h"
 #include "variant.h"
 
-#include <KIconLoader>
 #include <KLocalizedString>
 #include <QPainter>
 #include <cmath>
@@ -27,7 +26,7 @@ Item *DPLine::construct(ItemDocument *itemDocument, bool newItem, const char *id
 
 LibraryItem *DPLine::libraryItem()
 {
-    return new LibraryItem(QStringList(QString("dp/line")), i18n("Line"), i18n("Other"), KIconLoader::global()->loadIcon("text", KIconLoader::Small), LibraryItem::lit_drawpart, DPLine::construct);
+    return new LibraryItem(QStringList(QString("dp/line")), i18n("Line"), i18n("Other"), QIcon::fromTheme("text"), LibraryItem::lit_drawpart, DPLine::construct);
 }
 
 DPLine::DPLine(ItemDocument *itemDocument, bool newItem, const char *id)
@@ -140,7 +139,7 @@ Item *DPArrow::construct(ItemDocument *itemDocument, bool newItem, const char *i
 
 LibraryItem *DPArrow::libraryItem()
 {
-    return new LibraryItem(QStringList(QString("dp/arrow")), i18n("Arrow"), i18n("Other"), KIconLoader::global()->loadIcon("text", KIconLoader::Small), LibraryItem::lit_drawpart, DPArrow::construct);
+    return new LibraryItem(QStringList(QString("dp/arrow")), i18n("Arrow"), i18n("Other"), QIcon::fromTheme("text"), LibraryItem::lit_drawpart, DPArrow::construct);
 }
 
 DPArrow::DPArrow(ItemDocument *itemDocument, bool newItem, const char *id)

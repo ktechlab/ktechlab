@@ -10,20 +10,17 @@
 
 #include "libraryitem.h"
 
-#include <KIconLoader>
-
 #include <QImage>
 #include <QStandardPaths>
 
-LibraryItem::LibraryItem(QStringList idList, const QString &name, const QString &category, QPixmap icon, Type type, createItemPtr _createItem)
+LibraryItem::LibraryItem(QStringList idList, const QString &name, const QString &category, QIcon icon, Type type, createItemPtr _createItem)
 {
     m_idList = idList;
     m_name = name;
     m_category = category;
-    m_icon_full = icon;
+    m_icon = icon;
     m_type = type;
     createItem = _createItem;
-    createIcon16();
 }
 
 LibraryItem::LibraryItem(QStringList idList, const QString &name, const QString &category, const QString &iconName, Type type, createItemPtr _createItem)
@@ -31,10 +28,9 @@ LibraryItem::LibraryItem(QStringList idList, const QString &name, const QString 
     m_idList = idList;
     m_name = name;
     m_category = category;
-    m_icon_full.load(QStandardPaths::locate(QStandardPaths::AppDataLocation, "icons/" + iconName));
+    m_icon = QIcon(QStandardPaths::locate(QStandardPaths::AppDataLocation, "icons/" + iconName));
     m_type = type;
     createItem = _createItem;
-    createIcon16();
 }
 
 LibraryItem::LibraryItem(QStringList idList, const QString &name, const QString &category, Type type, createItemPtr _createItem)
@@ -44,31 +40,10 @@ LibraryItem::LibraryItem(QStringList idList, const QString &name, const QString 
     m_category = category;
     m_type = type;
     createItem = _createItem;
-    createIcon16();
 }
 
 LibraryItem::~LibraryItem()
 {
-}
-
-void LibraryItem::createIcon16()
-{
-    if (m_icon_full.isNull())
-        m_icon_full = KIconLoader::global()->loadIcon("null", KIconLoader::Small);
-
-    // 	const int size = KIcon::SizeSmallMedium;
-    // 	const int size = 22;
-    const int size = 16;
-
-    if (m_icon_full.width() == size && m_icon_full.height() == size) {
-        m_icon_16 = m_icon_full;
-        return;
-    }
-
-    QImage im = m_icon_full.toImage();
-    // im = im.smoothScale( size, size, Qt::ScaleMin ); // 2018.11.30
-    im = im.scaled(QSize(size, size), Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    m_icon_16.convertFromImage(im);
 }
 
 QString LibraryItem::activeID() const

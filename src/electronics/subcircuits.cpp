@@ -16,7 +16,6 @@
 #include "itemselector.h"
 
 #include <KConfigGroup>
-#include <KIconLoader>
 #include <KLocalizedString>
 #include <KSharedConfig>
 
@@ -108,7 +107,7 @@ void Subcircuits::updateComponentSelector(int id, const QString &name)
     if (name.isEmpty())
         return;
 
-    ComponentSelector::self()->addItem(name, "sc/" + QString::number(id), i18n("Subcircuits"), KIconLoader::global()->loadIcon("application-x-circuit", KIconLoader::Small), true);
+    ComponentSelector::self()->addItem(name, "sc/" + QString::number(id), i18n("Subcircuits"), QIcon::fromTheme("application-x-circuit"), true);
 }
 
 void Subcircuits::addSubcircuit(const QString &name, const QString &subcircuitXml)

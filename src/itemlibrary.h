@@ -41,10 +41,6 @@ class ItemLibrary : public QObject
 public:
     ~ItemLibrary() override;
     /**
-     * Returns a QPixmap of the item icon
-     */
-    QPixmap itemIconFull(const QString &id);
-    /**
      * Append the given item into the library
      */
     void addLibraryItem(LibraryItem *item);

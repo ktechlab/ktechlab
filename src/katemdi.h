@@ -152,7 +152,7 @@ private:
      */
     bool persistent;
 
-    QPixmap icon;
+    QIcon icon;
     QString text;
 };
 
@@ -180,7 +180,7 @@ public:
     }
 
 public:
-    ToolView *addWidget(const QPixmap &icon, const QString &text, ToolView *widget);
+    ToolView *addWidget(const QIcon &icon, const QString &text, ToolView *widget);
     bool removeWidget(ToolView *widget);
 
     bool showWidget(ToolView *widget);
@@ -288,7 +288,7 @@ public:
      * @param text text to use in addition to icon
      * @return created toolview on success or 0
      */
-    ToolView *createToolView(const QString &identifier, KMultiTabBar::KMultiTabBarPosition pos, const QPixmap &icon, const QString &text);
+    ToolView *createToolView(const QString &identifier, KMultiTabBar::KMultiTabBarPosition pos, const QIcon &icon, const QString &text);
 
     /**
      * give you handle to toolview for the given name, 0 if no toolview around

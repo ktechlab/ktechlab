@@ -1,6 +1,5 @@
 
 #include <KAboutData>
-#include <KIconLoader>
 #include <KLocalizedString>
 
 #include <QApplication>
@@ -11,6 +10,7 @@
 #include <QLabel>
 #include <QScrollArea>
 #include <QDebug>
+#include <QStandardPaths>
 
 #include <ktechlab_version.h>
 
@@ -26,6 +26,12 @@ int main(int argc, char **argv) {
                 KAboutLicense::GPL_V2, i18n("(C) 2003-2009, The KTechLab developers"),
                 QString(),
                 QStringLiteral("https://userbase.kde.org/KTechlab"));
+
+    // Add our custom icons to the search path
+    const QStringList iconDirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "ktechlab/icons", QStandardPaths::LocateDirectory);
+    const QStringList picsDirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "ktechlab/pics", QStandardPaths::LocateDirectory);
+    QIcon::setThemeSearchPaths(QIcon::themeSearchPaths() << iconDirs);
+    QIcon::setFallbackSearchPaths(QIcon::fallbackSearchPaths() << iconDirs << picsDirs);
 
     QMainWindow *mainWnd = new QMainWindow();
     QScrollArea *mainWidget = new QScrollArea();
@@ -53,16 +59,6 @@ static void addIcon(QGridLayout *mainLayout, const char *iconName) {
         QIcon testIconConstr = QIcon::fromTheme(iconName);
         if (testIconConstr.isNull()) {
             qWarning() << "QIcon " << iconName << " is nullptr";
-        }
-    }
-    {
-        QPixmap testPixmapLoader = KIconLoader::global()->loadIcon(
-            QString(iconName), KIconLoader::NoGroup,
-            KIconLoader::SizeHuge, KIconLoader::DefaultState,
-            QStringList(), nullptr, true
-        );
-        if (testPixmapLoader.isNull()) {
-            qWarning() << "loadIcon " << iconName << " is nullptr";
         }
     }
     QIcon testIcon = QIcon::fromTheme(iconName);

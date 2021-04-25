@@ -12,7 +12,6 @@
 #include "libraryitem.h"
 #include "resizeoverlay.h"
 
-#include <KIconLoader>
 #include <KLocalizedString>
 #include <QPainter>
 #include <cmath>
@@ -27,7 +26,7 @@ Item *DPRectangle::construct(ItemDocument *itemDocument, bool newItem, const cha
 
 LibraryItem *DPRectangle::libraryItem()
 {
-    return new LibraryItem(QStringList(QString("dp/rectangle")), i18n("Rectangle"), i18n("Other"), KIconLoader::global()->loadIcon("text", KIconLoader::Small), LibraryItem::lit_drawpart, DPRectangle::construct);
+    return new LibraryItem(QStringList(QString("dp/rectangle")), i18n("Rectangle"), i18n("Other"), QIcon::fromTheme("text"), LibraryItem::lit_drawpart, DPRectangle::construct);
 }
 
 DPRectangle::DPRectangle(ItemDocument *itemDocument, bool newItem, const char *id)
@@ -133,7 +132,7 @@ Item *DPEllipse::construct(ItemDocument *itemDocument, bool newItem, const char 
 
 LibraryItem *DPEllipse::libraryItem()
 {
-    return new LibraryItem(QStringList(QString("dp/ellipse")), i18n("Ellipse"), i18n("Other"), KIconLoader::global()->loadIcon("text", KIconLoader::Small), LibraryItem::lit_drawpart, DPEllipse::construct);
+    return new LibraryItem(QStringList(QString("dp/ellipse")), i18n("Ellipse"), i18n("Other"), QIcon::fromTheme("text"), LibraryItem::lit_drawpart, DPEllipse::construct);
 }
 
 DPEllipse::DPEllipse(ItemDocument *itemDocument, bool newItem, const char *id)

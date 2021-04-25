@@ -95,7 +95,7 @@ public:
      * @param icon The icon to be displayed to the left of the text
      * @param removable Whether the user can right-click on the item and select Remove
      */
-    void addItem(const QString &caption, const QString &id, const QString &category, const QPixmap &icon = QPixmap(), bool removable = false);
+    void addItem(const QString &caption, const QString &id, const QString &category, const QIcon &icon = QIcon(), bool removable = false);
 
 public slots:
     virtual void slotContextMenuRequested(const QPoint &pos);

@@ -17,7 +17,6 @@
 #include "simulator.h"
 
 #include <KConfigGroup>
-#include <KIconLoader>
 #include <KLocalizedString>
 #include <KSharedConfig>
 #include <cmath>
@@ -311,7 +310,7 @@ double Oscilloscope::pixelsPerSecond() const
 void addOscilloscopeAsToolView(KTechlab *ktechlab)
 {
     KateMDI::ToolView *tv;
-    tv = ktechlab->createToolView(Oscilloscope::toolViewIdentifier(), KMultiTabBar::Bottom, KIconLoader::global()->loadIcon("oscilloscope", KIconLoader::Small), i18n("Oscilloscope"));
+    tv = ktechlab->createToolView(Oscilloscope::toolViewIdentifier(), KMultiTabBar::Bottom, QIcon::fromTheme("oscilloscope"), i18n("Oscilloscope"));
 
     Oscilloscope::self(tv);
 }

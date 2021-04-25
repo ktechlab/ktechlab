@@ -510,17 +510,6 @@ QImage ItemLibrary::componentImage(Component *component, const uint maxSize)
     return im;
 }
 
-QPixmap ItemLibrary::itemIconFull(const QString &id)
-{
-    LibraryItemList::iterator end = m_items.end();
-    for (LibraryItemList::iterator it = m_items.begin(); it != end; ++it) {
-        if (*it && (*it)->allIDs().contains(id)) {
-            return (*it)->iconFull();
-        }
-    }
-    return QPixmap();
-}
-
 bool ItemLibrary::saveDescriptions(const QString &languageCode)
 {
     QString url = itemDescriptionsFile(languageCode);

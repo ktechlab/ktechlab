@@ -20,6 +20,7 @@
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QDir>
+#include <QStandardPaths>
 
 int main(int argc, char **argv)
 {
@@ -56,6 +57,12 @@ int main(int argc, char **argv)
 
     parser.process(app);
     about.processCommandLine(&parser);
+
+    // Add our custom icons to the search path
+    const QStringList iconDirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "ktechlab/icons", QStandardPaths::LocateDirectory);
+    const QStringList picsDirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "ktechlab/pics", QStandardPaths::LocateDirectory);
+    QIcon::setThemeSearchPaths(QIcon::themeSearchPaths() << iconDirs);
+    QIcon::setFallbackSearchPaths(QIcon::fallbackSearchPaths() << iconDirs << picsDirs);
 
     if (true) { // TODO add a command line option for debugging the program's visual look
         // app.setStyle(new DiagnosticStyle());

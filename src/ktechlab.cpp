@@ -55,7 +55,6 @@
 #include <KSharedConfig>
 #include <KToolBar>
 
-#include <KIconLoader>
 //#include <kkeydialog.h>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -181,16 +180,13 @@ void KTechlab::setupToolDocks()
 {
     setToolViewStyle(KMultiTabBar::KDEV3ICON);
 
-    QPixmap pm;
-    KIconLoader *loader = KIconLoader::global();
     KateMDI::ToolView *tv = nullptr;
 
-    tv = createToolView(ProjectManager::toolViewIdentifier(), KMultiTabBar::Left, loader->loadIcon("attach", KIconLoader::Small), i18n("Project"));
+    tv = createToolView(ProjectManager::toolViewIdentifier(), KMultiTabBar::Left, QIcon::fromTheme("attach"), i18n("Project"));
     tv->setObjectName("ProjectManager-ToolView");
     ProjectManager::self(tv);
 
-    pm.load(QStandardPaths::locate(QStandardPaths::AppDataLocation, "icons/circuit.png"));
-    tv = createToolView(ComponentSelector::toolViewIdentifier(), KMultiTabBar::Left, pm, i18n("Components"));
+    tv = createToolView(ComponentSelector::toolViewIdentifier(), KMultiTabBar::Left, QIcon::fromTheme("circuit"), i18n("Components"));
     tv->setObjectName("ComponentSelector-ToolView");
     ComponentSelector::self(tv);
 
@@ -198,41 +194,37 @@ void KTechlab::setupToolDocks()
     subcircuits();
     Subcircuits::loadSubcircuits();
 
-    pm.load(QStandardPaths::locate(QStandardPaths::AppDataLocation, "icons/flowcode.png"));
-    tv = createToolView(FlowPartSelector::toolViewIdentifier(), KMultiTabBar::Left, pm, i18n("Flow Parts"));
+    tv = createToolView(FlowPartSelector::toolViewIdentifier(), KMultiTabBar::Left, QIcon::fromTheme("flowcode"), i18n("Flow Parts"));
     tv->setObjectName("FlowPartSelector-ToolView");
     FlowPartSelector::self(tv);
 
 #ifdef MECHANICS
-    pm.load(QStandardPaths::locate(QStandardPaths::AppDataLocation, "icons/mechanics.png"));
-    tv = createToolView(MechanicsSelector::toolViewIdentifier(), KMultiTabBar::Left, pm, i18n("Mechanics"));
+    tv = createToolView(MechanicsSelector::toolViewIdentifier(), KMultiTabBar::Left, QIcon::fromTheme("mechanics"), i18n("Mechanics"));
     tv->setObjectName("MechanicsSelector-ToolView");
     MechanicsSelector::self(tv);
 #endif
 
-    pm.load(QStandardPaths::locate(QStandardPaths::AppDataLocation, "icons/item.png"));
-    tv = createToolView(ItemEditor::toolViewIdentifier(), KMultiTabBar::Right, pm, i18n("Item Editor"));
+    tv = createToolView(ItemEditor::toolViewIdentifier(), KMultiTabBar::Right, QIcon::fromTheme("item"), i18n("Item Editor"));
     tv->setObjectName("ItemEditor-ToolView");
     ItemEditor::self(tv);
 
-    tv = createToolView(ContextHelp::toolViewIdentifier(), KMultiTabBar::Right, loader->loadIcon("help-contents", KIconLoader::Small), i18n("Context Help"));
+    tv = createToolView(ContextHelp::toolViewIdentifier(), KMultiTabBar::Right, QIcon::fromTheme("help-contents"), i18n("Context Help"));
     tv->setObjectName("ContextHelp-ToolView");
     ContextHelp::self(tv);
 
-    tv = createToolView(LanguageManager::toolViewIdentifier(), KMultiTabBar::Bottom, loader->loadIcon("utilities-log-viewer", KIconLoader::Small), i18n("Messages"));
+    tv = createToolView(LanguageManager::toolViewIdentifier(), KMultiTabBar::Bottom, QIcon::fromTheme("utilities-log-viewer"), i18n("Messages"));
     tv->setObjectName("LanguageManager-ToolView");
     LanguageManager::self(tv);
 
 #ifndef NO_GPSIM
-    tv = createToolView(SymbolViewer::toolViewIdentifier(), KMultiTabBar::Right, loader->loadIcon("blockdevice", KIconLoader::Small), i18n("Symbol Viewer"));
+    tv = createToolView(SymbolViewer::toolViewIdentifier(), KMultiTabBar::Right, QIcon::fromTheme("blockdevice"), i18n("Symbol Viewer"));
     tv->setObjectName("SymbolViewer-ToolView");
     SymbolViewer::self(tv);
 #endif
 
     addOscilloscopeAsToolView(this);
 #if 1
-    // pm.load( locate( "appdata", "icons/oscilloscope.png" ) );
-    tv = createToolView(ScopeScreen::toolViewIdentifier(), KMultiTabBar::Bottom, loader->loadIcon("oscilloscope", KIconLoader::Small), i18n("Scope Screen (Very Rough)"));
+    tv = createToolView(ScopeScreen::toolViewIdentifier(), KMultiTabBar::Bottom, QIcon::fromTheme("oscilloscope"), i18n("Scope Screen (Very Rough)"));
     tv->setObjectName("ScopeScreen-ToolView");
     ScopeScreen::self(tv);
 #endif

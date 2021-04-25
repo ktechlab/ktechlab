@@ -13,6 +13,8 @@
 
 #include "item.h"
 
+#include <QIcon>
+
 class QStringList;
 
 /**
@@ -31,7 +33,7 @@ public:
     ~LibraryItem();
 
     enum Type { lit_flowpart, lit_component, lit_mechanical, lit_drawpart, lit_subcircuit, lit_other };
-    LibraryItem(QStringList idList, const QString &name, const QString &category, QPixmap icon, Type type, createItemPtr createItem);
+    LibraryItem(QStringList idList, const QString &name, const QString &category, QIcon icon, Type type, createItemPtr createItem);
     LibraryItem(QStringList idList, const QString &name, const QString &category, const QString &iconName, Type type, createItemPtr createItem);
     LibraryItem(QStringList idList, const QString &name, const QString &category, Type type, createItemPtr createItem);
 
@@ -48,13 +50,9 @@ public:
     {
         return m_category;
     }
-    QPixmap iconFull() const
+    QIcon icon() const
     {
-        return m_icon_full;
-    }
-    QPixmap icon16() const
-    {
-        return m_icon_16;
+        return m_icon;
     }
     createItemPtr createItemFnPtr() const
     {
@@ -65,15 +63,11 @@ public:
         return m_type;
     }
 
-protected:
-    void createIcon16();
-
 private:
     QStringList m_idList;
     QString m_name;
     QString m_category;
-    QPixmap m_icon_full;
-    QPixmap m_icon_16;
+    QIcon m_icon;
     createItemPtr createItem;
     int m_type;
 };

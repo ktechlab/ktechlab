@@ -13,7 +13,6 @@
 #include "libraryitem.h"
 #include "resizeoverlay.h"
 
-#include <KIconLoader>
 #include <KLocalizedString>
 
 #include <QPainter>
@@ -34,7 +33,7 @@ LibraryItem *DPText::libraryItem()
            << "dp/canvas_text"
            << "canvas_text";
 
-    return new LibraryItem(idList, i18n("Canvas Text"), i18n("Other"), KIconLoader::global()->loadIcon("text", KIconLoader::Small), LibraryItem::lit_drawpart, DPText::construct);
+    return new LibraryItem(idList, i18n("Canvas Text"), i18n("Other"), QIcon::fromTheme("text"), LibraryItem::lit_drawpart, DPText::construct);
 }
 
 DPText::DPText(ItemDocument *itemDocument, bool newItem, const char *id)

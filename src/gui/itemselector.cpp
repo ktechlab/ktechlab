@@ -101,7 +101,7 @@ void ItemSelector::clear()
     QTreeWidget::clear();
 }
 
-void ItemSelector::addItem(const QString &caption, const QString &id, const QString &_category, const QPixmap &icon, bool removable)
+void ItemSelector::addItem(const QString &caption, const QString &id, const QString &_category, const QIcon &icon, bool removable)
 {
     qCDebug(KTL_LOG) << "id=" << id;
     ILVItem *parentItem = nullptr;
@@ -154,7 +154,7 @@ void ItemSelector::addItem(const QString &caption, const QString &id, const QStr
 
     ILVItem *item = new ILVItem(parentItem, id);
     // item->setPixmap( 0, icon );  // 2018.08.12 - replaced with line below
-    item->setIcon(0, QIcon(icon));
+    item->setIcon(0, icon);
     item->setText(0, caption);
     // item->setDragEnabled(true); // 2018.08.12 - replaced with line below
     item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled);
@@ -406,7 +406,7 @@ ComponentSelector::ComponentSelector(KateMDI::ToolView *parent)
     const LibraryItemList::iterator end = items->end();
     for (LibraryItemList::iterator it = items->begin(); it != end; ++it) {
         if ((*it)->type() == LibraryItem::lit_component)
-            addItem((*it)->name(), (*it)->activeID(), (*it)->category(), (*it)->icon16());
+            addItem((*it)->name(), (*it)->activeID(), (*it)->category(), (*it)->icon());
     }
 }
 // END class ComponentSelector
@@ -437,7 +437,7 @@ FlowPartSelector::FlowPartSelector(KateMDI::ToolView *parent)
     const LibraryItemList::iterator end = items->end();
     for (LibraryItemList::iterator it = items->begin(); it != end; ++it) {
         if ((*it)->type() == LibraryItem::lit_flowpart)
-            addItem((*it)->name(), (*it)->activeID(), (*it)->category(), (*it)->icon16());
+            addItem((*it)->name(), (*it)->activeID(), (*it)->category(), (*it)->icon());
     }
 }
 // END class FlowPartSelector
@@ -464,7 +464,7 @@ MechanicsSelector::MechanicsSelector(QWidget *parent)
     const LibraryItemList::iterator end = items->end();
     for (LibraryItemList::iterator it = items->begin(); it != end; ++it) {
         if ((*it)->type() == LibraryItem::lit_mechanical) {
-            addItem((*it)->name(), (*it)->activeID(), (*it)->category(), (*it)->icon16());
+            addItem((*it)->name(), (*it)->activeID(), (*it)->category(), (*it)->icon());
         }
     }
 }
