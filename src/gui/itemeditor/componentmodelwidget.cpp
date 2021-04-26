@@ -55,7 +55,8 @@ ComponentModelWidget::ComponentModelWidget(QWidget *parent)
     m_pSearchEdit->setFrame(true /* 2019.01.19: was QFrame::Sunken */);
     connect(m_pSearchEdit, &QLineEdit::textChanged, this, &ComponentModelWidget::setFilter);
 
-    connect(button, SIGNAL(clicked()), m_pSearchEdit, SLOT(clear()));
+    // TODO Because plain QWidget* type doesn't have a clicked signal to connect, we cast
+    connect(qobject_cast<QToolButton *>(button), &QToolButton::clicked, m_pSearchEdit, &QLineEdit::clear);
 
     button->setToolTip(i18n("Clear filter"));
     QString filtertip = i18n("Enter space-separated terms to filter the component library.");

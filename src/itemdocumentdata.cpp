@@ -1201,7 +1201,8 @@ void SubcircuitData::initECSubcircuit(ECSubcircuit *ecSubcircuit)
             connector->updateConnectorPoints(false);
             connector->setVisible(false);
             connector->setCanvas(nullptr);
-            ecSubcircuit->connect(ecSubcircuit, SIGNAL(subcircuitDeleted()), connector, SLOT(removeConnector()));
+            // TODO Review this: The slot needs more arguments than the signal provides
+            ecSubcircuit->connect(ecSubcircuit, &ECSubcircuit::subcircuitDeleted, connector, [&connector]() { connector->removeConnector(); });
         }
     }
     const NodeDataMap::iterator nodeEnd = m_nodeDataMap.end();
