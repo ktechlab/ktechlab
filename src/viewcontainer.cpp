@@ -29,13 +29,13 @@ ViewContainer::ViewContainer(const QString &caption, QWidget *parent)
     : QWidget(parent ? parent : KTechlab::self()->tabWidget())
 {
     b_deleted = false;
-    connect(KTechlab::self(), SIGNAL(needUpdateCaptions()), this, SLOT(updateCaption()));
+    connect(KTechlab::self(), &KTechlab::needUpdateCaptions, this, &ViewContainer::updateCaption);
 
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->setMargin(0);
     m_baseViewArea = new ViewArea(this, this, 0, false);
     m_baseViewArea->setObjectName("viewarea_0");
-    connect(m_baseViewArea, SIGNAL(destroyed(QObject *)), this, SLOT(baseViewAreaDestroyed(QObject *)));
+    connect(m_baseViewArea, &ViewArea::destroyed, this, &ViewContainer::baseViewAreaDestroyed);
 
     layout->addWidget(m_baseViewArea);
 
@@ -315,8 +315,8 @@ ViewArea *ViewArea::createViewArea(Position position, uint id, bool showOpenButt
     p_viewArea2 = new ViewArea(this, p_viewContainer, id, showOpenButton);
     p_viewArea2->setObjectName("viewarea_" + QString::number(id));
 
-    connect(p_viewArea1, SIGNAL(destroyed(QObject *)), this, SLOT(viewAreaDestroyed(QObject *)));
-    connect(p_viewArea2, SIGNAL(destroyed(QObject *)), this, SLOT(viewAreaDestroyed(QObject *)));
+    connect(p_viewArea1, &ViewArea::destroyed, this, &ViewArea::viewAreaDestroyed);
+    connect(p_viewArea2, &ViewArea::destroyed, this, &ViewArea::viewAreaDestroyed);
 
     p_view->clearFocus();
     // p_view->reparent( p_viewArea1, QPoint(), true ); // 2018.12.02
@@ -371,7 +371,7 @@ void ViewArea::setView(View *view)
 
     // 	qCDebug(KTL_LOG) << "p_view->isFocusEnabled()="<<p_view->isFocusEnabled()<<" p_view->isHidden()="<<p_view->isHidden();
 
-    connect(view, SIGNAL(destroyed()), this, SLOT(viewDestroyed()));
+    connect(view, &View::destroyed, this, &ViewArea::viewDestroyed);
     bool hadFocus = hasFocus();
     setFocusProxy(p_view);
     if (hadFocus && !p_view->isHidden())
@@ -464,7 +464,7 @@ void ViewArea::restoreState(KConfigGroup *config, int id, const QString &groupNa
                 int viewArea1Id = contains[0];
                 p_viewArea1 = new ViewArea(this, p_viewContainer, viewArea1Id, false);
                 p_viewArea1->setObjectName("viewarea_" + QString::number(viewArea1Id));
-                connect(p_viewArea1, SIGNAL(destroyed(QObject *)), this, SLOT(viewAreaDestroyed(QObject *)));
+                connect(p_viewArea1, &ViewArea::destroyed, this, &ViewArea::viewAreaDestroyed);
                 p_viewArea1->restoreState(config, viewArea1Id, groupName);
                 p_viewArea1->show();
             }
@@ -473,7 +473,7 @@ void ViewArea::restoreState(KConfigGroup *config, int id, const QString &groupNa
                 int viewArea2Id = contains[1];
                 p_viewArea2 = new ViewArea(this, p_viewContainer, viewArea2Id, false);
                 p_viewArea2->setObjectName("viewarea_" + QString::number(viewArea2Id));
-                connect(p_viewArea2, SIGNAL(destroyed(QObject *)), this, SLOT(viewAreaDestroyed(QObject *)));
+                connect(p_viewArea2, &ViewArea::destroyed, this, &ViewArea::viewAreaDestroyed);
                 p_viewArea2->restoreState(config, viewArea2Id, groupName);
                 p_viewArea2->show();
             }
@@ -522,11 +522,11 @@ EmptyViewArea::EmptyViewArea(ViewArea *parent)
 
     QPushButton *newDocButton = new QPushButton(QIcon::fromTheme(QStringLiteral("document-open")), i18n("Open Document"), this);
     layout->addWidget(newDocButton, 1, 1);
-    connect(newDocButton, SIGNAL(clicked()), this, SLOT(openDocument()));
+    connect(newDocButton, &QPushButton::clicked, this, &EmptyViewArea::openDocument);
 
     QPushButton *cancelButton = new QPushButton(QIcon::fromTheme(QStringLiteral("dialog-cancel")), i18n("Cancel"), this);
     layout->addWidget(cancelButton, 3, 1);
-    connect(cancelButton, SIGNAL(clicked()), m_pViewArea, SLOT(deleteLater()));
+    connect(cancelButton, &QPushButton::clicked, m_pViewArea, &EmptyViewArea::deleteLater);
 }
 
 EmptyViewArea::~EmptyViewArea()

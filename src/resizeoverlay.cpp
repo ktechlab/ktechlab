@@ -65,7 +65,7 @@ ResizeHandle *ResizeOverlay::createResizeHandle(int id, ResizeHandle::DrawType d
 
     ResizeHandle *newResizeHandle = new ResizeHandle(this, id, drawType, xsnap, ysnap);
     m_resizeHandleMap[id] = newResizeHandle;
-    connect(newResizeHandle, SIGNAL(rhMovedBy(int, double, double)), this, SLOT(slotResizeHandleMoved(int, double, double)));
+    connect(newResizeHandle, &ResizeHandle::rhMovedBy, this, &ResizeOverlay::slotResizeHandleMoved);
     return newResizeHandle;
 }
 
@@ -76,7 +76,7 @@ void ResizeOverlay::removeResizeHandle(int id)
         return;
 
     ResizeHandle *rh = it.value();
-    disconnect(rh, SIGNAL(rhMovedBy(int, double, double)), this, SLOT(slotResizeHandleMoved(int, double, double)));
+    disconnect(rh, &ResizeHandle::rhMovedBy, this, &ResizeOverlay::slotResizeHandleMoved);
     delete rh;
     m_resizeHandleMap.erase(it);
 }
@@ -113,15 +113,15 @@ void ResizeOverlay::syncX(ResizeHandle *rh1, ResizeHandle *rh2)
 {
     if (!rh1 || !rh2)
         return;
-    connect(rh1, SIGNAL(rhMovedByX(double)), rh2, SLOT(slotMoveByX(double)));
-    connect(rh2, SIGNAL(rhMovedByX(double)), rh1, SLOT(slotMoveByX(double)));
+    connect(rh1, &ResizeHandle::rhMovedByX, rh2, &ResizeHandle::slotMoveByX);
+    connect(rh2, &ResizeHandle::rhMovedByX, rh1, &ResizeHandle::slotMoveByX);
 }
 void ResizeOverlay::syncY(ResizeHandle *rh1, ResizeHandle *rh2)
 {
     if (!rh1 || !rh2)
         return;
-    connect(rh1, SIGNAL(rhMovedByY(double)), rh2, SLOT(slotMoveByY(double)));
-    connect(rh2, SIGNAL(rhMovedByY(double)), rh1, SLOT(slotMoveByY(double)));
+    connect(rh1, &ResizeHandle::rhMovedByY, rh2, &ResizeHandle::slotMoveByY);
+    connect(rh2, &ResizeHandle::rhMovedByY, rh1, &ResizeHandle::slotMoveByY);
 }
 // END class ResizeOverlay
 
@@ -130,8 +130,8 @@ MechanicsItemOverlay::MechanicsItemOverlay(MechanicsItem *parent)
     : ResizeOverlay(parent)
 {
     p_mechanicsItem = parent;
-    connect(parent, SIGNAL(moved()), this, SLOT(slotUpdateResizeHandles()));
-    connect(parent, SIGNAL(resized()), this, SLOT(slotUpdateResizeHandles()));
+    connect(parent, &MechanicsItem::moved, this, &MechanicsItemOverlay::slotUpdateResizeHandles);
+    connect(parent, &MechanicsItem::resized, this, &MechanicsItemOverlay::slotUpdateResizeHandles);
 
     m_tl = createResizeHandle(ResizeHandle::rhp_topLeft, ResizeHandle::dt_resize_backwardsDiagonal);
     m_tm = createResizeHandle(ResizeHandle::rhp_topMiddle, ResizeHandle::dt_resize_vertical);
@@ -218,8 +218,8 @@ void MechanicsItemOverlay::slotResizeHandleMoved(int id, double dx, double dy)
 RectangularOverlay::RectangularOverlay(Item *parent, int xsnap, int ysnap)
     : ResizeOverlay(parent)
 {
-    connect(parent, SIGNAL(resized()), this, SLOT(slotUpdateResizeHandles()));
-    connect(parent, SIGNAL(movedBy(double, double)), this, SLOT(slotMoveAllResizeHandles(double, double)));
+    connect(parent, &Item::resized, this, &RectangularOverlay::slotUpdateResizeHandles);
+    connect(parent, &Item::movedBy, this, &RectangularOverlay::slotMoveAllResizeHandles);
 
     m_tl = createResizeHandle(ResizeHandle::rhp_topLeft, ResizeHandle::dt_resize_backwardsDiagonal, xsnap, ysnap);
     m_tm = createResizeHandle(ResizeHandle::rhp_topMiddle, ResizeHandle::dt_resize_vertical, xsnap, ysnap);
@@ -334,8 +334,8 @@ QRect RectangularOverlay::getSizeRect(bool *ok, bool *widthOk, bool *heightOk) c
 LineOverlay::LineOverlay(Item *parent)
     : ResizeOverlay(parent)
 {
-    connect(parent, SIGNAL(resized()), this, SLOT(slotUpdateResizeHandles()));
-    connect(parent, SIGNAL(movedBy(double, double)), this, SLOT(slotMoveAllResizeHandles(double, double)));
+    connect(parent, &Item::resized, this, &LineOverlay::slotUpdateResizeHandles);
+    connect(parent, &Item::movedBy, this, &LineOverlay::slotMoveAllResizeHandles);
 
     m_pStart = createResizeHandle(ResizeHandle::rhp_start, ResizeHandle::dt_point_rect);
     m_pEnd = createResizeHandle(ResizeHandle::rhp_end, ResizeHandle::dt_point_rect);

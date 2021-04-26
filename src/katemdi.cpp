@@ -96,7 +96,7 @@ GUIClient::GUIClient(MainWindow *mw)
     , KXMLGUIClient(mw)
     , m_mw(mw)
 {
-    connect(m_mw->guiFactory(), SIGNAL(clientAdded(KXMLGUIClient *)), this, SLOT(clientAdded(KXMLGUIClient *)));
+    connect(m_mw->guiFactory(), &KXMLGUIFactory::clientAdded, this, &GUIClient::clientAdded);
 
     // if (actionCollection()->kaccel()==0)  // TODO what does this do?
     {
@@ -274,7 +274,7 @@ ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *w
 
     show();
 
-    connect(tab(newId), SIGNAL(clicked(int)), this, SLOT(tabClicked(int)));
+    connect(tab(newId), qOverload<int>(&KMultiTabBarTab::clicked), this, &Sidebar::tabClicked);
     tab(newId)->installEventFilter(this);
 
     return widget;
@@ -441,7 +441,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
                     // p->insertItem(SmallIcon("go-down"), i18n("Bottom Sidebar"),3); // 2018.11.22
                     p->addAction(QIcon::fromTheme("go-down"), i18n("Bottom Sidebar"))->setData(3);
                 }
-                connect(p, SIGNAL(triggered(QAction *)), this, SLOT(buttonPopupActivate(QAction *)));
+                connect(p, &QMenu::triggered, this, &Sidebar::buttonPopupActivate);
 
                 p->exec(e->globalPos());
                 delete p;
@@ -542,7 +542,7 @@ void Sidebar::restoreSession(KConfigGroup *configGr)
             // readd the button
             int newId = m_widgetToId[tv];
             appendTab(tv->icon, newId, tv->text);
-            connect(tab(newId), SIGNAL(clicked(int)), this, SLOT(tabClicked(int)));
+            connect(tab(newId), qOverload<int>(&KMultiTabBarTab::clicked), this, &Sidebar::tabClicked);
             tab(newId)->installEventFilter(this);
 
             // reshuffle in splitter

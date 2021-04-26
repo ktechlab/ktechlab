@@ -60,7 +60,8 @@ View::View(Document *document, ViewContainer *viewContainer, uint viewAreaId)
         m_layout->addWidget(new KVSSBSep(this));
         m_layout->addWidget(m_statusBar);
 
-        connect(KTechlab::self(), SIGNAL(configurationChanged()), this, SLOT(slotUpdateConfiguration()));
+        // connect(KTechlab::self(), SIGNAL(configurationChanged()), this, SLOT(slotUpdateConfiguration()));
+        connect(KTechlab::self(), &KTechlab::configurationChanged, this, &View::slotUpdateConfiguration);
     }
 }
 
@@ -214,11 +215,11 @@ ViewStatusBar::ViewStatusBar(View *view)
     m_modifiedPixmap = QIcon::fromTheme("document-save").pixmap(iconSize);
     m_unmodifiedPixmap = QIcon::fromTheme("null").pixmap(iconSize);
 
-    connect(view->document(), SIGNAL(modifiedStateChanged()), this, SLOT(slotModifiedStateChanged()));
+    connect(view->document(), &Document::modifiedStateChanged, this, &ViewStatusBar::slotModifiedStateChanged);
     connect(view->document(), &Document::fileNameChanged, this, &ViewStatusBar::slotFileNameChanged);
 
-    connect(view, SIGNAL(focused(View *)), this, SLOT(slotViewFocused(View *)));
-    connect(view, SIGNAL(unfocused()), this, SLOT(slotViewUnfocused()));
+    connect(view, &View::focused, this, &ViewStatusBar::slotViewFocused);
+    connect(view, &View::unfocused, this, &ViewStatusBar::slotViewUnfocused);
 
     slotModifiedStateChanged();
     slotFileNameChanged(view->document()->url());

@@ -45,8 +45,8 @@ void VariableLabel::setRegister(RegisterInfo *info, const QString &name)
     m_pRegisterInfo = info;
     m_registerName = name;
 
-    connect(m_pRegisterInfo, SIGNAL(destroyed()), this, SLOT(hide()));
-    connect(m_pRegisterInfo, SIGNAL(valueChanged(unsigned)), this, SLOT(updateText()));
+    connect(m_pRegisterInfo, &RegisterInfo::destroyed, this, &VariableLabel::hide);
+    connect(m_pRegisterInfo, &RegisterInfo::valueChanged, this, &VariableLabel::updateText);
 
     updateText();
 }
@@ -56,8 +56,8 @@ void VariableLabel::disconnectRegisterInfo()
     if (!m_pRegisterInfo)
         return;
 
-    disconnect(m_pRegisterInfo, SIGNAL(destroyed()), this, SLOT(hide()));
-    disconnect(m_pRegisterInfo, SIGNAL(valueChanged(unsigned)), this, SLOT(updateText()));
+    disconnect(m_pRegisterInfo, &RegisterInfo::destroyed, this, &VariableLabel::hide);
+    disconnect(m_pRegisterInfo, &RegisterInfo::valueChanged, this, &VariableLabel::updateText);
 
     m_pRegisterInfo = nullptr;
     m_registerName = QString();

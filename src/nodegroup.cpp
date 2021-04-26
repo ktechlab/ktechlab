@@ -431,7 +431,7 @@ void NodeGroup::clearConList()
         Connector *con = *it;
         if (con) {
             con->setNodeGroup(nullptr);
-            disconnect(con, SIGNAL(removed(Connector *)), this, SLOT(connectorRemoved(Connector *)));
+            disconnect(con, &Connector::removed, this, &NodeGroup::connectorRemoved);
         }
     }
     m_conList.clear();
@@ -472,7 +472,7 @@ void NodeGroup::init()
                     con->setNodeGroup(this);
                 }
             }
-            connect(con, SIGNAL(removed(Connector *)), this, SLOT(connectorRemoved(Connector *)));
+            connect(con, &Connector::removed, this, &NodeGroup::connectorRemoved);
         }
 
         // Connect the node up to us

@@ -119,8 +119,8 @@ void Node::setParentItem(CNItem *parentItem)
 
     setLevel(p_parentItem->level());
 
-    connect(p_parentItem, SIGNAL(movedBy(double, double)), this, SLOT(moveBy(double, double)));
-    connect(p_parentItem, SIGNAL(removed(Item *)), this, SLOT(removeNode(Item *)));
+    connect(p_parentItem, qOverload<double, double>(&CNItem::movedBy), this, qOverload<double, double>(&Node::moveBy));
+    connect(p_parentItem, &CNItem::removed, this, qOverload<Item *>(&Node::removeNode));
 }
 
 void Node::removeNode()

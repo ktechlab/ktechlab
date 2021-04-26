@@ -1002,9 +1002,9 @@ void TextDocument::setDebugger(GpsimDebugger *debugger, bool ownDebugger)
     if (m_debugFile.isEmpty())
         m_debugFile = url().path();
 
-    connect(m_pDebugger, SIGNAL(destroyed()), this, SLOT(slotDebuggerDestroyed()));
-    connect(m_pDebugger->gpsim(), SIGNAL(runningStatusChanged(bool)), this, SLOT(slotInitDebugActions()));
-    connect(m_pDebugger, SIGNAL(lineReached(const SourceLine &)), this, SLOT(slotDebugSetCurrentLine(const SourceLine &)));
+    connect(m_pDebugger, &GpsimDebugger::destroyed, this, &TextDocument::slotDebuggerDestroyed);
+    connect(m_pDebugger->gpsim(), &GpsimProcessor::runningStatusChanged, this, &TextDocument::slotInitDebugActions);
+    connect(m_pDebugger, &GpsimDebugger::lineReached, this, &TextDocument::slotDebugSetCurrentLine);
     m_pDebugger->setBreakpoints(m_debugFile, breakpointList());
 
     slotInitDebugActions();

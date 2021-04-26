@@ -43,7 +43,7 @@ PinItem::PinItem(FlowCodeDocument *_view, QPoint position, bool _onLeft, PinSett
     view = _view;
     onLeft = _onLeft;
 
-    connect(m_pinSettings, SIGNAL(settingsChanged()), this, SLOT(updateDrawing()));
+    connect(m_pinSettings, &PinSettings::settingsChanged, this, &PinItem::updateDrawing);
 
     if (QFontInfo(m_font).pixelSize() > 11) // It has to be > 11, not > 12, as (I think) pixelSize() rounds off the actual size
         m_font.setPixelSize(12);

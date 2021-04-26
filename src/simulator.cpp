@@ -71,7 +71,7 @@ Simulator::Simulator()
     m_pChangedCircuitLast = m_pChangedCircuitStart;
 
     m_stepTimer = new QTimer(this);
-    connect(m_stepTimer, SIGNAL(timeout()), this, SLOT(step()));
+    connect(m_stepTimer, &QTimer::timeout, this, &Simulator::step);
 
     slotSetSimulating(true); // start the timer
 }

@@ -69,7 +69,7 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
     m->addAction(QIcon::fromTheme("convert_to_assembly"), i18n("Assembly"))->setData(TextDocument::AssemblyOutput);
     m->addAction(QIcon::fromTheme("convert_to_hex"), i18n("Hex"))->setData(TextDocument::HexOutput);
     m->addAction(QIcon::fromTheme("convert_to_pic"), i18n("PIC (upload)"))->setData(TextDocument::PICOutput);
-    connect(m, SIGNAL(triggered(QAction *)), textDocument, SLOT(slotConvertTo(QAction *)));
+    connect(m, &QMenu::triggered, textDocument, &TextDocument::slotConvertTo);
 
     // m->setItemEnabled( TextDocument::MicrobeOutput, false ); // 2018.12.02
     actToMicrobe->setEnabled(false);
@@ -81,7 +81,7 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
         QAction *action = new QAction(i18n("Format Assembly Code"), ac);
         action->setObjectName("format_asm");
         action->setShortcut(Qt::Key_F12);
-        connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(formatAssembly()));
+        connect(action, &QAction::triggered, textDocument, &TextDocument::formatAssembly);
         ac->addAction(action->objectName(), action);
     }
 
@@ -91,28 +91,28 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
         // new QAction( i18n("Set &Breakpoint"), 0, 0, this, SLOT(toggleBreakpoint()), ac, "debug_toggle_breakpoint" );
         QAction *action = new QAction(i18n("Set &Breakpoint"), ac);
         action->setObjectName("debug_toggle_breakpoint");
-        connect(action, SIGNAL(triggered(bool)), this, SLOT(toggleBreakpoint()));
+        connect(action, &QAction::triggered, this, &TextView::toggleBreakpoint);
         ac->addAction(action->objectName(), action);
     }
     {
         // new QAction( i18n("Run"), "debug-run", 0, textDocument, SLOT(debugRun()), ac, "debug_run" );
         QAction *action = new QAction(QIcon::fromTheme("debug-run"), i18n("Run"), ac);
         action->setObjectName("debug_run");
-        connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugRun()));
+        connect(action, &QAction::triggered, textDocument, &TextDocument::debugRun);
         ac->addAction(action->objectName(), action);
     }
     {
         // new QAction( i18n("Interrupt"), "media-playback-pause", 0, textDocument, SLOT(debugInterrupt()), ac, "debug_interrupt" );
         QAction *action = new QAction(QIcon::fromTheme("media-playback-pause"), i18n("Interrupt"), ac);
         action->setObjectName("debug_interrupt");
-        connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugInterrupt()));
+        connect(action, &QAction::triggered, textDocument, &TextDocument::debugInterrupt);
         ac->addAction(action->objectName(), action);
     }
     {
         // new QAction( i18n("Stop"), "process-stop", 0, textDocument, SLOT(debugStop()), ac, "debug_stop" );
         QAction *action = new QAction(QIcon::fromTheme("process-stop"), i18n("Stop"), ac);
         action->setObjectName("debug_stop");
-        connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugStop()));
+        connect(action, &QAction::triggered, textDocument, &TextDocument::debugStop);
         ac->addAction(action->objectName(), action);
     }
     {
@@ -120,21 +120,21 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
         QAction *action = new QAction(QIcon::fromTheme("debug-step-instruction"), i18n("Step"), ac);
         action->setObjectName("debug_step");
         action->setShortcut(Qt::CTRL | Qt::ALT | Qt::Key_Right);
-        connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugStep()));
+        connect(action, &QAction::triggered, textDocument, &TextDocument::debugStep);
         ac->addAction(action->objectName(), action);
     }
     {
         // new QAction( i18n("Step Over"), "debug-step-over", 0, textDocument, SLOT(debugStepOver()), ac, "debug_step_over" );
         QAction *action = new QAction(QIcon::fromTheme("debug-step-over"), i18n("Step Over"), ac);
         action->setObjectName("debug_step_over");
-        connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugStepOver()));
+        connect(action, &QAction::triggered, textDocument, &TextDocument::debugStepOver);
         ac->addAction(action->objectName(), action);
     }
     {
         // new QAction( i18n("Step Out"), "debug-step-out", 0, textDocument, SLOT(debugStepOut()), ac, "debug_step_out" );
         QAction *action = new QAction(QIcon::fromTheme("debug-step-out"), i18n("Step Out"), ac);
         action->setObjectName("debug_step_out");
-        connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugStepOut()));
+        connect(action, &QAction::triggered, textDocument, &TextDocument::debugStepOut);
         ac->addAction(action->objectName(), action);
     }
     // END Debug Actions
@@ -157,11 +157,11 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
     //      of the own popup logic
     // QWidget *internalView = m_view->findChild<QWidget *>("KateViewInternal");
 
-    connect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View *, const KTextEditor::Cursor &)), this, SLOT(slotCursorPositionChanged()));
-    connect(m_view, SIGNAL(selectionChanged(KTextEditor::View *)), this, SLOT(slotSelectionmChanged()));
+    connect(m_view, &KTextEditor::View::cursorPositionChanged, this, &TextView::slotCursorPositionChanged);
+    connect(m_view, &KTextEditor::View::selectionChanged, this, &TextView::slotSelectionmChanged);
 
     // setFocusWidget(internalView);
-    connect(this, SIGNAL(focused(View *)), this, SLOT(gotFocus()));
+    connect(this, &TextView::focused, this, &TextView::gotFocus);
 
     m_layout->insertWidget(0, m_view);
 
@@ -174,8 +174,8 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
     m_pTextViewLabel->hide();
 
     TextViewEventFilter *eventFilter = new TextViewEventFilter(this);
-    connect(eventFilter, SIGNAL(wordHoveredOver(const QString &, int, int)), this, SLOT(slotWordHoveredOver(const QString &, int, int)));
-    connect(eventFilter, SIGNAL(wordUnhovered()), this, SLOT(slotWordUnhovered()));
+    connect(eventFilter, &TextViewEventFilter::wordHoveredOver, this, &TextView::slotWordHoveredOver);
+    connect(eventFilter, &TextViewEventFilter::wordUnhovered, this, &TextView::slotWordUnhovered);
 
     // internalView->installEventFilter(eventFilter);
 #endif
@@ -591,13 +591,13 @@ TextViewEventFilter::TextViewEventFilter(TextView *textView)
     }
 
     m_pHoverTimer = new QTimer(this);
-    connect(m_pHoverTimer, SIGNAL(timeout()), this, SLOT(hoverTimeout()));
+    connect(m_pHoverTimer, &QTimer::timeout, this, &TextViewEventFilter::hoverTimeout);
 
     m_pSleepTimer = new QTimer(this);
-    connect(m_pSleepTimer, SIGNAL(timeout()), this, SLOT(gotoSleep()));
+    connect(m_pSleepTimer, &QTimer::timeout, this, &TextViewEventFilter::gotoSleep);
 
     m_pNoWordTimer = new QTimer(this);
-    connect(m_pNoWordTimer, SIGNAL(timeout()), this, SLOT(slotNoWordTimeout()));
+    connect(m_pNoWordTimer, &QTimer::timeout, this, &TextViewEventFilter::slotNoWordTimeout);
 }
 TextViewEventFilter::~TextViewEventFilter()
 {
