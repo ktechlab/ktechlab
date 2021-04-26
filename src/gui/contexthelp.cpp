@@ -95,22 +95,24 @@ ContextHelp::ContextHelp(KateMDI::ToolView *parent)
     m_pEditor->editorViewport()->installEventFilter(this);
     slotClear();
 
-    connect(m_pEditButton, SIGNAL(clicked()), this, SLOT(slotEdit()));
-    connect(m_pSaveButton, SIGNAL(clicked()), this, SLOT(slotSave()));
-    connect(m_pResetButton, SIGNAL(clicked()), this, SLOT(slotEditReset()));
-    connect(m_pChangeDescriptionsDirectory, SIGNAL(clicked()), this, SLOT(requestItemDescriptionsDirectory()));
-    connect(m_pLanguageSelect, QOverload<int>::of(&QComboBox::activated), this, &ContextHelp::setCurrentLanguage);
+    connect(m_pEditButton, &QPushButton::clicked, this, &ContextHelp::slotEdit);
+    connect(m_pSaveButton, &QPushButton::clicked, this, &ContextHelp::slotSave);
+    connect(m_pResetButton, &QToolButton::clicked, this, &ContextHelp::slotEditReset);
+    connect(m_pChangeDescriptionsDirectory, &QToolButton::clicked, this, &ContextHelp::requestItemDescriptionsDirectory);
+
+    connect(m_pLanguageSelect, qOverload<int>(&QComboBox::activated), this, &ContextHelp::setCurrentLanguage);
 
     m_pResetButton->setIcon(QIcon::fromTheme("dialog-cancel"));
     m_pChangeDescriptionsDirectory->setIcon(QIcon::fromTheme("folder"));
 
-    connect(ComponentSelector::self(), SIGNAL(itemSelected(const QString &)), this, SLOT(setBrowserItem(const QString &)));
-    connect(FlowPartSelector::self(), SIGNAL(itemSelected(const QString &)), this, SLOT(setBrowserItem(const QString &)));
+    connect(ComponentSelector::self(), &ComponentSelector::itemSelected, this, &ContextHelp::setBrowserItem);
+
+    connect(FlowPartSelector::self(), &FlowPartSelector::itemSelected, this, &ContextHelp::setBrowserItem);
 #ifdef MECHANICS
-    connect(MechanicsSelector::self(), SIGNAL(itemSelected(const QString &)), this, SLOT(setBrowserItem(const QString &)));
+    connect(MechanicsSelector::self(), &MechanicsSelector::itemSelected, this, &MechanicsSelector::setBrowserItem);
 #endif
 
-    QTimer::singleShot(10, this, SLOT(slotInitializeLanguageList()));
+    QTimer::singleShot(10, this, &ContextHelp::slotInitializeLanguageList);
 }
 
 ContextHelp::~ContextHelp()
@@ -456,8 +458,8 @@ void ContextHelp::openURL(const QUrl &url /*, const KParts::OpenUrlArguments & *
     case ExternalLink: {
         // external url
         KRun *r = new KRun(url, this);
-        connect(r, SIGNAL(finished()), r, SLOT(deleteLater()));
-        connect(r, SIGNAL(error()), r, SLOT(deleteLater()));
+        connect(r, &KRun::finished, r, &KRun::deleteLater);
+        connect(r, &KRun::error, r, &KRun::deleteLater);
         break;
     }
     }

@@ -107,9 +107,10 @@ ProbeData *ProbePositioner::probeAtPosition(const QPoint &pos)
 void ProbePositioner::slotProbeDataRegistered(int id, ProbeData *probe)
 {
     m_probeDataMap[id] = probe;
-    connect(probe, SIGNAL(displayAttributeChanged()), this, SLOT(forceRepaint()));
+    connect(probe, &ProbeData::displayAttributeChanged, this, &ProbePositioner::forceRepaint);
+
     // This connect doesn't really belong here, but it save a lot of code
-    connect(probe, SIGNAL(displayAttributeChanged()), Oscilloscope::self()->oscilloscopeView, SLOT(updateView()));
+    connect(probe, &ProbeData::displayAttributeChanged, Oscilloscope::self()->oscilloscopeView, &OscilloscopeView::updateView);
     forceRepaint();
     Oscilloscope::self()->oscilloscopeView->updateView();
 }

@@ -115,8 +115,8 @@ NewFileDlg::NewFileDlg(QWidget *parent)
     mainLayout->addWidget(m_pNewFileWidget);
 
     // Our behaviour is to have single click selects and double click accepts the dialog
-    connect(m_pNewFileWidget->typeIconView, SIGNAL(itemSelectionChanged()), this, SLOT(fileTypeChanged()));
-    connect(m_pNewFileWidget->typeIconView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(accept()));
+    connect(m_pNewFileWidget->typeIconView, &QListWidget::itemSelectionChanged, this, &NewFileDlg::fileTypeChanged);
+    connect(m_pNewFileWidget->typeIconView, &QListWidget::doubleClicked, this, &NewFileDlg::accept);
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     mainLayout->addWidget(buttonBox);

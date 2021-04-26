@@ -152,14 +152,14 @@ MicroSettingsDlg::MicroSettingsDlg(MicroSettings *microSettings, QWidget *parent
     m_pWidget->variables->insertRow(row);
     qCDebug(KTL_LOG) << "row count: " << m_pWidget->variables->rowCount();
 
-    connect(m_pWidget->variables, SIGNAL(cellChanged(int, int)), this, SLOT(checkAddVariableRow()));
+    connect(m_pWidget->variables, &QTableWidget::cellChanged, this, &MicroSettingsDlg::checkAddVariableRow);
     // END Initialize initial variable settings
 
     // BEGIN Initialize pin maps
-    connect(m_pWidget->pinMapAdd, SIGNAL(clicked()), this, SLOT(slotCreatePinMap()));
-    connect(m_pWidget->pinMapModify, SIGNAL(clicked()), this, SLOT(slotModifyPinMap()));
-    connect(m_pWidget->pinMapRename, SIGNAL(clicked()), this, SLOT(slotRenamePinMap()));
-    connect(m_pWidget->pinMapRemove, SIGNAL(clicked()), this, SLOT(slotRemovePinMap()));
+    connect(m_pWidget->pinMapAdd, &QPushButton::clicked, this, &MicroSettingsDlg::slotCreatePinMap);
+    connect(m_pWidget->pinMapModify, &QPushButton::clicked, this, &MicroSettingsDlg::slotModifyPinMap);
+    connect(m_pWidget->pinMapRename, &QPushButton::clicked, this, &MicroSettingsDlg::slotRenamePinMap);
+    connect(m_pWidget->pinMapRemove, &QPushButton::clicked, this, &MicroSettingsDlg::slotRemovePinMap);
 
     m_pinMappings = microSettings->pinMappings();
     m_pWidget->pinMapCombo->insertItems(m_pWidget->pinMapCombo->count(), m_pinMappings.keys());
@@ -273,7 +273,7 @@ void MicroSettingsDlg::slotCreatePinMap()
     PinMappingNameValidator *validator = new PinMappingNameValidator(this);
     m_pNewPinMappingWidget->nameEdit->setValidator(validator);
 
-    connect(m_pNewPinMappingWidget->nameEdit, SIGNAL(textChanged(const QString &)), this, SLOT(slotCheckNewPinMappingName(const QString &)));
+    connect(m_pNewPinMappingWidget->nameEdit, &KLineEdit::textChanged, this, &MicroSettingsDlg::slotCheckNewPinMappingName);
     slotCheckNewPinMappingName(nullptr);
 
     int accepted = m_pNewPinMappingDlg->exec();

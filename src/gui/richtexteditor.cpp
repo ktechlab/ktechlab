@@ -51,8 +51,8 @@ RichTextEditor::RichTextEditor(QWidget *parent)
 
     // m_pEditor->setTextFormat( Qt::RichText ); // 2018.12.07 - just use toHtml() and html()
 
-    connect(m_pEditor, SIGNAL(textChanged()), SIGNAL(textChanged()));
-    connect(m_pEditor, SIGNAL(currentCharFormatChanged(const QTextCharFormat &)), this, SLOT(slotCurrentCharFormatChanged(const QTextCharFormat &)));
+    connect(m_pEditor, &QTextEdit::textChanged, this, &RichTextEditor::textChanged);
+    connect(m_pEditor, &QTextEdit::currentCharFormatChanged, this, &RichTextEditor::slotCurrentCharFormatChanged);
     // connect( m_pEditor, SIGNAL( currentFontChanged( const QFont & ) ), this, SLOT( fontChanged( const QFont & ) ) ); // 2018.01.03 - use slotCurrentCharFormatChanged
     // connect( m_pEditor, SIGNAL( currentColorChanged( const QColor & ) ), this, SLOT( colorChanged( const QColor & ) ) ); // 2018.01.03 - use slotCurrentCharFormatChanged
     // connect( m_pEditor, SIGNAL( currentAlignmentChanged( int ) ), this, SLOT( alignmentChanged( int ) ) ); // 2018.01.03 - use slotCurrentCharFormatChanged
@@ -67,7 +67,7 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     m_pTextBold->setObjectName("text_bold");
     m_pTextBold->setShortcut(Qt::CTRL + Qt::Key_B);
     m_pTextBold->setIcon(QIcon::fromTheme("format-text-bold"));
-    connect(m_pTextBold, SIGNAL(toggled(bool)), this, SLOT(slotSetBold(bool)));
+    connect(m_pTextBold, &KToggleAction::toggled, this, &RichTextEditor::slotSetBold);
     // m_pTextBold->plug( tools );
     tools->addAction(m_pTextBold);
 
@@ -76,7 +76,7 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     m_pTextItalic->setObjectName("text_italic");
     m_pTextItalic->setShortcut(Qt::CTRL + Qt::Key_I);
     m_pTextItalic->setIcon(QIcon::fromTheme("format-text-italic"));
-    connect(m_pTextItalic, SIGNAL(toggled(bool)), this, SLOT(slotSetItalic(bool)));
+    connect(m_pTextItalic, &KToggleAction::toggled, this, &RichTextEditor::slotSetItalic);
     // m_pTextItalic->plug( tools );
     tools->addAction(m_pTextItalic);
 
@@ -85,7 +85,7 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     m_pTextUnderline->setObjectName("text_under");
     m_pTextUnderline->setShortcut(Qt::CTRL + Qt::Key_U);
     m_pTextItalic->setIcon(QIcon::fromTheme("format-text-underline"));
-    connect(m_pTextUnderline, SIGNAL(toggled(bool)), this, SLOT(slotSetUnderline(bool)));
+    connect(m_pTextUnderline, &KToggleAction::toggled, this, &RichTextEditor::slotSetUnderline);
     // m_pTextUnderline->plug( tools );
     tools->addAction(m_pTextUnderline);
 
@@ -94,7 +94,7 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     m_pTextList->setObjectName("unsorted_list");
     m_pTextList->setShortcut(Qt::CTRL + Qt::Key_L);
     m_pTextItalic->setIcon(QIcon::fromTheme("format-list-unordered"));
-    connect(m_pTextList, SIGNAL(toggled(bool)), SLOT(slotSetList(bool)));
+    connect(m_pTextList, &KToggleAction::toggled, this, &RichTextEditor::slotSetList);
     // m_pTextList->plug( tools );
     tools->addAction(m_pTextList);
 
@@ -120,7 +120,7 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     m->addAction(QIcon::fromTheme("format-justify-right"), i18n("Align Right"))->setData(Qt::AlignRight);
     // m->insertItem( QIcon::fromTheme( "format-justify-fill" ), i18n("Align Block"),	Qt::AlignJustify );
     m->addAction(QIcon::fromTheme("format-justify-fill"), i18n("Align Block"))->setData(Qt::AlignJustify);
-    connect(m, SIGNAL(triggered(QAction *)), this, SLOT(slotSetAlignment(QAction *)));
+    connect(m, &QMenu::triggered, this, &RichTextEditor::slotSetAlignment);
     // END Text horizontal-alignment actions
 
     // BEGIN Text vertical-alignment actions
@@ -142,7 +142,7 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     // m->insertItem(						i18n("Normal"),			QTextCharFormat::AlignNormal );
     m->addAction(QIcon::fromTheme("format-text-subscript"), i18n("Subscript"))->setData(QTextCharFormat::AlignSubScript);
     // m->insertItem( QIcon::fromTheme( "format-text-subscript" ), i18n("Subscript"),		QTextCharFormat::AlignSubScript );
-    connect(m, SIGNAL(triggered(QAction *)), this, SLOT(slotSetVerticalAlignment(QAction *)));
+    connect(m, &QMenu::triggered, this, &RichTextEditor::slotSetVerticalAlignment);
     // END Text vertical-alignment actions
 
     QPixmap pm(16, 16);
@@ -151,7 +151,7 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     m_pTextColor = new QAction(i18n("Text Color..."), this);
     m_pTextColor->setIcon(pm);
     m_pTextColor->setObjectName("format_color");
-    connect(m_pTextColor, SIGNAL(triggered(bool)), this, SLOT(textColor()));
+    connect(m_pTextColor, &QAction::triggered, this, &RichTextEditor::textColor);
     // m_pTextColor->plug( tools );
     ac->addAction("format_color", m_pTextColor);
     tools->addAction(m_pTextColor);

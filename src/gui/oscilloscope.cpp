@@ -71,14 +71,14 @@ Oscilloscope::Oscilloscope(KateMDI::ToolView *parent)
     horizontalScroll->setSingleStep(32);
     horizontalScroll->setPageStep(oscilloscopeView->width());
 
-    connect(resetBtn, SIGNAL(clicked()), this, SLOT(reset()));
-    connect(zoomSlider, SIGNAL(valueChanged(int)), this, SLOT(slotZoomSliderChanged(int)));
-    connect(horizontalScroll, SIGNAL(valueChanged(int)), this, SLOT(slotSliderValueChanged(int)));
+    connect(resetBtn, &QPushButton::clicked, this, &Oscilloscope::reset);
+    connect(zoomSlider, &QSlider::valueChanged, this, &Oscilloscope::slotZoomSliderChanged);
+    connect(horizontalScroll, &QScrollBar::valueChanged, this, &Oscilloscope::slotSliderValueChanged);
 
     // 	connect( pauseBtn, SIGNAL(clicked()), this, SLOT(slotTogglePause()));
 
     QTimer *updateScrollTmr = new QTimer(this);
-    connect(updateScrollTmr, SIGNAL(timeout()), this, SLOT(updateScrollbars()));
+    connect(updateScrollTmr, &QTimer::timeout, this, &Oscilloscope::updateScrollbars);
     updateScrollTmr->start(20);
 
     // KGlobal::config()->setGroup("Oscilloscope");

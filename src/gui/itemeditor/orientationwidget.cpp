@@ -46,7 +46,7 @@ OrientationWidget::OrientationWidget(QWidget *parent)
             btn->setIconSize(QSize(50, 50));
             btn->setCheckable(true);
 
-            connect(btn, SIGNAL(clicked()), this, SLOT(slotButtonClicked()));
+            connect(btn, &QPushButton::clicked, this, &OrientationWidget::slotButtonClicked);
         }
     }
     setVisible(false);
@@ -63,7 +63,7 @@ void OrientationWidget::slotUpdate(CNItemGroup *itemGroup)
 
     m_pCNItem = dynamic_cast<CNItem *>(itemGroup->activeItem());
     if (m_pCNItem)
-        connect(m_pCNItem, SIGNAL(orientationChanged()), this, SLOT(updateShownOrientation()));
+        connect(m_pCNItem, &CNItem::orientationChanged, this, &OrientationWidget::updateShownOrientation);
 
     bool haveSameOrientation = itemGroup->haveSameOrientation();
 

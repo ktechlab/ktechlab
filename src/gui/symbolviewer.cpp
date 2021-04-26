@@ -52,8 +52,8 @@ SymbolViewerItem::SymbolViewerItem(SymbolViewer *symbolViewer, const RegisterInf
         setText(m_pSymbolViewer->toDisplayString(m_pRegisterInfo->value()));
     }
 
-    connect(m_pRegisterInfo, SIGNAL(valueChanged(unsigned)), this, SLOT(valueChanged(unsigned)));
-    connect(m_pSymbolViewer, SIGNAL(valueRadixChanged(SymbolViewer::Radix)), this, SLOT(radixChanged()));
+    connect(m_pRegisterInfo, &RegisterInfo::valueChanged, this, &SymbolViewerItem::valueChanged);
+    connect(m_pSymbolViewer, &SymbolViewer::valueRadixChanged, this, &SymbolViewerItem::radixChanged);
 }
 
 void SymbolViewerItem::valueChanged(unsigned newValue)
@@ -111,7 +111,7 @@ SymbolViewer::SymbolViewer(KateMDI::ToolView *parent)
     m_pRadixCombo->insertItem(m_pRadixCombo->count(), i18n("Hexadecimal"));
     m_valueRadix = Decimal;
     m_pRadixCombo->setCurrentIndex(2);
-    connect(m_pRadixCombo, SIGNAL(activated(int)), this, SLOT(selectRadix(int)));
+    connect(m_pRadixCombo, qOverload<int>(&KComboBox::activated), this, &SymbolViewer::selectRadix);
 
     m_pGpsim = nullptr;
     m_pCurrentContext = nullptr;
@@ -199,7 +199,7 @@ void SymbolViewer::setContext(GpsimProcessor *gpsim)
     if (!m_pCurrentContext)
         return;
 
-    connect(gpsim, SIGNAL(destroyed()), m_pSymbolList, SLOT(clearContents()));
+    connect(gpsim, &GpsimProcessor::destroyed, m_pSymbolList, &QTableWidget::clearContents);
 
     unsigned count = m_pCurrentContext->size();
     for (unsigned i = 0; i < count; ++i) {

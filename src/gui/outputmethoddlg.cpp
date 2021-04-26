@@ -99,7 +99,7 @@ OutputMethodDlg::OutputMethodDlg(const QString &caption, const QUrl &inputURL, b
     m_widget->outputFileURL->setMode(KFile::File | KFile::LocalOnly);
     m_widget->outputFileURL->setAcceptMode(QFileDialog::AcceptSave);
 
-    connect(m_widget->saveFileCheck, SIGNAL(toggled(bool)), m_widget->groupBoxSaveOptions, SLOT(setEnabled(bool)));
+    connect(m_widget->saveFileCheck, &QRadioButton::toggled, m_widget->groupBoxSaveOptions, &QGroupBox::setEnabled);
 
     fileMetaInfo()->initializeFromMetaInfo(m_inputURL, this);
 

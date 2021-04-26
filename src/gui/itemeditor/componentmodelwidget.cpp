@@ -53,7 +53,7 @@ ComponentModelWidget::ComponentModelWidget(QWidget *parent)
     // bar->setStretchableWidget( m_pSearchEdit ); // TODO removed, investigate
     m_pSearchEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
     m_pSearchEdit->setFrame(true /* 2019.01.19: was QFrame::Sunken */);
-    connect(m_pSearchEdit, SIGNAL(textChanged(const QString &)), this, SLOT(setFilter(const QString &)));
+    connect(m_pSearchEdit, &QLineEdit::textChanged, this, &ComponentModelWidget::setFilter);
 
     connect(button, SIGNAL(clicked()), m_pSearchEdit, SLOT(clear()));
 

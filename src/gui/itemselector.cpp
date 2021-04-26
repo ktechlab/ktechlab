@@ -85,9 +85,9 @@ ItemSelector::ItemSelector(QWidget *parent)
     // 	connect( this, SIGNAL(contextMenuRequested(Q3ListViewItem*, const QPoint&, int )), this,
     //              SLOT(slotContextMenuRequested(Q3ListViewItem*, const QPoint&, int )) ); // 2018.08.12 - use signal from below
     setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(this, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotContextMenuRequested(QPoint)));
+    connect(this, &ItemSelector::customContextMenuRequested, this, &ItemSelector::slotContextMenuRequested);
 
-    connect(this, SIGNAL(itemSelectionChanged()), this, SLOT(slotItemSelected()));
+    connect(this, &ItemSelector::itemSelectionChanged, this, &ItemSelector::slotItemSelected);
 }
 
 ItemSelector::~ItemSelector()
