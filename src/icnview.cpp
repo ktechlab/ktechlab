@@ -33,7 +33,7 @@ ICNView::ICNView(ICNDocument *icnDocument, ViewContainer *viewContainer, uint vi
     // m_pAutoRoutingAction = new QAction( i18n("Automatic"), "", 0, this, SLOT(slotSetRoutingAuto()), ac, "routing_mode_auto" );
     m_pAutoRoutingAction = new QAction(i18n("Automatic"), ac);
     m_pAutoRoutingAction->setObjectName("routing_mode_auto");
-    connect(m_pAutoRoutingAction, SIGNAL(triggered(bool)), this, SLOT(slotSetRoutingAuto()));
+    connect(m_pAutoRoutingAction, &QAction::triggered, this, &ICNView::slotSetRoutingAuto);
     ac->addAction(m_pAutoRoutingAction->objectName(), m_pAutoRoutingAction);
     // m_pAutoRoutingAction->setExclusiveGroup("routing_mode");// TODO TEST
     if (!manualRouting)
@@ -42,7 +42,7 @@ ICNView::ICNView(ICNDocument *icnDocument, ViewContainer *viewContainer, uint vi
     // m_pManualRoutingAction = new QAction( i18n("Manual"), "", 0, this, SLOT(slotSetRoutingManual()), ac, "routing_mode_manual" );
     m_pManualRoutingAction = new QAction(i18n("Manual"), ac);
     m_pManualRoutingAction->setObjectName("routing_mode_manual");
-    connect(m_pManualRoutingAction, SIGNAL(triggered(bool)), this, SLOT(slotSetRoutingManual()));
+    connect(m_pManualRoutingAction, &QAction::triggered, this, &ICNView::slotSetRoutingManual);
     ac->addAction(m_pManualRoutingAction->objectName(), m_pManualRoutingAction);
     // m_pManualRoutingAction->setExclusiveGroup("routing_mode"); // TODO TEST
     if (manualRouting)
@@ -75,10 +75,10 @@ ICNView::ICNView(ICNDocument *icnDocument, ViewContainer *viewContainer, uint vi
     }
     // m->setItemChecked( manualRouting ? 1 : 0, true ); // 2018.12.02
 
-    connect(m, SIGNAL(triggered(QAction *)), this, SLOT(slotSetRoutingMode(QAction *)));
+    connect(m, &QMenu::triggered, this, &ICNView::slotSetRoutingMode);
     // END Routing Actions
 
-    connect(icnDocument->m_cmManager, SIGNAL(manualRoutingChanged(bool)), this, SLOT(slotUpdateRoutingToggles(bool)));
+    connect(icnDocument->m_cmManager, &CMManager::manualRoutingChanged, this, &ICNView::slotUpdateRoutingToggles);
 }
 
 ICNView::~ICNView()

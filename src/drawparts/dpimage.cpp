@@ -139,7 +139,7 @@ DPImage::DPImage(ItemDocument *itemDocument, bool newItem, const char *id)
     m_pRectangularOverlay = new RectangularOverlay(this);
 
     m_pCheckImageScalingTimer = new QTimer(this);
-    connect(m_pCheckImageScalingTimer, SIGNAL(timeout()), SLOT(checkImageScaling()));
+    connect(m_pCheckImageScalingTimer, &QTimer::timeout, this, &DPImage::checkImageScaling);
     m_pCheckImageScalingTimer->start(100);
 
     m_name = i18n("Image");

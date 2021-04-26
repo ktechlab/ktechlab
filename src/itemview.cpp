@@ -59,7 +59,7 @@ ItemView::ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uin
     QAction *pAccel = new QAction(QIcon::fromTheme("process-stop"), i18n("Cancel"), ac);
     pAccel->setObjectName("cancelCurrentOperation");
     pAccel->setShortcut(Qt::Key_Escape);
-    connect(pAccel, SIGNAL(triggered(bool)), itemDocument, SLOT(cancelCurrentOperation()));
+    connect(pAccel, &QAction::triggered, itemDocument, &ItemDocument::cancelCurrentOperation);
     ac->addAction("cancelCurrentOperation", pAccel);
 
     {
@@ -67,14 +67,14 @@ ItemView::ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uin
         QAction *action = new QAction(QIcon::fromTheme("edit-delete"), i18n("Delete"), ac);
         action->setObjectName("edit_delete");
         action->setShortcut(Qt::Key_Delete);
-        connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(deleteSelection()));
+        connect(action, &QAction::triggered, itemDocument, &ItemDocument::deleteSelection);
         ac->addAction("edit_delete", action);
     }
     {
         // new KAction( i18n("Export as Image..."), 0, 0, itemDocument, SLOT(exportToImage()), ac, "file_export_image");
         QAction *action = new QAction(QIcon::fromTheme("document-export"), i18n("Export as Image..."), ac);
         action->setObjectName("file_export_image");
-        connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(exportToImage()));
+        connect(action, &QAction::triggered, itemDocument, &ItemDocument::exportToImage);
         ac->addAction("file_export_image", action);
     }
 
@@ -83,28 +83,28 @@ ItemView::ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uin
         // new KAction( i18n("Align Horizontally"), 0, 0, itemDocument, SLOT(alignHorizontally()), ac, "align_horizontally" );
         QAction *action = new QAction(QIcon::fromTheme("align-horizontal-center"), i18n("Align Horizontally"), ac);
         action->setObjectName("align_horizontally");
-        connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(alignHorizontally()));
+        connect(action, &QAction::triggered, itemDocument, &ItemDocument::alignHorizontally);
         ac->addAction("align_horizontally", action);
     }
     {
         // new KAction( i18n("Align Vertically"), 0, 0, itemDocument, SLOT(alignVertically()), ac, "align_vertically" );
         QAction *action = new QAction(QIcon::fromTheme("align-vertical-center"), i18n("Align Vertically"), ac);
         action->setObjectName("align_vertically");
-        connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(alignVertically()));
+        connect(action, &QAction::triggered, itemDocument, &ItemDocument::alignVertically);
         ac->addAction("align_vertically", action);
     }
     {
         // new KAction( i18n("Distribute Horizontally"), 0, 0, itemDocument, SLOT(distributeHorizontally()), ac, "distribute_horizontally" );
         QAction *action = new QAction(QIcon::fromTheme("distribute-horizontal-x"), i18n("Distribute Horizontally"), ac);
         action->setObjectName("distribute_horizontally");
-        connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(distributeHorizontally()));
+        connect(action, &QAction::triggered, itemDocument, &ItemDocument::distributeHorizontally);
         ac->addAction("distribute_horizontally", action);
     }
     {
         // new KAction( i18n("Distribute Vertically"), 0, 0, itemDocument, SLOT(distributeVertically()), ac, "distribute_vertically" );
         QAction *action = new QAction(QIcon::fromTheme("distribute-vertical-y"), i18n("Distribute Vertically"), ac);
         action->setObjectName("distribute_vertically");
-        connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(distributeVertically()));
+        connect(action, &QAction::triggered, itemDocument, &ItemDocument::distributeVertically);
         ac->addAction("distribute_vertically", action);
     }
     // END Item Alignment actions
@@ -125,7 +125,7 @@ ItemView::ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uin
     m->addAction(QIcon::fromTheme("draw-ellipse"), i18n("Ellipse"))->setData(DrawPart::da_ellipse);
     m->addAction(QIcon::fromTheme("draw-rectangle"), i18n("Rectangle"))->setData(DrawPart::da_rectangle);
     m->addAction(QIcon::fromTheme("insert-image"), i18n("Image"))->setData(DrawPart::da_image);
-    connect(m, SIGNAL(triggered(QAction *)), itemDocument, SLOT(slotSetDrawAction(QAction *)));
+    connect(m, &QMenu::triggered, itemDocument, &ItemDocument::slotSetDrawAction);
     // END Draw actions
 
     // BEGIN Item Control actions
@@ -134,7 +134,7 @@ ItemView::ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uin
         QAction *action = new QAction(QIcon::fromTheme("object-order-raise"), i18n("Raise Selection"), ac);
         action->setObjectName("edit_raise");
         action->setShortcut(Qt::Key_PageUp);
-        connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(raiseZ()));
+        connect(action, &QAction::triggered, itemDocument, qOverload<>(&ItemDocument::raiseZ));
         ac->addAction("edit_raise", action);
     }
     {
@@ -142,7 +142,7 @@ ItemView::ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uin
         QAction *action = new QAction(QIcon::fromTheme("object-order-lower"), i18n("Lower Selection"), ac);
         action->setObjectName("edit_lower");
         action->setShortcut(Qt::Key_PageDown);
-        connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(lowerZ()));
+        connect(action, &QAction::triggered, itemDocument, qOverload<>(&ItemDocument::lowerZ));
         ac->addAction("edit_lower", action);
     }
     // END Item Control actions
@@ -157,8 +157,8 @@ ItemView::ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uin
     setXMLFile("ktechlabitemviewui.rc");
 
     m_pUpdateStatusTmr = new QTimer(this);
-    connect(m_pUpdateStatusTmr, SIGNAL(timeout()), this, SLOT(updateStatus()));
-    connect(this, SIGNAL(unfocused()), this, SLOT(stopUpdatingStatus()));
+    connect(m_pUpdateStatusTmr, &QTimer::timeout, this, &ItemView::updateStatus);
+    connect(this, &ItemView::unfocused, this, &ItemView::stopUpdatingStatus);
 
     m_pDragItem = nullptr;
     p_itemDocument = itemDocument;
@@ -167,8 +167,9 @@ ItemView::ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uin
     m_CVBEditor->setObjectName("cvbEditor");
     m_CVBEditor->setLineWidth(1);
 
-    connect(m_CVBEditor, SIGNAL(horizontalSliderReleased()), itemDocument, SLOT(requestCanvasResize()));
-    connect(m_CVBEditor, SIGNAL(verticalSliderReleased()), itemDocument, SLOT(requestCanvasResize()));
+    // connect(m_CVBEditor, SIGNAL(horizontalSliderReleased()), itemDocument, SLOT(requestCanvasResize()));
+    connect(m_CVBEditor, &CVBEditor::horizontalSliderReleased, itemDocument, &ItemDocument::requestCanvasResize);
+    connect(m_CVBEditor, &CVBEditor::verticalSliderReleased, itemDocument, &ItemDocument::requestCanvasResize);
 
     m_layout->insertWidget(0, m_CVBEditor);
 
@@ -694,7 +695,7 @@ CVBEditor::CVBEditor(Canvas *canvas, ItemView *itemView)
         viewport()->setPalette(pv);
     }
 
-    connect(canvas, SIGNAL(resized(const QRect &, const QRect &)), this, SLOT(canvasResized(const QRect &, const QRect &)));
+    connect(canvas, &Canvas::resized, this, &CVBEditor::canvasResized);
 }
 
 void CVBEditor::canvasResized(const QRect &oldSize, const QRect &newSize)

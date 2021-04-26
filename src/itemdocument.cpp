@@ -77,15 +77,16 @@ ItemDocument::ItemDocument(const QString &caption)
     updateBackground();
 
     m_pUpdateItemViewScrollbarsTimer = new QTimer(this);
-    connect(m_pUpdateItemViewScrollbarsTimer, SIGNAL(timeout()), this, SLOT(updateItemViewScrollbars()));
+    connect(m_pUpdateItemViewScrollbarsTimer, &QTimer::timeout, this, &ItemDocument::updateItemViewScrollbars);
 
     m_pEventTimer = new QTimer(this);
-    connect(m_pEventTimer, SIGNAL(timeout()), this, SLOT(processItemDocumentEvents()));
+    connect(m_pEventTimer, &QTimer::timeout, this, &ItemDocument::processItemDocumentEvents);
 
-    connect(this, SIGNAL(selectionChanged()), this, SLOT(slotInitItemActions()));
+    connect(this, &ItemDocument::selectionChanged, this, &ItemDocument::slotInitItemActions);
 
-    connect(ComponentSelector::self(), SIGNAL(itemClicked(const QString &)), this, SLOT(slotUnsetRepeatedItemId()));
-    connect(FlowPartSelector::self(), SIGNAL(itemClicked(const QString &)), this, SLOT(slotUnsetRepeatedItemId()));
+    connect(ComponentSelector::self(), qOverload<const QString &>(&ComponentSelector::itemClicked), this, &ItemDocument::slotUnsetRepeatedItemId);
+    connect(FlowPartSelector::self(), qOverload<const QString &>(&FlowPartSelector::itemClicked), this, &ItemDocument::slotUnsetRepeatedItemId);
+
 #ifdef MECHANICS
     connect(MechanicsSelector::self(), SIGNAL(itemClicked(const QString &)), this, SLOT(slotUnsetRepeatedItemId()));
 #endif
@@ -134,7 +135,7 @@ bool ItemDocument::registerItem(KtlQCanvasItem *qcanvasItem)
 
     if (Item *item = dynamic_cast<Item *>(qcanvasItem)) {
         m_itemList[item->id()] = item;
-        connect(item, SIGNAL(selectionChanged()), this, SIGNAL(selectionChanged()));
+        connect(item, &Item::selectionChanged, this, &ItemDocument::selectionChanged);
         itemAdded(item);
         return true;
     }

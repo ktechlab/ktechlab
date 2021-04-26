@@ -71,7 +71,7 @@ void ItemInterface::slotItemDocumentChanged(ItemDocument *doc)
 {
     slotClearAll();
     if (ItemDocument *itemDocument = dynamic_cast<ItemDocument *>((Document *)p_cvb)) {
-        disconnect(itemDocument, SIGNAL(selectionChanged()), this, SLOT(slotUpdateItemInterface()));
+        disconnect(itemDocument, &ItemDocument::selectionChanged, this, &ItemInterface::slotUpdateItemInterface);
     }
 
     p_itemGroup = nullptr;
@@ -82,7 +82,7 @@ void ItemInterface::slotItemDocumentChanged(ItemDocument *doc)
     if (!p_cvb)
         return;
 
-    connect(p_cvb, SIGNAL(selectionChanged()), this, SLOT(slotUpdateItemInterface()));
+    connect(p_cvb, &ItemDocument::selectionChanged, this, &ItemInterface::slotUpdateItemInterface);
 
     p_itemGroup = p_cvb->selectList();
 

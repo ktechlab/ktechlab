@@ -243,12 +243,12 @@ void DocManager::handleNewDocument(Document *document, ViewArea *viewArea)
     m_documentList.append(document);
     document->setDCOPID(m_nextDocumentID++);
 
-    connect(document, SIGNAL(modifiedStateChanged()), KTechlab::self(), SLOT(slotDocModifiedChanged()));
+    connect(document, &Document::modifiedStateChanged, KTechlab::self(), &KTechlab::slotDocModifiedChanged);
     connect(document, &Document::fileNameChanged, KTechlab::self(), &KTechlab::slotDocModifiedChanged);
     connect(document, &Document::fileNameChanged, KTechlab::self(), &KTechlab::addRecentFile);
-    connect(document, SIGNAL(destroyed(QObject *)), this, SLOT(documentDestroyed(QObject *)));
-    connect(document, SIGNAL(viewFocused(View *)), this, SLOT(slotViewFocused(View *)));
-    connect(document, SIGNAL(viewUnfocused()), this, SLOT(slotViewUnfocused()));
+    connect(document, &Document::destroyed, this, &DocManager::documentDestroyed);
+    connect(document, &Document::viewFocused, this, &DocManager::slotViewFocused);
+    connect(document, &Document::viewUnfocused, this, &DocManager::slotViewUnfocused);
 
     createNewView(document, viewArea);
 }
@@ -310,7 +310,7 @@ void DocManager::slotViewFocused(View *view)
 
     Document *document = view->document();
 
-    connect(document, SIGNAL(undoRedoStateChanged()), KTechlab::self(), SLOT(slotDocUndoRedoChanged()));
+    connect(document, &Document::undoRedoStateChanged, KTechlab::self(), &KTechlab::slotDocUndoRedoChanged);
     p_connectedDocument = document;
 
     if (document->type() == Document::dt_circuit || document->type() == Document::dt_flowcode || document->type() == Document::dt_mechanics) {
@@ -335,7 +335,7 @@ void DocManager::slotViewUnfocused()
         return;
 
     if (p_connectedDocument) {
-        disconnect(p_connectedDocument, SIGNAL(undoRedoStateChanged()), KTechlab::self(), SLOT(slotDocUndoRedoChanged()));
+        disconnect(p_connectedDocument, &Document::undoRedoStateChanged, KTechlab::self(), &KTechlab::slotDocUndoRedoChanged);
         p_connectedDocument = nullptr;
     }
 

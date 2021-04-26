@@ -1192,7 +1192,7 @@ void SubcircuitData::initECSubcircuit(ECSubcircuit *ecSubcircuit)
             component->updateConnectorPoints(false);
             component->setVisible(false);
             component->setCanvas(nullptr);
-            ecSubcircuit->connect(ecSubcircuit, SIGNAL(subcircuitDeleted()), component, SLOT(removeItem()));
+            ecSubcircuit->connect(ecSubcircuit, &ECSubcircuit::subcircuitDeleted, component, &Component::removeItem);
         }
     }
     for (ConnectorDataMap::iterator it = m_connectorDataMap.begin(); it != connectorEnd; ++it) {
@@ -1210,7 +1210,7 @@ void SubcircuitData::initECSubcircuit(ECSubcircuit *ecSubcircuit)
         if (node) {
             node->setVisible(false);
             node->setCanvas(nullptr);
-            ecSubcircuit->connect(ecSubcircuit, SIGNAL(subcircuitDeleted()), node, SLOT(removeNode()));
+            ecSubcircuit->connect(ecSubcircuit, &ECSubcircuit::subcircuitDeleted, node, qOverload<>(&Node::removeNode));
         }
     }
 

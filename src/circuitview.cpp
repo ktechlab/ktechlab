@@ -35,7 +35,7 @@ CircuitView::CircuitView(CircuitDocument *circuitDocument, ViewContainer *viewCo
         QAction *a = new QAction(i18n("Dump linear equations"), ac);
         a->setObjectName("dump_les");
         ac->setDefaultShortcut(a, Qt::CTRL | Qt::Key_D);
-        connect(a, SIGNAL(triggered(bool)), circuitDocument, SLOT(displayEquations()));
+        connect(a, &QAction::triggered, circuitDocument, &CircuitDocument::displayEquations);
         ac->addAction(a->objectName(), a);
     }
 
@@ -46,7 +46,7 @@ CircuitView::CircuitView(CircuitDocument *circuitDocument, ViewContainer *viewCo
         // ra->setExclusiveGroup("orientation"); // TODO test
         QAction *ra = new QAction(i18n("0 Degrees"), ac);
         ra->setObjectName("edit_orientation_0");
-        connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(setOrientation0()));
+        connect(ra, &QAction::triggered, circuitDocument, &CircuitDocument::setOrientation0);
         ac->addAction(ra->objectName(), ra);
         ra->setChecked(true);
     }
@@ -55,7 +55,7 @@ CircuitView::CircuitView(CircuitDocument *circuitDocument, ViewContainer *viewCo
         // ra->setExclusiveGroup("orientation"); // TODO test
         QAction *ra = new QAction(i18n("90 Degrees"), ac);
         ra->setObjectName("edit_orientation_90");
-        connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(setOrientation90()));
+        connect(ra, &QAction::triggered, circuitDocument, &CircuitDocument::setOrientation90);
         ac->addAction(ra->objectName(), ra);
     }
     {
@@ -63,7 +63,7 @@ CircuitView::CircuitView(CircuitDocument *circuitDocument, ViewContainer *viewCo
         // ra->setExclusiveGroup("orientation"); // TODO test
         QAction *ra = new QAction(i18n("180 Degrees"), ac);
         ra->setObjectName("edit_orientation_180");
-        connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(setOrientation180()));
+        connect(ra, &QAction::triggered, circuitDocument, &CircuitDocument::setOrientation180);
         ac->addAction(ra->objectName(), ra);
     }
     {
@@ -71,7 +71,7 @@ CircuitView::CircuitView(CircuitDocument *circuitDocument, ViewContainer *viewCo
         // ra->setExclusiveGroup("orientation"); // TODO test
         QAction *ra = new QAction(i18n("270 Degrees"), ac);
         ra->setObjectName("edit_orientation_270");
-        connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(setOrientation270()));
+        connect(ra, &QAction::triggered, circuitDocument, &CircuitDocument::setOrientation270);
         ac->addAction(ra->objectName(), ra);
     }
 
@@ -79,35 +79,35 @@ CircuitView::CircuitView(CircuitDocument *circuitDocument, ViewContainer *viewCo
         // new QAction( i18n("Create Subcircuit"), "", 0, circuitDocument, SLOT(createSubcircuit()), ac, "circuit_create_subcircuit" );
         QAction *ra = new QAction(i18n("Create Subcircuit"), ac);
         ra->setObjectName("circuit_create_subcircuit");
-        connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(createSubcircuit()));
+        connect(ra, &QAction::triggered, circuitDocument, &CircuitDocument::createSubcircuit);
         ac->addAction(ra->objectName(), ra);
     }
     {
         // new QAction( i18n("Rotate Clockwise"), "object-rotate-right", "]", circuitDocument, SLOT(rotateClockwise()), ac, "edit_rotate_cw" );
         QAction *ra = new QAction(QIcon::fromTheme("object-rotate-right"), i18n("Rotate Clockwise"), ac);
         ra->setObjectName("edit_rotate_cw");
-        connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(rotateClockwise()));
+        connect(ra, &QAction::triggered, circuitDocument, &CircuitDocument::rotateClockwise);
         ac->addAction(ra->objectName(), ra);
     }
     {
         // new QAction( i18n("Rotate Counter-Clockwise"), "object-rotate-left", "[", circuitDocument, SLOT(rotateCounterClockwise()), ac, "edit_rotate_ccw" );
         QAction *ra = new QAction(QIcon::fromTheme("object-rotate-left"), i18n("Rotate Counter-Clockwise"), ac);
         ra->setObjectName("edit_rotate_ccw");
-        connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(rotateCounterClockwise()));
+        connect(ra, &QAction::triggered, circuitDocument, &CircuitDocument::rotateCounterClockwise);
         ac->addAction(ra->objectName(), ra);
     }
     {
         // new QAction( i18n("Flip Horizontally"), "", 0, circuitDocument, SLOT(flipHorizontally()), ac, "edit_flip_horizontally" );
         QAction *ra = new QAction(QIcon::fromTheme("object-flip-horizontal"), i18n("Flip Horizontally"), ac);
         ra->setObjectName("edit_flip_horizontally");
-        connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(flipHorizontally()));
+        connect(ra, &QAction::triggered, circuitDocument, &CircuitDocument::flipHorizontally);
         ac->addAction(ra->objectName(), ra);
     }
     {
         // new QAction( i18n("Flip Vertically"), "", 0, circuitDocument, SLOT(flipVertically()), ac, "edit_flip_vertically" );
         QAction *ra = new QAction(QIcon::fromTheme("object-flip-vertical"), i18n("Flip Vertically"), ac);
         ra->setObjectName("edit_flip_vertically");
-        connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(flipVertically()));
+        connect(ra, &QAction::triggered, circuitDocument, &CircuitDocument::flipVertically);
         ac->addAction(ra->objectName(), ra);
     }
     // END Item Control Actions
@@ -130,7 +130,7 @@ CircuitView::CircuitView(CircuitDocument *circuitDocument, ViewContainer *viewCo
     // note: the text below normally should not be visible; it is needed to get the "real" status displayed;
     // see slotUpdateRunningStatus
     m_statusBar->setStatusText(i18n("Simulation Initializing"));
-    connect(Simulator::self(), SIGNAL(simulatingStateChanged(bool)), this, SLOT(slotUpdateRunningStatus(bool)));
+    connect(Simulator::self(), &Simulator::simulatingStateChanged, this, &CircuitView::slotUpdateRunningStatus);
     slotUpdateRunningStatus(Simulator::self()->isSimulating());
 }
 
