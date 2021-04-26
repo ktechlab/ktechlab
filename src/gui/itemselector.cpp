@@ -81,7 +81,13 @@ ItemSelector::ItemSelector(QWidget *parent)
 
     // 	connect( this, SIGNAL(executed(K3ListViewItem*) ), this, SLOT(slotItemExecuted(K3ListViewItem*)) );
     connect(this, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(slotItemClicked(QTreeWidgetItem *, int)));
+    /*TODO Can't connect to itemClicked(QTreeWidgetItem *, int)
+    connect(this, qOverload<QTreeWidgetItem*, int>(&ItemSelector::itemClicked),
+            this, qOverload<QTreeWidgetItem*, int>(&ItemSelector::slotItemClicked));*/
     connect(this, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotItemDoubleClicked(QTreeWidgetItem *, int)));
+    /*TODO The same problem as above
+    connect(this, qOverload<QTreeWidgetItem*, int>(&ItemSelector::itemClicked),
+        this, qOverload<QTreeWidgetItem*, int>(&ItemSelector::slotItemDoubleClicked));*/
     // 	connect( this, SIGNAL(contextMenuRequested(Q3ListViewItem*, const QPoint&, int )), this,
     //              SLOT(slotContextMenuRequested(Q3ListViewItem*, const QPoint&, int )) ); // 2018.08.12 - use signal from below
     setContextMenuPolicy(Qt::CustomContextMenu);

@@ -86,7 +86,13 @@ Oscilloscope::Oscilloscope(KateMDI::ToolView *parent)
     setZoomLevel(grOscill.readEntry("ZoomLevel", 0.5));
 
     connect(this, SIGNAL(probeRegistered(int, ProbeData *)), probePositioner, SLOT(slotProbeDataRegistered(int, ProbeData *)));
+    /*TODO  fix error: 'slotProbeDataRegistered(int, ProbeData*)’ is protected within this context
+    connect(this, &Oscilloscope::probeRegistered,
+            probePositioner, &ProbePositioner::slotProbeDataRegistered);*/
     connect(this, SIGNAL(probeUnregistered(int)), probePositioner, SLOT(slotProbeDataUnregistered(int)));
+    /*TODO the same problem
+    connect(this, &Oscilloscope::probeUnregistered,
+            probePositioner, &ProbePositioner::slotProbeDataUnregistered);*/
 }
 
 Oscilloscope::~Oscilloscope()

@@ -97,7 +97,11 @@ void ECNode::setParentItem(CNItem *parentItem)
 
     if (Component *component = dynamic_cast<Component *>(parentItem)) {
         connect(component, SIGNAL(elementDestroyed(Element *)), this, SLOT(removeElement(Element *)));
+        // TODO fix compiler error: invalid application of ‘sizeof’ to incomplete type ‘Element’
+        // connect(component, &Component::elementDestroyed, this, &ECNode::removeElement);
         connect(component, SIGNAL(switchDestroyed(Switch *)), this, SLOT(removeSwitch(Switch *)));
+        // TODO fix compiler error: invalid application of ‘sizeof’ to incomplete type ‘Switch’
+        // connect(component, &Component::switchDestroyed, this, &ECNode::removeSwitch);
     }
 }
 

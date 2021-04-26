@@ -636,6 +636,9 @@ void PropertyEditor::fill()
             PropertyEditorItem *itemPropValue = new PropertyEditorItem(m_topItem, v);
             itemPropValue->setText(v->displayString());
             connect(v, SIGNAL(valueChanged(QVariant, QVariant)), itemPropValue, SLOT(propertyValueChanged()));
+            // TODO ‘virtual void PropertyEditorItem::propertyValueChanged()’ is protected within this context
+            // connect(v, qOverload<QVariant, QVariant>(&Variant::valueChanged),
+            //        itemPropValue, &PropertyEditorItem::propertyValueChanged);
             itemPropValue->updateValue();
             setItem(nextRow, 1, itemPropValue);
         }
