@@ -40,7 +40,7 @@ FlowCodeView::FlowCodeView(FlowCodeDocument *flowCodeDocument, ViewContainer *vi
     m->addAction(QIcon::fromTheme("convert_to_assembly"), i18n("Assembly"))->setData(FlowCodeDocument::AssemblyOutput);
     m->addAction(QIcon::fromTheme("convert_to_hex"), i18n("Hex"))->setData(FlowCodeDocument::HexOutput);
     m->addAction(QIcon::fromTheme("convert_to_pic"), i18n("PIC (upload)"))->setData(FlowCodeDocument::PICOutput);
-    connect(m, SIGNAL(triggered(QAction *)), flowCodeDocument, SLOT(slotConvertTo(QAction *)));
+    connect(m, &QMenu::triggered, flowCodeDocument, &FlowCodeDocument::slotConvertTo);
     ac->addAction("program_convert", pa);
     // END Convert To * Actions
 

@@ -64,25 +64,25 @@ PinMapEditor::PinMapEditor(PinMapping *pinMapping, MicroInfo *picInfo, QWidget *
     {
         QAction *actionDelSel = new QAction(this);
         actionDelSel->setShortcut(Qt::Key_Delete);
-        connect(actionDelSel, SIGNAL(triggered(bool)), m_pPinMapDocument, SLOT(deleteSelection()));
+        connect(actionDelSel, &QAction::triggered, m_pPinMapDocument, &PinMapDocument::deleteSelection);
         addAction(actionDelSel);
     }
     {
         QAction *actionSelAll = new QAction(this);
         actionSelAll->setShortcut(KStandardShortcut::selectAll().first());
-        connect(actionSelAll, SIGNAL(triggered(bool)), m_pPinMapDocument, SLOT(selectAll()));
+        connect(actionSelAll, &QAction::triggered, m_pPinMapDocument, &PinMapDocument::selectAll);
         addAction(actionSelAll);
     }
     {
         QAction *actionUndo = new QAction(this);
         actionUndo->setShortcut(KStandardShortcut::undo().first());
-        connect(actionUndo, SIGNAL(triggered(bool)), m_pPinMapDocument, SLOT(undo()));
+        connect(actionUndo, &QAction::triggered, m_pPinMapDocument, &PinMapDocument::undo);
         addAction(actionUndo);
     }
     {
         QAction *actionRedo = new QAction(this);
         actionRedo->setShortcut(KStandardShortcut::redo().first());
-        connect(actionRedo, SIGNAL(triggered(bool)), m_pPinMapDocument, SLOT(redo()));
+        connect(actionRedo, &QAction::triggered, m_pPinMapDocument, &PinMapDocument::redo);
         addAction(actionRedo);
     }
 

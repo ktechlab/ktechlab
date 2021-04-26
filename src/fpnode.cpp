@@ -129,9 +129,9 @@ bool FPNode::handleNewConnector(Connector *connector)
         return false;
     }
 
-    connect(this, SIGNAL(removed(Node *)), connector, SLOT(removeConnector(Node *)));
-    connect(connector, SIGNAL(removed(Connector *)), this, SLOT(checkForRemoval(Connector *)));
-    connect(connector, SIGNAL(selected(bool)), this, SLOT(setNodeSelected(bool)));
+    connect(this, &FPNode::removed, connector, &Connector::removeConnector);
+    connect(connector, &Connector::removed, this, &FPNode::checkForRemoval);
+    connect(connector, &Connector::selected, this, &FPNode::setNodeSelected);
 
     if (!isChildNode())
         p_icnDocument->slotRequestAssignNG();

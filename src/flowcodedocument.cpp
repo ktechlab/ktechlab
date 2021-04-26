@@ -87,7 +87,7 @@ void FlowCodeDocument::setPicType(const QString &id)
     }
 
     m_microSettings = new MicroSettings(m_microInfo);
-    connect(m_microSettings, SIGNAL(pinMappingsChanged()), this, SIGNAL(pinMappingsChangedFlowCode()));
+    connect(m_microSettings, &MicroSettings::pinMappingsChanged, this, &FlowCodeDocument::pinMappingsChangedFlowCode);
     // TODO restore pic settings from temporary location if appropriate
 
     delete m_picItem;

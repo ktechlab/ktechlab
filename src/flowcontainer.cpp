@@ -143,7 +143,7 @@ void FlowContainer::childAdded(Item *child)
 
     FlowPart::childAdded(child);
 
-    connect(this, SIGNAL(movedBy(double, double)), child, SLOT(moveBy(double, double)));
+    connect(this, &FlowContainer::moveBy, child, &Item::moveBy);
     child->setZ(ICNDocument::Z::Item + child->level());
 
     updateContainedVisibility();

@@ -70,8 +70,8 @@ FlowPart::FlowPart(ICNDocument *icnDocument, bool newItem, const QString &id)
         m_pFlowCodeDocument = dynamic_cast<FlowCodeDocument *>(icnDocument);
         assert(m_pFlowCodeDocument);
 
-        connect(m_pFlowCodeDocument, SIGNAL(picTypeChanged()), this, SLOT(slotUpdateFlowPartVariables()));
-        connect(m_pFlowCodeDocument, SIGNAL(pinMappingsChangedFlowCode()), this, SLOT(slotUpdateFlowPartVariables()));
+        connect(m_pFlowCodeDocument, &FlowCodeDocument::picTypeChanged, this, &FlowPart::slotUpdateFlowPartVariables);
+        connect(m_pFlowCodeDocument, &FlowCodeDocument::pinMappingsChangedFlowCode, this, &FlowPart::slotUpdateFlowPartVariables);
     }
 }
 
@@ -482,7 +482,7 @@ Variant *FlowPart::createProperty(const QString &id, Variant::Type::Value type)
             if (MicroSettings *settings = m_pFlowCodeDocument->microSettings())
                 v->setAllowed(settings->variableNames());
         }
-        connect(property(id), SIGNAL(valueChanged(QVariant, QVariant)), this, SLOT(varNameChanged(QVariant, QVariant)));
+        connect(property(id), qOverload<QVariant, QVariant>(&Property::valueChanged), this, &FlowPart::varNameChanged);
     } else
         slotUpdateFlowPartVariables();
 
