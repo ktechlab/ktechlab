@@ -51,7 +51,7 @@ CMManager::CMManager(ItemDocument *itemDocument)
     p_lastItemClicked = nullptr;
     m_drawAction = -1;
     m_allowItemScrollTmr = new QTimer(this);
-    connect(m_allowItemScrollTmr, SIGNAL(timeout()), this, SLOT(slotAllowItemScroll()));
+    connect(m_allowItemScrollTmr, &QTimer::timeout, this, &CMManager::slotAllowItemScroll);
 
     KConfigGroup grGen = KSharedConfig::openConfig()->group("General");
     slotSetManualRoute(grGen.readEntry("ManualRouting", false));
@@ -335,7 +335,8 @@ CanvasManipulator::CanvasManipulator(ItemDocument *itemDocument, CMManager *cmMa
     p_cnItemClickedOn = nullptr;
     p_cmManager = cmManager;
 
-    connect(itemDocument->canvas(), SIGNAL(resized(const QRect &, const QRect &)), this, SLOT(canvasResized(const QRect &, const QRect &)));
+    // connect(itemDocument->canvas(), SIGNAL(resized(const QRect &, const QRect &)), this, SLOT(canvasResized(const QRect &, const QRect &)));
+    connect(itemDocument->canvas(), &Canvas::resized, this, &CanvasManipulator::canvasResized);
 }
 
 CanvasManipulator::~CanvasManipulator()

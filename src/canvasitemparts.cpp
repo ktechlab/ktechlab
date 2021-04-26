@@ -30,7 +30,7 @@ GuiPart::GuiPart(CNItem *parent, const QRect &r, KtlQCanvas *canvas)
     , b_pointsAdded(false)
     , m_originalRect(r)
 {
-    connect(parent, SIGNAL(movedBy(double, double)), this, SLOT(slotMoveBy(double, double)));
+    connect(parent, &CNItem::moveBy, this, &GuiPart::slotMoveBy);
     setZ(parent->z() + 0.5);
 }
 
@@ -257,8 +257,8 @@ Button::Button(const QString &id, CNItem *parent, bool isToggle, const QRect &r,
     m_button = new ToolButton(nullptr);
     m_button->setToolButtonStyle(Qt::ToolButtonIconOnly);
     m_button->setCheckable(b_isToggle);
-    connect(m_button, SIGNAL(pressed()), this, SLOT(slotStateChanged()));
-    connect(m_button, SIGNAL(released()), this, SLOT(slotStateChanged()));
+    connect(m_button, &ToolButton::pressed, this, &Button::slotStateChanged);
+    connect(m_button, &ToolButton::pressed, this, &Button::slotStateChanged);
     posChanged();
 }
 
@@ -435,7 +435,7 @@ Slider::Slider(const QString &id, CNItem *parent, const QRect &r, KtlQCanvas *ca
     QPalette p;
     p.setColor(m_slider->backgroundRole(), Qt::white);
     m_slider->setPalette(p);
-    connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged(int)));
+    connect(m_slider, &SliderWidget::valueChanged, this, &Slider::slotValueChanged);
     posChanged();
 }
 

@@ -438,7 +438,7 @@ void KtlQCanvas::setUpdatePeriod(int ms)
         if (update_timer)
             delete update_timer;
         update_timer = new QTimer(this);
-        connect(update_timer, SIGNAL(timeout()), this, SLOT(update()));
+        connect(update_timer, &QTimer::timeout, this, &KtlQCanvas::update);
         update_timer->start(ms);
     }
 }
@@ -1242,7 +1242,7 @@ KtlQCanvasView::KtlQCanvasView(QWidget *parent, Qt::WindowFlags f)
     d = new KtlQCanvasViewData;
     viewing = nullptr;
     setCanvas(nullptr);
-    connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(cMoving(int, int)));
+    connect(this, &KtlQCanvasView::contentsMoving, this, &KtlQCanvasView::cMoving);
 }
 
 KtlQCanvasView::KtlQCanvasView(KtlQCanvas *canvas, QWidget *parent, Qt::WindowFlags f)
@@ -1253,7 +1253,7 @@ KtlQCanvasView::KtlQCanvasView(KtlQCanvas *canvas, QWidget *parent, Qt::WindowFl
     viewing = nullptr;
     setCanvas(canvas);
 
-    connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(cMoving(int, int)));
+    connect(this, &KtlQCanvasView::contentsMoving, this, &KtlQCanvasView::cMoving);
 }
 
 KtlQCanvasView::~KtlQCanvasView()
@@ -1271,7 +1271,7 @@ void KtlQCanvasView::setCanvas(KtlQCanvas *canvas)
     }
     viewing = canvas;
     if (viewing) {
-        connect(viewing, SIGNAL(resized()), this, SLOT(updateContentsSize()));
+        connect(viewing, &KtlQCanvas::resized, this, &KtlQCanvasView::updateContentsSize);
         viewing->addView(this);
     }
     if (d) // called by d'tor
