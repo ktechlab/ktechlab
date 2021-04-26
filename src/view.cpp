@@ -16,13 +16,13 @@
 #include "viewiface.h"
 
 #include <KActionCollection>
-#include <KIconLoader>
 #include <KLocalizedString>
 #include <KSqueezedTextLabel>
 #include <KXMLGUIFactory>
 
 #include <QApplication>
 #include <QPaintEvent>
+#include <QStyle>
 #include <QVBoxLayout>
 
 #include <cassert>
@@ -210,8 +210,9 @@ ViewStatusBar::ViewStatusBar(View *view)
     m_statusLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     addPermanentWidget(m_statusLabel, 0);
 
-    m_modifiedPixmap = KIconLoader::global()->loadIcon("document-save", KIconLoader::Small);
-    m_unmodifiedPixmap = KIconLoader::global()->loadIcon("null", KIconLoader::Small);
+    const int iconSize = style()->pixelMetric(QStyle::PM_SmallIconSize);
+    m_modifiedPixmap = QIcon::fromTheme("document-save").pixmap(iconSize);
+    m_unmodifiedPixmap = QIcon::fromTheme("null").pixmap(iconSize);
 
     connect(view->document(), SIGNAL(modifiedStateChanged()), this, SLOT(slotModifiedStateChanged()));
     connect(view->document(), &Document::fileNameChanged, this, &ViewStatusBar::slotFileNameChanged);
