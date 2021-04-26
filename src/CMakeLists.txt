@@ -344,6 +344,8 @@ target_link_libraries( ktechlab
     #ktlqt3support
 	#mechanics electronics elements components languages drawparts
 	#itemeditor math
+    KF5::I18n
+    KF5::TextWidgets
     KF5::TextEditor
     KF5::Parts
     KF5::Completion
@@ -389,6 +391,8 @@ if(BUILD_TESTING)
     add_library(test_ktechlab STATIC ${ktechlab_SRCS})
 
     target_link_libraries(test_ktechlab
+        KF5::I18n
+        KF5::TextWidgets
         KF5::TextEditor
         KF5::IconThemes
         KF5::Parts

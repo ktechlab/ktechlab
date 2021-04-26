@@ -22,12 +22,11 @@
 #include <KIconLoader>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KParts/BrowserExtension>
-#include <KParts/ReadWritePart>
 // #include <k3popupmenu.h>
 #include <KRun>
 // #include <k3iconview.h>
 
+#include <QDropEvent>
 #include <QEvent>
 #include <QFile>
 #include <QFileDialog>
