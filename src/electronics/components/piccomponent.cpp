@@ -73,12 +73,12 @@ PICComponent::PICComponent(ICNDocument *icnDocument, bool newItem, const char *i
 
     connect(KTechlab::self(), &KTechlab::recentFileAdded, this, &PICComponent::slotUpdateFileList);
 
-    connect(ProjectManager::self(), SIGNAL(projectOpened()), this, SLOT(slotUpdateFileList()));
-    connect(ProjectManager::self(), SIGNAL(projectClosed()), this, SLOT(slotUpdateFileList()));
-    connect(ProjectManager::self(), SIGNAL(projectCreated()), this, SLOT(slotUpdateFileList()));
-    connect(ProjectManager::self(), SIGNAL(subprojectCreated()), this, SLOT(slotUpdateFileList()));
-    connect(ProjectManager::self(), SIGNAL(filesAdded()), this, SLOT(slotUpdateFileList()));
-    connect(ProjectManager::self(), SIGNAL(filesRemoved()), this, SLOT(slotUpdateFileList()));
+    connect(ProjectManager::self(), &ProjectManager::projectOpened, this, &PICComponent::slotUpdateFileList);
+    connect(ProjectManager::self(), &ProjectManager::projectClosed, this, &PICComponent::slotUpdateFileList);
+    connect(ProjectManager::self(), &ProjectManager::projectCreated, this, &PICComponent::slotUpdateFileList);
+    connect(ProjectManager::self(), &ProjectManager::subprojectCreated, this, &PICComponent::slotUpdateFileList);
+    connect(ProjectManager::self(), &ProjectManager::filesAdded, this, &PICComponent::slotUpdateFileList);
+    connect(ProjectManager::self(), &ProjectManager::filesRemoved, this, &PICComponent::slotUpdateFileList);
 
     createProperty("program", Variant::Type::FileName);
     property("program")->setCaption(i18n("Program"));
@@ -360,7 +360,7 @@ void PICComponent::slotCODCreationSucceeded()
         property("lastPackage")->setValue(microInfo->id());
         initPackage(microInfo);
 
-        connect(m_pGpsim, SIGNAL(runningStatusChanged(bool)), this, SLOT(slotUpdateBtns()));
+        connect(m_pGpsim, &GpsimProcessor::runningStatusChanged, this, &PICComponent::slotUpdateBtns);
         attachPICComponentPins();
     }
 

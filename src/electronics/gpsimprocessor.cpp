@@ -394,7 +394,7 @@ GpsimDebugger::GpsimDebugger(Type type, GpsimProcessor *gpsim)
     m_stackLevelLowerBreak = -1;
     m_addressSize = 0;
 
-    connect(m_pGpsim, SIGNAL(runningStatusChanged(bool)), this, SLOT(gpsimRunningStatusChanged(bool)));
+    connect(m_pGpsim, &GpsimProcessor::runningStatusChanged, this, &GpsimDebugger::gpsimRunningStatusChanged);
 
     if (type == HLLDebugger) {
         const QStringList sourceFileList = m_pGpsim->sourceFileList();

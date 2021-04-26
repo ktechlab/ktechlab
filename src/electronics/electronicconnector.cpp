@@ -24,8 +24,8 @@ ElectronicConnector::ElectronicConnector(ECNode *startNode, ECNode *endNode, ICN
     m_endEcNode = endNode;
 
     if (startNode && endNode) {
-        connect(startNode, SIGNAL(numPinsChanged(unsigned)), this, SLOT(syncWiresWithNodes()));
-        connect(endNode, SIGNAL(numPinsChanged(unsigned)), this, SLOT(syncWiresWithNodes()));
+        connect(startNode, &ECNode::numPinsChanged, this, &ElectronicConnector::syncWiresWithNodes);
+        connect(endNode, &ECNode::numPinsChanged, this, &ElectronicConnector::syncWiresWithNodes);
         syncWiresWithNodes();
     }
 }

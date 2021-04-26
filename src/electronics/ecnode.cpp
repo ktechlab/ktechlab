@@ -263,9 +263,9 @@ bool ECNode::handleNewConnector(Connector *connector)
         return false;
     }
 
-    connect(this, SIGNAL(removed(Node *)), connector, SLOT(removeConnector(Node *)));
-    connect(connector, SIGNAL(removed(Connector *)), this, SLOT(checkForRemoval(Connector *)));
-    connect(connector, SIGNAL(selected(bool)), this, SLOT(setNodeSelected(bool)));
+    connect(this, &ECNode::removed, connector, &Connector::removeConnector);
+    connect(connector, &Connector::removed, this, &ECNode::checkForRemoval);
+    connect(connector, &Connector::selected, this, &ECNode::setNodeSelected);
 
     if (!isChildNode())
         p_icnDocument->slotRequestAssignNG();
