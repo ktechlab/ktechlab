@@ -14,6 +14,7 @@
     <comment xml:lang="lt">KTechlab grandinė</comment>
     <comment xml:lang="nl">KTechlab elektronisch schema</comment>
     <comment xml:lang="nn">KTechlab-krets</comment>
+    <comment xml:lang="pl">Obwód KTechlab</comment>
     <comment xml:lang="pt">Circuito do KTechlab</comment>
     <comment xml:lang="pt_BR">Circuito KTechlab</comment>
     <comment xml:lang="sl">KTechlab Circuit</comment>
@@ -34,6 +35,7 @@
     <comment xml:lang="it">FlowCode di KTechlab</comment>
     <comment xml:lang="nl">KTechlab FlowCode</comment>
     <comment xml:lang="nn">KTechlab-Flowcode</comment>
+    <comment xml:lang="pl">Kod przepływu KTechlab</comment>
     <comment xml:lang="pt">Fluxograma do KTechlab</comment>
     <comment xml:lang="pt_BR">FlowCode KTechlab</comment>
     <comment xml:lang="sl">KTechlab FlowCode</comment>
@@ -55,6 +57,7 @@
     <comment xml:lang="lt">KTechlab projektas</comment>
     <comment xml:lang="nl">KTechlab project</comment>
     <comment xml:lang="nn">KTechlab-prosjekt</comment>
+    <comment xml:lang="pl">Projekt KTechlab</comment>
     <comment xml:lang="pt">Projecto do KTechlab</comment>
     <comment xml:lang="pt_BR">Projeto KTechlab</comment>
     <comment xml:lang="sl">KTechlab project</comment>
@@ -75,6 +78,7 @@
     <comment xml:lang="it">Microbe di KTechlab</comment>
     <comment xml:lang="nl">KTechlab Microbe</comment>
     <comment xml:lang="nn">KTechlab-microbe</comment>
+    <comment xml:lang="pl">Microbe KTechlab</comment>
     <comment xml:lang="pt">Microbe do KTechlab</comment>
     <comment xml:lang="pt_BR">Microbe KTechLab</comment>
     <comment xml:lang="sl">KTechlab Microbe</comment>
