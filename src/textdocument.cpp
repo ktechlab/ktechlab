@@ -99,11 +99,11 @@ TextDocument::TextDocument(const QString &caption)
 
     markIface->setMarkDescription((KTextEditor::MarkInterface::MarkTypes)Breakpoint, i18n("Breakpoint"));
     markIface->setMarkPixmap((KTextEditor::MarkInterface::MarkTypes)Breakpoint, *inactiveBreakpointPixmap());
-    markIface->setMarkPixmap((KTextEditor::MarkInterface::MarkTypes)ActiveBreakpoint, *activeBreakpointPixmap());
-    markIface->setMarkPixmap((KTextEditor::MarkInterface::MarkTypes)ReachedBreakpoint, *reachedBreakpointPixmap());
-    markIface->setMarkPixmap((KTextEditor::MarkInterface::MarkTypes)DisabledBreakpoint, *disabledBreakpointPixmap());
-    markIface->setMarkPixmap((KTextEditor::MarkInterface::MarkTypes)ExecutionPoint, *executionPointPixmap());
-    markIface->setEditableMarks(Bookmark | Breakpoint);
+    markIface->setMarkPixmap(KTextEditor::MarkInterface::BreakpointActive, *activeBreakpointPixmap());
+    markIface->setMarkPixmap(KTextEditor::MarkInterface::BreakpointReached, *reachedBreakpointPixmap());
+    markIface->setMarkPixmap(KTextEditor::MarkInterface::BreakpointDisabled, *disabledBreakpointPixmap());
+    markIface->setMarkPixmap(KTextEditor::MarkInterface::Execution, *executionPointPixmap());
+    markIface->setEditableMarks(KTextEditor::MarkInterface::Bookmark | Breakpoint);
 
     m_constructorSuccessful = true;
 }
@@ -566,7 +566,7 @@ IntList TextDocument::bookmarkList() const
     // for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
     for (MarkList::const_iterator itMark = markList.begin(); itMark != markList.end(); ++itMark) {
         const KTextEditor::Mark *mark = itMark.value();
-        if (mark->type & Bookmark)
+        if (mark->type & KTextEditor::MarkInterface::Bookmark)
             bookmarkList += mark->line;
     }
 
@@ -602,7 +602,7 @@ void TextDocument::slotUpdateMarksInfo()
     //{
     for (MarkList::iterator itMark = markList.begin(); itMark != markList.end(); ++itMark) {
         KTextEditor::Mark *mark = itMark.value();
-        if (mark->type & Bookmark) {
+        if (mark->type & KTextEditor::MarkInterface::Bookmark) {
             QString actionCaption = i18n("%1 - %2", QString::number(mark->line + 1), m_doc->text(KTextEditor::Range(mark->line, 0, mark->line, 100 /* FIXME arbitrary */)));
             QString actionName = QString("bookmark_%1").arg(QString::number(mark->line));
             /*
@@ -661,8 +661,8 @@ void TextDocument::clearBookmarks()
     //{
     for (MarkList::iterator itMark = markList.begin(); itMark != markList.end(); ++itMark) {
         KTextEditor::Mark *mark = itMark.value();
-        if (mark->type & Bookmark)
-            iface->removeMark(mark->line, Bookmark);
+        if (mark->type & KTextEditor::MarkInterface::Bookmark)
+            iface->removeMark(mark->line, KTextEditor::MarkInterface::Bookmark);
     }
 
     slotUpdateMarksInfo();
@@ -675,10 +675,10 @@ void TextDocument::setBookmark(uint line, bool isBookmark)
         return;
 
     if (isBookmark)
-        iface->addMark(line, Bookmark);
+        iface->addMark(line, KTextEditor::MarkInterface::Bookmark);
 
     else
-        iface->removeMark(line, Bookmark);
+        iface->removeMark(line, KTextEditor::MarkInterface::Bookmark);
 }
 
 void TextDocument::setBreakpoints(const IntList &lines)
@@ -845,8 +845,8 @@ void TextDocument::slotDebugSetCurrentLine(const SourceLine &line)
     if (DocManager::self()->findDocument(QUrl::fromLocalFile(line.fileName())) != this)
         textLine = -1;
 
-    iface->removeMark(m_lastDebugLineAt, ExecutionPoint);
-    iface->addMark(textLine, ExecutionPoint);
+    iface->removeMark(m_lastDebugLineAt, KTextEditor::MarkInterface::Execution);
+    iface->addMark(textLine, KTextEditor::MarkInterface::Execution);
 
     if (activeView())
         textView()->setCursorPosition(textLine, 0);
@@ -919,7 +919,7 @@ void TextDocument::clearBreakpoints()
     // for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
     for (MarkList::iterator itMark = markList.begin(); itMark != markList.end(); ++itMark) {
         KTextEditor::Mark *mark = itMark.value();
-        if (mark->type & Bookmark)
+        if (mark->type & KTextEditor::MarkInterface::Bookmark)
             iface->removeMark(mark->line, Breakpoint);
     }
 
@@ -957,7 +957,7 @@ void TextDocument::syncBreakpoints()
         if (mark->type & Breakpoint)
             bpList.append(line);
 
-        if (mark->type == ExecutionPoint)
+        if (mark->type == KTextEditor::MarkInterface::Execution)
             m_lastDebugLineAt = line;
     }
 

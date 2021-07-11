@@ -46,12 +46,7 @@ public:
     enum CodeType { ct_unknown, ct_asm, ct_c, ct_hex, ct_microbe };
 
     enum MarkType {
-        Bookmark = KTextEditor::MarkInterface::markType01,
-        Breakpoint = KTextEditor::MarkInterface::markType02,
-        ActiveBreakpoint = KTextEditor::MarkInterface::markType03,
-        ReachedBreakpoint = KTextEditor::MarkInterface::markType04,
-        DisabledBreakpoint = KTextEditor::MarkInterface::markType05,
-        ExecutionPoint = KTextEditor::MarkInterface::markType06
+        Breakpoint = KTextEditor::MarkInterface::markType10,
     };
 
     View *createView(ViewContainer *viewContainer, uint viewAreaId) override;
