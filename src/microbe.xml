@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Microbe" version="0.01" section="Sources" extensions="*.microbe;*.basic" mimetypes="application/x-microbe">
+<language name="Microbe" version="0.01" kateversion="3.4" section="Sources" extensions="*.microbe;*.basic" mimetypes="application/x-microbe">
   <highlighting>   
     <list name="keywords">
       
