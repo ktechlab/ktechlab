@@ -1,3 +1,4 @@
+
 KTechLab 0.50.1
 =============
 
@@ -12,7 +13,8 @@ Introduction
 Resources
 -------------
 - KTechLab is joining KDE, all of its assets will be available there.
-    https://community.kde.org/Incubator/Projects/KTechLab
+
+    - https://community.kde.org/Incubator/Projects/KTechLab
 
     - current webpage:
         https://userbase.kde.org/KTechlab
@@ -39,12 +41,13 @@ Resources
 - source code repositories: see Getting the source section, below
 
 - KTechLab on github (will become deprecated)
-    https://github.com/ktechlab
+    
+    - https://github.com/ktechlab
 
-    https://github.com/ktechlab/ktechlab/wiki
+    - https://github.com/ktechlab/ktechlab/wiki
 
-    https://github.com/ktechlab/ktechlab
-    https://github.com/ktechlab/ktechlab-0.3 (archive only; merged into the above repoistory)
+    - https://github.com/ktechlab/ktechlab
+    - https://github.com/ktechlab/ktechlab-0.3 (archive only; merged into the above repoistory)
     - new commits will be always pushed to KDE Git, github will be a mirror only
 
 - KTechLab on sourceforge (mostly deprecated; source code downloads are available)
@@ -69,12 +72,12 @@ KTechLab's source code is located in a GIT repository.
 
 Official repository is hosted at KDE; its location is at
 
-        git@invent.kde.org:sdk/ktechlab.git
+    git@invent.kde.org:sdk/ktechlab.git
 
-    - repository browser
-        https://invent.kde.org/sdk/ktechlab
+  - repository browser
+      https://invent.kde.org/sdk/ktechlab
 
-    - for write access, see section Write access to KTechLab repository at KDE, below.
+  - for write access, see section Write access to KTechLab repository at KDE, below.
 
 
 Deprecated official repositories located on github; they mirror code from KDE,
