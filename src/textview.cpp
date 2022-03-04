@@ -8,9 +8,7 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#define protected public
 #include <KXMLGUIClient>
-#undef protected
 
 #include "asmformatter.h"
 #include "config.h"
@@ -41,6 +39,7 @@
 #include <QClipboard>
 #include <QFocusEvent>
 #include <QMenu>
+#include <QStandardPaths>
 #include <QTimer>
 
 #include <ktechlab_debug.h>
@@ -141,7 +140,43 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
 #endif
 
     setXMLFile("ktechlabtextui.rc");
-    m_view->setXMLFile("ktechlabkateui.rc");
+
+    // m_view->setXMLFile("ktechlabkateui.rc") is protected, replace it with code below
+    {
+        // see https://github.com/KDE/kxmlgui/blob/master/src/kxmlguiclient.cpp#L219
+        QString _file = "ktechlabkateui.rc";
+        QStringList allFiles;
+
+        const QString filter = componentName() + QLatin1Char('/') + _file;
+
+        // files on filesystem
+        allFiles << QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QLatin1String("kxmlgui5/") + filter); // KF >= 5.1
+
+        // KF >= 5.4 (resource file)
+        const QString qrcFile(QLatin1String(":/kxmlgui5/") + filter);
+        if (QFile::exists(qrcFile)) {
+            allFiles << qrcFile;
+        }
+
+        // then compat locations
+        const QStringList compatFiles = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, filter) + // kdelibs4, KF 5.0
+            QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, _file); // kdelibs4, KF 5.0, caller passes component name
+
+        if (allFiles.isEmpty() && !compatFiles.isEmpty()) {
+            qCWarning(KTL_LOG) << "KXMLGUI file found at deprecated location" << compatFiles
+                                     << "-- please use ${KDE_INSTALL_KXMLGUI5DIR} to install this file instead.";
+        }
+        allFiles += compatFiles;
+
+        QString doc;
+        if (!allFiles.isEmpty()) {
+            QString fileFound = findMostRecentXMLFile(allFiles, doc);
+            qCInfo(KTL_LOG) << "KXMLGUI file found at : " << fileFound;
+            m_view->replaceXMLFile(fileFound, QString(), false);
+        } else {
+            qCWarning(KTL_LOG) << "KXMLGUI not found for " << _file;
+        }
+    }
 
     m_savedCursorLine = 0;
     m_savedCursorColumn = 0;
