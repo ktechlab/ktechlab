@@ -191,6 +191,11 @@ LibraryItem *ECLogicOutput::libraryItem()
     return new LibraryItem(QStringList(QString("ec/logic_output")), i18n("Logic Output"), i18n("Logic"), "logic_output.png", LibraryItem::lit_component, ECLogicOutput::construct);
 }
 
+void ECLogicOutput_inStateChanged(void * objV, bool newState) {
+    ECLogicOutput *objT = static_cast<ECLogicOutput*>(objV);
+    objT->inStateChanged(newState);
+}
+
 ECLogicOutput::ECLogicOutput(ICNDocument *icnDocument, bool newItem, const char *id)
     : Component(icnDocument, newItem, id ? id : "logic_output")
 {
@@ -208,7 +213,8 @@ ECLogicOutput::ECLogicOutput(ICNDocument *icnDocument, bool newItem, const char 
     m_bLastState = false;
     m_bDynamicContent = true;
 
-    m_pIn->setCallback(this, (CallbackPtr)(&ECLogicOutput::inStateChanged));
+    //m_pIn->setCallback(this, (CallbackPtr)(&ECLogicOutput::inStateChanged));
+    m_pIn->setCallback2(ECLogicOutput_inStateChanged, this);
 }
 
 ECLogicOutput::~ECLogicOutput()
