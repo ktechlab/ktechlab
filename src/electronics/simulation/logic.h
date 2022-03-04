@@ -39,6 +39,13 @@ class CallbackClass
 };
 typedef void (CallbackClass::*CallbackPtr)(bool isHigh);
 
+// BEGIN Callback2Ptr
+
+typedef void * Callback2Obj;
+typedef void (*Callback2Ptr)(Callback2Obj objV, bool isHigh);
+
+// END Callback2Ptr
+
 /**
 Use this class for Logic Inputs - this will have infinite impedance.
 Use isHigh() will return whether the voltage level at the pin
@@ -81,6 +88,9 @@ public:
      * function will be called. At most one Callback can be added per LogicIn.
      */
     void setCallback(CallbackClass *object, CallbackPtr func);
+
+    void setCallback2(Callback2Ptr fun, Callback2Obj obj);
+
     /**
      * Reads the LogicConfig values in from KTLConfig, and returns them in a
      * nice object form.
@@ -114,6 +124,8 @@ public:
     {
         if (m_pCallbackFunction)
             (m_pCallbackObject->*m_pCallbackFunction)(m_bLastState);
+        if (m_pCallback2Func)
+            m_pCallback2Func(m_pCallback2Obj, m_bLastState);
     }
 
 protected:
@@ -121,8 +133,13 @@ protected:
     void add_initial_dc() override;
 
     // TODO: fix this crap NO FUNCTION POINTERS
+    // v1 callbacks, deprecated
     CallbackPtr m_pCallbackFunction;
     CallbackClass *m_pCallbackObject;
+    // v2 callbacks, a bit less hacky than v1
+    Callback2Ptr m_pCallback2Func;
+    Callback2Obj m_pCallback2Obj;
+
     bool m_bLastState;
     LogicIn *m_pNextLogic;
     LogicConfig m_config;
