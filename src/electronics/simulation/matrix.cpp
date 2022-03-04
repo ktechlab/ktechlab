@@ -26,6 +26,8 @@ Matrix::Matrix(CUI n, CUI m)
     m_y = new double[size];
     m_inMap = new int[size];
 
+    max_k = 0;
+
     for (unsigned int i = 0; i < size; i++)
         m_inMap[i] = i;
 }
