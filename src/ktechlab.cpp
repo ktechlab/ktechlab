@@ -8,9 +8,7 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#define protected public
 #include <KXMLGUIClient>
-#undef protected
 
 #include "circuitdocument.h"
 #include "componentmodellibrary.h"
