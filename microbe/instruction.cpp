@@ -976,813 +976,971 @@ void RegisterBit::initFromName()
 {
 	bool ok;
 	m_bitPos = m_name.toInt( & ok, 0 );
-	if ( ok )
+    // work-around MSVC 2019 limitation:
+    //  ...\ktechlab\microbe\instruction.cpp(1614): fatal error C1061: compiler limit: blocks nested too deeply
+	if ( ok ) {
 		m_registerType = Register::none; // hmm it should be unknown - not none.
+		return;
+    }
 //----------------------------------------Bank0----------------------------//
 
 //--------STATUS REGISTER--------//
 
-	else if ( m_name == "C" )
+	if ( m_name == "C" )
 	{
 		m_registerType = Register::STATUS;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "DC" )
+	if ( m_name == "DC" )
 	{
 		m_registerType = Register::STATUS;
 		m_bitPos = 1;
+        return;
 	}
-	else if ( m_name == "Z" )
+	if ( m_name == "Z" )
 	{
 		m_registerType = Register::STATUS;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name == "NOT_PD" )
+	if ( m_name == "NOT_PD" )
 	{
 		m_registerType = Register::STATUS;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "NOT_TO" )
+	if ( m_name == "NOT_TO" )
 	{
 		m_registerType = Register::STATUS;
 		m_bitPos = 4;
+        return;
 	}
-	else if ( m_name == "RP0" )
+	if ( m_name == "RP0" )
 	{
 		m_registerType = Register::STATUS;
 		m_bitPos = 5;
+        return;
 	}
-	else if ( m_name == "RP1" )
+	if ( m_name == "RP1" )
 	{
 		m_registerType = Register::STATUS;
 		m_bitPos = 6;
+        return;
 	}
-	else if ( m_name == "IRP" )
+	if ( m_name == "IRP" )
 	{
 		m_registerType = Register::STATUS;
 		m_bitPos = 7;
+        return;
 	}
 
 //-----------INTCON REGISTER---------//
 
-	else if ( m_name == "RBIF" )
+	if ( m_name == "RBIF" )
 	{
 		m_registerType = Register::INTCON;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "INTF" )
+	if ( m_name == "INTF" )
 	{
 		m_registerType = Register::INTCON;
 		m_bitPos = 1;
+        return;
 	}
-	else if ( m_name == "T0IF" )
+	if ( m_name == "T0IF" )
 	{
 		m_registerType = Register::INTCON;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name == "RBIE" )
+	if ( m_name == "RBIE" )
 	{
 		m_registerType = Register::INTCON;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "INTE" )
+	if ( m_name == "INTE" )
 	{
 		m_registerType = Register::INTCON;
 		m_bitPos = 4;
+        return;
 	}
-	else if ( m_name == "T0IE" )
+	if ( m_name == "T0IE" )
 	{
 		m_registerType = Register::INTCON;
 		m_bitPos = 5;
+        return;
 	}
-	else if ( m_name =="PEIE"&&(pic_type=="P16F877"||pic_type=="P16F627"))
+	if ( m_name =="PEIE"&&(pic_type=="P16F877"||pic_type=="P16F627"))
 	{
 		m_registerType = Register::INTCON;
 		m_bitPos = 6;
+        return;
 	}
-	else if (m_name == "EEIE"&& (pic_type=="P16F84"||pic_type=="P16C84"))
+	if (m_name == "EEIE"&& (pic_type=="P16F84"||pic_type=="P16C84"))
 	{
 		m_registerType = Register::INTCON;
 		m_bitPos = 6;
+        return;
 	}
-	else if ( m_name == "GIE" )
+	if ( m_name == "GIE" )
 	{
 		m_registerType = Register::INTCON;
 		m_bitPos = 7;
+        return;
 	}
 //-------PIR1---------//
 
-	else if ( m_name == "TMR1F" )
+	if ( m_name == "TMR1F" )
 	{
 		m_registerType = Register::PIR1;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "TMR2F" )
+	if ( m_name == "TMR2F" )
 	{
 		m_registerType = Register::PIR1;
 		m_bitPos = 1;
+        return;
 	}
-	else if ( m_name == "CCP1IF" )
+	if ( m_name == "CCP1IF" )
 	{
 		m_registerType = Register::PIR1;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name == "SSPIF"&& pic_type=="P16F877" )
+	if ( m_name == "SSPIF"&& pic_type=="P16F877" )
 	{
 		m_registerType = Register::PIR1;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "TXIF" )
+	if ( m_name == "TXIF" )
 	{
 		m_registerType = Register::PIR1;
 		m_bitPos = 4;
+        return;
 	}
-	else if ( m_name == "RCIF" )
+	if ( m_name == "RCIF" )
 	{
 		m_registerType = Register::PIR1;
 		m_bitPos = 5;
+        return;
 	}
-	else if ( m_name == "ADIF" && pic_type=="P16F877")
+	if ( m_name == "ADIF" && pic_type=="P16F877")
 	{
 		m_registerType = Register::PIR1;
 		m_bitPos = 6;
+        return;
 	}
-	else if ( m_name == "CMIF" && pic_type=="P16F627")
+	if ( m_name == "CMIF" && pic_type=="P16F627")
 	{
 		m_registerType = Register::PIR1;
 		m_bitPos = 6;
+        return;
 	}
-	else if ( m_name == "PSPIF"&& pic_type=="P16F877")
+	if ( m_name == "PSPIF"&& pic_type=="P16F877")
 	{
 		m_registerType = Register::PIR1;
 		m_bitPos = 7;
+        return;
 	}
-	else if ( m_name == "EEIF"&& pic_type=="P16F627")
+	if ( m_name == "EEIF"&& pic_type=="P16F627")
 	{
 		m_registerType = Register::PIR1;
 		m_bitPos = 7;
+        return;
 	}
 //-------PIR2---------//
-	else if ( m_name == "CCP2IF" )
+	if ( m_name == "CCP2IF" )
 	{
 		m_registerType = Register::PIR2;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "BCLIF" )
+	if ( m_name == "BCLIF" )
 	{
 		m_registerType = Register::PIR2;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "EEIF" && pic_type=="P16F877" )
+	if ( m_name == "EEIF" && pic_type=="P16F877" )
 	{
 		m_registerType = Register::PIR2;
 		m_bitPos = 4;
+        return;
 	}
 //-------T1CON--------//
-	else if ( m_name == "TMR1ON" )
+	if ( m_name == "TMR1ON" )
 	{
 		m_registerType = Register::T1CON;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "TMR1CS" )
+	if ( m_name == "TMR1CS" )
 	{
 		m_registerType = Register::T1CON;
 		m_bitPos = 1;
+        return;
 	}
-	else if ( m_name == "T1SYNC"&& pic_type=="P16F877" )
+	if ( m_name == "T1SYNC"&& pic_type=="P16F877" )
 	{
 		m_registerType = Register::T1CON;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name == "NOT_T1SYNC"&& pic_type=="P16F627" )
+	if ( m_name == "NOT_T1SYNC"&& pic_type=="P16F627" )
 	{
 		m_registerType = Register::T1CON;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name == "T1OSCEN" )
+	if ( m_name == "T1OSCEN" )
 	{
 		m_registerType = Register::T1CON;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "T1CKPS0" )
+	if ( m_name == "T1CKPS0" )
 	{
 		m_registerType = Register::T1CON;
 		m_bitPos = 4;
+        return;
 	}
-	else if ( m_name == "T1CKPS1" )
+	if ( m_name == "T1CKPS1" )
 	{
 		m_registerType = Register::T1CON;
 		m_bitPos = 5;
+        return;
 	}
 //-------T2CON--------//
 
-	else if ( m_name == "T2CKPS0" )
+	if ( m_name == "T2CKPS0" )
 	{
 		m_registerType = Register::T2CON;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "T2CKPS1" )
+	if ( m_name == "T2CKPS1" )
 	{
 		m_registerType = Register::T2CON;
 		m_bitPos = 1;
+        return;
 	}
-	else if ( m_name == "TMR2ON" )
+	if ( m_name == "TMR2ON" )
 	{
 		m_registerType = Register::T2CON;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name == "TOUTPS0" )
+	if ( m_name == "TOUTPS0" )
 	{
 		m_registerType = Register::T2CON;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "TOUTPS1" )
+	if ( m_name == "TOUTPS1" )
 	{
 		m_registerType = Register::T2CON;
 		m_bitPos = 4;
+        return;
 	}
-	else if ( m_name == "TOUTPS2" )
+	if ( m_name == "TOUTPS2" )
 	{
 		m_registerType = Register::T2CON;
 		m_bitPos = 5;
+        return;
 	}
-	else if ( m_name == "TOUTPS3" )
+	if ( m_name == "TOUTPS3" )
 	{
 		m_registerType = Register::T2CON;
 		m_bitPos = 6;
+        return;
 	}
 //---SSPCON------//
 
-	else if ( m_name == "SSPM0" )
+	if ( m_name == "SSPM0" )
 	{
 		m_registerType = Register::SSPCON;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "SSPM1" )
+	if ( m_name == "SSPM1" )
 	{
 		m_registerType = Register::SSPCON;
 		m_bitPos = 1;
+        return;
 	}
-	else if ( m_name == "SSPM2" )
+	if ( m_name == "SSPM2" )
 	{
 		m_registerType = Register::SSPCON;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name == "SSPM3" )
+	if ( m_name == "SSPM3" )
 	{
 		m_registerType = Register::SSPCON;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "CKP" )
+	if ( m_name == "CKP" )
 	{
 		m_registerType = Register::SSPCON;
 		m_bitPos = 4;
+        return;
 	}
-	else if ( m_name == "SSPEN" )
+	if ( m_name == "SSPEN" )
 	{
 		m_registerType = Register::SSPCON;
 		m_bitPos = 5;
+        return;
 	}
-	else if ( m_name == "SSPOV" )
+	if ( m_name == "SSPOV" )
 	{
 		m_registerType = Register::SSPCON;
 		m_bitPos = 6;
+        return;
 	}
-	else if ( m_name == "WCOL" )
+	if ( m_name == "WCOL" )
 	{
 		m_registerType = Register::SSPCON;
 		m_bitPos = 7;
+        return;
 	}
 //-------CCP1CON----//
-	else if ( m_name == "CCP1M0" )
+	if ( m_name == "CCP1M0" )
 	{
 		m_registerType = Register::CCP1CON;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "CCP1M1" )
+	if ( m_name == "CCP1M1" )
 	{
 		m_registerType = Register::CCP1CON;
 		m_bitPos = 1;
+        return;
 	}
-	else if ( m_name == "CCP1M2" )
+	if ( m_name == "CCP1M2" )
 	{
 		m_registerType = Register::CCP1CON;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name == "CCP1M3" )
+	if ( m_name == "CCP1M3" )
 	{
 		m_registerType = Register::CCP1CON;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "CCP1Y" )
+	if ( m_name == "CCP1Y" )
 	{
 		m_registerType = Register::CCP1CON;
 		m_bitPos = 4;
+        return;
 	}
-	else if ( m_name == "CCP1X" )
+	if ( m_name == "CCP1X" )
 	{
 		m_registerType = Register::CCP1CON;
 		m_bitPos = 5;
+        return;
 	}
 //-------RCSTA----//
-	else if ( m_name == "RX9D" )
+	if ( m_name == "RX9D" )
 	{
 		m_registerType = Register::RCSTA;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "OERR" )
+	if ( m_name == "OERR" )
 	{
 		m_registerType = Register::RCSTA;
 		m_bitPos = 1;
+        return;
 	}
-	else if ( m_name == "FERR" )
+	if ( m_name == "FERR" )
 	{
 		m_registerType = Register::RCSTA;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name == "ADDEN"&& pic_type=="P16F877" )
+	if ( m_name == "ADDEN"&& pic_type=="P16F877" )
 	{
 		m_registerType = Register::RCSTA;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "ADEN"&& pic_type=="P16F627" )
+	if ( m_name == "ADEN"&& pic_type=="P16F627" )
 	{
 		m_registerType = Register::RCSTA;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "CREN" )
+	if ( m_name == "CREN" )
 	{
 		m_registerType = Register::RCSTA;
 		m_bitPos = 4;
+        return;
 	}
-	else if ( m_name == "SREN" )
+	if ( m_name == "SREN" )
 	{
 		m_registerType = Register::RCSTA;
 		m_bitPos = 5;
+        return;
 	}
-	else if ( m_name == "RX9" )
+	if ( m_name == "RX9" )
 	{
 		m_registerType = Register::RCSTA;
 		m_bitPos = 6;
+        return;
 	}
-	else if ( m_name == "SPEN" )
+	if ( m_name == "SPEN" )
 	{
 		m_registerType = Register::RCSTA;
 		m_bitPos = 7;
+        return;
 	}
 //-----CCP2CON-------//
-	else if ( m_name == "CCP2M0" )
+	if ( m_name == "CCP2M0" )
 	{
 		m_registerType = Register::CCP2CON;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "CCP2M1" )
+	if ( m_name == "CCP2M1" )
 	{
 		m_registerType = Register::CCP2CON;
 		m_bitPos = 1;
+        return;
 	}
-	else if ( m_name == "CCP2M2" )
+	if ( m_name == "CCP2M2" )
 	{
 		m_registerType = Register::CCP2CON;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name == "CCP2M3" )
+	if ( m_name == "CCP2M3" )
 	{
 		m_registerType = Register::CCP2CON;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "CCP2Y" )
+	if ( m_name == "CCP2Y" )
 	{
 		m_registerType = Register::CCP2CON;
 		m_bitPos = 4;
+        return;
 	}
-	else if ( m_name == "CCP2X" )
+	if ( m_name == "CCP2X" )
 	{
 		m_registerType = Register::CCP2CON;
 		m_bitPos = 5;
+        return;
 	}
 //--------ADCON0------//
-	else if ( m_name == "ADON" )
+	if ( m_name == "ADON" )
 	{
 		m_registerType = Register::ADCON0;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "GO" )
+	if ( m_name == "GO" )
 	{
 		m_registerType = Register::ADCON0;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name == "CHS0" )
+	if ( m_name == "CHS0" )
 	{
 		m_registerType = Register::ADCON0;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "CHS1" )
+	if ( m_name == "CHS1" )
 	{
 		m_registerType = Register::ADCON0;
 		m_bitPos = 4;
+        return;
 	}
-	else if ( m_name == "CHS2" )
+	if ( m_name == "CHS2" )
 	{
 		m_registerType = Register::ADCON0;
 		m_bitPos = 5;
+        return;
 	}
-	else if ( m_name == "ADCS0" )
+	if ( m_name == "ADCS0" )
 	{
 		m_registerType = Register::ADCON0;
 		m_bitPos = 6;
+        return;
 	}
-	else if ( m_name == "ADCS1" )
+	if ( m_name == "ADCS1" )
 	{
 		m_registerType = Register::ADCON0;
 		m_bitPos = 7;
+        return;
 	}
 //-------CMCON---------------//pic16f627
-	else if ( m_name == "CM0"&& pic_type=="P16F627")
+	if ( m_name == "CM0"&& pic_type=="P16F627")
 	{
 		m_registerType = Register::CMCON;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "CM1"&& pic_type=="P16F627")
+	if ( m_name == "CM1"&& pic_type=="P16F627")
 	{
 		m_registerType = Register::CMCON;
 		m_bitPos = 1;
+        return;
 	}
-	else if ( m_name == "CM2"&& pic_type=="P16F627")
+	if ( m_name == "CM2"&& pic_type=="P16F627")
 	{
 		m_registerType = Register::CMCON;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name == "CM3"&& pic_type=="P16F627")
+	if ( m_name == "CM3"&& pic_type=="P16F627")
 	{
 		m_registerType = Register::CMCON;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "CIS"&& pic_type=="P16F627")
+	if ( m_name == "CIS"&& pic_type=="P16F627")
 	{
 		m_registerType = Register::CMCON;
 		m_bitPos = 4;
+        return;
 	}
-	else if ( m_name == "C2INV"&& pic_type=="P16F627")
+	if ( m_name == "C2INV"&& pic_type=="P16F627")
 	{
 		m_registerType = Register::CMCON;
 		m_bitPos = 5;
+        return;
 	}
-	else if ( m_name == "C1OUT"&& pic_type=="P16F627")
+	if ( m_name == "C1OUT"&& pic_type=="P16F627")
 	{
 		m_registerType = Register::CMCON;
 		m_bitPos = 6;
+        return;
 	}
-	else if ( m_name == "C2OUT"&& pic_type=="P16F627")
+	if ( m_name == "C2OUT"&& pic_type=="P16F627")
 	{
 		m_registerType = Register::CMCON;
 		m_bitPos = 7;
+        return;
 	}
 //---------------------------------------------Bank1-------------------------------//
 //-------OPTION_REGSITER---------------//
-	else if ( m_name == "PS0" )
+	if ( m_name == "PS0" )
 	{
 		m_registerType = Register::OPTION_REG;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "PS1" )
+	if ( m_name == "PS1" )
 	{
 		m_registerType = Register::OPTION_REG;
 		m_bitPos = 1;
+        return;
 	}
-	else if ( m_name == "PS2" )
+	if ( m_name == "PS2" )
 	{
 		m_registerType = Register::OPTION_REG;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name == "PSA" )
+	if ( m_name == "PSA" )
 	{
 		m_registerType = Register::OPTION_REG;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "T0SE" )
+	if ( m_name == "T0SE" )
 	{
 		m_registerType = Register::OPTION_REG;
 		m_bitPos = 4;
+        return;
 	}
-	else if ( m_name == "T0CS" )
+	if ( m_name == "T0CS" )
 	{
 		m_registerType = Register::OPTION_REG;
 		m_bitPos = 5;
+        return;
 	}
-	else if ( m_name == "INTEDG" )
+	if ( m_name == "INTEDG" )
 	{
 		m_registerType = Register::OPTION_REG;
 		m_bitPos = 6;
+        return;
 	}
-	else if(m_name =="NOT_RBPU"&&(pic_type=="P16C84"||pic_type=="P16F84"||pic_type=="P16F627"))
+	if(m_name =="NOT_RBPU"&&(pic_type=="P16C84"||pic_type=="P16F84"||pic_type=="P16F627"))
 	{
 		m_registerType = Register::OPTION_REG;
 		m_bitPos = 7;
+        return;
 	}
-	else if (m_name == "RBPU" && pic_type=="P16C84")
+	if (m_name == "RBPU" && pic_type=="P16C84")
 	{
 		m_registerType = Register::OPTION_REG;
 		m_bitPos = 7;
+        return;
 	}
 //--------PIE1---------//
-	else if ( m_name == "TMR1IE" )
+	if ( m_name == "TMR1IE" )
 	{
 		m_registerType = Register::PIE1;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "TMR2IE" )
+	if ( m_name == "TMR2IE" )
 	{
 		m_registerType = Register::PIE1;
 		m_bitPos = 1;
+        return;
 	}
-	else if ( m_name == "CCP1IE" )
+	if ( m_name == "CCP1IE" )
 	{
 		m_registerType = Register::PIE1;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name == "SSPIE" && pic_type=="P16F877")
+	if ( m_name == "SSPIE" && pic_type=="P16F877")
 	{
 		m_registerType = Register::PIE1;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "TXIE" )
+	if ( m_name == "TXIE" )
 	{
 		m_registerType = Register::PIE1;
 		m_bitPos = 4;
+        return;
 	}
-	else if ( m_name == "RCIE" )
+	if ( m_name == "RCIE" )
 	{
 		m_registerType = Register::PIE1;
 		m_bitPos = 5;
+        return;
 	}
-	else if ( m_name == "ADIE" && pic_type=="P16F877" )
+	if ( m_name == "ADIE" && pic_type=="P16F877" )
 	{
 		m_registerType = Register::PIE1;
 		m_bitPos = 6;
+        return;
 	}
-	else if ( m_name == "CMIE" && pic_type=="P16F627" )
+	if ( m_name == "CMIE" && pic_type=="P16F627" )
 	{
 		m_registerType = Register::PIE1;
 		m_bitPos = 6;
+        return;
 	}
-	else if ( m_name == "PSPIE" && pic_type=="P16F877" )
+	if ( m_name == "PSPIE" && pic_type=="P16F877" )
 	{
 		m_registerType = Register::PIE1;
 		m_bitPos = 7;
+        return;
 	}
-	else if ( m_name == "EEIE" && pic_type=="P16F627" )
+	if ( m_name == "EEIE" && pic_type=="P16F627" )
 	{
 		m_registerType = Register::PIE1;
 		m_bitPos = 7;
+        return;
 	}
  //--------PIE2---------//
-	else if ( m_name == "CCP2IE" )
+	if ( m_name == "CCP2IE" )
 	{
 		m_registerType = Register::PIE2;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "BCLIE" )
+	if ( m_name == "BCLIE" )
 	{
 		m_registerType = Register::PIE2;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "EEIE"&& pic_type=="P16F877" )
+	if ( m_name == "EEIE"&& pic_type=="P16F877" )
 	{
 		m_registerType = Register::PIE2;
 		m_bitPos = 4;
+        return;
 	}
 //--------PCON---------//
-	else if ( m_name == "NOT_BOR" )
+	if ( m_name == "NOT_BOR" )
 	{
 		m_registerType = Register::PCON;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "NOT_POR" )
+	if ( m_name == "NOT_POR" )
 	{
 		m_registerType = Register::PCON;
 		m_bitPos = 1;
+        return;
 	}
-	else if ( m_name == "OSCF"&& pic_type=="P16F627" )
+	if ( m_name == "OSCF"&& pic_type=="P16F627" )
 	{
 		m_registerType = Register::PCON;
 		m_bitPos = 3;
+        return;
 	}
 //--------SSPCON2------//
-	else if ( m_name =="SEN")
+	if ( m_name =="SEN")
 	{
 		m_registerType = Register::SSPCON2;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name =="RSEN")
+	if ( m_name =="RSEN")
 	{
 		m_registerType = Register::SSPCON2;
 		m_bitPos = 1;
+        return;
 	}
-	else if ( m_name =="PEN")
+	if ( m_name =="PEN")
 	{
 		m_registerType = Register::SSPCON2;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name =="RCEN")
+	if ( m_name =="RCEN")
 	{
 		m_registerType = Register::SSPCON2;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name =="ACKEN")
+	if ( m_name =="ACKEN")
 	{
 		m_registerType = Register::SSPCON2;
 		m_bitPos = 4;
+        return;
 	}
-	else if ( m_name =="ACKDT")
+	if ( m_name =="ACKDT")
 	{
 		m_registerType = Register::SSPCON2;
 		m_bitPos = 5;
+        return;
 	}
-	else if ( m_name =="ACKSTAT" )
+	if ( m_name =="ACKSTAT" )
 	{
 		m_registerType = Register::SSPCON2;
 		m_bitPos = 6;
+        return;
 	}
-	else if ( m_name == "GCEN" )
+	if ( m_name == "GCEN" )
 	{
 		m_registerType = Register::SSPCON2;
 		m_bitPos = 7;
+        return;
 	}
 //--------SSPSTAT------//
-	else if ( m_name =="BF")
+	if ( m_name =="BF")
 	{
 		m_registerType = Register::SSPSTAT;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "UA")
+	if ( m_name == "UA")
 	{
 		m_registerType = Register::SSPSTAT;
 		m_bitPos = 1;
+        return;
 	}
-	else if ( m_name =="R")
+	if ( m_name =="R")
 	{
 		m_registerType = Register::SSPSTAT;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name =="S")
+	if ( m_name =="S")
 	{
 		m_registerType = Register::SSPSTAT;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "P")
+	if ( m_name == "P")
 	{
 		m_registerType = Register::SSPSTAT;
 		m_bitPos = 4;
+        return;
 	}
-	else if ( m_name == "D")
+	if ( m_name == "D")
 	{
 		m_registerType = Register::SSPSTAT;
 		m_bitPos = 5;
+        return;
 	}
-	else if ( m_name == "CKE" )
+	if ( m_name == "CKE" )
 	{
 		m_registerType = Register::SSPSTAT;
 		m_bitPos = 6;
+        return;
 	}
-	else if ( m_name == "SMP" )
+	if ( m_name == "SMP" )
 	{
 		m_registerType = Register::SSPSTAT;
 		m_bitPos = 7;
+        return;
 	}
 //--------TXSTA--------//
-	else if ( m_name == "TX9D" )
+	if ( m_name == "TX9D" )
 	{
 		m_registerType = Register::TXSTA;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "TRMT" )
+	if ( m_name == "TRMT" )
 	{
 		m_registerType = Register::TXSTA;
 		m_bitPos = 1;
+        return;
 	}
-	else if ( m_name == "BRGH" )
+	if ( m_name == "BRGH" )
 	{
 		m_registerType = Register::TXSTA;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name == "SYNC" )
+	if ( m_name == "SYNC" )
 	{
 		m_registerType = Register::TXSTA;
 		m_bitPos = 4;
+        return;
 	}
-	else if ( m_name == "TXEN" )
+	if ( m_name == "TXEN" )
 	{
 		m_registerType = Register::TXSTA;
 		m_bitPos = 5;
+        return;
 	}
-	else if ( m_name == "TX9" )
+	if ( m_name == "TX9" )
 	{
 		m_registerType = Register::TXSTA;
 		m_bitPos = 6;
+        return;
 	}
-	else if ( m_name == "CSRC" )
+	if ( m_name == "CSRC" )
 	{
 		m_registerType = Register::TXSTA;
 		m_bitPos = 7;
+        return;
 	}
  //---------ADCON1-----//
-	else if ( m_name == "PCFG0" )
+	if ( m_name == "PCFG0" )
 	{
 		m_registerType = Register::ADCON1;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "PCFG1" )
+	if ( m_name == "PCFG1" )
 	{
 		m_registerType = Register::ADCON1;
 		m_bitPos = 1;
+        return;
 	}
-	else if ( m_name == "PCFG2" )
+	if ( m_name == "PCFG2" )
 	{
 		m_registerType = Register::ADCON1;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name == "PCFG3" )
+	if ( m_name == "PCFG3" )
 	{
 		m_registerType = Register::ADCON1;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "ADFM" )
+	if ( m_name == "ADFM" )
 	{
 		m_registerType = Register::ADCON1;
 		m_bitPos = 7;
+        return;
 	}
  //--------------------------------------------Bank2------------------//
 //-----NOTHING TODO---//
 //
 //--------------------------------------------Bank3------------------//
-	else if ( m_name == "RD" )
+	if ( m_name == "RD" )
 	{
 		m_registerType = Register::EECON1;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "WR" )
+	if ( m_name == "WR" )
 	{
 		m_registerType = Register::EECON1;
 		m_bitPos = 1;
+        return;
 	}
-	else if ( m_name == "WREN" )
+	if ( m_name == "WREN" )
 	{
 		m_registerType = Register::EECON1;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name == "WRERR" )
+	if ( m_name == "WRERR" )
 	{
 		m_registerType = Register::EECON1;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "EEIF"&&(pic_type=="P16F84"||pic_type=="P16C84"))//imp ****
+	if ( m_name == "EEIF"&&(pic_type=="P16F84"||pic_type=="P16C84"))//imp ****
 	{
 		m_registerType = Register::EECON1;
 		m_bitPos = 4;
+        return;
 	}
-	else if ( m_name == "EEPGD" && pic_type=="P16F877" )
+	if ( m_name == "EEPGD" && pic_type=="P16F877" )
 	{
 		m_registerType = Register::EECON1;
 		m_bitPos = 7;
+        return;
 	}
 //---------VRCON------//
-	else if ( m_name == "VR0" && pic_type=="P16F627" )
+	if ( m_name == "VR0" && pic_type=="P16F627" )
 	{
 		m_registerType = Register::VRCON;
 		m_bitPos = 0;
+        return;
 	}
-	else if ( m_name == "VR1" && pic_type=="P16F627" )
+	if ( m_name == "VR1" && pic_type=="P16F627" )
 	{
 		m_registerType = Register::VRCON;
 		m_bitPos = 1;
+        return;
 	}
-	else if ( m_name == "VR2" && pic_type=="P16F627" )
+	if ( m_name == "VR2" && pic_type=="P16F627" )
 	{
 		m_registerType = Register::VRCON;
 		m_bitPos = 2;
+        return;
 	}
-	else if ( m_name == "VR3" && pic_type=="P16F627" )
+	if ( m_name == "VR3" && pic_type=="P16F627" )
 	{
 		m_registerType = Register::VRCON;
 		m_bitPos = 3;
+        return;
 	}
-	else if ( m_name == "VRR" && pic_type=="P16F627" )
+	if ( m_name == "VRR" && pic_type=="P16F627" )
 	{
 		m_registerType = Register::VRCON;
 		m_bitPos = 5;
+        return;
 	}
-	else if ( m_name == "VROE" && pic_type=="P16F627" )
+	if ( m_name == "VROE" && pic_type=="P16F627" )
 	{
 		m_registerType = Register::VRCON;
 		m_bitPos = 6;
+        return;
 	}
-	else if ( m_name == "VREN" && pic_type=="P16F627" )
+	if ( m_name == "VREN" && pic_type=="P16F627" )
 	{
 		m_registerType = Register::VRCON;
 		m_bitPos = 7;
+        return;
 	}
-	else
+    // no match with anything:
 	{
 		m_registerType = Register::none;
 		m_bitPos = 0;
