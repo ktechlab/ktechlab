@@ -27,8 +27,9 @@ public:
     static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
     static LibraryItem *libraryItem();
 
-private:
+public: // internal interface
     void inStateChanged(bool newState);
+private:
     LogicIn *ALogic, *BLogic, *CLogic, *DLogic;
     LogicIn *ltLogic, *rbLogic, *enLogic;
     LogicOut *outLogic[7];
