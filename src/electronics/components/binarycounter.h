@@ -36,11 +36,12 @@ public:
     static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
     static LibraryItem *libraryItem();
 
-protected:
+public: // internal interfaces
     void inStateChanged(bool state); // Input
     void rStateChanged(bool state);  // Reset
     void enStateChanged(bool state); // Enable
     void udStateChanged(bool state); // Up/Down
+protected:
     void outputValue();
     void dataChanged() override;
     void initPins(unsigned numBits);

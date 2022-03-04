@@ -29,6 +29,23 @@ LibraryItem *BinaryCounter::libraryItem()
     return new LibraryItem(ids, i18n("Binary Counter"), i18n("Integrated Circuits"), "ic1.png", LibraryItem::lit_component, BinaryCounter::construct);
 }
 
+void BinaryCounter_inStateChanged(void *objV, bool state) { // Input
+    BinaryCounter *objT = static_cast<BinaryCounter*>(objV);
+    objT->inStateChanged(state);
+}
+void BinaryCounter_rStateChanged(void *objV, bool state) {  // Reset
+    BinaryCounter *objT = static_cast<BinaryCounter*>(objV);
+    objT->rStateChanged(state);
+}
+void BinaryCounter_enStateChanged(void *objV, bool state) { // Enable
+    BinaryCounter *objT = static_cast<BinaryCounter*>(objV);
+    objT->enStateChanged(state);
+}
+void BinaryCounter_udStateChanged(void *objV, bool state) { // Up/Down
+    BinaryCounter *objT = static_cast<BinaryCounter*>(objV);
+    objT->udStateChanged(state);
+}
+
 BinaryCounter::BinaryCounter(ICNDocument *icnDocument, bool newItem, const char *id)
     : Component(icnDocument, newItem, id ? id : "binary_counter")
 {
@@ -117,10 +134,14 @@ void BinaryCounter::initPins(unsigned numBits)
         rLogic = createLogicIn(ecNodeWithID("r"));
         udLogic = createLogicIn(ecNodeWithID("u/d"));
 
-        enLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::enStateChanged));
-        inLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::inStateChanged));
-        rLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::rStateChanged));
-        udLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::udStateChanged));
+        //enLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::enStateChanged));
+        enLogic->setCallback2(BinaryCounter_enStateChanged,this);
+        //inLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::inStateChanged));
+        inLogic->setCallback2(BinaryCounter_inStateChanged, this);
+        //rLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::rStateChanged));
+        rLogic->setCallback2(BinaryCounter_rStateChanged, this);
+        //udLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::udStateChanged));
+        udLogic->setCallback2(BinaryCounter_udStateChanged, this);
 
         m_bDoneLogicIn = true;
     }
