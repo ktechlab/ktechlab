@@ -19,7 +19,6 @@ target_link_libraries(microbe
     KF5::I18n
 
     Qt5::Core
-
-    pthread)
+    )
 
 install(TARGETS microbe ${INSTALL_TARGETS_DEFAULT_ARGS})
