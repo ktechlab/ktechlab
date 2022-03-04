@@ -29,8 +29,9 @@ public:
     static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
     static LibraryItem *libraryItem();
 
-protected:
+public: // internal interface
     void inStateChanged(bool newState);
+protected:
     void drawShape(QPainter &p) override;
 
     LogicIn *m_pIn;
@@ -50,8 +51,9 @@ public:
     static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
     static LibraryItem *libraryItem();
 
-private:
+public: // internal interface
     void inStateChanged(bool newState);
+private:
     void drawShape(QPainter &p) override;
 
     LogicIn *m_pIn;

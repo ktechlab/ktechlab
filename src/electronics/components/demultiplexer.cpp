@@ -27,6 +27,11 @@ LibraryItem *Demultiplexer::libraryItem()
     return new LibraryItem(QStringList(QString("ec/demultiplexer")), i18n("Demultiplexer"), i18n("Integrated Circuits"), "ic1.png", LibraryItem::lit_component, Demultiplexer::construct);
 }
 
+void Demultiplexer_inStateChanged(void *objV, bool newState) {
+    Demultiplexer *objT = static_cast<Demultiplexer*>(objV);
+    objT->inStateChanged(newState);
+}
+
 Demultiplexer::Demultiplexer(ICNDocument *icnDocument, bool newItem, const char *id)
     : Component(icnDocument, newItem, id ? id : "demultiplexer")
 {
@@ -115,7 +120,8 @@ void Demultiplexer::initPins(unsigned newAddressSize)
     if (!m_input) {
         node = ecNodeWithID("X");
         m_input = createLogicIn(node);
-        m_input->setCallback(this, (CallbackPtr)(&Demultiplexer::inStateChanged));
+        //m_input->setCallback(this, (CallbackPtr)(&Demultiplexer::inStateChanged));
+        m_input->setCallback2(Demultiplexer_inStateChanged, this);
     }
 
     if (newXLogicCount > oldXLogicCount) {
@@ -129,7 +135,8 @@ void Demultiplexer::initPins(unsigned newAddressSize)
         for (unsigned i = oldAddressSize; i < newAddressSize; ++i) {
             node = ecNodeWithID("A" + QString::number(i));
             m_aLogic.insert(i, createLogicIn(node));
-            m_aLogic[i]->setCallback(this, (CallbackPtr)(&Demultiplexer::inStateChanged));
+            //m_aLogic[i]->setCallback(this, (CallbackPtr)(&Demultiplexer::inStateChanged));
+            m_aLogic[i]->setCallback2(Demultiplexer_inStateChanged, this);
         }
     } else {
         for (unsigned i = newXLogicCount; i < oldXLogicCount; ++i) {

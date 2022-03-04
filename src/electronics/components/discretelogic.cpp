@@ -32,6 +32,11 @@ LibraryItem *Inverter::libraryItem()
     return new LibraryItem(ids, i18n("Inverter"), i18n("Logic"), "not.png", LibraryItem::lit_component, Inverter::construct);
 }
 
+void Inverter_inStateChanged(void *objV, bool newState) {
+    Inverter *objT = static_cast<Inverter*>(objV);
+    objT->inStateChanged(newState);
+}
+
 Inverter::Inverter(ICNDocument *icnDocument, bool newItem, const char *id)
     : Component(icnDocument, newItem, id ? id : "not")
 {
@@ -44,7 +49,8 @@ Inverter::Inverter(ICNDocument *icnDocument, bool newItem, const char *id)
     m_pIn = createLogicIn(m_pNNode[0]);
     m_pOut = createLogicOut(m_pPNode[0], true);
 
-    m_pIn->setCallback(this, (CallbackPtr)(&Inverter::inStateChanged));
+    //m_pIn->setCallback(this, (CallbackPtr)(&Inverter::inStateChanged));
+    m_pIn->setCallback2(Inverter_inStateChanged, this);
     inStateChanged(false);
 }
 
@@ -54,7 +60,7 @@ Inverter::~Inverter()
 
 void Inverter::inStateChanged(bool newState)
 {
-    (static_cast<LogicOut *>(m_pOut))->setHigh(!newState);
+    m_pOut->setHigh(!newState);
 }
 
 void Inverter::drawShape(QPainter &p)
@@ -84,6 +90,11 @@ LibraryItem *Buffer::libraryItem()
     return new LibraryItem(QStringList(QString("ec/buffer")), i18n("Buffer"), i18n("Logic"), "buffer.png", LibraryItem::lit_component, Buffer::construct);
 }
 
+void Buffer_inStateChanged(void *objV, bool newState) {
+    Buffer *objT = static_cast<Buffer*>(objV);
+    objT->inStateChanged(newState);
+}
+
 Buffer::Buffer(ICNDocument *icnDocument, bool newItem, const char *id)
     : Component(icnDocument, newItem, id ? id : "buffer")
 {
@@ -96,7 +107,8 @@ Buffer::Buffer(ICNDocument *icnDocument, bool newItem, const char *id)
     m_pIn = createLogicIn(m_pNNode[0]);
     m_pOut = createLogicOut(m_pPNode[0], true);
 
-    m_pIn->setCallback(this, (CallbackPtr)(&Buffer::inStateChanged));
+    //m_pIn->setCallback(this, (CallbackPtr)(&Buffer::inStateChanged));
+    m_pIn->setCallback2(Buffer_inStateChanged, this);
     inStateChanged(false);
 }
 

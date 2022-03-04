@@ -35,7 +35,9 @@ protected:
      */
     void initPins(unsigned addressSize);
 
+public: // internal interface
     void inStateChanged(bool newState);
+protected:
 
     QVector<LogicIn *> m_aLogic;
     QVector<LogicOut *> m_xLogic;
