@@ -510,14 +510,14 @@ static bool miCreateETandAET(int count, DDXPointPtr pts, EdgeTable *ET, EdgeTabl
     AET->next = nullptr;
     AET->back = nullptr;
     AET->nextWETE = nullptr;
-    AET->bres.minor = std::numeric_limits<typeof AET->bres.minor>::min();
+    AET->bres.minor = std::numeric_limits<decltype(AET->bres.minor)>::min();
 
     /*
      *  initialize the Edge Table.
      */
     ET->scanlines.next = nullptr;
-    ET->ymax = std::numeric_limits<typeof ET->ymax>::min();
-    ET->ymin = std::numeric_limits<typeof ET->ymin>::max();
+    ET->ymax = std::numeric_limits<decltype(ET->ymax)>::min();
+    ET->ymin = std::numeric_limits<decltype(ET->ymin)>::max();
     pSLLBlock->next = nullptr;
 
     PrevPt = &pts[count - 1];
