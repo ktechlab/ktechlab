@@ -255,7 +255,7 @@
       <li xml:lang="x-test">xxSimulation with oscilloscope and probesxx</li>
       <li>Uploading the assembly code to PIC using hardware programmer</li>
       <li xml:lang="ca">Puja el codi en assemblador al PIC emprant el programador de maquinari</li>
-      <li xml:lang="ca-valencia">Amunt el codi en assemblador al PIC emprant el programador de maquinari</li>
+      <li xml:lang="ca-valencia">Puja el codi en assemblador al PIC emprant el programador de maquinari</li>
       <li xml:lang="en-GB">Uploading the assembly code to PIC using hardware programmer</li>
       <li xml:lang="es">Envío del código ensamblador al PIC usando el programador hardware</li>
       <li xml:lang="fr">Chargement du code assembleur vers le « PIC » en utilisant le programmateur matériel</li>
