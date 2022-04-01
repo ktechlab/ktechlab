@@ -3,7 +3,7 @@
   <mime-type type="application/x-circuit">
     <comment>KTechlab Circuit</comment>
     <comment xml:lang="ca">Circuit del KTechlab</comment>
-    <comment xml:lang="ca@valencia">Circuit del KTechlab</comment>
+    <comment xml:lang="ca@valencia">Circuit de KTechlab</comment>
     <comment xml:lang="cs">Obvod KTechlab</comment>
     <comment xml:lang="de">KTechlab-Schaltung</comment>
     <comment xml:lang="en_GB">KTechlab Circuit</comment>
@@ -27,7 +27,7 @@
   <mime-type type="application/x-flowcode">
     <comment>KTechlab FlowCode</comment>
     <comment xml:lang="ca">FlowCode del KTechlab</comment>
-    <comment xml:lang="ca@valencia">FlowCode del KTechlab</comment>
+    <comment xml:lang="ca@valencia">FlowCode de KTechlab</comment>
     <comment xml:lang="cs">FlowCode KTechlab</comment>
     <comment xml:lang="de">KTechlab-FlussCode</comment>
     <comment xml:lang="en_GB">KTechlab FlowCode</comment>
@@ -50,7 +50,7 @@
   <mime-type type="application/x-ktechlab">
     <comment>KTechlab project</comment>
     <comment xml:lang="ca">Projecte del KTechlab</comment>
-    <comment xml:lang="ca@valencia">Projecte del KTechlab</comment>
+    <comment xml:lang="ca@valencia">Projecte de KTechlab</comment>
     <comment xml:lang="cs">Projekt KTechlab</comment>
     <comment xml:lang="de">KTechlab-Projekt</comment>
     <comment xml:lang="en_GB">KTechlab project</comment>
@@ -74,7 +74,7 @@
   <mime-type type="application/x-microbe">
     <comment>KTechlab Microbe</comment>
     <comment xml:lang="ca">Microbe del KTechlab</comment>
-    <comment xml:lang="ca@valencia">Microbe del KTechlab</comment>
+    <comment xml:lang="ca@valencia">Microbe de KTechlab</comment>
     <comment xml:lang="cs">Mikrob KTechlab</comment>
     <comment xml:lang="de">KTechlab-Microbe</comment>
     <comment xml:lang="en_GB">KTechlab Microbe</comment>
