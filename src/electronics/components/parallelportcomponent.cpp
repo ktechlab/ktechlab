@@ -24,6 +24,15 @@
 
 #include <cmath>
 
+void ParallelPortComponent_dataCallback(void *objV, bool state) {
+    ParallelPortComponent *objT = static_cast<ParallelPortComponent*>(objV);
+    objT->dataCallback(state);
+}
+void ParallelPortComponent_controlCallback(void *objV, bool state) {
+    ParallelPortComponent *objT = static_cast<ParallelPortComponent*>(objV);
+    objT->controlCallback(state);
+}
+
 Item *ParallelPortComponent::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
     return new ParallelPortComponent((ICNDocument *)itemDocument, newItem, id);
@@ -62,7 +71,8 @@ ParallelPortComponent::ParallelPortComponent(ICNDocument *icnDocument, bool newI
         addDisplayText(id, QRect(-28, -88 + 16 * i, 28, 16), name, true, Qt::AlignLeft | Qt::AlignVCenter);
 
         m_pLogic[i] = createLogicOut(pin, false);
-        m_pLogic[i]->setCallback(this, (CallbackPtr)(&ParallelPortComponent::dataCallback));
+        //m_pLogic[i]->setCallback(this, (CallbackPtr)(&ParallelPortComponent::dataCallback));
+        m_pLogic[i]->setCallback2(ParallelPortComponent_dataCallback, this);
     }
     // END Data register
 
@@ -114,7 +124,8 @@ ParallelPortComponent::ParallelPortComponent(ICNDocument *icnDocument, bool newI
         }
 
         m_pLogic[i + 16] = createLogicOut(pin, false);
-        m_pLogic[i + 16]->setCallback(this, (CallbackPtr)(&ParallelPortComponent::controlCallback));
+        //m_pLogic[i + 16]->setCallback(this, (CallbackPtr)(&ParallelPortComponent::controlCallback));
+        m_pLogic[i + 16]->setCallback2(ParallelPortComponent_controlCallback, this);
     }
     // END Control register
 

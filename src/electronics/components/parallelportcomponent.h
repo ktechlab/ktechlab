@@ -38,10 +38,10 @@ protected:
     void initPort(const QString &port);
     void dataChanged() override;
     void drawShape(QPainter &p) override;
-
+public: // internal interfaces
     void dataCallback(bool);
     void controlCallback(bool);
-
+protected:
     /// Registers: { Data[0...7], Status[0...5], 0[6...7], Control[0...4], 0[5...7] }
     LogicOut *m_pLogic[24];
 
