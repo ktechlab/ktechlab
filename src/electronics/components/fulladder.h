@@ -26,8 +26,9 @@ public:
     static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
     static LibraryItem *libraryItem();
 
-protected:
+public: // internal interfaces
     void inStateChanged(bool newState);
+protected:
 
     LogicIn *ALogic, *BLogic, *inLogic;
     LogicOut *outLogic, *SLogic;

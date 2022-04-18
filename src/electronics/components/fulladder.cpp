@@ -15,6 +15,11 @@
 
 #include <KLocalizedString>
 
+void FullAdder_inStateChanged(void *objV, bool state) { // Enable
+    FullAdder *objT = static_cast<FullAdder*>(objV);
+    objT->inStateChanged(state);
+}
+
 Item *FullAdder::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
     return new FullAdder((ICNDocument *)itemDocument, newItem, id);
@@ -54,13 +59,19 @@ FullAdder::FullAdder(ICNDocument *icnDocument, bool newItem, const char *id)
     node = ecNodeWithID(">");
     inLogic = createLogicIn(node);
 
-    ALogic->setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));
-    BLogic->setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));
-    inLogic->setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));
+    //ALogic->setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));
+    ALogic->setCallback2(FullAdder_inStateChanged, this);
+    //BLogic->setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));
+    BLogic->setCallback2(FullAdder_inStateChanged, this);
+    //inLogic->setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));
+    inLogic->setCallback2(FullAdder_inStateChanged, this);
 }
 
 FullAdder::~FullAdder()
 {
+    ALogic->setCallback2(nullptr, nullptr);
+    BLogic->setCallback2(nullptr, nullptr);
+    inLogic->setCallback2(nullptr, nullptr);
 }
 
 void FullAdder::inStateChanged(bool /*state*/)
