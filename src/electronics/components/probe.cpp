@@ -189,6 +189,11 @@ void CurrentProbe::stepNonLogic()
 // END class CurrentProbe
 
 // BEGIN class LogicProbe
+void LogicProbe_logicCallback(void *objV, bool state) {
+    LogicProbe *objT = static_cast<LogicProbe*>(objV);
+    objT->logicCallback(state);
+}
+
 Item *LogicProbe::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
     return new LogicProbe((ICNDocument *)itemDocument, newItem, id);
@@ -214,7 +219,8 @@ LogicProbe::LogicProbe(ICNDocument *icnDocument, bool newItem, const char *id)
     property("color")->setValue(p_probeData->color());
 
     m_pSimulator = Simulator::self();
-    m_pIn->setCallback(this, (CallbackPtr)(&LogicProbe::logicCallback));
+    //m_pIn->setCallback(this, (CallbackPtr)(&LogicProbe::logicCallback));
+    m_pIn->setCallback2(LogicProbe_logicCallback, this);
     logicCallback(false);
 }
 
