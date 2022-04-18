@@ -44,11 +44,13 @@ public:
 protected:
     void drawShape(QPainter &p) override;
     void initSymbolFromTrigger() override;
+public: // internal interfaces
     void inputChanged(bool newState);
     void inStateChanged(bool newState);
     void asyncChanged(bool newState);
     void clockChanged(bool newState);
 
+protected:
     LogicIn *m_pD;
     LogicIn *m_pClock;
     LogicOut *m_pQ;
@@ -79,9 +81,10 @@ private:
     void drawShape(QPainter &p) override;
     void initSymbolFromTrigger() override;
     void inStateChanged(bool newState);
+public: // internal interfaces
     void asyncChanged(bool newState);
     void clockChanged(bool newState);
-
+protected:
     bool prev_state;
     bool m_bPrevClock;
     LogicIn *m_pJ;
@@ -106,8 +109,9 @@ public:
     static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
     static LibraryItem *libraryItem();
 
-protected:
+public: // internal interfaces
     void inStateChanged(bool newState);
+protected:
     LogicIn *m_pS;
     LogicIn *m_pR;
     LogicOut *m_pQ;
