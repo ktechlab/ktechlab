@@ -17,6 +17,11 @@
 
 #include <cmath>
 
+void Multiplexer_inStateChanged(void *objV, bool state) {
+    Multiplexer *objT = static_cast<Multiplexer*>(objV);
+    objT->inStateChanged(state);
+}
+
 Item *Multiplexer::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
     return new Multiplexer((ICNDocument *)itemDocument, newItem, id);
@@ -123,14 +128,16 @@ void Multiplexer::initPins(unsigned newAddressSize)
         for (unsigned i = oldXLogicCount; i < newXLogicCount; ++i) {
             node = ecNodeWithID("X" + QString::number(i));
             m_xLogic.insert(i, createLogicIn(node));
-            m_xLogic[i]->setCallback(this, (CallbackPtr)(&Multiplexer::inStateChanged));
+            //m_xLogic[i]->setCallback(this, (CallbackPtr)(&Multiplexer::inStateChanged));
+            m_xLogic[i]->setCallback2(Multiplexer_inStateChanged, this);
         }
 
         m_aLogic.resize(newAddressSize);
         for (unsigned i = oldAddressSize; i < newAddressSize; ++i) {
             node = ecNodeWithID("A" + QString::number(i));
             m_aLogic.insert(i, createLogicIn(node));
-            m_aLogic[i]->setCallback(this, (CallbackPtr)(&Multiplexer::inStateChanged));
+            //m_aLogic[i]->setCallback(this, (CallbackPtr)(&Multiplexer::inStateChanged));
+            m_aLogic[i]->setCallback2(Multiplexer_inStateChanged, this);
         }
     } else {
         for (unsigned i = newXLogicCount; i < oldXLogicCount; ++i) {

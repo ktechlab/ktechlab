@@ -34,8 +34,9 @@ protected:
      * Add / remove pins according to the number of inputs the user has requested
      */
     void initPins(unsigned addressSize);
-
+public: // internal interfaces
     void inStateChanged(bool newState);
+protected:
 
     QVector<LogicIn *> m_aLogic;
     QVector<LogicIn *> m_xLogic;
