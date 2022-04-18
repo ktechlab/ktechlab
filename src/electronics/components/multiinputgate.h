@@ -40,7 +40,9 @@ protected:
 
     void updateAttachedPositioning() override;
     void slotUpdateConfiguration() override;
+public: // internal interfaces
     virtual void inStateChanged(bool newState) = 0;
+protected:
     /**
      * This will draw the shape if the logic symbol is currently
      * rectangular. Distinctive shapes should be drawn in the respective

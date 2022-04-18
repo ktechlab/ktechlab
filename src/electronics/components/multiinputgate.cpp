@@ -23,6 +23,12 @@
 #include <ktlconfig.h>
 
 // BEGIN class MultiInputGate
+
+void MultiInputGate_inStateChanged(void *objV, bool state) { // Enable
+    MultiInputGate *objT = static_cast<MultiInputGate*>(objV);
+    objT->inStateChanged(state);
+}
+
 MultiInputGate::MultiInputGate(ICNDocument *icnDocument, bool newItem, const char *id, const QString &rectangularShapeText, bool invertedOutput, int baseWidth, bool likeOR)
     : Component(icnDocument, newItem, id)
 {
@@ -129,7 +135,8 @@ void MultiInputGate::updateInputs(int newNum)
             ECNode *node = createPin(0, 0, 0, "in" + QString::number(i));
             inNode[i] = node;
             inLogic[i] = createLogicIn(node);
-            inLogic[i]->setCallback(this, (CallbackPtr)(&MultiInputGate::inStateChanged));
+            //inLogic[i]->setCallback(this, (CallbackPtr)(&MultiInputGate::inStateChanged));
+            inLogic[i]->setCallback2(MultiInputGate_inStateChanged, this);
         }
     } else {
         for (int i = newNum; i < m_numInputs; ++i) {
