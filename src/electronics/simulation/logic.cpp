@@ -59,7 +59,7 @@ void LogicIn::setCallback(CallbackClass *object, CallbackPtr func)
 
 void LogicIn::setCallback2(Callback2Ptr fun, Callback2Obj obj)
 {
-    if (m_pCallbackFunction) {
+    if (m_pCallbackFunction && fun) {
         qCWarning(KTL_LOG) << "Callback v1 already set to " << m_pCallbackFunction << " o=" << m_pCallbackObject
             << ", forcing it to null";
         m_pCallbackFunction = nullptr;
