@@ -17,6 +17,11 @@
 
 #include <ktechlab_debug.h>
 
+void PICComponentPin_logicCallback(void *objV, bool state) {
+    PICComponentPin *objT = static_cast<PICComponentPin*>(objV);
+    objT->logicCallback(state);
+}
+
 PICComponentPin::PICComponentPin(PICComponent *picComponent, PicPin picPin)
     : m_id(picPin.pinID)
 {
@@ -58,18 +63,26 @@ PICComponentPin::PICComponentPin(PICComponent *picComponent, PicPin picPin)
         break;
     }
 
-    if (m_pLogicIn)
-        m_pLogicIn->setCallback(this, (CallbackPtr)(&PICComponentPin::logicCallback));
-    if (m_pLogicOut)
-        m_pLogicOut->setCallback(this, (CallbackPtr)(&PICComponentPin::logicCallback));
+    if (m_pLogicIn) {
+        //m_pLogicIn->setCallback(this, (CallbackPtr)(&PICComponentPin::logicCallback));
+        m_pLogicIn->setCallback2(PICComponentPin_logicCallback, this);
+    }
+    if (m_pLogicOut) {
+        //m_pLogicOut->setCallback(this, (CallbackPtr)(&PICComponentPin::logicCallback));
+        m_pLogicOut->setCallback2(PICComponentPin_logicCallback, this);
+    }
 }
 
 PICComponentPin::~PICComponentPin()
 {
-    if (m_pLogicIn)
-        m_pLogicIn->setCallback(nullptr, (CallbackPtr) nullptr);
-    if (m_pLogicOut)
-        m_pLogicOut->setCallback(nullptr, (CallbackPtr) nullptr);
+    if (m_pLogicIn) {
+        //m_pLogicIn->setCallback(nullptr, (CallbackPtr) nullptr);
+        m_pLogicIn->setCallback2(nullptr, nullptr);
+    }
+    if (m_pLogicOut) {
+        //m_pLogicOut->setCallback(nullptr, (CallbackPtr) nullptr);
+        m_pLogicOut->setCallback2(nullptr, nullptr);
+    }
 
     delete m_pStimulusNode;
 }
