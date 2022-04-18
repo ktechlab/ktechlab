@@ -16,6 +16,11 @@
 #include <KLocalizedString>
 #include <cmath>
 
+void RAM_inStateChanged(void *objV, bool state) {
+    RAM *objT = static_cast<RAM*>(objV);
+    objT->inStateChanged(state);
+}
+
 Item *RAM::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
     return new RAM((ICNDocument *)itemDocument, newItem, id);
@@ -139,19 +144,22 @@ void RAM::initPins()
     if (!m_pCS) {
         node = ecNodeWithID("CS");
         m_pCS = createLogicIn(node);
-        m_pCS->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
+        //m_pCS->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
+        m_pCS->setCallback2(RAM_inStateChanged, this);
     }
 
     if (!m_pOE) {
         node = ecNodeWithID("OE");
         m_pOE = createLogicIn(node);
-        m_pOE->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
+        //m_pOE->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
+        m_pOE->setCallback2(RAM_inStateChanged, this);
     }
 
     if (!m_pWE) {
         node = ecNodeWithID("WE");
         m_pWE = createLogicIn(node);
-        m_pWE->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
+        //m_pWE->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
+        m_pWE->setCallback2(RAM_inStateChanged, this);
     }
 
     if (newWordSize > oldWordSize) {
@@ -161,7 +169,8 @@ void RAM::initPins()
         for (int i = oldWordSize; i < newWordSize; ++i) {
             node = ecNodeWithID(QString("DI%1").arg(QString::number(i)));
             m_dataIn.insert(i, createLogicIn(node));
-            m_dataIn[i]->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
+            //m_dataIn[i]->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
+            m_dataIn[i]->setCallback2(RAM_inStateChanged, this);
 
             node = ecNodeWithID(QString("DO%1").arg(QString::number(i)));
             m_dataOut.insert(i, createLogicOut(node, false));
@@ -189,7 +198,9 @@ void RAM::initPins()
         for (int i = oldAddressSize; i < newAddressSize; ++i) {
             node = ecNodeWithID(QString("A%1").arg(QString::number(i)));
             m_address.insert(i, createLogicIn(node));
-            m_address[i]->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
+            //m_address[i]->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
+            m_address[i]->setCallback2(RAM_inStateChanged, this);
+
         }
     } else if (newAddressSize < oldAddressSize) {
         for (int i = newAddressSize; i < oldAddressSize; ++i) {

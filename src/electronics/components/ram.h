@@ -32,7 +32,9 @@ public:
 protected:
     void initPins();
     void dataChanged() override;
+public: // internal interfaces
     void inStateChanged(bool newState);
+protected:
 
     QBitArray m_data;
     LogicIn *m_pCS; // Chip select
