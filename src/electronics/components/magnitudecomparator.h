@@ -31,7 +31,9 @@ public:
 protected:
     void initPins();
     void dataChanged() override;
+public: // internal interfaces
     void inStateChangedWithVal(bool /*isHigh*/);
+protected:
     void inStateChanged();
 
     int m_oldABLogicCount;

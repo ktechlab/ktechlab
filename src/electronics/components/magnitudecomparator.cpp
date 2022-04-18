@@ -15,6 +15,11 @@
 #include <KLocalizedString>
 #include <cmath>
 
+void MagnitudeComparator_inStateChangedWithVal(void *objV, bool state) { // Enable
+    MagnitudeComparator *objT = static_cast<MagnitudeComparator*>(objV);
+    objT->inStateChangedWithVal(state);
+}
+
 Item *MagnitudeComparator::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
     return new MagnitudeComparator((ICNDocument *)itemDocument, newItem, id);
@@ -128,7 +133,8 @@ void MagnitudeComparator::initPins()
         for (int i = 0; i < cascadingInputs; i++) {
             node = ecNodeWithID(inNames[i]);
             m_cLogic.insert(i, createLogicIn(node));
-            m_cLogic[i]->setCallback(this, (CallbackPtr)(&MagnitudeComparator::inStateChangedWithVal));
+            //m_cLogic[i]->setCallback(this, (CallbackPtr)(&MagnitudeComparator::inStateChangedWithVal));
+            m_cLogic[i]->setCallback2(MagnitudeComparator_inStateChangedWithVal, this);
         }
 
         m_output.resize(3);
@@ -144,14 +150,16 @@ void MagnitudeComparator::initPins()
         for (int i = m_oldABLogicCount; i < newABLogicCount; ++i) {
             node = ecNodeWithID("A" + QString::number(i));
             m_aLogic.insert(i, createLogicIn(node));
-            m_aLogic[i]->setCallback(this, (CallbackPtr)(&MagnitudeComparator::inStateChangedWithVal));
+            //m_aLogic[i]->setCallback(this, (CallbackPtr)(&MagnitudeComparator::inStateChangedWithVal));
+            m_aLogic[i]->setCallback2(MagnitudeComparator_inStateChangedWithVal, this);
         }
 
         m_bLogic.resize(newABLogicCount);
         for (int i = m_oldABLogicCount; i < newABLogicCount; ++i) {
             node = ecNodeWithID("B" + QString::number(i));
             m_bLogic.insert(i, createLogicIn(node));
-            m_bLogic[i]->setCallback(this, (CallbackPtr)(&MagnitudeComparator::inStateChangedWithVal));
+            //m_bLogic[i]->setCallback(this, (CallbackPtr)(&MagnitudeComparator::inStateChangedWithVal));
+            m_bLogic[i]->setCallback2(MagnitudeComparator_inStateChangedWithVal, this);
         }
     } else {
         for (int i = newABLogicCount; i < m_oldABLogicCount; ++i) {
