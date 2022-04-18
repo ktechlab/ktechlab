@@ -25,6 +25,15 @@
 
 #include <ktechlab_debug.h>
 
+void SerialPortComponent_tdCallback(void *objV, bool state) {
+    SerialPortComponent *objT = static_cast<SerialPortComponent*>(objV);
+    objT->tdCallback(state);
+}
+void SerialPortComponent_dtrCallback(void *objV, bool state) {
+    SerialPortComponent *objT = static_cast<SerialPortComponent*>(objV);
+    objT->dtrCallback(state);
+}
+
 Item *SerialPortComponent::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
     return new SerialPortComponent((ICNDocument *)itemDocument, newItem, id);
@@ -66,13 +75,15 @@ SerialPortComponent::SerialPortComponent(ICNDocument *icnDocument, bool newItem,
     pin = createPin(-40, 0, 0, "TD");
     addDisplayText("TD", QRect(-28, -8, 28, 16), "TD", true, Qt::AlignLeft | Qt::AlignVCenter);
     m_pTD = createLogicIn(pin);
-    m_pTD->setCallback(this, (CallbackPtr)(&SerialPortComponent::tdCallback));
+    //m_pTD->setCallback(this, (CallbackPtr)(&SerialPortComponent::tdCallback));
+    m_pTD->setCallback2(SerialPortComponent_tdCallback, this);
 
     // Works
     pin = createPin(-40, -16, 0, "DTR");
     addDisplayText("DTR", QRect(-28, -24, 28, 16), "DTR", true, Qt::AlignLeft | Qt::AlignVCenter);
     m_pDTR = createLogicIn(pin);
-    m_pDTR->setCallback(this, (CallbackPtr)(&SerialPortComponent::dtrCallback));
+    //m_pDTR->setCallback(this, (CallbackPtr)(&SerialPortComponent::dtrCallback));
+    m_pDTR->setCallback2(SerialPortComponent_dtrCallback, this);
 
     // N/A
     pin = createPin(-40, -32, 0, "GND");
@@ -83,13 +94,15 @@ SerialPortComponent::SerialPortComponent(ICNDocument *icnDocument, bool newItem,
     // 	pin = createPin(  40,  24, 180, "DSR" );
     addDisplayText("DSR", QRect(0, 16, 28, 16), "DSR", true, Qt::AlignRight | Qt::AlignVCenter);
     // 	m_pDSR = createLogicIn( pin );
-    // 	m_pDSR->setCallback( this, (CallbackPtr)(&SerialPortComponent::dsrCallback) );
+    // 	//m_pDSR->setCallback( this, (CallbackPtr)(&SerialPortComponent::dsrCallback) );
+    //  m_pDSR->setCallback2( SerialPortComponent_dsrCallback, this);
 
     // Doesn't work
     // 	pin = createPin(  40,   8, 180, "RTS" );
     addDisplayText("RTS", QRect(0, 0, 28, 16), "RTS", true, Qt::AlignRight | Qt::AlignVCenter);
     // 	m_pRTS = createLogicIn( pin );
-    // 	m_pRTS->setCallback( this, (CallbackPtr)(&SerialPortComponent::rtsCallback) );
+    // 	//m_pRTS->setCallback( this, (CallbackPtr)(&SerialPortComponent::rtsCallback) );
+    //  m_pDSR->setCallback2( SerialPortComponent_rtsCallback, this);
 
     // Works
     pin = createPin(40, -8, 180, "CTS");

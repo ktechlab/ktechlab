@@ -38,12 +38,12 @@ protected:
     void initPort(const QString &port, qint32 baudRate);
     void dataChanged() override;
     void drawShape(QPainter &p) override;
-
+public: // internal interfaces
     void tdCallback(bool isHigh);
     void dtrCallback(bool isHigh);
     void dsrCallback(bool isHigh);
     void rtsCallback(bool isHigh);
-
+protected:
     LogicIn *m_pTD;
     LogicIn *m_pDTR;
     // 		LogicIn * m_pDSR;
