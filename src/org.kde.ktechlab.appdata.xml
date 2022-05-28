@@ -52,7 +52,7 @@
       KTechlab is an IDE for microcontrollers and electronics designed to be as easy to use and unintrusive as possible.
     </p>
     <p xml:lang="ca">El KTechlab és un IDE per a microcontroladors i electrònica dissenyat per a ser tan fàcil d'usar i discret com sigui possible.</p>
-    <p xml:lang="ca-valencia">KTechlab és un IDE per a microcontroladors i electrònica dissenyat per a ser tan fàcil d'utilitzar i discret com siga possible.</p>
+    <p xml:lang="ca-valencia">KTechlab és un IDE per a microcontroladors i electrònica dissenyat per a ser tan fàcil d'utilisar i discret com siga possible.</p>
     <p xml:lang="en-GB">KTechlab is an IDE for microcontrollers and electronics designed to be as easy to use and nonintrusive as possible.</p>
     <p xml:lang="es">KTechlab es un entorno de desarrollo integrado para microcontroladores y electrónica diseñado para que sea fácil de usar y lo menos intrusivo posible.</p>
     <p xml:lang="et">KTechlab on mikrokontrollerite ja elektroonika arenduskeskkond, mille sihiks on olla võimalikult hõlpsasti kasutatav ja võimalikult vähe kasutaja tegemistesse sekkuv.</p>
@@ -158,7 +158,7 @@
       <li xml:lang="x-test">xxContext help for the componentsxx</li>
       <li>Two modes of connector routing: automatic and manual</li>
       <li xml:lang="ca">Dos modes d'encaminament per al connector: automàtic i manual</li>
-      <li xml:lang="ca-valencia">Dos modes d'encaminament per al connector: automàtic i manual</li>
+      <li xml:lang="ca-valencia">Dos modos d'encaminament per al connector: automàtic i manual</li>
       <li xml:lang="en-GB">Two modes of connector routing: automatic and manual</li>
       <li xml:lang="es">Dos modos de rutas de conectores: automático y manual</li>
       <li xml:lang="fr">Deux modes de routage de connecteurs : automatique et manuel</li>
@@ -236,7 +236,7 @@
       <li xml:lang="x-test">xxInbuilt debuggerxx</li>
       <li>Simulation with oscilloscope and probes</li>
       <li xml:lang="ca">Simulació amb oscil·loscopi i sondes</li>
-      <li xml:lang="ca-valencia">Simulació amb oscil·loscopi i sondes</li>
+      <li xml:lang="ca-valencia">Simulació amb osciloscopi i sondes</li>
       <li xml:lang="en-GB">Simulation with oscilloscope and probes</li>
       <li xml:lang="es">Simulación con osciloscopio y sondas</li>
       <li xml:lang="fr">Simulation avec oscilloscope et sondes</li>
