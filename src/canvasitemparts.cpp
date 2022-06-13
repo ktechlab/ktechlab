@@ -258,7 +258,7 @@ Button::Button(const QString &id, CNItem *parent, bool isToggle, const QRect &r,
     m_button->setToolButtonStyle(Qt::ToolButtonIconOnly);
     m_button->setCheckable(b_isToggle);
     connect(m_button, &ToolButton::pressed, this, &Button::slotStateChanged);
-    connect(m_button, &ToolButton::pressed, this, &Button::slotStateChanged);
+    connect(m_button, &ToolButton::released, this, &Button::slotStateChanged);
     posChanged();
 }
 
