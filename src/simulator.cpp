@@ -14,8 +14,12 @@
 #include "pin.h"
 #include "switch.h"
 
+#include "ktechlab_debug.h"
+
 // #include <k3staticdeleter.h>
 
+#include <QDebug>
+#include <QElapsedTimer>
 #include <QGlobalStatic>
 #include <QSet>
 #include <QTimer>
@@ -46,6 +50,12 @@ Simulator *Simulator::self()
 
 Simulator::Simulator()
     : m_bIsSimulating(false)
+    , m_printTimingStatsTimer(nullptr)
+    , m_stepMaxNs(0)
+    , m_stepRollingAvgNs(0)
+    , m_stepLastNs(0)
+    , m_stepsSinceStart(0)
+    , m_stepsSincePrint(0)
     , m_llNumber(0)
     , m_stepNumber(0)
     , m_currentChain(0)
@@ -73,6 +83,10 @@ Simulator::Simulator()
     m_stepTimer = new QTimer(this);
     connect(m_stepTimer, &QTimer::timeout, this, &Simulator::step);
 
+    m_printTimingStatsTimer = new QTimer(this);
+    connect(m_printTimingStatsTimer, &QTimer::timeout, this, &Simulator::printTimingStatistics);
+    m_printTimingStatsTimer->start(1000);
+
     slotSetSimulating(true); // start the timer
 }
 
@@ -96,6 +110,9 @@ void Simulator::step()
 {
     if (!m_bIsSimulating)
         return;
+
+    QElapsedTimer execTimer;
+    execTimer.start();
 
     // We are called a thousand times a second (the maximum allowed by QTimer),
     // so divide the LINEAR_UPDATE_RATE by 1e3 for the number of loops we need
@@ -214,6 +231,27 @@ void Simulator::step()
             }
         }
     }
+
+    {
+        const qint64 elapsedNs = execTimer.nsecsElapsed();
+        m_stepLastNs = elapsedNs;
+        if (elapsedNs > m_stepMaxNs) {
+            m_stepMaxNs = elapsedNs;
+        }
+        m_stepRollingAvgNs = 0.9 * m_stepRollingAvgNs + 0.1 * elapsedNs;
+        m_stepsSinceStart++;
+        m_stepsSincePrint++;
+    }
+}
+
+void Simulator::printTimingStatistics() {
+    qCDebug(KTL_LOG) << "Simulator::printTimingStatistics"
+        << "m_stepMaxNs=" << m_stepMaxNs
+        << "m_stepRollingAvgNs=" << m_stepRollingAvgNs
+        << "m_stepLastNs=" << m_stepLastNs
+        << "m_stepsSinceStart=" << m_stepsSinceStart
+        << "m_stepsSincePrint=" << m_stepsSincePrint;
+    m_stepsSincePrint = 0;
 }
 
 void Simulator::slotSetSimulating(bool simulate)

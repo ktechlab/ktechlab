@@ -211,6 +211,7 @@ public slots:
 
 private slots:
     void step();
+    void printTimingStatistics();
 
 private:
     bool m_bIsSimulating;
@@ -238,6 +239,13 @@ private:
 
     LogicOut *m_pChangedLogicStart;
     LogicOut *m_pChangedLogicLast;
+
+    QTimer *m_printTimingStatsTimer;
+    qint64 m_stepMaxNs;
+    double m_stepRollingAvgNs;
+    qint64 m_stepLastNs;
+    qint64 m_stepsSinceStart;
+    qint64 m_stepsSincePrint;
 
 public:
     Simulator();
