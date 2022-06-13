@@ -147,7 +147,8 @@ ParallelPortComponent::~ParallelPortComponent()
 {
     for (int i = 0; i < 24; i++) {
         if (m_pLogic[i]) {
-            m_pLogic[i]->setCallback(nullptr, nullptr);
+//             m_pLogic[i]->setCallback(nullptr, nullptr);
+            m_pLogic[i]->setCallback2(nullptr, nullptr);
         }
     }
     delete m_pParallelPort;
