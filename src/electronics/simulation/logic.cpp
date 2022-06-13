@@ -33,7 +33,7 @@ LogicIn::LogicIn(LogicConfig config)
     : Element::Element()
 {
     m_config = config;
-    m_pCallbackFunction = nullptr;
+//     m_pCallbackFunction = nullptr;
     m_pCallback2Func = nullptr;
     m_pCallback2Obj = nullptr;
     m_numCNodes = 1;
@@ -50,21 +50,21 @@ LogicIn::~LogicIn()
     Simulator::self()->removeLogicInReferences(this);
 }
 
-void LogicIn::setCallback(CallbackClass *object, CallbackPtr func)
-{
-    qCWarning(KTL_LOG) << "Callback v1 deprecated; obj=" << object << " func=" << func;
-    m_pCallbackFunction = func;
-    m_pCallbackObject = object;
-}
+// void LogicIn::setCallback(CallbackClass *object, CallbackPtr func)
+// {
+//     qCWarning(KTL_LOG) << "Callback v1 deprecated; obj=" << object << " func=" << func;
+//     m_pCallbackFunction = func;
+//     m_pCallbackObject = object;
+// }
 
 void LogicIn::setCallback2(Callback2Ptr fun, Callback2Obj obj)
 {
-    if (m_pCallbackFunction && fun) {
-        qCWarning(KTL_LOG) << "Callback v1 already set to " << m_pCallbackFunction << " o=" << m_pCallbackObject
-            << ", forcing it to null";
-        m_pCallbackFunction = nullptr;
-        m_pCallbackObject = nullptr;
-    }
+//     if (m_pCallbackFunction && fun) {
+//         qCWarning(KTL_LOG) << "Callback v1 already set to " << m_pCallbackFunction << " o=" << m_pCallbackObject
+//             << ", forcing it to null";
+//         m_pCallbackFunction = nullptr;
+//         m_pCallbackObject = nullptr;
+//     }
     m_pCallback2Func = fun;
     m_pCallback2Obj = obj;
 }
@@ -84,10 +84,10 @@ void LogicIn::check()
     }
 
     // note: this code should be synchronized with callCallback() method
-    if (m_pCallbackFunction && (newState != m_bLastState)) {
-        m_bLastState = newState;
-        (m_pCallbackObject->*m_pCallbackFunction)(newState);
-    }
+//     if (m_pCallbackFunction && (newState != m_bLastState)) {
+//         m_bLastState = newState;
+//         (m_pCallbackObject->*m_pCallbackFunction)(newState);
+//     }
     if (m_pCallback2Func && (newState != m_bLastState)) {
         m_bLastState = newState;
         m_pCallback2Func(m_pCallback2Obj, newState);

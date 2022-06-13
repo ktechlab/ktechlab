@@ -87,7 +87,7 @@ public:
      * When the logic state on this LogicIn changes, the function passed in this
      * function will be called. At most one Callback can be added per LogicIn.
      */
-    void setCallback(CallbackClass *object, CallbackPtr func);
+//     void setCallback(CallbackClass *object, CallbackPtr func);
 
     void setCallback2(Callback2Ptr fun, Callback2Obj obj);
 
@@ -122,8 +122,8 @@ public:
      */
     void callCallback()
     {
-        if (m_pCallbackFunction)
-            (m_pCallbackObject->*m_pCallbackFunction)(m_bLastState);
+//         if (m_pCallbackFunction)
+//             (m_pCallbackObject->*m_pCallbackFunction)(m_bLastState);
         if (m_pCallback2Func)
             m_pCallback2Func(m_pCallback2Obj, m_bLastState);
     }
@@ -132,10 +132,10 @@ protected:
     void updateCurrents() override;
     void add_initial_dc() override;
 
-    // TODO: fix this crap NO FUNCTION POINTERS
+    // 2022.06.13 - fix this crap NO FUNCTION POINTERS
     // v1 callbacks, deprecated
-    CallbackPtr m_pCallbackFunction;
-    CallbackClass *m_pCallbackObject;
+//     CallbackPtr m_pCallbackFunction;
+//     CallbackClass *m_pCallbackObject;
     // v2 callbacks, a bit less hacky than v1
     Callback2Ptr m_pCallback2Func;
     Callback2Obj m_pCallback2Obj;
