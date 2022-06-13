@@ -85,7 +85,9 @@ Simulator::Simulator()
 
     m_printTimingStatsTimer = new QTimer(this);
     connect(m_printTimingStatsTimer, &QTimer::timeout, this, &Simulator::printTimingStatistics);
-    m_printTimingStatsTimer->start(1000);
+    if (0) { // note: enable this when you want to debug the performance of the simulator; maybe turn it to run-time options
+        m_printTimingStatsTimer->start(1000);
+    }
 
     slotSetSimulating(true); // start the timer
 }
