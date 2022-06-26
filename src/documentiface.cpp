@@ -240,7 +240,7 @@ QStringList ICNDocumentIface::nodeIDs(const QString &id)
     const NodeInfoMap nm = item->nodeMap();
     const NodeInfoMap::const_iterator end = nm.end();
     for (NodeInfoMap::const_iterator it = nm.begin(); it != end; ++it)
-        ids.append(it.key().toAscii());
+        ids.append(it.key().toLatin1());
 
     return ids;
 }

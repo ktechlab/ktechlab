@@ -105,7 +105,7 @@ void PICComponentPin::attach(IOPIN *iopin)
     }
 
     m_pIOPIN = iopin;
-    m_pStimulusNode = new Stimulus_Node(m_id.toAscii());
+    m_pStimulusNode = new Stimulus_Node(m_id.toLatin1());
     m_pStimulusNode->attach_stimulus(iopin);
     m_pStimulusNode->attach_stimulus(this);
 
