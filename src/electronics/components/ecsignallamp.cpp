@@ -60,7 +60,7 @@ void ECSignalLamp::stepNonLogic()
     if (advanceSinceUpdate == 0) {
         advanceSinceUpdate = 1; // do not try to divide by 0
     }
-    avgPower = fabs(avgPower * advanceSinceUpdate + (voltage * voltage / RESISTANCE)) / advanceSinceUpdate;
+    avgPower = fabs(avgPower * 0.99 + (voltage * voltage / RESISTANCE) * 0.01);
     ++advanceSinceUpdate;
 }
 
