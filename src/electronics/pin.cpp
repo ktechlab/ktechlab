@@ -73,7 +73,8 @@ void Pin::setSwitchCurrentsUnknown()
     if (!m_switchList.empty()) {
         m_switchList.removeAt(0l);
     } else {
-        qCDebug(KTL_LOG) << "Pin::setSwitchCurrentsUnknown - WARN - unexpected empty switch list";
+        // 2022.06.26 - too noisy, better keep it disabled
+        //qCDebug(KTL_LOG) << "Pin::setSwitchCurrentsUnknown - WARN - unexpected empty switch list";
     }
     m_unknownSwitchCurrents = m_switchList;
 }
