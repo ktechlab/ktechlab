@@ -70,7 +70,7 @@ find_package(GPSim)
 
 add_definitions(-fPIC)
 add_definitions(
-    -DQT_DISABLE_DEPRECATED_BEFORE=0 # even 0x050000 would be too high for now
+    -DQT_DISABLE_DEPRECATED_BEFORE=0x050000 # TODO target some reasonable version
     -DQT_DEPRECATED_WARNINGS_SINCE=0x060000 # to enable warnings for API since the disabled limit
 #     -DQT_USE_QSTRINGBUILDER # TODO
 #     -DQT_NO_CAST_TO_ASCII # TODO
