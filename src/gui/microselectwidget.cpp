@@ -21,7 +21,7 @@
 #include <QLayout>
 #include <QVariant>
 
-MicroSelectWidget::MicroSelectWidget(QWidget *parent, Qt::WFlags)
+MicroSelectWidget::MicroSelectWidget(QWidget *parent, Qt::WindowFlags)
     //: Q3GroupBox( 4, Qt::Horizontal, i18n("Microprocessor"), parent )
     : QGroupBox(parent)
 {
