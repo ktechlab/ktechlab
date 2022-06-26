@@ -714,7 +714,7 @@ void KtlQ3ScrollView::hslide(int pos)
 {
     if (!d->signal_choke) {
         moveContents(-pos, -d->contentsY());
-        QApplication::syncX();
+        QGuiApplication::sync();
     }
 }
 
@@ -722,7 +722,7 @@ void KtlQ3ScrollView::vslide(int pos)
 {
     if (!d->signal_choke) {
         moveContents(-d->contentsX(), -pos);
-        QApplication::syncX();
+        QGuiApplication::sync();
     }
 }
 
