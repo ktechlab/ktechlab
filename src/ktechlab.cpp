@@ -1152,12 +1152,12 @@ QList<QUrl> KTechlab::getFileURLs(bool allowMultiple)
 {
     QString filter;
     filter = QString(
-                 "*|%1\n"
-                 "*.asm *.src *.inc|%2 (*.asm, *.src, *.inc)\n"
-                 "*.hex|%3 (*.hex)\n"
-                 "*.circuit|%4 (*.circuit)\n"
-                 "*.flowcode|FlowCode (*.flowcode)\n"
-                 "*.basic *.microbe|Microbe (*.microbe, *.basic)"
+                 "*|%1 (*)\n"
+                 ";;*.asm *.src *.inc|%2 (*.asm, *.src, *.inc)\n"
+                 ";;*.hex|%3 (*.hex)\n"
+                 ";;*.circuit|%4 (*.circuit)\n"
+                 ";;*.flowcode|FlowCode (*.flowcode)\n"
+                 ";;*.basic *.microbe|Microbe (*.microbe, *.basic)"
                  /*"*.mechanics|Mechanics (*.mechanics)\n"*/)
                  .arg(i18n("All Files"))
                  .arg(i18n("Assembly Code"))
