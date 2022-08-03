@@ -851,7 +851,7 @@ void ItemDocument::exportToImage()
     if (crop) {
         cropArea = canvasBoundingRect();
         if (cropArea.isNull()) {
-            KMessageBox::sorry(nullptr, i18n("There is nothing to crop"), i18n("Export As Image"));
+            KMessageBox::error(nullptr, i18n("There is nothing to crop"), i18n("Export As Image"));
             return;
         } else {
             cropArea &= canvas()->rect();

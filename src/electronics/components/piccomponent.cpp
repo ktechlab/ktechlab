@@ -153,14 +153,14 @@ void PICComponent::initPIC(bool forceReload)
     case GpsimProcessor::DoesntExist:
         if (newProgram == _def_PICComponent_fileName && !newProgram.isEmpty())
             break;
-        KMessageBox::sorry(nullptr, i18n("The file \"%1\" does not exist.", newProgram));
+        KMessageBox::error(nullptr, i18n("The file \"%1\" does not exist.", newProgram));
         m_picFile = QString();
         break;
 
     case GpsimProcessor::IncorrectType:
         if (newProgram == _def_PICComponent_fileName && !newProgram.isEmpty())
             break;
-        KMessageBox::sorry(nullptr,
+        KMessageBox::error(nullptr,
                            i18n("\"%1\" is not a valid PIC program.\nThe file must exist, and the extension should be \".cod\", \".asm\", \".flowcode\", \".basic\", \".microbe\" or \".c\".\n\".hex\" is allowed, provided that there is a "
                                 "corresponding \".cod\" file.",
                                 newProgram));

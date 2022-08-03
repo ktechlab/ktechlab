@@ -516,7 +516,7 @@ bool ItemLibrary::saveDescriptions(const QString &languageCode)
 
     QFile file(url);
     if (!file.open(QIODevice::WriteOnly)) {
-        KMessageBox::sorry(nullptr, i18n("Could not open item descriptions file \"%1\" for writing.", url));
+        KMessageBox::error(nullptr, i18n("Could not open item descriptions file \"%1\" for writing.", url));
         return false;
     }
 

@@ -151,7 +151,7 @@ void SDCC::processInput(ProcessOptions options)
     *m_languageProcess << (options.intermediaryOutput());
 
     if (!start()) {
-        KMessageBox::sorry(LanguageManager::self()->logView(), i18n("Compilation failed. Please check you have sdcc installed."));
+        KMessageBox::error(LanguageManager::self()->logView(), i18n("Compilation failed. Please check you have sdcc installed."));
         processInitFailed();
         return;
     }

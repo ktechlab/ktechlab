@@ -43,7 +43,7 @@ void Gplib::processInput(ProcessOptions options)
         *m_languageProcess << (*it);
 
     if (!start()) {
-        KMessageBox::sorry(LanguageManager::self()->logView(), i18n("Linking failed. Please check you have gputils installed."));
+        KMessageBox::error(LanguageManager::self()->logView(), i18n("Linking failed. Please check you have gputils installed."));
         processInitFailed();
         return;
     }

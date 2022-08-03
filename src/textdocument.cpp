@@ -80,7 +80,7 @@ TextDocument::TextDocument(const QString &caption)
     m_doc = editor->createDocument(this);
 
     if (!m_doc) {
-        KMessageBox::sorry(KTechlab::self(), i18n("Failed to create editor"));
+        KMessageBox::error(KTechlab::self(), i18n("Failed to create editor"));
         return;
     }
     guessScheme();
@@ -93,7 +93,7 @@ TextDocument::TextDocument(const QString &caption)
 
     KTextEditor::MarkInterface *markIface = qobject_cast<KTextEditor::MarkInterface *>(m_doc);
     if (!markIface) {
-        KMessageBox::sorry(KTechlab::self(), i18n("Failed to create MarkInterface"));
+        KMessageBox::error(KTechlab::self(), i18n("Failed to create MarkInterface"));
         return;
     }
 
@@ -751,11 +751,11 @@ void TextDocument::debugRun()
 
     switch (guessedCodeType()) {
     case ct_unknown:
-        KMessageBox::sorry(nullptr, i18n("Unknown code type."), i18n("Cannot debug"));
+        KMessageBox::error(nullptr, i18n("Unknown code type."), i18n("Cannot debug"));
         return;
 
     case ct_hex:
-        KMessageBox::sorry(nullptr, i18n("Cannot debug hex."), i18n("Cannot debug"));
+        KMessageBox::error(nullptr, i18n("Cannot debug hex."), i18n("Cannot debug"));
         return;
 
     case ct_microbe:

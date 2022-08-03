@@ -46,7 +46,7 @@ void Gpdasm::processInput(ProcessOptions options)
     *m_languageProcess << (options.inputFiles().first());
 
     if (!start()) {
-        KMessageBox::sorry(LanguageManager::self()->logView(), i18n("Disassembly failed. Please check you have gputils installed."));
+        KMessageBox::error(LanguageManager::self()->logView(), i18n("Disassembly failed. Please check you have gputils installed."));
         processInitFailed();
         return;
     }

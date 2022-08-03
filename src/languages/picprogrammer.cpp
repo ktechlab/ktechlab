@@ -364,7 +364,7 @@ void PicProgrammer::processInput(ProcessOptions options)
     m_languageProcess->setShellCommand(command);
 
     if (!start()) {
-        // 		KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Could not program PIC.") );
+        // 		KMessageBox::error( LanguageManager::self()->logView(), i18n("Could not program PIC.") );
         processInitFailed();
         return;
     }

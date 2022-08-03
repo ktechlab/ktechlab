@@ -408,7 +408,7 @@ bool ProjectItem::build(ProcessOptionsList *pol)
     assert(projectInfo);
 
     if (outputURL().isEmpty()) {
-        KMessageBox::sorry(nullptr, i18n("Do not know how to build \"%1\" (output URL is empty).", name()));
+        KMessageBox::error(nullptr, i18n("Do not know how to build \"%1\" (output URL is empty).", name()));
         return false;
     }
 
@@ -417,7 +417,7 @@ bool ProjectItem::build(ProcessOptionsList *pol)
     for (QStringList::iterator it = m_linkedInternal.begin(); it != send; ++it) {
         ProjectItem *lib = projectInfo->findItem(QUrl::fromLocalFile(projectInfo->directory() + *it));
         if (!lib) {
-            KMessageBox::sorry(nullptr, i18n("Do not know how to build \"%1\" (library does not exist in project).", *it));
+            KMessageBox::error(nullptr, i18n("Do not know how to build \"%1\" (library does not exist in project).", *it));
             return false;
         }
 
@@ -443,7 +443,7 @@ bool ProjectItem::build(ProcessOptionsList *pol)
 
     switch (outputType()) {
     case UnknownOutput:
-        KMessageBox::sorry(nullptr, i18n("Do not know how to build \"%1\" (unknown output type).", name()));
+        KMessageBox::error(nullptr, i18n("Do not know how to build \"%1\" (unknown output type).", name()));
         return false;
 
     case ProgramOutput:
@@ -745,7 +745,7 @@ bool ProjectInfo::open(const QUrl &url)
     } else {
         QScopedPointer<QFile> localFile(new QFile(url.toLocalFile()));
         if (!localFile->open(QIODevice::ReadOnly)) {
-            KMessageBox::sorry(nullptr, i18n("Could not open %1 for reading", localFile->fileName()));
+            KMessageBox::error(nullptr, i18n("Could not open %1 for reading", localFile->fileName()));
             return false;
         }
         file.reset(localFile.take());
@@ -761,7 +761,7 @@ bool ProjectInfo::open(const QUrl &url)
     QDomDocument doc("KTechlab");
     QString errorMessage;
     if (!doc.setContent(xml, &errorMessage)) {
-        KMessageBox::sorry(nullptr, i18n("Could not parse XML:\n%1", errorMessage));
+        KMessageBox::error(nullptr, i18n("Could not parse XML:\n%1", errorMessage));
         return false;
     }
 
@@ -797,7 +797,7 @@ bool ProjectInfo::save()
 {
     QFile file(m_url.toLocalFile());
     if (file.open(QIODevice::WriteOnly) == false) {
-        KMessageBox::sorry(nullptr, i18n("Project could not be saved to \"%1\"", file.fileName()), i18n("Saving Project"));
+        KMessageBox::error(nullptr, i18n("Project could not be saved to \"%1\"", file.fileName()), i18n("Saving Project"));
         return false;
     }
 

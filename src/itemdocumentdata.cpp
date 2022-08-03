@@ -109,7 +109,7 @@ bool ItemDocumentData::loadData(const QUrl &url)
     } else {
         QScopedPointer<QFile> localFile(new QFile(url.toLocalFile()));
         if (!localFile->open(QIODevice::ReadOnly)) {
-            KMessageBox::sorry(nullptr, i18n("Could not open %1 for reading", localFile->fileName()));
+            KMessageBox::error(nullptr, i18n("Could not open %1 for reading", localFile->fileName()));
             return false;
         }
         file.reset(localFile.take());
@@ -130,7 +130,7 @@ bool ItemDocumentData::fromXML(const QString &xml)
     QDomDocument doc("KTechlab");
     QString errorMessage;
     if (!doc.setContent(xml, &errorMessage)) {
-        KMessageBox::sorry(nullptr, i18n("Could not parse XML:\n%1", errorMessage));
+        KMessageBox::error(nullptr, i18n("Could not parse XML:\n%1", errorMessage));
         return false;
     }
 
@@ -172,7 +172,7 @@ bool ItemDocumentData::saveData(const QUrl &url)
     if (url.isLocalFile()) {
         QFile file(url.toLocalFile());
         if (!file.open(QIODevice::WriteOnly)) {
-            KMessageBox::sorry(nullptr, i18n("Could not open '%1' for writing. Check that you have write permissions", file.fileName()), i18n("Saving File"));
+            KMessageBox::error(nullptr, i18n("Could not open '%1' for writing. Check that you have write permissions", file.fileName()), i18n("Saving File"));
             return false;
         }
 

@@ -347,7 +347,7 @@ void ContextHelp::slotSave()
 bool ContextHelp::saveDescription(const QString &language)
 {
     if (m_lastItemType.isEmpty()) {
-        KMessageBox::sorry(nullptr, i18n("Cannot save item description."));
+        KMessageBox::error(nullptr, i18n("Cannot save item description."));
         return false;
     }
 

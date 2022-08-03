@@ -93,7 +93,7 @@ Document *DocManager::openURL(const QUrl &url, ViewArea *viewArea)
     if (url.isLocalFile()) {
         QFile file(url.toLocalFile());
         if (file.open(QIODevice::ReadOnly) == false) {
-            KMessageBox::sorry(nullptr, i18n("Could not open '%1'", file.fileName()));
+            KMessageBox::error(nullptr, i18n("Could not open '%1'", file.fileName()));
             return nullptr;
         }
         file.close();
@@ -404,7 +404,7 @@ CircuitDocument *DocManager::openCircuitFile(const QUrl &url, ViewArea *viewArea
     CircuitDocument *document = new CircuitDocument(url.fileName());
 
     if (!document->openURL(url)) {
-        KMessageBox::sorry(nullptr, i18n("Could not open Circuit file \"%1\"", url.toDisplayString(QUrl::PreferLocalFile)));
+        KMessageBox::error(nullptr, i18n("Could not open Circuit file \"%1\"", url.toDisplayString(QUrl::PreferLocalFile)));
         document->deleteLater();
         return nullptr;
     }
@@ -419,7 +419,7 @@ FlowCodeDocument *DocManager::openFlowCodeFile(const QUrl &url, ViewArea *viewAr
     FlowCodeDocument *document = new FlowCodeDocument(url.fileName());
 
     if (!document->openURL(url)) {
-        KMessageBox::sorry(nullptr, i18n("Could not open FlowCode file \"%1\"", url.toDisplayString(QUrl::PreferLocalFile)));
+        KMessageBox::error(nullptr, i18n("Could not open FlowCode file \"%1\"", url.toDisplayString(QUrl::PreferLocalFile)));
         document->deleteLater();
         return nullptr;
     }
@@ -434,7 +434,7 @@ MechanicsDocument *DocManager::openMechanicsFile(const QUrl &url, ViewArea *view
     MechanicsDocument *document = new MechanicsDocument(url.fileName());
 
     if (!document->openURL(url)) {
-        KMessageBox::sorry(nullptr, i18n("Could not open Mechanics file \"%1\"", url.toDisplayString(QUrl::PreferLocalFile)));
+        KMessageBox::error(nullptr, i18n("Could not open Mechanics file \"%1\"", url.toDisplayString(QUrl::PreferLocalFile)));
         document->deleteLater();
         return nullptr;
     }
@@ -452,7 +452,7 @@ TextDocument *DocManager::openTextFile(const QUrl &url, ViewArea *viewArea)
         return nullptr;
 
     if (!document->openURL(url)) {
-        KMessageBox::sorry(nullptr, i18n("Could not open text file \"%1\"", url.toDisplayString(QUrl::PreferLocalFile)));
+        KMessageBox::error(nullptr, i18n("Could not open text file \"%1\"", url.toDisplayString(QUrl::PreferLocalFile)));
         document->deleteLater();
         return nullptr;
     }

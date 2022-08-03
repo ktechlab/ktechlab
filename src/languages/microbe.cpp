@@ -74,7 +74,7 @@ void Microbe::processInput(ProcessOptions options)
     *m_languageProcess << ("--show-source");
 
     if (!start()) {
-        KMessageBox::sorry(LanguageManager::self()->logView(), i18n("Assembly failed. Please check you have KTechlab installed properly (\"microbe\" could not be started)."));
+        KMessageBox::error(LanguageManager::self()->logView(), i18n("Assembly failed. Please check you have KTechlab installed properly (\"microbe\" could not be started)."));
         processInitFailed();
         return;
     }

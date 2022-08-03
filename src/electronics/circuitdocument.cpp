@@ -737,14 +737,14 @@ void CircuitDocument::createSubcircuit()
     itemList.removeAll((Item *)nullptr);
 
     if (itemList.isEmpty()) {
-        KMessageBox::sorry(activeView(), i18n("No components were found in the selection."));
+        KMessageBox::error(activeView(), i18n("No components were found in the selection."));
         return;
     }
 
     // Number of external connections
     const int extConCount = countExtCon(itemList);
     if (extConCount == 0) {
-        KMessageBox::sorry(activeView(), i18n("No External Connection components were found in the selection."));
+        KMessageBox::error(activeView(), i18n("No External Connection components were found in the selection."));
         return;
     }
 
