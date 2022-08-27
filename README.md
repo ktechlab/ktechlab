@@ -1,5 +1,5 @@
 
-KTechLab 0.50.1
+KTechLab 0.50.0
 =============
 
 KTechLab is an IDE for microcontrollers and electronics.
