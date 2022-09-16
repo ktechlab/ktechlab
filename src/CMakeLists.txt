@@ -367,7 +367,7 @@ if(GPSim_FOUND)
     target_link_libraries(ktechlab ${GPSim_LIBRARIES})
 endif()
 
-install(TARGETS ktechlab ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS ktechlab ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 
 # message(STATUS "include_dir begin")
@@ -410,7 +410,7 @@ endif()
 
 ########### install files ###############
 
-install(FILES microbe.xml DESTINATION ${DATA_INSTALL_DIR}/katepart5/syntax)
+install(FILES microbe.xml DESTINATION ${KDE_INSTALL_DATADIR}/katepart5/syntax)
 install(FILES
     ktechlabui.rc
     ktechlabcircuitui.rc
@@ -419,7 +419,7 @@ install(FILES
 	ktechlabmechanicsui.rc
 	ktechlabtextui.rc
 	ktechlabkateui.rc
-	DESTINATION ${KXMLGUI_INSTALL_DIR}/ktechlab)
-install(FILES org.kde.ktechlab.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
-install(FILES ktechlab_mime.xml DESTINATION ${XDG_MIME_INSTALL_DIR})
+	DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/ktechlab)
+install(FILES org.kde.ktechlab.desktop DESTINATION ${KDE_INSTALL_APPDIR})
+install(FILES ktechlab_mime.xml DESTINATION ${KDE_INSTALL_MIMEDIR})
 install(FILES org.kde.ktechlab.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR} )

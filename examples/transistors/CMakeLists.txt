@@ -5,4 +5,4 @@ install(FILES
 	nor.circuit
 	scmitt-trigger.circuit
 	switch.circuit
-	DESTINATION ${DATA_INSTALL_DIR}/ktechlab/examples/transistors)
+	DESTINATION ${KDE_INSTALL_DATADIR}/ktechlab/examples/transistors)

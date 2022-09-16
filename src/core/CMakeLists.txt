@@ -16,4 +16,4 @@ target_link_libraries(core
 
 ########### install files ###############
 
-install(FILES ktechlab.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+install(FILES ktechlab.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})

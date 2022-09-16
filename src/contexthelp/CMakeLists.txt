@@ -11,4 +11,4 @@ install(FILES
 	siemens.png
 	siemens_unit.png
 	tf_op.png
-	DESTINATION ${DATA_INSTALL_DIR}/ktechlab/contexthelp)
+	DESTINATION ${KDE_INSTALL_DATADIR}/ktechlab/contexthelp)

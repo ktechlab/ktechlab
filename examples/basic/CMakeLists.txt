@@ -5,4 +5,4 @@ install(FILES
 	lrc.circuit resistors-parallel.circuit
 	resistors-series.circuit
 	voltage-divider.circuit
-	DESTINATION ${DATA_INSTALL_DIR}/ktechlab/examples/basic)
+	DESTINATION ${KDE_INSTALL_DATADIR}/ktechlab/examples/basic)

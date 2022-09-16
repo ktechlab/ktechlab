@@ -1,3 +1,3 @@
 install(FILES
 	inverter.circuit
-	DESTINATION ${DATA_INSTALL_DIR}/ktechlab/examples/jfets)
+	DESTINATION ${KDE_INSTALL_DATADIR}/ktechlab/examples/jfets)

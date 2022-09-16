@@ -1,5 +1,5 @@
 file(GLOB icons_actions "${CMAKE_CURRENT_SOURCE_DIR}/*-actions-*.png")
-ecm_install_icons(ICONS ${icons_actions} DESTINATION ${DATA_INSTALL_DIR}/ktechlab/icons)
+ecm_install_icons(ICONS ${icons_actions} DESTINATION ${KDE_INSTALL_DATADIR}/ktechlab/icons)
 
 install(FILES
 	ammeter.png
@@ -85,4 +85,4 @@ install(FILES
 	xnor.png
 	xor.png
 	
-	DESTINATION ${DATA_INSTALL_DIR}/ktechlab/icons)
+	DESTINATION ${KDE_INSTALL_DATADIR}/ktechlab/icons)

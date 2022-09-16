@@ -1,4 +1,4 @@
 install(FILES
 	internals.circuit
 	square-wave.circuit
-	DESTINATION ${DATA_INSTALL_DIR}/ktechlab/examples/555)
+	DESTINATION ${KDE_INSTALL_DATADIR}/ktechlab/examples/555)

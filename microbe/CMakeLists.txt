@@ -21,4 +21,4 @@ target_link_libraries(microbe
     Qt5::Core
     )
 
-install(TARGETS microbe ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS microbe ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
