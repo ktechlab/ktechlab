@@ -47,6 +47,7 @@ FlowCodeDocument::FlowCodeDocument( const QString &caption, const char *name )
 	m_cmManager->addManipulatorInfo( CMItemDrag::manipulatorInfo() );
 	
 	m_fileExtensionInfo = QString("*.flowcode|FlowCode (*.flowcode)\n*|%1").arg( i18n("All Files") );
+    m_fileExtensionValue = QString(".flowcode");
 	requestStateSave();
 }
 

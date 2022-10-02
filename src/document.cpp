@@ -21,6 +21,7 @@
 
 #include <QTabWidget>
 #include <QFileDialog>
+#include <QDebug>
 
 Document::Document( const QString &caption, const char *name )
 	: QObject( KTechlab::self() /* , name */ ),
@@ -103,7 +104,7 @@ void Document::setCaption( const QString &caption )
 }
 
 
-bool Document::getURL( const QString &types )
+bool Document::getURL( const QString &types, const QString &fileExtToEnforce )
 {
 	QUrl url = QFileDialog::getSaveFileUrl(KTechlab::self(), i18n("Save Location"), QUrl(), types);
 	
@@ -117,6 +118,13 @@ bool Document::getURL( const QString &types )
 		if ( query == KMessageBox::No )
 			return false;
 	}
+
+	if (!url.fileName().endsWith(fileExtToEnforce)) {
+        QUrl newUrl = QUrl( url.url().append(fileExtToEnforce) );
+        qInfo() << "Document::getURL: overriding URL without extension '" << url.toString() << "' with '" << newUrl << "'";
+        url = newUrl;
+    }
+	qInfo() << "Document::getURL: in types='" << types << "', out url='" << url.toString() << "'";
 	
 	setURL(url);
 	

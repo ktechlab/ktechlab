@@ -168,14 +168,14 @@ void ItemDocument::slotUnsetRepeatedItemId()
 
 void ItemDocument::fileSave()
 {
-	if ( url().isEmpty() && !getURL(m_fileExtensionInfo) ) return;
+	if ( url().isEmpty() && !getURL(m_fileExtensionInfo, m_fileExtensionValue) ) return;
 	writeFile();
 }
 
 
 void ItemDocument::fileSaveAs()
 {
-	if ( !getURL(m_fileExtensionInfo) ) return;
+	if ( !getURL(m_fileExtensionInfo, m_fileExtensionValue) ) return;
 	writeFile();
 
 	// Our modified state may not have changed, but we emit this to force the

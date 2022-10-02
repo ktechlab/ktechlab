@@ -46,6 +46,7 @@ CircuitDocument::CircuitDocument( const QString & caption, const char *name )
 	m_type = Document::dt_circuit;
 	m_pDocumentIface = new CircuitDocumentIface(this);
 	m_fileExtensionInfo = QString("*.circuit|%1(*.circuit)\n*|%2").arg( i18n("Circuit") ).arg( i18n("All Files") );
+    m_fileExtensionValue = QString(".circuit");
 
 	m_cmManager->addManipulatorInfo( CMSelect::manipulatorInfo() );
 	m_cmManager->addManipulatorInfo( CMDraw::manipulatorInfo() );
