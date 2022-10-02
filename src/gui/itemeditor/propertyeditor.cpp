@@ -485,10 +485,21 @@ void PropertyEditor::showDefaultsButton( bool show )
 
 void PropertyEditor::updateDefaultsButton()
 {
-	if (!m_editItem)
-		return;
-	showDefaultsButton( m_editItem->property()->changed() );
-	repaint(); //m_editItem->repaint();
+    QTableWidgetItem *currItem = currentItem();
+    if (!currItem) {
+        m_editItem = nullptr;
+        return;
+    }
+    m_editItem = dynamic_cast<PropertyEditorItem*>(currItem);
+    if (!m_editItem) {
+        qWarning() << "failed to cast current item to PropertyEditorItem, " << currItem;
+        return;
+    }
+    qDebug() << "currentItem=" << currentItem();
+    qDebug() << "m_editItem=" << m_editItem;
+    qDebug() << "m_editItem->property=" << m_editItem->property();
+    showDefaultsButton(m_editItem->property()->changed());
+    repaint(); // m_editItem->repaint();
 }
 
 
