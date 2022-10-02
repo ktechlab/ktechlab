@@ -241,6 +241,7 @@ class KTechlab : public KateMDI::MainWindow
 		void slotOptionsConfigureKeys();
 		void slotOptionsConfigureToolbars();
 		void slotOptionsPreferences();
+        void slotLoadRecent(const QUrl &url);
 
 	private:
 		void setupActions();
@@ -248,6 +249,7 @@ class KTechlab : public KateMDI::MainWindow
 		void setupToolDocks();
 		void setupView();
 		void setupTabWidget();
+        void loadInternal(const QUrl &url, bool isRecent, ViewArea *viewArea = nullptr);
 
 		RecentFilesAction * m_recentFiles;
 		RecentFilesAction * m_recentProjects;

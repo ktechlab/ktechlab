@@ -147,17 +147,25 @@ void KTechlab::load( const QUrl & url, ViewArea * viewArea )
 	if ( !url.isValid() )
 		return;
 
-	if ( url.fileName().endsWith( ".ktechlab", Qt::CaseInsensitive ) )
-	{
-		// This is a ktechlab project; it has to be handled separetly from a
-		// normal file.
+    loadInternal(url, false, viewArea);
+}
 
-		ProjectManager::self()->slotOpenProject( url );
-		return;
-	}
+void KTechlab::slotLoadRecent(const QUrl &url)
+{
+    loadInternal(url, true);
+}
 
+void KTechlab::loadInternal(const QUrl &url, bool isRecent, ViewArea *viewArea)
+{
+    if (url.fileName().endsWith(".ktechlab", Qt::CaseInsensitive)) {
+        // This is a ktechlab project; it has to be handled separetly from a
+        // normal file.
+         ProjectManager::self()->slotOpenProject(url);
+         return;
+     }
 
-	addRecentFile( url );
+    if (!isRecent)
+        addRecentFile(url);
 
 	// set our caption
 	setCaption(url.toDisplayString(QUrl::PreferLocalFile));
@@ -557,8 +565,7 @@ void KTechlab::setupActions()
 	//END New File popup
 
 
-// 	m_recentFiles = KStandardAction::openRecent( this, SLOT(load(const KUrl&)), ac );
-	m_recentFiles = new RecentFilesAction( "Recent Files", i18n("Open Recent"), this, SLOT(load(QUrl)), ac, "file_open_recent" );
+	m_recentFiles = new RecentFilesAction( "Recent Files", i18n("Open Recent"), this, SLOT(slotLoadRecent(QUrl)), ac, "file_open_recent" );
     ac->addAction(m_recentFiles->objectName(), m_recentFiles);
 
     m_statusbarAction = KStandardAction::showStatusbar( this, SLOT(slotOptionsShowStatusbar()), ac );
