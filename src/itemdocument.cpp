@@ -167,14 +167,14 @@ void ItemDocument::slotUnsetRepeatedItemId()
 
 void ItemDocument::fileSave()
 {
-    if (url().isEmpty() && !getURL(m_fileExtensionInfo))
+    if (url().isEmpty() && !getURL(m_fileExtensionInfo, m_fileExtensionValue))
         return;
     writeFile();
 }
 
 void ItemDocument::fileSaveAs()
 {
-    if (!getURL(m_fileExtensionInfo))
+    if (!getURL(m_fileExtensionInfo, m_fileExtensionValue))
         return;
     writeFile();
 

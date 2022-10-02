@@ -26,6 +26,7 @@ MechanicsDocument::MechanicsDocument(const QString &caption)
     m_type = Document::dt_mechanics;
     m_pDocumentIface = new MechanicsDocumentIface(this);
     m_fileExtensionInfo = QString("*.mechanics|%1 (*.mechanics)\n*|%2").arg(i18n("Mechanics")).arg(i18n("All Files"));
+    m_fileExtensionValue = QString(".mechanics");
     m_canvas->retune(128);
 
     m_selectList = new MechanicsGroup(this);

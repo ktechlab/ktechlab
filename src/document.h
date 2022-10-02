@@ -124,7 +124,7 @@ public:
      * Prompts the user for a url, with the given types for the filter.
      * If user accepts, returns true, and set the url to the new url.
      */
-    bool getURL(const QString &types);
+    bool getURL(const QString &types, const QString &fileExtToEnforce);
     /**
      * Attempts to open a url, and returns true if succesful.
      * You must reinherit this function.

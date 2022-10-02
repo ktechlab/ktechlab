@@ -379,6 +379,7 @@ protected:
     ItemMap m_itemList;
 
     QString m_fileExtensionInfo; // For displaying in the save file dialog
+    QString m_fileExtensionValue; // saving files enforces this file extension
 
 private:
     /**
