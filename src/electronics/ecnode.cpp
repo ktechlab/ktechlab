@@ -190,55 +190,62 @@ void ECNode::setVisible( bool yes )
 
 QPoint ECNode::findConnectorDivergePoint( bool * found )
 {
-	// FIXME someone should check that this function is OK ... I just don't understand what it does
-	bool temp;
-	if (!found)
-		found = &temp;
-	*found = false;
+    // FIXME someone should check that this function is OK ... I just don't understand what it does
+    bool temp;
+    if (!found)
+        found = &temp;
+    *found = false;
 
-	if ( numCon( false, false ) != 2 )
-		return QPoint(0,0);
+    if (numCon(false, false) != 2)
+        return QPoint(0, 0);
 
-	QPointList p1;
-	QPointList p2;
+    QPointList p1;
+    QPointList p2;
 
-	int inSize = m_connectorList.count();
+    int inSize = m_connectorList.count();
 
-	const ConnectorList connectors = m_connectorList;
-	const ConnectorList::const_iterator end = connectors.end();
+    const ConnectorList connectors = m_connectorList;
+    const ConnectorList::const_iterator end = connectors.end();
 
-	bool gotP1 = false;
-	bool gotP2 = false;
+    bool gotP1 = false;
+    bool gotP2 = false;
 
-	int at = -1;
-	for ( ConnectorList::const_iterator it = connectors.begin(); it != end && !gotP2; ++it )
-	{
-		at++;
-		if ( !(*it) || !(*it)->canvas() )
-			continue;
+    int at = -1;
+    for (ConnectorList::const_iterator it = connectors.begin(); it != end && !gotP2; ++it) {
+        at++;
+        if (!(*it) || !(*it)->canvas())
+            continue;
 
-		if (gotP1) {
-			p2 = (*it)->connectorPoints( at < inSize );
-			gotP2 = true;
-		} else {
-			p1 = (*it)->connectorPoints( at < inSize );
-			gotP1 = true;
-		}
-	}
+        if (gotP1) {
+            p2 = (*it)->connectorPoints(at < inSize);
+            gotP2 = true;
+        } else {
+            p1 = (*it)->connectorPoints(at < inSize);
+            gotP1 = true;
+        }
+    }
 
-	if ( !gotP1 || !gotP2 )
-		return QPoint(0,0);
+    if (!gotP1 || !gotP2)
+        return QPoint(0, 0);
 
-	unsigned maxLength = p1.size() > p2.size() ? p1.size() : p2.size();
+    // If they are differing lengths, return the end of the shortest
+    if (p1.size() < p2.size()) {
+        *found = true;
+        return p1.last();
+    } else if (p2.size() < p1.size()) {
+        *found = true;
+        return p2.last();
+    }
 
-	for ( unsigned i = 1; i < maxLength; ++i )
-	{
-		if ( p1[i] != p2[i] ) {
-			*found = true;
-			return p1[i-1];
-		}
-	}
-	return QPoint(0, 0);
+    Q_ASSERT(p1.size() == p2.size());
+
+    for (unsigned i = 1; i < qMin(p1.size(), p2.size()); ++i) {
+        if (p1[i] != p2[i]) {
+            *found = true;
+            return p1[i - 1];
+        }
+    }
+    return QPoint(0, 0);
 }
 
 void ECNode::addConnector( Connector * const connector )
