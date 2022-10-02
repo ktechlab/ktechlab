@@ -1,0 +1,164 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="circuits">
+	<title
+>Kretsar</title>
+	
+	<sect1 id="placing_components">
+		<title
+>Placera komponenter</title>
+		<para
+>Till vänster hittar du fliken <guilabel
+>Komponenter</guilabel
+>.</para>
+		
+		<para
+>Att dra en komponent från sidoraden till kretsen placerar den under muspekaren. Som alternativ kan man dubbelklicka på ett objekt i sidoraden <guilabel
+>Komponenter</guilabel
+> för att lägga till den i kretsen upprepade gånger. Med den metoden placeras en kopia av den markerade komponenten upprepade gånger vid vänsterklick med musen, ända tills ett tryck på Escape eller högerklick med musen.</para>
+		
+		<para
+>För att flytta på en komponent, vänsterklicka och dra. Du kommer att märka att den låser till det underliggande rutnätet. Om komponenten dras utanför arbetsområdets höger- eller underkant, ändrar arbetsområdet storlek för att anpassa sig.</para>
+		
+		<para
+>Alla komponenter har ett begrepp om orientering: 0, 90, 180 och 270 grader. De är inte symmetriska runt en axel, utan kan också vändas. För att rotera ett antal markerade komponenter, högerklicka antingen och välj i menyn <guimenu
+>Orientering</guimenu
+>, eller klicka på rotationsknapparna i verktygsraden. De senare kan också kommas åt genom att trycka på tangenterna <keycap
+>[</keycap
+> och <keycap
+>]</keycap
+> (välkänt för användare av <application
+>Inkscape</application
+>). Sidoraden <guilabel
+>Objekt</guilabel
+> (till höger) tillhandahåller en effektiv metod för att ställa in orienteringen genom att visa förhandsbilder av komponenterna. Att vända komponenter är också möjligt via sidoraden <guilabel
+>Objekt</guilabel
+>.</para>
+	</sect1>
+	
+	<sect1 id="connecting_components">
+		<title
+>Koppla ihop komponenter</title>
+		<para
+>Det finns två sätt att skapa kopplingar (ledningar): automatiskt och manuellt. Sätten väljes via kombinationsmenyn <guimenu
+>Anslutningsmetod</guimenu
+> i verktygsraden. Experimentera med båda. Automatisk koppling är oftast bättre för små kretsar, medan mer komplexa kretsar kan behöva manuell koppling.</para>
+		
+		<para
+>Med den automatiska metoden skapas en koppling genom att antingen dra från en komponentanslutning eller befintlig koppling, och släppa musen över önskad anslutning eller koppling. Den raka linjen som dras blir orange när en giltig koppling skulle skapas när musen släpps. Om linjen som ritas är svart beror det antingen på att det inte finns någonting under muspekaren, eller att du försöker koppla ihop två objekt som redan är hopkopplade. Med flödesscheman är kriterierna för en giltig koppling komplexare, men vi kommer till det senare.</para>
+		
+		<para
+>Det bästa sättet att få en känsla för manuell koppling är att experimentera med den. Klicka på startanslutningen eller kopplingen, och sträck ut den nya kopplingen genom att flytta musen bort från stället som klickades. Vänsterklicka för att placera ett hörn. Tryck antingen på Escape eller högerklicka med musen för att avbryta uppritning av kopplingen.</para>
+		
+		<para
+>&ktechlab; försöker så gott som möjligt behålla vägarna som dina kopplingar går. Om att dra en komponent dock gör att en kopplings slutpunkter rör sig i förhållande till varandra, tvingas &ktechlab; att rita om kopplingen med den automatiska metoden. Innan en komponent flyttas kan du se vilka kopplingar som måste dras om, eftersom de blir gråa när de klickas.</para>
+		
+		<para
+>För att ta bort en befintlig koppling, markera den genom att rita upp en liten markeringsrektangel över en del av kopplingen, och tryck på <keycap
+>Delete</keycap
+>.</para>
+	</sect1>
+	
+	<sect1 id="component_attributes">
+		<title
+>Komponentegenskaper</title>
+		<para
+>De flesta komponenter har redigerbara egenskaper, såsom motståndsvärdet för motstånd. Normalt kan enkla egenskaper redigeras i verktygsraden när en grupp av samma sorts komponent är markerad. Om markeringen innehåller en blandning av olika sorters komponenter (såsom motstånd och kondensatorer), visas inga egenskaper för redigering.</para>
+		
+		<para
+>Vissa komponenter har mer avancerade egenskaper som inte är tillgängliga via verktygsraden. De finns i sidoraden <guilabel
+>Objekt</guilabel
+> till höger. Dioden har exempelvis ett antal olika beteendekaraktäristika som kan redigeras där.</para>
+<!-- Not in 0.3.6 version
+		<para
+>If your selection of components have different values for their attributes (for example, different resistances for a selection of resistors), the <guilabel
+>Item</guilabel
+> sidebar will have the disagreeing attributes grayed-out. You can enable these by clicking the <guibutton
+>Merge properties</guibutton
+> button.</para>
+
+		<para
+>The "Defaults" button will reset the component attributes to the ones it had on creation.</para>
+		-->
+		<para
+>Det finns en sorts egenskap som inte kan redigeras antingen via verktygsraden eller objektsidoraden, flerraderstext. Att dubbelklicka på objektet visar en dialogruta där texten kan matas in.</para>
+	</sect1>
+	
+	<sect1 id="circuit_simulation">
+		<title
+>Simulering</title>
+		<para
+>Normalt kör simulering när en ny krets skapas. Simuleringens status visas nere till höger i kretsvyn, och kan ändras via menyn <guimenu
+>Verktyg</guimenu
+>. Först en kort förklaring av hur simulatorn fungerar. Det bör hjälpa dig att få ut så mycket som möjligt av den.</para>
+		
+		<para
+>När en krets skapas eller ändras, delas de påverkade områdena upp i grupper av anslutningar och kopplingar som kan anses vara oberoende. Varje grupp simuleras sedan som en separat enhet (även om de fortfarande påverkar varandra via komponenterna), med tillhandahållen simulering beroende på gruppens komplexitet. Komplexa grupper, såsom de som innehåller icke-linjära komponenter som LED:ar, är långsamma att simulera. Grupper som bara innehåller logiska anslutningar, där bara en bestämmer värdet av anslutningarna, är snabbast att simulera.</para>
+		
+		<para
+>Simuleringens resultat tillhandahålls med flera olika grafiska metoder.</para>
+		
+		<para
+>Komponenternas anslutningar visar spänningsstaplar. De är färgade orange för positiva spänningar och blåa för negativa spänningar. Deras längd beror på spänningsnivån, och deras bredd på strömstyrkan som flyter genom anslutningen. De kan stängas av på sidan <guilabel
+>Allmänt</guilabel
+> i dialogrutan <guilabel
+>Inställningar</guilabel
+>.</para>
+		
+		<para
+>Att hålla musen över en anslutning eller koppling visar ett litet verktygstips som anger spänningen och strömmen på det stället i kretsen. Flera komponenter ger också grafisk återmatning, till exempel LED:ar, voltmätare och amperemätare.</para>
+		
+		<para
+>Till sist finns oscilloskopet, som beskrivs i nästa avsnitt.</para>
+	</sect1>
+	
+	<sect1 id="oscilloscope">
+		<title
+>Oscilloskop</title>
+		<para
+>Oscilloskopet kan spela in logisk, spännings- och strömdata. Logikproben är optimerad för att lagra Booleska samplingar, och bör användas istället för spänningsproben vid mätning av logik.</para>
+		
+		<para
+>Skapa en ny probkomponent och anslut den på lämpligt ställe i kretsen för att samla in data. Utdata ritas omedelbart upp i oscilloskopet. Genom att lägga till flera prober, trycks utdata ihop intill varandra. Det går att flytta om dem genom att dra pilarna till vänster om oscilloskopskärmen och ändra deras färg via probens egenskaper.</para>
+		
+		<para
+>För spännings- och strömprober, kan ingångsvärdenas intervall justeras i sidoraden <guilabel
+>Objekteditor</guilabel
+> till höger.</para>
+		
+		<para
+>Zoomning styrs av ett skjutreglage. Skalningen är logaritmisk. För varje bildpunkt som reglaget flyttas, multipliceras zoomfaktorn med en konstant. &ktechlab; simulerar logik till en maximal precision av 1 mikrosekund, och i maximal zoomnivå motsvarar en mikrosekund 8 bildpunkter.</para>
+		
+		<para
+>När rullningslisten dras till slutet förblir den där när ny data spelas in. Annars förblir rullningslisten vid en fast tid. Oscilloskopskärmen kan också flyttas framåt och bakåt genom att vänsterklicka och dra visningen. På grund av begränsningar i det underliggande grafiska komponentsystemet är panoreringen mycket grynig vid största zoomning.</para>
+		
+		<para
+>Att högerklicka på oscilloskopskärmen visar en meny där det går att bestämma antal gånger som oscilloskopskärmen uppdateras. Det tillåter antingen en jämnare visning, eller reducerad processoranvändning.</para>
+	</sect1>
+	
+	<sect1 id="subcircuits">
+		<title
+>Delkretsar</title>
+		<para
+>Delkretsar erbjuder ett återanvändbart och snyggt sätt att använda en krets, när man bara är intresserad av att interagera med kretsens externa anslutningar. Delkretsen skapas som en integrerad krets, IC, där anslutningarna tillhandahåller interaktion med den interna kretsen.</para>
+		
+		<para
+>Först måste kretsen som ska användas som en mall för att skapa en delkrets konstrueras. Interaktionsställen definieras med komponenten <guilabel
+>Extern anslutning</guilabel
+>. De måste kopplas in och placeras där du vill att anslutningen ska vara placerad på delkretsens integrerade krets.</para>
+		
+		<para
+>Markera därefter komponentgruppen och de externa anslutningarna som ska göras till en delkrets, och välj <guimenuitem
+>Skapa delkrets</guimenuitem
+> i högerklicksmenyn. Du blir tillfrågad om att ge delkretsen ett namn. När den väl har skapats, dyker namnet upp i väljaren <guilabel
+>Komponenter</guilabel
+> under avdelningen <guilabel
+>Delkretsar</guilabel
+>. De kan behandlas som vilken vanlig komponent som helst, med det ytterligare alternativet att ta bort dem genom att högerklicka på objektet och välja <guimenuitem
+>Ta bort</guimenuitem
+>.</para>
+	</sect1>
+	
+</chapter>
+
+
+

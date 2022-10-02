@@ -1,0 +1,31 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="faq">
+<title
+>PMF</title>
+
+<qandaset>
+	<qandaentry>
+		<question>
+			<para
+>El &ktechlab; utilitza un munt de CPU</para>
+		</question>
+		
+		<answer>
+				<para
+>Hi ha diverses causes possibles. La simulació de circuits que contenen components tant reactius com no lineals (com condensadors i transistors) requereix molt de temps de CPU per a simular. Podeu fer una pausa i reprendre la simulació mitjançant el menú <guimenu
+>Eines</guimenu
+>.</para>
+			
+				<para
+>Dibuixar l'àrea de treball (en particular, tornar a dibuixar moltes barres de voltatge que s'actualitzen ràpidament en els pins) també requereix un ús intensiu de la CPU. Podeu reduir la freqüència d'actualització o desactivar les barres de voltatge mitjançant el diàleg <guilabel
+>Configuració</guilabel
+>. La freqüència d'actualització de l'<guilabel
+>Oscil·loscopi</guilabel
+> també es pot reduir fent clic dret sobre la seva pantalla.</para>
+
+			<para
+>Recordeu que la pròxima versió principal del &ktechlab; podria ser molt més ràpida tant en la visualització de l'àrea de treball com en la simulació dels components reactius i no lineals.</para>
+		</answer>
+	</qandaentry>
+</qandaset>
+</chapter>

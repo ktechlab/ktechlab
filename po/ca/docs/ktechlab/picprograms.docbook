@@ -1,0 +1,116 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="pic_programs">
+	<title
+>Programes PIC</title>
+	
+	<sect1 id="manipulation">
+		<title
+>Manipular</title>
+		
+		<para
+>Quan creeu un FlowCode o un document de text, notareu un menú desplegable a la barra d'eines amb una icona de coet. Des d'allí, podreu manipular el programa PIC. Canviant-lo a formes diferents.</para>
+		
+		<itemizedlist>
+				<listitem
+><para
+><guimenuitem
+>Converteix a &microbe;</guimenuitem
+>: s'utilitza només en documents de &flowcode;. Això s'explica en més detall en el <xref linkend="flowcode"/>.</para
+></listitem>
+			
+				<listitem
+><para
+><guimenuitem
+>Converteix en assemblador</guimenuitem
+>: es pot utilitzar en quatre contextos. Quan està obert un document de &flowcode;, generarà el &flowcode; com instruccions en assemblador. Quan està obert un document de &microbe;, invocarà el programa <command
+>microbe</command
+> distribuït amb el &ktechlab; per a compilar el programa. De manera similar, si està obert un programa en C, intentarà compilar mitjançant SDCC. Quan està obert un document de text que conté hexadecimal PIC, invocarà el <command
+>gpdasm</command
+> per a desassemblar l'hexadecimal.</para
+></listitem>
+			
+				<listitem
+><para
+><guimenuitem
+>Converteix a hexadecimal</guimenuitem
+>: això també es pot utilitzar en quatre contextos. Igual com <guimenuitem
+>Converteix a assemblador</guimenuitem
+>, això es pot utilitzar amb documents de &flowcode;, &microbe; i C. També s'habilitarà quan s'obri un document en assemblador mitjançant el <command
+>gpasm</command
+>.</para
+></listitem>
+			
+				<listitem
+><para
+><guimenuitem
+>Puja al PIC</guimenuitem
+>: això converteix en assemblador el programa PIC que s'està editant i el puja utilitzant el programador que ha seleccionat l'usuari.</para
+></listitem>
+		</itemizedlist>
+		
+		<para
+>Cap d'aquestes accions requereix que es desi el document actual -el qual és molt útil quan es requereix un programa ràpid-. Per als objectius que no són PIC, el diàleg <guilabel
+>Sortida</guilabel
+> que s'invoca en fer clic sobre una d'aquestes accions pot generar el resultat (sempre text en els tres casos anteriors) en un document nou o en un fitxer. Si la sortida es desa en un fitxer, també proporcionarà opcions per a pujar el fitxer després de crear-lo i afegir el fitxer acabat de crear al projecte obert (si n'hi ha un obert).</para>
+		
+		<para
+>Recordeu que podeu fer que el &ktechlab; utilitzi sempre la mateixa vista per a mostrar el contingut generat seleccionant l'opció sota la configuració <guilabel
+>General</guilabel
+>.</para>
+	</sect1>
+	
+	<sect1 id="uploading">
+		<title
+>Transmetre</title>
+		
+		<para
+>El &ktechlab; utilitza programadors de tercers per a pujar els programes als PIC. Venen predefinits una varietat de programadors habituals. Se'n poden afegir altres mitjançant el diàleg <guilabel
+>Arranjament</guilabel
+>.</para>
+		
+		<para
+>La llista de ports s'obté d'escanejar els ports sèrie i paral·lels que siguin de lectura i escriptura. Els ports sèrie se cerquen a:</para>
+			<itemizedlist>
+				<listitem
+><para
+>/dev/ttyS<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+				<listitem
+><para
+>/dev/tts/<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+				<listitem
+><para
+>/dev/ttyUSB<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+				<listitem
+><para
+>/dev/usb/tts/<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+			</itemizedlist>
+		<para
+>Els ports paral·lels se cerquen a: <itemizedlist>
+				<listitem
+><para
+>/dev/usb/parport<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+				<listitem
+><para
+>/dev/usb/parports/<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+			</itemizedlist>
+		</para>
+	</sect1>
+</chapter>

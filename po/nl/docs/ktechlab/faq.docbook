@@ -1,0 +1,31 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="faq">
+<title
+>FAQ</title>
+
+<qandaset>
+	<qandaentry>
+		<question>
+			<para
+>&ktechlab; belast de CPU zwaar</para>
+		</question>
+		
+		<answer>
+				<para
+>Er kunnen meerdere redenen daarvoor zijn. Simulatie van circuits die zowel reactieve als niet-lineaire componenten (zoals condensatoren en transistors) hebben, hebben veel CPU-tijd nodig voor de simulatie. U kunt de simulatie pauzeren en weer door laten gaan via het <guimenu
+>Gereedschap</guimenu
+> menu.</para>
+			
+				<para
+>Het tekenen van het werkvlak (met name het hertekenen van veel snel veranderingen in de spanningsbalken van pinnen) is ook CPU intensief. U kunt de refresh rate verlagen of de spanningsbalken uitschakelen via het <guilabel
+>Instellingen</guilabel
+> dialoog. De refresh rate van de <guilabel
+>Oscilloscoop</guilabel
+> kunt u ook verlagen door rechts te klikken op het scherm ervan.</para>
+
+			<para
+>Vergeet niet dat de volgende major release van &ktechlab; veel sneller kan zijn bij zowel het tonen van het werkvlak en de simulatie van reactieve en niet lineaire componenten.</para>
+		</answer>
+	</qandaentry>
+</qandaset>
+</chapter>

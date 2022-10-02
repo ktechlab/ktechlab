@@ -1,0 +1,69 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="quick">
+	<title
+>Snabbtur</title>
+	
+	<sect1 id="introduction">
+		<title
+>Inledning</title>
+		
+		<para
+>&ktechlab; är en integrerad utvecklingsmiljö för mikrokontroller och elektronik. Den kan utföra simulering av ett antal komponenter (logisk, integrerad, linjär, icke-linjär och reaktiv), simulering och avlusning av PIC mikrokontroller via gpsim, och levereras med sina egna tätt kopplade och komplementära högnivåspråk, &flowcode; och &microbe;.</para>
+		
+		<para
+>Den har konstruerats för att vara så lättanvänd och lite påträngande som möjligt. Alla komponenter och flödeselement har sammanhangsberoende hjälp, och simulera elektronik är så enkelt som att dra komponenter till arbetsområdet och skapa kontakter som automatiskt kopplar ihop sig via sina anslutningar. &flowcode; låter nya användare av PIC:er omedelbart skapa egna program, medan elektroniksimuleringen gör det möjligt att stega igenom ett PIC-assemblerprogram inne i en krets.</para>
+	</sect1>
+	
+	<sect1 id="documents">
+		<title
+>Dokument</title>
+		<para
+>För att komma igång med &kappname;, måste du skapa ett nytt dokument, där typen beror på din avsikt:</para>
+			
+			<itemizedlist>
+				<listitem
+><para
+>&flowcode;-dokument: Skapa ett PIC-program via ett flödesschema.</para
+></listitem>
+				<listitem
+><para
+>Kretsdokument: Simulera elektronikkretsar och mikrokontroller.</para
+></listitem>
+				<listitem
+><para
+>&microbe;-dokument: Högnivåspråk för PIC:er, också använt av &flowcode; för att skapa assemblerkod.</para
+></listitem>
+				<listitem
+><para
+>Assemblerdokument: Börja skriva ett PIC-assemblerprogram.</para
+></listitem>
+			</itemizedlist>
+			
+		<para
+>&ktechlab; använder en dokumentvisningsmodell, på så sätt att dokumentets logik är helt skild från öppna vyer av dokumentet. Det tillåter flera vyer av samma fil.</para>
+		
+		<para
+>När ett nytt dokument skapas, skapas vyn under en separat flik. Varje flik kan stödja hur många vyer som helst, ordnade i ett godtyckligt mönster. Det möjliggör exempelvis simulering av ett PIC-program i en krets, medan programmet stegas igenom i ett assemblerdokument under samma flik.</para>
+		
+		<para
+>Innehållet i flikar kan dupliceras genom att dra fliken till ett tomt område på flikraden. De kan infogas i en befintlig flik genom att dra dem till den fliken.</para>
+		
+		<para
+>Detaljerade instruktioner om dokumenten ovan finns i de respektive egna kapitlen.</para>
+	</sect1>
+	
+	<sect1 id="drawing">
+		<title
+>Rita</title>
+		
+		<para
+>Det finns flera ritverktyg inklusive text tillgängliga i krets- och &flowcode;-dokument. De är tillgängliga genom att klicka på penselikonen i verktygsraden. Dra musen för att antingen skapa en form eller en linje lämplig för ritverktyget som används.</para>
+		
+		<para
+>När en ritning är markerad kan dess storlek ändras genom att dra i greppen. Att hålla nere &Shift; under dragning, låser greppen till det underliggande rutnätet. Varje verktyg har grundalternativ tillgängliga i verktygsraden, såsom färger. Det finns också mer avancerade alternativ i sidoraden <guilabel
+>Objekteditor</guilabel
+>, såsom linje- och ändstilar.</para>
+		
+	</sect1>
+	
+</chapter>

@@ -1,0 +1,29 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="faq">
+<title
+>Vanliga frågor</title>
+
+<qandaset>
+	<qandaentry>
+		<question>
+			<para
+>&ktechlab; använder mycket processorkraft</para>
+		</question>
+		
+		<answer>
+				<para
+>Det finns flera möjliga orsaker. Simulering av kretsar som både innehåller reaktiva och icke-linjära komponenter (som kondensatorer och transistorer) kräver mycket processortid. Det går att pausa och återuppta simuleringen via menyn <guimenu
+>Verktyg</guimenu
+>.</para>
+			
+				<para
+>Att rita upp arbetsområdet (i synnerhet rita om många snabbt uppdaterade spänningsstaplar på anslutningar) kräver också mycket processorkraft. Det går att reducera uppdateringsfrekvensen, eller stänga av spänningsstaplarna via dialogrutan <guilabel
+>Inställningar</guilabel
+>. Oscilloskopets uppdateringsfrekvens kan också reduceras genom att högerklicka på dess skärm.</para>
+
+			<para
+>Observera att nästa huvudutgåva av &ktechlab; kommer att vara mycket snabbare på att visa arbetsområdet och simulera reaktiva och icke-linjära komponenter.</para>
+		</answer>
+	</qandaentry>
+</qandaset>
+</chapter>

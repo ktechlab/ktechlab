@@ -1,0 +1,83 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="debugging">
+	<title
+>Debug</title>
+	
+	<sect1 id="starting_debugger">
+		<title
+>Avviare il debug</title>
+		
+		<para
+>Il supporto del debug è fornito per Assembly, SDCC e Microbe, quando sono aperti come un documento di testo. Da qui, lo stepping è controllato tramite il menu <guimenu
+>Debug</guimenu
+>. Esistono due metodi di avviare il debugger.</para>
+		
+		<para
+>Se il programma PIC è già in esecuzione in un circuito, facendo doppio clic sul componente PIC si aprirà il programma. Per i programmi PIC assembly, il debugger per quel documento di testo sarà collegato al componente PIC. In questo caso, il menu di debug non può arrestare il programma PIC, poiché appartiene al componente PIC.</para>
+		
+		<para
+>Se il file assembly è già aperto, è possibile eseguire il debugger tramite il menu <guimenu
+>Debug</guimenu
+>. Dopo aver compilato il programma, il debugger sarà pronto, con il programma PIC in pausa alla prima istruzione. Si noti che quando si esegue il debug di linguaggi di alto livello, il punto di esecuzione attuale non sarà mostrato se non vi è alcuna linea corrispondente alla prima istruzione assembly da eseguire. In questo caso, facendo clic su <guibutton
+>Avanti</guibutton
+> si porterà il punto di esecuzione alla prima riga del programma.</para>
+	</sect1>
+	
+	<sect1 id="controlling_debugger">
+		<title
+>Controllare il debugger</title>
+		
+		<para
+>Il debugger può essere in una delle due modalità: esecuzione e stepping. Durante l'esecuzione, il programma PIC sarà simulato in tempo reale. Per consentire lo stepping, il programma PIC deve essere messo in pausa - facendo clic su <guimenuitem
+>Interrompi</guimenuitem
+> nel menu <guimenu
+>Debug</guimenu
+> o facendo clic sul pulsante Pausa sul componente PIC.</para>
+		
+		<para
+>Nella modalità di stepping, una freccia verde a margine del documento di testo indica la riga successiva da eseguire (familiare agli utenti di <application
+>KDevelop</application
+>). Può essere utile attivare il bordo dell'icona tramite il menu <guimenu
+>Visualizza</guimenu
+> (può essere attivato permanentemente tramite la finestra <guilabel
+>Impostazioni dell'editor</guilabel
+>).</para>
+		
+		<para
+>Esistono tre tipi di stepping:</para>
+		
+		<itemizedlist>
+				<listitem
+><para
+><guimenuitem
+>Step</guimenuitem
+> - Questo esegue l'istruzione attuale. La freccia verde è spostata sulla riga successiva da eseguire.</para
+></listitem>
+				<listitem
+><para
+><guimenuitem
+>Step Over</guimenuitem
+> - Se l'istruzione successiva da eseguire è una chiamata o simile, allora questa «passa sulla» chiamata, tornando alla modalità di stepping dopo che la chiamata è restituita. Altrimenti, lo step over di un'istruzione si comporta in modo identico a step. Per dirlo tecnicamente: il livello iniziale dello stack viene registrato e l'esecuzione del programma viene messa in pausa quando il livello dello stack torna al livello iniziale.</para
+></listitem>
+				<listitem
+><para
+><guimenuitem
+>Step Out</guimenuitem
+> - Se l'esecuzione attuale si trova all'interno di una chiamata o simile, ciò attenderà fino alla restituzione della chiamata. Analogamente allo step over, questo equivale ad attendere fino a quando il livello dello stack non torna a uno in meno del livello iniziale, se il livello iniziale è maggiore di zero.</para
+></listitem>
+		</itemizedlist>
+		
+		<para
+>I punti di interruzione consentono di mettere in pausa l'esecuzione quando il programma PIC raggiunge una determinata istruzione. Per attivare o disattivare un punto di interruzione sulla riga contenente il cursore, utilizzare il menu <guimenu
+>Debug</guimenu
+> o fare clic sul bordo dell'icona del documento di testo.</para>
+		
+		<para
+>La barra laterale <guilabel
+>Visore dei simboli</guilabel
+> sulla destra mostra i valori dei registri delle funzioni speciali. Per scoprire il valore di una variabile nei registri di uso generico, è possibile passare il puntatore del mouse sul nome della variabile in un'istruzione che opera su quel registro. Notare che la selezione di base nel <guilabel
+>Visore dei simboli</guilabel
+> controlla anche come viene visualizzato il valore quando si passa sopra una variabile.</para>
+	</sect1>
+	
+</chapter>

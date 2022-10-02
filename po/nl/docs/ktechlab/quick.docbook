@@ -1,0 +1,69 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="quick">
+	<title
+>Snelle rondleiding</title>
+	
+	<sect1 id="introduction">
+		<title
+>Inleiding</title>
+		
+		<para
+>&ktechlab; is een IDE voor elektronische schakelingen en microcontrollers. Het kan simulatie uitvoeren van een variëteit of componenten (logische, geïntegreerde, lineaire, niet-lineaire en reactieve), simulatie en debugging van PIC microcontrollers via gpsim en komt met zijn eigen nauw gekoppelde en complementaire hoog niveau talen: &flowcode; en &microbe;.</para>
+		
+		<para
+>Het is ontworpen om gemakkelijk in gebruik te zijn en zo weinig opdringerig als mogelijk; alle componenten en FlowParts hebben contextgevoelige help en simuleren van elektronica is even eenvoudig als componenten naar het werkgebied te slepen en connectors te maken die zichzelf automatisch routeren tussen hun pennen. &flowcode; staat toe om gebruikers die nieuw zijn in PIC's om direct hun eigen programma's te maken, terwijl de elektronische simulatie toestaat door een assemblyprogramma van PIC in een circuit te stappen.</para>
+	</sect1>
+	
+	<sect1 id="documents">
+		<title
+>Documenten</title>
+		<para
+>Om te beginnen in &ktechlab; moet u een nieuw document aanmaken, waarvan het type zal afhangen van uw taak:</para>
+			
+			<itemizedlist>
+				<listitem
+><para
+>&flowcode;-document - Construeer een PIC programma via het maken van een flowchart.</para
+></listitem>
+				<listitem
+><para
+>Circuit-document - Simuleer elektronische schakelingen en microcontrollers.</para
+></listitem>
+				<listitem
+><para
+>&microbe;-document - Hoog niveau taal voor PIC's, ook gebruikt door &flowcode; om assembly te genereren.</para
+></listitem>
+				<listitem
+><para
+>Assembly-document - Begin met schrijven van een PIC assembly-programma.</para
+></listitem>
+			</itemizedlist>
+			
+		<para
+>&ktechlab; gebruikt een Document-weergave model, waarbij de Document logica compleet separaat is van de geopende weergaven van het document. Hierdoor kunt u meerdere weergaven van hetzelfde bestand hebben.</para>
+		
+		<para
+>Bij het creëren van een nieuw document, wordt de weergave in een separate tab aangemaakt. Elke tab kan een groot aantal weergaven hebben, in elk gewenst patroon ingedeeld. Hierdoor kunt u, bijvoorbeeld, een in een circuit opgenomen PIC programma simuleren, terwijl u in hetzelfde tab een assembly-document door het programma heen stapt.</para>
+		
+		<para
+>U kunt de inhoud van een tab dupliceren door de tab te verslepen naar een leeg gedeelte van de tab balk. U kunt het ook aan een al bestaande tab toevoegen door het naar die tab te verslepen.</para>
+		
+		<para
+>Gedetailleerde instructies over de bovenstaande documenten zijn te vinden in hun eigen overeenkomstige hoofdstukken.</para>
+	</sect1>
+	
+	<sect1 id="drawing">
+		<title
+>Tekenen</title>
+		
+		<para
+>Bij documenten over electronische schema's en &flowcode;, zijn er verschillende tekenmiddelen beschikbaar, waaronder tekst. Deze komen beschikbaar als u in de werkbalk op het paintbrush pictogram klikt. Om te tekenen, gaat u met de muis naar een geschikt stuk gereedschap om een vorm of een lijn te tekenen.</para>
+		
+		<para
+>Als u een tekening heeft geselecteerd, dan kunt u het formaat wijzigen door aan zijn handles te slepen. Door de &Shift; ingedrukt te houden tijdens het slepen, zal de handle aan het onderliggende raster vast klikken. Elk stuk gereedschap heeft standaard bewerkingen (zoals kleuren) die vanaf de werkbalk toegankelijk zijn. Er zijn ook meer geavanceerde mogelijkheden die te vinden zijn in de <guilabel
+>Item bewerken</guilabel
+>-zijbalk, zoals lijn- en cap-stijlen.</para>
+		
+	</sect1>
+	
+</chapter>

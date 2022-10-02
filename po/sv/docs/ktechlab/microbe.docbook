@@ -1,0 +1,610 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="microbe">
+<title
+>&microbe;</title>
+<sect1>
+	<title
+>Inledning och generell syntax</title>
+	<para
+><application
+>Microbe</application
+> kompilerar program skrivna i språket anpassat för PIC:er, som ett medföljande program till &ktechlab;. Syntaxen har skapats för att passa ett &flowcode;-program. Syntaxen för att köra <command
+>microbe</command
+> på kommandoraden är: <programlisting
+>microbe [väljare] [indata.microbe] [utdata.asm]</programlisting
+> där väljare är: </para>
+		<itemizedlist>
+			<listitem
+><para
+><function
+>--show-source</function
+>: Lägger till varje &microbe;-källkodsrad  som en kommentar i assemblerutmatningen innan själva assemblerinstruktionerna för den raden.</para
+></listitem>
+			<listitem
+><para
+><function
+>--no-optimize</function
+>: Förhindra optimering av instruktionerna skapade från källkoden. Optimering är oftast säker, alltså är väljaren i huvudsak avsedd för avlusning.</para
+></listitem>
+		</itemizedlist>
+		
+	<para
+>Filen indata.microbe måste identifiera PIC:n som är målet genom att infoga namnet på PIC:n längst upp i filen, t.ex. är namnet på PIC16F84 "P16F84". <example
+><title
+>Enkelt fullständig &microbe;-program</title>
+			<programlisting role="correct"
+>P16F84
+
+a = 0
+repeat
+{
+        PORTA = a
+        a = a + 1
+}
+until a == 5
+
+end</programlisting>
+			</example>
+		</para>
+
+	<sect2 id="namingconventions">
+		<title
+>Namngivningskonventioner</title>
+		<para
+>Följande regler gäller för variabelnamn och etiketter: <itemizedlist>
+				<listitem
+><para
+>De kan bara innehålla alfanumeriska tecken [a..z][A..Z][0..9] och understrecket "_".</para
+></listitem>
+				<listitem
+><para
+>De är skiftlägeskänsliga.</para
+></listitem>
+				<listitem
+><para
+>De kan inte börja med en siffra.</para
+></listitem>
+				<listitem
+><para
+>De får inte börja med <quote
+>__</quote
+> (dubbla understreck) eftersom det är reserverat för användning av kompilatorn.</para
+></listitem>
+			</itemizedlist>
+		</para>
+	</sect2>
+
+	<sect2 id="bracingconventions">
+		<title
+>Parenteskonventioner</title>
+		<para
+>Klammerparenteser, {}, anger början och slutet på ett kodblock. De kan finnas var som helst före början och efter slutet på kodblocket. Exempel på korrekta kodblock: <programlisting role="correct"
+>sats1 {
+        någon kod
+}</programlisting>
+		<programlisting role="correct"
+>sats2 {
+        annan kod }</programlisting>
+		
+		<programlisting role="correct"
+>sats3
+{
+        annan kod
+}</programlisting>
+		
+		<programlisting role="correct"
+>sats5 {
+        kodblock
+} sats6</programlisting>
+			</para>
+		</sect2>
+		<sect2 id="commenting">
+			<title
+>Kommentarer</title>
+			<para
+>Kommentarer liknar C. // kommenterar bort resten av raden. /* och */ anger en flerraders kommentar. <programlisting role="correct"
+>// Det här är en kommentar
+x = 2 
+/* Liksom denna
+flerraders kommentar */</programlisting>
+		</para>
+	</sect2>
+
+	<sect2 id="structure">
+		<title
+>Programstruktur</title>
+		<para
+>PIC-id måste infogas överst i programmet. Slutet på huvudprogrammet anges med <quote
+>end</quote
+>. Subrutiner måste placeras efter <quote
+>end</quote
+>. </para>
+	</sect2>
+
+	<sect2 id="subroutines">
+		<title
+>Subrutiner</title>
+		<para
+>En subrutin kan anropas var som helst i koden. Syntax: </para>
+		<programlisting role="correct"
+>sub SubrutinNamn
+{
+        // Kod...
+}</programlisting>
+<para
+>Subrutinen anropas med <quote
+>call <replaceable
+>SubrutinNamn</replaceable
+></quote
+>.</para>
+	</sect2>
+</sect1>
+
+<sect1 id="languagereference">
+	<title
+>&microbe; språkreferens</title>
+	<sect2 id="if">
+		<title
+>if</title>
+		<para
+>Villkorliga hopp. Syntax: <programlisting role="correct"
+>if [uttryck] then [sats]</programlisting
+> eller <programlisting role="correct">
+if [uttryck] then
+{
+        [satsblock]
+}</programlisting
+> På liknande sätt för else: <programlisting role="correct"
+>else [sats]</programlisting
+> eller <programlisting role="correct"
+>else
+{
+        [satsblock]
+}</programlisting>
+			</para>
+			
+			<example
+><title
+>if</title>
+			<programlisting role="correct"
+>if porta.0 is high then
+{
+        delay 200
+}
+else
+{
+        delay 300
+}</programlisting>
+		</example>
+	</sect2>
+	
+	<sect2 id="alias">
+		<title
+>alias</title>
+		<para
+>Skapar ett alias från en sträng till en annan. Syntax: <programlisting role="correct"
+>alias [från] [till]</programlisting>
+		</para>
+	</sect2>
+	
+	<sect2 id="repeat">
+		<title
+>repeat</title>
+		<para
+>Kör satsblocket upprepade gånger tills uttrycket utvärderas till true. Utvärderingen av uttrycket utförs efter satsblocket, så att satsblocket alltid körs minst en gång. Syntax: <programlisting role="correct"
+>repeat
+{
+        [satsblock]
+}
+until [uttryck]</programlisting>
+	</para>
+</sect2>
+
+<sect2 id="while">
+<title
+>while</title>
+	<para
+>Liksom repeat, kör det satsblocket upprepade gånger. Dock utvärderas uttrycket innan körning, inte efter. Om uttrycket alltså utvärderas till false den första gången, körs inte satsblocket. Syntax: <programlisting role="correct"
+>while [uttryck]
+{
+        [satsblock]
+}</programlisting>
+	</para>
+</sect2>
+
+
+<sect2 id="goto">
+	<title
+>goto</title>
+	<para
+>Gör att körning av koden fortsätter med nästa sats efter den angivna etiketten. Syntax för goto: <programlisting role="correct"
+><function
+>goto</function
+> [etikettnamn]</programlisting
+> Etikettsyntax: <programlisting role="correct"
+><function
+>etikettnamn:</function
+></programlisting
+> Det är ofta god programmeringsvana att undvika användning av goto. Användning av kontrollsatser och subrutiner leder till ett mycket mer läsbart program. </para>
+	
+	<example
+><title
+>goto</title>
+	<programlisting role="correct"
+>goto MinEtikett
+
+...
+
+[MinEtikett]:
+// Koden fortsätter på det här stället</programlisting>
+		</example>
+	</sect2>
+	
+	<sect2 id="call">
+		<title
+>call</title>
+		<para
+>Anropar en subrutin. Syntax: <programlisting role="correct"
+><function
+>call</function
+> [SubrutinNamn]</programlisting
+> där <replaceable
+>SubrutinNamn</replaceable
+> är namnet på subrutinen som ska anropas. </para>
+	</sect2>
+	
+	<sect2 id="delay">
+	<title
+>delay</title>
+		<para
+>Gör att körning av koden stoppas under angiven tidsperiod. Intervallet anges i millisekunder. Syntax: <programlisting role="correct"
+><function
+>delay</function
+> [intervall]</programlisting>
+		
+		<note
+><para
+>För närvarande antar &microbe; att PIC:n använder frekvensen 4 MHz, dvs. varje instruktion tar 1 mikrosekund att köra. Om det inte är fallet, måste intervallet justeras proportionellt.</para
+></note>
+		</para>
+	</sect2>
+	
+	<sect2 id="sevenseg">
+		<title
+>sevenseg</title>
+		<para
+>Används för att definiera anslutningsavbildningen för en 7-segmentsdisplay (med gemensam katod) ansluten till PIC:n. Syntax <programlisting role="correct"
+><function
+>sevenseg</function
+> [namn] [a] [b] [c] [d] [e] [f] [g]</programlisting
+> där [a] ... [g] är PIC:ns anslutningar dit respektive segment i 7-segmentsdisplayen är kopplade. Anslutningarna kan antingen skrivas som PORTX.N eller RXN. </para>
+		
+		<para
+>För att visa ett tal på 7-segmentdisplayen, behandlas anslutningsavbildningen som en enbart skrivbar variabel. <example>
+				<title
+>Definiera och skriva ut på en 7-segmentsdisplay</title>
+				<programlisting role="correct"
+>sevenseg seg1 RB0 RB1 RB2 RB3 RB4 RB5 RB6
+seg1 = x + 2</programlisting>
+				</example>
+		</para>
+	</sect2>
+	
+	<sect2 id="keypad">
+		<title
+>keypad</title>
+		<para
+>Används för att definiera anslutningsavbildningen för en knappsats ansluten till PIC:n. Syntax: <programlisting role="correct"
+><function
+>keypad</function
+> [namn] [rad 1] ... [rad 4] [kolumn 1] ... [kolumn n]</programlisting
+> där [rad 1] ... [rad 4] och [kolumn 1] ... [kolumn n] är PIC:ns anslutningar dit respektive rad och kolumn på knappsatsen är kopplade (för närvarande kan inte antal rader ändras). Se <xref linkend="sevenseg"/> (ovan) för mer information om anslutningsavbildningar. </para>
+		
+		<para
+>Knappsatsens kolumner ska använda ett 100k pull-down motstånd till jord. Radanslutningarna måste vara konfigurerade som utgångar och kolumnanslutningarna som ingångar. När knappsatsen väl har definierats, behandlas den som en enbart läsbar variabel. <example>
+				<title
+>Definiera och läsa från en knappsats</title>
+					<programlisting role="correct"
+>keypad keypad1 RB0 RB1 RB2 RB3 RB4 RB5 RB6
+x = keypad1</programlisting>
+			</example>
+		</para>
+			
+		<para
+>Normalt är värdena som returneras för en knappsats: <itemizedlist
+> <listitem
+><para
+>Värdet på siffran om det är en sifferknapp (1 till 3 längs övre raden, hexadecimalt A till D längs den fjärde kolumnen med fortsättning för varje extra kolumn).</para
+></listitem
+> <listitem
+><para
+>253 för knappen i rad 4, kolumn 1.</para
+></listitem
+> <listitem
+><para
+>254 för knappen i rad 4, kolumn 3.</para
+></listitem
+> </itemizedlist
+> Värdena kan definieras om genom att använda kommandot alias, där namnet på knappen i rad x, kolumn y (rader och kolumner börjar på 1), är Keypad_x_y. För att exempelvis ge asterisken på en 4x3 knappsats värdet noll, skulle följande alias användas: <example>
+				<title
+>Skapa ett alias för en knapp på en knappsats till ett värde</title>
+				<programlisting role="correct"
+>alias Keypad_4_1 0</programlisting>
+			</example>
+		</para>
+	</sect2>
+</sect1>
+
+<sect1 id="picio">
+<title
+>PIC in- och utmatning</title>
+	
+	<sect2 id="tristate">
+	<title
+>Portriktning</title>
+		<para
+>Portriktningen anges genom att tilldela ett värde till TRIS*, där * är portbokstaven. Exempelvis: </para>
+		<example
+><title
+>Ställa in portriktningar</title>
+		<programlisting role="correct"
+>TRISB = b'01111001'</programlisting>
+		</example>
+		<para
+>Ovanstående ställer in anslutningarna RB1, RB2 och RB7 på PORTB som utgångar, och övriga anslutningar på PORTB som ingångar. I exemplet är b'01111001' den binära representationen av utgångstypen. Värdet 1 till höger representerar en utgång på RB0, och värdet 0 till vänster representerar en ingång på RB7. </para>
+	</sect2>
+	
+	<sect2 id="ports">
+	<title
+>Port in- och utmatning</title>
+		<para
+>Porten kan behandlas som en variabel, exempelvis: </para>
+		
+		<example
+><title
+>Skriva till en port</title>
+		<programlisting role="correct"
+>x = PORTA</programlisting>
+		</example>
+		
+		<para
+>Det ovanstående tilldelar värdet av PORTA till variabeln x. </para>
+	</sect2>
+	
+	<sect2 id="pins">
+	<title
+>In- och utmatning för anslutningar</title>
+		<para
+>Varje anslutning i en port erhålls genom att inleda anslutningsnumret med portnamnet: t.ex. anslutning 2 (med början på anslutning 0) på PORTA  kallas <emphasis
+>PORTA.0</emphasis
+>. Syntaxen för att ställa in ett tillstånd på en anslutning är: <programlisting role="correct"
+>PORTX.N = <emphasis
+>STATE</emphasis
+></programlisting
+> där <emphasis
+>STATE</emphasis
+> kan vara <emphasis
+>high</emphasis
+> (hög) eller <emphasis
+>low</emphasis
+> (låg). Syntaxen för att testa en anslutnings tillstånd är: <programlisting role="correct"
+><function
+>if</function
+> PORTX.N is <emphasis
+>STATE</emphasis
+><function
+>then</function
+></programlisting
+> Kombineras exemplen, får vi: </para>
+		<example
+><title
+>Ställa in och prova anslutningens tillstånd</title>
+		<programlisting role="correct"
+>TRISA = 0
+TRISB = 255
+<function
+>if</function
+> PORTA.3 is <function
+>high</function
+> <function
+>then</function>
+{
+        PORTB.5 = <function
+>low</function>
+}
+<function
+>else</function>
+{
+        PORTB = PORTA + 15
+}</programlisting>
+		</example>
+	</sect2>
+</sect1>
+	
+<sect1 id="variables">
+<title
+>Variabler</title>
+	<para
+>Alla variabler är 8-bitars heltal utan tecken, vilket ger intervallet 0 till 255. <application
+>&microbe;</application
+> stöder de typiska unära (som arbetar med en variabel) och binära (som arbetar med två variabler) operatorerna som stöds av PIC:n. Dessutom stöder &microbe; också division och multiplikation. </para>
+	<sect2 id="unary">
+	<title
+>Unära operationer</title>
+		<para>
+		<itemizedlist>
+		<listitem
+><para
+><emphasis
+>rotateleft x</emphasis
+> - Roterar variabeln x åt vänster via carry.</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>rotateright x</emphasis
+> - Roterar variabeln x åt höger via carry.</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>increment x</emphasis
+> - Ökar variabeln x med ett. Om x har värdet 255, slår den runt till 0.</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>decrement x</emphasis
+> - Minskar variabeln x med ett. Om x har värdet 0, slår den runt till 255.</para
+></listitem>
+		</itemizedlist>
+		</para>
+	</sect2>
+	
+	<sect2 id="arithmetic">
+	<title
+>Aritmetik</title>
+		<para
+>Operationer som stöds: <itemizedlist>
+		<listitem
+><para
+><emphasis
+>Addition:</emphasis
+> x + y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Subtraktion:</emphasis
+> x - y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Multiplikation:</emphasis
+> x * y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Division:</emphasis
+> x / y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Binär exklusiv ELLER:</emphasis
+> x XOR y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Binär OCH:</emphasis
+> x AND y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Binär ELLER:</emphasis
+> x OR y</para
+></listitem>
+		</itemizedlist>
+		</para>
+	</sect2>
+	
+	<sect2 id="comparison">
+	<title
+>Jämförelse</title>
+	<para
+>Operationer som stöds: </para>
+	<itemizedlist>
+	<listitem
+><para
+><emphasis
+>Lika med:</emphasis
+> x == y</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>Skilt från:</emphasis
+> x != y</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>Större än:</emphasis
+> x 
+> y</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>Mindre än:</emphasis
+> x &lt; y</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>Större än eller lika med:</emphasis
+> x &gt;= y</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>Mindre än eller lika med:</emphasis
+> x &lt;= y</para
+></listitem>
+	</itemizedlist>
+	
+	<para
+>Till exempel: </para>
+	<example
+><title
+>Jämförelse</title>
+	<programlisting role="correct"
+><function
+>if</function
+> PORTA 
+>= 5 <function
+>then</function>
+{
+        ...
+}</programlisting>
+	</example>
+	</sect2>
+</sect1>
+
+<!--
+<sect1 id="interrupts">
+<title
+>Interrupts</title>
+	<para>
+	There are several types of events, and some of these take an optional parameter making
+	the condition under which the routine is called more specific.
+	<itemizedlist>
+	<listitem
+><para
+><emphasis
+>change &lt;pin name&gt;</emphasis>
+		 - Occurs when the state of the specified pin changes. Pin name is in the usual syntax of PORTX.n, &eg; <programlisting
+>interrupt change PORTB.4</programlisting
+></para
+></listitem>
+	<listitem
+><para
+><emphasis
+>timer</emphasis
+> - ///TODO</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>external</emphasis
+> - ///TODO</para
+></listitem>
+	</itemizedlist>
+	</para>
+</sect1>
+-->
+</chapter>

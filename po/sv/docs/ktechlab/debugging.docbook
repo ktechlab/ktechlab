@@ -1,0 +1,83 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="debugging">
+	<title
+>Avlusning</title>
+	
+	<sect1 id="starting_debugger">
+		<title
+>Starta avlusaren</title>
+		
+		<para
+>Avlusningsstöd tillhandahålls för assembler, SDCC och Microbe, när de öppnas som textdokument. Härifrån styrs stegning via menyn <guimenu
+>Avlusa</guimenu
+>. Det finns två sätt att starta avlusaren.</para>
+		
+		<para
+>Om PIC-programmet redan kör i en krets, öppnas programmet genom att dubbelklicka på PIC-komponenten. För PIC-program i assembler, länkas avlusaren för det textdokumentet till PIC-komponenten. I detta fall kan inte avlusningsmenyn stoppa PIC-programmet, eftersom det ägs av PIC-komponenten.</para>
+		
+		<para
+>Om assemblerfilen redan är öppen kan avlusaren köras via menyn <guimenu
+>Avlusa</guimenu
+>. Efter att ha kompilerat programmet är avlusaren redo med PIC-programmet pausat på den första instruktionen. Observera att när högnivåspråk avlusas, visas inte det nuvarande körningsstället om det inte finns någon rad som motsvarar den första assemblerinstruktionen som ska köras. I detta fall, kommer körningsstället till den första raden i programmet genom att klicka på <guibutton
+>Nästa</guibutton
+>.</para>
+	</sect1>
+	
+	<sect1 id="controlling_debugger">
+		<title
+>Styra avlusaren</title>
+		
+		<para
+>Avlusaren kan vara i ett av två lägen: körning och stegning. Medan det kör, simuleras PIC-programmet i realtid. För att tillåta stegning måste PIC-programmet pausas, antingen genom att klicka på <guimenuitem
+>Avbryt</guimenuitem
+> i menyn <guimenu
+>Avlusa</guimenu
+> eller klicka på pausknappen på PIC-komponenten.</para>
+		
+		<para
+>I stegningsläge indikerar en grön pil i textdokumentets marginal nästa rad som ska köras (välbekant för användare av <application
+>KDevelop</application
+>). Det kan vara användbart att sätta på ikonkanten via menyn <guimenu
+>Visa</guimenu
+> (den kan sättas på permanent via dialogrutan <guilabel
+>Editorinställningar</guilabel
+>).</para>
+		
+		<para
+>Det finns tre sorters stegning:</para>
+		
+		<itemizedlist>
+				<listitem
+><para
+><guimenuitem
+>Stega</guimenuitem
+>: Kör nuvarande instruktion. Den gröna pilen flyttas till nästa rad som ska köras.</para
+></listitem>
+				<listitem
+><para
+><guimenuitem
+>Stega över</guimenuitem
+>: Om nästa instruktion som ska köras är ett anrop eller liknande, stegar det här "över" anropet, och returnerar till stegningsläge när anropet väl har returnerat. Annars beter sig stega över identiskt med stega. Tekniskt sett lagras den ursprungliga stacknivån, och programkörningen pausas när stacknivån väl har återgått till sin ursprungliga nivå.</para
+></listitem>
+				<listitem
+><para
+><guimenuitem
+>Steg ut ur</guimenuitem
+>: Om den nuvarande körningen är inne i ett anrop eller liknande, väntar det här tills anropet returnerar. I likhet med att stega över, motsvarar det att vänta tills stacknivån återgår till ett mindre än den ursprungliga nivån, om den ursprungliga nivån är större än noll.</para
+></listitem>
+		</itemizedlist>
+		
+		<para
+>Brytpunkter gör det möjligt att pausa körningen när PIC-programmet når en angiven instruktion. För att ändra en brytpunkt på raden som innehåller markören, använd antingen menyn <guimenu
+>Avlusa</guimenu
+>, eller klicka på textdokumentets ikonkant.</para>
+		
+		<para
+>Sidoraden <guilabel
+>Symbolvisning</guilabel
+> till höger, visar värden på speciella funktionsregister. För att ta reda på värdet på en variabel i de generella registren kan musen hållas över variabelnamnet i en instruktion som använder det registret. Observera att valet av bas i <guilabel
+>Symbolvisning</guilabel
+> bestämmer också hur värdet visas när musen hålls över en variabel.</para>
+	</sect1>
+	
+</chapter>

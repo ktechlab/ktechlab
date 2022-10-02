@@ -1,0 +1,613 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="microbe">
+<title
+>&microbe;</title>
+<sect1>
+	<title
+>Introducció i sintaxi general</title>
+	<para
+>El <application
+>microbe</application
+> compila els programes escrits en el llenguatge personalitzat per als PIC, com a programa complementari del &ktechlab;. La sintaxi ha estat dissenyada per a adaptar-se a un programa de &flowcode;. La sintaxi per a executar el <command
+>microbe</command
+> des de la línia d'ordres és: </para>
+		<itemizedlist>
+			<listitem
+><para
+><function
+>--show-source</function
+> &mdash; Col·loca cada línia des del codi font de &microbe; com a un comentari a la sortida en assemblador abans de les instruccions en assemblador per a aquesta línia.</para
+></listitem>
+			<listitem
+><para
+><function
+>--no-optimize</function
+> &mdash; Evita l'optimització de les instruccions generades des de la font. L'optimització sol ser segura, de manera que aquesta opció és útil sobretot per a depurar.</para
+></listitem>
+		</itemizedlist>
+		
+	<para
+>El fitxer d'entrada <filename class="extension"
+>.microbe</filename
+> haurà d'identificar el PIC de destinació inserint el nom del PIC a la part superior del fitxer, &pex;, el nom d'un PIC16F84 és <quote
+>P16F84</quote
+>. <example
+><title
+>Programa de &microbe; complet i senzill</title>
+			<programlisting role="correct"
+>P16F84
+
+a = 0
+repeat
+{
+        PORTA = a
+        a = a + 1
+}
+until a == 5
+
+end</programlisting>
+			</example>
+		</para>
+
+	<sect2 id="namingconventions">
+		<title
+>Convencions de la nomenclatura</title>
+		<para
+>Les regles següents s'apliquen als noms i etiquetes de les variables: <itemizedlist>
+				<listitem
+><para
+>Només poden contenir caràcters alfanumèrics [a..z][A..Z][0..9] i el guió baix <quote
+>_</quote
+>.</para
+></listitem>
+				<listitem
+><para
+>Distingeixen entre majúscules i minúscules.</para
+></listitem>
+				<listitem
+><para
+>No poden començar amb un número.</para
+></listitem>
+				<listitem
+><para
+>No han de començar amb <quote
+>__</quote
+> (doble subratllat), ja que està reservat perquè l'utilitzi el compilador.</para
+></listitem>
+			</itemizedlist>
+		</para>
+	</sect2>
+
+	<sect2 id="bracingconventions">
+		<title
+>Convencions de les claus</title>
+		<para
+>Les claus, {}, indiquen l'inici i el final d'un bloc de codi. Poden aparèixer en qualsevol lloc abans de l'inici i després del final del bloc de codi. Exemples de blocs de codi acceptables: <programlisting role="correct"
+>sentència1 {
+        algun codi
+}</programlisting>
+		<programlisting role="correct"
+>sentència2 {
+        un altre codi }</programlisting>
+		
+		<programlisting role="correct"
+>sentència3
+{
+        un altre codi
+}</programlisting>
+		
+		<programlisting role="correct"
+>sentència5 {
+        bloc_de_codi
+} sentència6</programlisting>
+			</para>
+		</sect2>
+		<sect2 id="commenting">
+			<title
+>Comentar</title>
+			<para
+>Comentar és similar a C. Les «//» comenten la resta de la línia. I les «/*» i «*/» denoten un comentari de múltiples línies. <programlisting role="correct"
+>// Aquest és un comentari
+x = 2 
+/* Aquest és un comentari
+de múltiples línies */</programlisting>
+		</para>
+	</sect2>
+
+	<sect2 id="structure">
+		<title
+>Estructura del programa</title>
+		<para
+>L'identificador PIC s'ha d'inserir a la part superior del programa. El final del programa principal s'indica amb <quote
+>end</quote
+>. Les subrutines s'han de col·locar després de <quote
+>end</quote
+>. </para>
+	</sect2>
+
+	<sect2 id="subroutines">
+		<title
+>Subrutines</title>
+		<para
+>Es pot cridar a una subrutina des de qualsevol part del codi. Sintaxi: </para>
+		<programlisting role="correct"
+>sub SubNom
+{
+        // Codi...
+}</programlisting>
+<para
+>La subrutina es crida amb <quote
+>call <replaceable
+>SubNom</replaceable
+></quote
+>.</para>
+	</sect2>
+</sect1>
+
+<sect1 id="languagereference">
+	<title
+>Referència del llenguatge &microbe;</title>
+	<sect2 id="if">
+		<title
+>if</title>
+		<para
+>Claus condicionals. Sintaxi: <programlisting role="correct"
+>if [expressió] then [sentència]</programlisting
+> o <programlisting role="correct">
+if [expressió] then
+{
+        [bloc_de_sentències]
+}</programlisting
+> De manera similar per a la resta: <programlisting role="correct"
+>else [sentència]</programlisting
+> o <programlisting role="correct"
+>else
+{
+        [bloc_de_sentències]
+}</programlisting>
+			</para>
+			
+			<example
+><title
+>if</title>
+			<programlisting role="correct"
+>if porta.0 is high then
+{
+        delay 200
+}
+else
+{
+        delay 300
+}</programlisting>
+		</example>
+	</sect2>
+	
+	<sect2 id="alias">
+		<title
+>alias</title>
+		<para
+>L'àlies d'una cadena a una altra. Sintaxi: <programlisting role="correct"
+>alias [des de] [a]</programlisting>
+		</para>
+	</sect2>
+	
+	<sect2 id="repeat">
+		<title
+>repeat</title>
+		<para
+>Executa el bloc de sentències repetidament fins que l'expressió s'avalua com a certa. L'avaluació de l'expressió es realitza després del bloc de sentències, de manera que el bloc de sentències sempre s'executarà almenys una vegada. Sintaxi: <programlisting role="correct"
+>repeat
+{
+        [bloc_de_sentències]
+}
+until [expressió]</programlisting>
+	</para>
+</sect2>
+
+<sect2 id="while">
+<title
+>while</title>
+	<para
+>Similar a «repeat», això executarà repetidament el bloc de sentències. No obstant això, l'expressió s'avaluarà abans de l'execució, no després. Llavors, si l'expressió s'avalua com a falsa en el primer pas, el bloc de sentències no s'executarà. Sintaxi: <programlisting role="correct"
+>while [expressió]
+{
+        [bloc_de_sentències]
+}</programlisting>
+	</para>
+</sect2>
+
+
+<sect2 id="goto">
+	<title
+>goto</title>
+	<para
+>Això fa que l'execució del codi continuï en la següent sentència després de l'etiqueta especificada. Sintaxi de «goto»: <programlisting role="correct"
+><function
+>goto</function
+> [nom_etiqueta]</programlisting
+> Sintaxi de l'etiqueta: <programlisting role="correct"
+><function
+>nom_etiqueta:</function
+></programlisting
+> Sovint es considera una bona pràctica de programació evitar l'ús de «goto». L'ús de sentències de control i subrutines donarà com a resultat un programa molt més llegible. </para>
+	
+	<example
+><title
+>goto</title>
+	<programlisting role="correct"
+>goto Etiqueta_meva
+
+...
+
+[Etiqueta_meva]:
+// El codi continuarà en aquest punt</programlisting>
+		</example>
+	</sect2>
+	
+	<sect2 id="call">
+		<title
+>call</title>
+		<para
+>Crida a una subrutina. Sintaxi: <programlisting role="correct"
+><function
+>call</function
+> [SubNom]</programlisting
+> on <replaceable
+>SubNom</replaceable
+> és el nom de la subrutina a cridar. </para>
+	</sect2>
+	
+	<sect2 id="delay">
+	<title
+>delay</title>
+		<para
+>Fa que s'aturi l'execució del codi durant el període de temps especificat. L'interval serà en mil·lisegons. Sintaxi: <programlisting role="correct"
+><function
+>delay</function
+> [interval]</programlisting>
+		
+		<note
+><para
+>En l'actualitat, el &microbe; assumeix que el PIC està operant a una freqüència de 4 MHz, &ead;, cada instrucció triga 1 microsegon a executar-se. Si aquest no és el cas, l'interval s'haurà d'ajustar proporcionalment.</para
+></note>
+		</para>
+	</sect2>
+	
+	<sect2 id="sevenseg">
+		<title
+>sevenseg</title>
+		<para
+>Això es fa servir per a definir l'assignació dels pins per a una pantalla de set segments (càtode habitual) connectada al PIC. Sintaxi: <programlisting role="correct"
+><function
+>sevenseg</function
+> [nom] [a] [b] [c] [d] [e] [f] [g]</programlisting
+> on [a]...[g] són els pins del PIC als quals s'adjunten els segments respectius de la pantalla de set segments. Els pins es poden escriure com a PORTX.N o RXN. </para>
+		
+		<para
+>Per a mostrar un número en els set segments, l'assignació dels pins es tracta com una variable de només escriptura. <example>
+				<title
+>Definició i sortida a un set segments</title>
+				<programlisting role="correct"
+>sevenseg seg1 RB0 RB1 RB2 RB3 RB4 RB5 RB6
+seg1 = x + 2</programlisting>
+				</example>
+		</para>
+	</sect2>
+	
+	<sect2 id="keypad">
+		<title
+>keypad</title>
+		<para
+>Això es fa servir per a definir l'assignació dels pins per a un teclat numèric connectat al PIC. Sintaxi: <programlisting role="correct"
+><function
+>keypad</function
+> [nom] [fila 1] ... [fila 4] [columna 1] ... [columna n]</programlisting
+> on [fila 1] ... [fila 4] i [columna 1] ... [columna n] són els pins del PIC als quals s'adjunten les respectives files i columnes del teclat numèric (de moment, el nombre de files és no modificable). Per a obtenir més informació sobre les assignacions dels pins, vegeu la <xref linkend="sevenseg"/> (a dalt). </para>
+		
+		<para
+>Les columnes del teclat numèric s'han de baixar a terra mitjançant resistències de 100 k. Els pins de la fila s'han de configurar com a sortides i els pins de la columna com a entrades. Una vegada s'ha definit el teclat numèric, es tractarà com una variable de només lectura. <example>
+				<title
+>Definir i llegir des d'un teclat numèric</title>
+					<programlisting role="correct"
+>keypad keypad1 RB0 RB1 RB2 RB3 RB4 RB5 RB6
+x = keypad1</programlisting>
+			</example>
+		</para>
+			
+		<para
+>De manera predeterminada, els valors retornats per un teclat numèric són: <itemizedlist
+> <listitem
+><para
+>El valor del nombre si és una tecla numèrica (1 a 3 a la fila superior, hexadecimal des de l'A fins a la D a la quarta columna i continuant per a cada columna addicional).</para
+></listitem
+> <listitem
+><para
+>253 per a la tecla a la fila 4, columna 1.</para
+></listitem
+> <listitem
+><para
+>254 per a la tecla a la fila 4, columna 3.</para
+></listitem
+> </itemizedlist
+> Aquests valors es poden redefinir utilitzant l'ordre «alies», on el nom de la tecla a la fila «x», columna «y» (files i columnes que comencen amb 1), és «Keypad_x_y». Per exemple, per a donar-li el valor zero a la tecla d'asterisc en un teclat numèric de 4x3, s'utilitzarà el següent àlies: <example>
+				<title
+>Assignar un valor a una tecla del teclat numèric</title>
+				<programlisting role="correct"
+>alias Keypad_4_1 0</programlisting>
+			</example>
+		</para>
+	</sect2>
+</sect1>
+
+<sect1 id="picio">
+<title
+>E/S del PIC</title>
+	
+	<sect2 id="tristate">
+	<title
+>Direcció del port</title>
+		<para
+>La direcció del port s'estableix assignant un valor a TRIS*, on «*» és la lletra del port. Per exemple: </para>
+		<example
+><title
+>Establint les direccions dels ports</title>
+		<programlisting role="correct"
+>TRISB = b'01111001'</programlisting>
+		</example>
+		<para
+>L'anterior estableix els pins RB1, RB2 i RB7 a PORTB com a sortides i els altres pins en PORTB com a entrades. En aquest exemple, b'01111001' és una representació binària del tipus de sortida. L'1 de la dreta representa una sortida a RB0 i el 0 de l'esquerra representa una entrada a RB7. </para>
+	</sect2>
+	
+	<sect2 id="ports">
+	<title
+>E/S del port</title>
+		<para
+>El port pot tractar-se com una variable. Per exemple: </para>
+		
+		<example
+><title
+>Escrivint a un port</title>
+		<programlisting role="correct"
+>x = PORTA</programlisting>
+		</example>
+		
+		<para
+>Tot l'anterior assigna el valor de PORTA a la variable «x». </para>
+	</sect2>
+	
+	<sect2 id="pins">
+	<title
+>E/S dels pins</title>
+		<para
+>Cada pin sobre un port s'obté anteposant el número del pin al nom del port, &pex;, el pin 2 (començant pel pin 0) a PORTA es coneix com a <emphasis
+>PORTA.0</emphasis
+>. La sintaxi per a establir un estat del pin és: <programlisting role="correct"
+>PORTX.N = <emphasis
+>ESTAT</emphasis
+></programlisting
+> on <emphasis
+>ESTAT</emphasis
+> pot ser <emphasis
+>high</emphasis
+> o <emphasis
+>low</emphasis
+>. La sintaxi per a provar l'estat d'un pin és: <programlisting role="correct"
+><function
+>if</function
+> PORTX.N is <emphasis
+>ESTAT</emphasis
+> <function
+>then</function
+></programlisting
+> Combinant aquests exemples, tenim: </para>
+		<example
+><title
+>Establint i provant l'estat dels pins</title>
+		<programlisting role="correct"
+>TRISA = 0
+TRISB = 255
+<function
+>if</function
+> PORTA.3 is <function
+>high</function
+> <function
+>then</function>
+{
+        PORTB.5 = <function
+>low</function>
+}
+<function
+>else</function>
+{
+        PORTB = PORTA + 15
+}</programlisting>
+		</example>
+	</sect2>
+</sect1>
+	
+<sect1 id="variables">
+<title
+>Variables</title>
+	<para
+>Totes les variables són sencers de 8 bits sense signe, el qual dona un interval des de 0 fins a 255. El <application
+>&microbe;</application
+> admet les operacions unàries típiques (actuant sobre una variable) i les operacions binàries (actuant sobre dues variables) que són admeses pel PIC. A més, el &microbe; també admet la divisió i la multiplicació. </para>
+	<sect2 id="unary">
+	<title
+>Operacions unàries</title>
+		<para>
+		<itemizedlist>
+		<listitem
+><para
+><emphasis
+>rotateleft x</emphasis
+> &mdash; Gira la variable «x» cap a l'esquerra a través del transport.</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>rotateright x</emphasis
+> &mdash; Gira la variable «x» cap a la dreta a través del transport.</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>increment x</emphasis
+> &mdash; Augmenta la variable «x». Si «x» té un valor de 255, llavors «x» s'arrodoneix a 0.</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>decrement x</emphasis
+> &mdash; Disminueix la variable «x». Si «x» té un valor de 0, llavors «x» s'arrodoneix a 255.</para
+></listitem>
+		</itemizedlist>
+		</para>
+	</sect2>
+	
+	<sect2 id="arithmetic">
+	<title
+>Aritmètica</title>
+		<para
+>Operacions admeses: <itemizedlist>
+		<listitem
+><para
+><emphasis
+>Suma:</emphasis
+> x + y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Resta:</emphasis
+> x - y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Multiplicació:</emphasis
+> x * y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Divisió:</emphasis
+> x / y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>XOR binari:</emphasis
+> x XOR y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>AND binari:</emphasis
+> x AND y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>OR binari:</emphasis
+> x OR y</para
+></listitem>
+		</itemizedlist>
+		</para>
+	</sect2>
+	
+	<sect2 id="comparison">
+	<title
+>Comparació</title>
+	<para
+>Operacions admeses: </para>
+	<itemizedlist>
+	<listitem
+><para
+><emphasis
+>Igual:</emphasis
+> x == y</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>No és igual:</emphasis
+> x != y</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>És més gran que:</emphasis
+> x &gt; y</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>És més petit que:</emphasis
+> x &lt; y</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>És més gran o igual que:</emphasis
+> x &gt;= y</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>És més petit o igual que:</emphasis
+> x &lt;= y</para
+></listitem>
+	</itemizedlist>
+	
+	<para
+>Per exemple: </para>
+	<example
+><title
+>Comparació</title>
+	<programlisting role="correct"
+><function
+>if</function
+> PORTA 
+>= 5 <function
+>then</function>
+{
+        ...
+}</programlisting>
+	</example>
+	</sect2>
+</sect1>
+
+<!--
+<sect1 id="interrupts">
+<title
+>Interrupts</title>
+	<para>
+	There are several types of events, and some of these take an optional parameter making
+	the condition under which the routine is called more specific.
+	<itemizedlist>
+	<listitem
+><para
+><emphasis
+>change &lt;pin name&gt;</emphasis>
+		 - Occurs when the state of the specified pin changes. Pin name is in the usual syntax of PORTX.n, &eg; <programlisting
+>interrupt change PORTB.4</programlisting
+></para
+></listitem>
+	<listitem
+><para
+><emphasis
+>timer</emphasis
+> - ///TODO</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>external</emphasis
+> - ///TODO</para
+></listitem>
+	</itemizedlist>
+	</para>
+</sect1>
+-->
+</chapter>

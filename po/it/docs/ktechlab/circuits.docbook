@@ -1,0 +1,164 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="circuits">
+	<title
+>Circuit</title>
+	
+	<sect1 id="placing_components">
+		<title
+>Posizionamento dei componenti</title>
+		<para
+>A sinistra, sarà disponibile la scheda <guilabel
+>Componenti</guilabel
+>.</para>
+		
+		<para
+>Il trascinamento di un componente dalla barra laterale nel circuito, lo posizionerà sotto il cursore del mouse. In alternativa, è possibile fare doppio clic su un elemento nella barra laterale <guilabel
+>Componenti</guilabel
+> per aggiungerlo ripetutamente al circuito. In questa modalità, una copia del componente selezionato sarà posizionata ripetutamente con il tasto sinistro del mouse fino a quando &Esc; viene premuto o si fa clic con il pulsante destro del mouse.</para>
+		
+		<para
+>Per riposizionare un componente, fare clic con il tasto sinistro e trascinare. Lo si troverà agganciato alla griglia sottostante. Se si trascina il componente fuori dai bordi destro o inferiore dell'area di lavoro, l'area di lavoro sarà ridimensionata per adattarsi.</para>
+		
+		<para
+>Tutti i componenti hanno una nozione di orientamento; 0, 90, 180 e 270 gradi. Anche quelli che non sono simmetrici rispetto a un asse possono essere capovolti. Per ruotare una selezione di componenti, fare clic con il pulsante destro del mouse e selezionare dal menu <guimenu
+>Orientazione</guimenu
+> oppure fare clic sui pulsanti di rotazione nella barra degli strumenti. È possibile accedere a quest'ultimo premendo i tasti <keycap
+>[</keycap
+> e <keycap
+>]</keycap
+> (familiari agli utenti di  <application
+>Inkscape</application
+>). La barra laterale <guilabel
+>Elemento</guilabel
+> (a destra) fornisce un metodo efficace per impostare l'orientazione fornendo anteprime dei componenti. Anche il lancio di componenti è possibile solo tramite la barra laterale <guilabel
+>Elemento</guilabel
+>.</para>
+	</sect1>
+	
+	<sect1 id="connecting_components">
+		<title
+>Collegare i componenti</title>
+		<para
+>Esistono due modalità per la creazione di connessioni (cavi): automatica e manuale. Queste modalità sono selezionate tramite il menu a tendina <guimenu
+>Modalità di instradamento della connessione</guimenu
+> nella barra degli strumenti. Sperimentare con entrambi: l'instradamento automatico è spesso migliore per i piccoli circuiti, mentre i circuiti più complessi possono richiedere l'instradamento manuale.</para>
+		
+		<para
+>In modalità automatica, creare una connessione trascinando da un pin componente o da una connessione esistente e rilasciando il mouse sul pin o sulla connessione desiderata. Si vedrà che la linea retta disegnata diventerà arancione quando sarà creata una connessione valida al rilascio del mouse. Se la linea che si sta disegnando è nera, è perché non c'è nulla sotto il cursore del mouse o si sta tentando di connettere due elementi già collegati. Durante il diagramma di flusso, i criteri per una connessione valida sono più complessi, ma ci arriveremo più avanti.</para>
+		
+		<para
+>Il modo migliore per farsi un'idea dell'instradamento manuale delle connessioni è sperimentarlo. Fare clic sul pin o sulla connessione iniziale, quindi estendere il proto-connettore allontanando il mouse dal punto in cui si è fatto clic. Per posizionare un angolo, fare clic con il tasto sinistro. Per annullare il disegno della connessione, premere &Esc; oppure fare clic con il pulsante destro del mouse.</para>
+		
+		<para
+>&ktechlab; fa del suo meglio per mantenere i percorsi delle connessioni. Tuttavia, se si trascina un componente, i punti finali di una connessione si spostano l'uno rispetto all'altro, &ktechlab; sarà costretto a ridisegnare la connessione utilizzando l'instradamento automatico. Prima di spostare un componente, è possibile vedere quali connettori dovranno essere reindirizzati, poiché diventeranno grigi al clic.</para>
+		
+		<para
+>Per rimuovere una connessione esistente, selezionarla disegnando un piccolo rettangolo di selezione su una parte del connettore e premere <keycap
+>Canc</keycap
+>.</para>
+	</sect1>
+	
+	<sect1 id="component_attributes">
+		<title
+>Attributi dei componenti</title>
+		<para
+>La maggior parte dei componenti avrà attributi modificabili, come la resistenza per i resistori. Per impostazione predefinita, è possibile modificare semplici attributi nella barra degli strumenti, quando viene selezionato un gruppo dello stesso tipo di componenti. Se la selezione contiene una combinazione di diversi tipi di componenti (come resistori e condensatori), non saranno visualizzati attributi per la modifica.</para>
+		
+		<para
+>Alcuni componenti hanno attributi più avanzati che non sono accessibili tramite la barra degli strumenti. Questi si trovano nella barra laterale <guilabel
+>Elemento</guilabel
+> sulla destra. Il diodo, ad esempio, ha diverse caratteristiche comportamentali che è possibile modificare qui.</para>
+<!-- Not in 0.3.6 version
+		<para
+>If your selection of components have different values for their attributes (for example, different resistances for a selection of resistors), the <guilabel
+>Item</guilabel
+> sidebar will have the disagreeing attributes grayed-out. You can enable these by clicking the <guibutton
+>Merge properties</guibutton
+> button.</para>
+
+		<para
+>The "Defaults" button will reset the component attributes to the ones it had on creation.</para>
+		-->
+		<para
+>Esiste un tipo di attributo che non può essere modificabile dalla barra degli strumenti o dalla barra laterale Elemento - testo multi-linea. Facendo doppio clic sull'elemento, si aprirà una finestra in cui è possibile inserire il testo.</para>
+	</sect1>
+	
+	<sect1 id="circuit_simulation">
+		<title
+>Simulazione</title>
+		<para
+>In modo predefinito, la simulazione sarà eseguita quando si crea un nuovo circuito. Lo stato della simulazione viene visualizzato nella parte inferiore destra della vista di un circuito e può essere modificato tramite il menu <guimenu
+>Strumenti</guimenu
+>. Innanzitutto, una piccola spiegazione su come funziona il simulatore. Questo dovrebbe consentirvi di trarne il massimo.</para>
+		
+		<para
+>Quando viene creato o modificato un circuito, le aree interessate vengono suddivise in gruppi di pin e connessioni che possono essere considerate indipendenti. Ogni gruppo viene quindi simulato come entità separata (sebbene interagisca ancora tramite i componenti), con la simulazione fornita in base alla complessità del gruppo. I gruppi complessi, come quelli che coinvolgono componenti non lineari come i LED, sono lenti da simulare. I gruppi che contengono solo pin logici, di cui solo uno controlla il valore su tali pin, sono i più veloci da simulare.</para>
+		
+		<para
+>I risultati della simulazione sono forniti attraverso diversi mezzi grafici.</para>
+		
+		<para
+>I pin sui componenti visualizzeranno barre laterali di tensione. Questi sono di colore arancione per tensione positiva e blu per tensione negativa. La loro lunghezza dipende dal livello di tensione e la loro larghezza dalla quantità di corrente che fluisce attraverso il pin. Questi possono essere disattivati nella pagina <guilabel
+>Generale</guilabel
+> della finestra <guilabel
+>Configurazione</guilabel
+>.</para>
+		
+		<para
+>Passando il puntatore del mouse su un pin o una connessione sarà visualizzata un suggerimento che mostra la tensione e la corrente in quel punto del circuito. Numerosi componenti forniscono anche un riscontro grafico, ad esempio LED e voltmetri o amperometri.</para>
+		
+		<para
+>Infine, c'è l'oscilloscopio, discusso nella prossima sezione.</para>
+	</sect1>
+	
+	<sect1 id="oscilloscope">
+		<title
+>Oscilloscopio</title>
+		<para
+>L'oscilloscopio può registrare dati logici, di tensione e di corrente. La sonda logica è ottimizzata per la memorizzazione di campioni booleani, quindi dovrebbe essere utilizzata al posto della sonda di tensione quando si misura la logica.</para>
+		
+		<para
+>Per raccogliere dati, creare un nuovo componente sonda e collegarlo a un punto appropriato nel circuito. Si vedrà il risultato disegnato immediatamente nell'oscilloscopio. L'aggiunta di più sonde schiaccerà le uscite una accanto all'altra: è possibile riposizionarle trascinando le frecce a sinistra della vista dell'oscilloscopio e modificarne i colori tramite gli attributi della sonda.</para>
+		
+		<para
+>Per le sonde di tensione e corrente, l'intervallo dei valori di ingresso può essere regolato nella barra laterale <guilabel
+>Editor degli elementi</guilabel
+> sulla destra.</para>
+		
+		<para
+>L'ingrandimento è controllato da un cursore. Il ridimensionamento è logaritmico; per ogni pochi pixel su cui si muove il cursore, il fattore di ingrandimento sarà moltiplicato per una costante. &ktechlab; simula la logica con una precisione massima di 1 microsecondo e al massimo livello di ingrandimento, un microsecondo è rappresentato da 8 pixel.</para>
+		
+		<para
+>Quando la barra di scorrimento viene trascinata fino alla fine, rimarrà lì fino a quando vengono registrati nuovi dati. Altrimenti, la posizione della barra di scorrimento rimane fissa nel tempo. La vista dell'oscilloscopio può anche essere spostata avanti e indietro facendo clic con il tasto sinistro e trascinando la vista. A causa delle limitazioni del sistema di oggetti sottostante, lo scorrimento sarà molto granulare al massimo livello di ingrandimento.</para>
+		
+		<para
+>Facendo clic con il tasto destro sulla vista dell'oscilloscopio, si apre un menu in cui è possibile controllare il numero di volte in cui la vista dell'oscilloscopio viene aggiornata. Ciò consente una visualizzazione più fluida, o riduce l'utilizzo della CPU.</para>
+	</sect1>
+	
+	<sect1 id="subcircuits">
+		<title
+>Sotto-circuiti</title>
+		<para
+>I sotto-circuiti offrono un modo riutilizzabile e ordinato di utilizzare un circuito, quando si è interessati solo a interagire con connessioni esterne al circuito. Il sotto-circuito viene creato come un IC, con i pin che fungono da interazione con il circuito interno.</para>
+		
+		<para
+>Innanzitutto, deve essere costruito il circuito da utilizzare come modello per la creazione di un sotto-circuito. I punti di interazione sono definiti tramite i componenti di <guilabel
+>Connessione esterna</guilabel
+>. Questi devono essere collegati e posizionati nel punto in cui si desidera posizionare il pin sul sotto-circuito IC.</para>
+		
+		<para
+>Quindi, selezionare il gruppo di componenti e connessioni esterne da trasformare in un sotto-circuito, quindi selezionare <guimenuitem
+>Crea sotto-circuito</guimenuitem
+> dal menu di scelta rapida. Vi sarà  chiesto di digitare un nome per il sotto-circuito. Una volta creato, il nome apparirà nel selettore <guilabel
+>Componenti</guilabel
+> nella sezione <guilabel
+>Sotto-circuiti</guilabel
+>. Questo può essere trattato come qualsiasi componente normale - con l'opzione aggiuntiva di rimuoverlo facendo clic con il tasto destro del mouse sull'elemento e selezionando <guimenuitem
+>Rimuovi</guimenuitem
+>.</para>
+	</sect1>
+	
+</chapter>
+
+
+

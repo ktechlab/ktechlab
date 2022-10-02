@@ -1,0 +1,83 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="debugging">
+	<title
+>Debuggen</title>
+	
+	<sect1 id="starting_debugger">
+		<title
+>De debugger starten</title>
+		
+		<para
+>Debuggen is mogelijk bij Assembly, SDCC en Microbe, als ze als tekstdocument zijn geopend. Hierin, kunt u de stappen regelen via het <guimenu
+>Debug</guimenu
+> menu. Er zijn twee manieren om de debugger te starten.</para>
+		
+		<para
+>Als het PIC programma al in een circuit is opgestart, dan zal als u op het PIC component dubbelklikt, het programma openen. Bij assembly PIC programma's, zal de debugger voor dat tekst document worden gelinkt met het PIC component. In dit geval, zal het debug menu het PIC programma niet kunnen stoppen - omdat het nu eigendom is van het PIC component.</para>
+		
+		<para
+>Als het assembly-bestand al is geopend, dan kunt u de debugger opstarten via het <guimenu
+>Debug</guimenu
+> menu. Na de compilatie van het programma, staat de debugger klaar, met het PIC programma gepauzeerd op de eerste instructie. Merk op dat bij het debuggen van high level talen, u het gemarkeerde executie point niet te zien krijgt als er geen regel is dat overeenkomt met de eerste uit te voeren assembly instructie. Klik in dat geval op <guibutton
+>Volgende</guibutton
+> om het executie point naar de eerste regel van het programma te brengen.</para>
+	</sect1>
+	
+	<sect1 id="controlling_debugger">
+		<title
+>De debugger besturen</title>
+		
+		<para
+>De debugger kan in een van de volgende twee modus zijn: lopend, en stappend. Tijdens het lopen, zal het PIC programma in realtime worden gesimuleerd. Om te kunnen stappen, moet het PIC programma worden gepauzeerd - naar keuze door te klikken op <guimenuitem
+>Onderbreken</guimenuitem
+> in het <guimenu
+>Debug</guimenu
+> menu, of door te klikken op de pause-knop van het PIC component.</para>
+		
+		<para
+>Bij de stap-mode, geeft een groene pijl in de kantlijn van het tekstdocument de volgende uit te voeren regel aan (bekend bij gebruikers van <application
+>KDevelop</application
+>). Het kan handig zijn om de kantlijn in te schakelen via het <guimenu
+>Weergave</guimenu
+> menu (u kunt het permanent inschakelen via het dialoog voor <guilabel
+>Bewerken instellen</guilabel
+>).</para>
+		
+		<para
+>Er zijn drie typen voor stappen:</para>
+		
+		<itemizedlist>
+				<listitem
+><para
+><guimenuitem
+>Stap</guimenuitem
+> - Dit voert de geselecteerde instructie uit. De groene pijl gaat daarna naar de volgende uit te voeren instructie.</para
+></listitem>
+				<listitem
+><para
+><guimenuitem
+>Stap over</guimenuitem
+> - Als de volgende uit te voeren instructie een call is, of dergelijk, dan zal het een "stap over" de call doen, terugkerend naar de stapmode nadat de call is geëindigd. anders zal over een instructie stappen net zoals een normale stap zijn. Technisch uitgedrukt - de start stack level is recorded, en de uitvoer van het programma is gepauzeerd nadat de stack level terug gaat naar zijn start level.</para
+></listitem>
+				<listitem
+><para
+><guimenuitem
+>Stap uit</guimenuitem
+> - Als de geselecteerde instructie in een call is, of dergelijk, dan zal het wachten totdat de call eindigt. Vergelijkbaar met de stap over, dit is vergelijkbaar met het wachten totdat de stack level een niveau lager is dan het start level, als het start level groter is dan nul.</para
+></listitem>
+		</itemizedlist>
+		
+		<para
+>Met breakpoints kunt u de uitvoering van het PIC-programma pauzeren als het een bepaalde instructie heeft bereikt. Om een breakpoint op de door de cursor gemarkeerde regel in te schakelen, gebruikt u naar keuze het <guimenu
+>Debug</guimenu
+> menu, of u klikt op de kantlijn van het tekst document.</para>
+		
+		<para
+>De <guilabel
+>Symboolviewer</guilabel
+> zijbalk rechts toont de waarden van de Special Function Registers. Om de waarde van een variabele in de General Purpose Registers uit te vinden, kan u met uw muis boven de in de instructie voorkomende variabelenaam dat dit register bewerkt. Merk op dat de radix instelling bij de <guilabel
+>SymboolViewer</guilabel
+> ook regelt hoe de waarde wordt getoond als de muis boven een variabele zweeft.</para>
+	</sect1>
+	
+</chapter>

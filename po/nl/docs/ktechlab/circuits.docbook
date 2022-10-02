@@ -1,0 +1,164 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="circuits">
+	<title
+>Electronische schema's</title>
+	
+	<sect1 id="placing_components">
+		<title
+>Componenten plaatsen</title>
+		<para
+>Links bevindt zich het tabblad <guilabel
+>Componenten</guilabel
+>.</para>
+		
+		<para
+>Een component uit de zijbalk in het schema slepen zal het onder de muiscursor plaatsen. U kunt ook op een item in de zijbalk <guilabel
+>Componenten</guilabel
+> dubbelklikken om het herhaaldelijk toe te voegen aan het schema. In deze modus zal een kopie van de geselecteerde component herhaaldelijk bij links klikken worden onder de muis worden geplaatst totdat of &Esc; wordt ingedrukt of een klik rechts met de muis.</para>
+		
+		<para
+>Om een component een andere positie te geven, klik er links op en versleep. U zult zien dat het vastklikt op het onderliggende raster. Als u de component buiten de rechter- of onderrand van het werkgebied verplaatst, zal het werkgebied zichzelf vergroten om het te laten passen.</para>
+		
+		<para
+>Bij alle componenten kunt u de oriëntatie opgeven; 0, 90, 180 en 270 graden. De types die over de as niet symmetrisch zijn, kunt u ook omkeren. Om een selectie van componenten te roteren, rechtsklik en selecteer in het contextmenu het menu-item<guimenu
+>Oriëntatie</guimenu
+>, of klik op de roteer-knoppen in de werkbalk. Die laatste kunt u bereiken door op de <keycap
+>[</keycap
+> and <keycap
+>]</keycap
+> toetsen (bekend bij <application
+>Inkscape</application
+> gebruikers) te drukken. In de <guilabel
+>Item</guilabel
+>-zijbalk (aan de rechterkant) is een handige methode aanwezig voor het instellen van de oriëntatie vanwege de voorbeelden van de componenten. De componenten omkeren is verder uitsluitend mogelijk via de <guilabel
+>Item</guilabel
+>-zijbalk.</para>
+	</sect1>
+	
+	<sect1 id="connecting_components">
+		<title
+>Componenten verbinden</title>
+		<para
+>Er zijn twee methoden voor maken van verbindingen (draden): automatisch, en handmatig. U kunt een van deze methoden via het <guimenu
+>Verbinding opbouw methode</guimenu
+> pulldown menu in de werkbalk. Experimenteer met beide - automatisch verbinden is vaak handiger bij kleine schema's, waar bij complexere schema's vaak handmatig verbinden nodig is.</para>
+		
+		<para
+>In de automatische mode, creëert u een verbinding door van een pin of van een al bestaande verbinding te slepen en daarna de muis boven de gewenste pin of verbinding los te laten. U zult dan zien dat de rechte lijn oranje kleurt bij het los laten van de muis als het een geldige verbinding is. Als de lijn zwart kleurt, dan is dat omdat er niets beneden de muiscursor is of omdat u twee items probeert te verbinden die al verbonden zijn. Bij flow-charts zijn de criteria voor een geldige verbinding meer complex - maar daar komen we later op terug.</para>
+		
+		<para
+>De beste manier om handigheid in het handmatig verbinden te krijgen is door ermee te experimenteren. Klik op de startpunt of op de verbinding, en verleng dan de proto-connector door de muis weg te bewegen van de plek waar u heeft geklikt. Om een hoekpunt te plaatsen, klikt u met de &LMB;. Om het tekenen van verbindingen af te breken, drukt u naar keuze op &Esc;, of met de &RMB;.</para>
+		
+		<para
+>&ktechlab; probeert om de routes voor de door u gemaakte verbindingen te behouden. Maar, als het verslepen van een component erin resulteert dat de eindpunten van een verbinding dichter bij elkaar komen, dan wordt &ktechlab; gedwongen om de verbinding via auto-routing opnieuw te tekenen. Voor het verplaatsen van een component, kunt u zien welke verbindingen een nieuwe route kunnen krijgen - omdat ze grijs kleuren als u erop klikt.</para>
+		
+		<para
+>Om een bestaande verbinding te verwijderen, selecteert u het door een klein selectievierkantje over een gedeelte van de verbinding te tekenen en op <keycap
+>Del</keycap
+> te drukken.</para>
+	</sect1>
+	
+	<sect1 id="component_attributes">
+		<title
+>Attributen van componenten</title>
+		<para
+>De meeste componenten hebben bewerkbare attributen, zoals de weerstand bij weerstanden. Standaard kunt u als u een groep van hetzelfde soort componenten heeft geselecteerd, via de werkbalk eenvoudig attributen bewerken. Als in uw selectie meerdere soorten componenten aanwezig zijn (zoals weerstanden en condensatoren), dan krijgt u geen bewerkbare attributen te zien.</para>
+		
+		<para
+>Sommige componenten hebben geavanceerde attributen die niet via de werkbalk toegankelijk zijn. U kunt ze vinden in zijbalk <guilabel
+>Item</guilabel
+> aan de rechterkant. De diode, bijvoorbeeld, heeft een aantal karakteristieken die u hier kunt bewerken.</para>
+<!-- Not in 0.3.6 version
+		<para
+>If your selection of components have different values for their attributes (for example, different resistances for a selection of resistors), the <guilabel
+>Item</guilabel
+> sidebar will have the disagreeing attributes grayed-out. You can enable these by clicking the <guibutton
+>Merge properties</guibutton
+> button.</para>
+
+		<para
+>The "Defaults" button will reset the component attributes to the ones it had on creation.</para>
+		-->
+		<para
+>Er is een type attribuut dat niet is te bewerken door de werkbalk of zijbalk Item - tekst over meerdere regels. Dubbelklikken op het item zal een dialoogvak laten verschijnen waar de tekst ingevoerd kan worden.</para>
+	</sect1>
+	
+	<sect1 id="circuit_simulation">
+		<title
+>Simulatie</title>
+		<para
+>De simulatie zal standaard worden uitgevoerd wanneer u een nieuwe elektronisch schema aanmaakt. De status van de simulatie wordt rechtsonder in de weergave van het schema weergegeven en kan gewijzigd worden via het menu <guimenu
+>Hulpmiddelen</guimenu
+>. Eerst - enige uitleg over hoe de simulator werkt. Dit zou u in staat stellen er het meeste uit te halen.</para>
+		
+		<para
+>Als u een schema heeft gecreëerd of gewijzigd, dan worden de betreffende gebieden verdeelt in groepen van pinnen en verbindingen die als onafhankelijk van elkaar beschouwd kunnen worden. Elke groep wordt als onafhankelijke entiteit gesimuleerd (maar nog steeds via de componenten op elkaar reagerend), waarbij de simulatie afhankelijk is van de complexiteit van de groep. Complexere groepen, zoals die met niet-lineaire componenten zoals LEDs, hebben veel tijd nodig om te simuleren. Groepen die alleen logische pinnen heeft, of waar maar een variabele de waarde van die pinnen controleert, hebben het minste tijd nodig voor de simulatie.</para>
+		
+		<para
+>Het resultaat van de simulatie wordt geleverd via verschillende grafische middelen.</para>
+		
+		<para
+>De pennen op de componenten zullen zijbalken met voltages tonen. Deze worden oranje gekleurd voor positieve en blauw voor negatieve voltages. Hun lengte hangt af van de hoogte van het voltage en hun breedte van de hoeveelheid stroom door de pin. Dit kan uitgeschakeld worden in de pagina <guilabel
+>Algemeen</guilabel
+> van de dialoog <guilabel
+>Configuratie</guilabel
+>.</para>
+		
+		<para
+>Als de muis boven een pen of een verbinding zweeft dan krijgt u een kleine tekstballon te zien dat de spanning en de stroom op dat punt in het schema toont. Verschillende componenten kunnen ook grafische feedback geven - bijvoorbeeld, LEDs en spannings- of stroommeters.</para>
+		
+		<para
+>Tenslotte is er ook nog de oscilloscoop, dat in de volgende sectie wordt besproken.</para>
+	</sect1>
+	
+	<sect1 id="oscilloscope">
+		<title
+>Oscilloscoop</title>
+		<para
+>De oscilloscoop kan de data van logica, spanningen en stromen opnemen. De logica-probe is geoptimaliseerd voor de opslag van booleaanse samples, en moet daarom bij het meten van logica worden gebruikt in de plaats van de spanning-probe.</para>
+		
+		<para
+>Om data te verzamelen, creëert u eerst een probe, en verbind die met het gewenste punt in het schema. U krijgt onmiddellijk in de oscilloscoop het resultaat te zien. Door meer probes toe te voegen zal de resultaten naast elkaar geplaatst worden - u kunt deze herpositioneren door de pijlen aan de linkerkant van het beeld op de oscilloscoop te verslepen, en u kunt de kleur daarvan wijzigen via de attributen van de probes.</para>
+		
+		<para
+>U kunt voor spanning en stroom-probes het meetbereik aanpassen in de <guilabel
+>Item Bewerken</guilabel
+>-zijbalk aan de rechterkant.</para>
+		
+		<para
+>U kunt met een schuifknop IN- en UIT-zoomen. De schaal is logaritmisch; Voor elke paar pixels dat de schuifknop beweegt, wordt de zoom factor vermenigvuldigt met een constante. &ktechlab; simuleert logica tot de maximale precisie van 1 microseconde, en bij een maximale zoom, wordt een microseconde voorgesteld door 8 pixels.</para>
+		
+		<para
+>Als u de schuifknop naar het eind heeft verschoven, dan blijft het daar staan als nieuwe data binnenkomt. Als de schuifknop niet aan het eind staat, dan blijft de positie van de schuifknop op het zelfde tijdpunt staan. Het beeld op het scherm van de oscilloscoop kunt u voorwaarts en achterwaarts in de tijd verplaatsen door met de &LMB; het beeld te verslepen. Vanwege beperkingen van het gebruikte widget system, verloopt het verschuiven nogal schokkerig als u maximaal ingezoomd bent.</para>
+		
+		<para
+>Als u in het beeld van de oscilloscoop met de &RMB; klikt dan opent u een contextmenu waarin u kan instellen hoe vaak het beeld van de oscilloscoop wordt bijgewerkt. Hierdoor kunt u kiezen tussen een vloeiender weergave en minder belasting van de microprocessor.</para>
+	</sect1>
+	
+	<sect1 id="subcircuits">
+		<title
+>Subcircuits</title>
+		<para
+>Subcircuits zijn een nette en herbruikbare manier om een schema te gebruiken, als u alleen geïnteresseerd bent reacties van de externe verbindingen van het circuit. Het subcircuit is net als een IC, met de pinnen als interface met het interne circuit.</para>
+		
+		<para
+>Eerst moet u een schema construeren dat als sjabloon gaat dienen voor het subcircuit dat u gaat construeren. De interface-punten definieert u met de <guilabel
+>Externe verbinding</guilabel
+> componenten. Deze moet u plaatsen en daarna verbinden op de locatie waar u de pin in het subcircuit IC wilt hebben.</para>
+		
+		<para
+>Selecteer vervolgens de groep componenten en de externe verbindingen die u naar een subcircuit wilt omzetten, en selecteer in het contextmenu <guimenuitem
+>Subcircuit aanmaken</guimenuitem
+>. U kunt een naam opgeven voor  het subcircuit. Nadat het subcircuit is gecreëerd, zal in de <guilabel
+>Componenten</guilabel
+> onder de selectie <guilabel
+>Subcircuits</guilabel
+> de naam verschijnen. Wat u vervolgens als een normaal component kan hanteren - inclusief de mogelijkheid van het verwijderen door op het item te klikken met de &RMB; en <guimenuitem
+>Verwijderen</guimenuitem
+> in het contextmenu te selecteren.</para>
+	</sect1>
+	
+</chapter>
+
+
+

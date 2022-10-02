@@ -1,0 +1,5411 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: kdeorg\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-06-27 00:46+0000\n"
+"PO-Revision-Date: 2022-09-20 01:56\n"
+"Last-Translator: \n"
+"Language-Team: Chinese Simplified\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Crowdin-Project: kdeorg\n"
+"X-Crowdin-Project-ID: 269464\n"
+"X-Crowdin-Language: zh-CN\n"
+"X-Crowdin-File: /kf5-trunk/messages/ktechlab/ktechlab.pot\n"
+"X-Crowdin-File-ID: 10600\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr ""
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr ""
+
+#: microbe/main.cpp:46 src/flowcodeview.cpp:39 src/ktechlab.cpp:500
+#: src/textview.cpp:66
+#, kde-format
+msgid "Microbe"
+msgstr ""
+
+#: microbe/main.cpp:48
+#, kde-format
+msgid "The Microbe Compiler"
+msgstr ""
+
+#: microbe/main.cpp:50
+#, kde-format
+msgid "(C) 2004-2005, The KTechlab developers"
+msgstr "(C) 2004-2005, The KTechlab developers"
+
+#: microbe/main.cpp:53 src/core/main.cpp:43
+#, kde-format
+msgid "Daniel Clarke"
+msgstr ""
+
+#: microbe/main.cpp:54 src/core/main.cpp:42
+#, kde-format
+msgid "David Saxton"
+msgstr ""
+
+#: microbe/main.cpp:55
+#, kde-format
+msgid "George John"
+msgstr ""
+
+#: microbe/main.cpp:55
+#, kde-format
+msgid "Added pic 16f877,16f627 and 16f628"
+msgstr ""
+
+#: microbe/main.cpp:62
+#, kde-format
+msgid "Show source code lines in assembly output"
+msgstr ""
+
+#: microbe/main.cpp:64
+#, kde-format
+msgid "Do not attempt optimization of generated instructions."
+msgstr ""
+
+#: microbe/main.cpp:66
+#, kde-format
+msgid "Input filename"
+msgstr ""
+
+#: microbe/main.cpp:67
+#, kde-format
+msgid "Output filename"
+msgstr ""
+
+#: microbe/microbe.cpp:93
+#, kde-format
+msgid "Could not open file '%1'\n"
+msgstr ""
+
+#: microbe/microbe.cpp:223
+#, kde-format
+msgid "Unknown statement"
+msgstr ""
+
+#: microbe/microbe.cpp:226
+#, kde-format
+msgid "Port '%1' is not supported by target PIC"
+msgstr ""
+
+#: microbe/microbe.cpp:229
+#, kde-format
+msgid "Pin identifier was not followed by '='"
+msgstr ""
+
+#: microbe/microbe.cpp:232
+#, kde-format
+msgid "Pin state can only be 'high' or 'low'"
+msgstr ""
+
+#: microbe/microbe.cpp:235
+#, kde-format
+msgid "Invalid token '%1'. Port identifier should be followed by '='"
+msgstr ""
+
+#: microbe/microbe.cpp:238
+#, kde-format
+msgid "Unexpected statement before '{'"
+msgstr ""
+
+#: microbe/microbe.cpp:241
+#, kde-format
+msgid "Mismatched brackets in expression '%1'"
+msgstr ""
+
+#: microbe/microbe.cpp:244
+#, kde-format
+msgid "Invalid '=' found in expression"
+msgstr ""
+
+#: microbe/microbe.cpp:247
+#, kde-format
+msgid "Reserved keyword '%1' cannot be a variable name."
+msgstr ""
+
+#: microbe/microbe.cpp:250
+#, kde-format
+msgid "Nothing between operators"
+msgstr ""
+
+#: microbe/microbe.cpp:253
+#, kde-format
+msgid "Missing operator or space in operand"
+msgstr ""
+
+#: microbe/microbe.cpp:257
+#, kde-format
+msgid "Unknown variable"
+msgstr ""
+
+#: microbe/microbe.cpp:259
+#, kde-format
+msgid "Unknown variable '%1'"
+msgstr ""
+
+#: microbe/microbe.cpp:262
+#, kde-format
+msgid "Could not open include file '%1'"
+msgstr ""
+
+#: microbe/microbe.cpp:265
+#, kde-format
+msgid "Division by zero"
+msgstr ""
+
+#: microbe/microbe.cpp:268
+#, kde-format
+msgid "Number too big"
+msgstr ""
+
+#: microbe/microbe.cpp:271
+#, kde-format
+msgid "Step can only be a constant expression"
+msgstr ""
+
+#: microbe/microbe.cpp:274
+#, kde-format
+msgid "Delay must be a positive constant value"
+msgstr ""
+
+#: microbe/microbe.cpp:277
+#, kde-format
+msgid "'high' or 'low' expected after pin expression '%1'"
+msgstr ""
+
+#: microbe/microbe.cpp:280
+#, kde-format
+msgid "Comparison operator in '%1' is not recognized"
+msgstr ""
+
+#: microbe/microbe.cpp:283
+#, kde-format
+msgid "Subroutine definition before end of program"
+msgstr ""
+
+#: microbe/microbe.cpp:286
+#, kde-format
+msgid "Interrupt routine definition before end of program"
+msgstr ""
+
+#: microbe/microbe.cpp:289
+#, kde-format
+msgid "Label expected"
+msgstr ""
+
+#: microbe/microbe.cpp:292
+#, kde-format
+msgid "Extra tokens at end of line"
+msgstr ""
+
+#: microbe/microbe.cpp:295
+#, kde-format
+msgid "Expected '%1'"
+msgstr ""
+
+#: microbe/microbe.cpp:298
+#, kde-format
+msgid "Pin list expected"
+msgstr ""
+
+#: microbe/microbe.cpp:301
+#, kde-format
+msgid "Alias already defined"
+msgstr ""
+
+#: microbe/microbe.cpp:304
+#, kde-format
+msgid "Interrupt type not supported by target PIC"
+msgstr ""
+
+#: microbe/microbe.cpp:307
+#, kde-format
+msgid "Interrupt already defined"
+msgstr ""
+
+#: microbe/microbe.cpp:310
+#, kde-format
+msgid "Variable '%1' is read only"
+msgstr ""
+
+#: microbe/microbe.cpp:313
+#, kde-format
+msgid "Variable '%1' is write only"
+msgstr ""
+
+#: microbe/microbe.cpp:316
+#, kde-format
+msgid "Invalid pin list size"
+msgstr ""
+
+#: microbe/microbe.cpp:319
+#, kde-format
+msgid "Variable '%1' is already defined"
+msgstr ""
+
+#: microbe/microbe.cpp:322
+#, kde-format
+msgid "'%1' is not a valid variable name"
+msgstr ""
+
+#: microbe/microbe.cpp:325
+#, kde-format
+msgid "Variable expected"
+msgstr ""
+
+#: microbe/microbe.cpp:328
+#, kde-format
+msgid "Name expected"
+msgstr ""
+
+#: microbe/optimizer.cpp:71
+#, kde-format
+msgid "Internal issue: Optimization has not finished in %1 iterations."
+msgstr ""
+
+#: src/circuitview.cpp:35
+#, kde-format
+msgid "Dump linear equations"
+msgstr ""
+
+#. i18n("0 Degrees"), "", 0, circuitDocument, SLOT(setOrientation0()), ac, "edit_orientation_0" );
+#. ra->setExclusiveGroup("orientation"); // TODO test
+#: src/circuitview.cpp:47
+#, kde-format
+msgid "0 Degrees"
+msgstr ""
+
+#. i18n("90 Degrees"), "", 0, circuitDocument, SLOT(setOrientation90()), ac, "edit_orientation_90" );
+#. ra->setExclusiveGroup("orientation"); // TODO test
+#: src/circuitview.cpp:56
+#, kde-format
+msgid "90 Degrees"
+msgstr ""
+
+#. i18n("180 Degrees"), "", 0, circuitDocument, SLOT(setOrientation180()), ac, "edit_orientation_180" );
+#. ra->setExclusiveGroup("orientation"); // TODO test
+#: src/circuitview.cpp:64
+#, kde-format
+msgid "180 Degrees"
+msgstr ""
+
+#. i18n("270 Degrees"), "", 0, circuitDocument, SLOT(setOrientation270()), ac, "edit_orientation_270" );
+#. ra->setExclusiveGroup("orientation"); // TODO test
+#: src/circuitview.cpp:72
+#, kde-format
+msgid "270 Degrees"
+msgstr ""
+
+#. i18n("Create Subcircuit"), "", 0, circuitDocument, SLOT(createSubcircuit()), ac, "circuit_create_subcircuit" );
+#: src/circuitview.cpp:80
+#, kde-format
+msgid "Create Subcircuit"
+msgstr ""
+
+#. i18n("Rotate Clockwise"), "object-rotate-right", "]", circuitDocument, SLOT(rotateClockwise()), ac, "edit_rotate_cw" );
+#: src/circuitview.cpp:87
+#, kde-format
+msgid "Rotate Clockwise"
+msgstr ""
+
+#. i18n("Rotate Counter-Clockwise"), "object-rotate-left", "[", circuitDocument, SLOT(rotateCounterClockwise()), ac, "edit_rotate_ccw" );
+#: src/circuitview.cpp:94
+#, kde-format
+msgid "Rotate Counter-Clockwise"
+msgstr ""
+
+#. i18n("Flip Horizontally"), "", 0, circuitDocument, SLOT(flipHorizontally()), ac, "edit_flip_horizontally" );
+#: src/circuitview.cpp:101
+#, kde-format
+msgid "Flip Horizontally"
+msgstr ""
+
+#. i18n("Flip Vertically"), "", 0, circuitDocument, SLOT(flipVertically()), ac, "edit_flip_vertically" );
+#: src/circuitview.cpp:108
+#, kde-format
+msgid "Flip Vertically"
+msgstr ""
+
+#: src/circuitview.cpp:118
+#, kde-format
+msgid ""
+"Construct a circuit by dragging components from the Component selector from "
+"the left. Create the connections by dragging a wire from the component "
+"connectors.<br><br>The simulation is running by default, but can be paused "
+"and resumed from the Tools menu.<br><br>To delete a wire, select it with a "
+"select box, and hit delete.<br><br>To edit the attributes of a component, "
+"select it (making sure that no components of another type are also "
+"selected), and edit in the toolbar. More advanced properties can be edited "
+"using the item editor on the right.<br><br>Subcircuits can be created by "
+"connecting the components with an External Connection, selecting the desired "
+"components and clicking on \"Create Subcircuit\" in the right-click menu."
+msgstr ""
+
+#: src/circuitview.cpp:132
+#, kde-format
+msgid "Simulation Initializing"
+msgstr ""
+
+#: src/circuitview.cpp:144
+#, kde-format
+msgid "Simulation Running"
+msgstr ""
+
+#: src/circuitview.cpp:144
+#, kde-format
+msgid "Simulation Paused"
+msgstr ""
+
+#. i18n: ectx: label, entry (MaxUndo), group (General)
+#: src/core/ktechlab.kcfg:10
+#, kde-format
+msgid "Maximum number of undo steps"
+msgstr ""
+
+#. i18n: ectx: label, entry (RestoreDocumentsOnStartup), group (General)
+#: src/core/ktechlab.kcfg:14
+#, kde-format
+msgid "Restore Documents on Startup"
+msgstr ""
+
+#. i18n: ectx: label, entry (RaiseItemSelectors), group (General)
+#: src/core/ktechlab.kcfg:18
+#, kde-format
+msgid "Raise appropriate Item Selector on document creation"
+msgstr ""
+
+#. i18n: ectx: label, entry (RaiseMessagesLog), group (General)
+#: src/core/ktechlab.kcfg:22
+#, kde-format
+msgid "Raise Messages Log on Compiling"
+msgstr ""
+
+#. i18n: ectx: label, entry (ShowVoltageBars), group (General)
+#: src/core/ktechlab.kcfg:26
+#, kde-format
+msgid "Show Voltage Bars"
+msgstr ""
+
+#. i18n: ectx: label, entry (ShowVoltageColor), group (General)
+#: src/core/ktechlab.kcfg:30
+#, kde-format
+msgid "Show Voltage as Color"
+msgstr ""
+
+#. i18n: ectx: label, entry (AnimateWires), group (General)
+#: src/core/ktechlab.kcfg:34
+#, kde-format
+msgid "Animate Wires (current or power)"
+msgstr ""
+
+#. i18n: ectx: label, entry (RefreshRate), group (General)
+#: src/core/ktechlab.kcfg:38
+#, kde-format
+msgid "Refresh Rate"
+msgstr ""
+
+#. i18n: ectx: label, entry (GridColor), group (General)
+#: src/core/ktechlab.kcfg:42
+#, kde-format
+msgid "Color of grid lines"
+msgstr ""
+
+#. i18n: ectx: label, entry (ShowGrid), group (General)
+#: src/core/ktechlab.kcfg:46
+#, kde-format
+msgid "Whether the grid should be shown."
+msgstr ""
+
+#. i18n: ectx: label, entry (ReuseSameViewForOutput), group (General)
+#: src/core/ktechlab.kcfg:50
+#, kde-format
+msgid "Whether the same output should be use for generation of code, etc"
+msgstr ""
+
+#. i18n: ectx: label, entry (IndentAsmName), group (AsmFormatter)
+#: src/core/ktechlab.kcfg:57
+#, kde-format
+msgid "Indentation of Instruction Names"
+msgstr ""
+
+#. i18n: ectx: label, entry (IndentAsmData), group (AsmFormatter)
+#: src/core/ktechlab.kcfg:61
+#, kde-format
+msgid "Indentation of Instruction Data"
+msgstr ""
+
+#. i18n: ectx: label, entry (IndentComment), group (AsmFormatter)
+#: src/core/ktechlab.kcfg:65
+#, kde-format
+msgid "Indentation of Comments"
+msgstr ""
+
+#. i18n: ectx: label, entry (IndentEqu), group (AsmFormatter)
+#: src/core/ktechlab.kcfg:69
+#, kde-format
+msgid "Indentation of 'equ'"
+msgstr ""
+
+#. i18n: ectx: label, entry (IndentEquValue), group (AsmFormatter)
+#: src/core/ktechlab.kcfg:73
+#, kde-format
+msgid "Indentation of 'equ' Value"
+msgstr ""
+
+#. i18n: ectx: label, entry (AutoFormatMBOutput), group (AsmFormatter)
+#: src/core/ktechlab.kcfg:77
+#, kde-format
+msgid "Automatically format Microbe output"
+msgstr ""
+
+#. i18n: ectx: label, entry (LogicSymbolShapes), group (Logic)
+#: src/core/ktechlab.kcfg:84
+#, kde-format
+msgid "Logic Symbol Shapes"
+msgstr ""
+
+#. i18n: ectx: label, entry (LogicRisingTrigger), group (Logic)
+#: src/core/ktechlab.kcfg:92
+#, kde-format
+msgid "Rising Trigger Threshold"
+msgstr ""
+
+#. i18n: ectx: label, entry (LogicFallingTrigger), group (Logic)
+#: src/core/ktechlab.kcfg:96
+#, kde-format
+msgid "Falling Trigger Threshold"
+msgstr ""
+
+#. i18n: ectx: label, entry (LogicOutputHigh), group (Logic)
+#: src/core/ktechlab.kcfg:100
+#, kde-format
+msgid "Logic Output High"
+msgstr ""
+
+#. i18n: ectx: label, entry (LogicOutputHighImpedance), group (Logic)
+#: src/core/ktechlab.kcfg:104
+#, kde-format
+msgid "Logic Output High Impedance"
+msgstr ""
+
+#. i18n: ectx: label, entry (LogicOutputLowImpedance), group (Logic)
+#: src/core/ktechlab.kcfg:108
+#, kde-format
+msgid "Logic Output Low Impedance"
+msgstr ""
+
+#. i18n: ectx: label, entry (HexFormat), group (Gpasm)
+#: src/core/ktechlab.kcfg:115
+#, kde-format
+msgid "Hex Format"
+msgstr ""
+
+#. i18n: ectx: label, entry (Radix), group (Gpasm)
+#: src/core/ktechlab.kcfg:125
+#, kde-format
+msgid "Radix"
+msgstr ""
+
+#. i18n: ectx: label, entry (GpasmWarningLevel), group (Gpasm)
+#: src/core/ktechlab.kcfg:135
+#, kde-format
+msgid "GpasmWarning Level"
+msgstr ""
+
+#. i18n: ectx: label, entry (IgnoreCase), group (Gpasm)
+#: src/core/ktechlab.kcfg:144
+#, kde-format
+msgid "Ignore Case"
+msgstr ""
+
+#. i18n: ectx: label, entry (DosFormat), group (Gpasm)
+#: src/core/ktechlab.kcfg:148
+#, kde-format
+msgid "Dos Formatting"
+msgstr ""
+
+#. i18n: ectx: label, entry (MiscGpasmOptions), group (Gpasm)
+#. i18n: ectx: label, entry (MiscSDCCOptions), group (SDCC)
+#: src/core/ktechlab.kcfg:152 src/core/ktechlab.kcfg:299
+#, kde-format
+msgid "Other Options"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_nostdlib), group (SDCC)
+#: src/core/ktechlab.kcfg:159
+#, kde-format
+msgid "Do not search in the standard library directory"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_nostdinc), group (SDCC)
+#: src/core/ktechlab.kcfg:163
+#, kde-format
+msgid "Do not search in the standard include directory"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_less_pedantic), group (SDCC)
+#: src/core/ktechlab.kcfg:167
+#, kde-format
+msgid "Disable pedantic warnings"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_std_c89), group (SDCC)
+#: src/core/ktechlab.kcfg:171
+#, kde-format
+msgid "Strictly follow the C89 standard"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_std_c99), group (SDCC)
+#: src/core/ktechlab.kcfg:175
+#, kde-format
+msgid "Strictly follow the C99 standard"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_stack_auto), group (SDCC)
+#: src/core/ktechlab.kcfg:180
+#, kde-format
+msgid "Stack automatic variables"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_int_long_reent), group (SDCC)
+#: src/core/ktechlab.kcfg:184
+#, kde-format
+msgid "Integer libraries have been compiled as reentrant"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_float_reent), group (SDCC)
+#: src/core/ktechlab.kcfg:188
+#, kde-format
+msgid "Floating point library has been compiled as reentrant"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_fommit_frame_pointer), group (SDCC)
+#: src/core/ktechlab.kcfg:192
+#, kde-format
+msgid "Leave out the frame pointer"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_no_xinit_opt), group (SDCC)
+#: src/core/ktechlab.kcfg:196
+#, kde-format
+msgid "Do not memcpy initialized data from code space to xdata space"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_all_callee_saves), group (SDCC)
+#: src/core/ktechlab.kcfg:200
+#, kde-format
+msgid "Callee will always save registers used"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_nooverlay), group (SDCC)
+#: src/core/ktechlab.kcfg:205
+#, kde-format
+msgid "Do not overlay parameters and local variables"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_nogcse), group (SDCC)
+#: src/core/ktechlab.kcfg:209
+#, kde-format
+msgid "Disable the GCSE optimization"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_nolabelopt), group (SDCC)
+#: src/core/ktechlab.kcfg:213
+#, kde-format
+msgid "Do not optimize labels"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_noinvariant), group (SDCC)
+#: src/core/ktechlab.kcfg:217
+#, kde-format
+msgid "Disable optimization of invariants"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_noinduction), group (SDCC)
+#: src/core/ktechlab.kcfg:221
+#, kde-format
+msgid "Disable loop variable induction"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_no_peep), group (SDCC)
+#: src/core/ktechlab.kcfg:225
+#, kde-format
+msgid "Disable peep-hole optimization"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_noloopreverse), group (SDCC)
+#: src/core/ktechlab.kcfg:229
+#, kde-format
+msgid "Do not do loop reversal optimization"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_opt_code_size), group (SDCC)
+#: src/core/ktechlab.kcfg:233
+#, kde-format
+msgid "Optimize for compact code"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_opt_code_speed), group (SDCC)
+#: src/core/ktechlab.kcfg:237
+#, kde-format
+msgid "Optimize for fast code"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_peep_asm), group (SDCC)
+#: src/core/ktechlab.kcfg:241
+#, kde-format
+msgid "Pass inline assembler code through peep hole optimizer"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_nojtbound), group (SDCC)
+#: src/core/ktechlab.kcfg:245
+#, kde-format
+msgid "Do not generate boundary check for jump tables"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_nodefaultlibs), group (SDCC)
+#: src/core/ktechlab.kcfg:250
+#, kde-format
+msgid "Do not use default libraries"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_pno_banksel), group (SDCC)
+#: src/core/ktechlab.kcfg:254
+#, kde-format
+msgid "Do not generate BANKSEL directives"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_pstack_model_large), group (SDCC)
+#: src/core/ktechlab.kcfg:258
+#, kde-format
+msgid "Use large stack model"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_debug_xtra), group (SDCC)
+#: src/core/ktechlab.kcfg:262
+#, kde-format
+msgid "Show more debug info in assembly output"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_denable_peeps), group (SDCC)
+#: src/core/ktechlab.kcfg:266
+#, kde-format
+msgid "Explicit enable of peepholes"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_calltree), group (SDCC)
+#: src/core/ktechlab.kcfg:270
+#, kde-format
+msgid "Dump call tree in .calltree file"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_fstack), group (SDCC)
+#: src/core/ktechlab.kcfg:274
+#, kde-format
+msgid "Enable stack optimizations"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_optimize_goto), group (SDCC)
+#: src/core/ktechlab.kcfg:278
+#, kde-format
+msgid "Try to use conditional BRA instead of GOTO"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_optimize_cmp), group (SDCC)
+#: src/core/ktechlab.kcfg:282
+#, kde-format
+msgid "Try to optimize some compares"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_optimize_df), group (SDCC)
+#: src/core/ktechlab.kcfg:286
+#, kde-format
+msgid "Thorough data flow analysis"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_use_non_free)
+#. i18n: ectx: label, entry (SDCC_use_non_free), group (SDCC)
+#: src/core/ktechlab.kcfg:290 src/gui/sdccoptionswidget.ui:95
+#, kde-format
+msgid "Search / include non-free licensed libraries and header files"
+msgstr ""
+
+#. i18n: ectx: label, entry (SDCC_install_prefix), group (SDCC)
+#: src/core/ktechlab.kcfg:294
+#, kde-format
+msgid "Location where SDCC in installed"
+msgstr ""
+
+#. i18n: ectx: label, entry (PicProgrammerProgram), group (PicProgramming)
+#: src/core/ktechlab.kcfg:306
+#, kde-format
+msgid "The application to use to program the PIC."
+msgstr ""
+
+#. i18n: ectx: label, entry (PicProgrammerPort), group (PicProgramming)
+#: src/core/ktechlab.kcfg:310
+#, kde-format
+msgid "The device (serial, parallel, etc...) used to program the PIC."
+msgstr ""
+
+#. i18n: ectx: label, entry (gplink_link_shared), group (Gplink)
+#: src/core/ktechlab.kcfg:317
+#, kde-format
+msgid "Check this if SDCC uses shared libs for compiling (newer SDCC does so)"
+msgstr ""
+
+#: src/core/main.cpp:35
+#, kde-format
+msgid "KTechLab"
+msgstr ""
+
+#: src/core/main.cpp:35
+#, kde-format
+msgid "An IDE for microcontrollers and electronics"
+msgstr ""
+
+#: src/core/main.cpp:35
+#, kde-format
+msgid "(C) 2003-2017, The KTechLab developers"
+msgstr "(C) 2003-2017, The KTechLab developers"
+
+#: src/core/main.cpp:36
+#, kde-format
+msgid "Alan Grimes"
+msgstr ""
+
+#: src/core/main.cpp:36
+#, kde-format
+msgid "Developer, Simulation"
+msgstr ""
+
+#: src/core/main.cpp:37
+#, kde-format
+msgid "Zoltan Padrah"
+msgstr ""
+
+#: src/core/main.cpp:37
+#, kde-format
+msgid "Developer"
+msgstr ""
+
+#: src/core/main.cpp:38
+#, kde-format
+msgid "Julian Bäume"
+msgstr ""
+
+#: src/core/main.cpp:38
+#, kde-format
+msgid "Developer, KDE4 Port, GUI"
+msgstr ""
+
+#: src/core/main.cpp:39
+#, kde-format
+msgid "Juan De Vincenzo"
+msgstr ""
+
+#: src/core/main.cpp:39
+#, kde-format
+msgid "KDE4 Port"
+msgstr ""
+
+#: src/core/main.cpp:40
+#, kde-format
+msgid "Lawrence Shafer"
+msgstr ""
+
+#: src/core/main.cpp:40
+#, kde-format
+msgid "Website, wiki and forum"
+msgstr ""
+
+#: src/core/main.cpp:41
+#, kde-format
+msgid "Jason Lucas"
+msgstr ""
+
+#: src/core/main.cpp:41
+#, kde-format
+msgid "Keeping up the project during lack of developers"
+msgstr ""
+
+#: src/core/main.cpp:42
+#, kde-format
+msgid "Former developer, project founder, former maintainer"
+msgstr ""
+
+#: src/core/main.cpp:43
+#, kde-format
+msgid "Former developer"
+msgstr ""
+
+#: src/core/main.cpp:44
+#, kde-format
+msgid "Couriousous"
+msgstr ""
+
+#: src/core/main.cpp:44
+#, kde-format
+msgid "JK flip-flop, asynchronous preset/reset in the D flip-flop"
+msgstr ""
+
+#: src/core/main.cpp:45 src/electronics/components/rotoswitch.cpp:41
+#, kde-format
+msgid "Rotary Switch"
+msgstr ""
+
+#: src/core/main.cpp:45
+#, kde-format
+msgid "John Myers"
+msgstr ""
+
+#: src/core/main.cpp:46
+#, kde-format
+msgid "Ali Akcaagac"
+msgstr ""
+
+#: src/core/main.cpp:46
+#, kde-format
+msgid "Glib friendliness"
+msgstr ""
+
+#: src/core/main.cpp:47
+#, kde-format
+msgid "David Leggett"
+msgstr ""
+
+#: src/core/main.cpp:47
+#, kde-format
+msgid "Former website hosting and feedback during early development"
+msgstr ""
+
+#: src/core/main.cpp:56
+#, kde-format
+msgid "Document to open."
+msgstr ""
+
+#: src/docmanager.cpp:96
+#, kde-format
+msgid "Could not open '%1'"
+msgstr ""
+
+#: src/docmanager.cpp:164
+#, kde-format
+msgid "Untitled (Circuit %1)"
+msgstr ""
+
+#: src/docmanager.cpp:166
+#, kde-format
+msgid "Untitled (Circuit)"
+msgstr ""
+
+#: src/docmanager.cpp:172
+#, kde-format
+msgid "Untitled (FlowCode %1)"
+msgstr ""
+
+#: src/docmanager.cpp:174
+#, kde-format
+msgid "Untitled (FlowCode)"
+msgstr ""
+
+#: src/docmanager.cpp:180
+#, kde-format
+msgid "Untitled (Mechanics %1)"
+msgstr ""
+
+#: src/docmanager.cpp:182
+#, kde-format
+msgid "Untitled (Mechanics)"
+msgstr ""
+
+#: src/docmanager.cpp:188
+#, kde-format
+msgid "Untitled (%1)"
+msgstr ""
+
+#: src/docmanager.cpp:190 src/view.cpp:242
+#, kde-format
+msgid "Untitled"
+msgstr ""
+
+#: src/docmanager.cpp:407
+#, kde-format
+msgid "Could not open Circuit file \"%1\""
+msgstr ""
+
+#: src/docmanager.cpp:422
+#, kde-format
+msgid "Could not open FlowCode file \"%1\""
+msgstr ""
+
+#: src/docmanager.cpp:437
+#, kde-format
+msgid "Could not open Mechanics file \"%1\""
+msgstr ""
+
+#: src/docmanager.cpp:455
+#, kde-format
+msgid "Could not open text file \"%1\""
+msgstr ""
+
+#: src/document.cpp:101
+#, kde-format
+msgid "Save Location"
+msgstr ""
+
+#: src/document.cpp:107 src/itemdocument.cpp:825
+#, kde-format
+msgid ""
+"A file named \"%1\" already exists. Are you sure you want to overwrite it?"
+msgstr ""
+
+#: src/document.cpp:107 src/itemdocument.cpp:828
+#, kde-format
+msgid "Overwrite File?"
+msgstr ""
+
+#: src/document.cpp:126
+#, kde-format
+msgid ""
+"The document '%1' has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+
+#: src/document.cpp:126
+#, kde-format
+msgid "Save Document?"
+msgstr ""
+
+#: src/drawparts/dpimage.cpp:129 src/drawparts/dpline.cpp:29
+#: src/drawparts/dpline.cpp:142 src/drawparts/dptext.cpp:36
+#: src/drawparts/solidshape.cpp:29 src/drawparts/solidshape.cpp:135
+#, kde-format
+msgid "Other"
+msgstr ""
+
+#: src/drawparts/dpimage.cpp:129 src/drawparts/dpimage.cpp:145
+#: src/itemview.cpp:127
+#, kde-format
+msgid "Image"
+msgstr ""
+
+#: src/drawparts/dpimage.cpp:148
+#, kde-format
+msgid "Image File"
+msgstr ""
+
+#: src/drawparts/dpline.cpp:29 src/drawparts/dpline.cpp:36 src/itemview.cpp:123
+#, kde-format
+msgid "Line"
+msgstr ""
+
+#: src/drawparts/dpline.cpp:39 src/drawparts/solidshape.cpp:50
+#, kde-format
+msgid "Line Color"
+msgstr ""
+
+#: src/drawparts/dpline.cpp:43 src/drawparts/solidshape.cpp:54
+#, kde-format
+msgid "Line Width"
+msgstr ""
+
+#: src/drawparts/dpline.cpp:49 src/drawparts/solidshape.cpp:62
+#, kde-format
+msgid "Line Style"
+msgstr ""
+
+#: src/drawparts/dpline.cpp:54
+#, kde-format
+msgid "Cap Style"
+msgstr ""
+
+#: src/drawparts/dpline.cpp:142 src/drawparts/dpline.cpp:148
+#: src/itemview.cpp:124
+#, kde-format
+msgid "Arrow"
+msgstr ""
+
+#: src/drawparts/dpline.cpp:158
+#, kde-format
+msgid "Head angle"
+msgstr ""
+
+#: src/drawparts/dptext.cpp:36
+#, kde-format
+msgid "Canvas Text"
+msgstr ""
+
+#: src/drawparts/dptext.cpp:43 src/drawparts/dptext.cpp:46 src/itemview.cpp:122
+#, kde-format
+msgid "Text"
+msgstr ""
+
+#: src/drawparts/dptext.cpp:50 src/drawparts/solidshape.cpp:40
+#, kde-format
+msgid "Display Background"
+msgstr ""
+
+#: src/drawparts/dptext.cpp:55 src/drawparts/solidshape.cpp:45
+#, kde-format
+msgid "Background Color"
+msgstr ""
+
+#: src/drawparts/dptext.cpp:60
+#, kde-format
+msgid "Frame Color"
+msgstr ""
+
+#: src/drawparts/drawpart.cpp:189
+#, kde-format
+msgid "Solid"
+msgstr ""
+
+#: src/drawparts/drawpart.cpp:191 src/drawparts/drawpart.cpp:207
+#, kde-format
+msgid "None"
+msgstr ""
+
+#: src/drawparts/drawpart.cpp:193 src/drawparts/drawpart.cpp:209
+#, kde-format
+msgid "Dash"
+msgstr ""
+
+#: src/drawparts/drawpart.cpp:195 src/drawparts/drawpart.cpp:211
+#, kde-format
+msgid "Dot"
+msgstr ""
+
+#: src/drawparts/drawpart.cpp:197 src/drawparts/drawpart.cpp:213
+#, kde-format
+msgid "Dash Dot"
+msgstr ""
+
+#: src/drawparts/drawpart.cpp:199 src/drawparts/drawpart.cpp:215
+#, kde-format
+msgid "Dash Dot Dot"
+msgstr ""
+
+#: src/drawparts/drawpart.cpp:223
+#, kde-format
+msgid "Flat"
+msgstr ""
+
+#: src/drawparts/drawpart.cpp:225 src/drawparts/drawpart.cpp:235
+#, kde-format
+msgid "Square"
+msgstr ""
+
+#: src/drawparts/drawpart.cpp:227 src/drawparts/drawpart.cpp:237
+#, kde-format
+msgid "Round"
+msgstr ""
+
+#: src/drawparts/solidshape.cpp:29 src/drawparts/solidshape.cpp:36
+#: src/itemview.cpp:126
+#, kde-format
+msgid "Rectangle"
+msgstr ""
+
+#: src/drawparts/solidshape.cpp:135 src/drawparts/solidshape.cpp:141
+#: src/itemview.cpp:125
+#, kde-format
+msgid "Ellipse"
+msgstr ""
+
+#: src/electronics/circuitdocument.cpp:43
+#, kde-format
+msgid "Orientation"
+msgstr ""
+
+#: src/electronics/circuitdocument.cpp:47
+#: src/electronics/components/piccomponent.cpp:92 src/flowcodedocument.cpp:49
+#: src/flowcodedocument.cpp:169 src/flowcodedocument.cpp:190
+#: src/flowcodedocument.cpp:211 src/ktechlab.cpp:1162
+#: src/mechanics/mechanicsdocument.cpp:28 src/projectmanager.cpp:908
+#: src/textdocument.cpp:437 src/textdocument.cpp:472
+#, kde-format
+msgid "All Files"
+msgstr ""
+
+#. i18n("Circuit"), "application-x-circuit", 0, this, SLOT(slotFileNewCircuit()), ac, "newfile_circuit" ))->plug( p->menu() );
+#: src/electronics/circuitdocument.cpp:47 src/gui/newfiledlg.cpp:77
+#: src/ktechlab.cpp:474 src/ktechlab.cpp:1165
+#, kde-format
+msgid "Circuit"
+msgstr ""
+
+#: src/electronics/circuitdocument.cpp:740
+#, kde-format
+msgid "No components were found in the selection."
+msgstr ""
+
+#: src/electronics/circuitdocument.cpp:747
+#, kde-format
+msgid "No External Connection components were found in the selection."
+msgstr ""
+
+#: src/electronics/components/addac.cpp:33
+#: src/electronics/components/addac.cpp:38
+#: src/electronics/components/binarycounter.cpp:29
+#: src/electronics/components/demultiplexer.cpp:27
+#: src/electronics/components/ec555.cpp:28
+#: src/electronics/components/ecbcdto7segment.cpp:43
+#: src/electronics/components/ecopamp.cpp:26
+#: src/electronics/components/flipflop.cpp:70
+#: src/electronics/components/flipflop.cpp:221
+#: src/electronics/components/flipflop.cpp:369
+#: src/electronics/components/fulladder.cpp:30
+#: src/electronics/components/magnitudecomparator.cpp:30
+#: src/electronics/components/matrixdisplaydriver.cpp:298
+#: src/electronics/components/multiplexer.cpp:32
+#: src/electronics/components/piccomponent.cpp:54
+#: src/electronics/components/ram.cpp:31
+#, kde-format
+msgid "Integrated Circuits"
+msgstr ""
+
+#: src/electronics/components/addac.cpp:33
+#, kde-format
+msgid "Analog-Digital"
+msgstr ""
+
+#: src/electronics/components/addac.cpp:38
+#, kde-format
+msgid "Digital-Analog"
+msgstr ""
+
+#: src/electronics/components/addac.cpp:49
+#, kde-format
+msgid "Number Bits"
+msgstr ""
+
+#: src/electronics/components/addac.cpp:55
+#, kde-format
+msgid "Input Range"
+msgstr ""
+
+#: src/electronics/components/addac.cpp:78
+#, kde-format
+msgid "ADC"
+msgstr ""
+
+#: src/electronics/components/addac.cpp:161
+#, kde-format
+msgid "DAC"
+msgstr ""
+
+#: src/electronics/components/bidirled.cpp:29
+#: src/electronics/components/bidirled.cpp:35
+#, kde-format
+msgid "Bidirectional LED"
+msgstr ""
+
+#: src/electronics/components/bidirled.cpp:29
+#: src/electronics/components/ecsevensegment.cpp:30
+#: src/electronics/components/ecsignallamp.cpp:34
+#: src/electronics/components/led.cpp:28
+#: src/electronics/components/ledbargraphdisplay.cpp:86
+#: src/electronics/components/matrixdisplay.cpp:32
+#: src/electronics/components/meter.cpp:161
+#: src/electronics/components/meter.cpp:194
+#: src/electronics/components/meter.cpp:228
+#: src/electronics/components/probe.cpp:135
+#: src/electronics/components/probe.cpp:167
+#: src/electronics/components/probe.cpp:207
+#, kde-format
+msgid "Outputs"
+msgstr ""
+
+#: src/electronics/components/bidirled.cpp:52
+#, kde-format
+msgid "Color 1"
+msgstr ""
+
+#: src/electronics/components/bidirled.cpp:56
+#, kde-format
+msgid "Colour 2"
+msgstr ""
+
+#: src/electronics/components/binarycounter.cpp:29
+#: src/electronics/components/binarycounter.cpp:52
+#, kde-format
+msgid "Binary Counter"
+msgstr ""
+
+#: src/electronics/components/binarycounter.cpp:67
+#: src/electronics/components/flipflop.cpp:27
+#: src/electronics/components/flipflop.cpp:237
+#, kde-format
+msgid "Trigger Edge"
+msgstr ""
+
+#: src/electronics/components/binarycounter.cpp:69
+#: src/electronics/components/flipflop.cpp:29
+#: src/electronics/components/flipflop.cpp:239
+#, kde-format
+msgid "Rising"
+msgstr ""
+
+#: src/electronics/components/binarycounter.cpp:70
+#: src/electronics/components/flipflop.cpp:30
+#: src/electronics/components/flipflop.cpp:240
+#, kde-format
+msgid "Falling"
+msgstr ""
+
+#: src/electronics/components/binarycounter.cpp:75
+#, kde-format
+msgid "Bit Count"
+msgstr ""
+
+#: src/electronics/components/bussplitter.cpp:26
+#, kde-format
+msgid "Bus"
+msgstr ""
+
+#: src/electronics/components/bussplitter.cpp:26
+#: src/electronics/components/externalconnection.cpp:24
+#: src/electronics/components/parallelportcomponent.cpp:43
+#: src/electronics/components/serialportcomponent.cpp:44
+#, kde-format
+msgid "Connections"
+msgstr ""
+
+#: src/electronics/components/bussplitter.cpp:34
+#, kde-format
+msgid "Bus Splitter"
+msgstr ""
+
+#: src/electronics/components/bussplitter.cpp:41
+#, kde-format
+msgid "Size"
+msgstr ""
+
+#: src/electronics/components/capacitor.cpp:26
+#: src/electronics/components/ecpotentiometer.cpp:28
+#: src/electronics/components/inductor.cpp:25
+#: src/electronics/components/resistor.cpp:26
+#: src/electronics/components/resistordip.cpp:26
+#: src/electronics/components/variablecapacitor.cpp:30
+#: src/electronics/components/variableresistor.cpp:29
+#: src/electronics/components/voltageregulator.cpp:29
+#, kde-format
+msgid "Passive"
+msgstr ""
+
+#: src/electronics/components/capacitor.cpp:26
+#: src/electronics/components/capacitor.cpp:32 src/ktechlab.cpp:675
+#, kde-format
+msgid "Capacitor"
+msgstr ""
+
+#: src/electronics/components/capacitor.cpp:41
+#: src/electronics/components/variablecapacitor.cpp:62
+#, kde-format
+msgid "Capacitance"
+msgstr ""
+
+#: src/electronics/components/demultiplexer.cpp:27
+#: src/electronics/components/demultiplexer.cpp:38
+#, kde-format
+msgid "Demultiplexer"
+msgstr ""
+
+#: src/electronics/components/demultiplexer.cpp:43
+#: src/electronics/components/multiplexer.cpp:43
+#: src/electronics/components/ram.cpp:53
+#, kde-format
+msgid "Address Size"
+msgstr ""
+
+#: src/electronics/components/dependentsource.cpp:37
+#, kde-format
+msgid "Gain"
+msgstr ""
+
+#: src/electronics/components/dependentsource.cpp:129
+#: src/electronics/components/dependentsource.cpp:172
+#: src/electronics/components/dependentsource.cpp:214
+#: src/electronics/components/dependentsource.cpp:256
+#: src/electronics/components/eccurrentsignal.cpp:28
+#: src/electronics/components/eccurrentsource.cpp:27
+#: src/electronics/components/ecfixedvoltage.cpp:26
+#: src/electronics/components/ecground.cpp:26
+#: src/electronics/components/ecvoltagesignal.cpp:32
+#: src/electronics/components/ecvoltagesource.cpp:31
+#, kde-format
+msgid "Sources"
+msgstr ""
+
+#: src/electronics/components/dependentsource.cpp:129
+#, kde-format
+msgid "CCCS"
+msgstr ""
+
+#: src/electronics/components/dependentsource.cpp:135
+#, kde-format
+msgid "Current Controlled Current Source"
+msgstr ""
+
+#: src/electronics/components/dependentsource.cpp:172
+#, kde-format
+msgid "CCVS"
+msgstr ""
+
+#: src/electronics/components/dependentsource.cpp:178
+#, kde-format
+msgid "Current Controlled Voltage Source"
+msgstr ""
+
+#: src/electronics/components/dependentsource.cpp:214
+#, kde-format
+msgid "VCCS"
+msgstr ""
+
+#: src/electronics/components/dependentsource.cpp:220
+#, kde-format
+msgid "Voltage Controlled Current Source"
+msgstr ""
+
+#: src/electronics/components/dependentsource.cpp:256
+#, kde-format
+msgid "VCVS"
+msgstr ""
+
+#: src/electronics/components/dependentsource.cpp:262
+#, kde-format
+msgid "Voltage Controlled Voltage Source"
+msgstr ""
+
+#: src/electronics/components/discretelogic.cpp:32
+#: src/electronics/components/discretelogic.cpp:90
+#: src/electronics/components/discretelogic.cpp:147
+#: src/electronics/components/discretelogic.cpp:203
+#: src/electronics/components/ecclockinput.cpp:41
+#: src/electronics/components/multiinputgate.cpp:218
+#: src/electronics/components/multiinputgate.cpp:278
+#: src/electronics/components/multiinputgate.cpp:336
+#: src/electronics/components/multiinputgate.cpp:395
+#: src/electronics/components/multiinputgate.cpp:454
+#: src/electronics/components/multiinputgate.cpp:508
+#: src/gui/settingsdlg.cpp:136
+#, kde-format
+msgid "Logic"
+msgstr ""
+
+#: src/electronics/components/discretelogic.cpp:32
+#: src/electronics/components/discretelogic.cpp:43 src/ktechlab.cpp:682
+#: src/ktechlab.cpp:692
+#, kde-format
+msgid "Inverter"
+msgstr ""
+
+#: src/electronics/components/discretelogic.cpp:90
+#: src/electronics/components/discretelogic.cpp:101
+#, kde-format
+msgid "Buffer"
+msgstr ""
+
+#: src/electronics/components/discretelogic.cpp:147
+#: src/electronics/components/discretelogic.cpp:153
+#, kde-format
+msgid "Logic Input"
+msgstr ""
+
+#: src/electronics/components/discretelogic.cpp:160
+#, kde-format
+msgid "Use Toggle"
+msgstr ""
+
+#: src/electronics/components/discretelogic.cpp:203
+#: src/electronics/components/discretelogic.cpp:214
+#, kde-format
+msgid "Logic Output"
+msgstr ""
+
+#: src/electronics/components/ec555.cpp:28
+#: src/electronics/components/ec555.cpp:34
+#, kde-format
+msgid "555"
+msgstr ""
+
+#: src/electronics/components/ecbcdto7segment.cpp:43
+#, kde-format
+msgid "BCD to 7 Segment"
+msgstr ""
+
+#: src/electronics/components/ecbcdto7segment.cpp:54
+#, kde-format
+msgid "BCD to Seven Segment"
+msgstr ""
+
+#: src/electronics/components/ecbjt.cpp:31
+#, kde-format
+msgid "NPN"
+msgstr ""
+
+#: src/electronics/components/ecbjt.cpp:31
+#: src/electronics/components/ecbjt.cpp:36
+#: src/electronics/components/ecdiode.cpp:26
+#: src/electronics/components/ecjfet.cpp:33
+#: src/electronics/components/ecjfet.cpp:44
+#: src/electronics/components/ecmosfet.cpp:44
+#: src/electronics/components/ecmosfet.cpp:55
+#: src/electronics/components/ecmosfet.cpp:67
+#: src/electronics/components/ecmosfet.cpp:79
+#, kde-format
+msgid "Discrete"
+msgstr ""
+
+#: src/electronics/components/ecbjt.cpp:36
+#, kde-format
+msgid "PNP"
+msgstr ""
+
+#: src/electronics/components/ecbjt.cpp:44
+#, kde-format
+msgid "NPN Transistor"
+msgstr ""
+
+#: src/electronics/components/ecbjt.cpp:46
+#, kde-format
+msgid "PNP Transistor"
+msgstr ""
+
+#: src/electronics/components/ecbjt.cpp:54
+#: src/electronics/components/ecmosfet.cpp:128
+#, kde-format
+msgid "Saturation Current"
+msgstr ""
+
+#: src/electronics/components/ecbjt.cpp:62
+#: src/electronics/components/ecmosfet.cpp:136
+#, kde-format
+msgid "Forward Coefficient"
+msgstr ""
+
+#: src/electronics/components/ecbjt.cpp:69
+#: src/electronics/components/ecmosfet.cpp:143
+#, kde-format
+msgid "Reverse Coefficient"
+msgstr ""
+
+#: src/electronics/components/ecbjt.cpp:76
+#: src/electronics/components/ecmosfet.cpp:150
+#, kde-format
+msgid "Forward Beta"
+msgstr ""
+
+#: src/electronics/components/ecbjt.cpp:83
+#: src/electronics/components/ecmosfet.cpp:157
+#, kde-format
+msgid "Reverse Beta"
+msgstr ""
+
+#: src/electronics/components/ecclockinput.cpp:41
+#: src/electronics/components/ecclockinput.cpp:47
+#, kde-format
+msgid "Clock Input"
+msgstr ""
+
+#: src/electronics/components/ecclockinput.cpp:69 src/flowparts/pulse.cpp:46
+#, kde-format
+msgid "Low Time"
+msgstr ""
+
+#: src/electronics/components/ecclockinput.cpp:75 src/flowparts/pulse.cpp:41
+#, kde-format
+msgid "High Time"
+msgstr ""
+
+#: src/electronics/components/eccurrentsignal.cpp:28
+#: src/electronics/components/eccurrentsignal.cpp:34
+#, kde-format
+msgid "Current Signal"
+msgstr ""
+
+#: src/electronics/components/eccurrentsignal.cpp:45
+#: src/electronics/components/ecvoltagesignal.cpp:49
+#, kde-format
+msgid "Frequency"
+msgstr ""
+
+#: src/electronics/components/eccurrentsignal.cpp:52
+#, kde-format
+msgid "Current Range"
+msgstr ""
+
+#: src/electronics/components/eccurrentsource.cpp:27
+#: src/electronics/components/eccurrentsource.cpp:33
+#, kde-format
+msgid "Current Source"
+msgstr ""
+
+#: src/electronics/components/eccurrentsource.cpp:43
+#, kde-format
+msgid "Current"
+msgstr ""
+
+#: src/electronics/components/ecdiode.cpp:26
+#: src/electronics/components/ecdiode.cpp:32
+#, kde-format
+msgid "Diode"
+msgstr ""
+
+#: src/electronics/components/ecdiode.cpp:52
+#: src/electronics/components/ledbargraphdisplay.cpp:122
+#, kde-format
+msgid "Emission Coefficient"
+msgstr ""
+
+#: src/electronics/components/ecdiode.cpp:59
+#: src/electronics/components/ledbargraphdisplay.cpp:129
+#, kde-format
+msgid "Breakdown Voltage"
+msgstr ""
+
+#: src/electronics/components/ecfixedvoltage.cpp:26
+#: src/electronics/components/ecfixedvoltage.cpp:32
+#, kde-format
+msgid "Fixed Voltage"
+msgstr ""
+
+#: src/electronics/components/ecfixedvoltage.cpp:43
+#: src/electronics/components/ecvoltagesource.cpp:49
+#, kde-format
+msgid "Voltage"
+msgstr ""
+
+#: src/electronics/components/ecground.cpp:26
+#, kde-format
+msgid "Ground (0V)"
+msgstr ""
+
+#: src/electronics/components/ecground.cpp:32
+#, kde-format
+msgid "Ground"
+msgstr ""
+
+#. i18n("n JFET"),
+#: src/electronics/components/ecjfet.cpp:32
+#, kde-format
+msgid "n-JFET"
+msgstr ""
+
+#. i18n("p JFET"),
+#: src/electronics/components/ecjfet.cpp:43
+#, kde-format
+msgid "p-JFET"
+msgstr ""
+
+#: src/electronics/components/ecjfet.cpp:55
+#, kde-format
+msgid "N-Channel JFET"
+msgstr ""
+
+#: src/electronics/components/ecjfet.cpp:57
+#, kde-format
+msgid "P-Channel JFET"
+msgstr ""
+
+#: src/electronics/components/ecjfet.cpp:65
+#, kde-format
+msgid "Threshold voltage"
+msgstr ""
+
+#: src/electronics/components/ecjfet.cpp:73
+#, kde-format
+msgid "Transcondutance"
+msgstr ""
+
+#: src/electronics/components/ecjfet.cpp:81
+#, kde-format
+msgid "Saturation current"
+msgstr ""
+
+#: src/electronics/components/ecjfet.cpp:89
+#, kde-format
+msgid "PN emission coefficient"
+msgstr ""
+
+#: src/electronics/components/ecjfet.cpp:97
+#, kde-format
+msgid "Isr emission coefficient"
+msgstr ""
+
+#: src/electronics/components/eckeypad.cpp:26
+#: src/electronics/components/eckeypad.cpp:34 src/flowparts/keypad.cpp:25
+#: src/flowparts/keypad.cpp:31
+#, kde-format
+msgid "Keypad"
+msgstr ""
+
+#: src/electronics/components/eckeypad.cpp:26
+#: src/electronics/components/pushswitch.cpp:30
+#: src/electronics/components/pushswitch.cpp:113
+#: src/electronics/components/rotoswitch.cpp:34
+#: src/electronics/components/toggleswitch.cpp:29
+#: src/electronics/components/toggleswitch.cpp:123
+#: src/electronics/components/toggleswitch.cpp:208
+#: src/electronics/components/toggleswitch.cpp:291
+#, kde-format
+msgid "Switches"
+msgstr ""
+
+#: src/electronics/components/eckeypad.cpp:37
+#, kde-format
+msgid "Use Toggles"
+msgstr ""
+
+#: src/electronics/components/eckeypad.cpp:41
+#: src/electronics/components/matrixdisplay.cpp:61
+#, kde-format
+msgid "Columns"
+msgstr ""
+
+#. i18n("n-e MOSFET"),
+#: src/electronics/components/ecmosfet.cpp:43
+#, kde-format
+msgid "n-MOSFET"
+msgstr ""
+
+#. i18n("p-e MOSFET"),
+#: src/electronics/components/ecmosfet.cpp:54
+#, kde-format
+msgid "p-MOSFET"
+msgstr ""
+
+#: src/electronics/components/ecmosfet.cpp:66
+#, kde-format
+msgid "n-d MOSFET"
+msgstr ""
+
+#: src/electronics/components/ecmosfet.cpp:78
+#, kde-format
+msgid "p-d MOSFET"
+msgstr ""
+
+#: src/electronics/components/ecmosfet.cpp:92
+#, kde-format
+msgid "N-Channel Enhancement MOSFET"
+msgstr ""
+
+#: src/electronics/components/ecmosfet.cpp:97
+#, kde-format
+msgid "P-Channel Enhancement MOSFET"
+msgstr ""
+
+#: src/electronics/components/ecmosfet.cpp:104
+#, kde-format
+msgid "N-Channel Depletion MOSFET"
+msgstr ""
+
+#: src/electronics/components/ecmosfet.cpp:110
+#, kde-format
+msgid "P-Channel Depletion MOSFET"
+msgstr ""
+
+#: src/electronics/components/ecmosfet.cpp:122
+#, kde-format
+msgctxt "mosfet body/bulk pin"
+msgid "Body Pin"
+msgstr ""
+
+#: src/electronics/components/ecopamp.cpp:26
+#, kde-format
+msgid "Op Amp"
+msgstr ""
+
+#: src/electronics/components/ecopamp.cpp:32
+#, kde-format
+msgid "Operational Amplifier"
+msgstr ""
+
+#: src/electronics/components/ecpotentiometer.cpp:28
+#: src/electronics/components/ecpotentiometer.cpp:34
+#, kde-format
+msgid "Potentiometer"
+msgstr ""
+
+#: src/electronics/components/ecpotentiometer.cpp:48
+#: src/electronics/components/resistor.cpp:40
+#: src/electronics/components/resistordip.cpp:39
+#: src/electronics/components/variableresistor.cpp:54
+#, kde-format
+msgid "Resistance"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (QComboBox, typeCombo)
+#: src/electronics/components/ecsevensegment.cpp:30
+#: src/flowparts/sevenseg.cpp:25 src/gui/newpinmappingwidget.ui:105
+#, kde-format
+msgid "Seven Segment"
+msgstr ""
+
+#: src/electronics/components/ecsevensegment.cpp:36
+#, kde-format
+msgid "Seven Segment LED"
+msgstr ""
+
+#: src/electronics/components/ecsevensegment.cpp:43
+#: src/electronics/components/led.cpp:43
+#: src/electronics/components/ledbargraphdisplay.cpp:108
+#: src/electronics/components/matrixdisplay.cpp:67
+#: src/electronics/components/probe.cpp:33
+#, kde-format
+msgid "Color"
+msgstr ""
+
+#: src/electronics/components/ecsevensegment.cpp:47
+#: src/electronics/components/matrixdisplay.cpp:71
+#: src/electronics/components/matrixdisplaydriver.cpp:311
+#, kde-format
+msgid "Configuration"
+msgstr ""
+
+#: src/electronics/components/ecsevensegment.cpp:49
+#, kde-format
+msgid "Common Cathode"
+msgstr ""
+
+#: src/electronics/components/ecsevensegment.cpp:50
+#, kde-format
+msgid "Common Anode"
+msgstr ""
+
+#: src/electronics/components/ecsignallamp.cpp:34
+#: src/electronics/components/ecsignallamp.cpp:40
+#, kde-format
+msgid "Signal Lamp"
+msgstr ""
+
+#: src/electronics/components/ecsubcircuit.cpp:36
+#, kde-format
+msgid "Subcircuit"
+msgstr ""
+
+#: src/electronics/components/ecvoltagesignal.cpp:32
+#: src/electronics/components/ecvoltagesignal.cpp:38
+#, kde-format
+msgid "Voltage Signal"
+msgstr ""
+
+#: src/electronics/components/ecvoltagesignal.cpp:56
+#, kde-format
+msgid "Voltage Range"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
+#: src/electronics/components/ecvoltagesignal.cpp:66 src/gui/logicwidget.ui:142
+#, kde-format
+msgid "Output"
+msgstr ""
+
+#: src/electronics/components/ecvoltagesignal.cpp:68
+#, kde-format
+msgid "Peak"
+msgstr ""
+
+#: src/electronics/components/ecvoltagesignal.cpp:69
+#, kde-format
+msgid "RMS"
+msgstr ""
+
+#: src/electronics/components/ecvoltagesource.cpp:31
+#: src/electronics/components/ecvoltagesource.cpp:37
+#, kde-format
+msgid "Battery"
+msgstr ""
+
+#: src/electronics/components/externalconnection.cpp:24
+#: src/electronics/components/externalconnection.cpp:30
+#, kde-format
+msgid "External Connection"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, m_pNameLabel)
+#: src/electronics/components/externalconnection.cpp:34
+#: src/gui/contexthelpwidget.ui:29 src/gui/microsettingsdlg.cpp:331
+#: src/gui/settingsdlg.cpp:286 src/gui/symbolviewer.cpp:124
+#: src/gui/symbolviewer.cpp:126 src/gui/symbolviewer.cpp:191
+#: src/gui/symbolviewer.cpp:193
+#, kde-format
+msgid "Name"
+msgstr ""
+
+#: src/electronics/components/flipflop.cpp:70
+#, kde-format
+msgid "D Flip-Flop"
+msgstr ""
+
+#: src/electronics/components/flipflop.cpp:76
+#, kde-format
+msgid "D-Type Flip-Flop"
+msgstr ""
+
+#: src/electronics/components/flipflop.cpp:221
+#, kde-format
+msgid "JK Flip-Flop"
+msgstr ""
+
+#: src/electronics/components/flipflop.cpp:227
+#, kde-format
+msgid "JK-Type Flip-Flop"
+msgstr ""
+
+#: src/electronics/components/flipflop.cpp:369
+#: src/electronics/components/flipflop.cpp:375
+#, kde-format
+msgid "SR Flip-Flop"
+msgstr ""
+
+#: src/electronics/components/fulladder.cpp:30
+#: src/electronics/components/fulladder.cpp:36
+#, kde-format
+msgid "Adder"
+msgstr ""
+
+#: src/electronics/components/inductor.cpp:25
+#: src/electronics/components/inductor.cpp:31
+#, kde-format
+msgid "Inductor"
+msgstr ""
+
+#: src/electronics/components/inductor.cpp:40
+#, kde-format
+msgid "Inductance"
+msgstr ""
+
+#: src/electronics/components/led.cpp:28 src/electronics/components/led.cpp:35
+#, kde-format
+msgid "LED"
+msgstr ""
+
+#: src/electronics/components/ledbargraphdisplay.cpp:86
+#: src/electronics/components/ledbargraphdisplay.cpp:92
+#, kde-format
+msgid "Bar Graph Display"
+msgstr ""
+
+#: src/electronics/components/ledbargraphdisplay.cpp:102
+#: src/electronics/components/matrixdisplay.cpp:55
+#, kde-format
+msgid "Rows"
+msgstr ""
+
+#: src/electronics/components/magnitudecomparator.cpp:30
+#: src/electronics/components/magnitudecomparator.cpp:36
+#, kde-format
+msgid "Magnitude Comparator"
+msgstr ""
+
+#: src/electronics/components/magnitudecomparator.cpp:39
+#: src/electronics/components/multiinputgate.cpp:55
+#, kde-format
+msgid "Number Inputs"
+msgstr ""
+
+#: src/electronics/components/matrixdisplay.cpp:32
+#: src/electronics/components/matrixdisplay.cpp:38
+#, kde-format
+msgid "Matrix Display"
+msgstr ""
+
+#: src/electronics/components/matrixdisplay.cpp:73
+#: src/electronics/components/matrixdisplaydriver.cpp:313
+#, kde-format
+msgid "Row Cathode"
+msgstr ""
+
+#: src/electronics/components/matrixdisplay.cpp:74
+#: src/electronics/components/matrixdisplaydriver.cpp:314
+#, kde-format
+msgid "Column Cathode"
+msgstr ""
+
+#: src/electronics/components/matrixdisplaydriver.cpp:298
+#: src/electronics/components/matrixdisplaydriver.cpp:304 src/ktechlab.cpp:695
+#, kde-format
+msgid "Matrix Display Driver"
+msgstr ""
+
+#: src/electronics/components/meter.cpp:40
+#, kde-format
+msgid "Minimum Value"
+msgstr ""
+
+#: src/electronics/components/meter.cpp:46
+#, kde-format
+msgid "Maximum Value"
+msgstr ""
+
+#: src/electronics/components/meter.cpp:161
+#, kde-format
+msgid "Frequency Meter (TODO)"
+msgstr ""
+
+#: src/electronics/components/meter.cpp:167
+#, kde-format
+msgid "Frequency Meter"
+msgstr ""
+
+#: src/electronics/components/meter.cpp:194
+#: src/electronics/components/meter.cpp:200
+#, kde-format
+msgid "Ammeter"
+msgstr ""
+
+#: src/electronics/components/meter.cpp:228
+#: src/electronics/components/meter.cpp:234
+#, kde-format
+msgid "Voltmeter"
+msgstr ""
+
+#: src/electronics/components/multiinputgate.cpp:218
+#: src/electronics/components/multiinputgate.cpp:224
+#, kde-format
+msgid "XNOR gate"
+msgstr ""
+
+#: src/electronics/components/multiinputgate.cpp:278
+#: src/electronics/components/multiinputgate.cpp:284
+#, kde-format
+msgid "XOR gate"
+msgstr ""
+
+#: src/electronics/components/multiinputgate.cpp:336
+#: src/electronics/components/multiinputgate.cpp:342
+#, kde-format
+msgid "OR gate"
+msgstr ""
+
+#: src/electronics/components/multiinputgate.cpp:395
+#, kde-format
+msgid "NOR gate"
+msgstr ""
+
+#: src/electronics/components/multiinputgate.cpp:401
+#, kde-format
+msgid "NOR Gate"
+msgstr ""
+
+#: src/electronics/components/multiinputgate.cpp:454
+#, kde-format
+msgid "NAND gate"
+msgstr ""
+
+#: src/electronics/components/multiinputgate.cpp:460
+#, kde-format
+msgid "NAND Gate"
+msgstr ""
+
+#: src/electronics/components/multiinputgate.cpp:508
+#, kde-format
+msgid "AND gate"
+msgstr ""
+
+#: src/electronics/components/multiinputgate.cpp:514
+#, kde-format
+msgid "AND Gate"
+msgstr ""
+
+#: src/electronics/components/multiplexer.cpp:32
+#: src/electronics/components/multiplexer.cpp:38
+#, kde-format
+msgid "Multiplexer"
+msgstr ""
+
+#: src/electronics/components/parallelportcomponent.cpp:43
+#: src/electronics/components/parallelportcomponent.cpp:49
+#, kde-format
+msgid "Parallel Port"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/electronics/components/parallelportcomponent.cpp:143
+#: src/electronics/components/serialportcomponent.cpp:119
+#: src/flowparts/readport.cpp:38 src/flowparts/writeport.cpp:43
+#: src/gui/programmerwidget.ui:62
+#, kde-format
+msgid "Port"
+msgstr ""
+
+#: src/electronics/components/parallelportcomponent.cpp:170
+#: src/electronics/components/serialportcomponent.cpp:190
+#, kde-format
+msgid "Could not open port %1"
+msgstr ""
+
+#: src/electronics/components/piccomponent.cpp:60
+#, kde-format
+msgid "PIC Micro"
+msgstr ""
+
+#: src/electronics/components/piccomponent.cpp:63
+#, kde-format
+msgid "<Enter location of PIC Program>"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (QComboBox, m_typeCombo)
+#: src/electronics/components/piccomponent.cpp:84
+#: src/gui/createsubprojectwidget.ui:59
+#, kde-format
+msgid "Program"
+msgstr ""
+
+#: src/electronics/components/piccomponent.cpp:86
+#, kde-format
+msgid "All Supported Files"
+msgstr ""
+
+#: src/electronics/components/piccomponent.cpp:88
+#, kde-format
+msgid "Symbol File"
+msgstr ""
+
+#: src/electronics/components/piccomponent.cpp:89 src/flowcodedocument.cpp:190
+#: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1163 src/textdocument.cpp:437
+#, kde-format
+msgid "Assembly Code"
+msgstr ""
+
+#: src/electronics/components/piccomponent.cpp:156
+#, kde-format
+msgid "The file \"%1\" does not exist."
+msgstr ""
+
+#: src/electronics/components/piccomponent.cpp:164
+#, kde-format
+msgid ""
+"\"%1\" is not a valid PIC program.\n"
+"The file must exist, and the extension should be \".cod\", \".asm\", \"."
+"flowcode\", \".basic\", \".microbe\" or \".c\".\n"
+"\".hex\" is allowed, provided that there is a corresponding \".cod\" file."
+msgstr ""
+
+#: src/electronics/components/piccomponent.cpp:240
+#, kde-format
+msgid ""
+"(No\n"
+"program\n"
+"loaded)"
+msgstr ""
+
+#: src/electronics/components/probe.cpp:59
+#, kde-format
+msgid "Scaling"
+msgstr ""
+
+#: src/electronics/components/probe.cpp:61
+#, kde-format
+msgid "Linear"
+msgstr ""
+
+#: src/electronics/components/probe.cpp:62
+#, kde-format
+msgid "Logarithmic"
+msgstr ""
+
+#: src/electronics/components/probe.cpp:68
+#, kde-format
+msgid "Upper Absolute Value"
+msgstr ""
+
+#: src/electronics/components/probe.cpp:75
+#, kde-format
+msgid "Lower Absolute Value"
+msgstr ""
+
+#: src/electronics/components/probe.cpp:135
+#: src/electronics/components/probe.cpp:141
+#, kde-format
+msgid "Voltage Probe"
+msgstr ""
+
+#: src/electronics/components/probe.cpp:167
+#: src/electronics/components/probe.cpp:173
+#, kde-format
+msgid "Current Probe"
+msgstr ""
+
+#: src/electronics/components/probe.cpp:207
+#: src/electronics/components/probe.cpp:213
+#, kde-format
+msgid "Logic Probe"
+msgstr ""
+
+#: src/electronics/components/pushswitch.cpp:30
+#, kde-format
+msgid "Push-to-Break"
+msgstr ""
+
+#: src/electronics/components/pushswitch.cpp:36
+#, kde-format
+msgid "Push to Break"
+msgstr ""
+
+#: src/electronics/components/pushswitch.cpp:42
+#: src/electronics/components/pushswitch.cpp:125
+#: src/electronics/components/toggleswitch.cpp:41
+#: src/electronics/components/toggleswitch.cpp:135
+#: src/electronics/components/toggleswitch.cpp:220
+#: src/electronics/components/toggleswitch.cpp:304
+#, kde-format
+msgid "Button Text"
+msgstr ""
+
+#: src/electronics/components/pushswitch.cpp:45
+#, kde-format
+msgid "Bounce"
+msgstr ""
+
+#: src/electronics/components/pushswitch.cpp:50
+#, kde-format
+msgid "Bounce Period"
+msgstr ""
+
+#: src/electronics/components/pushswitch.cpp:113
+#, kde-format
+msgid "Push-to-Make"
+msgstr ""
+
+#: src/electronics/components/pushswitch.cpp:119
+#, kde-format
+msgid "Push to Make"
+msgstr ""
+
+#: src/electronics/components/ram.cpp:31 src/electronics/components/ram.cpp:37
+#, kde-format
+msgid "RAM"
+msgstr ""
+
+#: src/electronics/components/ram.cpp:47
+#, kde-format
+msgid "Word Size"
+msgstr ""
+
+#: src/electronics/components/resistor.cpp:26
+#: src/electronics/components/resistor.cpp:32
+#: src/electronics/components/variableresistor.cpp:35
+#, kde-format
+msgid "Resistor"
+msgstr ""
+
+#: src/electronics/components/resistordip.cpp:26
+#: src/electronics/components/resistordip.cpp:32
+#, kde-format
+msgid "Resistor DIP"
+msgstr ""
+
+#: src/electronics/components/resistordip.cpp:45 src/flowparts/count.cpp:25
+#: src/flowparts/count.cpp:31
+#, kde-format
+msgid "Count"
+msgstr ""
+
+#: src/electronics/components/rotoswitch.cpp:34
+#, kde-format
+msgid "Rotary"
+msgstr ""
+
+#: src/electronics/components/rotoswitch.cpp:64
+#, kde-format
+msgid "Number of Positions"
+msgstr ""
+
+#: src/electronics/components/serialportcomponent.cpp:44
+#: src/electronics/components/serialportcomponent.cpp:50
+#, kde-format
+msgid "Serial Port"
+msgstr ""
+
+#: src/electronics/components/toggleswitch.cpp:29
+#, kde-format
+msgid "DPDT"
+msgstr ""
+
+#: src/electronics/components/toggleswitch.cpp:35
+#, kde-format
+msgid "DPDT Toggle"
+msgstr ""
+
+#: src/electronics/components/toggleswitch.cpp:123
+#, kde-format
+msgid "DPST"
+msgstr ""
+
+#: src/electronics/components/toggleswitch.cpp:129
+#, kde-format
+msgid "DPST Toggle"
+msgstr ""
+
+#: src/electronics/components/toggleswitch.cpp:208
+#, kde-format
+msgid "SPDT"
+msgstr ""
+
+#: src/electronics/components/toggleswitch.cpp:214
+#, kde-format
+msgid "SPDT Toggle"
+msgstr ""
+
+#: src/electronics/components/toggleswitch.cpp:291
+#, kde-format
+msgid "SPST"
+msgstr ""
+
+#: src/electronics/components/toggleswitch.cpp:297
+#, kde-format
+msgid "SPST Toggle"
+msgstr ""
+
+#: src/electronics/components/variablecapacitor.cpp:30
+#: src/electronics/components/variablecapacitor.cpp:36
+#, kde-format
+msgid "Variable Capacitor"
+msgstr ""
+
+#: src/electronics/components/variablecapacitor.cpp:69
+#: src/electronics/components/variableresistor.cpp:66
+#, kde-format
+msgid "Max"
+msgstr ""
+
+#: src/electronics/components/variablecapacitor.cpp:76
+#: src/electronics/components/variableresistor.cpp:60
+#, kde-format
+msgid "Min"
+msgstr ""
+
+#: src/electronics/components/variableresistor.cpp:29
+#, kde-format
+msgid "Variable Resistor"
+msgstr ""
+
+#: src/electronics/components/voltageregulator.cpp:29
+#, kde-format
+msgid "Voltage Regulator"
+msgstr ""
+
+#: src/electronics/components/voltageregulator.cpp:36
+#, kde-format
+msgid "Voltage Out"
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:139
+#, kde-format
+msgid "The cod file \"%1\" was not found."
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:139
+#, kde-format
+msgid "File Not Found"
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:142
+#, kde-format
+msgid "The processor for cod file \"%1\" is unrecognized."
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:142
+#, kde-format
+msgid "Unrecognized Processor"
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:145
+#, kde-format
+msgid "The file name \"%1\" is too long."
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:145
+#, kde-format
+msgid "Filename Too Long"
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:148
+#, kde-format
+msgid "The lst file associated with the cod file \"%1\" was not found."
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:148
+#, kde-format
+msgid "LST File Not Found"
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:151
+#, kde-format
+msgid "The cod file \"%1\" is bad."
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:151
+#, kde-format
+msgid "Bad File"
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:154
+#, kde-format
+msgid "The cod file \"%1\" could not be read from."
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:154
+#, kde-format
+msgid "Unreadable File"
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:158
+#, kde-format
+msgid "An error occurred with the cod file \"%1\"."
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:158
+#, kde-format
+msgid "Error"
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:735
+#, kde-format
+msgid "Generic"
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:738 src/projectmanager.cpp:865
+#, kde-format
+msgid "File"
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:741
+#, kde-format
+msgid "SFR"
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:744 src/textdocument.cpp:100
+#, kde-format
+msgid "Breakpoint"
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:747
+#, kde-format
+msgid "Invalid"
+msgstr ""
+
+#: src/electronics/gpsimprocessor.cpp:750
+#, kde-format
+msgid "Unknown"
+msgstr ""
+
+#: src/electronics/subcircuits.cpp:110
+#, kde-format
+msgid "Subcircuits"
+msgstr ""
+
+#: src/flowcodedocument.cpp:167
+#, kde-format
+msgid "Microbe Code Output"
+msgstr ""
+
+#: src/flowcodedocument.cpp:188 src/textdocument.cpp:431
+#, kde-format
+msgid "Assembly Code Output"
+msgstr ""
+
+#: src/flowcodedocument.cpp:209 src/textdocument.cpp:470
+#, kde-format
+msgid "Hex Code Output"
+msgstr ""
+
+#. i18n("Convert to..."), "fork", 0, 0, 0, ac, "program_convert" );
+#: src/flowcodeview.cpp:32
+#, kde-format
+msgid "Convert to..."
+msgstr ""
+
+#. i18n("Convert to"), "fork", 0, 0, 0, ac, "program_convert" );
+#: src/flowcodeview.cpp:38 src/textview.cpp:58 src/textview.cpp:65
+#, kde-format
+msgid "Convert To"
+msgstr ""
+
+#. i18n("Assembly"), "source", 0, this, SLOT(slotFileNewAssembly()), ac, "newfile_asm" ))->plug( p->menu() );
+#: src/flowcodeview.cpp:40 src/ktechlab.cpp:458 src/textview.cpp:68
+#, kde-format
+msgid "Assembly"
+msgstr ""
+
+#: src/flowcodeview.cpp:41 src/textview.cpp:69
+#, kde-format
+msgid "Hex"
+msgstr ""
+
+#: src/flowcodeview.cpp:42 src/textview.cpp:70
+#, kde-format
+msgid "PIC (upload)"
+msgstr ""
+
+#: src/flowcodeview.cpp:55
+#, kde-format
+msgid ""
+"Construct a FlowCode document by dragging FlowParts from the list on the "
+"left. All FlowCharts require an initial \"Start\" part, of which there can "
+"only be one.<br><br>Some FlowParts, such as Subroutines, act as a container "
+"element for other FlowParts. Drag the items in or out of a container as "
+"appropriate. The container that will become the parent of the part being "
+"dragged is indicated by being selected.<br><br>Note that connections cannot "
+"be made between FlowParts in different containers, or at different levels."
+msgstr ""
+
+#: src/flowparts/callsub.cpp:25 src/flowparts/embed.cpp:25
+#: src/flowparts/end.cpp:25 src/flowparts/interrupt.cpp:25
+#: src/flowparts/start.cpp:25 src/flowparts/sub.cpp:25
+#, kde-format
+msgid "Common"
+msgstr ""
+
+#: src/flowparts/callsub.cpp:25 src/flowparts/callsub.cpp:31
+#, kde-format
+msgid "Sub Call"
+msgstr ""
+
+#: src/flowparts/callsub.cpp:37 src/flowparts/sub.cpp:25
+#: src/flowparts/sub.cpp:34
+#, kde-format
+msgid "Subroutine"
+msgstr ""
+
+#: src/flowparts/callsub.cpp:47
+#, kde-format
+msgid "Call %1"
+msgstr ""
+
+#: src/flowparts/count.cpp:25 src/flowparts/delay.cpp:25
+#: src/flowparts/inputbutton.cpp:24 src/flowparts/keypad.cpp:25
+#: src/flowparts/pulse.cpp:24 src/flowparts/sevenseg.cpp:25
+#, kde-format
+msgid "Functions"
+msgstr ""
+
+#: src/flowparts/count.cpp:39 src/flowparts/inputbutton.cpp:36
+#, kde-format
+msgid "Trigger"
+msgstr ""
+
+#: src/flowparts/count.cpp:54
+#, kde-format
+msgid "Count %1 for %2 sec"
+msgstr ""
+
+#: src/flowparts/delay.cpp:25 src/flowparts/delay.cpp:31
+#, kde-format
+msgid "Delay"
+msgstr ""
+
+#: src/flowparts/delay.cpp:37
+#, kde-format
+msgid "Pause Length"
+msgstr ""
+
+#: src/flowparts/delay.cpp:49
+#, kde-format
+msgid "Delay for %1 sec"
+msgstr ""
+
+#: src/flowparts/embed.cpp:25 src/flowparts/embed.cpp:31
+#, kde-format
+msgid "Embed"
+msgstr ""
+
+#: src/flowparts/embed.cpp:39
+#, kde-format
+msgid "Type"
+msgstr ""
+
+#: src/flowparts/embed.cpp:42
+#, kde-format
+msgid "Code"
+msgstr ""
+
+#: src/flowparts/embed.cpp:43
+#, kde-format
+msgid "// Embedded code:"
+msgstr ""
+
+#: src/flowparts/embed.cpp:53
+#, kde-format
+msgid "%1: %2..."
+msgstr ""
+
+#: src/flowparts/end.cpp:25 src/flowparts/end.cpp:31 src/flowparts/end.cpp:34
+#, kde-format
+msgid "End"
+msgstr ""
+
+#: src/flowparts/forloop.cpp:25 src/flowparts/repeat.cpp:25
+#: src/flowparts/while.cpp:25
+#, kde-format
+msgid "Loops"
+msgstr ""
+
+#: src/flowparts/forloop.cpp:25
+#, kde-format
+msgid "For"
+msgstr ""
+
+#: src/flowparts/forloop.cpp:31
+#, kde-format
+msgid "For Loop"
+msgstr ""
+
+#: src/flowparts/forloop.cpp:38 src/flowparts/keypad.cpp:38
+#: src/flowparts/readport.cpp:43 src/flowparts/repeat.cpp:37
+#: src/flowparts/sevenseg.cpp:38 src/flowparts/unary.cpp:38
+#: src/flowparts/varassignment.cpp:37 src/flowparts/varcomparison.cpp:38
+#: src/flowparts/while.cpp:37 src/flowparts/writeport.cpp:38
+#, kde-format
+msgid "Variable"
+msgstr ""
+
+#: src/flowparts/forloop.cpp:43
+#, kde-format
+msgid "Initial Value"
+msgstr ""
+
+#: src/flowparts/forloop.cpp:47
+#, kde-format
+msgctxt "for x = 1 to"
+msgid "to"
+msgstr ""
+
+#: src/flowparts/forloop.cpp:48
+#, kde-format
+msgid "End Value"
+msgstr ""
+
+#. i18n("Step"), "debug-step-instruction", Qt::CTRL|Qt::ALT|Qt::Key_Right, textDocument, SLOT(debugStep()), ac, "debug_step" );
+#: src/flowparts/forloop.cpp:53 src/textview.cpp:119
+#, kde-format
+msgid "Step"
+msgstr ""
+
+#: src/flowparts/inputbutton.cpp:24 src/flowparts/inputbutton.cpp:30
+#, kde-format
+msgid "InputButton"
+msgstr ""
+
+#: src/flowparts/inputbutton.cpp:41 src/flowparts/pulse.cpp:51
+#: src/flowparts/setpin.cpp:45 src/flowparts/testpin.cpp:38
+#, kde-format
+msgid "Pin"
+msgstr ""
+
+#: src/flowparts/inputbutton.cpp:51
+#, kde-format
+msgid "Continue on %1 %2"
+msgstr ""
+
+#. i18n("Interrupt"), "media-playback-pause", 0, textDocument, SLOT(debugInterrupt()), ac, "debug_interrupt" );
+#: src/flowparts/interrupt.cpp:25 src/flowparts/interrupt.cpp:31
+#: src/flowparts/interrupt.cpp:41 src/textview.cpp:105
+#, kde-format
+msgid "Interrupt"
+msgstr ""
+
+#: src/flowparts/interrupt.cpp:51
+#, kde-format
+msgid "Interrupt %1"
+msgstr ""
+
+#: src/flowparts/keypad.cpp:41 src/flowparts/sevenseg.cpp:41
+#, kde-format
+msgid "Pin map"
+msgstr ""
+
+#: src/flowparts/keypad.cpp:50 src/flowparts/readport.cpp:53
+#, kde-format
+msgid "Read %1 to %2"
+msgstr ""
+
+#: src/flowparts/pinmapping.cpp:55
+#, kde-format
+msgid "Pin Map Editor"
+msgstr ""
+
+#: src/flowparts/pulse.cpp:24 src/flowparts/pulse.cpp:30
+#, kde-format
+msgid "Pulse"
+msgstr ""
+
+#: src/flowparts/pulse.cpp:36
+#, kde-format
+msgid "Duration"
+msgstr ""
+
+#: src/flowparts/pulse.cpp:62
+#, kde-format
+msgid "Pulse %1 for %2 sec"
+msgstr ""
+
+#: src/flowparts/readport.cpp:25 src/flowparts/setpin.cpp:28
+#: src/flowparts/testpin.cpp:25 src/flowparts/writeport.cpp:25
+#, kde-format
+msgid "I\\/O"
+msgstr ""
+
+#: src/flowparts/readport.cpp:25 src/flowparts/readport.cpp:31
+#, kde-format
+msgid "Read from Port"
+msgstr ""
+
+#: src/flowparts/readport.cpp:37
+#, kde-format
+msgid "Read"
+msgstr ""
+
+#: src/flowparts/readport.cpp:42
+#, kde-format
+msgctxt "read from port to x"
+msgid "to"
+msgstr ""
+
+#: src/flowparts/repeat.cpp:25 src/flowparts/repeat.cpp:31
+#, kde-format
+msgid "Repeat"
+msgstr ""
+
+#: src/flowparts/repeat.cpp:42 src/flowparts/unary.cpp:41
+#: src/flowparts/varcomparison.cpp:49 src/flowparts/while.cpp:42
+#, kde-format
+msgid "Operation"
+msgstr ""
+
+#: src/flowparts/repeat.cpp:52 src/flowparts/varassignment.cpp:42
+#: src/flowparts/varcomparison.cpp:53 src/flowparts/while.cpp:52
+#: src/gui/itemeditor/propertyeditor.cpp:253 src/gui/symbolviewer.cpp:125
+#: src/gui/symbolviewer.cpp:127 src/gui/symbolviewer.cpp:192
+#: src/gui/symbolviewer.cpp:194
+#, kde-format
+msgid "Value"
+msgstr ""
+
+#: src/flowparts/repeat.cpp:62
+#, kde-format
+msgid "repeat until %1 %2 %3"
+msgstr ""
+
+#: src/flowparts/setpin.cpp:28 src/flowparts/setpin.cpp:34
+#, kde-format
+msgid "Set Pin State"
+msgstr ""
+
+#: src/flowparts/setpin.cpp:40
+#, kde-format
+msgid "State"
+msgstr ""
+
+#: src/flowparts/setpin.cpp:55
+#, kde-format
+msgid "Set %1 %2"
+msgstr ""
+
+#: src/flowparts/sevenseg.cpp:31
+#, kde-format
+msgid "SevenSeg"
+msgstr ""
+
+#: src/flowparts/sevenseg.cpp:50
+#, kde-format
+msgid "Display %1 on %2"
+msgstr ""
+
+#: src/flowparts/start.cpp:25 src/flowparts/start.cpp:31
+#: src/flowparts/start.cpp:34
+#, kde-format
+msgid "Start"
+msgstr ""
+
+#: src/flowparts/sub.cpp:31
+#, kde-format
+msgid "Sub"
+msgstr ""
+
+#: src/flowparts/testpin.cpp:25 src/flowparts/testpin.cpp:31
+#, kde-format
+msgid "Test Pin State"
+msgstr ""
+
+#: src/flowparts/unary.cpp:25 src/flowparts/varassignment.cpp:25
+#: src/flowparts/varcomparison.cpp:25
+#, kde-format
+msgid "Variables"
+msgstr ""
+
+#: src/flowparts/unary.cpp:25 src/flowparts/unary.cpp:31
+#, kde-format
+msgid "Unary"
+msgstr ""
+
+#: src/flowparts/unary.cpp:43
+#, kde-format
+msgid "Rotate Left"
+msgstr ""
+
+#: src/flowparts/unary.cpp:44
+#, kde-format
+msgid "Rotate Right"
+msgstr ""
+
+#: src/flowparts/unary.cpp:45
+#, kde-format
+msgid "Increment"
+msgstr ""
+
+#: src/flowparts/unary.cpp:46
+#, kde-format
+msgid "Decrement"
+msgstr ""
+
+#: src/flowparts/varassignment.cpp:25
+#, kde-format
+msgid "Assignment"
+msgstr ""
+
+#: src/flowparts/varassignment.cpp:31
+#, kde-format
+msgid "Variable Assignment"
+msgstr ""
+
+#: src/flowparts/varcomparison.cpp:25
+#, kde-format
+msgid "Comparison"
+msgstr ""
+
+#: src/flowparts/varcomparison.cpp:31
+#, kde-format
+msgid "Variable Comparison"
+msgstr ""
+
+#: src/flowparts/while.cpp:25 src/flowparts/while.cpp:31
+#, kde-format
+msgid "While"
+msgstr ""
+
+#: src/flowparts/while.cpp:62
+#, kde-format
+msgid "while %1 %2 %3"
+msgstr ""
+
+#: src/flowparts/writeport.cpp:25 src/flowparts/writeport.cpp:31
+#, kde-format
+msgid "Write to Port"
+msgstr ""
+
+#: src/flowparts/writeport.cpp:37
+#, kde-format
+msgid "Write"
+msgstr ""
+
+#: src/flowparts/writeport.cpp:42
+#, kde-format
+msgctxt "write to port"
+msgid "to"
+msgstr ""
+
+#: src/flowparts/writeport.cpp:53
+#, kde-format
+msgid "Write %1 to %2"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QWidget, AsmFormattingWidget)
+#: src/gui/asmformattingwidget.ui:14
+#, kde-format
+msgid ""
+"The values control the indentation from the left margin of the various types "
+"of assembly code."
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox64)
+#: src/gui/asmformattingwidget.ui:32
+#, kde-format
+msgid "Output Code Indentation"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel11)
+#: src/gui/asmformattingwidget.ui:38
+#, kde-format
+msgid "'equ' Value"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel8)
+#: src/gui/asmformattingwidget.ui:48
+#, kde-format
+msgid "Instruction Data"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel9)
+#: src/gui/asmformattingwidget.ui:58
+#, kde-format
+msgid "Comment"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel10)
+#: src/gui/asmformattingwidget.ui:68
+#, kde-format
+msgid "'equ'"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel7)
+#: src/gui/asmformattingwidget.ui:78
+#, kde-format
+msgid "Instruction Name"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoFormatMBOutput)
+#: src/gui/asmformattingwidget.ui:162
+#, kde-format
+msgid "&Automatically format Microbe output"
+msgstr ""
+
+#: src/gui/contexthelp.cpp:65
+#, kde-format
+msgid ""
+"Provides context-sensitive help relevant to the current editing being "
+"performed."
+msgstr ""
+
+#: src/gui/contexthelp.cpp:245 src/gui/itemeditor/itemeditor.cpp:141
+#, kde-format
+msgid "No Item Selected"
+msgstr ""
+
+#: src/gui/contexthelp.cpp:255 src/gui/itemeditor/itemeditor.cpp:108
+#, kde-format
+msgid "Multiple Items"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, m_pResetButton)
+#. i18n: ectx: property (text), widget (QPushButton, resetBtn)
+#: src/gui/contexthelp.cpp:329 src/gui/contexthelp.cpp:330
+#: src/gui/contexthelpwidget.ui:173 src/gui/oscilloscopewidget.ui:157
+#, kde-format
+msgid "Reset"
+msgstr ""
+
+#: src/gui/contexthelp.cpp:330
+#, kde-format
+msgid "Reset item help to last saved changes?"
+msgstr ""
+
+#: src/gui/contexthelp.cpp:350
+#, kde-format
+msgid "Cannot save item description."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_pEditButton)
+#: src/gui/contexthelpwidget.ui:91
+#, kde-format
+msgid "Edit"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, m_pChangeDescriptionsDirectory)
+#: src/gui/contexthelpwidget.ui:138
+#, kde-format
+msgid "Context Help Directory"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QToolButton, m_pChangeDescriptionsDirectory)
+#. i18n: ectx: property (text), widget (QToolButton, m_pResetButton)
+#: src/gui/contexthelpwidget.ui:141 src/gui/contexthelpwidget.ui:176
+#, kde-format
+msgid "..."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_pSaveButton)
+#: src/gui/contexthelpwidget.ui:183
+#, kde-format
+msgid "S&ave"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/createsubprojectwidget.ui:28
+#, kde-format
+msgid "Subproject Details"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: src/gui/createsubprojectwidget.ui:38
+#, kde-format
+msgid "Target File:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: src/gui/createsubprojectwidget.ui:48 src/gui/newpinmappingwidget.ui:23
+#, kde-format
+msgid "Type:"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (QComboBox, m_typeCombo)
+#: src/gui/createsubprojectwidget.ui:64
+#, kde-format
+msgid "Library"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ReuseSameViewForOutput)
+#: src/gui/generaloptionswidget.ui:29
+#, kde-format
+msgid "Reuse the same output view for code generation"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_GridColor)
+#: src/gui/generaloptionswidget.ui:52
+#, kde-format
+msgid "The grid color in the work area."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (KColorButton, kcfg_GridColor)
+#: src/gui/generaloptionswidget.ui:55
+#, kde-format
+msgid "Grid Colour"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowGrid)
+#: src/gui/generaloptionswidget.ui:62
+#, kde-format
+msgid "Show &grid:"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QLabel, textLabel1)
+#: src/gui/generaloptionswidget.ui:85
+#, kde-format
+msgid ""
+"Maximum undo steps for work area. This does not apply to text documents - "
+"that is configurable separately under Configure Editor."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/generaloptionswidget.ui:88
+#, kde-format
+msgid "Maximum undo steps for work area:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowVoltageBars)
+#: src/gui/generaloptionswidget.ui:98
+#, kde-format
+msgid "Show voltage bars &on electronic components"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowVoltageColor)
+#: src/gui/generaloptionswidget.ui:105
+#, kde-format
+msgid "Color the wires to match the voltage"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateWires)
+#: src/gui/generaloptionswidget.ui:115
+#, kde-format
+msgid "Animate wires to show the current or power flow"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox21)
+#: src/gui/generaloptionswidget.ui:125
+#, kde-format
+msgid "Display Refresh Rate"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel3_2)
+#: src/gui/generaloptionswidget.ui:152
+#, kde-format
+msgid "Refresh rate:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, refreshRateLabel)
+#: src/gui/generaloptionswidget.ui:162
+#, kde-format
+msgid "Medium (50 FPS)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel9_2)
+#: src/gui/generaloptionswidget.ui:180
+#, kde-format
+msgid ""
+"This is the number of times per second that the work area view is updated; a "
+"compromise between CPU usage and smoothness of display."
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
+#: src/gui/generaloptionswidget.ui:202
+#, kde-format
+msgid "Convenience"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RestoreDocumentsOnStartup)
+#: src/gui/generaloptionswidget.ui:208
+#, kde-format
+msgid "Restore opened doc&uments on startup"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RaiseItemSelectors)
+#: src/gui/generaloptionswidget.ui:215
+#, kde-format
+msgid "Raise the &appropriate item selector on creating a new document"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RaiseMessagesLog)
+#: src/gui/generaloptionswidget.ui:222
+#, kde-format
+msgid "Raise the &Messages log when compiling"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: src/gui/gpasmsettingswidget.ui:32
+#, kde-format
+msgid "Radix (-r):"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#: src/gui/gpasmsettingswidget.ui:42
+#, kde-format
+msgid "Warning level (-w):"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/gpasmsettingswidget.ui:52 src/gui/linkeroptionswidget.ui:69
+#, kde-format
+msgid "Hex Format (-a):"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_IgnoreCase)
+#: src/gui/gpasmsettingswidget.ui:62
+#, kde-format
+msgid ""
+"All user defined symbols and macros are case sensitive. This option makes "
+"them case insensitive."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_IgnoreCase)
+#: src/gui/gpasmsettingswidget.ui:65
+#, kde-format
+msgid "Ign&ore case (-i)"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_DosFormat)
+#: src/gui/gpasmsettingswidget.ui:72
+#, kde-format
+msgid ""
+"By default, gpasm generates hex files using ISO format. However, some device "
+"programmers required a DOS formatted file. This option will cause gpasm to "
+"generate a DOS formatted hex file. "
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DosFormat)
+#: src/gui/gpasmsettingswidget.ui:75
+#, kde-format
+msgid "Generate DOS-formatted hex file (-&n)"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QComboBox, kcfg_HexFormat)
+#. i18n: ectx: property (toolTip), widget (KComboBox, m_pHexFormat)
+#: src/gui/gpasmsettingswidget.ui:104 src/gui/linkeroptionswidget.ui:29
+#, kde-format
+msgid ""
+"GPASM supports inhx8m, inhx8s, inhx16, and inhx32 hex file formats. This "
+"option controls which hex file format is used."
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_HexFormat)
+#. i18n: ectx: property (text), item, widget (KComboBox, m_pHexFormat)
+#: src/gui/gpasmsettingswidget.ui:108 src/gui/linkeroptionswidget.ui:33
+#, kde-format
+msgid "inhx32"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_HexFormat)
+#. i18n: ectx: property (text), item, widget (KComboBox, m_pHexFormat)
+#: src/gui/gpasmsettingswidget.ui:113 src/gui/linkeroptionswidget.ui:38
+#, kde-format
+msgid "inhx8m"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_HexFormat)
+#. i18n: ectx: property (text), item, widget (KComboBox, m_pHexFormat)
+#: src/gui/gpasmsettingswidget.ui:118 src/gui/linkeroptionswidget.ui:43
+#, kde-format
+msgid "inhx8s"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_HexFormat)
+#. i18n: ectx: property (text), item, widget (KComboBox, m_pHexFormat)
+#: src/gui/gpasmsettingswidget.ui:123 src/gui/linkeroptionswidget.ui:48
+#, kde-format
+msgid "inhx16"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_Radix)
+#: src/gui/gpasmsettingswidget.ui:138 src/gui/symbolviewer.cpp:110
+#, kde-format
+msgid "Decimal"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_Radix)
+#: src/gui/gpasmsettingswidget.ui:143 src/gui/symbolviewer.cpp:108
+#, kde-format
+msgid "Binary"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_Radix)
+#: src/gui/gpasmsettingswidget.ui:148 src/gui/symbolviewer.cpp:109
+#, kde-format
+msgid "Octal"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_Radix)
+#: src/gui/gpasmsettingswidget.ui:153 src/gui/symbolviewer.cpp:111
+#, kde-format
+msgid "Hexadecimal"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_GpasmWarningLevel)
+#: src/gui/gpasmsettingswidget.ui:167
+#, kde-format
+msgid ""
+"This sets the threshold of messages displayed in the log view.<ul><li>\"All"
+"\" will display all output - information, warnings and errors.<li>\"Warnings"
+"\" will suppress messages. <li>\"Errors\" will suppress both messages and "
+"warnings.</ul>"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_GpasmWarningLevel)
+#: src/gui/gpasmsettingswidget.ui:171
+#, kde-format
+msgid "All"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_GpasmWarningLevel)
+#: src/gui/gpasmsettingswidget.ui:176
+#, kde-format
+msgid "Warnings"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_GpasmWarningLevel)
+#: src/gui/gpasmsettingswidget.ui:181
+#, kde-format
+msgid "Errors"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: src/gui/gpasmsettingswidget.ui:237 src/gui/sdccoptionswidget.ui:449
+#, kde-format
+msgid "Other options:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_gplink_link_shared)
+#: src/gui/gplinksettingswidget.ui:26
+#, kde-format
+msgid "Link with shared libraries (&use this with new SDCC)"
+msgstr ""
+
+#: src/gui/imageexportdlg.cpp:32 src/itemdocument.cpp:848
+#: src/itemdocument.cpp:854
+#, kde-format
+msgid "Export As Image"
+msgstr ""
+
+#: src/gui/imageexportdlg.cpp:45
+#, kde-format
+msgid "Format:"
+msgstr ""
+
+#: src/gui/imageexportdlg.cpp:51
+#, kde-format
+msgid "File name:"
+msgstr ""
+
+#: src/gui/imageexportdlg.cpp:57
+#, kde-format
+msgid "Crop image:"
+msgstr ""
+
+#: src/gui/imageexportdlg.cpp:64
+#, kde-format
+msgid "Export"
+msgstr ""
+
+#: src/gui/itemeditor/componentmodelwidget.cpp:51
+#, kde-format
+msgid "Filter here..."
+msgstr ""
+
+#: src/gui/itemeditor/componentmodelwidget.cpp:61
+#, kde-format
+msgid "Clear filter"
+msgstr ""
+
+#: src/gui/itemeditor/componentmodelwidget.cpp:62
+#, kde-format
+msgid "Enter space-separated terms to filter the component library."
+msgstr ""
+
+#: src/gui/itemeditor/componentmodelwidget.cpp:76
+#, kde-format
+msgid "Select a predefined component configuration from this list."
+msgstr ""
+
+#: src/gui/itemeditor/itemeditor.cpp:44
+#, kde-format
+msgid ""
+"This allows editing of advanced properties of the selected item(s). Right "
+"click on the picture of the item to set the orientation."
+msgstr ""
+
+#: src/gui/itemeditor/itemeditor.cpp:71
+#, kde-format
+msgid ""
+"<p>Shows properties associated with the currently selected item(s).<br/"
+">Select a property to change its value. If multiple items are selected with "
+"different values then the property will appear greyed out, use \"Merge "
+"Properties\" to make them the same.<br/>Select \"Defaults\" to set all "
+"properties to their default values"
+msgstr ""
+
+#: src/gui/itemeditor/itemeditor.cpp:87
+#, kde-format
+msgid ""
+"Change the orientation of the selected item by selecting the appropriate "
+"button"
+msgstr ""
+
+#: src/gui/itemeditor/propertyeditor.cpp:173
+#: src/gui/itemeditor/propertyeditorinput.cpp:191
+#: src/gui/itemeditor/propertyeditoritem.cpp:106
+#, kde-format
+msgid "Yes"
+msgstr ""
+
+#: src/gui/itemeditor/propertyeditor.cpp:176
+#: src/gui/itemeditor/propertyeditorinput.cpp:194
+#: src/gui/itemeditor/propertyeditoritem.cpp:111
+#, kde-format
+msgid "No"
+msgstr ""
+
+#: src/gui/itemeditor/propertyeditor.cpp:252
+#, kde-format
+msgid "Property"
+msgstr ""
+
+#: src/gui/itemeditor/propertyeditor.cpp:283
+#, kde-format
+msgid "Undo changes"
+msgstr ""
+
+#: src/gui/itemeditor/propertyeditorfile.cpp:36
+#, kde-format
+msgid " ... "
+msgstr ""
+
+#: src/gui/itemeditor/propertyeditorfile.cpp:52
+#, kde-format
+msgid "Choose File"
+msgstr ""
+
+#: src/gui/itemselector.cpp:61 src/gui/itemselector.cpp:408
+#, kde-format
+msgid "Component"
+msgstr ""
+
+#: src/gui/itemselector.cpp:265
+#, kde-format
+msgid "Remove %1"
+msgstr ""
+
+#: src/gui/itemselector.cpp:402
+#, kde-format
+msgid ""
+"Add components to the circuit diagram by dragging them into the circuit."
+"<br><br>To add more than one component of the same type, doubleclick on a "
+"component, and click repeatedly in the circuit to place the component. Right "
+"click to stop placement.<br><br>Some components (such as subcircuits) can be "
+"removed by right clicking on the item and selecting \"Remove\"."
+msgstr ""
+
+#: src/gui/itemselector.cpp:437
+#, kde-format
+msgid ""
+"Add FlowPart to the FlowCode document by dragging them there.<br><br>To add "
+"more than one FlowPart of the same type, doubleclick on a FlowPart, and "
+"click repeatedly in the FlowChart to place the component. Right click to "
+"stop placement."
+msgstr ""
+
+#: src/gui/itemselector.cpp:440
+#, kde-format
+msgid "Flow Part"
+msgstr ""
+
+#: src/gui/itemselector.cpp:467
+#, kde-format
+msgid "Add mechanical parts to the mechanics work area by dragging them there."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#: src/gui/linkeroptionswidget.ui:56
+#, kde-format
+msgid "Library Directory (-I):"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_pOutputMap)
+#: src/gui/linkeroptionswidget.ui:79
+#, kde-format
+msgid "&Output a map file (-m)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel8)
+#: src/gui/linkeroptionswidget.ui:86
+#, kde-format
+msgid "Linker Script (-s):"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: src/gui/linkeroptionswidget.ui:102
+#, kde-format
+msgid "Other:"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
+#: src/gui/linkeroptionswidget.ui:116
+#, kde-format
+msgid "Link libraries inside project"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_3)
+#: src/gui/logicwidget.ui:31
+#, kde-format
+msgid "Logic Symbol Shapes:"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LogicSymbolShapes)
+#: src/gui/logicwidget.ui:42
+#, kde-format
+msgid "Distinctive"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LogicSymbolShapes)
+#: src/gui/logicwidget.ui:47
+#, kde-format
+msgid "Rectangular"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
+#: src/gui/logicwidget.ui:57
+#, kde-format
+msgid "Input"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QDoubleSpinBox, kcfg_LogicRisingTrigger)
+#. i18n: ectx: property (toolTip), widget (QLabel, textLabel1)
+#: src/gui/logicwidget.ui:63 src/gui/logicwidget.ui:126
+#, kde-format
+msgid "Required voltage level before the input will be considered high."
+msgstr ""
+
+#. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_LogicRisingTrigger)
+#. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_LogicFallingTrigger)
+#. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_LogicOutputHigh)
+#: src/gui/logicwidget.ui:72 src/gui/logicwidget.ui:110
+#: src/gui/logicwidget.ui:170
+#, kde-format
+msgid " V"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QLabel, textLabel2_2)
+#. i18n: ectx: property (toolTip), widget (QDoubleSpinBox, kcfg_LogicFallingTrigger)
+#: src/gui/logicwidget.ui:88 src/gui/logicwidget.ui:101
+#, kde-format
+msgid "Required voltage level before an input will be considered low."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#: src/gui/logicwidget.ui:91
+#, kde-format
+msgid "Falling Trigger Threshold:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/logicwidget.ui:129
+#, kde-format
+msgid "Rising Trigger Threshold:"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QLabel, textLabel2)
+#. i18n: ectx: property (toolTip), widget (QDoubleSpinBox, kcfg_LogicOutputHigh)
+#: src/gui/logicwidget.ui:148 src/gui/logicwidget.ui:161
+#, kde-format
+msgid "Voltage level for high on logic components."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: src/gui/logicwidget.ui:151
+#, kde-format
+msgid "Output High:"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QLabel, textLabel4)
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_LogicOutputHighImpedance)
+#: src/gui/logicwidget.ui:186 src/gui/logicwidget.ui:212
+#, kde-format
+msgid "This is the output impedance when the output is high."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: src/gui/logicwidget.ui:189
+#, kde-format
+msgid "High Output Impedance:"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QLabel, textLabel1_2)
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_LogicOutputLowImpedance)
+#: src/gui/logicwidget.ui:199 src/gui/logicwidget.ui:234
+#, kde-format
+msgid "This is the output impedance when the output is low."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: src/gui/logicwidget.ui:202
+#, kde-format
+msgid "Low Output Impedance:"
+msgstr ""
+
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_LogicOutputLowImpedance)
+#: src/gui/logicwidget.ui:240
+#, kde-format
+msgid "Floating"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_3)
+#: src/gui/logicwidget.ui:264
+#, kde-format
+msgid ""
+"Here, you can configure the behaviour of logic components.\n"
+"\n"
+"These values will apply to all components, apart from the PIC, whose pins' "
+"impedances depend on the pin in use."
+msgstr ""
+
+#. i18n("Clear All"), this, SLOT(clear()) ); // 2018.12.07
+#: src/gui/logview.cpp:121
+#, kde-format
+msgid "Clear All"
+msgstr ""
+
+#: src/gui/microselectwidget.cpp:29
+#, kde-format
+msgid "Microprocessor"
+msgstr ""
+
+#: src/gui/microselectwidget.cpp:37
+#, kde-format
+msgid "Family"
+msgstr ""
+
+#: src/gui/microselectwidget.cpp:47
+#, kde-format
+msgid "Micro"
+msgstr ""
+
+#: src/gui/microsettingsdlg.cpp:59 src/picitem.cpp:290
+#, kde-format
+msgid "PIC Settings"
+msgstr ""
+
+#: src/gui/microsettingsdlg.cpp:70
+#, kde-format
+msgid "This dialog allows editing of the initial properties of the PIC"
+msgstr ""
+
+#: src/gui/microsettingsdlg.cpp:72
+#, kde-format
+msgid ""
+"Edit the initial value of the ports here. For each binary number, the order "
+"from right-to-left is pins 0 through 7.<br><br>The \"Type (TRIS)\" edit "
+"shows the initial input/output state of the ports; 1 represents an input, "
+"and 0 an output.<br><br>The \"State (PORT)\" edit shows the initial high/low "
+"state of the ports; 1 represents a high, and 0 a low."
+msgstr ""
+
+#: src/gui/microsettingsdlg.cpp:75
+#, kde-format
+msgid ""
+"Edit the initial value of the variables here.<br><br>Note that the value of "
+"the variable can only be in the range 0->255. These variables will be "
+"initialized before any other code is executed."
+msgstr ""
+
+#. i18n( "the type", "Type (TRIS register):" );
+#: src/gui/microsettingsdlg.cpp:109
+#, kde-format
+msgid "Type (TRIS register):"
+msgstr ""
+
+#: src/gui/microsettingsdlg.cpp:110
+#, kde-format
+msgid "State (PORT register):"
+msgstr ""
+
+#: src/gui/microsettingsdlg.cpp:132
+#, kde-format
+msgid "Variable name"
+msgstr ""
+
+#: src/gui/microsettingsdlg.cpp:133
+#, kde-format
+msgid "Variable value"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#: src/gui/microsettingsdlg.cpp:259 src/gui/newpinmappingwidget.ui:48
+#, kde-format
+msgid "New Pin Mapping"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, pinMapAdd)
+#: src/gui/microsettingsdlg.cpp:266 src/gui/microsettingswidget.ui:132
+#, kde-format
+msgid "Create"
+msgstr ""
+
+#: src/gui/microsettingsdlg.cpp:331
+#, kde-format
+msgid "New Pin Map Name"
+msgstr ""
+
+#: src/gui/microsettingsdlg.cpp:449
+#, kde-format
+msgid "Invalid variable value: %1"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/microsettingswidget.ui:45
+#, kde-format
+msgid ""
+"Tip: Toggle the initial state (high/low) of a pin by clicking its picture.\n"
+"Drag it to set the type (input/output)."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, pinMapRemove)
+#: src/gui/microsettingswidget.ui:109 src/projectmanager.cpp:1078
+#, kde-format
+msgid "Remove"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, pinMapModify)
+#: src/gui/microsettingswidget.ui:139
+#, kde-format
+msgid "Modif&y"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, pinMapRename)
+#: src/gui/microsettingswidget.ui:146
+#, kde-format
+msgid "Rename"
+msgstr ""
+
+#: src/gui/newfiledlg.cpp:56 src/ktechlab.cpp:455
+#, kde-format
+msgid "New File"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QWidget, NewFileWidget)
+#: src/gui/newfilewidget.ui:20
+#, kde-format
+msgid ""
+"Select the type of file you wish to create.<br>\n"
+"<p>\n"
+"<b>Pic Program</b><br>\n"
+"Creates a new PIC program, with flow chart editor. Select the target device "
+"for your program below.\n"
+"<p>\n"
+"<b>Circuit</b><br>\n"
+"Creates a new circuit, with drag and drop editor. Real time simulation of "
+"the circuit occurs automatically."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/newfilewidget.ui:72
+#, kde-format
+msgid "New File Details"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2_2)
+#: src/gui/newfilewidget.ui:82
+#, kde-format
+msgid "File Type:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, addToProjectCheck)
+#: src/gui/newfilewidget.ui:129
+#, kde-format
+msgid "&Add to project"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/newpinmappingwidget.ui:33
+#, kde-format
+msgid "Name:"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (KLineEdit, nameEdit)
+#: src/gui/newpinmappingwidget.ui:91
+#, kde-format
+msgid ""
+"The variable name of the pin mapping - this must be a valid Microbe variable "
+"name."
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (QComboBox, typeCombo)
+#: src/gui/newpinmappingwidget.ui:110
+#, kde-format
+msgid "Keypad (4x3)"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (QComboBox, typeCombo)
+#: src/gui/newpinmappingwidget.ui:115
+#, kde-format
+msgid "Keypad (4x4)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel8)
+#: src/gui/newprojectwidget.ui:23
+#, kde-format
+msgid "Final location:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, locationLabel)
+#: src/gui/newprojectwidget.ui:33
+#, kde-format
+msgid "/"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: src/gui/newprojectwidget.ui:59
+#, kde-format
+msgid "Location:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/newprojectwidget.ui:74
+#, kde-format
+msgid "New Project Details"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel10)
+#: src/gui/newprojectwidget.ui:84
+#, kde-format
+msgid "Project Name:"
+msgstr ""
+
+#: src/gui/oscilloscope.cpp:319
+#, kde-format
+msgid "Oscilloscope"
+msgstr ""
+
+#: src/gui/oscilloscopeview.cpp:124
+#, kde-format
+msgid "Framerate"
+msgstr ""
+
+#. i18n("%1 fps", QString::number(num)), num);   // 2018.12.07
+#. fpsMenu.setItemChecked( num, num == m_fps);
+#: src/gui/oscilloscopeview.cpp:137
+#, kde-format
+msgid "%1 fps"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/oscilloscopewidget.ui:71
+#, kde-format
+msgid "Zoom"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QRadioButton, displayDirectCheck)
+#: src/gui/outputmethodwidget.ui:44
+#, kde-format
+msgid "Displa&y directly"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QRadioButton, saveFileCheck)
+#: src/gui/outputmethodwidget.ui:54
+#, kde-format
+msgid "Sa&ve to file"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, loadFileCheck)
+#: src/gui/outputmethodwidget.ui:73
+#, kde-format
+msgid "Load File in &New View"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, addToProjectCheck)
+#: src/gui/outputmethodwidget.ui:80
+#, kde-format
+msgid "&Add to Project"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, addButton)
+#: src/gui/picprogrammerconfigwidget.ui:48
+#, kde-format
+msgid "&Add ..."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#: src/gui/picprogrammerconfigwidget.ui:55
+#, kde-format
+msgid "Re&move"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_3)
+#: src/gui/picprogrammerconfigwidget.ui:62 src/gui/programmerwidget.ui:29
+#, kde-format
+msgid "Program:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, m_pProgrammerDescription)
+#: src/gui/picprogrammerconfigwidget.ui:85
+#, kde-format
+msgid "(Program Description)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: src/gui/picprogrammerconfigwidget.ui:101
+#, kde-format
+msgid "Initialization:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: src/gui/picprogrammerconfigwidget.ui:123
+#, kde-format
+msgid "Read:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#: src/gui/picprogrammerconfigwidget.ui:133
+#, kde-format
+msgid "Write:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: src/gui/picprogrammerconfigwidget.ui:154
+#, no-c-format, kde-format
+msgid ""
+"The following strings will be replaced when the command is run:\n"
+"<ul>\n"
+"<li><b>%port</b> - Port that the programmer is connected to</li>\n"
+"<li><b>%device</b> - PIC device</li>\n"
+"<li><b>%file</b> - File to read from or write to</li>\n"
+"</ul>"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel5)
+#: src/gui/picprogrammerconfigwidget.ui:167
+#, kde-format
+msgid "Erase:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_3)
+#: src/gui/picprogrammerconfigwidget.ui:177
+#, kde-format
+msgid "Verify:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_4)
+#: src/gui/picprogrammerconfigwidget.ui:187
+#, kde-format
+msgid "Blank Check:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/picprogrammerconfigwidget.ui:202
+#, kde-format
+msgid "Default port:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/processingoptionswidget.ui:49
+#, kde-format
+msgid "Output File:"
+msgstr ""
+
+#: src/gui/programmerdlg.cpp:40 src/gui/settingsdlg.cpp:134
+#, kde-format
+msgid "PIC Programmer"
+msgstr ""
+
+#: src/gui/programmerdlg.cpp:88
+#, kde-format
+msgid "Burn"
+msgstr ""
+
+#: src/gui/projectdlgs.cpp:51
+#, kde-format
+msgid "New Project"
+msgstr ""
+
+#: src/gui/projectdlgs.cpp:129
+#, kde-format
+msgid "Create Subproject"
+msgstr ""
+
+#: src/gui/projectdlgs.cpp:182
+#, kde-format
+msgid "Linker Options"
+msgstr ""
+
+#: src/gui/projectdlgs.cpp:317
+#, kde-format
+msgid "Processing Options"
+msgstr ""
+
+#. i18n("Bold"), "format-text-bold", Qt::CTRL + Qt::Key_B, 0, 0, ac, "format_bold" );
+#: src/gui/richtexteditor.cpp:66
+#, kde-format
+msgid "Bold"
+msgstr ""
+
+#. i18n("Italic"), "format-text-italic", Qt::CTRL + Qt::Key_I, 0, 0, ac, "format_italic" );
+#: src/gui/richtexteditor.cpp:75
+#, kde-format
+msgid "Italic"
+msgstr ""
+
+#. i18n("Underline"), "format-text-underline", Qt::CTRL + Qt::Key_U, 0, 0, ac, "format_underline" );
+#: src/gui/richtexteditor.cpp:84
+#, kde-format
+msgid "Underline"
+msgstr ""
+
+#. i18n("List"), "unsorted_list", Qt::CTRL + Qt::Key_L, 0, 0, ac, "format_list" );
+#: src/gui/richtexteditor.cpp:93
+#, kde-format
+msgid "List"
+msgstr ""
+
+#. i18n("Text Alignment"), "format-justify-left", 0, 0, 0, ac, "text_alignment" );
+#. i18n("Text Alignment") );
+#: src/gui/richtexteditor.cpp:103 src/gui/richtexteditor.cpp:112
+#, kde-format
+msgid "Text Alignment"
+msgstr ""
+
+#. i18n("Align Left"),		Qt::AlignLeft );
+#: src/gui/richtexteditor.cpp:116
+#, kde-format
+msgid "Align Left"
+msgstr ""
+
+#. i18n("Align Center"),	Qt::AlignHCenter );
+#: src/gui/richtexteditor.cpp:118
+#, kde-format
+msgid "Align Center"
+msgstr ""
+
+#. i18n("Align Right"),	Qt::AlignRight );
+#: src/gui/richtexteditor.cpp:120
+#, kde-format
+msgid "Align Right"
+msgstr ""
+
+#. i18n("Align Block"),	Qt::AlignJustify );
+#: src/gui/richtexteditor.cpp:122
+#, kde-format
+msgid "Align Block"
+msgstr ""
+
+#. i18n("Text Vertical Alignment"), "text", 0, 0, 0, ac, "text_vertical_alignment" );
+#. i18n("Text Vertical Alignment") );
+#: src/gui/richtexteditor.cpp:128 src/gui/richtexteditor.cpp:136
+#, kde-format
+msgid "Text Vertical Alignment"
+msgstr ""
+
+#: src/gui/richtexteditor.cpp:139
+#, kde-format
+msgid "Superscript"
+msgstr ""
+
+#. i18n("Superscript"),	QTextCharFormat::AlignSuperScript );
+#: src/gui/richtexteditor.cpp:141
+#, kde-format
+msgid "Normal"
+msgstr ""
+
+#. i18n("Normal"),			QTextCharFormat::AlignNormal );
+#: src/gui/richtexteditor.cpp:143
+#, kde-format
+msgid "Subscript"
+msgstr ""
+
+#. i18n("Text Color..."), pm, 0, this, SLOT(textColor()), ac, "format_color" );
+#: src/gui/richtexteditor.cpp:151
+#, kde-format
+msgid "Text Color..."
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, xGroupBox)
+#: src/gui/scopescreenwidget.ui:26
+#, kde-format
+msgid "X"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: src/gui/scopescreenwidget.ui:36
+#, kde-format
+msgid "Intervals"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#: src/gui/scopescreenwidget.ui:88
+#, kde-format
+msgid "Ticks per Interval"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: src/gui/scopescreenwidget.ui:134
+#, kde-format
+msgid "Offset (ticks)"
+msgstr ""
+
+#. i18n: ectx: attribute (title), widget (QWidget, general)
+#: src/gui/sdccoptionswidget.ui:36
+#, kde-format
+msgid "Ge&neral"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nostdlib)
+#: src/gui/sdccoptionswidget.ui:42
+#, kde-format
+msgid "Do not search in the standard librar&y directory (--nostdlib)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nostdinc)
+#: src/gui/sdccoptionswidget.ui:49
+#, kde-format
+msgid "Do not search in the standard include directory (--nostdinc)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_less_pedantic)
+#: src/gui/sdccoptionswidget.ui:59
+#, kde-format
+msgid "Disa&ble pedantic warnings (--less-pedantic)"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_std_c89)
+#: src/gui/sdccoptionswidget.ui:66
+#, kde-format
+msgid ""
+"Follow the C89 standard and disable SDCC features that conflict with the "
+"standard."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_std_c89)
+#: src/gui/sdccoptionswidget.ui:69
+#, kde-format
+msgid "Use C&89 standard only (--std-c89)"
+msgstr ""
+
+#. i18n: ectx: property (shortcut), widget (QCheckBox, kcfg_SDCC_std_c89)
+#: src/gui/sdccoptionswidget.ui:72
+#, kde-format
+msgid "Alt+8"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_std_c99)
+#: src/gui/sdccoptionswidget.ui:82
+#, kde-format
+msgid ""
+"Follow the C99 standard and disable SDCC features that conflict with the "
+"standard (incomplete support)."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_std_c99)
+#: src/gui/sdccoptionswidget.ui:85
+#, kde-format
+msgid "Use C&99 standard only (--std-c99)"
+msgstr ""
+
+#. i18n: ectx: property (shortcut), widget (QCheckBox, kcfg_SDCC_std_c99)
+#: src/gui/sdccoptionswidget.ui:88
+#, kde-format
+msgid "Alt+9"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_use_non_free)
+#: src/gui/sdccoptionswidget.ui:98
+#, kde-format
+msgid "Use non-free licensed libraries and header files (--use-non-free)"
+msgstr ""
+
+#. i18n: ectx: attribute (title), widget (QWidget, code_generation)
+#: src/gui/sdccoptionswidget.ui:122
+#, kde-format
+msgid "Code Gener&ation"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_stack_auto)
+#: src/gui/sdccoptionswidget.ui:131
+#, kde-format
+msgid ""
+"All functions in the source file will be compiled as reentrant, i.e. the "
+"parameters and local variables will be allocated on the stack. If this "
+"option is used all source files in the project should be compiled with this "
+"option. It automatically implies -int-long-reent and -float-reent."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_stack_auto)
+#: src/gui/sdccoptionswidget.ui:134
+#, kde-format
+msgid "Stack auto&matic variables (--stack-auto)"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_int_long_reent)
+#: src/gui/sdccoptionswidget.ui:144
+#, kde-format
+msgid ""
+"Integer (16 bit) and long (32 bit) libraries have been compiled as "
+"reentrant. Note by default these libraries are compiled as non-reentrant."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_int_long_reent)
+#: src/gui/sdccoptionswidget.ui:147
+#, kde-format
+msgid "Integer li&braries were compiled as reentrant (--int-long-reent)"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_float_reent)
+#: src/gui/sdccoptionswidget.ui:154
+#, kde-format
+msgid "Floating point library is compiled as reentrant."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_float_reent)
+#: src/gui/sdccoptionswidget.ui:157
+#, kde-format
+msgid "Floating point librar&y was compiled as reentrant (--float-reent)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_fommit_frame_pointer)
+#: src/gui/sdccoptionswidget.ui:164
+#, kde-format
+msgid "Leave out the frame pointer (--fommit-frame-pointer)"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_no_xinit_opt)
+#: src/gui/sdccoptionswidget.ui:174
+#, kde-format
+msgid ""
+"Will not memcpy initialized data from code space into xdata space. This "
+"saves a few bytes in code space if you do not have initialized data."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_no_xinit_opt)
+#: src/gui/sdccoptionswidget.ui:177
+#, kde-format
+msgid "Do not memcpy initialized &xram from code (--no-xinit-opt)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_all_callee_saves)
+#: src/gui/sdccoptionswidget.ui:184
+#, kde-format
+msgid "Callee will &always save registers used (--all-callee-saves)"
+msgstr ""
+
+#. i18n: ectx: attribute (title), widget (QWidget, optimization)
+#: src/gui/sdccoptionswidget.ui:208
+#, kde-format
+msgid "&Optimization"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_nooverlay)
+#: src/gui/sdccoptionswidget.ui:214
+#, kde-format
+msgid ""
+"The compiler will not overlay parameters and local variables of any "
+"function, see section Parameters and local variables for more details."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nooverlay)
+#: src/gui/sdccoptionswidget.ui:217
+#, kde-format
+msgid "Disable overlaying leaf function &auto variables (--nooverlay)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nogcse)
+#: src/gui/sdccoptionswidget.ui:224
+#, kde-format
+msgid "Disable the GCSE optimization (--nogcse)"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_nolabelopt)
+#: src/gui/sdccoptionswidget.ui:234
+#, kde-format
+msgid "Will not optimize labels (makes the dumpfiles more readable)."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nolabelopt)
+#: src/gui/sdccoptionswidget.ui:237
+#, kde-format
+msgid "Disable label optimi&zation (--nolabelopt)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_noinvariant)
+#: src/gui/sdccoptionswidget.ui:244
+#, kde-format
+msgid "Disable optimization of invariants (--noinvariant)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_noinduction)
+#: src/gui/sdccoptionswidget.ui:254
+#, kde-format
+msgid "Disable loop variable induction (--noinduction)"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_no_peep)
+#: src/gui/sdccoptionswidget.ui:264
+#, kde-format
+msgid "Disable peep-hole optimization."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_no_peep)
+#: src/gui/sdccoptionswidget.ui:267
+#, kde-format
+msgid "Disable peep-hole optimization (--&no-peep)"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_noloopreverse)
+#: src/gui/sdccoptionswidget.ui:274
+#, kde-format
+msgid "Will not do loop reversal optimization."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_noloopreverse)
+#: src/gui/sdccoptionswidget.ui:277
+#, kde-format
+msgid "Disable loop reverse optimization (--noloopreverse)"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_opt_code_size)
+#: src/gui/sdccoptionswidget.ui:287
+#, kde-format
+msgid ""
+"The compiler will optimize code generation towards compact code, possibly at "
+"the expense of code speed."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_opt_code_size)
+#: src/gui/sdccoptionswidget.ui:290
+#, kde-format
+msgid "Opti&mize for compact code (--opt-code-size)"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_opt_code_speed)
+#: src/gui/sdccoptionswidget.ui:297
+#, kde-format
+msgid ""
+"The compiler will optimize code generation towards fast code, possibly at "
+"the expense of code size."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_opt_code_speed)
+#: src/gui/sdccoptionswidget.ui:300
+#, kde-format
+msgid "&Optimize for fast code (--opt-code-speed)"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_peep_asm)
+#: src/gui/sdccoptionswidget.ui:307
+#, kde-format
+msgid ""
+"Pass the inline assembler code through the peep hole optimizer. This can "
+"cause unexpected changes to inline assembler code, please go through the "
+"peephole optimizer rules defined in the source file tree '<target>/peeph."
+"def' before using this option."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_peep_asm)
+#: src/gui/sdccoptionswidget.ui:310
+#, kde-format
+msgid "Ena&ble inline assembly peephole optimization (--peep-asm)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nojtbound)
+#: src/gui/sdccoptionswidget.ui:317
+#, kde-format
+msgid "Do not generate boundary check for &jump tables (--nojtbound)"
+msgstr ""
+
+#. i18n: ectx: attribute (title), widget (QWidget, pic16_specific)
+#: src/gui/sdccoptionswidget.ui:341
+#, kde-format
+msgid "PIC&16 Specific"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nodefaultlibs)
+#: src/gui/sdccoptionswidget.ui:347
+#, kde-format
+msgid "Do not use default libraries (--nodefaultlibs)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_pno_banksel)
+#: src/gui/sdccoptionswidget.ui:357
+#, kde-format
+msgid "Do not generate BANKSEL directives (--pno-banksel)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_pstack_model_large)
+#: src/gui/sdccoptionswidget.ui:367
+#, kde-format
+msgid "Use large stac&k model (--pstack-model=large)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_debug_xtra)
+#: src/gui/sdccoptionswidget.ui:374
+#, kde-format
+msgid "Show more debug info in assembl&y output (--debug-xtra)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_denable_peeps)
+#: src/gui/sdccoptionswidget.ui:381
+#, kde-format
+msgid "E&xplicit enable of peepholes (--denable-peeps)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_calltree)
+#: src/gui/sdccoptionswidget.ui:388
+#, kde-format
+msgid "Du&mp call tree in .calltree file (--calltree)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_fstack)
+#: src/gui/sdccoptionswidget.ui:395
+#, kde-format
+msgid "Ena&ble stack optimizations (--fstack)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_optimize_goto)
+#: src/gui/sdccoptionswidget.ui:402
+#, kde-format
+msgid "Try to use conditional BRA instead of GOTO (--optimi&ze-goto)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_optimize_cmp)
+#: src/gui/sdccoptionswidget.ui:409
+#, kde-format
+msgid "Try to optimize some compares (--optimize-cmp)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_optimize_df)
+#: src/gui/sdccoptionswidget.ui:419
+#, kde-format
+msgid "Thorough data flow analysis (resource intensive) (--optimize-df)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, installPrefixLabel)
+#: src/gui/sdccoptionswidget.ui:475
+#, kde-format
+msgid "SDCC install prefix:"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_SDCC_install_prefix)
+#: src/gui/sdccoptionswidget.ui:482
+#, kde-format
+msgid "Location where SDCC in installed. Empty for system default."
+msgstr ""
+
+#: src/gui/settingsdlg.cpp:133
+#, kde-format
+msgid "General"
+msgstr ""
+
+#: src/gui/settingsdlg.cpp:133
+#, kde-format
+msgid "General Options"
+msgstr ""
+
+#: src/gui/settingsdlg.cpp:134
+#, kde-format
+msgid "Programmer"
+msgstr ""
+
+#: src/gui/settingsdlg.cpp:135
+#, kde-format
+msgid "Formatter"
+msgstr ""
+
+#: src/gui/settingsdlg.cpp:135
+#, kde-format
+msgid "Assembly Formatter"
+msgstr ""
+
+#: src/gui/settingsdlg.cpp:136
+#, kde-format
+msgid "Electronic Logic Values"
+msgstr ""
+
+#: src/gui/settingsdlg.cpp:177
+#, kde-format
+msgid "Lowest (%1 FPS)"
+msgstr ""
+
+#: src/gui/settingsdlg.cpp:180
+#, kde-format
+msgid "Low (%1 FPS)"
+msgstr ""
+
+#: src/gui/settingsdlg.cpp:183
+#, kde-format
+msgid "Medium (%1 FPS)"
+msgstr ""
+
+#: src/gui/settingsdlg.cpp:186
+#, kde-format
+msgid "High (%1 FPS)"
+msgstr ""
+
+#: src/gui/settingsdlg.cpp:189
+#, kde-format
+msgid "Highest (%1 FPS)"
+msgstr ""
+
+#: src/gui/settingsdlg.cpp:192
+#, kde-format
+msgid "Unknown value"
+msgstr ""
+
+#: src/gui/settingsdlg.cpp:213
+#, kde-format
+msgid "<b>%1</b> cannot be found.<br>"
+msgstr ""
+
+#: src/gui/settingsdlg.cpp:215
+#, kde-format
+msgid "<b>%1</b> found: %2<br>"
+msgstr ""
+
+#: src/gui/settingsdlg.cpp:263
+#, kde-format
+msgid "Remove programmer configuration \"%1\"?"
+msgstr ""
+
+#: src/gui/settingsdlg.cpp:263
+#, kde-format
+msgid "Remove \"%1\""
+msgstr ""
+
+#: src/gui/settingsdlg.cpp:286
+#, kde-format
+msgid "Configuration Name"
+msgstr ""
+
+#: src/gui/symbolviewer.cpp:104
+#, kde-format
+msgid "Value radix:"
+msgstr ""
+
+#. i18n("Automatic"), "", 0, this, SLOT(slotSetRoutingAuto()), ac, "routing_mode_auto" );
+#: src/icnview.cpp:34 src/icnview.cpp:63
+#, kde-format
+msgid "Automatic"
+msgstr ""
+
+#. i18n("Manual"), "", 0, this, SLOT(slotSetRoutingManual()), ac, "routing_mode_manual" );
+#: src/icnview.cpp:43 src/icnview.cpp:67
+#, kde-format
+msgid "Manual"
+msgstr ""
+
+#. i18n("Connection Routing Mode"), "pencil", 0, 0, 0, ac, "routing_mode" );
+#: src/icnview.cpp:53 src/icnview.cpp:59
+#, kde-format
+msgid "Connection Routing Mode"
+msgstr ""
+
+#: src/icnview.cpp:116
+#, kde-format
+msgid "<b>Manual</b> connection routing enabled."
+msgstr ""
+
+#: src/icnview.cpp:116
+#, kde-format
+msgid "<b>Automatic</b> connection routing enabled."
+msgstr ""
+
+#: src/itemdocument.cpp:94
+#, kde-format
+msgid "Alignment"
+msgstr ""
+
+#: src/itemdocument.cpp:848
+#, kde-format
+msgid "SVG export is sub-functional"
+msgstr ""
+
+#: src/itemdocument.cpp:854
+#, kde-format
+msgid "There is nothing to crop"
+msgstr ""
+
+#: src/itemdocument.cpp:923
+#, kde-format
+msgid "Export failed"
+msgstr ""
+
+#: src/itemdocument.cpp:923
+#, kde-format
+msgid "Image Export"
+msgstr ""
+
+#: src/itemdocumentdata.cpp:112 src/projectmanager.cpp:748
+#, kde-format
+msgid "Could not open %1 for reading"
+msgstr ""
+
+#: src/itemdocumentdata.cpp:133 src/projectmanager.cpp:764
+#, kde-format
+msgid ""
+"Could not parse XML:\n"
+"%1"
+msgstr ""
+
+#: src/itemdocumentdata.cpp:175
+#, kde-format
+msgid "Could not open '%1' for writing. Check that you have write permissions"
+msgstr ""
+
+#: src/itemdocumentdata.cpp:175
+#, kde-format
+msgid "Saving File"
+msgstr ""
+
+#: src/itemlibrary.cpp:134
+#, kde-format
+msgid ""
+"This help item does not yet exist for the %1 language. Help out with "
+"KTechlab by creating one via the \"Edit\" button."
+msgstr ""
+
+#: src/itemlibrary.cpp:519
+#, kde-format
+msgid "Could not open item descriptions file \"%1\" for writing."
+msgstr ""
+
+#. i18n("Cancel"), i18n("Cancel the current operation"), Qt::Key_Escape, itemDocument, SLOT(cancelCurrentOperation()) );
+#. pAccel->readSettings(); // TODO what does this do?
+#: src/itemview.cpp:59 src/projectmanager.cpp:1078 src/viewcontainer.cpp:527
+#, kde-format
+msgid "Cancel"
+msgstr ""
+
+#. i18n("Delete"), "edit-delete", Qt::Key_Delete, itemDocument, SLOT(deleteSelection()), ac, "edit_delete" );
+#: src/itemview.cpp:67
+#, kde-format
+msgid "Delete"
+msgstr ""
+
+#. i18n("Export as Image..."), 0, 0, itemDocument, SLOT(exportToImage()), ac, "file_export_image");
+#: src/itemview.cpp:75
+#, kde-format
+msgid "Export as Image..."
+msgstr ""
+
+#. i18n("Align Horizontally"), 0, 0, itemDocument, SLOT(alignHorizontally()), ac, "align_horizontally" );
+#: src/itemview.cpp:84
+#, kde-format
+msgid "Align Horizontally"
+msgstr ""
+
+#. i18n("Align Vertically"), 0, 0, itemDocument, SLOT(alignVertically()), ac, "align_vertically" );
+#: src/itemview.cpp:91
+#, kde-format
+msgid "Align Vertically"
+msgstr ""
+
+#. i18n("Distribute Horizontally"), 0, 0, itemDocument, SLOT(distributeHorizontally()), ac, "distribute_horizontally" );
+#: src/itemview.cpp:98
+#, kde-format
+msgid "Distribute Horizontally"
+msgstr ""
+
+#. i18n("Distribute Vertically"), 0, 0, itemDocument, SLOT(distributeVertically()), ac, "distribute_vertically" );
+#: src/itemview.cpp:105
+#, kde-format
+msgid "Distribute Vertically"
+msgstr ""
+
+#. i18n("Draw"), "paintbrush", 0, 0, 0, ac, "edit_draw" );
+#: src/itemview.cpp:114 src/itemview.cpp:120
+#, kde-format
+msgid "Draw"
+msgstr ""
+
+#. i18n("Raise Selection"), "object-order-raise", Qt::Key_PageUp,   itemDocument, SLOT(raiseZ()), ac, "edit_raise" );
+#: src/itemview.cpp:134
+#, kde-format
+msgid "Raise Selection"
+msgstr ""
+
+#. i18n("Lower Selection"), "object-order-lower", Qt::Key_PageDown, itemDocument, SLOT(lowerZ()), ac, "edit_lower" );
+#: src/itemview.cpp:142
+#, kde-format
+msgid "Lower Selection"
+msgstr ""
+
+#: src/itemview.cpp:612 src/itemview.cpp:620
+#, kde-format
+msgid "Left click to add. Right click to resume normal editing"
+msgstr ""
+
+#: src/itemview.cpp:615
+#, kde-format
+msgid "Click and hold to start drawing."
+msgstr ""
+
+#: src/itemview.cpp:623
+#, kde-format
+msgid "Right click to cancel the connector"
+msgstr ""
+
+#: src/katemdi.cpp:421
+#, kde-format
+msgid "Behavior"
+msgstr ""
+
+#. i18n("Make Non-Persistent") : i18n("Make Persistent"), 10); // 2018.11.22
+#: src/katemdi.cpp:424
+#, kde-format
+msgid "Make Non-Persistent"
+msgstr ""
+
+#: src/katemdi.cpp:424
+#, kde-format
+msgid "Make Persistent"
+msgstr ""
+
+#: src/katemdi.cpp:426
+#, kde-format
+msgid "Move To"
+msgstr ""
+
+#. i18n("Left Sidebar"),0);  // 2018.11.22
+#: src/katemdi.cpp:430
+#, kde-format
+msgid "Left Sidebar"
+msgstr ""
+
+#. i18n("Right Sidebar"),1); // 2018.11.22
+#: src/katemdi.cpp:434
+#, kde-format
+msgid "Right Sidebar"
+msgstr ""
+
+#. i18n("Top Sidebar"),2); // 2018.11.22
+#: src/katemdi.cpp:438
+#, kde-format
+msgid "Top Sidebar"
+msgstr ""
+
+#. i18n("Bottom Sidebar"),3); // 2018.11.22
+#: src/katemdi.cpp:442
+#, kde-format
+msgid "Bottom Sidebar"
+msgstr ""
+
+#: src/ktechlab.cpp:183
+#, kde-format
+msgid "Project"
+msgstr ""
+
+#: src/ktechlab.cpp:187
+#, kde-format
+msgid "Components"
+msgstr ""
+
+#: src/ktechlab.cpp:195
+#, kde-format
+msgid "Flow Parts"
+msgstr ""
+
+#. i18n("Mechanics"), "ktechlab_mechanics", 0, this, SLOT(slotFileNewMechanics()), ac, "newfile_mechanics" ))->plug( p->menu() );
+#. "ktechlab_mechanics" -- for the future
+#: src/ktechlab.cpp:200 src/ktechlab.cpp:491
+#: src/mechanics/mechanicsdocument.cpp:28
+#, kde-format
+msgid "Mechanics"
+msgstr ""
+
+#. i18n: ectx: ToolBar (itemEditorTB)
+#: src/ktechlab.cpp:205 src/ktechlabcircuitui.rc:34
+#: src/ktechlabflowcodeui.rc:28 src/ktechlabmechanicsui.rc:8
+#, kde-format
+msgid "Item Editor"
+msgstr ""
+
+#: src/ktechlab.cpp:209
+#, kde-format
+msgid "Context Help"
+msgstr ""
+
+#: src/ktechlab.cpp:213
+#, kde-format
+msgid "Messages"
+msgstr ""
+
+#: src/ktechlab.cpp:218
+#, kde-format
+msgid "Symbol Viewer"
+msgstr ""
+
+#: src/ktechlab.cpp:225
+#, kde-format
+msgid "Scope Screen (Very Rough)"
+msgstr ""
+
+#. i18n("&New"), "document-new",
+#. KStandardShortcut::shortcut(KStandardShortcut::New), this, SLOT(slotFileNew()), ac, "newfile_popup" );
+#: src/ktechlab.cpp:450
+#, kde-format
+msgid "&New"
+msgstr ""
+
+#. i18n("C source"), "text-x-csrc", 0, this, SLOT(slotFileNewC()), ac, "newfile_c" ))->plug( p->menu() );
+#: src/ktechlab.cpp:466
+#, kde-format
+msgid "C source"
+msgstr ""
+
+#. i18n("FlowCode"), "application-x-flowcode", 0, this, SLOT(slotFileNewFlowCode()), ac, "newfile_flowcode" ))->plug( p->menu() );
+#: src/ktechlab.cpp:482 src/languages/flowcode.cpp:28
+#, kde-format
+msgid "FlowCode"
+msgstr ""
+
+#. i18n("New Project..."), "window-new",			0, pm, SLOT(slotNewProject()),			ac, 	"project_new" );
+#: src/ktechlab.cpp:517
+#, kde-format
+msgid "New Project..."
+msgstr ""
+
+#. i18n("Open Project..."), "project-open",		0, pm, SLOT(slotOpenProject()),			ac, 	"project_open" );
+#: src/ktechlab.cpp:524
+#, kde-format
+msgid "Open Project..."
+msgstr ""
+
+#: src/ktechlab.cpp:530
+#, kde-format
+msgid "Open &Recent Project..."
+msgstr ""
+
+#. i18n("Export to Makefile..."), "document-export",	0, pm, SLOT(slotExportToMakefile()),		ac, "project_export_makefile" );
+#: src/ktechlab.cpp:537
+#, kde-format
+msgid "Export to Makefile..."
+msgstr ""
+
+#. i18n("Create Subproject..."), 0,				0, pm, SLOT(slotCreateSubproject()),		ac, "project_create_subproject" );
+#: src/ktechlab.cpp:544
+#, kde-format
+msgid "Create Subproject..."
+msgstr ""
+
+#. i18n("Add Existing File..."), "document-open",		0, pm, SLOT(slotAddFile()),					ac, "project_add_existing_file" );
+#: src/ktechlab.cpp:551
+#, kde-format
+msgid "Add Existing File..."
+msgstr ""
+
+#. i18n("Add Current File..."), "document-import",		0, pm, SLOT(slotAddCurrentFile()),			ac, "project_add_current_file" );
+#: src/ktechlab.cpp:558
+#, kde-format
+msgid "Add Current File..."
+msgstr ""
+
+#. i18n("Close Project"), "window-close",			0, pm, SLOT(slotCloseProject()),			ac, "project_close" );
+#: src/ktechlab.cpp:567
+#, kde-format
+msgid "Close Project"
+msgstr ""
+
+#. i18n("Remove from Project"), "edit-delete",		0, pm, SLOT(slotRemoveSelected()),			ac, "project_remove_selected" );
+#: src/ktechlab.cpp:574
+#, kde-format
+msgid "Remove from Project"
+msgstr ""
+
+#. i18n("Insert Existing File..."), "document-open",	0, pm, SLOT(slotSubprojectAddExistingFile()),	ac, "subproject_add_existing_file" );
+#: src/ktechlab.cpp:581
+#, kde-format
+msgid "Insert Existing File..."
+msgstr ""
+
+#. i18n("Insert Current File..."), "document-import",	0, pm, SLOT(slotSubprojectAddCurrentFile()),ac, "subproject_add_current_file" );
+#: src/ktechlab.cpp:588
+#, kde-format
+msgid "Insert Current File..."
+msgstr ""
+
+#. i18n("Linker Options..."), "configure",		0, pm, SLOT(slotSubprojectLinkerOptions()),	ac, "project_item_linker_options" );
+#: src/ktechlab.cpp:595
+#, kde-format
+msgid "Linker Options..."
+msgstr ""
+
+#. i18n("Build..."), "launch",					0, pm, SLOT(slotItemBuild()),				ac, "project_item_build" );
+#: src/ktechlab.cpp:602
+#, kde-format
+msgid "Build..."
+msgstr ""
+
+#. i18n("Upload..."), "convert_to_pic",			0, pm, SLOT(slotItemUpload()),				ac, "project_item_upload" );
+#: src/ktechlab.cpp:609
+#, kde-format
+msgid "Upload..."
+msgstr ""
+
+#. i18n("Processing Options..."), "configure",	0, pm, SLOT(slotItemProcessingOptions()),	ac, "project_item_processing_options" );
+#: src/ktechlab.cpp:616
+#, kde-format
+msgid "Processing Options..."
+msgstr ""
+
+#. i18n("Split View Left/Right"), "view-split-left-right", Qt::CTRL|Qt::SHIFT|Qt::Key_L, this, SLOT(slotViewSplitLeftRight()), ac, "view_split_leftright" );
+#: src/ktechlab.cpp:625
+#, kde-format
+msgid "Split View Left/Right"
+msgstr ""
+
+#. i18n("Split View Top/Bottom"), "view-split-top-bottom", Qt::CTRL|Qt::SHIFT|Qt::Key_T, this, SLOT(slotViewSplitTopBottom()), ac, "view_split_topbottom" );
+#: src/ktechlab.cpp:632
+#, kde-format
+msgid "Split View Top/Bottom"
+msgstr ""
+
+#. i18n("Run Simulation"), "media-playback-start", Qt::Key_F10, 0, 0, ac, "simulation_run" );
+#: src/ktechlab.cpp:639
+#, kde-format
+msgid "Run Simulation"
+msgstr ""
+
+#: src/ktechlab.cpp:644
+#, kde-format
+msgid "Pause Simulation"
+msgstr ""
+
+#: src/ktechlab.cpp:671
+#, kde-format
+msgid "Internals"
+msgstr ""
+
+#: src/ktechlab.cpp:672
+#, kde-format
+msgid "Square Wave"
+msgstr ""
+
+#: src/ktechlab.cpp:673
+#, kde-format
+msgid "2-Way Switch"
+msgstr ""
+
+#: src/ktechlab.cpp:674
+#, kde-format
+msgid "3-Way Switch"
+msgstr ""
+
+#: src/ktechlab.cpp:676
+#, kde-format
+msgid "LRC"
+msgstr ""
+
+#: src/ktechlab.cpp:677
+#, kde-format
+msgid "Resistors in Parallel"
+msgstr ""
+
+#: src/ktechlab.cpp:678
+#, kde-format
+msgid "Resistors in Series"
+msgstr ""
+
+#: src/ktechlab.cpp:679
+#, kde-format
+msgid "Voltage Divider"
+msgstr ""
+
+#: src/ktechlab.cpp:680
+#, kde-format
+msgid "Full Wave Rectifier"
+msgstr ""
+
+#: src/ktechlab.cpp:681
+#, kde-format
+msgid "Half Wave Rectifier"
+msgstr ""
+
+#: src/ktechlab.cpp:683
+#, kde-format
+msgid "AND"
+msgstr ""
+
+#: src/ktechlab.cpp:684
+#, kde-format
+msgid "NAND"
+msgstr ""
+
+#: src/ktechlab.cpp:685
+#, kde-format
+msgid "NOR"
+msgstr ""
+
+#: src/ktechlab.cpp:686
+#, kde-format
+msgid "OR"
+msgstr ""
+
+#: src/ktechlab.cpp:687
+#, kde-format
+msgid "Decoupler"
+msgstr ""
+
+#: src/ktechlab.cpp:688
+#, kde-format
+msgid "Inverting Amplifier"
+msgstr ""
+
+#: src/ktechlab.cpp:689
+#, kde-format
+msgid "Noninverting Amplifier"
+msgstr ""
+
+#: src/ktechlab.cpp:690
+#, kde-format
+msgid "Instrumentation Amplifier"
+msgstr ""
+
+#: src/ktechlab.cpp:691
+#, kde-format
+msgid "Astable Multivibrator"
+msgstr ""
+
+#: src/ktechlab.cpp:693
+#, kde-format
+msgid "Schmitt Trigger"
+msgstr ""
+
+#: src/ktechlab.cpp:694
+#, kde-format
+msgid "Switch"
+msgstr ""
+
+#: src/ktechlab.cpp:991
+#, kde-format
+msgid "Close"
+msgstr ""
+
+#: src/ktechlab.cpp:996
+#, kde-format
+msgid "Save"
+msgstr ""
+
+#: src/ktechlab.cpp:999
+#, kde-format
+msgid "Reload"
+msgstr ""
+
+#: src/ktechlab.cpp:1002
+#, kde-format
+msgid "Close All Others"
+msgstr ""
+
+#: src/ktechlab.cpp:1164
+#, kde-format
+msgid "Intel Hex"
+msgstr ""
+
+#: src/ktechlab.cpp:1168 src/ktechlab.cpp:1171 src/projectmanager.cpp:910
+#, kde-format
+msgid "Open Location"
+msgstr ""
+
+#: src/ktechlab.cpp:1322
+#, kde-format
+msgid "Exiting..."
+msgstr ""
+
+#. i18n: ectx: Menu (tools)
+#: src/ktechlabcircuitui.rc:6 src/ktechlabflowcodeui.rc:5
+#: src/ktechlabitemviewui.rc:25 src/ktechlabkateui.rc:55
+#: src/ktechlabtextui.rc:15 src/ktechlabui.rc:37
+#, kde-format
+msgid "&Tools"
+msgstr ""
+
+#. i18n: ectx: Menu (routing_mode_menu)
+#: src/ktechlabcircuitui.rc:9 src/ktechlabflowcodeui.rc:8
+#, kde-format
+msgid "Routing Mode"
+msgstr ""
+
+#. i18n: ectx: Menu (file)
+#: src/ktechlabitemviewui.rc:6 src/ktechlabkateui.rc:6 src/ktechlabtextui.rc:6
+#: src/ktechlabui.rc:6
+#, kde-format
+msgid "&File"
+msgstr ""
+
+#. i18n: ectx: Menu (edit)
+#: src/ktechlabitemviewui.rc:11 src/ktechlabkateui.rc:15
+#, kde-format
+msgid "&Edit"
+msgstr ""
+
+#. i18n: ectx: Menu (view)
+#: src/ktechlabitemviewui.rc:18 src/ktechlabkateui.rc:31 src/ktechlabui.rc:11
+#, kde-format
+msgid "&View"
+msgstr ""
+
+#. i18n: ectx: ToolBar (toolsToolBar)
+#: src/ktechlabitemviewui.rc:34
+#, kde-format
+msgid "Tools"
+msgstr ""
+
+#. i18n: ectx: Menu (codefolding)
+#: src/ktechlabkateui.rc:45
+#, kde-format
+msgid "&Code Folding"
+msgstr ""
+
+#. i18n: ectx: Menu (settings)
+#: src/ktechlabkateui.rc:93
+#, kde-format
+msgid "&Settings"
+msgstr ""
+
+#. i18n: ectx: ToolBar (toolsToolBar)
+#: src/ktechlabkateui.rc:116 src/ktechlabtextui.rc:82
+#, kde-format
+msgid "Main Toolbar"
+msgstr ""
+
+#. i18n: ectx: Menu (debug)
+#: src/ktechlabtextui.rc:53
+#, kde-format
+msgid "&Debug"
+msgstr ""
+
+#. i18n: ectx: ToolBar (debugTB)
+#: src/ktechlabtextui.rc:90
+#, kde-format
+msgid "Debugger"
+msgstr ""
+
+#. i18n: ectx: Menu (project)
+#: src/ktechlabui.rc:21
+#, kde-format
+msgid "&Project"
+msgstr ""
+
+#. i18n: ectx: Menu (examples)
+#: src/ktechlabui.rc:45
+#, kde-format
+msgid "Examples"
+msgstr ""
+
+#. i18n: ectx: Menu (examples_555)
+#: src/ktechlabui.rc:47
+#, kde-format
+msgid "555s"
+msgstr ""
+
+#. i18n: ectx: Menu (examples_basic)
+#: src/ktechlabui.rc:50
+#, kde-format
+msgid "Basic"
+msgstr ""
+
+#. i18n: ectx: Menu (examples_diodes)
+#: src/ktechlabui.rc:53
+#, kde-format
+msgid "Diodes"
+msgstr ""
+
+#. i18n: ectx: Menu (examples_jfets)
+#: src/ktechlabui.rc:56
+#, kde-format
+msgid "JFETs"
+msgstr ""
+
+#. i18n: ectx: Menu (examples_matrix_disp_driver)
+#: src/ktechlabui.rc:59
+#, kde-format
+msgid "Matrix Display Drivers"
+msgstr ""
+
+#. i18n: ectx: Menu (examples_mosfets)
+#: src/ktechlabui.rc:62
+#, kde-format
+msgid "MOSFETs"
+msgstr ""
+
+#. i18n: ectx: Menu (examples_transistors)
+#: src/ktechlabui.rc:65
+#, kde-format
+msgid "Transistors"
+msgstr ""
+
+#. i18n: ectx: Menu (examples_opamps)
+#: src/ktechlabui.rc:68
+#, kde-format
+msgid "Opamps"
+msgstr ""
+
+#: src/languages/flowcode.cpp:30
+#, kde-format
+msgid "*** Microbe generation successful ***"
+msgstr ""
+
+#: src/languages/flowcode.cpp:31
+#, kde-format
+msgid "*** Microbe generation failed ***"
+msgstr ""
+
+#: src/languages/flowcode.cpp:173
+#, kde-format
+msgid "Warning: Floating connection for %1"
+msgstr ""
+
+#: src/languages/flowcode.cpp:187
+#, kde-format
+msgid ""
+"KTechlab was unable to find the \"Start\" part.\n"
+"This must be included as the starting point for your program."
+msgstr ""
+
+#: src/languages/gpasm.cpp:27
+#, kde-format
+msgid "*** Assembly successful ***"
+msgstr ""
+
+#: src/languages/gpasm.cpp:28
+#, kde-format
+msgid "*** Assembly failed ***"
+msgstr ""
+
+#: src/languages/gpasm.cpp:114
+#, kde-format
+msgid "Assembly failed. Please check you have gputils installed."
+msgstr ""
+
+#: src/languages/gpdasm.cpp:27
+#, kde-format
+msgid "*** Disassembly successful ***"
+msgstr ""
+
+#: src/languages/gpdasm.cpp:28
+#, kde-format
+msgid "*** Disassembly failed ***"
+msgstr ""
+
+#: src/languages/gpdasm.cpp:49
+#, kde-format
+msgid "Disassembly failed. Please check you have gputils installed."
+msgstr ""
+
+#: src/languages/gplib.cpp:22
+#, kde-format
+msgid "*** Archiving successful ***"
+msgstr ""
+
+#: src/languages/gplib.cpp:23
+#, kde-format
+msgid "*** Archiving failed ***"
+msgstr ""
+
+#: src/languages/gplib.cpp:46 src/languages/gplink.cpp:157
+#, kde-format
+msgid "Linking failed. Please check you have gputils installed."
+msgstr ""
+
+#: src/languages/gplink.cpp:30
+#, kde-format
+msgid "*** Linking successful ***"
+msgstr ""
+
+#: src/languages/gplink.cpp:31
+#, kde-format
+msgid "*** Linking failed ***"
+msgstr ""
+
+#: src/languages/languagemanager.cpp:49
+#, kde-format
+msgid ""
+"These messages show the output of language-related functionality such as "
+"compiling and assembling.<br><br>For error messages, clicking on the line "
+"will automatically open up the file at the position of the error."
+msgstr ""
+
+#: src/languages/microbe.cpp:28 src/languages/sdcc.cpp:29
+#, kde-format
+msgid "*** Compilation failed ***"
+msgstr ""
+
+#: src/languages/microbe.cpp:29 src/languages/sdcc.cpp:28
+#, kde-format
+msgid "*** Compilation successful ***"
+msgstr ""
+
+#: src/languages/microbe.cpp:77
+#, kde-format
+msgid ""
+"Assembly failed. Please check you have KTechlab installed properly (\"microbe"
+"\" could not be started)."
+msgstr ""
+
+#: src/languages/picprogrammer.cpp:62 src/languages/picprogrammer.cpp:73
+#: src/languages/picprogrammer.cpp:84 src/languages/picprogrammer.cpp:94
+#: src/languages/picprogrammer.cpp:104 src/languages/picprogrammer.cpp:114
+#: src/languages/picprogrammer.cpp:125 src/languages/picprogrammer.cpp:138
+#: src/languages/picprogrammer.cpp:149 src/languages/picprogrammer.cpp:160
+#: src/languages/picprogrammer.cpp:171
+#, kde-format
+msgid "Supported programmers: %1"
+msgstr ""
+
+#: src/languages/picprogrammer.cpp:63 src/languages/picprogrammer.cpp:85
+#: src/languages/picprogrammer.cpp:115
+#, kde-format
+msgid "<br>Interface: Serial Port"
+msgstr ""
+
+#: src/languages/picprogrammer.cpp:74 src/languages/picprogrammer.cpp:95
+#: src/languages/picprogrammer.cpp:139 src/languages/picprogrammer.cpp:150
+#: src/languages/picprogrammer.cpp:161 src/languages/picprogrammer.cpp:172
+#, kde-format
+msgid "<br>Interface: Parallel Port"
+msgstr ""
+
+#: src/languages/picprogrammer.cpp:105
+#, kde-format
+msgid "<br>Interface: USB Port"
+msgstr ""
+
+#: src/languages/picprogrammer.cpp:126
+#, kde-format
+msgid "<br>Interface: Serial Port and Parallel Port"
+msgstr ""
+
+#: src/languages/picprogrammer.cpp:330
+#, kde-format
+msgid "*** Programming successful ***"
+msgstr ""
+
+#: src/languages/picprogrammer.cpp:331
+#, kde-format
+msgid "*** Programming failed ***"
+msgstr ""
+
+#: src/languages/processchain.cpp:61
+#, kde-format
+msgid "Building: %1"
+msgstr ""
+
+#: src/languages/sdcc.cpp:42
+#, kde-format
+msgid "Could not find PIC with ID \"%1\"."
+msgstr ""
+
+#: src/languages/sdcc.cpp:154
+#, kde-format
+msgid "Compilation failed. Please check you have sdcc installed."
+msgstr ""
+
+#: src/mechanics/chassiscircular2.cpp:31 src/mechanics/chassiscircular2.cpp:37
+#, kde-format
+msgid "Circular 2-Wheel Chassis"
+msgstr ""
+
+#: src/mechanics/chassiscircular2.cpp:31
+#, kde-format
+msgid "Chassis'"
+msgstr ""
+
+#: src/mechanics/mechanicsitem.cpp:41
+#, kde-format
+msgid "Mass"
+msgstr ""
+
+#: src/mechanics/mechanicsitem.cpp:49
+#, kde-format
+msgid "Moment of Inertia"
+msgstr ""
+
+#: src/picitem.cpp:236
+#, kde-format
+msgid "Advanced..."
+msgstr ""
+
+#: src/projectmanager.cpp:411
+#, kde-format
+msgid "Do not know how to build \"%1\" (output URL is empty)."
+msgstr ""
+
+#: src/projectmanager.cpp:420
+#, kde-format
+msgid "Do not know how to build \"%1\" (library does not exist in project)."
+msgstr ""
+
+#: src/projectmanager.cpp:446
+#, kde-format
+msgid "Do not know how to build \"%1\" (unknown output type)."
+msgstr ""
+
+#: src/projectmanager.cpp:800
+#, kde-format
+msgid "Project could not be saved to \"%1\""
+msgstr ""
+
+#: src/projectmanager.cpp:800
+#, kde-format
+msgid "Saving Project"
+msgstr ""
+
+#: src/projectmanager.cpp:863
+#, kde-format
+msgid ""
+"Displays the list of files in the project.\n"
+"To open or close a project, use the \"Project\" menu. Right click on a file "
+"to remove it from the project"
+msgstr ""
+
+#: src/projectmanager.cpp:866
+#, kde-format
+msgid "Project Manager"
+msgstr ""
+
+#: src/projectmanager.cpp:908
+#, kde-format
+msgid "KTechlab Project"
+msgstr ""
+
+#: src/projectmanager.cpp:1078
+#, kde-format
+msgid "Do you really want to remove \"%1\"?"
+msgstr ""
+
+#: src/projectmanager.cpp:1078
+#, kde-format
+msgid "Remove Project File?"
+msgstr ""
+
+#: src/textdocument.cpp:83
+#, kde-format
+msgid "Failed to create editor"
+msgstr ""
+
+#: src/textdocument.cpp:96
+#, kde-format
+msgid "Failed to create MarkInterface"
+msgstr ""
+
+#: src/textdocument.cpp:606
+#, kde-format
+msgid "%1 - %2"
+msgstr ""
+
+#: src/textdocument.cpp:754
+#, kde-format
+msgid "Unknown code type."
+msgstr ""
+
+#: src/textdocument.cpp:754 src/textdocument.cpp:758
+#, kde-format
+msgid "Cannot debug"
+msgstr ""
+
+#: src/textdocument.cpp:758
+#, kde-format
+msgid "Cannot debug hex."
+msgstr ""
+
+#. i18n("Format Assembly Code"), "", Qt::Key_F12, textDocument, SLOT(formatAssembly()), ac, "format_asm" );
+#: src/textview.cpp:80
+#, kde-format
+msgid "Format Assembly Code"
+msgstr ""
+
+#. i18n("Set &Breakpoint"), 0, 0, this, SLOT(toggleBreakpoint()), ac, "debug_toggle_breakpoint" );
+#: src/textview.cpp:91 src/textview.cpp:513
+#, kde-format
+msgid "Set &Breakpoint"
+msgstr ""
+
+#. i18n("Run"), "debug-run", 0, textDocument, SLOT(debugRun()), ac, "debug_run" );
+#: src/textview.cpp:98
+#, kde-format
+msgid "Run"
+msgstr ""
+
+#. i18n("Stop"), "process-stop", 0, textDocument, SLOT(debugStop()), ac, "debug_stop" );
+#: src/textview.cpp:112
+#, kde-format
+msgid "Stop"
+msgstr ""
+
+#. i18n("Step Over"), "debug-step-over", 0, textDocument, SLOT(debugStepOver()), ac, "debug_step_over" );
+#: src/textview.cpp:127
+#, kde-format
+msgid "Step Over"
+msgstr ""
+
+#. i18n("Step Out"), "debug-step-out", 0, textDocument, SLOT(debugStepOut()), ac, "debug_step_out" );
+#: src/textview.cpp:134
+#, kde-format
+msgid "Step Out"
+msgstr ""
+
+#: src/textview.cpp:494
+#, kde-format
+msgid " Line: %1 Col: %2 "
+msgstr ""
+
+#: src/textview.cpp:511
+#, kde-format
+msgid "Clear &Breakpoint"
+msgstr ""
+
+#: src/variant.cpp:96
+#, kde-format
+msgid "True"
+msgstr ""
+
+#: src/variant.cpp:96
+#, kde-format
+msgid "False"
+msgstr ""
+
+#: src/viewcontainer.cpp:259
+#, kde-format
+msgid "(empty)"
+msgstr ""
+
+#: src/viewcontainer.cpp:523
+#, kde-format
+msgid "Open Document"
+msgstr ""

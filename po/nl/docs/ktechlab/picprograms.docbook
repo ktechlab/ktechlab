@@ -1,0 +1,116 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="pic_programs">
+	<title
+>PIC programma's</title>
+	
+	<sect1 id="manipulation">
+		<title
+>Manipulatie</title>
+		
+		<para
+>Wanneer u een FlowCode- of tekstdocument maakt, zult u een afrolmenu in de werkbalk bemerken met een pictogram van een raket. Vanaf daar kunt u uw PIC-programma manipuleren; het wijzigen in verschillende vormen.</para>
+		
+		<itemizedlist>
+				<listitem
+><para
+><guimenuitem
+>Naar &microbe; converteren</guimenuitem
+> - Dit wordt alleen in &flowcode; documenten gebruikt. Dit wordt verder uitgelegd in <xref linkend="flowcode"/>.</para
+></listitem>
+			
+				<listitem
+><para
+><guimenuitem
+>Naar Assembly converteren</guimenuitem
+> - dit kan gebruikt worden in vier contexten. Wanneer een &flowcode;-document open is, zal de uitvoer van de &flowcode; in de vorm van assembly instructies zijn. Wanneer een &microbe;-document open is, zal het het <command
+>microbe</command
+> programma gedistribueerd met &ktechlab; aanroepen om het programma te compileren. Evenzo, als een C-programma open is, zal het proberen om het te compileren via SDCC. Wanneer een tekstdocument met PIC-hex open is, zal het <command
+>gpdasm</command
+> aanroepen om het hex te disassembleren.</para
+></listitem>
+			
+				<listitem
+><para
+><guimenuitem
+>Naar hex converteren</guimenuitem
+> - dit kan ook gebruikt worden in vier contexten. Zoals met <guimenuitem
+>Naar assembly converteren</guimenuitem
+>, kan dit gebruikt worden met &flowcode;-, &microbe;- en C-documenten. Het zal ook ingeschakeld worden wanneer een assembly-document open is om het te assembleren via <command
+>gpasm</command
+>.</para
+></listitem>
+			
+				<listitem
+><para
+><guimenuitem
+>Naar PIC uploaden</guimenuitem
+> - Dit assembleert het PIC programma dat nu wordt bewerkt en uploadt het met de programmeur die de gebruiker heeft geselecteerd.</para
+></listitem>
+		</itemizedlist>
+		
+		<para
+>Geen van deze acties vereisen dat het huidige document wordt opgeslagen - erg nuttig wanneer een snel programma is vereist. Voor niet-PIC doelen, zal de <guilabel
+>Uitvoer</guilabel
+>-dialoog aangeroepen door te klikken op een van deze acties kan ofwel uitvoer als resultaat hebben (altijd tekst in de bovenstaande drie gevallen) naar een vers document of naar een bestand. Als de uitvoer is opgeslagen naar een bestand, biedt het ook opties om het bestand na maken te laden en het nieuw gemaakte bestand toe te voegen aan het geopende project (als er een is geopend).</para>
+		
+		<para
+>Merk op dat u er voor kunt zorgen dat &ktechlab; altijd dezelfde weergave voor tonen van de uitgevoerde inhoud gebruikt door de optie Instellingen onder <guilabel
+>Algemeen</guilabel
+> te selecteren.</para>
+	</sect1>
+	
+	<sect1 id="uploading">
+		<title
+>Uploaden</title>
+		
+		<para
+>&ktechlab; gebruikt programmeurs van derden om programma's naar PIC's te uploaden. een variëteit van algemene programmeurs komt voorgedefinieerd. Anderen kunnen toegevoegd worden via de dialoog <guilabel
+>Instellingen</guilabel
+>.</para>
+		
+		<para
+>De lijst met poorten wordt verkregen door te scannen naar seriële en parallelle poorten die zijn te lezen en te schrijven. Naar seriële poorten wordt gezocht in:</para>
+			<itemizedlist>
+				<listitem
+><para
+>/dev/ttyS<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+				<listitem
+><para
+>/dev/tts/<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+				<listitem
+><para
+>/dev/ttyUSB<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+				<listitem
+><para
+>/dev/usb/tts/<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+			</itemizedlist>
+		<para
+>Naar parallelle poorten wordt gezocht in: <itemizedlist>
+				<listitem
+><para
+>/dev/usb/parport<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+				<listitem
+><para
+>/dev/usb/parports/<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+			</itemizedlist>
+		</para>
+	</sect1>
+</chapter>

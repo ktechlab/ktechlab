@@ -1,0 +1,114 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="pic_programs">
+	<title
+>PIC-program</title>
+	
+	<sect1 id="manipulation">
+		<title
+>Hantering</title>
+		
+		<para
+>När ett FlowCode- eller textdokument skapas, visas en kombinationsmeny i verktygsraden med en raketikon. Därifrån kan man hantera PIC-programmet, och ändra det till olika former.</para>
+		
+		<itemizedlist>
+				<listitem
+><para
+><guimenuitem
+>Konvertera till &microbe;</guimenuitem
+>: Det används bara i &flowcode;-dokument, och förklaras ytterligare i <xref linkend="flowcode"/>.</para
+></listitem>
+			
+				<listitem
+><para
+><guimenuitem
+>Konvertera till assembler</guimenuitem
+>: Det kan användas i fyra sammanhang. När ett &flowcode;-dokument är öppet, skriver det ut &flowcode; som assemblerinstruktioner. När ett &microbe;-dokument är öppet kör det programmet <command
+>microbe</command
+> som distribueras med &ktechlab; för att kompilera programmet. På liknande sätt, om ett C-program är öppet, försöker det kompilera det via SDCC. När ett textdokument som innehåller PIC-hexkod är öppet, startas <command
+>gpdasm</command
+> för att disassemblera hexkoden.</para
+></listitem>
+			
+				<listitem
+><para
+><guimenuitem
+>Konvertera till hexkod</guimenuitem
+>: Det kan också användas i fyra sammanhang. Liksom med konvertera till assembler kan det användas med &flowcode;, &microbe; och C-dokument. Det aktiveras också när ett assemblerdokument är öppet för att assemblera det via <command
+>gpasm</command
+>.</para
+></listitem>
+			
+				<listitem
+><para
+><guimenuitem
+>Ladda upp till PIC</guimenuitem
+>: Det assemblerar PIC-programmet som för närvarande redigeras, och laddar upp det genom att använda programmeraren som användaren har valt.</para
+></listitem>
+		</itemizedlist>
+		
+		<para
+>Ingen av åtgärderna kräver att det aktuella dokumentet sparas, mycket användbart när ett snabbt program behövs. För andra mål än PIC, kan dialogrutan <guilabel
+>Utmatning</guilabel
+>, som visas när någon av åtgärderna väljes, antingen mata ut resultatet (alltid text i de tre ovanstående fallen) i ett nytt dokument eller till en fil. Om utdata sparas i en fil, ger den också alternativ för att läsa in filen efter den skapats och lägga till den nyskapade filen i det öppna projektet (om något är öppet).</para>
+		
+		<para
+>Observera att det går att få &ktechlab; att alltid använda samma vy för att visa det utmatade innehållet genom att välja alternativet under <guilabel
+>Allmänna inställningar</guilabel
+>.</para>
+	</sect1>
+	
+	<sect1 id="uploading">
+		<title
+>Uppladdning</title>
+		
+		<para
+>&ktechlab; använder tredje-part-programmerare för att ladda upp program till PIC:er. En mängd vanliga programmerare är fördefinierade, medan andra kan läggas till via dialogrutan <guilabel
+>Inställningar</guilabel
+>.</para>
+		
+		<para
+>Portlistan erhålls från avsökning av seriella och parallella portar som är läs- och skrivbara. Seriella portar söks efter bland:</para>
+			<itemizedlist>
+				<listitem
+><para
+>/dev/ttyS<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+				<listitem
+><para
+>/dev/tts/<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+				<listitem
+><para
+>/dev/ttyUSB<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+				<listitem
+><para
+>/dev/usb/tts/<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+			</itemizedlist>
+		<para
+>Parallella portar söks efter bland: <itemizedlist>
+				<listitem
+><para
+>/dev/usb/parport<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+				<listitem
+><para
+>/dev/usb/parports/<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+			</itemizedlist>
+		</para>
+	</sect1>
+</chapter>

@@ -1,0 +1,610 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="microbe">
+<title
+>&microbe;</title>
+<sect1>
+	<title
+>Вступ і загальні зауваження щодо синтаксису</title>
+	<para
+><application
+>Microbe</application
+> компілює програми, написані на нетиповій мові програмування для PIC і є супутньою програмою&ktechlab;. Синтаксис мови програмування розроблено так, щоб він відповідав програмам &flowcode;. Запустити <command
+>microbe</command
+> з командного рядка можна так: <programlisting
+>microbe [параметри] [вхідний.microbe] [вихідний.asm]</programlisting
+> Параметри роботи програми: </para>
+		<itemizedlist>
+			<listitem
+><para
+><function
+>--show-source</function
+> — додати кожен з рядків початкового коду &microbe; у код асемблера як коментар перед командами асемблера, що відповідають цим рядкам.</para
+></listitem>
+			<listitem
+><para
+><function
+>--no-optimize</function
+> — запобігати оптимізації команд, створених на основі коду. Зазвичай, оптимізації безпечні, тому цей параметр, в основному, корисний лише для діагностики проблем.</para
+></listitem>
+		</itemizedlist>
+		
+	<para
+>Файл вхідного коду .microbe має містити дані щодо PIC призначення. Такі дані вказують на початку файла .microbe. Наприклад, назвою PIC16F84 є «P16F84». <example
+><title
+>Проста цілісна програма &microbe;</title>
+			<programlisting role="correct"
+>P16F84
+
+a = 0
+repeat
+{
+        PORTA = a
+        a = a + 1
+}
+until a == 5
+
+end</programlisting>
+			</example>
+		</para>
+
+	<sect2 id="namingconventions">
+		<title
+>Правила щодо назв</title>
+		<para
+>До назв і міток змінних застосовуються такі правила: <itemizedlist>
+				<listitem
+><para
+>Назви і мітки можуть складатися лише з цифр і латинських літер [a..z][A..Z][0..9], а також символів підкреслювання, «_».</para
+></listitem>
+				<listitem
+><para
+>Назви і мітки розрізняються за регістром символів.</para
+></listitem>
+				<listitem
+><para
+>Назви і мітки не можуть починатися з цифри.</para
+></listitem>
+				<listitem
+><para
+>Назви і мітки не можуть починатися з <quote
+>__</quote
+> (подвійного підкреслювання), оскільки воно використовується компілятором.</para
+></listitem>
+			</itemizedlist>
+		</para>
+	</sect2>
+
+	<sect2 id="bracingconventions">
+		<title
+>Правила щодо уживання дужок</title>
+		<para
+>Фігурні дужки, {}, позначають початок і кінець блоку коду. Їх можна розташовувати будь-де до початку і після кінця блоку коду. Приклади прийнятних блоків коду: <programlisting role="correct"
+>інструкція1 {
+        якийсь код
+}</programlisting>
+		<programlisting role="correct"
+>інструкція2 {
+        ще якийсь код }</programlisting>
+		
+		<programlisting role="correct"
+>інструкція3
+{
+        інший код
+}</programlisting>
+		
+		<programlisting role="correct"
+>інструкція5 {
+        блок коду
+} інструкція6</programlisting>
+			</para>
+		</sect2>
+		<sect2 id="commenting">
+			<title
+>Коментування</title>
+			<para
+>Додавання коментарів має той самий синтаксис, що і у C. «//» робить коментарем решту символів рядка. «/*» і «*/» використовуються для багаторядкових коментарів. <programlisting role="correct"
+>// Це коментар
+x = 2 
+/* А це багато-
+рядковий коментар */</programlisting>
+		</para>
+	</sect2>
+
+	<sect2 id="structure">
+		<title
+>Структура програми</title>
+		<para
+>На початку програми має бути вказано ідентифікатор PIC. Основна частина програми має завершуватися командою <quote
+>end</quote
+>. Підпрограми має бути розміщено після команди <quote
+>end</quote
+>. </para>
+	</sect2>
+
+	<sect2 id="subroutines">
+		<title
+>Підпрограми</title>
+		<para
+>Підпрограму можна викликати з будь-якого місця у коді. Синтаксис: </para>
+		<programlisting role="correct"
+>sub НазваПідропрограми
+{
+        // Код...
+}</programlisting>
+<para
+>Підпрограму викликають командою <quote
+>call <replaceable
+>НазваПідпрограми</replaceable
+></quote
+>.</para>
+	</sect2>
+</sect1>
+
+<sect1 id="languagereference">
+	<title
+>Довідник з мови &microbe;</title>
+	<sect2 id="if">
+		<title
+>if</title>
+		<para
+>Розгалуження за умовою. Синтаксис: <programlisting role="correct"
+>if [вираз] then [інструкція]</programlisting
+> або <programlisting role="correct">
+if [вираз] then
+{
+        [блок інструкцій]
+}</programlisting
+> Те саме для else: <programlisting role="correct"
+>else [інструкція]</programlisting
+> або <programlisting role="correct"
+>else
+{
+        [блок інструкцій]
+}</programlisting>
+			</para>
+			
+			<example
+><title
+>if</title>
+			<programlisting role="correct"
+>if porta.0 is high then
+{
+        delay 200
+}
+else
+{
+        delay 300
+}</programlisting>
+		</example>
+	</sect2>
+	
+	<sect2 id="alias">
+		<title
+>alias</title>
+		<para
+>Створює альтернативну назву рядка. Синтаксис: <programlisting role="correct"
+>alias [початкова_назва] [альтернативна_назва]</programlisting>
+		</para>
+	</sect2>
+	
+	<sect2 id="repeat">
+		<title
+>repeat</title>
+		<para
+>Виконувати блок інструкцій повторно, аж доки не буде виконано контрольну умову. Перевірка виконання умови відбувається після виконання блоку інструкцій, отже блок інструкцій завжди буде виконано принаймні один раз. Синтаксис: <programlisting role="correct"
+>repeat
+{
+        [блок інструкцій]
+}
+until [вираз]</programlisting>
+	</para>
+</sect2>
+
+<sect2 id="while">
+<title
+>while</title>
+	<para
+>Подібно до repeat надає змогу повторно виконувати блок інструкцій. Втім, контрольна умова перевіряється до виконання, а не після нього. Отже, якщо контрольна умова не виконується на першому кроці, блок інструкцій не буде виконано. Синтаксис: <programlisting role="correct"
+>while [вираз]
+{
+        [блок інструкцій]
+}</programlisting>
+	</para>
+</sect2>
+
+
+<sect2 id="goto">
+	<title
+>goto</title>
+	<para
+>Призводить до продовження виконання коду з інструкції, яка є наступною після вказаної мітки. Синтаксис: <programlisting role="correct"
+><function
+>goto</function
+> [мітка]</programlisting
+> Синтаксис мітки: <programlisting role="correct"
+><function
+>мітка:</function
+></programlisting
+> Вважається, що варто уникати використання goto. Використання інструкцій перевірки або підпрограм робить програми набагато зручнішими для читання і розуміння. </para>
+	
+	<example
+><title
+>goto</title>
+	<programlisting role="correct"
+>goto MyLabel
+
+...
+
+[MyLabel]:
+// Тут продовжуватиметься виконання коду</programlisting>
+		</example>
+	</sect2>
+	
+	<sect2 id="call">
+		<title
+>call</title>
+		<para
+>Викликає підпрограму. Синтаксис: <programlisting role="correct"
+><function
+>call</function
+> [НазваПідпрограми]</programlisting
+> де <replaceable
+>НазваПідпрограми</replaceable
+> — назва підпрограми, яку викликають. </para>
+	</sect2>
+	
+	<sect2 id="delay">
+	<title
+>delay</title>
+		<para
+>Ця команда призупиняє виконання коду на вказаний період часу. Проміжок часу задається у мілісекундах. Синтаксис: <programlisting role="correct"
+><function
+>delay</function
+> [проміжок]</programlisting>
+		
+		<note
+><para
+>У поточній версії &microbe; припускає, що PIC працює на частоті 4 МГц, тобто виконання кожної інструкції триває 1 мікросекунду. Якщо ваш мікроконтролер працює на іншій частоті, проміжок слід пропорційно скоригувати.</para
+></note>
+		</para>
+	</sect2>
+	
+	<sect2 id="sevenseg">
+		<title
+>sevenseg</title>
+		<para
+>Використовується для визначення прив’язки контактів для (типового катодного) сегментного індикатора, який з’єднано з PIC. Синтаксис: <programlisting role="correct"
+><function
+>sevenseg</function
+> [назва] [a] [b] [c] [d] [e] [f] [g]</programlisting
+> де [a]...[g] — контакти PIC, з якими з’єднано відповідні сегменти сегментного індикатора. Контакти можна записувати або у форматі PORTX.N, або у форматі RXN. </para>
+		
+		<para
+>Щоб показати цифру на сегментному індикаторі, прив’язка контактів обробляється як придатна лише для запису змінна. <example>
+				<title
+>Визначення даних для сегментного індикатора і виведення цих даних</title>
+				<programlisting role="correct"
+>sevenseg seg1 RB0 RB1 RB2 RB3 RB4 RB5 RB6
+seg1 = x + 2</programlisting>
+				</example>
+		</para>
+	</sect2>
+	
+	<sect2 id="keypad">
+		<title
+>keypad</title>
+		<para
+>Використовується для визначення карти контактів для клавіатури, яку з’єднано з PIC. Синтаксис: <programlisting role="correct"
+><function
+>keypad</function
+> [назва] [рядок 1] ... [рядок 4] [стовпчик 1] ... [стовпчик n]</programlisting
+> де [рядок 1] ... [рядок 4] і [стовпчик 1] ... [стовпчик n] — контакти PIC, з якими з’єднано відповідні рядки і стовпчики клавіш на клавіатурі (у поточній версії кількість рядків змінити не можна). Докладніший опис карт контактів наведено у розділі <xref linkend="sevenseg"/>. </para>
+		
+		<para
+>Стовпчики клавіатури має бути з’єднано через резистори у 100 кОм із землею. Контакти рядків має бути налаштовано як виходи, а контакти стовпчиків — як входи. Після визначення клавіатури робота з нею здійснюється за допомогою придатної лише для читання змінної. <example>
+				<title
+>Визначення клавіатури і читання з клавіатури</title>
+					<programlisting role="correct"
+>keypad keypad1 RB0 RB1 RB2 RB3 RB4 RB5 RB6
+x = keypad1</programlisting>
+			</example>
+		</para>
+			
+		<para
+>Типово, значеннями, які повертає клавіатура є: <itemizedlist
+> <listitem
+><para
+>значення цифри, якщо натиснуто клавішу цифри (від 1 до 3 у верхньому рядку; шістнадцяткові цифри від A до D у четвертому рядку і далі за додатковими стовпчиками).</para
+></listitem
+> <listitem
+><para
+>253 для клавіші у рядку 4, стовпчику 1.</para
+></listitem
+> <listitem
+><para
+>254 для клавіші у рядку 4, стовпчику 3.</para
+></listitem
+> </itemizedlist
+> Ці значення можна перевизначити за допомогою команди alias, використовуючи назву Keypad_x_y для клавіші у рядку x, стовпчику y (нумерація рядків і стовпчиків починається з 1). Наприклад, щоб надати клавіші із зірочкою на клавіатурі 4x3 нульовий номер, можна скористатися такою командою: <example>
+				<title
+>Прив’язування клавіші на клавіатурі до значення</title>
+				<programlisting role="correct"
+>alias Keypad_4_1 0</programlisting>
+			</example>
+		</para>
+	</sect2>
+</sect1>
+
+<sect1 id="picio">
+<title
+>Введення-виведення даних PIC</title>
+	
+	<sect2 id="tristate">
+	<title
+>Напрямок порту</title>
+		<para
+>Напрямок порту встановлюється встановленням значення TRIS*, де «*» — літера порту. Приклад: </para>
+		<example
+><title
+>Встановлення напрямків портів</title>
+		<programlisting role="correct"
+>TRISB = b'01111001'</programlisting>
+		</example>
+		<para
+>Вище контакти RB1, RB2 і RB7 на PORTB визначено як виходи, а інші контакти на PORTB — як входи. У цьому прикладі b'01111001' — двійкове представлення типу виходів. 1 праворуч відповідає виходу на RB0, а 0 ліворуч — входу на RB7. </para>
+	</sect2>
+	
+	<sect2 id="ports">
+	<title
+>Введення-виведення з порту</title>
+		<para
+>З портом можна працювати як зі змінною. Приклад: </para>
+		
+		<example
+><title
+>Запис до порту</title>
+		<programlisting role="correct"
+>x = PORTA</programlisting>
+		</example>
+		
+		<para
+>Наведена вище команда встановлює значення PORTA для змінної x. </para>
+	</sect2>
+	
+	<sect2 id="pins">
+	<title
+>Введення-виведення з контактів</title>
+		<para
+>Кожен контакт на порту можна отримати дописуванням перед номером контакту назви порту. Наприклад, контакт 2 (починаємо з контакту чи ніжки 0) на PORTA позначається як <emphasis
+>PORTA.0</emphasis
+>. Синтаксис встановлення стану контакту: <programlisting role="correct"
+>PORTX.N = <emphasis
+>СТАН</emphasis
+></programlisting
+>, де <emphasis
+>СТАН</emphasis
+> може приймати значення <emphasis
+>high</emphasis
+> (відкрито) або <emphasis
+>low</emphasis
+> (закрито). Синтаксис перевірки стану контакту: <programlisting role="correct"
+><function
+>if</function
+> PORTX.N is <emphasis
+>СТАН</emphasis
+> <function
+>then</function
+></programlisting
+> Поєднуючи ці приклади, маємо: </para>
+		<example
+><title
+>Встановлення і тестування стану контакту</title>
+		<programlisting role="correct"
+>TRISA = 0
+TRISB = 255
+<function
+>if</function
+> PORTA.3 is <function
+>high</function
+> <function
+>then</function>
+{
+        PORTB.5 = <function
+>low</function>
+}
+<function
+>else</function>
+{
+        PORTB = PORTA + 15
+}</programlisting>
+		</example>
+	</sect2>
+</sect1>
+	
+<sect1 id="variables">
+<title
+>Змінні</title>
+	<para
+>Усі змінні є 8-бітовими невід’ємними цілими числами у діапазоні від 0 до 255. У <application
+>&microbe;</application
+> передбачено підтримку типових унарних (над однією змінною) і бінарних (над двома змінними) дій, підтримку яких передбачено у PIC. Крім того, у &microbe; передбачено підтримку ділення і множення. </para>
+	<sect2 id="unary">
+	<title
+>Унарні дії</title>
+		<para>
+		<itemizedlist>
+		<listitem
+><para
+><emphasis
+>rotateleft x</emphasis
+> — виконує зсув ліворуч бітів змінної x.</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>rotateright x</emphasis
+> — виконує зсув праворуч бітів змінної x.</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>increment x</emphasis
+> — збільшує на одиницю змінну x. Якщо значенням x було число 255, після збільшення значення буде занулено.</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>decrement x</emphasis
+> — зменшує на одиницю змінну x. Якщо значенням x було число 0, після зменшення значенням буде 255.</para
+></listitem>
+		</itemizedlist>
+		</para>
+	</sect2>
+	
+	<sect2 id="arithmetic">
+	<title
+>Арифметика</title>
+		<para
+>Підтримувані дії: <itemizedlist>
+		<listitem
+><para
+><emphasis
+>Додавання:</emphasis
+> x + y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Віднімання:</emphasis
+> x - y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Множення:</emphasis
+> x * y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Ділення:</emphasis
+> x / y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Двійкове виключне АБО:</emphasis
+> x XOR y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Двійкове І:</emphasis
+> x AND y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Двійкове АБО:</emphasis
+> x OR y</para
+></listitem>
+		</itemizedlist>
+		</para>
+	</sect2>
+	
+	<sect2 id="comparison">
+	<title
+>Порівняння</title>
+	<para
+>Підтримувані дії: </para>
+	<itemizedlist>
+	<listitem
+><para
+><emphasis
+>Рівність:</emphasis
+> x / y</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>Нерівність:</emphasis
+> x != y</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>Є більшим:</emphasis
+> x 
+> y</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>Є меншим:</emphasis
+> x &lt; y</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>Є більшим або рівним:</emphasis
+> x &gt;= y</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>Є меншим або рівним:</emphasis
+> x &lt;= y</para
+></listitem>
+	</itemizedlist>
+	
+	<para
+>Приклад: </para>
+	<example
+><title
+>Порівняння</title>
+	<programlisting role="correct"
+><function
+>if</function
+> PORTA 
+>= 5 <function
+>then</function>
+{
+        ...
+}</programlisting>
+	</example>
+	</sect2>
+</sect1>
+
+<!--
+<sect1 id="interrupts">
+<title
+>Interrupts</title>
+	<para>
+	There are several types of events, and some of these take an optional parameter making
+	the condition under which the routine is called more specific.
+	<itemizedlist>
+	<listitem
+><para
+><emphasis
+>change &lt;pin name&gt;</emphasis>
+		 - Occurs when the state of the specified pin changes. Pin name is in the usual syntax of PORTX.n, &eg; <programlisting
+>interrupt change PORTB.4</programlisting
+></para
+></listitem>
+	<listitem
+><para
+><emphasis
+>timer</emphasis
+> - ///TODO</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>external</emphasis
+> - ///TODO</para
+></listitem>
+	</itemizedlist>
+	</para>
+</sect1>
+-->
+</chapter>

@@ -1,0 +1,85 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="debugging">
+	<title
+>Depuració</title>
+	
+	<sect1 id="starting_debugger">
+		<title
+>Iniciar el depurador</title>
+		
+		<para
+>Es proporciona suport de depuració per a Assemblador, SDCC i &microbe;, quan estan oberts com a un document de text. Des d'aquí, els passos es controlen mitjançant el menú <guimenu
+>Depura</guimenu
+>. Hi ha dos mètodes per a iniciar el depurador.</para>
+		
+		<para
+>Si el programa PIC ja s'està executant en un circuit, en fer doble clic sobre el component PIC s'obrirà el programa. Per als programes PIC en assemblador, el depurador per a aquest document de text es vincularà amb el component PIC. En aquest cas, el menú de depuració no pot aturar el programa PIC, ja que és propietat del component PIC.</para>
+		
+		<para
+>Si el fitxer en assemblador ja està obert, el depurador es podrà executar mitjançant el menú <guimenu
+>Depura</guimenu
+>. Després de compilar el programa, el depurador estarà llest, amb el programa PIC en pausa a la primera instrucció. Recordeu que en depurar llenguatges d'alt nivell, el punt d'execució actual no es mostrarà si no hi ha una línia que es correspongui amb la primera instrucció en assemblador que s'executarà. En aquest cas, fer clic a <guibutton
+>Següent</guibutton
+> portarà al punt d'execució a la primera línia en el programa.</para>
+	</sect1>
+	
+	<sect1 id="controlling_debugger">
+		<title
+>Controlar el depurador</title>
+		
+		<para
+>El depurador pot estar en un de dos modes: en execució i per passos. Mentre s'executa, el programa PIC se simularà en temps real. Per a permetre per passos, el programa PIC haurà d'estar en pausa, ja sigui fent clic a l'element de menú <menuchoice
+><guimenu
+>Depura</guimenu
+><guimenuitem
+>Interromp</guimenuitem
+></menuchoice
+> o fent clic al botó de pausa en el component PIC.</para>
+		
+		<para
+>En el mode per passos, una fletxa verda en el marge del document de text indicarà la següent línia a executar (familiar per als usuaris del &kdevelop;). Pot ser útil activar la vora de la icona mitjançant el menú <guimenu
+>Visualitza</guimenu
+> (es pot activar permanentment mitjançant el diàleg <guilabel
+>Configuració de l'editor</guilabel
+>).</para>
+		
+		<para
+>Hi ha tres tipus de passos:</para>
+		
+		<itemizedlist>
+				<listitem
+><para
+><guimenuitem
+>Pas</guimenuitem
+> &mdash; Executa la instrucció actual. La fletxa verda es mou a la següent línia per a executar-se.</para
+></listitem>
+				<listitem
+><para
+><guimenuitem
+>Pas sobre</guimenuitem
+> &mdash; Si la següent instrucció que s'executarà és una crida o similar, això <quote
+>passarà sobre</quote
+> la crida i tornarà al mode per passos quan la crida hagi retornat. En cas contrari, passar sobre una instrucció es comporta de forma idèntica a fer un pas. Per a dir-ho tècnicament, el nivell inicial de la pila es registra i l'execució del programa s'aturarà una vegada que el nivell de la pila torni al seu nivell inicial.</para
+></listitem>
+				<listitem
+><para
+><guimenuitem
+>Pas cap a fora</guimenuitem
+> &mdash; Si l'execució actual està dins d'una crida o similar, això esperarà fins que la crida retorni. De manera similar a fer un pas sobre, això equival a esperar fins que el nivell de la pila retorni a un menys que el nivell inicial, si el nivell inicial és més gran que zero.</para
+></listitem>
+		</itemizedlist>
+		
+		<para
+>Els punts d'interrupció permeten que l'execució estigui en pausa quan el programa PIC abasta una instrucció determinada. Per a canviar un punt d'interrupció en la línia que conté el cursor, utilitzeu el menú <guimenu
+>Depura</guimenu
+> o feu clic sobre la vora de la icona del document de text.</para>
+		
+		<para
+>La barra lateral <guilabel
+>Visualitzador de símbols</guilabel
+> que hi ha a la dreta, mostra els valors del registre de les funcions especials. Per a trobar el valor d'una variable en el registre de propòsit general, podeu passar el ratolí per sobre del nom de la variable en una instrucció que opera en aquest registre. Recordeu que la selecció de la base en el <guilabel
+>Visualitzador de símbols</guilabel
+> també controla com es mostrarà el valor en passar el cursor sobre una variable.</para>
+	</sect1>
+	
+</chapter>

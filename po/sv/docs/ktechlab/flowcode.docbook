@@ -1,0 +1,95 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="flowcode">
+	<title
+>&flowcode;</title>
+	
+	<sect1 id="flowcode_introduction">
+		<title
+>Inledning</title>
+		
+		<para
+>&flowcode; tillåter mycket snabb och enkel konstruktion av ett PIC-program. Efter att användaren har skapat ett flödesschema från tillgängliga programdelar, kan &ktechlab; konvertera flödesschemat till ett antal olika format. För att exempelvis mata ut hexkod, sker följande kedja av konverteringar:</para>
+		
+		<orderedlist>
+			<listitem
+><para
+>&flowcode; konverteras till &microbe;, ett högnivåspråk vars kompilator distribueras med &ktechlab;.</para
+></listitem>
+			<listitem
+><para
+>Det körbara programmet <command
+>microbe</command
+> kompilerar &microbe;-filen till PIC-assembler.</para
+></listitem>
+			<listitem
+><para
+>Till sist, tar <command
+>gpasm</command
+> PIC-assemblerfilen och matar ut programmets hexkod.</para
+></listitem>
+		</orderedlist>
+		
+		<para
+>Om du inte har installerat gputils, som <command
+>gpasm</command
+> distribueras med, kan naturligtvis inte det sista steget utföras.</para>
+		
+	</sect1>
+	
+	<sect1 id="flowcode_creation">
+		<title
+>Skapa ett program</title>
+		
+		<para
+>Varje &flowcode;-program behöver en unik startpunkt. Det är stället som programmet körs från när PIC:n startas. För att definiera punkten, öppna sidoraden med flödeselement till vänster, och dra över elementet <guilabel
+>Start</guilabel
+>. &ktechlab; låter dig bara använda en av dem.</para>
+		
+		<para
+>Därefter kan programmet konstrueras genom att använda de fördefinierade elementen till vänster, eller infoga egen kod (med assembler- eller &microbe;-format) via elementet <guilabel
+>Inbädda</guilabel
+>. Programflödet kontrolleras via anslutningarna mellan flödeselementen. <xref linkend="connecting_components"/> ger mer detaljerad information om hur anslutningar skapas.</para>
+		
+		<para
+>&flowcode; påtvingar begränsningar förutom de i en krets rörande vad som kan anslutas. Exempelvis kan varje flödeselement bara ha en utgående anslutning. Ytterligare begränsningar beskrivs i <xref linkend="nestling_flowcode"/>.</para>
+	</sect1>
+	
+	<sect1 id="pic_settings">
+		<title
+>PIC-inställningar</title>
+		
+		<para
+>När ett nytt &flowcode;-dokument skapas, visas en bild av PIC:n som används i arbetsområdets övre vänstra hörn. Den representerar de ursprungliga inställningarna av PIC:n.</para>
+		
+		<para
+>Varje anslutning som visas på bilden av PIC:n anger anslutningens ursprungliga typ (ingång eller utgång) och dess ursprungliga tillstånd (hög eller låg). De går att ändra genom att dra anslutningen för att ange dess typ och klicka på den för att ändra dess tillstånd.</para>
+		
+		<para
+>Dialogrutan <guilabel
+>Inställningar</guilabel
+> som visas genom att klicka på knappen <guibutton
+>Inställningar</guibutton
+>, gör det också möjligt att redigera de ursprungliga anslutningstyperna och tillstånden, i detta fall genom att redigera de binära värden som skrivs till PORT- och TRIS-registren. Förutom anslutningsinställningarna, gör dialogrutan det också möjligt att redigera de ursprungliga variabelvärdena i PIC-programmet.</para>
+		
+		<para
+>Längst ner finns en lista över anslutningsavbildningar som för närvarande är definierade, samt knappar för att hantera dem. Anslutningsavbildningar används för att ange hur <guilabel
+>7-segment</guilabel
+> eller <guilabel
+>Knappsats</guilabel
+> ansluts till en PIC. För att använda &flowcode;-elementen 7-segment eller knappsats, måste en anslutningsavbildning först definieras här.</para>
+		
+	</sect1>
+	
+	<sect1 id="nestling_flowcode">
+		<title
+>Nästla &flowcode;</title>
+		
+		<para
+>Många flödeselement, såsom subrutiner och snurror, kan innehålla egen kod. Efter ett sådant omgivande element har skapats kan flödeselement läggas till genom att antingen dra eller släppa dem i det omgivande elementet. Det omgivande elementet markeras för att ange att det används som omgivning för flödeselementet.</para>
+		
+		<para
+>Det omgivande elementet är ansvariga för flödeselement nästlade inne i det. Om expansionsknappen avmarkeras, döljes alla ingående flödeselement, och på motsvarande sätt visas innehållet när expansionsknappen klickas igen. Kopplingar kan inte göras mellan flödeselement i olika omgivande element, och innehållet i ett omgivande element flyttas omkring tillsammans med det.</para>
+		
+	</sect1>
+	
+</chapter>

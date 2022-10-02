@@ -1,0 +1,95 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="flowcode">
+	<title
+>&flowcode;</title>
+	
+	<sect1 id="flowcode_introduction">
+		<title
+>Inleiding</title>
+		
+		<para
+>Met &flowcode; kunt u makkelijk en snel een PIC programma construeren. Nadat de gebruiker met behulp van de aanwezige programma-onderdelen een flowchart heeft samengesteld, kan &ktechlab; daarna de flowchart naar een aantal formats converteren. Voor een uitvoer naar hex, bijvoorbeeld, treden de volgende conversies op:</para>
+		
+		<orderedlist>
+			<listitem
+><para
+>De &flowcode; is geconverteerd naar &microbe;; een hoog-niveau taal waarvan de compiler meegeleverd is met &ktechlab;.</para
+></listitem>
+			<listitem
+><para
+>Het uitvoerbare programma <command
+>microbe</command
+> compileert daarna het &microbe;-bestand naar PIC assembly.</para
+></listitem>
+			<listitem
+><para
+>Tenslotte neemt <command
+>gpasm</command
+> het PIC assembly-bestand, en converteert het programma naar hex.</para
+></listitem>
+		</orderedlist>
+		
+		<para
+>Natuurlijk, als u gputils niet heeft geïnstalleerd - dat met <command
+>gpasm</command
+> mee wordt gedistribueerd - dan kan de laatste stap niet worden uitgevoerd.</para>
+		
+	</sect1>
+	
+	<sect1 id="flowcode_creation">
+		<title
+>Een programma aanmaken</title>
+		
+		<para
+>Elke &flowcode;-programma moet een uniek startpunt hebben - dit is de plek vanaf waar het programma gaat werken op een PIC startup. Om dit punt te definiëren, opent u aan de linkerkant de FlowParts zijbalk, en versleept een<guilabel
+>Start</guilabel
+> part. In &ktechlab; mag u deze maar een keer gebruiken.</para>
+		
+		<para
+>U kunt uw programma construeren door de voorgedefinieerde parts aan de linkerkant te gebruiken of door uw eigen code (in assembly of &microbe;-formaat) via het <guilabel
+>Ingebedde code</guilabel
+> part te gebruiken. De flow van het programma stelt u in via de verbindingen tussen de FlowParts - <xref linkend="connecting_components"/> geeft meer informatie over met maken van verbindingen.</para>
+		
+		<para
+>&flowcode; geeft daarnaast beperkingen aan circuits voor wat verbonden kan worden. Bijvoorbeeld, elk FlowPart kan maar één output-verbinding hebben. Andere beperkingen worden beschreven in <xref linkend="nestling_flowcode"/>.</para>
+	</sect1>
+	
+	<sect1 id="pic_settings">
+		<title
+>PIC-instellingen</title>
+		
+		<para
+>Wanneer u een nieuw &flowcode; document aanmaakt, zult u een plaatje van de PIC opmerken die u gebruikt in de linksboven hoek van het werkgebied. Dit representeert de initiële instelling van de PIC.</para>
+		
+		<para
+>Elke pin toont op het plaatje van ed PIC het initiële type van de pin (invoer of uitvoer), en zijn initiële status (hoog of laag). U kunt deze wijzigen door de pin te verslepen om het type in te stellen en erop te klikken om zijn status om te schakelen.</para>
+		
+		<para
+>In het dialoog <guilabel
+>Instellingen</guilabel
+>, dat u opent door op de knop <guibutton
+>Instellingen</guibutton
+> te klikken, kunt u ook de beginwaarden voor de pin-types en hun statussen instellen - in dit geval, door de binaire waarden die naar de PORT en TRIS registers te bewerken. En de pin bezetting kunt u via een dialoog de beginwaarden van de variabelen in het PIC programma bewerken.</para>
+		
+		<para
+>Onderaan is een lijst met voorgedefinieerde pin bezettingen, met daarbij knoppen om ze te bewerken. Pin bezettingen worden gebruikt om te bepalen hoe een zeven segment display of een toetsenbord met een PIC is verbonden. Om een <guilabel
+>Zeven Segment</guilabel
+> of een <guilabel
+>Toetsenbord</guilabel
+> in &flowcode; te kunnen gebruiken, moet u eerst een pin bezetting definiëren.</para>
+		
+	</sect1>
+	
+	<sect1 id="nestling_flowcode">
+		<title
+>Nestling &flowcode;</title>
+		
+		<para
+>Veel FlowParts, zoals subroutines en loops, kunnen zelf ook weer code bevatten. Na het creëren van een dergelijke container, kunt u daaraan weer FlowParts toevoegen door ze er simpel naar de container toe te verslepen. De container wordt dan gemarkeerd om aan te geven dat het de nieuwe parent van de FlowPart is geworden.</para>
+		
+		<para
+>De container is verantwoordelijk voor de daarin geneste FlowParts. Als de expand knop niet is ingedrukt, zijn alle FlowParts daarin verborgen - en op dezelfde manier, komt de inhoud weer zichtbaar als u op de expand knop drukt. Tussen Flowparts in verschillende containers kunt u geen verbindingen maken en de inhoud van een container wordt bij een verplaatsing van de container mee verplaatst.</para>
+		
+	</sect1>
+	
+</chapter>

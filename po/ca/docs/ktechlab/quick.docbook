@@ -1,0 +1,69 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="quick">
+	<title
+>Una volta ràpida</title>
+	
+	<sect1 id="introduction">
+		<title
+>Introducció</title>
+		
+		<para
+>El &ktechlab; és un IDE per a circuits electrònics i microcontroladors. Pot realitzar la simulació d'una varietat de components (lògics, integrats, lineals, no lineals i reactius) i depuració de microcontroladors PIC mitjançant el «gpsim», i ve amb els seus propis llenguatges d'alt nivell estretament vinculats i complementaris: &flowcode; i &microbe;.</para>
+		
+		<para
+>Ha estat dissenyat per a ser el més fàcil d'emprar i no intrusiu possible. Tots els components i les FlowPart tenen ajuda sensible al context, i la simulació de l'electrònica és tan senzilla com arrossegar els components a l'àrea de treball i crear connectors que s'encaminen automàticament entre els seus pins. El &flowcode; permet als usuaris nous en el PIC, que creïn instantàniament els seus propis programes, mentre que la simulació electrònica permet recórrer el programa en assemblador del PIC dins d'un circuit.</para>
+	</sect1>
+	
+	<sect1 id="documents">
+		<title
+>Documents</title>
+		<para
+>Per a començar en el &ktechlab;, haureu de crear un document nou, el tipus dependrà de la vostra tasca:</para>
+			
+			<itemizedlist>
+				<listitem
+><para
+>Document de &flowcode;: construeix un programa PIC mitjançant diagrames de flux.</para
+></listitem>
+				<listitem
+><para
+>Document de Circuit: simula circuits electrònics i microcontroladors.</para
+></listitem>
+				<listitem
+><para
+>Document de &microbe;: llenguatge d'alt nivell per als PIC, també utilitzat pel &flowcode; per a generar en assemblador.</para
+></listitem>
+				<listitem
+><para
+>Document en assemblador: comença a escriure un programa en assemblador del PIC.</para
+></listitem>
+			</itemizedlist>
+			
+		<para
+>El &ktechlab; utilitza un model Document-Vista, en el que la lògica del document està completament separada de les vistes obertes del document. Això permet diverses vistes del mateix fitxer.</para>
+		
+		<para
+>En crear un document nou, la vista es crearà en una pestanya separada. Cada pestanya pot admetre qualsevol nombre de vistes, en mosaic i en qualsevol patró arbitrari. Això permet, per exemple, simular un programa PIC en circuit, mentre recorre el programa en un document en assemblador en la mateixa pestanya.</para>
+		
+		<para
+>El contingut de les pestanyes es pot duplicar arrossegant la pestanya a una àrea buida a la barra de pestanyes. Es poden inserir en una pestanya existent arrossegant a aquesta pestanya.</para>
+		
+		<para
+>Les instruccions detallades sobre els documents anteriors es poden trobar en els seus propis capítols respectius.</para>
+	</sect1>
+	
+	<sect1 id="drawing">
+		<title
+>Dibuixar</title>
+		
+		<para
+>En els documents de Circuit i &flowcode;, hi ha disponibles diverses eines de dibuix, inclòs el text. Aquestes estan disponibles fent clic sobre la icona de pinzell que hi ha a la barra d'eines. Per a dibuixar, arrossegueu el ratolí per a formar una forma o una línia apropiada per a l'eina de dibuix en ús.</para>
+		
+		<para
+>Quan se selecciona un dibuix, es pot canviar de mida arrossegant les seves nanses. Si manteniu premuda la tecla &Maj; mentre arrossegueu, el controlador s'ajustarà a la quadrícula subjacent. Cada eina té opcions bàsiques accessibles des de la barra d'eines, com els colors. També hi ha opcions més avançades a la barra lateral <guilabel
+>Editor d'elements</guilabel
+>, com els estils de línia i de topall.</para>
+		
+	</sect1>
+	
+</chapter>

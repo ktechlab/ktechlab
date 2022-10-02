@@ -1,0 +1,164 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="circuits">
+	<title
+>Circuits</title>
+	
+	<sect1 id="placing_components">
+		<title
+>Posicionar els components</title>
+		<para
+>A l'esquerra, trobareu la pestanya <guilabel
+>Components</guilabel
+>.</para>
+		
+		<para
+>Arrossegar un component des de la barra lateral cap al circuit el col·locarà a sota el cursor del ratolí. De manera alternativa, podeu fer doble clic sobre un element a la barra lateral <guilabel
+>Components</guilabel
+> per a afegir-lo repetidament al circuit. En aquest mode, es col·locarà repetidament una còpia del component seleccionat sobre el clic esquerre fins que es premi &Esc; o es faci clic dret.</para>
+		
+		<para
+>Per a reposicionar un component, feu clic esquerre i arrossegueu. El trobareu ajustat en la quadrícula subjacent. Si arrossegueu el component a fora de les vores dreta o inferior de l'àrea de treball, l'àrea de treball canviarà de mida per a adaptar-s'hi.</para>
+		
+		<para
+>Tots els components tenen una noció de l'orientació; 0, 90, 180 i 270 graus. Aquells que no siguin simètrics vora un eix també podran capgirar-se. Per a girar una selecció de components, feu-hi clic dret i seleccioneu des del menú <guimenu
+>Orientació</guimenu
+>, o feu clic sobre els botons de gir que hi ha a la barra d'eines. També es pot accedir a aquest últim prement les tecles <keycap
+>[</keycap
+> i <keycap
+>]</keycap
+> (familiar per als usuaris de l'<application
+>Inkscape</application
+>). La barra lateral <guilabel
+>Element</guilabel
+> (a la dreta) proporciona un poderós mètode per a configurar l'orientació proporcionant vistes prèvies dels components. També és possible girar els components mitjançant la barra lateral <guilabel
+>Element</guilabel
+>.</para>
+	</sect1>
+	
+	<sect1 id="connecting_components">
+		<title
+>Connectar els components</title>
+		<para
+>Hi ha dos modes per a crear les connexions (cables): automàtic i manual. Aquests modes se seleccionen mitjançant el menú desplegable <guimenu
+>Mode d'encaminament de les connexions</guimenu
+> que hi ha a la barra d'eines. Experimenteu amb ambdós: l'encaminament automàtic sol ser millor per a circuits petits, mentre que els circuits més complexos poden necessitar encaminament manual.</para>
+		
+		<para
+>En el mode automàtic, creeu una connexió arrossegant des d'un pin de component o una connexió existent i deixeu anar el ratolí sobre el pin o connexió desitjada. Veureu que la línia recta que es dibuixa es torna taronja quan es crea una connexió vàlida en deixar anar el ratolí. Si la línia que esteu dibuixant és negra, és perquè no hi ha res a sota del cursor del ratolí o perquè esteu intentant connectar dos elements que ja estan connectats. En crear un diagrama de flux, els criteris per a una connexió vàlida són més complexos, però arribarem a això més endavant.</para>
+		
+		<para
+>La millor manera de familiaritzar-se amb l'encaminament manual de les connexions és experimentant. Feu clic sobre el pin o connexió d'inici i després esteneu el protoconnector movent el ratolí lluny d'on heu fet clic. Per a posicionar-lo en una cantonada, feu-hi clic esquerre. Per a cancel·lar el dibuix de la connexió, premeu &Esc; o feu-hi clic dret.</para>
+		
+		<para
+>El &ktechlab; fa tot el possible per a mantenir els camins que prenen les connexions. No obstant això, si en arrossegar un component, els punts finals d'una connexió es mouen entre si, el &ktechlab; es veurà obligat a tornar a dibuixar la connexió mitjançant l'encaminament automàtic. Abans de moure un component, veureu quins connectors s'han de tornar a encaminar, ja que es tornaran grisos en fer-hi clic.</para>
+		
+		<para
+>Per a eliminar una connexió existent, seleccioneu-la dibuixant un petit rectangle de selecció sobre part del connector i premeu &Del;.</para>
+	</sect1>
+	
+	<sect1 id="component_attributes">
+		<title
+>Atributs del component</title>
+		<para
+>La majoria dels components tindran atributs editables, com la resistència per a les resistències. De manera predeterminada, podreu editar els atributs senzills a la barra d'eines, quan se selecciona un grup del mateix tipus de components. Si la selecció conté una mescla de diferents tipus de components (com resistències i condensadors), no es mostraran atributs per a editar.</para>
+		
+		<para
+>Alguns components tenen atributs més avançats als quals no es pot accedir a través de la barra d'eines. Aquests es troben a la barra lateral <guilabel
+>Element</guilabel
+> que hi ha a la dreta. El díode, per exemple, té una varietat de característiques de comportament que podreu editar aquí.</para>
+<!-- Not in 0.3.6 version
+		<para
+>If your selection of components have different values for their attributes (for example, different resistances for a selection of resistors), the <guilabel
+>Item</guilabel
+> sidebar will have the disagreeing attributes grayed-out. You can enable these by clicking the <guibutton
+>Merge properties</guibutton
+> button.</para>
+
+		<para
+>The "Defaults" button will reset the component attributes to the ones it had on creation.</para>
+		-->
+		<para
+>Hi ha un tipus d'atribut que no es pot editar ni a la barra d'eines ni a la barra lateral <guilabel
+>Element</guilabel
+> -text de múltiples línies-. En fer doble clic sobre l'element, apareixerà un diàleg on es podrà introduir el text.</para>
+	</sect1>
+	
+	<sect1 id="circuit_simulation">
+		<title
+>Simulació</title>
+		<para
+>De manera predeterminada, la simulació s'executarà quan creeu un circuit nou. L'estat de la simulació es mostra a la part inferior dreta d'una vista de circuit i es pot canviar mitjançant el menú <guimenu
+>Eines</guimenu
+>. En primer lloc, una petita explicació sobre com funciona el simulador. Això hauria de permetre aprofitar-lo al màxim.</para>
+		
+		<para
+>Quan es crea o modifica un circuit, les àrees afectades es divideixen en grups de pins i connexions que es poden considerar independents. Després, cada grup se simula com una entitat separada (tot i que encara interactua a través dels components), i la simulació proporcionada dependrà de la complexitat del grup. Els grups complexos, com els que involucren components no lineals com els LED, són lents de simular. Els grups que contenen només pins lògics, dels quals només un controla el valor en aquests pins, són els més ràpids de simular.</para>
+		
+		<para
+>El resultat de la simulació es proporciona a través de diversos mitjans gràfics.</para>
+		
+		<para
+>Els pins en els components, mostraran barres laterals de voltatge. Aquests són de color taronja per al voltatge positiu i blau per al voltatge negatiu. La seva longitud dependrà del nivell de voltatge i la seva amplada de la quantitat de corrent que flueix a través del pin. Aquests es poden desactivar a la pàgina <guilabel
+>General</guilabel
+> del diàleg <guilabel
+>Arranjament</guilabel
+>.</para>
+		
+		<para
+>En passar el ratolí per sobre d'un pin o connexió, es mostrarà un petit consell d'eina que mostri el voltatge i el corrent en aquest punt del circuit. Diversos components també proporcionen retroalimentació gràfica, per exemple, els LED i voltímetres o amperímetres.</para>
+		
+		<para
+>Finalment, hi ha l'oscil·loscopi, el qual s'analitza en la següent secció.</para>
+	</sect1>
+	
+	<sect1 id="oscilloscope">
+		<title
+>Oscil·loscopi</title>
+		<para
+>L'oscil·loscopi pot enregistrar les dades de lògica, voltatge i corrent. La prova lògica està optimitzada per a emmagatzemar mostres booleanes, per la qual cosa s'ha d'utilitzar en lloc de la prova de voltatge quan es mesura la lògica.</para>
+		
+		<para
+>Per a recopilar les dades, creeu un component de prova nou i connecteu-lo amb un punt apropiat en el circuit. Veureu la sortida dibuixada immediatament en l'oscil·loscopi. Afegir més sondes aixafarà les sortides una a una al costat de l'altra. Podeu reposicionar-les arrossegant les fletxes que hi ha a l'esquerra de la vista de l'oscil·loscopi i canviar els seus colors mitjançant els atributs de la prova.</para>
+		
+		<para
+>Per a les proves de voltatge i corrent, l'interval de valors d'entrada es pot ajustar a la barra lateral <guilabel
+>Editor d'elements</guilabel
+> que hi ha a la dreta.</para>
+		
+		<para
+>El zoom es controla mitjançant un control lliscant. L'escala és logarítmica. Per a cada pocs píxels que recorri el control lliscant, el factor de zoom es multiplicarà per una constant. El &ktechlab; simula la lògica amb una precisió màxima d'1 microsegon, i amb el nivell de zoom al màxim, un microsegon està representat per 8 píxels.</para>
+		
+		<para
+>Quan la barra de desplaçament s'arrossega fins al final, romandrà allà a mesura que es registrin dades noves. En cas contrari, la posició de la barra de desplaçament romandrà fixa en el temps. La vista de l'oscil·loscopi també es pot moure cap endavant i cap enrere fent-hi clic esquerre i arrossegant la vista. A causa de les limitacions del sistema subjacent de ginys, el desplaçament serà molt granular amb el zoom al màxim.</para>
+		
+		<para
+>En fer clic dret sobre la vista de l'oscil·loscopi, apareixerà un menú on podreu controlar el nombre de vegades que s'actualitza la vista de l'oscil·loscopi. Això permet una vista més suau o reduir l'ús de la CPU.</para>
+	</sect1>
+	
+	<sect1 id="subcircuits">
+		<title
+>Subcircuits</title>
+		<para
+>Els subcircuits ofereixen una forma reutilitzable i ordenada d'utilitzar un circuit, quan només esteu interessat a interactuar amb connexions externes amb el circuit. El subcircuit es crearà com un CI (circuit intern), amb els pins actuant com a interacció amb el CI.</para>
+		
+		<para
+>Primer, per a crear un subcircuit, s'ha de construir el circuit que s'utilitzarà com a plantilla. Els punts d'interacció es defineixen mitjançant components de <guilabel
+>Connexió externa</guilabel
+>. Aquests han d'estar connectats i posicionats on voleu que es posicioni el pin al CI del subcircuit.</para>
+		
+		<para
+>A continuació, seleccioneu el grup de components i connexions externes que es convertiran en un subcircuit, i seleccioneu <guimenuitem
+>Crea un subcircuit</guimenuitem
+> des del menú contextual. Se us oferirà introduir un nom per al subcircuit. Un cop creat, el nom apareixerà al selector de <guilabel
+>Components</guilabel
+> sota de la selecció <guilabel
+>Subcircuits</guilabel
+>. Això es pot tractar com qualsevol component normal, amb l'opció addicional d'eliminar fent clic dret sobre l'element i seleccionant <guimenuitem
+>Elimina</guimenuitem
+>.</para>
+	</sect1>
+	
+</chapter>
+
+
+

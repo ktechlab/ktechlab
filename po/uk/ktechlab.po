@@ -1,0 +1,5686 @@
+# Translation of ktechlab.po to Ukrainian
+# Copyright (C) 2016-2020 This_file_is_part_of_KDE
+# This file is distributed under the license LGPL version 2.1 or
+# version 3 or later versions approved by the membership of KDE e.V.
+#
+# Yuri Chornoivan <yurchor@ukr.net>, 2016, 2017, 2018, 2020.
+msgid ""
+msgstr ""
+"Project-Id-Version: ktechlab\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-06-27 00:46+0000\n"
+"PO-Revision-Date: 2020-04-27 10:30+0300\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Lokalize 20.07.70\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Юрій Чорноіван"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "yurchor@ukr.net"
+
+#: microbe/main.cpp:46 src/flowcodeview.cpp:39 src/ktechlab.cpp:500
+#: src/textview.cpp:66
+#, kde-format
+msgid "Microbe"
+msgstr "Microbe"
+
+#: microbe/main.cpp:48
+#, kde-format
+msgid "The Microbe Compiler"
+msgstr "Компілятор Microbe"
+
+#: microbe/main.cpp:50
+#, kde-format
+msgid "(C) 2004-2005, The KTechlab developers"
+msgstr "© Розробники KTechLab, 2004–2005"
+
+#: microbe/main.cpp:53 src/core/main.cpp:43
+#, kde-format
+msgid "Daniel Clarke"
+msgstr "Daniel Clarke"
+
+#: microbe/main.cpp:54 src/core/main.cpp:42
+#, kde-format
+msgid "David Saxton"
+msgstr "David Saxton"
+
+#: microbe/main.cpp:55
+#, kde-format
+msgid "George John"
+msgstr "George John"
+
+#: microbe/main.cpp:55
+#, kde-format
+msgid "Added pic 16f877,16f627 and 16f628"
+msgstr "Додавання pic 16f877, 16f627 та 16f628"
+
+#: microbe/main.cpp:62
+#, kde-format
+msgid "Show source code lines in assembly output"
+msgstr "Показувати рядки початкового коду у виведених даних збирання"
+
+#: microbe/main.cpp:64
+#, kde-format
+msgid "Do not attempt optimization of generated instructions."
+msgstr "Не намагатися оптимізувати створені команди."
+
+#: microbe/main.cpp:66
+#, kde-format
+msgid "Input filename"
+msgstr "Назва вхідного файла"
+
+#: microbe/main.cpp:67
+#, kde-format
+msgid "Output filename"
+msgstr "Назва файла результатів"
+
+#: microbe/microbe.cpp:93
+#, kde-format
+msgid "Could not open file '%1'\n"
+msgstr "Не вдалося відкрити файл: «%1»\n"
+
+#: microbe/microbe.cpp:223
+#, kde-format
+msgid "Unknown statement"
+msgstr "Невідома інструкція"
+
+#: microbe/microbe.cpp:226
+#, kde-format
+msgid "Port '%1' is not supported by target PIC"
+msgstr "Підтримки порту «%1» у PIC призначення не передбачено"
+
+#: microbe/microbe.cpp:229
+#, kde-format
+msgid "Pin identifier was not followed by '='"
+msgstr "Після ідентифікатора контакту не вказано «=»"
+
+#: microbe/microbe.cpp:232
+#, kde-format
+msgid "Pin state can only be 'high' or 'low'"
+msgstr "Станом контакту може бути лише «high» (відкритий) і «low» (закритий)"
+
+#: microbe/microbe.cpp:235
+#, kde-format
+msgid "Invalid token '%1'. Port identifier should be followed by '='"
+msgstr "Некоректний ключ «%1». Після ідентифікатора порту має бути «=»"
+
+#: microbe/microbe.cpp:238
+#, kde-format
+msgid "Unexpected statement before '{'"
+msgstr "Неочікувана інструкція перед «{»"
+
+#: microbe/microbe.cpp:241
+#, kde-format
+msgid "Mismatched brackets in expression '%1'"
+msgstr "Невідповідність дужок у виразі «%1»"
+
+#: microbe/microbe.cpp:244
+#, kde-format
+msgid "Invalid '=' found in expression"
+msgstr "У виразі виявлено некоректне вживання «=»"
+
+#: microbe/microbe.cpp:247
+#, kde-format
+msgid "Reserved keyword '%1' cannot be a variable name."
+msgstr "Зарезервоване ключове слово «%1» не може бути назвою змінної."
+
+#: microbe/microbe.cpp:250
+#, kde-format
+msgid "Nothing between operators"
+msgstr "Пропущено вираз між операторами"
+
+#: microbe/microbe.cpp:253
+#, kde-format
+msgid "Missing operator or space in operand"
+msgstr "Пропущено оператор або пробіл у операнді"
+
+#: microbe/microbe.cpp:257
+#, kde-format
+msgid "Unknown variable"
+msgstr "Невідома змінна"
+
+#: microbe/microbe.cpp:259
+#, kde-format
+msgid "Unknown variable '%1'"
+msgstr "Невідома змінна «%1»"
+
+#: microbe/microbe.cpp:262
+#, kde-format
+msgid "Could not open include file '%1'"
+msgstr "Не вдалося відкрити включений файл «%1»"
+
+#: microbe/microbe.cpp:265
+#, kde-format
+msgid "Division by zero"
+msgstr "Ділення на нуль"
+
+#: microbe/microbe.cpp:268
+#, kde-format
+msgid "Number too big"
+msgstr "Число є занадто великим"
+
+#: microbe/microbe.cpp:271
+#, kde-format
+msgid "Step can only be a constant expression"
+msgstr "Крок може бути лише сталим значенням"
+
+#: microbe/microbe.cpp:274
+#, kde-format
+msgid "Delay must be a positive constant value"
+msgstr "Затримка має бути додатним сталим значенням"
+
+#: microbe/microbe.cpp:277
+#, kde-format
+msgid "'high' or 'low' expected after pin expression '%1'"
+msgstr ""
+"Після виразу контакту «%1» мало бути «high» (відкритий) або «low» (закритий)"
+
+#: microbe/microbe.cpp:280
+#, kde-format
+msgid "Comparison operator in '%1' is not recognized"
+msgstr "Не вдалося розпізнати оператор порівняння у «%1»"
+
+#: microbe/microbe.cpp:283
+#, kde-format
+msgid "Subroutine definition before end of program"
+msgstr "Визначення підпрограми до завершення програми"
+
+#: microbe/microbe.cpp:286
+#, kde-format
+msgid "Interrupt routine definition before end of program"
+msgstr "Визначення процедури переривання до завершення програми"
+
+#: microbe/microbe.cpp:289
+#, kde-format
+msgid "Label expected"
+msgstr "Мало бути вказано мітку"
+
+#: microbe/microbe.cpp:292
+#, kde-format
+msgid "Extra tokens at end of line"
+msgstr "Зайві символи наприкінці рядка"
+
+#: microbe/microbe.cpp:295
+#, kde-format
+msgid "Expected '%1'"
+msgstr "Мало бути «%1»"
+
+#: microbe/microbe.cpp:298
+#, kde-format
+msgid "Pin list expected"
+msgstr "Мало бути вказано список контактів"
+
+#: microbe/microbe.cpp:301
+#, kde-format
+msgid "Alias already defined"
+msgstr "Замінник вже визначено"
+
+#: microbe/microbe.cpp:304
+#, kde-format
+msgid "Interrupt type not supported by target PIC"
+msgstr "У PIC призначення не передбачено підтримку типу переривання"
+
+#: microbe/microbe.cpp:307
+#, kde-format
+msgid "Interrupt already defined"
+msgstr "Переривання вже визначено"
+
+#: microbe/microbe.cpp:310
+#, kde-format
+msgid "Variable '%1' is read only"
+msgstr "Змінну «%1» призначено лише для читання"
+
+#: microbe/microbe.cpp:313
+#, kde-format
+msgid "Variable '%1' is write only"
+msgstr "Змінну «%1» призначено лише для запису"
+
+#: microbe/microbe.cpp:316
+#, kde-format
+msgid "Invalid pin list size"
+msgstr "Некоректний розмір списку контактів"
+
+#: microbe/microbe.cpp:319
+#, kde-format
+msgid "Variable '%1' is already defined"
+msgstr "Змінну «%1» вже визначено"
+
+#: microbe/microbe.cpp:322
+#, kde-format
+msgid "'%1' is not a valid variable name"
+msgstr "«%1» не є коректною назвою змінної"
+
+#: microbe/microbe.cpp:325
+#, kde-format
+msgid "Variable expected"
+msgstr "Мало бути вказано змінну"
+
+#: microbe/microbe.cpp:328
+#, kde-format
+msgid "Name expected"
+msgstr "Мало бути вказано назву"
+
+#: microbe/optimizer.cpp:71
+#, kde-format
+msgid "Internal issue: Optimization has not finished in %1 iterations."
+msgstr "Внутрішня проблема: оптимізацію не завершено за %1 ітерацій."
+
+#: src/circuitview.cpp:35
+#, kde-format
+msgid "Dump linear equations"
+msgstr "Створити дамп лінійних рівнянь"
+
+#. i18n("0 Degrees"), "", 0, circuitDocument, SLOT(setOrientation0()), ac, "edit_orientation_0" );
+#. ra->setExclusiveGroup("orientation"); // TODO test
+#: src/circuitview.cpp:47
+#, kde-format
+msgid "0 Degrees"
+msgstr "0°"
+
+#. i18n("90 Degrees"), "", 0, circuitDocument, SLOT(setOrientation90()), ac, "edit_orientation_90" );
+#. ra->setExclusiveGroup("orientation"); // TODO test
+#: src/circuitview.cpp:56
+#, kde-format
+msgid "90 Degrees"
+msgstr "90°"
+
+#. i18n("180 Degrees"), "", 0, circuitDocument, SLOT(setOrientation180()), ac, "edit_orientation_180" );
+#. ra->setExclusiveGroup("orientation"); // TODO test
+#: src/circuitview.cpp:64
+#, kde-format
+msgid "180 Degrees"
+msgstr "180°"
+
+#. i18n("270 Degrees"), "", 0, circuitDocument, SLOT(setOrientation270()), ac, "edit_orientation_270" );
+#. ra->setExclusiveGroup("orientation"); // TODO test
+#: src/circuitview.cpp:72
+#, kde-format
+msgid "270 Degrees"
+msgstr "270°"
+
+#. i18n("Create Subcircuit"), "", 0, circuitDocument, SLOT(createSubcircuit()), ac, "circuit_create_subcircuit" );
+#: src/circuitview.cpp:80
+#, kde-format
+msgid "Create Subcircuit"
+msgstr "Створити підсхему"
+
+#. i18n("Rotate Clockwise"), "object-rotate-right", "]", circuitDocument, SLOT(rotateClockwise()), ac, "edit_rotate_cw" );
+#: src/circuitview.cpp:87
+#, kde-format
+msgid "Rotate Clockwise"
+msgstr "Обернути за годинниковою стрілкою"
+
+#. i18n("Rotate Counter-Clockwise"), "object-rotate-left", "[", circuitDocument, SLOT(rotateCounterClockwise()), ac, "edit_rotate_ccw" );
+#: src/circuitview.cpp:94
+#, kde-format
+msgid "Rotate Counter-Clockwise"
+msgstr "Обернути проти годинникової стрілки"
+
+#. i18n("Flip Horizontally"), "", 0, circuitDocument, SLOT(flipHorizontally()), ac, "edit_flip_horizontally" );
+#: src/circuitview.cpp:101
+#, kde-format
+msgid "Flip Horizontally"
+msgstr "Віддзеркалити горизонтально"
+
+#. i18n("Flip Vertically"), "", 0, circuitDocument, SLOT(flipVertically()), ac, "edit_flip_vertically" );
+#: src/circuitview.cpp:108
+#, kde-format
+msgid "Flip Vertically"
+msgstr "Віддзеркалити вертикально"
+
+#: src/circuitview.cpp:118
+#, kde-format
+msgid ""
+"Construct a circuit by dragging components from the Component selector from "
+"the left. Create the connections by dragging a wire from the component "
+"connectors.<br><br>The simulation is running by default, but can be paused "
+"and resumed from the Tools menu.<br><br>To delete a wire, select it with a "
+"select box, and hit delete.<br><br>To edit the attributes of a component, "
+"select it (making sure that no components of another type are also "
+"selected), and edit in the toolbar. More advanced properties can be edited "
+"using the item editor on the right.<br><br>Subcircuits can be created by "
+"connecting the components with an External Connection, selecting the desired "
+"components and clicking on \"Create Subcircuit\" in the right-click menu."
+msgstr ""
+"Побудувати схему можна перетягуванням компонентів з панелі вибору "
+"компонентів, розташованої ліворуч. Створити з’єднання можна перетягуванням "
+"з’єднувальної доріжки між контактами компонентів (утримуйте натиснутою ліву "
+"кнопки миші і перетягуйте вказівник).<br><br>Імітація виконуватиметься у "
+"інтерактивному режимі, але ви можете призупинити і відновити її за допомогою "
+"відповідних пунктів меню «Інструменти».<br><br>Щоб вилучити з’єднувальну "
+"доріжку, позначте її, накресливши навколо неї рамку перетягуванням "
+"вказівника миші, а потім натисніть клавішу Del.<br><br>Щоб змінити атрибути "
+"компонента, позначте його на схемі (при цьому переконавшись, що інші "
+"компоненти того самого типу не позначено) і скористайтеся можливостями "
+"редагування на панелі інструментів. Змінити інші властивості елемента можна "
+"за допомогою панелі редагування елементів, розташованої праворуч."
+"<br><br>Підсхеми можна створювати з’єднуванням компонентів за допомогою "
+"зовнішнього з’єднання, позначенням бажаних компонентів і вибором пункту "
+"«Створити підсхему» з контекстного меню (його можна викликати клацанням "
+"правою кнопкою миші)."
+
+#: src/circuitview.cpp:132
+#, kde-format
+msgid "Simulation Initializing"
+msgstr "Ініціалізуємо імітацію"
+
+#: src/circuitview.cpp:144
+#, kde-format
+msgid "Simulation Running"
+msgstr "Виконуємо імітацію"
+
+#: src/circuitview.cpp:144
+#, kde-format
+msgid "Simulation Paused"
+msgstr "Імітацію призупинено"
+
+#. i18n: ectx: label, entry (MaxUndo), group (General)
+#: src/core/ktechlab.kcfg:10
+#, kde-format
+msgid "Maximum number of undo steps"
+msgstr "Максимальна кількість дій, які можна скасувати"
+
+#. i18n: ectx: label, entry (RestoreDocumentsOnStartup), group (General)
+#: src/core/ktechlab.kcfg:14
+#, kde-format
+msgid "Restore Documents on Startup"
+msgstr "Відновлювати сеанс під час запуску"
+
+#. i18n: ectx: label, entry (RaiseItemSelectors), group (General)
+#: src/core/ktechlab.kcfg:18
+#, kde-format
+msgid "Raise appropriate Item Selector on document creation"
+msgstr "Піднімати відповідну панель вибору елементів після створення документа"
+
+#. i18n: ectx: label, entry (RaiseMessagesLog), group (General)
+#: src/core/ktechlab.kcfg:22
+#, kde-format
+msgid "Raise Messages Log on Compiling"
+msgstr "Піднімати журнал повідомлень під час компіляції"
+
+#. i18n: ectx: label, entry (ShowVoltageBars), group (General)
+#: src/core/ktechlab.kcfg:26
+#, kde-format
+msgid "Show Voltage Bars"
+msgstr "Показувати індикатори напруги"
+
+#. i18n: ectx: label, entry (ShowVoltageColor), group (General)
+#: src/core/ktechlab.kcfg:30
+#, kde-format
+msgid "Show Voltage as Color"
+msgstr "Показувати струм кольором"
+
+#. i18n: ectx: label, entry (AnimateWires), group (General)
+#: src/core/ktechlab.kcfg:34
+#, kde-format
+msgid "Animate Wires (current or power)"
+msgstr "Анімувати з’єднання (струм)"
+
+#. i18n: ectx: label, entry (RefreshRate), group (General)
+#: src/core/ktechlab.kcfg:38
+#, kde-format
+msgid "Refresh Rate"
+msgstr "Частота оновлення"
+
+#. i18n: ectx: label, entry (GridColor), group (General)
+#: src/core/ktechlab.kcfg:42
+#, kde-format
+msgid "Color of grid lines"
+msgstr "Колір ліній ґратки"
+
+#. i18n: ectx: label, entry (ShowGrid), group (General)
+#: src/core/ktechlab.kcfg:46
+#, kde-format
+msgid "Whether the grid should be shown."
+msgstr "Визначає, чи буде показано ґратку."
+
+#. i18n: ectx: label, entry (ReuseSameViewForOutput), group (General)
+#: src/core/ktechlab.kcfg:50
+#, kde-format
+msgid "Whether the same output should be use for generation of code, etc"
+msgstr ""
+"Визначає, чи має бути використано ту саму панель виведення для створення "
+"коду тощо."
+
+#. i18n: ectx: label, entry (IndentAsmName), group (AsmFormatter)
+#: src/core/ktechlab.kcfg:57
+#, kde-format
+msgid "Indentation of Instruction Names"
+msgstr "Відступи для назв команд"
+
+#. i18n: ectx: label, entry (IndentAsmData), group (AsmFormatter)
+#: src/core/ktechlab.kcfg:61
+#, kde-format
+msgid "Indentation of Instruction Data"
+msgstr "Відступи для даних команд"
+
+#. i18n: ectx: label, entry (IndentComment), group (AsmFormatter)
+#: src/core/ktechlab.kcfg:65
+#, kde-format
+msgid "Indentation of Comments"
+msgstr "Відступ для коментарів"
+
+#. i18n: ectx: label, entry (IndentEqu), group (AsmFormatter)
+#: src/core/ktechlab.kcfg:69
+#, kde-format
+msgid "Indentation of 'equ'"
+msgstr "Відступ «equ»"
+
+#. i18n: ectx: label, entry (IndentEquValue), group (AsmFormatter)
+#: src/core/ktechlab.kcfg:73
+#, kde-format
+msgid "Indentation of 'equ' Value"
+msgstr "Відступ значення «equ»"
+
+#. i18n: ectx: label, entry (AutoFormatMBOutput), group (AsmFormatter)
+#: src/core/ktechlab.kcfg:77
+#, kde-format
+msgid "Automatically format Microbe output"
+msgstr "Автоматично форматувати виведене Microbe"
+
+#. i18n: ectx: label, entry (LogicSymbolShapes), group (Logic)
+#: src/core/ktechlab.kcfg:84
+#, kde-format
+msgid "Logic Symbol Shapes"
+msgstr "Форми позначок логіки"
+
+#. i18n: ectx: label, entry (LogicRisingTrigger), group (Logic)
+#: src/core/ktechlab.kcfg:92
+#, kde-format
+msgid "Rising Trigger Threshold"
+msgstr "Поріг відкриття перемикача"
+
+#. i18n: ectx: label, entry (LogicFallingTrigger), group (Logic)
+#: src/core/ktechlab.kcfg:96
+#, kde-format
+msgid "Falling Trigger Threshold"
+msgstr "Поріг закриття перемикача"
+
+#. i18n: ectx: label, entry (LogicOutputHigh), group (Logic)
+#: src/core/ktechlab.kcfg:100
+#, kde-format
+msgid "Logic Output High"
+msgstr "Відкриття логічного виходу"
+
+#. i18n: ectx: label, entry (LogicOutputHighImpedance), group (Logic)
+#: src/core/ktechlab.kcfg:104
+#, kde-format
+msgid "Logic Output High Impedance"
+msgstr "Імпеданс відкриття логічного виходу"
+
+#. i18n: ectx: label, entry (LogicOutputLowImpedance), group (Logic)
+#: src/core/ktechlab.kcfg:108
+#, kde-format
+msgid "Logic Output Low Impedance"
+msgstr "Імпеданс закриття логічного виходу"
+
+#. i18n: ectx: label, entry (HexFormat), group (Gpasm)
+#: src/core/ktechlab.kcfg:115
+#, kde-format
+msgid "Hex Format"
+msgstr "Формат шістнадцяткових"
+
+#. i18n: ectx: label, entry (Radix), group (Gpasm)
+#: src/core/ktechlab.kcfg:125
+#, kde-format
+msgid "Radix"
+msgstr "Основа числення"
+
+#. i18n: ectx: label, entry (GpasmWarningLevel), group (Gpasm)
+#: src/core/ktechlab.kcfg:135
+#, kde-format
+msgid "GpasmWarning Level"
+msgstr "Рівень попереджень Gpasm"
+
+#. i18n: ectx: label, entry (IgnoreCase), group (Gpasm)
+#: src/core/ktechlab.kcfg:144
+#, kde-format
+msgid "Ignore Case"
+msgstr "Без врахування регістру"
+
+#. i18n: ectx: label, entry (DosFormat), group (Gpasm)
+#: src/core/ktechlab.kcfg:148
+#, kde-format
+msgid "Dos Formatting"
+msgstr "Форматування DOS"
+
+#. i18n: ectx: label, entry (MiscGpasmOptions), group (Gpasm)
+#. i18n: ectx: label, entry (MiscSDCCOptions), group (SDCC)
+#: src/core/ktechlab.kcfg:152 src/core/ktechlab.kcfg:299
+#, kde-format
+msgid "Other Options"
+msgstr "Інші параметри"
+
+#. i18n: ectx: label, entry (SDCC_nostdlib), group (SDCC)
+#: src/core/ktechlab.kcfg:159
+#, kde-format
+msgid "Do not search in the standard library directory"
+msgstr "Не шукати у каталозі стандартних бібліотек"
+
+#. i18n: ectx: label, entry (SDCC_nostdinc), group (SDCC)
+#: src/core/ktechlab.kcfg:163
+#, kde-format
+msgid "Do not search in the standard include directory"
+msgstr "Не шукати у каталозі стандартних включень"
+
+#. i18n: ectx: label, entry (SDCC_less_pedantic), group (SDCC)
+#: src/core/ktechlab.kcfg:167
+#, kde-format
+msgid "Disable pedantic warnings"
+msgstr "Вимкнути педантичні попередження"
+
+#. i18n: ectx: label, entry (SDCC_std_c89), group (SDCC)
+#: src/core/ktechlab.kcfg:171
+#, kde-format
+msgid "Strictly follow the C89 standard"
+msgstr "Строго виконувати стандарт C89"
+
+#. i18n: ectx: label, entry (SDCC_std_c99), group (SDCC)
+#: src/core/ktechlab.kcfg:175
+#, kde-format
+msgid "Strictly follow the C99 standard"
+msgstr "Строго виконувати стандарт C99"
+
+#. i18n: ectx: label, entry (SDCC_stack_auto), group (SDCC)
+#: src/core/ktechlab.kcfg:180
+#, kde-format
+msgid "Stack automatic variables"
+msgstr "Розташовувати локальні змінні у стеку"
+
+#. i18n: ectx: label, entry (SDCC_int_long_reent), group (SDCC)
+#: src/core/ktechlab.kcfg:184
+#, kde-format
+msgid "Integer libraries have been compiled as reentrant"
+msgstr "Цілочисельні бібліотеки було зібрано для повторного використання"
+
+#. i18n: ectx: label, entry (SDCC_float_reent), group (SDCC)
+#: src/core/ktechlab.kcfg:188
+#, kde-format
+msgid "Floating point library has been compiled as reentrant"
+msgstr ""
+"Бібліотеки для роботи дійсними числами було зібрано для повторного "
+"використання"
+
+#. i18n: ectx: label, entry (SDCC_fommit_frame_pointer), group (SDCC)
+#: src/core/ktechlab.kcfg:192
+#, kde-format
+msgid "Leave out the frame pointer"
+msgstr "Оминати вказівники кадру"
+
+#. i18n: ectx: label, entry (SDCC_no_xinit_opt), group (SDCC)
+#: src/core/ktechlab.kcfg:196
+#, kde-format
+msgid "Do not memcpy initialized data from code space to xdata space"
+msgstr ""
+"Не виконувати memcpy для ініціалізованих даних з простору коду до простору "
+"xdata"
+
+#. i18n: ectx: label, entry (SDCC_all_callee_saves), group (SDCC)
+#: src/core/ktechlab.kcfg:200
+#, kde-format
+msgid "Callee will always save registers used"
+msgstr "Функція виклику завжди зберігає використані регістри"
+
+#. i18n: ectx: label, entry (SDCC_nooverlay), group (SDCC)
+#: src/core/ktechlab.kcfg:205
+#, kde-format
+msgid "Do not overlay parameters and local variables"
+msgstr "Не накладати параметри на локальні змінні"
+
+#. i18n: ectx: label, entry (SDCC_nogcse), group (SDCC)
+#: src/core/ktechlab.kcfg:209
+#, kde-format
+msgid "Disable the GCSE optimization"
+msgstr "Вимкнути оптимізацію GCSE"
+
+#. i18n: ectx: label, entry (SDCC_nolabelopt), group (SDCC)
+#: src/core/ktechlab.kcfg:213
+#, kde-format
+msgid "Do not optimize labels"
+msgstr "Не оптимізувати мітки"
+
+#. i18n: ectx: label, entry (SDCC_noinvariant), group (SDCC)
+#: src/core/ktechlab.kcfg:217
+#, kde-format
+msgid "Disable optimization of invariants"
+msgstr "Вимкнути оптимізацію інваріантів"
+
+#. i18n: ectx: label, entry (SDCC_noinduction), group (SDCC)
+#: src/core/ktechlab.kcfg:221
+#, kde-format
+msgid "Disable loop variable induction"
+msgstr "Вимкнути індукцію змінних циклу"
+
+#. i18n: ectx: label, entry (SDCC_no_peep), group (SDCC)
+#: src/core/ktechlab.kcfg:225
+#, kde-format
+msgid "Disable peep-hole optimization"
+msgstr "Вимкнути оптимізацію для зондування"
+
+#. i18n: ectx: label, entry (SDCC_noloopreverse), group (SDCC)
+#: src/core/ktechlab.kcfg:229
+#, kde-format
+msgid "Do not do loop reversal optimization"
+msgstr "Не виконувати зворотної оптимізації циклів"
+
+#. i18n: ectx: label, entry (SDCC_opt_code_size), group (SDCC)
+#: src/core/ktechlab.kcfg:233
+#, kde-format
+msgid "Optimize for compact code"
+msgstr "Оптимізувати для компактності коду"
+
+#. i18n: ectx: label, entry (SDCC_opt_code_speed), group (SDCC)
+#: src/core/ktechlab.kcfg:237
+#, kde-format
+msgid "Optimize for fast code"
+msgstr "Оптимізувати для пришвидшення коду"
+
+#. i18n: ectx: label, entry (SDCC_peep_asm), group (SDCC)
+#: src/core/ktechlab.kcfg:241
+#, kde-format
+msgid "Pass inline assembler code through peep hole optimizer"
+msgstr "Пропустити вбудований код асемблера крізь оптимізатор для зондування"
+
+#. i18n: ectx: label, entry (SDCC_nojtbound), group (SDCC)
+#: src/core/ktechlab.kcfg:245
+#, kde-format
+msgid "Do not generate boundary check for jump tables"
+msgstr "Не створювати код перевірки потрапляння у межі для таблиць переходів"
+
+#. i18n: ectx: label, entry (SDCC_nodefaultlibs), group (SDCC)
+#: src/core/ktechlab.kcfg:250
+#, kde-format
+msgid "Do not use default libraries"
+msgstr "Не використовувати типові бібліотеки"
+
+#. i18n: ectx: label, entry (SDCC_pno_banksel), group (SDCC)
+#: src/core/ktechlab.kcfg:254
+#, kde-format
+msgid "Do not generate BANKSEL directives"
+msgstr "Не створювати директив BANKSEL"
+
+#. i18n: ectx: label, entry (SDCC_pstack_model_large), group (SDCC)
+#: src/core/ktechlab.kcfg:258
+#, kde-format
+msgid "Use large stack model"
+msgstr "Використовувати модель великого стека"
+
+#. i18n: ectx: label, entry (SDCC_debug_xtra), group (SDCC)
+#: src/core/ktechlab.kcfg:262
+#, kde-format
+msgid "Show more debug info in assembly output"
+msgstr "Показувати більше діагностичних даних у виведенні асемблера"
+
+#. i18n: ectx: label, entry (SDCC_denable_peeps), group (SDCC)
+#: src/core/ktechlab.kcfg:266
+#, kde-format
+msgid "Explicit enable of peepholes"
+msgstr "Явно увімкнути точки зондування"
+
+#. i18n: ectx: label, entry (SDCC_calltree), group (SDCC)
+#: src/core/ktechlab.kcfg:270
+#, kde-format
+msgid "Dump call tree in .calltree file"
+msgstr "Створити дамп ієрархії викликів у файлі .calltree"
+
+#. i18n: ectx: label, entry (SDCC_fstack), group (SDCC)
+#: src/core/ktechlab.kcfg:274
+#, kde-format
+msgid "Enable stack optimizations"
+msgstr "Увімкнути оптимізацію стека"
+
+#. i18n: ectx: label, entry (SDCC_optimize_goto), group (SDCC)
+#: src/core/ktechlab.kcfg:278
+#, kde-format
+msgid "Try to use conditional BRA instead of GOTO"
+msgstr "Намагатися використовувати умовний BRA замість GOTO"
+
+#. i18n: ectx: label, entry (SDCC_optimize_cmp), group (SDCC)
+#: src/core/ktechlab.kcfg:282
+#, kde-format
+msgid "Try to optimize some compares"
+msgstr "Спробувати оптимізувати деякі порівняння"
+
+#. i18n: ectx: label, entry (SDCC_optimize_df), group (SDCC)
+#: src/core/ktechlab.kcfg:286
+#, kde-format
+msgid "Thorough data flow analysis"
+msgstr "Повний аналіз руху даних"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_use_non_free)
+#. i18n: ectx: label, entry (SDCC_use_non_free), group (SDCC)
+#: src/core/ktechlab.kcfg:290 src/gui/sdccoptionswidget.ui:95
+#, kde-format
+msgid "Search / include non-free licensed libraries and header files"
+msgstr ""
+"Шукати і включати бібліотеки і файли заголовків із невільними умовами "
+"ліцензування"
+
+#. i18n: ectx: label, entry (SDCC_install_prefix), group (SDCC)
+#: src/core/ktechlab.kcfg:294
+#, kde-format
+msgid "Location where SDCC in installed"
+msgstr "Місце, куди встановлено SDCC"
+
+#. i18n: ectx: label, entry (PicProgrammerProgram), group (PicProgramming)
+#: src/core/ktechlab.kcfg:306
+#, kde-format
+msgid "The application to use to program the PIC."
+msgstr "Програма, яку слід використовувати для програмування PIC."
+
+#. i18n: ectx: label, entry (PicProgrammerPort), group (PicProgramming)
+#: src/core/ktechlab.kcfg:310
+#, kde-format
+msgid "The device (serial, parallel, etc...) used to program the PIC."
+msgstr ""
+"Пристрій (послідовний, паралельний тощо), який використовується для "
+"програмування PIC."
+
+#. i18n: ectx: label, entry (gplink_link_shared), group (Gplink)
+#: src/core/ktechlab.kcfg:317
+#, kde-format
+msgid "Check this if SDCC uses shared libs for compiling (newer SDCC does so)"
+msgstr ""
+"Позначте цей пункт, якщо SDCC використовує для компіляції бібліотеки "
+"спільного використання (характерно для новіших версій SDCC)"
+
+#: src/core/main.cpp:35
+#, kde-format
+msgid "KTechLab"
+msgstr "KTechLab"
+
+#: src/core/main.cpp:35
+#, kde-format
+msgid "An IDE for microcontrollers and electronics"
+msgstr "Комплексне середовище розробки для мікроконтролерів та електроніки"
+
+#: src/core/main.cpp:35
+#, kde-format
+msgid "(C) 2003-2017, The KTechLab developers"
+msgstr "© Розробники KTechLab, 2003–2017"
+
+#: src/core/main.cpp:36
+#, kde-format
+msgid "Alan Grimes"
+msgstr "Alan Grimes"
+
+#: src/core/main.cpp:36
+#, kde-format
+msgid "Developer, Simulation"
+msgstr "Розробник, імітація"
+
+#: src/core/main.cpp:37
+#, kde-format
+msgid "Zoltan Padrah"
+msgstr "Zoltan Padrah"
+
+#: src/core/main.cpp:37
+#, kde-format
+msgid "Developer"
+msgstr "Розробник"
+
+#: src/core/main.cpp:38
+#, kde-format
+msgid "Julian Bäume"
+msgstr "Julian Bäume"
+
+#: src/core/main.cpp:38
+#, kde-format
+msgid "Developer, KDE4 Port, GUI"
+msgstr "Розробник, портування на KDE4, графічний інтерфейс"
+
+#: src/core/main.cpp:39
+#, kde-format
+msgid "Juan De Vincenzo"
+msgstr "Juan De Vincenzo"
+
+#: src/core/main.cpp:39
+#, kde-format
+msgid "KDE4 Port"
+msgstr "Портування на KDE4"
+
+#: src/core/main.cpp:40
+#, kde-format
+msgid "Lawrence Shafer"
+msgstr "Lawrence Shafer"
+
+#: src/core/main.cpp:40
+#, kde-format
+msgid "Website, wiki and forum"
+msgstr "Сайт, вікі і форум"
+
+#: src/core/main.cpp:41
+#, kde-format
+msgid "Jason Lucas"
+msgstr "Jason Lucas"
+
+#: src/core/main.cpp:41
+#, kde-format
+msgid "Keeping up the project during lack of developers"
+msgstr "Підтримання проєкту, коли було мало розробників"
+
+#: src/core/main.cpp:42
+#, kde-format
+msgid "Former developer, project founder, former maintainer"
+msgstr "Колишній розробник, засновник проєкту, колишній супровідник"
+
+#: src/core/main.cpp:43
+#, kde-format
+msgid "Former developer"
+msgstr "Колишній розробник"
+
+#: src/core/main.cpp:44
+#, kde-format
+msgid "Couriousous"
+msgstr "Couriousous"
+
+#: src/core/main.cpp:44
+#, kde-format
+msgid "JK flip-flop, asynchronous preset/reset in the D flip-flop"
+msgstr "Тригер JK-типу, асинхронне встановлення/скидання у тригері D-типу."
+
+#: src/core/main.cpp:45 src/electronics/components/rotoswitch.cpp:41
+#, kde-format
+msgid "Rotary Switch"
+msgstr "Обертовий перемикач"
+
+#: src/core/main.cpp:45
+#, kde-format
+msgid "John Myers"
+msgstr "John Myers"
+
+#: src/core/main.cpp:46
+#, kde-format
+msgid "Ali Akcaagac"
+msgstr "Ali Akcaagac"
+
+#: src/core/main.cpp:46
+#, kde-format
+msgid "Glib friendliness"
+msgstr "Сумісність із Glib"
+
+#: src/core/main.cpp:47
+#, kde-format
+msgid "David Leggett"
+msgstr "David Leggett"
+
+#: src/core/main.cpp:47
+#, kde-format
+msgid "Former website hosting and feedback during early development"
+msgstr "Колишній утримувач сайта та дорадник на ранньому етапі розробки."
+
+#: src/core/main.cpp:56
+#, kde-format
+msgid "Document to open."
+msgstr "Документ, який слід відкрити."
+
+#: src/docmanager.cpp:96
+#, kde-format
+msgid "Could not open '%1'"
+msgstr "Не вдалося відкрити «%1»"
+
+#: src/docmanager.cpp:164
+#, kde-format
+msgid "Untitled (Circuit %1)"
+msgstr "Без назви (схема %1)"
+
+#: src/docmanager.cpp:166
+#, kde-format
+msgid "Untitled (Circuit)"
+msgstr "Без назви (схема)"
+
+#: src/docmanager.cpp:172
+#, kde-format
+msgid "Untitled (FlowCode %1)"
+msgstr "Без назви (FlowCode %1)"
+
+#: src/docmanager.cpp:174
+#, kde-format
+msgid "Untitled (FlowCode)"
+msgstr "Без назви (FlowCode)"
+
+#: src/docmanager.cpp:180
+#, kde-format
+msgid "Untitled (Mechanics %1)"
+msgstr "Без назви (Mechanics %1)"
+
+#: src/docmanager.cpp:182
+#, kde-format
+msgid "Untitled (Mechanics)"
+msgstr "Без назви (Mechanics)"
+
+#: src/docmanager.cpp:188
+#, kde-format
+msgid "Untitled (%1)"
+msgstr "Без назви (%1)"
+
+#: src/docmanager.cpp:190 src/view.cpp:242
+#, kde-format
+msgid "Untitled"
+msgstr "Без назви"
+
+#: src/docmanager.cpp:407
+#, kde-format
+msgid "Could not open Circuit file \"%1\""
+msgstr "Не вдалося відкрити файл схеми «%1»"
+
+#: src/docmanager.cpp:422
+#, kde-format
+msgid "Could not open FlowCode file \"%1\""
+msgstr "Не вдалося відкрити файл FlowCode «%1»"
+
+#: src/docmanager.cpp:437
+#, kde-format
+msgid "Could not open Mechanics file \"%1\""
+msgstr "Не вдалося відкрити файл Mechanics «%1»"
+
+#: src/docmanager.cpp:455
+#, kde-format
+msgid "Could not open text file \"%1\""
+msgstr "Не вдалося відкрити текстовий файл «%1»"
+
+#: src/document.cpp:101
+#, kde-format
+msgid "Save Location"
+msgstr "Адреса зберігання"
+
+#: src/document.cpp:107 src/itemdocument.cpp:825
+#, kde-format
+msgid ""
+"A file named \"%1\" already exists. Are you sure you want to overwrite it?"
+msgstr "Файл з назвою «%1» вже існує. Хочете його перезаписати?"
+
+#: src/document.cpp:107 src/itemdocument.cpp:828
+#, kde-format
+msgid "Overwrite File?"
+msgstr "Перезаписати файл?"
+
+#: src/document.cpp:126
+#, kde-format
+msgid ""
+"The document '%1' has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Документ «%1» було змінено.\n"
+"Хочете його зберегти?"
+
+#: src/document.cpp:126
+#, kde-format
+msgid "Save Document?"
+msgstr "Зберегти документ?"
+
+#: src/drawparts/dpimage.cpp:129 src/drawparts/dpline.cpp:29
+#: src/drawparts/dpline.cpp:142 src/drawparts/dptext.cpp:36
+#: src/drawparts/solidshape.cpp:29 src/drawparts/solidshape.cpp:135
+#, kde-format
+msgid "Other"
+msgstr "Інше"
+
+#: src/drawparts/dpimage.cpp:129 src/drawparts/dpimage.cpp:145
+#: src/itemview.cpp:127
+#, kde-format
+msgid "Image"
+msgstr "Зображення"
+
+#: src/drawparts/dpimage.cpp:148
+#, kde-format
+msgid "Image File"
+msgstr "Файл зображення"
+
+#: src/drawparts/dpline.cpp:29 src/drawparts/dpline.cpp:36 src/itemview.cpp:123
+#, kde-format
+msgid "Line"
+msgstr "Лінія"
+
+#: src/drawparts/dpline.cpp:39 src/drawparts/solidshape.cpp:50
+#, kde-format
+msgid "Line Color"
+msgstr "Колір лінії"
+
+#: src/drawparts/dpline.cpp:43 src/drawparts/solidshape.cpp:54
+#, kde-format
+msgid "Line Width"
+msgstr "Товщина лінії"
+
+#: src/drawparts/dpline.cpp:49 src/drawparts/solidshape.cpp:62
+#, kde-format
+msgid "Line Style"
+msgstr "Стиль лінії"
+
+#: src/drawparts/dpline.cpp:54
+#, kde-format
+msgid "Cap Style"
+msgstr "Стиль кінчика"
+
+#: src/drawparts/dpline.cpp:142 src/drawparts/dpline.cpp:148
+#: src/itemview.cpp:124
+#, kde-format
+msgid "Arrow"
+msgstr "Стрілка"
+
+#: src/drawparts/dpline.cpp:158
+#, kde-format
+msgid "Head angle"
+msgstr "Кут кінчика"
+
+#: src/drawparts/dptext.cpp:36
+#, kde-format
+msgid "Canvas Text"
+msgstr "Текст на полотні"
+
+#: src/drawparts/dptext.cpp:43 src/drawparts/dptext.cpp:46 src/itemview.cpp:122
+#, kde-format
+msgid "Text"
+msgstr "Текст"
+
+#: src/drawparts/dptext.cpp:50 src/drawparts/solidshape.cpp:40
+#, kde-format
+msgid "Display Background"
+msgstr "Тло панелі показу"
+
+#: src/drawparts/dptext.cpp:55 src/drawparts/solidshape.cpp:45
+#, kde-format
+msgid "Background Color"
+msgstr "Колір тла"
+
+#: src/drawparts/dptext.cpp:60
+#, kde-format
+msgid "Frame Color"
+msgstr "Колір рамки"
+
+#: src/drawparts/drawpart.cpp:189
+#, kde-format
+msgid "Solid"
+msgstr "Суцільна"
+
+#: src/drawparts/drawpart.cpp:191 src/drawparts/drawpart.cpp:207
+#, kde-format
+msgid "None"
+msgstr "Немає"
+
+#: src/drawparts/drawpart.cpp:193 src/drawparts/drawpart.cpp:209
+#, kde-format
+msgid "Dash"
+msgstr "Штрихова"
+
+#: src/drawparts/drawpart.cpp:195 src/drawparts/drawpart.cpp:211
+#, kde-format
+msgid "Dot"
+msgstr "Пунктир"
+
+#: src/drawparts/drawpart.cpp:197 src/drawparts/drawpart.cpp:213
+#, kde-format
+msgid "Dash Dot"
+msgstr "Штрих-пунктир"
+
+#: src/drawparts/drawpart.cpp:199 src/drawparts/drawpart.cpp:215
+#, kde-format
+msgid "Dash Dot Dot"
+msgstr "Штрих-подвійний пунктир"
+
+#: src/drawparts/drawpart.cpp:223
+#, kde-format
+msgid "Flat"
+msgstr "Плоский"
+
+#: src/drawparts/drawpart.cpp:225 src/drawparts/drawpart.cpp:235
+#, kde-format
+msgid "Square"
+msgstr "Квадратний"
+
+#: src/drawparts/drawpart.cpp:227 src/drawparts/drawpart.cpp:237
+#, kde-format
+msgid "Round"
+msgstr "Круглий"
+
+#: src/drawparts/solidshape.cpp:29 src/drawparts/solidshape.cpp:36
+#: src/itemview.cpp:126
+#, kde-format
+msgid "Rectangle"
+msgstr "Прямокутник"
+
+#: src/drawparts/solidshape.cpp:135 src/drawparts/solidshape.cpp:141
+#: src/itemview.cpp:125
+#, kde-format
+msgid "Ellipse"
+msgstr "Еліпс"
+
+#: src/electronics/circuitdocument.cpp:43
+#, kde-format
+msgid "Orientation"
+msgstr "Орієнтація"
+
+#: src/electronics/circuitdocument.cpp:47
+#: src/electronics/components/piccomponent.cpp:92 src/flowcodedocument.cpp:49
+#: src/flowcodedocument.cpp:169 src/flowcodedocument.cpp:190
+#: src/flowcodedocument.cpp:211 src/ktechlab.cpp:1162
+#: src/mechanics/mechanicsdocument.cpp:28 src/projectmanager.cpp:908
+#: src/textdocument.cpp:437 src/textdocument.cpp:472
+#, kde-format
+msgid "All Files"
+msgstr "Всі файли"
+
+#. i18n("Circuit"), "application-x-circuit", 0, this, SLOT(slotFileNewCircuit()), ac, "newfile_circuit" ))->plug( p->menu() );
+#: src/electronics/circuitdocument.cpp:47 src/gui/newfiledlg.cpp:77
+#: src/ktechlab.cpp:474 src/ktechlab.cpp:1165
+#, kde-format
+msgid "Circuit"
+msgstr "Схема"
+
+#: src/electronics/circuitdocument.cpp:740
+#, kde-format
+msgid "No components were found in the selection."
+msgstr "У позначеному фрагменті компонентів не виявлено."
+
+#: src/electronics/circuitdocument.cpp:747
+#, kde-format
+msgid "No External Connection components were found in the selection."
+msgstr "У позначеному фрагменті компонентів зовнішнього з’єднання не виявлено."
+
+#: src/electronics/components/addac.cpp:33
+#: src/electronics/components/addac.cpp:38
+#: src/electronics/components/binarycounter.cpp:29
+#: src/electronics/components/demultiplexer.cpp:27
+#: src/electronics/components/ec555.cpp:28
+#: src/electronics/components/ecbcdto7segment.cpp:43
+#: src/electronics/components/ecopamp.cpp:26
+#: src/electronics/components/flipflop.cpp:70
+#: src/electronics/components/flipflop.cpp:221
+#: src/electronics/components/flipflop.cpp:369
+#: src/electronics/components/fulladder.cpp:30
+#: src/electronics/components/magnitudecomparator.cpp:30
+#: src/electronics/components/matrixdisplaydriver.cpp:298
+#: src/electronics/components/multiplexer.cpp:32
+#: src/electronics/components/piccomponent.cpp:54
+#: src/electronics/components/ram.cpp:31
+#, kde-format
+msgid "Integrated Circuits"
+msgstr "Інтегральні схеми"
+
+#: src/electronics/components/addac.cpp:33
+#, kde-format
+msgid "Analog-Digital"
+msgstr "Аналогово-цифровий"
+
+#: src/electronics/components/addac.cpp:38
+#, kde-format
+msgid "Digital-Analog"
+msgstr "Цифрово-аналоговий"
+
+#: src/electronics/components/addac.cpp:49
+#, kde-format
+msgid "Number Bits"
+msgstr "Бітність"
+
+#: src/electronics/components/addac.cpp:55
+#, kde-format
+msgid "Input Range"
+msgstr "Вхідний діапазон"
+
+#: src/electronics/components/addac.cpp:78
+#, kde-format
+msgid "ADC"
+msgstr "ADC"
+
+#: src/electronics/components/addac.cpp:161
+#, kde-format
+msgid "DAC"
+msgstr "DAC"
+
+#: src/electronics/components/bidirled.cpp:29
+#: src/electronics/components/bidirled.cpp:35
+#, kde-format
+msgid "Bidirectional LED"
+msgstr "Двобічний LED"
+
+#: src/electronics/components/bidirled.cpp:29
+#: src/electronics/components/ecsevensegment.cpp:30
+#: src/electronics/components/ecsignallamp.cpp:34
+#: src/electronics/components/led.cpp:28
+#: src/electronics/components/ledbargraphdisplay.cpp:86
+#: src/electronics/components/matrixdisplay.cpp:32
+#: src/electronics/components/meter.cpp:161
+#: src/electronics/components/meter.cpp:194
+#: src/electronics/components/meter.cpp:228
+#: src/electronics/components/probe.cpp:135
+#: src/electronics/components/probe.cpp:167
+#: src/electronics/components/probe.cpp:207
+#, kde-format
+msgid "Outputs"
+msgstr "Виходи"
+
+#: src/electronics/components/bidirled.cpp:52
+#, kde-format
+msgid "Color 1"
+msgstr "Колір 1"
+
+#: src/electronics/components/bidirled.cpp:56
+#, kde-format
+msgid "Colour 2"
+msgstr "Колір 2"
+
+#: src/electronics/components/binarycounter.cpp:29
+#: src/electronics/components/binarycounter.cpp:52
+#, kde-format
+msgid "Binary Counter"
+msgstr "Двійковий лічильник"
+
+#: src/electronics/components/binarycounter.cpp:67
+#: src/electronics/components/flipflop.cpp:27
+#: src/electronics/components/flipflop.cpp:237
+#, kde-format
+msgid "Trigger Edge"
+msgstr "Напрям тригера"
+
+#: src/electronics/components/binarycounter.cpp:69
+#: src/electronics/components/flipflop.cpp:29
+#: src/electronics/components/flipflop.cpp:239
+#, kde-format
+msgid "Rising"
+msgstr "Прямий"
+
+#: src/electronics/components/binarycounter.cpp:70
+#: src/electronics/components/flipflop.cpp:30
+#: src/electronics/components/flipflop.cpp:240
+#, kde-format
+msgid "Falling"
+msgstr "Зворотний"
+
+#: src/electronics/components/binarycounter.cpp:75
+#, kde-format
+msgid "Bit Count"
+msgstr "Бітність"
+
+#: src/electronics/components/bussplitter.cpp:26
+#, kde-format
+msgid "Bus"
+msgstr "Шина"
+
+#: src/electronics/components/bussplitter.cpp:26
+#: src/electronics/components/externalconnection.cpp:24
+#: src/electronics/components/parallelportcomponent.cpp:43
+#: src/electronics/components/serialportcomponent.cpp:44
+#, kde-format
+msgid "Connections"
+msgstr "З'єднання"
+
+#: src/electronics/components/bussplitter.cpp:34
+#, kde-format
+msgid "Bus Splitter"
+msgstr "Розгалужувач шини"
+
+#: src/electronics/components/bussplitter.cpp:41
+#, kde-format
+msgid "Size"
+msgstr "Розмір"
+
+#: src/electronics/components/capacitor.cpp:26
+#: src/electronics/components/ecpotentiometer.cpp:28
+#: src/electronics/components/inductor.cpp:25
+#: src/electronics/components/resistor.cpp:26
+#: src/electronics/components/resistordip.cpp:26
+#: src/electronics/components/variablecapacitor.cpp:30
+#: src/electronics/components/variableresistor.cpp:29
+#: src/electronics/components/voltageregulator.cpp:29
+#, kde-format
+msgid "Passive"
+msgstr "Пасивні"
+
+#: src/electronics/components/capacitor.cpp:26
+#: src/electronics/components/capacitor.cpp:32 src/ktechlab.cpp:675
+#, kde-format
+msgid "Capacitor"
+msgstr "Конденсатор"
+
+#: src/electronics/components/capacitor.cpp:41
+#: src/electronics/components/variablecapacitor.cpp:62
+#, kde-format
+msgid "Capacitance"
+msgstr "Ємність"
+
+#: src/electronics/components/demultiplexer.cpp:27
+#: src/electronics/components/demultiplexer.cpp:38
+#, kde-format
+msgid "Demultiplexer"
+msgstr "Демультиплексор"
+
+#: src/electronics/components/demultiplexer.cpp:43
+#: src/electronics/components/multiplexer.cpp:43
+#: src/electronics/components/ram.cpp:53
+#, kde-format
+msgid "Address Size"
+msgstr "Розмір адреси"
+
+#: src/electronics/components/dependentsource.cpp:37
+#, kde-format
+msgid "Gain"
+msgstr "Підсилення"
+
+#: src/electronics/components/dependentsource.cpp:129
+#: src/electronics/components/dependentsource.cpp:172
+#: src/electronics/components/dependentsource.cpp:214
+#: src/electronics/components/dependentsource.cpp:256
+#: src/electronics/components/eccurrentsignal.cpp:28
+#: src/electronics/components/eccurrentsource.cpp:27
+#: src/electronics/components/ecfixedvoltage.cpp:26
+#: src/electronics/components/ecground.cpp:26
+#: src/electronics/components/ecvoltagesignal.cpp:32
+#: src/electronics/components/ecvoltagesource.cpp:31
+#, kde-format
+msgid "Sources"
+msgstr "Джерела"
+
+#: src/electronics/components/dependentsource.cpp:129
+#, kde-format
+msgid "CCCS"
+msgstr "CCCS"
+
+#: src/electronics/components/dependentsource.cpp:135
+#, kde-format
+msgid "Current Controlled Current Source"
+msgstr "Кероване силою струму джерело струму"
+
+#: src/electronics/components/dependentsource.cpp:172
+#, kde-format
+msgid "CCVS"
+msgstr "CCVS"
+
+#: src/electronics/components/dependentsource.cpp:178
+#, kde-format
+msgid "Current Controlled Voltage Source"
+msgstr "Кероване силою струму джерело напруги"
+
+#: src/electronics/components/dependentsource.cpp:214
+#, kde-format
+msgid "VCCS"
+msgstr "VCCS"
+
+#: src/electronics/components/dependentsource.cpp:220
+#, kde-format
+msgid "Voltage Controlled Current Source"
+msgstr "Кероване напругою джерело струму"
+
+#: src/electronics/components/dependentsource.cpp:256
+#, kde-format
+msgid "VCVS"
+msgstr "VCVS"
+
+#: src/electronics/components/dependentsource.cpp:262
+#, kde-format
+msgid "Voltage Controlled Voltage Source"
+msgstr "Кероване напругою джерело напруги"
+
+#: src/electronics/components/discretelogic.cpp:32
+#: src/electronics/components/discretelogic.cpp:90
+#: src/electronics/components/discretelogic.cpp:147
+#: src/electronics/components/discretelogic.cpp:203
+#: src/electronics/components/ecclockinput.cpp:41
+#: src/electronics/components/multiinputgate.cpp:218
+#: src/electronics/components/multiinputgate.cpp:278
+#: src/electronics/components/multiinputgate.cpp:336
+#: src/electronics/components/multiinputgate.cpp:395
+#: src/electronics/components/multiinputgate.cpp:454
+#: src/electronics/components/multiinputgate.cpp:508
+#: src/gui/settingsdlg.cpp:136
+#, kde-format
+msgid "Logic"
+msgstr "Логіка"
+
+#: src/electronics/components/discretelogic.cpp:32
+#: src/electronics/components/discretelogic.cpp:43 src/ktechlab.cpp:682
+#: src/ktechlab.cpp:692
+#, kde-format
+msgid "Inverter"
+msgstr "Інвертор"
+
+#: src/electronics/components/discretelogic.cpp:90
+#: src/electronics/components/discretelogic.cpp:101
+#, kde-format
+msgid "Buffer"
+msgstr "Буфер"
+
+#: src/electronics/components/discretelogic.cpp:147
+#: src/electronics/components/discretelogic.cpp:153
+#, kde-format
+msgid "Logic Input"
+msgstr "Логічний вхід"
+
+#: src/electronics/components/discretelogic.cpp:160
+#, kde-format
+msgid "Use Toggle"
+msgstr "Використання перемикача"
+
+#: src/electronics/components/discretelogic.cpp:203
+#: src/electronics/components/discretelogic.cpp:214
+#, kde-format
+msgid "Logic Output"
+msgstr "Логічний вихід"
+
+#: src/electronics/components/ec555.cpp:28
+#: src/electronics/components/ec555.cpp:34
+#, kde-format
+msgid "555"
+msgstr "555"
+
+#: src/electronics/components/ecbcdto7segment.cpp:43
+#, kde-format
+msgid "BCD to 7 Segment"
+msgstr "BCD до сегментного індикатора"
+
+#: src/electronics/components/ecbcdto7segment.cpp:54
+#, kde-format
+msgid "BCD to Seven Segment"
+msgstr "BCD до сегментного індикатора"
+
+#: src/electronics/components/ecbjt.cpp:31
+#, kde-format
+msgid "NPN"
+msgstr "NPN"
+
+#: src/electronics/components/ecbjt.cpp:31
+#: src/electronics/components/ecbjt.cpp:36
+#: src/electronics/components/ecdiode.cpp:26
+#: src/electronics/components/ecjfet.cpp:33
+#: src/electronics/components/ecjfet.cpp:44
+#: src/electronics/components/ecmosfet.cpp:44
+#: src/electronics/components/ecmosfet.cpp:55
+#: src/electronics/components/ecmosfet.cpp:67
+#: src/electronics/components/ecmosfet.cpp:79
+#, kde-format
+msgid "Discrete"
+msgstr "Дискретні"
+
+#: src/electronics/components/ecbjt.cpp:36
+#, kde-format
+msgid "PNP"
+msgstr "PNP"
+
+#: src/electronics/components/ecbjt.cpp:44
+#, kde-format
+msgid "NPN Transistor"
+msgstr "Транзистор NPN"
+
+#: src/electronics/components/ecbjt.cpp:46
+#, kde-format
+msgid "PNP Transistor"
+msgstr "Транзистор PNP"
+
+#: src/electronics/components/ecbjt.cpp:54
+#: src/electronics/components/ecmosfet.cpp:128
+#, kde-format
+msgid "Saturation Current"
+msgstr "Струм насичення"
+
+#: src/electronics/components/ecbjt.cpp:62
+#: src/electronics/components/ecmosfet.cpp:136
+#, kde-format
+msgid "Forward Coefficient"
+msgstr "Прямий коефіцієнт"
+
+#: src/electronics/components/ecbjt.cpp:69
+#: src/electronics/components/ecmosfet.cpp:143
+#, kde-format
+msgid "Reverse Coefficient"
+msgstr "Зворотний коефіцієнт"
+
+#: src/electronics/components/ecbjt.cpp:76
+#: src/electronics/components/ecmosfet.cpp:150
+#, kde-format
+msgid "Forward Beta"
+msgstr "Пряма β"
+
+#: src/electronics/components/ecbjt.cpp:83
+#: src/electronics/components/ecmosfet.cpp:157
+#, kde-format
+msgid "Reverse Beta"
+msgstr "Зворотна β"
+
+#: src/electronics/components/ecclockinput.cpp:41
+#: src/electronics/components/ecclockinput.cpp:47
+#, kde-format
+msgid "Clock Input"
+msgstr "Тактовий вхід"
+
+#: src/electronics/components/ecclockinput.cpp:69 src/flowparts/pulse.cpp:46
+#, kde-format
+msgid "Low Time"
+msgstr "Тривалість закриття"
+
+#: src/electronics/components/ecclockinput.cpp:75 src/flowparts/pulse.cpp:41
+#, kde-format
+msgid "High Time"
+msgstr "Тривалість відкриття"
+
+#: src/electronics/components/eccurrentsignal.cpp:28
+#: src/electronics/components/eccurrentsignal.cpp:34
+#, kde-format
+msgid "Current Signal"
+msgstr "Сигнал сили струму"
+
+#: src/electronics/components/eccurrentsignal.cpp:45
+#: src/electronics/components/ecvoltagesignal.cpp:49
+#, kde-format
+msgid "Frequency"
+msgstr "Частота"
+
+#: src/electronics/components/eccurrentsignal.cpp:52
+#, kde-format
+msgid "Current Range"
+msgstr "Діапазон сили струму"
+
+#: src/electronics/components/eccurrentsource.cpp:27
+#: src/electronics/components/eccurrentsource.cpp:33
+#, kde-format
+msgid "Current Source"
+msgstr "Джерело струму"
+
+#: src/electronics/components/eccurrentsource.cpp:43
+#, kde-format
+msgid "Current"
+msgstr "Сила струму"
+
+#: src/electronics/components/ecdiode.cpp:26
+#: src/electronics/components/ecdiode.cpp:32
+#, kde-format
+msgid "Diode"
+msgstr "Діод"
+
+#: src/electronics/components/ecdiode.cpp:52
+#: src/electronics/components/ledbargraphdisplay.cpp:122
+#, kde-format
+msgid "Emission Coefficient"
+msgstr "Коефіцієнт емісії"
+
+#: src/electronics/components/ecdiode.cpp:59
+#: src/electronics/components/ledbargraphdisplay.cpp:129
+#, kde-format
+msgid "Breakdown Voltage"
+msgstr "Напруга розриву"
+
+#: src/electronics/components/ecfixedvoltage.cpp:26
+#: src/electronics/components/ecfixedvoltage.cpp:32
+#, kde-format
+msgid "Fixed Voltage"
+msgstr "Постійна напруга"
+
+#: src/electronics/components/ecfixedvoltage.cpp:43
+#: src/electronics/components/ecvoltagesource.cpp:49
+#, kde-format
+msgid "Voltage"
+msgstr "Напруга"
+
+#: src/electronics/components/ecground.cpp:26
+#, kde-format
+msgid "Ground (0V)"
+msgstr "Земля (0 В)"
+
+#: src/electronics/components/ecground.cpp:32
+#, kde-format
+msgid "Ground"
+msgstr "Земля"
+
+#. i18n("n JFET"),
+#: src/electronics/components/ecjfet.cpp:32
+#, kde-format
+msgid "n-JFET"
+msgstr "n-JFET"
+
+#. i18n("p JFET"),
+#: src/electronics/components/ecjfet.cpp:43
+#, kde-format
+msgid "p-JFET"
+msgstr "p-JFET"
+
+#: src/electronics/components/ecjfet.cpp:55
+#, kde-format
+msgid "N-Channel JFET"
+msgstr "N-канальний JFET"
+
+#: src/electronics/components/ecjfet.cpp:57
+#, kde-format
+msgid "P-Channel JFET"
+msgstr "P-канальний JFET"
+
+#: src/electronics/components/ecjfet.cpp:65
+#, kde-format
+msgid "Threshold voltage"
+msgstr "Порогова напруга"
+
+#: src/electronics/components/ecjfet.cpp:73
+#, kde-format
+msgid "Transcondutance"
+msgstr "Транспровідність"
+
+#: src/electronics/components/ecjfet.cpp:81
+#, kde-format
+msgid "Saturation current"
+msgstr "Струм насичення"
+
+#: src/electronics/components/ecjfet.cpp:89
+#, kde-format
+msgid "PN emission coefficient"
+msgstr "Коефіцієнт емісії PN"
+
+#: src/electronics/components/ecjfet.cpp:97
+#, kde-format
+msgid "Isr emission coefficient"
+msgstr "Коефіцієнт емісії ISR"
+
+#: src/electronics/components/eckeypad.cpp:26
+#: src/electronics/components/eckeypad.cpp:34 src/flowparts/keypad.cpp:25
+#: src/flowparts/keypad.cpp:31
+#, kde-format
+msgid "Keypad"
+msgstr "Цифрова клавіатура"
+
+#: src/electronics/components/eckeypad.cpp:26
+#: src/electronics/components/pushswitch.cpp:30
+#: src/electronics/components/pushswitch.cpp:113
+#: src/electronics/components/rotoswitch.cpp:34
+#: src/electronics/components/toggleswitch.cpp:29
+#: src/electronics/components/toggleswitch.cpp:123
+#: src/electronics/components/toggleswitch.cpp:208
+#: src/electronics/components/toggleswitch.cpp:291
+#, kde-format
+msgid "Switches"
+msgstr "Перемикачі"
+
+#: src/electronics/components/eckeypad.cpp:37
+#, kde-format
+msgid "Use Toggles"
+msgstr "Використовувати перемикачі"
+
+#: src/electronics/components/eckeypad.cpp:41
+#: src/electronics/components/matrixdisplay.cpp:61
+#, kde-format
+msgid "Columns"
+msgstr "Стовпчики"
+
+#. i18n("n-e MOSFET"),
+#: src/electronics/components/ecmosfet.cpp:43
+#, kde-format
+msgid "n-MOSFET"
+msgstr "n-MOSFET"
+
+#. i18n("p-e MOSFET"),
+#: src/electronics/components/ecmosfet.cpp:54
+#, kde-format
+msgid "p-MOSFET"
+msgstr "p-MOSFET"
+
+#: src/electronics/components/ecmosfet.cpp:66
+#, kde-format
+msgid "n-d MOSFET"
+msgstr "n-d MOSFET"
+
+#: src/electronics/components/ecmosfet.cpp:78
+#, kde-format
+msgid "p-d MOSFET"
+msgstr "p-d MOSFET"
+
+#: src/electronics/components/ecmosfet.cpp:92
+#, kde-format
+msgid "N-Channel Enhancement MOSFET"
+msgstr "N-канальний MOSFET збагачення"
+
+#: src/electronics/components/ecmosfet.cpp:97
+#, kde-format
+msgid "P-Channel Enhancement MOSFET"
+msgstr "P-канальний MOSFET збагачення"
+
+#: src/electronics/components/ecmosfet.cpp:104
+#, kde-format
+msgid "N-Channel Depletion MOSFET"
+msgstr "N-канальний MOSFET збіднення"
+
+#: src/electronics/components/ecmosfet.cpp:110
+#, kde-format
+msgid "P-Channel Depletion MOSFET"
+msgstr "P-канальний MOSFET збіднення"
+
+#: src/electronics/components/ecmosfet.cpp:122
+#, kde-format
+msgctxt "mosfet body/bulk pin"
+msgid "Body Pin"
+msgstr "Контакт бази"
+
+#: src/electronics/components/ecopamp.cpp:26
+#, kde-format
+msgid "Op Amp"
+msgstr "Операційний підсилювач"
+
+#: src/electronics/components/ecopamp.cpp:32
+#, kde-format
+msgid "Operational Amplifier"
+msgstr "Операційний підсилювач"
+
+#: src/electronics/components/ecpotentiometer.cpp:28
+#: src/electronics/components/ecpotentiometer.cpp:34
+#, kde-format
+msgid "Potentiometer"
+msgstr "Потенціометр"
+
+#: src/electronics/components/ecpotentiometer.cpp:48
+#: src/electronics/components/resistor.cpp:40
+#: src/electronics/components/resistordip.cpp:39
+#: src/electronics/components/variableresistor.cpp:54
+#, kde-format
+msgid "Resistance"
+msgstr "Опір"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, typeCombo)
+#: src/electronics/components/ecsevensegment.cpp:30
+#: src/flowparts/sevenseg.cpp:25 src/gui/newpinmappingwidget.ui:105
+#, kde-format
+msgid "Seven Segment"
+msgstr "Сегментний індикатор"
+
+#: src/electronics/components/ecsevensegment.cpp:36
+#, kde-format
+msgid "Seven Segment LED"
+msgstr "Сегментний індикатор (LED)"
+
+#: src/electronics/components/ecsevensegment.cpp:43
+#: src/electronics/components/led.cpp:43
+#: src/electronics/components/ledbargraphdisplay.cpp:108
+#: src/electronics/components/matrixdisplay.cpp:67
+#: src/electronics/components/probe.cpp:33
+#, kde-format
+msgid "Color"
+msgstr "Колір"
+
+#: src/electronics/components/ecsevensegment.cpp:47
+#: src/electronics/components/matrixdisplay.cpp:71
+#: src/electronics/components/matrixdisplaydriver.cpp:311
+#, kde-format
+msgid "Configuration"
+msgstr "Налаштування"
+
+#: src/electronics/components/ecsevensegment.cpp:49
+#, kde-format
+msgid "Common Cathode"
+msgstr "Загальний катод"
+
+#: src/electronics/components/ecsevensegment.cpp:50
+#, kde-format
+msgid "Common Anode"
+msgstr "Загальний анод"
+
+#: src/electronics/components/ecsignallamp.cpp:34
+#: src/electronics/components/ecsignallamp.cpp:40
+#, kde-format
+msgid "Signal Lamp"
+msgstr "Сигнальна лампа"
+
+#: src/electronics/components/ecsubcircuit.cpp:36
+#, kde-format
+msgid "Subcircuit"
+msgstr "Підсхема"
+
+#: src/electronics/components/ecvoltagesignal.cpp:32
+#: src/electronics/components/ecvoltagesignal.cpp:38
+#, kde-format
+msgid "Voltage Signal"
+msgstr "Сигнал напруги"
+
+#: src/electronics/components/ecvoltagesignal.cpp:56
+#, kde-format
+msgid "Voltage Range"
+msgstr "Діапазон напруги"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
+#: src/electronics/components/ecvoltagesignal.cpp:66 src/gui/logicwidget.ui:142
+#, kde-format
+msgid "Output"
+msgstr "Вихід"
+
+#: src/electronics/components/ecvoltagesignal.cpp:68
+#, kde-format
+msgid "Peak"
+msgstr "Пік"
+
+#: src/electronics/components/ecvoltagesignal.cpp:69
+#, kde-format
+msgid "RMS"
+msgstr "СКВ"
+
+#: src/electronics/components/ecvoltagesource.cpp:31
+#: src/electronics/components/ecvoltagesource.cpp:37
+#, kde-format
+msgid "Battery"
+msgstr "Акумулятор"
+
+#: src/electronics/components/externalconnection.cpp:24
+#: src/electronics/components/externalconnection.cpp:30
+#, kde-format
+msgid "External Connection"
+msgstr "Зовнішнє з’єднання"
+
+#. i18n: ectx: property (text), widget (QLabel, m_pNameLabel)
+#: src/electronics/components/externalconnection.cpp:34
+#: src/gui/contexthelpwidget.ui:29 src/gui/microsettingsdlg.cpp:331
+#: src/gui/settingsdlg.cpp:286 src/gui/symbolviewer.cpp:124
+#: src/gui/symbolviewer.cpp:126 src/gui/symbolviewer.cpp:191
+#: src/gui/symbolviewer.cpp:193
+#, kde-format
+msgid "Name"
+msgstr "Назва"
+
+#: src/electronics/components/flipflop.cpp:70
+#, kde-format
+msgid "D Flip-Flop"
+msgstr "D-тригер"
+
+#: src/electronics/components/flipflop.cpp:76
+#, kde-format
+msgid "D-Type Flip-Flop"
+msgstr "Тригер D-типу"
+
+#: src/electronics/components/flipflop.cpp:221
+#, kde-format
+msgid "JK Flip-Flop"
+msgstr "JK-тригер"
+
+#: src/electronics/components/flipflop.cpp:227
+#, kde-format
+msgid "JK-Type Flip-Flop"
+msgstr "Тригер JK-типу"
+
+#: src/electronics/components/flipflop.cpp:369
+#: src/electronics/components/flipflop.cpp:375
+#, kde-format
+msgid "SR Flip-Flop"
+msgstr "SR-тригер"
+
+#: src/electronics/components/fulladder.cpp:30
+#: src/electronics/components/fulladder.cpp:36
+#, kde-format
+msgid "Adder"
+msgstr "Суматор"
+
+#: src/electronics/components/inductor.cpp:25
+#: src/electronics/components/inductor.cpp:31
+#, kde-format
+msgid "Inductor"
+msgstr "Індуктивна котушка"
+
+#: src/electronics/components/inductor.cpp:40
+#, kde-format
+msgid "Inductance"
+msgstr "Індуктивність"
+
+#: src/electronics/components/led.cpp:28 src/electronics/components/led.cpp:35
+#, kde-format
+msgid "LED"
+msgstr "LED"
+
+#: src/electronics/components/ledbargraphdisplay.cpp:86
+#: src/electronics/components/ledbargraphdisplay.cpp:92
+#, kde-format
+msgid "Bar Graph Display"
+msgstr "Стовпчиковий індикатор"
+
+#: src/electronics/components/ledbargraphdisplay.cpp:102
+#: src/electronics/components/matrixdisplay.cpp:55
+#, kde-format
+msgid "Rows"
+msgstr "Рядки"
+
+#: src/electronics/components/magnitudecomparator.cpp:30
+#: src/electronics/components/magnitudecomparator.cpp:36
+#, kde-format
+msgid "Magnitude Comparator"
+msgstr "Порівняння амплітуди"
+
+#: src/electronics/components/magnitudecomparator.cpp:39
+#: src/electronics/components/multiinputgate.cpp:55
+#, kde-format
+msgid "Number Inputs"
+msgstr "Кількість входів"
+
+#: src/electronics/components/matrixdisplay.cpp:32
+#: src/electronics/components/matrixdisplay.cpp:38
+#, kde-format
+msgid "Matrix Display"
+msgstr "Матричний дисплей"
+
+#: src/electronics/components/matrixdisplay.cpp:73
+#: src/electronics/components/matrixdisplaydriver.cpp:313
+#, kde-format
+msgid "Row Cathode"
+msgstr "Катод рядків"
+
+#: src/electronics/components/matrixdisplay.cpp:74
+#: src/electronics/components/matrixdisplaydriver.cpp:314
+#, kde-format
+msgid "Column Cathode"
+msgstr "Катод стовпчиків"
+
+#: src/electronics/components/matrixdisplaydriver.cpp:298
+#: src/electronics/components/matrixdisplaydriver.cpp:304 src/ktechlab.cpp:695
+#, kde-format
+msgid "Matrix Display Driver"
+msgstr "Драйвер матричного дисплея"
+
+#: src/electronics/components/meter.cpp:40
+#, kde-format
+msgid "Minimum Value"
+msgstr "Мінімальне значення"
+
+#: src/electronics/components/meter.cpp:46
+#, kde-format
+msgid "Maximum Value"
+msgstr "Максимальне значення"
+
+#: src/electronics/components/meter.cpp:161
+#, kde-format
+msgid "Frequency Meter (TODO)"
+msgstr "Частотометр (ЩЕ НЕ ЗРОБЛЕНО)"
+
+#: src/electronics/components/meter.cpp:167
+#, kde-format
+msgid "Frequency Meter"
+msgstr "Частотометр"
+
+#: src/electronics/components/meter.cpp:194
+#: src/electronics/components/meter.cpp:200
+#, kde-format
+msgid "Ammeter"
+msgstr "Амперметр"
+
+#: src/electronics/components/meter.cpp:228
+#: src/electronics/components/meter.cpp:234
+#, kde-format
+msgid "Voltmeter"
+msgstr "Вольтметр"
+
+#: src/electronics/components/multiinputgate.cpp:218
+#: src/electronics/components/multiinputgate.cpp:224
+#, kde-format
+msgid "XNOR gate"
+msgstr "Викл. АБО-НІ"
+
+#: src/electronics/components/multiinputgate.cpp:278
+#: src/electronics/components/multiinputgate.cpp:284
+#, kde-format
+msgid "XOR gate"
+msgstr "Виключне І"
+
+#: src/electronics/components/multiinputgate.cpp:336
+#: src/electronics/components/multiinputgate.cpp:342
+#, kde-format
+msgid "OR gate"
+msgstr "АБО"
+
+#: src/electronics/components/multiinputgate.cpp:395
+#, kde-format
+msgid "NOR gate"
+msgstr "НІ"
+
+#: src/electronics/components/multiinputgate.cpp:401
+#, kde-format
+msgid "NOR Gate"
+msgstr "АБО-НІ"
+
+#: src/electronics/components/multiinputgate.cpp:454
+#, kde-format
+msgid "NAND gate"
+msgstr "І-НІ"
+
+#: src/electronics/components/multiinputgate.cpp:460
+#, kde-format
+msgid "NAND Gate"
+msgstr "І-НІ"
+
+#: src/electronics/components/multiinputgate.cpp:508
+#, kde-format
+msgid "AND gate"
+msgstr "І"
+
+#: src/electronics/components/multiinputgate.cpp:514
+#, kde-format
+msgid "AND Gate"
+msgstr "І"
+
+#: src/electronics/components/multiplexer.cpp:32
+#: src/electronics/components/multiplexer.cpp:38
+#, kde-format
+msgid "Multiplexer"
+msgstr "Мультиплексор"
+
+#: src/electronics/components/parallelportcomponent.cpp:43
+#: src/electronics/components/parallelportcomponent.cpp:49
+#, kde-format
+msgid "Parallel Port"
+msgstr "Паралельний порт"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/electronics/components/parallelportcomponent.cpp:143
+#: src/electronics/components/serialportcomponent.cpp:119
+#: src/flowparts/readport.cpp:38 src/flowparts/writeport.cpp:43
+#: src/gui/programmerwidget.ui:62
+#, kde-format
+msgid "Port"
+msgstr "Порт"
+
+#: src/electronics/components/parallelportcomponent.cpp:170
+#: src/electronics/components/serialportcomponent.cpp:190
+#, kde-format
+msgid "Could not open port %1"
+msgstr "Не вдалося відкрити порт %1"
+
+#: src/electronics/components/piccomponent.cpp:60
+#, kde-format
+msgid "PIC Micro"
+msgstr "PIC Micro"
+
+#: src/electronics/components/piccomponent.cpp:63
+#, kde-format
+msgid "<Enter location of PIC Program>"
+msgstr "<Вкажіть розташування програми PIC>"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, m_typeCombo)
+#: src/electronics/components/piccomponent.cpp:84
+#: src/gui/createsubprojectwidget.ui:59
+#, kde-format
+msgid "Program"
+msgstr "Програма"
+
+#: src/electronics/components/piccomponent.cpp:86
+#, kde-format
+msgid "All Supported Files"
+msgstr "усі файли, що підтримуються"
+
+#: src/electronics/components/piccomponent.cpp:88
+#, kde-format
+msgid "Symbol File"
+msgstr "Файл позначок"
+
+#: src/electronics/components/piccomponent.cpp:89 src/flowcodedocument.cpp:190
+#: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1163 src/textdocument.cpp:437
+#, kde-format
+msgid "Assembly Code"
+msgstr "Код асемблера"
+
+#: src/electronics/components/piccomponent.cpp:156
+#, kde-format
+msgid "The file \"%1\" does not exist."
+msgstr "Файла «%1» не існує."
+
+#: src/electronics/components/piccomponent.cpp:164
+#, kde-format
+msgid ""
+"\"%1\" is not a valid PIC program.\n"
+"The file must exist, and the extension should be \".cod\", \".asm\", \"."
+"flowcode\", \".basic\", \".microbe\" or \".c\".\n"
+"\".hex\" is allowed, provided that there is a corresponding \".cod\" file."
+msgstr ""
+"«%1» не є коректною програмою PIC.\n"
+"Файл програми має існувати і повинен мати суфікс назви «.cod», «.asm», «."
+"flowcode», «.basic», «.microbe» або «.c».\n"
+"Можна використовувати файли «.hex», якщо для них є відповідні файли «.cod»."
+
+#: src/electronics/components/piccomponent.cpp:240
+#, kde-format
+msgid ""
+"(No\n"
+"program\n"
+"loaded)"
+msgstr ""
+"(Програму\n"
+"не\n"
+"завантажено)"
+
+#: src/electronics/components/probe.cpp:59
+#, kde-format
+msgid "Scaling"
+msgstr "Масштаб"
+
+#: src/electronics/components/probe.cpp:61
+#, kde-format
+msgid "Linear"
+msgstr "Лінійний"
+
+#: src/electronics/components/probe.cpp:62
+#, kde-format
+msgid "Logarithmic"
+msgstr "Логарифмічний"
+
+#: src/electronics/components/probe.cpp:68
+#, kde-format
+msgid "Upper Absolute Value"
+msgstr "Верхнє абсолютне значення"
+
+#: src/electronics/components/probe.cpp:75
+#, kde-format
+msgid "Lower Absolute Value"
+msgstr "Нижнє абсолютне значення"
+
+#: src/electronics/components/probe.cpp:135
+#: src/electronics/components/probe.cpp:141
+#, kde-format
+msgid "Voltage Probe"
+msgstr "Зонд напруги"
+
+#: src/electronics/components/probe.cpp:167
+#: src/electronics/components/probe.cpp:173
+#, kde-format
+msgid "Current Probe"
+msgstr "Зонд сили струму"
+
+#: src/electronics/components/probe.cpp:207
+#: src/electronics/components/probe.cpp:213
+#, kde-format
+msgid "Logic Probe"
+msgstr "Зонд логіки"
+
+#: src/electronics/components/pushswitch.cpp:30
+#, kde-format
+msgid "Push-to-Break"
+msgstr "Розмикач"
+
+#: src/electronics/components/pushswitch.cpp:36
+#, kde-format
+msgid "Push to Break"
+msgstr "Кнопка роз’єднання"
+
+#: src/electronics/components/pushswitch.cpp:42
+#: src/electronics/components/pushswitch.cpp:125
+#: src/electronics/components/toggleswitch.cpp:41
+#: src/electronics/components/toggleswitch.cpp:135
+#: src/electronics/components/toggleswitch.cpp:220
+#: src/electronics/components/toggleswitch.cpp:304
+#, kde-format
+msgid "Button Text"
+msgstr "Текст кнопки"
+
+#: src/electronics/components/pushswitch.cpp:45
+#, kde-format
+msgid "Bounce"
+msgstr "Брязкіт"
+
+#: src/electronics/components/pushswitch.cpp:50
+#, kde-format
+msgid "Bounce Period"
+msgstr "Період брязкоту"
+
+#: src/electronics/components/pushswitch.cpp:113
+#, kde-format
+msgid "Push-to-Make"
+msgstr "Замикач"
+
+#: src/electronics/components/pushswitch.cpp:119
+#, kde-format
+msgid "Push to Make"
+msgstr "Кнопка з’єднання"
+
+#: src/electronics/components/ram.cpp:31 src/electronics/components/ram.cpp:37
+#, kde-format
+msgid "RAM"
+msgstr "Пам’ять"
+
+#: src/electronics/components/ram.cpp:47
+#, kde-format
+msgid "Word Size"
+msgstr "Розмір слова"
+
+#: src/electronics/components/resistor.cpp:26
+#: src/electronics/components/resistor.cpp:32
+#: src/electronics/components/variableresistor.cpp:35
+#, kde-format
+msgid "Resistor"
+msgstr "Резистор"
+
+#: src/electronics/components/resistordip.cpp:26
+#: src/electronics/components/resistordip.cpp:32
+#, kde-format
+msgid "Resistor DIP"
+msgstr "DIP резисторів"
+
+#: src/electronics/components/resistordip.cpp:45 src/flowparts/count.cpp:25
+#: src/flowparts/count.cpp:31
+#, kde-format
+msgid "Count"
+msgstr "Кількість"
+
+#: src/electronics/components/rotoswitch.cpp:34
+#, kde-format
+msgid "Rotary"
+msgstr "Обертовий"
+
+#: src/electronics/components/rotoswitch.cpp:64
+#, kde-format
+msgid "Number of Positions"
+msgstr "Кількість позицій"
+
+#: src/electronics/components/serialportcomponent.cpp:44
+#: src/electronics/components/serialportcomponent.cpp:50
+#, kde-format
+msgid "Serial Port"
+msgstr "Послідовний порт"
+
+#: src/electronics/components/toggleswitch.cpp:29
+#, kde-format
+msgid "DPDT"
+msgstr "DPDT"
+
+#: src/electronics/components/toggleswitch.cpp:35
+#, kde-format
+msgid "DPDT Toggle"
+msgstr "Перемикач DPDT"
+
+#: src/electronics/components/toggleswitch.cpp:123
+#, kde-format
+msgid "DPST"
+msgstr "DPST"
+
+#: src/electronics/components/toggleswitch.cpp:129
+#, kde-format
+msgid "DPST Toggle"
+msgstr "Перемикач DPST"
+
+#: src/electronics/components/toggleswitch.cpp:208
+#, kde-format
+msgid "SPDT"
+msgstr "SPDT"
+
+#: src/electronics/components/toggleswitch.cpp:214
+#, kde-format
+msgid "SPDT Toggle"
+msgstr "Перемикач SPDT"
+
+#: src/electronics/components/toggleswitch.cpp:291
+#, kde-format
+msgid "SPST"
+msgstr "SPST"
+
+#: src/electronics/components/toggleswitch.cpp:297
+#, kde-format
+msgid "SPST Toggle"
+msgstr "Перемикач SPST"
+
+#: src/electronics/components/variablecapacitor.cpp:30
+#: src/electronics/components/variablecapacitor.cpp:36
+#, kde-format
+msgid "Variable Capacitor"
+msgstr "Змінний конденсатор"
+
+#: src/electronics/components/variablecapacitor.cpp:69
+#: src/electronics/components/variableresistor.cpp:66
+#, kde-format
+msgid "Max"
+msgstr "Макс."
+
+#: src/electronics/components/variablecapacitor.cpp:76
+#: src/electronics/components/variableresistor.cpp:60
+#, kde-format
+msgid "Min"
+msgstr "Мін."
+
+#: src/electronics/components/variableresistor.cpp:29
+#, kde-format
+msgid "Variable Resistor"
+msgstr "Варистор"
+
+#: src/electronics/components/voltageregulator.cpp:29
+#, kde-format
+msgid "Voltage Regulator"
+msgstr "Регулятор напруги"
+
+#: src/electronics/components/voltageregulator.cpp:36
+#, kde-format
+msgid "Voltage Out"
+msgstr "Вихід напруги"
+
+#: src/electronics/gpsimprocessor.cpp:139
+#, kde-format
+msgid "The cod file \"%1\" was not found."
+msgstr "Не знайдено файл cod «%1»."
+
+#: src/electronics/gpsimprocessor.cpp:139
+#, kde-format
+msgid "File Not Found"
+msgstr "Файл не знайдено"
+
+#: src/electronics/gpsimprocessor.cpp:142
+#, kde-format
+msgid "The processor for cod file \"%1\" is unrecognized."
+msgstr "Не вдалося розпізнати обробки файлів cod «%1»."
+
+#: src/electronics/gpsimprocessor.cpp:142
+#, kde-format
+msgid "Unrecognized Processor"
+msgstr "Невідомий обробник"
+
+#: src/electronics/gpsimprocessor.cpp:145
+#, kde-format
+msgid "The file name \"%1\" is too long."
+msgstr "Назва файла «%1» є надто довгою."
+
+#: src/electronics/gpsimprocessor.cpp:145
+#, kde-format
+msgid "Filename Too Long"
+msgstr "Задовга назва файла"
+
+#: src/electronics/gpsimprocessor.cpp:148
+#, kde-format
+msgid "The lst file associated with the cod file \"%1\" was not found."
+msgstr "Не знайдено файла lst, який пов’язано із файлом cod «%1»."
+
+#: src/electronics/gpsimprocessor.cpp:148
+#, kde-format
+msgid "LST File Not Found"
+msgstr "Не знайдено файла LST"
+
+#: src/electronics/gpsimprocessor.cpp:151
+#, kde-format
+msgid "The cod file \"%1\" is bad."
+msgstr "Файл cod «%1» пошкоджено."
+
+#: src/electronics/gpsimprocessor.cpp:151
+#, kde-format
+msgid "Bad File"
+msgstr "Пошкоджений файл"
+
+#: src/electronics/gpsimprocessor.cpp:154
+#, kde-format
+msgid "The cod file \"%1\" could not be read from."
+msgstr "Не вдалося прочитати дані з файла cod «%1»."
+
+#: src/electronics/gpsimprocessor.cpp:154
+#, kde-format
+msgid "Unreadable File"
+msgstr "Непридатний до читання файл"
+
+#: src/electronics/gpsimprocessor.cpp:158
+#, kde-format
+msgid "An error occurred with the cod file \"%1\"."
+msgstr "Сталася помилка, пов’язана із файлом cod «%1»."
+
+#: src/electronics/gpsimprocessor.cpp:158
+#, kde-format
+msgid "Error"
+msgstr "Помилка"
+
+#: src/electronics/gpsimprocessor.cpp:735
+#, kde-format
+msgid "Generic"
+msgstr "Загальний"
+
+#: src/electronics/gpsimprocessor.cpp:738 src/projectmanager.cpp:865
+#, kde-format
+msgid "File"
+msgstr "Файл"
+
+#: src/electronics/gpsimprocessor.cpp:741
+#, kde-format
+msgid "SFR"
+msgstr "SFR"
+
+#: src/electronics/gpsimprocessor.cpp:744 src/textdocument.cpp:100
+#, kde-format
+msgid "Breakpoint"
+msgstr "Точка зупинки"
+
+#: src/electronics/gpsimprocessor.cpp:747
+#, kde-format
+msgid "Invalid"
+msgstr "Некоректний"
+
+#: src/electronics/gpsimprocessor.cpp:750
+#, kde-format
+msgid "Unknown"
+msgstr "Невідомий"
+
+#: src/electronics/subcircuits.cpp:110
+#, kde-format
+msgid "Subcircuits"
+msgstr "Підланцюги"
+
+#: src/flowcodedocument.cpp:167
+#, kde-format
+msgid "Microbe Code Output"
+msgstr "Виведення коду Microbe"
+
+#: src/flowcodedocument.cpp:188 src/textdocument.cpp:431
+#, kde-format
+msgid "Assembly Code Output"
+msgstr "Виведення коду асемблера"
+
+#: src/flowcodedocument.cpp:209 src/textdocument.cpp:470
+#, kde-format
+msgid "Hex Code Output"
+msgstr "Виведення шістнадцяткового коду"
+
+#. i18n("Convert to..."), "fork", 0, 0, 0, ac, "program_convert" );
+#: src/flowcodeview.cpp:32
+#, kde-format
+msgid "Convert to..."
+msgstr "Перетворити на…"
+
+#. i18n("Convert to"), "fork", 0, 0, 0, ac, "program_convert" );
+#: src/flowcodeview.cpp:38 src/textview.cpp:58 src/textview.cpp:65
+#, kde-format
+msgid "Convert To"
+msgstr "Перетворити на"
+
+#. i18n("Assembly"), "source", 0, this, SLOT(slotFileNewAssembly()), ac, "newfile_asm" ))->plug( p->menu() );
+#: src/flowcodeview.cpp:40 src/ktechlab.cpp:458 src/textview.cpp:68
+#, kde-format
+msgid "Assembly"
+msgstr "Асемблер"
+
+#: src/flowcodeview.cpp:41 src/textview.cpp:69
+#, kde-format
+msgid "Hex"
+msgstr "Шістнадцятковий код"
+
+#: src/flowcodeview.cpp:42 src/textview.cpp:70
+#, kde-format
+msgid "PIC (upload)"
+msgstr "PIC (вивантаження)"
+
+#: src/flowcodeview.cpp:55
+#, kde-format
+msgid ""
+"Construct a FlowCode document by dragging FlowParts from the list on the "
+"left. All FlowCharts require an initial \"Start\" part, of which there can "
+"only be one.<br><br>Some FlowParts, such as Subroutines, act as a container "
+"element for other FlowParts. Drag the items in or out of a container as "
+"appropriate. The container that will become the parent of the part being "
+"dragged is indicated by being selected.<br><br>Note that connections cannot "
+"be made between FlowParts in different containers, or at different levels."
+msgstr ""
+"Побудувати документ FlowCode можна перетягуванням частин діаграми зі списку, "
+"розташованого ліворуч. Усі діаграми потребують початкової частини «Початок», "
+"яка може бути лише одна.<br><br>Деякі частини діаграми, зокрема підпрограми, "
+"працюють як контейнери для інших частин діаграми. Ви можете перетягувати "
+"елементи до такого контейнера і з такого контейнера. Контейнер, який стане "
+"батьківським для частини, яка перетягується позначається на діаграмі."
+"<br><br>Зауважте, що не можна створювати з’єднання між частинами діаграми, "
+"що належать різним контейнерам або перебувають на різних рівнях."
+
+#: src/flowparts/callsub.cpp:25 src/flowparts/embed.cpp:25
+#: src/flowparts/end.cpp:25 src/flowparts/interrupt.cpp:25
+#: src/flowparts/start.cpp:25 src/flowparts/sub.cpp:25
+#, kde-format
+msgid "Common"
+msgstr "Загальні"
+
+#: src/flowparts/callsub.cpp:25 src/flowparts/callsub.cpp:31
+#, kde-format
+msgid "Sub Call"
+msgstr "Підвиклик"
+
+#: src/flowparts/callsub.cpp:37 src/flowparts/sub.cpp:25
+#: src/flowparts/sub.cpp:34
+#, kde-format
+msgid "Subroutine"
+msgstr "Підпрограма"
+
+#: src/flowparts/callsub.cpp:47
+#, kde-format
+msgid "Call %1"
+msgstr "Виклик %1"
+
+#: src/flowparts/count.cpp:25 src/flowparts/delay.cpp:25
+#: src/flowparts/inputbutton.cpp:24 src/flowparts/keypad.cpp:25
+#: src/flowparts/pulse.cpp:24 src/flowparts/sevenseg.cpp:25
+#, kde-format
+msgid "Functions"
+msgstr "Функції"
+
+#: src/flowparts/count.cpp:39 src/flowparts/inputbutton.cpp:36
+#, kde-format
+msgid "Trigger"
+msgstr "Перемикач"
+
+#: src/flowparts/count.cpp:54
+#, kde-format
+msgid "Count %1 for %2 sec"
+msgstr "Лічити %1 протягом %2 сек."
+
+#: src/flowparts/delay.cpp:25 src/flowparts/delay.cpp:31
+#, kde-format
+msgid "Delay"
+msgstr "Затримка"
+
+#: src/flowparts/delay.cpp:37
+#, kde-format
+msgid "Pause Length"
+msgstr "Тривалість паузи"
+
+#: src/flowparts/delay.cpp:49
+#, kde-format
+msgid "Delay for %1 sec"
+msgstr "Затримка на %1 сек."
+
+#: src/flowparts/embed.cpp:25 src/flowparts/embed.cpp:31
+#, kde-format
+msgid "Embed"
+msgstr "Вкладка"
+
+#: src/flowparts/embed.cpp:39
+#, kde-format
+msgid "Type"
+msgstr "Тип"
+
+#: src/flowparts/embed.cpp:42
+#, kde-format
+msgid "Code"
+msgstr "Код"
+
+#: src/flowparts/embed.cpp:43
+#, kde-format
+msgid "// Embedded code:"
+msgstr "// Вбудований код:"
+
+#: src/flowparts/embed.cpp:53
+#, kde-format
+msgid "%1: %2..."
+msgstr "%1: %2…"
+
+#: src/flowparts/end.cpp:25 src/flowparts/end.cpp:31 src/flowparts/end.cpp:34
+#, kde-format
+msgid "End"
+msgstr "Кінець"
+
+#: src/flowparts/forloop.cpp:25 src/flowparts/repeat.cpp:25
+#: src/flowparts/while.cpp:25
+#, kde-format
+msgid "Loops"
+msgstr "Цикли"
+
+#: src/flowparts/forloop.cpp:25
+#, kde-format
+msgid "For"
+msgstr "For"
+
+#: src/flowparts/forloop.cpp:31
+#, kde-format
+msgid "For Loop"
+msgstr "Цикл for"
+
+#: src/flowparts/forloop.cpp:38 src/flowparts/keypad.cpp:38
+#: src/flowparts/readport.cpp:43 src/flowparts/repeat.cpp:37
+#: src/flowparts/sevenseg.cpp:38 src/flowparts/unary.cpp:38
+#: src/flowparts/varassignment.cpp:37 src/flowparts/varcomparison.cpp:38
+#: src/flowparts/while.cpp:37 src/flowparts/writeport.cpp:38
+#, kde-format
+msgid "Variable"
+msgstr "Змінна"
+
+#: src/flowparts/forloop.cpp:43
+#, kde-format
+msgid "Initial Value"
+msgstr "Початкове значення"
+
+#: src/flowparts/forloop.cpp:47
+#, kde-format
+msgctxt "for x = 1 to"
+msgid "to"
+msgstr "до"
+
+#: src/flowparts/forloop.cpp:48
+#, kde-format
+msgid "End Value"
+msgstr "Кінцеве значення"
+
+#. i18n("Step"), "debug-step-instruction", Qt::CTRL|Qt::ALT|Qt::Key_Right, textDocument, SLOT(debugStep()), ac, "debug_step" );
+#: src/flowparts/forloop.cpp:53 src/textview.cpp:119
+#, kde-format
+msgid "Step"
+msgstr "Крок"
+
+#: src/flowparts/inputbutton.cpp:24 src/flowparts/inputbutton.cpp:30
+#, kde-format
+msgid "InputButton"
+msgstr "Кнопка введення"
+
+#: src/flowparts/inputbutton.cpp:41 src/flowparts/pulse.cpp:51
+#: src/flowparts/setpin.cpp:45 src/flowparts/testpin.cpp:38
+#, kde-format
+msgid "Pin"
+msgstr "Контакт"
+
+#: src/flowparts/inputbutton.cpp:51
+#, kde-format
+msgid "Continue on %1 %2"
+msgstr "Продовжити на %1 %2"
+
+#. i18n("Interrupt"), "media-playback-pause", 0, textDocument, SLOT(debugInterrupt()), ac, "debug_interrupt" );
+#: src/flowparts/interrupt.cpp:25 src/flowparts/interrupt.cpp:31
+#: src/flowparts/interrupt.cpp:41 src/textview.cpp:105
+#, kde-format
+msgid "Interrupt"
+msgstr "Перервати"
+
+#: src/flowparts/interrupt.cpp:51
+#, kde-format
+msgid "Interrupt %1"
+msgstr "Перервати %1"
+
+#: src/flowparts/keypad.cpp:41 src/flowparts/sevenseg.cpp:41
+#, kde-format
+msgid "Pin map"
+msgstr "Карта контактів"
+
+#: src/flowparts/keypad.cpp:50 src/flowparts/readport.cpp:53
+#, kde-format
+msgid "Read %1 to %2"
+msgstr "Прочитати %1 до %2"
+
+#: src/flowparts/pinmapping.cpp:55
+#, kde-format
+msgid "Pin Map Editor"
+msgstr "Редактор карти контактів"
+
+#: src/flowparts/pulse.cpp:24 src/flowparts/pulse.cpp:30
+#, kde-format
+msgid "Pulse"
+msgstr "Пульсація"
+
+#: src/flowparts/pulse.cpp:36
+#, kde-format
+msgid "Duration"
+msgstr "Тривалість"
+
+#: src/flowparts/pulse.cpp:62
+#, kde-format
+msgid "Pulse %1 for %2 sec"
+msgstr "Пульсація %1 протягом %2 сек."
+
+#: src/flowparts/readport.cpp:25 src/flowparts/setpin.cpp:28
+#: src/flowparts/testpin.cpp:25 src/flowparts/writeport.cpp:25
+#, kde-format
+msgid "I\\/O"
+msgstr "Введення-виведення"
+
+#: src/flowparts/readport.cpp:25 src/flowparts/readport.cpp:31
+#, kde-format
+msgid "Read from Port"
+msgstr "Прочитати з порту"
+
+#: src/flowparts/readport.cpp:37
+#, kde-format
+msgid "Read"
+msgstr "Прочитати"
+
+#: src/flowparts/readport.cpp:42
+#, kde-format
+msgctxt "read from port to x"
+msgid "to"
+msgstr "до"
+
+#: src/flowparts/repeat.cpp:25 src/flowparts/repeat.cpp:31
+#, kde-format
+msgid "Repeat"
+msgstr "Repeat"
+
+#: src/flowparts/repeat.cpp:42 src/flowparts/unary.cpp:41
+#: src/flowparts/varcomparison.cpp:49 src/flowparts/while.cpp:42
+#, kde-format
+msgid "Operation"
+msgstr "Дія"
+
+#: src/flowparts/repeat.cpp:52 src/flowparts/varassignment.cpp:42
+#: src/flowparts/varcomparison.cpp:53 src/flowparts/while.cpp:52
+#: src/gui/itemeditor/propertyeditor.cpp:253 src/gui/symbolviewer.cpp:125
+#: src/gui/symbolviewer.cpp:127 src/gui/symbolviewer.cpp:192
+#: src/gui/symbolviewer.cpp:194
+#, kde-format
+msgid "Value"
+msgstr "Значення"
+
+#: src/flowparts/repeat.cpp:62
+#, kde-format
+msgid "repeat until %1 %2 %3"
+msgstr "повторювати доки %1 %2 %3"
+
+#: src/flowparts/setpin.cpp:28 src/flowparts/setpin.cpp:34
+#, kde-format
+msgid "Set Pin State"
+msgstr "Встановити стан контакту"
+
+#: src/flowparts/setpin.cpp:40
+#, kde-format
+msgid "State"
+msgstr "Стан"
+
+#: src/flowparts/setpin.cpp:55
+#, kde-format
+msgid "Set %1 %2"
+msgstr "Встановити для %1 стан %2"
+
+#: src/flowparts/sevenseg.cpp:31
+#, kde-format
+msgid "SevenSeg"
+msgstr "Сегментний індикатор"
+
+#: src/flowparts/sevenseg.cpp:50
+#, kde-format
+msgid "Display %1 on %2"
+msgstr "Показати %1 на %2"
+
+#: src/flowparts/start.cpp:25 src/flowparts/start.cpp:31
+#: src/flowparts/start.cpp:34
+#, kde-format
+msgid "Start"
+msgstr "Початок"
+
+#: src/flowparts/sub.cpp:31
+#, kde-format
+msgid "Sub"
+msgstr "Підпрограма"
+
+#: src/flowparts/testpin.cpp:25 src/flowparts/testpin.cpp:31
+#, kde-format
+msgid "Test Pin State"
+msgstr "Перевірити стан контактів"
+
+#: src/flowparts/unary.cpp:25 src/flowparts/varassignment.cpp:25
+#: src/flowparts/varcomparison.cpp:25
+#, kde-format
+msgid "Variables"
+msgstr "Змінні"
+
+#: src/flowparts/unary.cpp:25 src/flowparts/unary.cpp:31
+#, kde-format
+msgid "Unary"
+msgstr "Унарна дія"
+
+#: src/flowparts/unary.cpp:43
+#, kde-format
+msgid "Rotate Left"
+msgstr "Зсув ліворуч"
+
+#: src/flowparts/unary.cpp:44
+#, kde-format
+msgid "Rotate Right"
+msgstr "Зсув праворуч"
+
+#: src/flowparts/unary.cpp:45
+#, kde-format
+msgid "Increment"
+msgstr "Збільшення"
+
+#: src/flowparts/unary.cpp:46
+#, kde-format
+msgid "Decrement"
+msgstr "Зменшення"
+
+#: src/flowparts/varassignment.cpp:25
+#, kde-format
+msgid "Assignment"
+msgstr "Присвоювання"
+
+#: src/flowparts/varassignment.cpp:31
+#, kde-format
+msgid "Variable Assignment"
+msgstr "Присвоювання змінній значення"
+
+#: src/flowparts/varcomparison.cpp:25
+#, kde-format
+msgid "Comparison"
+msgstr "Порівняння"
+
+#: src/flowparts/varcomparison.cpp:31
+#, kde-format
+msgid "Variable Comparison"
+msgstr "Порівняння змінних"
+
+#: src/flowparts/while.cpp:25 src/flowparts/while.cpp:31
+#, kde-format
+msgid "While"
+msgstr "While"
+
+#: src/flowparts/while.cpp:62
+#, kde-format
+msgid "while %1 %2 %3"
+msgstr "поки %1 %2 %3"
+
+#: src/flowparts/writeport.cpp:25 src/flowparts/writeport.cpp:31
+#, kde-format
+msgid "Write to Port"
+msgstr "Записати до порту"
+
+#: src/flowparts/writeport.cpp:37
+#, kde-format
+msgid "Write"
+msgstr "Запис"
+
+#: src/flowparts/writeport.cpp:42
+#, kde-format
+msgctxt "write to port"
+msgid "to"
+msgstr "до"
+
+#: src/flowparts/writeport.cpp:53
+#, kde-format
+msgid "Write %1 to %2"
+msgstr "Записати %1 до %2"
+
+#. i18n: ectx: property (whatsThis), widget (QWidget, AsmFormattingWidget)
+#: src/gui/asmformattingwidget.ui:14
+#, kde-format
+msgid ""
+"The values control the indentation from the left margin of the various types "
+"of assembly code."
+msgstr ""
+"Значення, які керують відступами від лівого поля для різноманітних типів "
+"коду асемблера."
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox64)
+#: src/gui/asmformattingwidget.ui:32
+#, kde-format
+msgid "Output Code Indentation"
+msgstr "Відступи у виведеному коді"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel11)
+#: src/gui/asmformattingwidget.ui:38
+#, kde-format
+msgid "'equ' Value"
+msgstr "Значення «equ»"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel8)
+#: src/gui/asmformattingwidget.ui:48
+#, kde-format
+msgid "Instruction Data"
+msgstr "Дані команди"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel9)
+#: src/gui/asmformattingwidget.ui:58
+#, kde-format
+msgid "Comment"
+msgstr "Коментар"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel10)
+#: src/gui/asmformattingwidget.ui:68
+#, kde-format
+msgid "'equ'"
+msgstr "«equ»"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel7)
+#: src/gui/asmformattingwidget.ui:78
+#, kde-format
+msgid "Instruction Name"
+msgstr "Назва команди"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoFormatMBOutput)
+#: src/gui/asmformattingwidget.ui:162
+#, kde-format
+msgid "&Automatically format Microbe output"
+msgstr "&Автоматично форматувати виведене Microbe"
+
+#: src/gui/contexthelp.cpp:65
+#, kde-format
+msgid ""
+"Provides context-sensitive help relevant to the current editing being "
+"performed."
+msgstr "Надає контекстну довідку щодо поточного редагування."
+
+#: src/gui/contexthelp.cpp:245 src/gui/itemeditor/itemeditor.cpp:141
+#, kde-format
+msgid "No Item Selected"
+msgstr "Не вибрано жодного елемента"
+
+#: src/gui/contexthelp.cpp:255 src/gui/itemeditor/itemeditor.cpp:108
+#, kde-format
+msgid "Multiple Items"
+msgstr "Декілька елементів"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, m_pResetButton)
+#. i18n: ectx: property (text), widget (QPushButton, resetBtn)
+#: src/gui/contexthelp.cpp:329 src/gui/contexthelp.cpp:330
+#: src/gui/contexthelpwidget.ui:173 src/gui/oscilloscopewidget.ui:157
+#, kde-format
+msgid "Reset"
+msgstr "Скинути"
+
+#: src/gui/contexthelp.cpp:330
+#, kde-format
+msgid "Reset item help to last saved changes?"
+msgstr "Відновити для довідки з елемента останні збережені зміни?"
+
+#: src/gui/contexthelp.cpp:350
+#, kde-format
+msgid "Cannot save item description."
+msgstr "Не вдалося зберегти опис елемента."
+
+#. i18n: ectx: property (text), widget (QPushButton, m_pEditButton)
+#: src/gui/contexthelpwidget.ui:91
+#, kde-format
+msgid "Edit"
+msgstr "Змінити"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, m_pChangeDescriptionsDirectory)
+#: src/gui/contexthelpwidget.ui:138
+#, kde-format
+msgid "Context Help Directory"
+msgstr "Каталог контекстної довідки"
+
+#. i18n: ectx: property (text), widget (QToolButton, m_pChangeDescriptionsDirectory)
+#. i18n: ectx: property (text), widget (QToolButton, m_pResetButton)
+#: src/gui/contexthelpwidget.ui:141 src/gui/contexthelpwidget.ui:176
+#, kde-format
+msgid "..."
+msgstr "…"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_pSaveButton)
+#: src/gui/contexthelpwidget.ui:183
+#, kde-format
+msgid "S&ave"
+msgstr "З&берегти"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/createsubprojectwidget.ui:28
+#, kde-format
+msgid "Subproject Details"
+msgstr "Параметри підпроєкту"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: src/gui/createsubprojectwidget.ui:38
+#, kde-format
+msgid "Target File:"
+msgstr "Файл призначення:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: src/gui/createsubprojectwidget.ui:48 src/gui/newpinmappingwidget.ui:23
+#, kde-format
+msgid "Type:"
+msgstr "Тип:"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, m_typeCombo)
+#: src/gui/createsubprojectwidget.ui:64
+#, kde-format
+msgid "Library"
+msgstr "Бібліотека"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ReuseSameViewForOutput)
+#: src/gui/generaloptionswidget.ui:29
+#, kde-format
+msgid "Reuse the same output view for code generation"
+msgstr "Повторно використовувати панель виведення для створення коду"
+
+#. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_GridColor)
+#: src/gui/generaloptionswidget.ui:52
+#, kde-format
+msgid "The grid color in the work area."
+msgstr "Колір ґратки у робочій області."
+
+#. i18n: ectx: property (text), widget (KColorButton, kcfg_GridColor)
+#: src/gui/generaloptionswidget.ui:55
+#, kde-format
+msgid "Grid Colour"
+msgstr "Колір ґратки"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowGrid)
+#: src/gui/generaloptionswidget.ui:62
+#, kde-format
+msgid "Show &grid:"
+msgstr "По&казувати ґратку"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, textLabel1)
+#: src/gui/generaloptionswidget.ui:85
+#, kde-format
+msgid ""
+"Maximum undo steps for work area. This does not apply to text documents - "
+"that is configurable separately under Configure Editor."
+msgstr ""
+"Максимальна кількість кроків скасовування для робочої області. Це не "
+"стосується текстових документів. Кількість кроків скасовування для текстових "
+"документів налаштовується на сторінці редактора."
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/generaloptionswidget.ui:88
+#, kde-format
+msgid "Maximum undo steps for work area:"
+msgstr "Макс. к-ть кроків скасовування для робочої області:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowVoltageBars)
+#: src/gui/generaloptionswidget.ui:98
+#, kde-format
+msgid "Show voltage bars &on electronic components"
+msgstr "Показувати індикатори напру&ги на електронних компонентах"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowVoltageColor)
+#: src/gui/generaloptionswidget.ui:105
+#, kde-format
+msgid "Color the wires to match the voltage"
+msgstr "Розфарбовувати з’єднання відповідно до струму"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateWires)
+#: src/gui/generaloptionswidget.ui:115
+#, kde-format
+msgid "Animate wires to show the current or power flow"
+msgstr "Анімувати з’єднання, показуючи зміну струму або потужності"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox21)
+#: src/gui/generaloptionswidget.ui:125
+#, kde-format
+msgid "Display Refresh Rate"
+msgstr "Частота оновлення зображення"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel3_2)
+#: src/gui/generaloptionswidget.ui:152
+#, kde-format
+msgid "Refresh rate:"
+msgstr "Частота оновлення:"
+
+#. i18n: ectx: property (text), widget (QLabel, refreshRateLabel)
+#: src/gui/generaloptionswidget.ui:162
+#, kde-format
+msgid "Medium (50 FPS)"
+msgstr "Середня (50 кд./с)"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel9_2)
+#: src/gui/generaloptionswidget.ui:180
+#, kde-format
+msgid ""
+"This is the number of times per second that the work area view is updated; a "
+"compromise between CPU usage and smoothness of display."
+msgstr ""
+"Це кількість оновлень зображення у робочій області за секунду. Виберіть "
+"задовільне для вас значення, збалансувавши навантаження на процесор і "
+"плавність показу зображення."
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
+#: src/gui/generaloptionswidget.ui:202
+#, kde-format
+msgid "Convenience"
+msgstr "Зручності"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RestoreDocumentsOnStartup)
+#: src/gui/generaloptionswidget.ui:208
+#, kde-format
+msgid "Restore opened doc&uments on startup"
+msgstr "Відновлювати се&анс після запуску"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RaiseItemSelectors)
+#: src/gui/generaloptionswidget.ui:215
+#, kde-format
+msgid "Raise the &appropriate item selector on creating a new document"
+msgstr ""
+"Піднімати &відповідну панель вибору елементів після створення документа"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RaiseMessagesLog)
+#: src/gui/generaloptionswidget.ui:222
+#, kde-format
+msgid "Raise the &Messages log when compiling"
+msgstr "Піднімати журнал &повідомлень під час компіляції"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: src/gui/gpasmsettingswidget.ui:32
+#, kde-format
+msgid "Radix (-r):"
+msgstr "Основа числення (-r):"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#: src/gui/gpasmsettingswidget.ui:42
+#, kde-format
+msgid "Warning level (-w):"
+msgstr "Рівень попереджень (-w):"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/gpasmsettingswidget.ui:52 src/gui/linkeroptionswidget.ui:69
+#, kde-format
+msgid "Hex Format (-a):"
+msgstr "Формат шістнадцяткових (-a):"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_IgnoreCase)
+#: src/gui/gpasmsettingswidget.ui:62
+#, kde-format
+msgid ""
+"All user defined symbols and macros are case sensitive. This option makes "
+"them case insensitive."
+msgstr ""
+"Усі назви визначених користувачем позначок та макросів є регістрозалежними. "
+"За допомогою цього пункту можна вимкнути залежність від регістру символів "
+"назв."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_IgnoreCase)
+#: src/gui/gpasmsettingswidget.ui:65
+#, kde-format
+msgid "Ign&ore case (-i)"
+msgstr "&Ігнорувати регістр символів (-i)"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_DosFormat)
+#: src/gui/gpasmsettingswidget.ui:72
+#, kde-format
+msgid ""
+"By default, gpasm generates hex files using ISO format. However, some device "
+"programmers required a DOS formatted file. This option will cause gpasm to "
+"generate a DOS formatted hex file. "
+msgstr ""
+"Типово, gpasm створює шістнадцяткові файли у форматі ISO. Втім, для роботи "
+"деяких програматорів потрібен файл у форматі DOS. За допомогою цього пункту "
+"можна наказати gpasm створювати шістнадцятковий файл у форматі DOS. "
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DosFormat)
+#: src/gui/gpasmsettingswidget.ui:75
+#, kde-format
+msgid "Generate DOS-formatted hex file (-&n)"
+msgstr "Створити шістнад&цятковий файл у форматі DOS (-n)"
+
+#. i18n: ectx: property (toolTip), widget (QComboBox, kcfg_HexFormat)
+#. i18n: ectx: property (toolTip), widget (KComboBox, m_pHexFormat)
+#: src/gui/gpasmsettingswidget.ui:104 src/gui/linkeroptionswidget.ui:29
+#, kde-format
+msgid ""
+"GPASM supports inhx8m, inhx8s, inhx16, and inhx32 hex file formats. This "
+"option controls which hex file format is used."
+msgstr ""
+"У GPASM передбачено підтримку шістнадцяткових файлів у форматах inhx8m, "
+"inhx8s, inhx16 та inhx32. За допомогою цього параметра можна вказати, який "
+"саме формат шістнадцяткових файлів використовується."
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_HexFormat)
+#. i18n: ectx: property (text), item, widget (KComboBox, m_pHexFormat)
+#: src/gui/gpasmsettingswidget.ui:108 src/gui/linkeroptionswidget.ui:33
+#, kde-format
+msgid "inhx32"
+msgstr "inhx32"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_HexFormat)
+#. i18n: ectx: property (text), item, widget (KComboBox, m_pHexFormat)
+#: src/gui/gpasmsettingswidget.ui:113 src/gui/linkeroptionswidget.ui:38
+#, kde-format
+msgid "inhx8m"
+msgstr "inhx8m"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_HexFormat)
+#. i18n: ectx: property (text), item, widget (KComboBox, m_pHexFormat)
+#: src/gui/gpasmsettingswidget.ui:118 src/gui/linkeroptionswidget.ui:43
+#, kde-format
+msgid "inhx8s"
+msgstr "inhx8s"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_HexFormat)
+#. i18n: ectx: property (text), item, widget (KComboBox, m_pHexFormat)
+#: src/gui/gpasmsettingswidget.ui:123 src/gui/linkeroptionswidget.ui:48
+#, kde-format
+msgid "inhx16"
+msgstr "inhx16"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_Radix)
+#: src/gui/gpasmsettingswidget.ui:138 src/gui/symbolviewer.cpp:110
+#, kde-format
+msgid "Decimal"
+msgstr "Десятковий"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_Radix)
+#: src/gui/gpasmsettingswidget.ui:143 src/gui/symbolviewer.cpp:108
+#, kde-format
+msgid "Binary"
+msgstr "Двійковий"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_Radix)
+#: src/gui/gpasmsettingswidget.ui:148 src/gui/symbolviewer.cpp:109
+#, kde-format
+msgid "Octal"
+msgstr "Вісімковий"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_Radix)
+#: src/gui/gpasmsettingswidget.ui:153 src/gui/symbolviewer.cpp:111
+#, kde-format
+msgid "Hexadecimal"
+msgstr "Шістнадцятковий"
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_GpasmWarningLevel)
+#: src/gui/gpasmsettingswidget.ui:167
+#, kde-format
+msgid ""
+"This sets the threshold of messages displayed in the log view.<ul><li>\"All"
+"\" will display all output - information, warnings and errors.<li>\"Warnings"
+"\" will suppress messages. <li>\"Errors\" will suppress both messages and "
+"warnings.</ul>"
+msgstr ""
+"Тут визначається обмеження критичності повідомлень, які буде показано на "
+"панелі журналу.<ul><li>«Усі» — показувати усі повідомлення: відомості, "
+"попередження та помилки.<li>«Попередження» — не показувати прості "
+"повідомлення.<li>«Помилки» — придушити прості повідомлення і попередження.</"
+"ul>"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_GpasmWarningLevel)
+#: src/gui/gpasmsettingswidget.ui:171
+#, kde-format
+msgid "All"
+msgstr "Усі"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_GpasmWarningLevel)
+#: src/gui/gpasmsettingswidget.ui:176
+#, kde-format
+msgid "Warnings"
+msgstr "Попередження"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_GpasmWarningLevel)
+#: src/gui/gpasmsettingswidget.ui:181
+#, kde-format
+msgid "Errors"
+msgstr "Помилки"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: src/gui/gpasmsettingswidget.ui:237 src/gui/sdccoptionswidget.ui:449
+#, kde-format
+msgid "Other options:"
+msgstr "Інші параметри:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_gplink_link_shared)
+#: src/gui/gplinksettingswidget.ui:26
+#, kde-format
+msgid "Link with shared libraries (&use this with new SDCC)"
+msgstr "Компонувати зі спільними бібліотеками (&користуйтеся із новим SDCC)"
+
+#: src/gui/imageexportdlg.cpp:32 src/itemdocument.cpp:848
+#: src/itemdocument.cpp:854
+#, kde-format
+msgid "Export As Image"
+msgstr "Експорт у зображення"
+
+#: src/gui/imageexportdlg.cpp:45
+#, kde-format
+msgid "Format:"
+msgstr "Формат:"
+
+#: src/gui/imageexportdlg.cpp:51
+#, kde-format
+msgid "File name:"
+msgstr "Назва файла:"
+
+#: src/gui/imageexportdlg.cpp:57
+#, kde-format
+msgid "Crop image:"
+msgstr "Обрізати зображення:"
+
+#: src/gui/imageexportdlg.cpp:64
+#, kde-format
+msgid "Export"
+msgstr "Експорт"
+
+#: src/gui/itemeditor/componentmodelwidget.cpp:51
+#, kde-format
+msgid "Filter here..."
+msgstr "Введіть сюди критерій фільтрування…"
+
+#: src/gui/itemeditor/componentmodelwidget.cpp:61
+#, kde-format
+msgid "Clear filter"
+msgstr "Зняти фільтрування"
+
+#: src/gui/itemeditor/componentmodelwidget.cpp:62
+#, kde-format
+msgid "Enter space-separated terms to filter the component library."
+msgstr ""
+"Введіть відокремлені пробілами ключі пошуку для фільтрування бібліотеки "
+"компонентів."
+
+#: src/gui/itemeditor/componentmodelwidget.cpp:76
+#, kde-format
+msgid "Select a predefined component configuration from this list."
+msgstr "Виберіть попередньо визначені налаштування компонента з цього списку."
+
+#: src/gui/itemeditor/itemeditor.cpp:44
+#, kde-format
+msgid ""
+"This allows editing of advanced properties of the selected item(s). Right "
+"click on the picture of the item to set the orientation."
+msgstr ""
+"Тут можна змінити додаткові властивості позначених елементів. Клацніть "
+"правою кнопкою миші на зображенні елемента, щоб встановити його орієнтацію."
+
+#: src/gui/itemeditor/itemeditor.cpp:71
+#, kde-format
+msgid ""
+"<p>Shows properties associated with the currently selected item(s).<br/"
+">Select a property to change its value. If multiple items are selected with "
+"different values then the property will appear greyed out, use \"Merge "
+"Properties\" to make them the same.<br/>Select \"Defaults\" to set all "
+"properties to their default values"
+msgstr ""
+"<p>Показує властивості, пов’язані із поточними позначеними елементами.<br/"
+">Виберіть властивість, щоб змінити її значення. Якщо позначено декілька "
+"елементів із різними значеннями, пункт властивості буде показано сірим "
+"кольором. Скористайтеся пунктом «Об’єднати властивості», щоб зробити їх "
+"однаковими.<br/>Натисніть кнопку «Типові», щоб установити для усіх "
+"властивостей типові значення."
+
+#: src/gui/itemeditor/itemeditor.cpp:87
+#, kde-format
+msgid ""
+"Change the orientation of the selected item by selecting the appropriate "
+"button"
+msgstr "Змініть орієнтацію позначеного елемента натисканням відповідної кнопки"
+
+#: src/gui/itemeditor/propertyeditor.cpp:173
+#: src/gui/itemeditor/propertyeditorinput.cpp:191
+#: src/gui/itemeditor/propertyeditoritem.cpp:106
+#, kde-format
+msgid "Yes"
+msgstr "Так"
+
+#: src/gui/itemeditor/propertyeditor.cpp:176
+#: src/gui/itemeditor/propertyeditorinput.cpp:194
+#: src/gui/itemeditor/propertyeditoritem.cpp:111
+#, kde-format
+msgid "No"
+msgstr "Ні"
+
+#: src/gui/itemeditor/propertyeditor.cpp:252
+#, kde-format
+msgid "Property"
+msgstr "Властивість"
+
+#: src/gui/itemeditor/propertyeditor.cpp:283
+#, kde-format
+msgid "Undo changes"
+msgstr "Вернути змінене"
+
+#: src/gui/itemeditor/propertyeditorfile.cpp:36
+#, kde-format
+msgid " ... "
+msgstr "  … "
+
+#: src/gui/itemeditor/propertyeditorfile.cpp:52
+#, kde-format
+msgid "Choose File"
+msgstr "Виберіть файл"
+
+#: src/gui/itemselector.cpp:61 src/gui/itemselector.cpp:408
+#, kde-format
+msgid "Component"
+msgstr "Компонент"
+
+#: src/gui/itemselector.cpp:265
+#, kde-format
+msgid "Remove %1"
+msgstr "Вилучити %1"
+
+#: src/gui/itemselector.cpp:402
+#, kde-format
+msgid ""
+"Add components to the circuit diagram by dragging them into the circuit."
+"<br><br>To add more than one component of the same type, doubleclick on a "
+"component, and click repeatedly in the circuit to place the component. Right "
+"click to stop placement.<br><br>Some components (such as subcircuits) can be "
+"removed by right clicking on the item and selecting \"Remove\"."
+msgstr ""
+"Додати компоненти на діаграму схеми можна перетягуванням їх на поле схеми."
+"<br><br>Щоб додати декілька компонентів одного типу, двічі клацніть на "
+"позначці компонента, а потім декілька разів клацніть на полі схеми, щоб "
+"додати компоненти. Клацніть правою кнопкою миші, щоб скасувати додавання "
+"компонента.<br><br>Деякі компоненти (зокрема підсхеми) можна вилучати "
+"клацанням правою кнопкою миші на компоненті з наступним вибором у "
+"контекстному меню пункту «Вилучити»."
+
+#: src/gui/itemselector.cpp:437
+#, kde-format
+msgid ""
+"Add FlowPart to the FlowCode document by dragging them there.<br><br>To add "
+"more than one FlowPart of the same type, doubleclick on a FlowPart, and "
+"click repeatedly in the FlowChart to place the component. Right click to "
+"stop placement."
+msgstr ""
+"Додайте частини діаграми до документа FlowCode перетягуванням їх позначок "
+"туди.<br><br>Щоб додати декілька частин діаграми одного типу, двічі клацніть "
+"на позначці частини діаграми, а потім декілька разів клацніть на полі "
+"діаграми, щоб додати компонент. Клацніть правою кнопкою миші, щоб скасувати "
+"розміщення елемента."
+
+#: src/gui/itemselector.cpp:440
+#, kde-format
+msgid "Flow Part"
+msgstr "Частина діаграми"
+
+#: src/gui/itemselector.cpp:467
+#, kde-format
+msgid "Add mechanical parts to the mechanics work area by dragging them there."
+msgstr ""
+"Додайте механічні частини до механічної робочої області перетягуванням."
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#: src/gui/linkeroptionswidget.ui:56
+#, kde-format
+msgid "Library Directory (-I):"
+msgstr "Каталог бібліотек (-I):"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_pOutputMap)
+#: src/gui/linkeroptionswidget.ui:79
+#, kde-format
+msgid "&Output a map file (-m)"
+msgstr "&Вивести файл карти (-m)"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel8)
+#: src/gui/linkeroptionswidget.ui:86
+#, kde-format
+msgid "Linker Script (-s):"
+msgstr "Скрипт компонування (-s):"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: src/gui/linkeroptionswidget.ui:102
+#, kde-format
+msgid "Other:"
+msgstr "Інше:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
+#: src/gui/linkeroptionswidget.ui:116
+#, kde-format
+msgid "Link libraries inside project"
+msgstr "Компонувати бібліотеки всередині проєкту"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_3)
+#: src/gui/logicwidget.ui:31
+#, kde-format
+msgid "Logic Symbol Shapes:"
+msgstr "Форма позначок логіки:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LogicSymbolShapes)
+#: src/gui/logicwidget.ui:42
+#, kde-format
+msgid "Distinctive"
+msgstr "Особлива"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LogicSymbolShapes)
+#: src/gui/logicwidget.ui:47
+#, kde-format
+msgid "Rectangular"
+msgstr "Прямокутна"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
+#: src/gui/logicwidget.ui:57
+#, kde-format
+msgid "Input"
+msgstr "Вхід"
+
+#. i18n: ectx: property (toolTip), widget (QDoubleSpinBox, kcfg_LogicRisingTrigger)
+#. i18n: ectx: property (toolTip), widget (QLabel, textLabel1)
+#: src/gui/logicwidget.ui:63 src/gui/logicwidget.ui:126
+#, kde-format
+msgid "Required voltage level before the input will be considered high."
+msgstr "Рівень напруги, для якого вхід вважатиметься відкритим."
+
+#. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_LogicRisingTrigger)
+#. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_LogicFallingTrigger)
+#. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_LogicOutputHigh)
+#: src/gui/logicwidget.ui:72 src/gui/logicwidget.ui:110
+#: src/gui/logicwidget.ui:170
+#, kde-format
+msgid " V"
+msgstr " В"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, textLabel2_2)
+#. i18n: ectx: property (toolTip), widget (QDoubleSpinBox, kcfg_LogicFallingTrigger)
+#: src/gui/logicwidget.ui:88 src/gui/logicwidget.ui:101
+#, kde-format
+msgid "Required voltage level before an input will be considered low."
+msgstr "Рівень напруги, до якого вхід вважатиметься закритим."
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
+#: src/gui/logicwidget.ui:91
+#, kde-format
+msgid "Falling Trigger Threshold:"
+msgstr "Поріг закриття перемикача:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/logicwidget.ui:129
+#, kde-format
+msgid "Rising Trigger Threshold:"
+msgstr "Поріг відкриття перемикача:"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, textLabel2)
+#. i18n: ectx: property (toolTip), widget (QDoubleSpinBox, kcfg_LogicOutputHigh)
+#: src/gui/logicwidget.ui:148 src/gui/logicwidget.ui:161
+#, kde-format
+msgid "Voltage level for high on logic components."
+msgstr "Рівень напруги для відкриття компонентів логіки."
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: src/gui/logicwidget.ui:151
+#, kde-format
+msgid "Output High:"
+msgstr "Відкриття виходу:"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, textLabel4)
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_LogicOutputHighImpedance)
+#: src/gui/logicwidget.ui:186 src/gui/logicwidget.ui:212
+#, kde-format
+msgid "This is the output impedance when the output is high."
+msgstr "Це імпеданс виходу, якщо вихід є відкритим."
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: src/gui/logicwidget.ui:189
+#, kde-format
+msgid "High Output Impedance:"
+msgstr "Імпеданс відкриття виходу:"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, textLabel1_2)
+#. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_LogicOutputLowImpedance)
+#: src/gui/logicwidget.ui:199 src/gui/logicwidget.ui:234
+#, kde-format
+msgid "This is the output impedance when the output is low."
+msgstr "Це імпеданс виходу, якщо вихід є закритим."
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: src/gui/logicwidget.ui:202
+#, kde-format
+msgid "Low Output Impedance:"
+msgstr "Імпеданс закриття виходу:"
+
+#. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_LogicOutputLowImpedance)
+#: src/gui/logicwidget.ui:240
+#, kde-format
+msgid "Floating"
+msgstr "Рухомий"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_3)
+#: src/gui/logicwidget.ui:264
+#, kde-format
+msgid ""
+"Here, you can configure the behaviour of logic components.\n"
+"\n"
+"These values will apply to all components, apart from the PIC, whose pins' "
+"impedances depend on the pin in use."
+msgstr ""
+"Тут ви можете налаштувати поведінку компонентів логіки.\n"
+"\n"
+"Ці значення стосуватимуться усіх компонентів, окрім PIC, імпеданс контактів "
+"якого залежить від конкретного контакту."
+
+#. i18n("Clear All"), this, SLOT(clear()) ); // 2018.12.07
+#: src/gui/logview.cpp:121
+#, kde-format
+msgid "Clear All"
+msgstr "Спорожнити все"
+
+#: src/gui/microselectwidget.cpp:29
+#, kde-format
+msgid "Microprocessor"
+msgstr "Мікропроцесор"
+
+#: src/gui/microselectwidget.cpp:37
+#, kde-format
+msgid "Family"
+msgstr "Сімейство"
+
+#: src/gui/microselectwidget.cpp:47
+#, kde-format
+msgid "Micro"
+msgstr "Micro"
+
+#: src/gui/microsettingsdlg.cpp:59 src/picitem.cpp:290
+#, kde-format
+msgid "PIC Settings"
+msgstr "Параметри PIC"
+
+#: src/gui/microsettingsdlg.cpp:70
+#, kde-format
+msgid "This dialog allows editing of the initial properties of the PIC"
+msgstr ""
+"За допомогою цього діалогового вікна можна змінити початкові властивості PIC"
+
+#: src/gui/microsettingsdlg.cpp:72
+#, kde-format
+msgid ""
+"Edit the initial value of the ports here. For each binary number, the order "
+"from right-to-left is pins 0 through 7.<br><br>The \"Type (TRIS)\" edit "
+"shows the initial input/output state of the ports; 1 represents an input, "
+"and 0 an output.<br><br>The \"State (PORT)\" edit shows the initial high/low "
+"state of the ports; 1 represents a high, and 0 a low."
+msgstr ""
+"Тут можна змінити початкове значення портів. Для кожного двійкового числа "
+"порядок визначає значення від контакту 0 до 7.<br><br>Поле «Тип (TRIS)» "
+"показує початковий стан входу-виходу портів; 1 — вхід, а 0 — вихід."
+"<br><br>Поле «Стан (PORT)» показує початковий стан відкриття-закриття "
+"портів; 1 — відкрито, а 0 — закрито."
+
+#: src/gui/microsettingsdlg.cpp:75
+#, kde-format
+msgid ""
+"Edit the initial value of the variables here.<br><br>Note that the value of "
+"the variable can only be in the range 0->255. These variables will be "
+"initialized before any other code is executed."
+msgstr ""
+"Тут можна змінити початкове значення змінних.<br><br>Зауважте, що значення "
+"змінної має перебувати у діапазоні від 0 до 255. Ці змінні буде "
+"ініціалізовано до виконання іншого коду."
+
+#. i18n( "the type", "Type (TRIS register):" );
+#: src/gui/microsettingsdlg.cpp:109
+#, kde-format
+msgid "Type (TRIS register):"
+msgstr "Тип (регістр TRIS):"
+
+#: src/gui/microsettingsdlg.cpp:110
+#, kde-format
+msgid "State (PORT register):"
+msgstr "Стан (регістр PORT):"
+
+#: src/gui/microsettingsdlg.cpp:132
+#, kde-format
+msgid "Variable name"
+msgstr "Назва змінної"
+
+#: src/gui/microsettingsdlg.cpp:133
+#, kde-format
+msgid "Variable value"
+msgstr "Значення змінної"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#: src/gui/microsettingsdlg.cpp:259 src/gui/newpinmappingwidget.ui:48
+#, kde-format
+msgid "New Pin Mapping"
+msgstr "Нова прив’язка контактів"
+
+#. i18n: ectx: property (text), widget (QPushButton, pinMapAdd)
+#: src/gui/microsettingsdlg.cpp:266 src/gui/microsettingswidget.ui:132
+#, kde-format
+msgid "Create"
+msgstr "Створити"
+
+#: src/gui/microsettingsdlg.cpp:331
+#, kde-format
+msgid "New Pin Map Name"
+msgstr "Назва нової карти контактів"
+
+#: src/gui/microsettingsdlg.cpp:449
+#, kde-format
+msgid "Invalid variable value: %1"
+msgstr "Некоректне значення змінної: %1"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/microsettingswidget.ui:45
+#, kde-format
+msgid ""
+"Tip: Toggle the initial state (high/low) of a pin by clicking its picture.\n"
+"Drag it to set the type (input/output)."
+msgstr ""
+"Підказка: перемкнути початковий стан (відкрито/закрито) контакту можна "
+"клацанням на його зображенні.\n"
+"Перетягніть його, щоб встановити тип (вхід/вихід)."
+
+#. i18n: ectx: property (text), widget (QPushButton, pinMapRemove)
+#: src/gui/microsettingswidget.ui:109 src/projectmanager.cpp:1078
+#, kde-format
+msgid "Remove"
+msgstr "Вилучити"
+
+#. i18n: ectx: property (text), widget (QPushButton, pinMapModify)
+#: src/gui/microsettingswidget.ui:139
+#, kde-format
+msgid "Modif&y"
+msgstr "З&мінити"
+
+#. i18n: ectx: property (text), widget (QPushButton, pinMapRename)
+#: src/gui/microsettingswidget.ui:146
+#, kde-format
+msgid "Rename"
+msgstr "Перейменувати"
+
+#: src/gui/newfiledlg.cpp:56 src/ktechlab.cpp:455
+#, kde-format
+msgid "New File"
+msgstr "Новий файл"
+
+#. i18n: ectx: property (whatsThis), widget (QWidget, NewFileWidget)
+#: src/gui/newfilewidget.ui:20
+#, kde-format
+msgid ""
+"Select the type of file you wish to create.<br>\n"
+"<p>\n"
+"<b>Pic Program</b><br>\n"
+"Creates a new PIC program, with flow chart editor. Select the target device "
+"for your program below.\n"
+"<p>\n"
+"<b>Circuit</b><br>\n"
+"Creates a new circuit, with drag and drop editor. Real time simulation of "
+"the circuit occurs automatically."
+msgstr ""
+"Виберіть тип файла, який слід створити.<br>\n"
+"<p>\n"
+"<b>Програма PIC</b><br>\n"
+"Створити програму PIC за допомогою редактора блок-схем. Нижче можна вибрати "
+"пристрій призначення для вашої програми.\n"
+"<p>\n"
+"<b>Схема</b><br>\n"
+"Створити схему за допомогою редактора з можливостями перетягування зі "
+"скиданням. Інтерактивну імітацію схеми буде запущено автоматично."
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/newfilewidget.ui:72
+#, kde-format
+msgid "New File Details"
+msgstr "Параметри нового файла"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2_2)
+#: src/gui/newfilewidget.ui:82
+#, kde-format
+msgid "File Type:"
+msgstr "Тип файла:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, addToProjectCheck)
+#: src/gui/newfilewidget.ui:129
+#, kde-format
+msgid "&Add to project"
+msgstr "&Додати до проєкту"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/newpinmappingwidget.ui:33
+#, kde-format
+msgid "Name:"
+msgstr "Назва:"
+
+#. i18n: ectx: property (toolTip), widget (KLineEdit, nameEdit)
+#: src/gui/newpinmappingwidget.ui:91
+#, kde-format
+msgid ""
+"The variable name of the pin mapping - this must be a valid Microbe variable "
+"name."
+msgstr ""
+"Назва змінної прив’язки контактів, має бути коректною назвою змінної Microbe."
+
+#. i18n: ectx: property (text), item, widget (QComboBox, typeCombo)
+#: src/gui/newpinmappingwidget.ui:110
+#, kde-format
+msgid "Keypad (4x3)"
+msgstr "Клавіатура (4⨯3)"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, typeCombo)
+#: src/gui/newpinmappingwidget.ui:115
+#, kde-format
+msgid "Keypad (4x4)"
+msgstr "Клавіатура (4⨯4)"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel8)
+#: src/gui/newprojectwidget.ui:23
+#, kde-format
+msgid "Final location:"
+msgstr "Остаточне розташування:"
+
+#. i18n: ectx: property (text), widget (QLabel, locationLabel)
+#: src/gui/newprojectwidget.ui:33
+#, kde-format
+msgid "/"
+msgstr "/"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: src/gui/newprojectwidget.ui:59
+#, kde-format
+msgid "Location:"
+msgstr "Розташування:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/newprojectwidget.ui:74
+#, kde-format
+msgid "New Project Details"
+msgstr "Параметри нового проєкту"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel10)
+#: src/gui/newprojectwidget.ui:84
+#, kde-format
+msgid "Project Name:"
+msgstr "Назва проєкту:"
+
+#: src/gui/oscilloscope.cpp:319
+#, kde-format
+msgid "Oscilloscope"
+msgstr "Осцилоскоп"
+
+#: src/gui/oscilloscopeview.cpp:124
+#, kde-format
+msgid "Framerate"
+msgstr "Частота кадрів"
+
+#. i18n("%1 fps", QString::number(num)), num);   // 2018.12.07
+#. fpsMenu.setItemChecked( num, num == m_fps);
+#: src/gui/oscilloscopeview.cpp:137
+#, kde-format
+msgid "%1 fps"
+msgstr "%1 кд/с"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/oscilloscopewidget.ui:71
+#, kde-format
+msgid "Zoom"
+msgstr "Масштаб"
+
+#. i18n: ectx: property (text), widget (QRadioButton, displayDirectCheck)
+#: src/gui/outputmethodwidget.ui:44
+#, kde-format
+msgid "Displa&y directly"
+msgstr "П&оказувати безпосередньо"
+
+#. i18n: ectx: property (text), widget (QRadioButton, saveFileCheck)
+#: src/gui/outputmethodwidget.ui:54
+#, kde-format
+msgid "Sa&ve to file"
+msgstr "З&берегти до файла"
+
+#. i18n: ectx: property (text), widget (QCheckBox, loadFileCheck)
+#: src/gui/outputmethodwidget.ui:73
+#, kde-format
+msgid "Load File in &New View"
+msgstr "Завантажити файл на &нову панель"
+
+#. i18n: ectx: property (text), widget (QCheckBox, addToProjectCheck)
+#: src/gui/outputmethodwidget.ui:80
+#, kde-format
+msgid "&Add to Project"
+msgstr "&Додати до проєкту"
+
+#. i18n: ectx: property (text), widget (QPushButton, addButton)
+#: src/gui/picprogrammerconfigwidget.ui:48
+#, kde-format
+msgid "&Add ..."
+msgstr "&Додати…"
+
+#. i18n: ectx: property (text), widget (QPushButton, removeButton)
+#: src/gui/picprogrammerconfigwidget.ui:55
+#, kde-format
+msgid "Re&move"
+msgstr "Ви&лучити"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_3)
+#: src/gui/picprogrammerconfigwidget.ui:62 src/gui/programmerwidget.ui:29
+#, kde-format
+msgid "Program:"
+msgstr "Програма:"
+
+#. i18n: ectx: property (text), widget (QLabel, m_pProgrammerDescription)
+#: src/gui/picprogrammerconfigwidget.ui:85
+#, kde-format
+msgid "(Program Description)"
+msgstr "(Опис програми)"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
+#: src/gui/picprogrammerconfigwidget.ui:101
+#, kde-format
+msgid "Initialization:"
+msgstr "Ініціалізація:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: src/gui/picprogrammerconfigwidget.ui:123
+#, kde-format
+msgid "Read:"
+msgstr "Читання:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#: src/gui/picprogrammerconfigwidget.ui:133
+#, kde-format
+msgid "Write:"
+msgstr "Запис:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: src/gui/picprogrammerconfigwidget.ui:154
+#, no-c-format, kde-format
+msgid ""
+"The following strings will be replaced when the command is run:\n"
+"<ul>\n"
+"<li><b>%port</b> - Port that the programmer is connected to</li>\n"
+"<li><b>%device</b> - PIC device</li>\n"
+"<li><b>%file</b> - File to read from or write to</li>\n"
+"</ul>"
+msgstr ""
+"Під час виконання команди буде замінено такі рядки:\n"
+"<ul>\n"
+"<li><b>%port</b> — порт, з яким з’єднано програматор</li>\n"
+"<li><b>%device</b> — пристрій PIC</li>\n"
+"<li><b>%file</b> — файл для читання або записування даних</li>\n"
+"</ul>"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel5)
+#: src/gui/picprogrammerconfigwidget.ui:167
+#, kde-format
+msgid "Erase:"
+msgstr "Витирання:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2_3)
+#: src/gui/picprogrammerconfigwidget.ui:177
+#, kde-format
+msgid "Verify:"
+msgstr "Перевірка:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1_4)
+#: src/gui/picprogrammerconfigwidget.ui:187
+#, kde-format
+msgid "Blank Check:"
+msgstr "Перевірка на порожність:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/picprogrammerconfigwidget.ui:202
+#, kde-format
+msgid "Default port:"
+msgstr "Типовий порт:"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel1)
+#: src/gui/processingoptionswidget.ui:49
+#, kde-format
+msgid "Output File:"
+msgstr "Файл виводу:"
+
+#: src/gui/programmerdlg.cpp:40 src/gui/settingsdlg.cpp:134
+#, kde-format
+msgid "PIC Programmer"
+msgstr "Програматор PIC"
+
+#: src/gui/programmerdlg.cpp:88
+#, kde-format
+msgid "Burn"
+msgstr "Записати"
+
+#: src/gui/projectdlgs.cpp:51
+#, kde-format
+msgid "New Project"
+msgstr "Новий проєкт"
+
+#: src/gui/projectdlgs.cpp:129
+#, kde-format
+msgid "Create Subproject"
+msgstr "Створити підпроєкт"
+
+#: src/gui/projectdlgs.cpp:182
+#, kde-format
+msgid "Linker Options"
+msgstr "Параметри компонувальника"
+
+#: src/gui/projectdlgs.cpp:317
+#, kde-format
+msgid "Processing Options"
+msgstr "Параметри обробки"
+
+#. i18n("Bold"), "format-text-bold", Qt::CTRL + Qt::Key_B, 0, 0, ac, "format_bold" );
+#: src/gui/richtexteditor.cpp:66
+#, kde-format
+msgid "Bold"
+msgstr "Жирний"
+
+#. i18n("Italic"), "format-text-italic", Qt::CTRL + Qt::Key_I, 0, 0, ac, "format_italic" );
+#: src/gui/richtexteditor.cpp:75
+#, kde-format
+msgid "Italic"
+msgstr "Курсив"
+
+#. i18n("Underline"), "format-text-underline", Qt::CTRL + Qt::Key_U, 0, 0, ac, "format_underline" );
+#: src/gui/richtexteditor.cpp:84
+#, kde-format
+msgid "Underline"
+msgstr "Підкреслений"
+
+#. i18n("List"), "unsorted_list", Qt::CTRL + Qt::Key_L, 0, 0, ac, "format_list" );
+#: src/gui/richtexteditor.cpp:93
+#, kde-format
+msgid "List"
+msgstr "Список"
+
+#. i18n("Text Alignment"), "format-justify-left", 0, 0, 0, ac, "text_alignment" );
+#. i18n("Text Alignment") );
+#: src/gui/richtexteditor.cpp:103 src/gui/richtexteditor.cpp:112
+#, kde-format
+msgid "Text Alignment"
+msgstr "Вирівнювання тексту"
+
+#. i18n("Align Left"),		Qt::AlignLeft );
+#: src/gui/richtexteditor.cpp:116
+#, kde-format
+msgid "Align Left"
+msgstr "Вирівняти ліворуч"
+
+#. i18n("Align Center"),	Qt::AlignHCenter );
+#: src/gui/richtexteditor.cpp:118
+#, kde-format
+msgid "Align Center"
+msgstr "Вирівняти за центром"
+
+#. i18n("Align Right"),	Qt::AlignRight );
+#: src/gui/richtexteditor.cpp:120
+#, kde-format
+msgid "Align Right"
+msgstr "Вирівняти праворуч"
+
+#. i18n("Align Block"),	Qt::AlignJustify );
+#: src/gui/richtexteditor.cpp:122
+#, kde-format
+msgid "Align Block"
+msgstr "Вирівняти блоком"
+
+#. i18n("Text Vertical Alignment"), "text", 0, 0, 0, ac, "text_vertical_alignment" );
+#. i18n("Text Vertical Alignment") );
+#: src/gui/richtexteditor.cpp:128 src/gui/richtexteditor.cpp:136
+#, kde-format
+msgid "Text Vertical Alignment"
+msgstr "Вертикальне вирівнювання тексту"
+
+#: src/gui/richtexteditor.cpp:139
+#, kde-format
+msgid "Superscript"
+msgstr "Верхній індекс"
+
+#. i18n("Superscript"),	QTextCharFormat::AlignSuperScript );
+#: src/gui/richtexteditor.cpp:141
+#, kde-format
+msgid "Normal"
+msgstr "Звичайний"
+
+#. i18n("Normal"),			QTextCharFormat::AlignNormal );
+#: src/gui/richtexteditor.cpp:143
+#, kde-format
+msgid "Subscript"
+msgstr "Нижній індекс"
+
+#. i18n("Text Color..."), pm, 0, this, SLOT(textColor()), ac, "format_color" );
+#: src/gui/richtexteditor.cpp:151
+#, kde-format
+msgid "Text Color..."
+msgstr "Колір тексту…"
+
+#. i18n: ectx: property (title), widget (QGroupBox, xGroupBox)
+#: src/gui/scopescreenwidget.ui:26
+#, kde-format
+msgid "X"
+msgstr "X"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel2)
+#: src/gui/scopescreenwidget.ui:36
+#, kde-format
+msgid "Intervals"
+msgstr "Інтервали"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel3)
+#: src/gui/scopescreenwidget.ui:88
+#, kde-format
+msgid "Ticks per Interval"
+msgstr "Тактів на інтервал"
+
+#. i18n: ectx: property (text), widget (QLabel, textLabel4)
+#: src/gui/scopescreenwidget.ui:134
+#, kde-format
+msgid "Offset (ticks)"
+msgstr "Відступ (у тактах)"
+
+#. i18n: ectx: attribute (title), widget (QWidget, general)
+#: src/gui/sdccoptionswidget.ui:36
+#, kde-format
+msgid "Ge&neral"
+msgstr "За&гальне"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nostdlib)
+#: src/gui/sdccoptionswidget.ui:42
+#, kde-format
+msgid "Do not search in the standard librar&y directory (--nostdlib)"
+msgstr "Не шукати у каталозі стандартних &бібліотек (--nostdlib)"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nostdinc)
+#: src/gui/sdccoptionswidget.ui:49
+#, kde-format
+msgid "Do not search in the standard include directory (--nostdinc)"
+msgstr "Не шукати у каталозі стандартних включень (--nostdinc)"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_less_pedantic)
+#: src/gui/sdccoptionswidget.ui:59
+#, kde-format
+msgid "Disa&ble pedantic warnings (--less-pedantic)"
+msgstr "Ви&мкнути педантичні попередження (--less-pedantic)"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_std_c89)
+#: src/gui/sdccoptionswidget.ui:66
+#, kde-format
+msgid ""
+"Follow the C89 standard and disable SDCC features that conflict with the "
+"standard."
+msgstr ""
+"Виконувати стандарт C89, вимкнути можливості SDCC, які суперечать цьому "
+"стандарту."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_std_c89)
+#: src/gui/sdccoptionswidget.ui:69
+#, kde-format
+msgid "Use C&89 standard only (--std-c89)"
+msgstr "Використовувати лише стандарт C&89 (--std-c89)"
+
+#. i18n: ectx: property (shortcut), widget (QCheckBox, kcfg_SDCC_std_c89)
+#: src/gui/sdccoptionswidget.ui:72
+#, kde-format
+msgid "Alt+8"
+msgstr "Alt+8"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_std_c99)
+#: src/gui/sdccoptionswidget.ui:82
+#, kde-format
+msgid ""
+"Follow the C99 standard and disable SDCC features that conflict with the "
+"standard (incomplete support)."
+msgstr ""
+"Виконувати стандарт C99, вимкнути можливості SDCC, які суперечать цьому "
+"стандарту (підтримка є неповною)."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_std_c99)
+#: src/gui/sdccoptionswidget.ui:85
+#, kde-format
+msgid "Use C&99 standard only (--std-c99)"
+msgstr "Використовувати лише стандарт C&99 (--std-c99)"
+
+#. i18n: ectx: property (shortcut), widget (QCheckBox, kcfg_SDCC_std_c99)
+#: src/gui/sdccoptionswidget.ui:88
+#, kde-format
+msgid "Alt+9"
+msgstr "Alt+9"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_use_non_free)
+#: src/gui/sdccoptionswidget.ui:98
+#, kde-format
+msgid "Use non-free licensed libraries and header files (--use-non-free)"
+msgstr ""
+"Використовувати бібліотеки і файли заголовків із невільними умовами "
+"ліцензування (--use-non-free)"
+
+#. i18n: ectx: attribute (title), widget (QWidget, code_generation)
+#: src/gui/sdccoptionswidget.ui:122
+#, kde-format
+msgid "Code Gener&ation"
+msgstr "С&творення коду"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_stack_auto)
+#: src/gui/sdccoptionswidget.ui:131
+#, kde-format
+msgid ""
+"All functions in the source file will be compiled as reentrant, i.e. the "
+"parameters and local variables will be allocated on the stack. If this "
+"option is used all source files in the project should be compiled with this "
+"option. It automatically implies -int-long-reent and -float-reent."
+msgstr ""
+"Усі функції у файлі початкового коду буде зібрано як функції для повторного "
+"використання, тобто параметри та локальні змінні буде розміщено у стеку. "
+"Якщо пункт позначено, усі файли початкового коду у проєкті буде зібрано з "
+"цим параметром збирання. Автоматично додаються параметри -int-long-reent і -"
+"float-reent."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_stack_auto)
+#: src/gui/sdccoptionswidget.ui:134
+#, kde-format
+msgid "Stack auto&matic variables (--stack-auto)"
+msgstr "Розташовувати &локальні змінні у стеку (--stack-auto)"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_int_long_reent)
+#: src/gui/sdccoptionswidget.ui:144
+#, kde-format
+msgid ""
+"Integer (16 bit) and long (32 bit) libraries have been compiled as "
+"reentrant. Note by default these libraries are compiled as non-reentrant."
+msgstr ""
+"Цілочисельні бібліотеки (для 16-бітового int та 32-бітового long) було "
+"зібрано для повторного використання. Зауважте, що типово ці бібліотеки "
+"збираються як непридатні для повторного використання."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_int_long_reent)
+#: src/gui/sdccoptionswidget.ui:147
+#, kde-format
+msgid "Integer li&braries were compiled as reentrant (--int-long-reent)"
+msgstr ""
+"Цілочисельні &бібліотеки було зібрано для повторного використання (--int-"
+"long-reent)"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_float_reent)
+#: src/gui/sdccoptionswidget.ui:154
+#, kde-format
+msgid "Floating point library is compiled as reentrant."
+msgstr ""
+"Бібліотеку роботи з числами з рухомою крапкою зібрано для повторного "
+"використання."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_float_reent)
+#: src/gui/sdccoptionswidget.ui:157
+#, kde-format
+msgid "Floating point librar&y was compiled as reentrant (--float-reent)"
+msgstr ""
+"Біблі&отеку роботи з числами з рухомою крапкою зібрано для повторного "
+"використання (--float-reent)"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_fommit_frame_pointer)
+#: src/gui/sdccoptionswidget.ui:164
+#, kde-format
+msgid "Leave out the frame pointer (--fommit-frame-pointer)"
+msgstr "Оминати вказівники кадру (--fommit-frame-pointer)"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_no_xinit_opt)
+#: src/gui/sdccoptionswidget.ui:174
+#, kde-format
+msgid ""
+"Will not memcpy initialized data from code space into xdata space. This "
+"saves a few bytes in code space if you do not have initialized data."
+msgstr ""
+"Забороняє виконання memcpy для ініціалізованих даних з простору коду до "
+"простору xdata. Це може заощадити декілька байтів у просторі коду, якщо у "
+"вас немає ініціалізованих даних."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_no_xinit_opt)
+#: src/gui/sdccoptionswidget.ui:177
+#, kde-format
+msgid "Do not memcpy initialized &xram from code (--no-xinit-opt)"
+msgstr ""
+"Не виконувати memcpy для іні&ціалізованого xram з коду (--no-xinit-opt)"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_all_callee_saves)
+#: src/gui/sdccoptionswidget.ui:184
+#, kde-format
+msgid "Callee will &always save registers used (--all-callee-saves)"
+msgstr ""
+"Функція виклику зав&жди зберігає використані регістри (--all-callee-saves)"
+
+#. i18n: ectx: attribute (title), widget (QWidget, optimization)
+#: src/gui/sdccoptionswidget.ui:208
+#, kde-format
+msgid "&Optimization"
+msgstr "&Оптимізація"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_nooverlay)
+#: src/gui/sdccoptionswidget.ui:214
+#, kde-format
+msgid ""
+"The compiler will not overlay parameters and local variables of any "
+"function, see section Parameters and local variables for more details."
+msgstr ""
+"Компілятор не накладатиме параметри та локальні змінні будь-яких функцій. "
+"Докладніше у розділі щодо параметрів і локальних змінних."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nooverlay)
+#: src/gui/sdccoptionswidget.ui:217
+#, kde-format
+msgid "Disable overlaying leaf function &auto variables (--nooverlay)"
+msgstr "Вимкнути накладання &локальних змінних (--nooverlay)"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nogcse)
+#: src/gui/sdccoptionswidget.ui:224
+#, kde-format
+msgid "Disable the GCSE optimization (--nogcse)"
+msgstr "Вимкнути оптимізацію GCSE (--nogcse)"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_nolabelopt)
+#: src/gui/sdccoptionswidget.ui:234
+#, kde-format
+msgid "Will not optimize labels (makes the dumpfiles more readable)."
+msgstr "Не оптимізувати мітки (робить файли дампів зручнішими для читання)."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nolabelopt)
+#: src/gui/sdccoptionswidget.ui:237
+#, kde-format
+msgid "Disable label optimi&zation (--nolabelopt)"
+msgstr "Вимкнути опт&имізацію міток (--nolabelopt)"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_noinvariant)
+#: src/gui/sdccoptionswidget.ui:244
+#, kde-format
+msgid "Disable optimization of invariants (--noinvariant)"
+msgstr "Вимкнути оптимізацію інваріантів (--noinvariant)"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_noinduction)
+#: src/gui/sdccoptionswidget.ui:254
+#, kde-format
+msgid "Disable loop variable induction (--noinduction)"
+msgstr "Вимкнути індукцію змінних циклу (--noinduction)"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_no_peep)
+#: src/gui/sdccoptionswidget.ui:264
+#, kde-format
+msgid "Disable peep-hole optimization."
+msgstr "Вимкнути оптимізацію для зондування."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_no_peep)
+#: src/gui/sdccoptionswidget.ui:267
+#, kde-format
+msgid "Disable peep-hole optimization (--&no-peep)"
+msgstr "Вим&кнути оптимізацію для зондування (--no-peep)"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_noloopreverse)
+#: src/gui/sdccoptionswidget.ui:274
+#, kde-format
+msgid "Will not do loop reversal optimization."
+msgstr "Не виконувати зворотної оптимізації циклів."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_noloopreverse)
+#: src/gui/sdccoptionswidget.ui:277
+#, kde-format
+msgid "Disable loop reverse optimization (--noloopreverse)"
+msgstr "Вимкнути зворотну оптимізацію циклів (--noloopreverse)"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_opt_code_size)
+#: src/gui/sdccoptionswidget.ui:287
+#, kde-format
+msgid ""
+"The compiler will optimize code generation towards compact code, possibly at "
+"the expense of code speed."
+msgstr ""
+"Компілятор оптимізуватиме створюваний код так, щоб він був компактнішим, "
+"ймовірно, ціною уповільнення його виконання."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_opt_code_size)
+#: src/gui/sdccoptionswidget.ui:290
+#, kde-format
+msgid "Opti&mize for compact code (--opt-code-size)"
+msgstr "Опт&имізувати для компактності коду (--opt-code-size)"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_opt_code_speed)
+#: src/gui/sdccoptionswidget.ui:297
+#, kde-format
+msgid ""
+"The compiler will optimize code generation towards fast code, possibly at "
+"the expense of code size."
+msgstr ""
+"Компілятор оптимізуватиме створюваний код так, щоб він виконувався швидше, "
+"ймовірно, ціною збільшення його розміру."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_opt_code_speed)
+#: src/gui/sdccoptionswidget.ui:300
+#, kde-format
+msgid "&Optimize for fast code (--opt-code-speed)"
+msgstr "&Оптимізувати для пришвидшення коду (--opt-code-speed)"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_peep_asm)
+#: src/gui/sdccoptionswidget.ui:307
+#, kde-format
+msgid ""
+"Pass the inline assembler code through the peep hole optimizer. This can "
+"cause unexpected changes to inline assembler code, please go through the "
+"peephole optimizer rules defined in the source file tree '<target>/peeph."
+"def' before using this option."
+msgstr ""
+"Пропустити вбудований код асемблера крізь оптимізатор для зондування. Це "
+"може призвести до неочікуваних змін у вбудованому коді асемблера. Перш ніж "
+"користуватися цим параметром, будь ласка, ознайомтеся із правилами "
+"оптимізатора для зондування, визначеними у ієрархії файлів початкового коду "
+"у файлі «<ціль>/peeph.def»."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_peep_asm)
+#: src/gui/sdccoptionswidget.ui:310
+#, kde-format
+msgid "Ena&ble inline assembly peephole optimization (--peep-asm)"
+msgstr ""
+"Уві&мкнути оптимізацію вбудованого коду асемблера для зондування (--peep-asm)"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nojtbound)
+#: src/gui/sdccoptionswidget.ui:317
+#, kde-format
+msgid "Do not generate boundary check for &jump tables (--nojtbound)"
+msgstr ""
+"Не створювати код перевірки потрапляння у межі для та&блиць переходів (--"
+"nojtbound)"
+
+#. i18n: ectx: attribute (title), widget (QWidget, pic16_specific)
+#: src/gui/sdccoptionswidget.ui:341
+#, kde-format
+msgid "PIC&16 Specific"
+msgstr "Специфічні параметри PIC&16"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nodefaultlibs)
+#: src/gui/sdccoptionswidget.ui:347
+#, kde-format
+msgid "Do not use default libraries (--nodefaultlibs)"
+msgstr "Не використовувати типові бібліотеки (--nodefaultlibs)"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_pno_banksel)
+#: src/gui/sdccoptionswidget.ui:357
+#, kde-format
+msgid "Do not generate BANKSEL directives (--pno-banksel)"
+msgstr "Не створювати директив BANKSEL (--pno-banksel)"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_pstack_model_large)
+#: src/gui/sdccoptionswidget.ui:367
+#, kde-format
+msgid "Use large stac&k model (--pstack-model=large)"
+msgstr "Використовувати модель великого с&тека (--pstack-model=large)"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_debug_xtra)
+#: src/gui/sdccoptionswidget.ui:374
+#, kde-format
+msgid "Show more debug info in assembl&y output (--debug-xtra)"
+msgstr ""
+"Показувати більше діагностичних даних у виведенні &асемблера (--debug-xtra)"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_denable_peeps)
+#: src/gui/sdccoptionswidget.ui:381
+#, kde-format
+msgid "E&xplicit enable of peepholes (--denable-peeps)"
+msgstr "&Явно увімкнути точки зондування (--denable-peeps)"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_calltree)
+#: src/gui/sdccoptionswidget.ui:388
+#, kde-format
+msgid "Du&mp call tree in .calltree file (--calltree)"
+msgstr "Створити &дамп ієрархії викликів у файлі .calltree (--calltree)"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_fstack)
+#: src/gui/sdccoptionswidget.ui:395
+#, kde-format
+msgid "Ena&ble stack optimizations (--fstack)"
+msgstr "&Увімкнути оптимізацію стека (--fstack)"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_optimize_goto)
+#: src/gui/sdccoptionswidget.ui:402
+#, kde-format
+msgid "Try to use conditional BRA instead of GOTO (--optimi&ze-goto)"
+msgstr "Намагатися використовувати у&мовний BRA замість GOTO (--optimize-goto)"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_optimize_cmp)
+#: src/gui/sdccoptionswidget.ui:409
+#, kde-format
+msgid "Try to optimize some compares (--optimize-cmp)"
+msgstr "Спробувати оптимізувати деякі порівняння (--optimize-cmp)"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_optimize_df)
+#: src/gui/sdccoptionswidget.ui:419
+#, kde-format
+msgid "Thorough data flow analysis (resource intensive) (--optimize-df)"
+msgstr "Повний аналіз руху даних (вибагливий до ресурсів) (--optimize-df)"
+
+#. i18n: ectx: property (text), widget (QLabel, installPrefixLabel)
+#: src/gui/sdccoptionswidget.ui:475
+#, kde-format
+msgid "SDCC install prefix:"
+msgstr "Префікс встановлення SDCC:"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_SDCC_install_prefix)
+#: src/gui/sdccoptionswidget.ui:482
+#, kde-format
+msgid "Location where SDCC in installed. Empty for system default."
+msgstr ""
+"Місце, куди встановлено SDCC. Якщо не вказано, типове для системи місце."
+
+#: src/gui/settingsdlg.cpp:133
+#, kde-format
+msgid "General"
+msgstr "Загальне"
+
+#: src/gui/settingsdlg.cpp:133
+#, kde-format
+msgid "General Options"
+msgstr "Загальні параметри"
+
+#: src/gui/settingsdlg.cpp:134
+#, kde-format
+msgid "Programmer"
+msgstr "Програматор"
+
+#: src/gui/settingsdlg.cpp:135
+#, kde-format
+msgid "Formatter"
+msgstr "Форматування"
+
+#: src/gui/settingsdlg.cpp:135
+#, kde-format
+msgid "Assembly Formatter"
+msgstr "Форматування асемблера"
+
+#: src/gui/settingsdlg.cpp:136
+#, kde-format
+msgid "Electronic Logic Values"
+msgstr "Значення електронної логіки"
+
+#: src/gui/settingsdlg.cpp:177
+#, kde-format
+msgid "Lowest (%1 FPS)"
+msgstr "Найнижча (%1 кд./с)"
+
+#: src/gui/settingsdlg.cpp:180
+#, kde-format
+msgid "Low (%1 FPS)"
+msgstr "Низька (%1 кд./с)"
+
+#: src/gui/settingsdlg.cpp:183
+#, kde-format
+msgid "Medium (%1 FPS)"
+msgstr "Середня (%1 кд./с)"
+
+#: src/gui/settingsdlg.cpp:186
+#, kde-format
+msgid "High (%1 FPS)"
+msgstr "Висока (%1 кд./с)"
+
+#: src/gui/settingsdlg.cpp:189
+#, kde-format
+msgid "Highest (%1 FPS)"
+msgstr "Найвища (%1 кд./с)"
+
+#: src/gui/settingsdlg.cpp:192
+#, kde-format
+msgid "Unknown value"
+msgstr "Невідоме значення"
+
+#: src/gui/settingsdlg.cpp:213
+#, kde-format
+msgid "<b>%1</b> cannot be found.<br>"
+msgstr "Не вдалося знайти <b>%1</b>.<br>"
+
+#: src/gui/settingsdlg.cpp:215
+#, kde-format
+msgid "<b>%1</b> found: %2<br>"
+msgstr "Знайдено <b>%1</b>: %2<br>"
+
+#: src/gui/settingsdlg.cpp:263
+#, kde-format
+msgid "Remove programmer configuration \"%1\"?"
+msgstr "Вилучити налаштування програматора «%1»?"
+
+#: src/gui/settingsdlg.cpp:263
+#, kde-format
+msgid "Remove \"%1\""
+msgstr "Вилучити «%1»"
+
+#: src/gui/settingsdlg.cpp:286
+#, kde-format
+msgid "Configuration Name"
+msgstr "Назва налаштувань"
+
+#: src/gui/symbolviewer.cpp:104
+#, kde-format
+msgid "Value radix:"
+msgstr "Основа числення значення:"
+
+#. i18n("Automatic"), "", 0, this, SLOT(slotSetRoutingAuto()), ac, "routing_mode_auto" );
+#: src/icnview.cpp:34 src/icnview.cpp:63
+#, kde-format
+msgid "Automatic"
+msgstr "Автоматично"
+
+#. i18n("Manual"), "", 0, this, SLOT(slotSetRoutingManual()), ac, "routing_mode_manual" );
+#: src/icnview.cpp:43 src/icnview.cpp:67
+#, kde-format
+msgid "Manual"
+msgstr "Вручну"
+
+#. i18n("Connection Routing Mode"), "pencil", 0, 0, 0, ac, "routing_mode" );
+#: src/icnview.cpp:53 src/icnview.cpp:59
+#, kde-format
+msgid "Connection Routing Mode"
+msgstr "Режим маршрутизації з’єднання"
+
+#: src/icnview.cpp:116
+#, kde-format
+msgid "<b>Manual</b> connection routing enabled."
+msgstr "Увімкнено маршрутизацію з’єднань <b>вручну</b>."
+
+#: src/icnview.cpp:116
+#, kde-format
+msgid "<b>Automatic</b> connection routing enabled."
+msgstr "Увімкнено <b>автоматичну</b> маршрутизацію з’єднань."
+
+#: src/itemdocument.cpp:94
+#, kde-format
+msgid "Alignment"
+msgstr "Вирівнювання"
+
+#: src/itemdocument.cpp:848
+#, kde-format
+msgid "SVG export is sub-functional"
+msgstr "Експортування до SVG не є повноцінним"
+
+#: src/itemdocument.cpp:854
+#, kde-format
+msgid "There is nothing to crop"
+msgstr "Нічого обрізати"
+
+#: src/itemdocument.cpp:923
+#, kde-format
+msgid "Export failed"
+msgstr "Не вдалося експортувати"
+
+#: src/itemdocument.cpp:923
+#, kde-format
+msgid "Image Export"
+msgstr "Експорт зображення"
+
+#: src/itemdocumentdata.cpp:112 src/projectmanager.cpp:748
+#, kde-format
+msgid "Could not open %1 for reading"
+msgstr "Не вдалося відкрити %1 для читання"
+
+#: src/itemdocumentdata.cpp:133 src/projectmanager.cpp:764
+#, kde-format
+msgid ""
+"Could not parse XML:\n"
+"%1"
+msgstr ""
+"Не вдалося обробити XML:\n"
+"%1"
+
+#: src/itemdocumentdata.cpp:175
+#, kde-format
+msgid "Could not open '%1' for writing. Check that you have write permissions"
+msgstr ""
+"Не вдалося відкрити «%1» для запису. Перевірте, чи є у вас права для запису "
+"даних до нього."
+
+#: src/itemdocumentdata.cpp:175
+#, kde-format
+msgid "Saving File"
+msgstr "Збереження файла"
+
+#: src/itemlibrary.cpp:134
+#, kde-format
+msgid ""
+"This help item does not yet exist for the %1 language. Help out with "
+"KTechlab by creating one via the \"Edit\" button."
+msgstr ""
+"Цього пункту довідки мовою %1 ще не існує. Допоможіть KTechlab створенням "
+"такого пункту — натисніть кнопку «Змінити»."
+
+#: src/itemlibrary.cpp:519
+#, kde-format
+msgid "Could not open item descriptions file \"%1\" for writing."
+msgstr "Не вдалося відкрити файл опису елементів «%1» для запису."
+
+#. i18n("Cancel"), i18n("Cancel the current operation"), Qt::Key_Escape, itemDocument, SLOT(cancelCurrentOperation()) );
+#. pAccel->readSettings(); // TODO what does this do?
+#: src/itemview.cpp:59 src/projectmanager.cpp:1078 src/viewcontainer.cpp:527
+#, kde-format
+msgid "Cancel"
+msgstr "Скасувати"
+
+#. i18n("Delete"), "edit-delete", Qt::Key_Delete, itemDocument, SLOT(deleteSelection()), ac, "edit_delete" );
+#: src/itemview.cpp:67
+#, kde-format
+msgid "Delete"
+msgstr "Вилучити"
+
+#. i18n("Export as Image..."), 0, 0, itemDocument, SLOT(exportToImage()), ac, "file_export_image");
+#: src/itemview.cpp:75
+#, kde-format
+msgid "Export as Image..."
+msgstr "Експортувати як зображення…"
+
+#. i18n("Align Horizontally"), 0, 0, itemDocument, SLOT(alignHorizontally()), ac, "align_horizontally" );
+#: src/itemview.cpp:84
+#, kde-format
+msgid "Align Horizontally"
+msgstr "Вирівняти горизонтально"
+
+#. i18n("Align Vertically"), 0, 0, itemDocument, SLOT(alignVertically()), ac, "align_vertically" );
+#: src/itemview.cpp:91
+#, kde-format
+msgid "Align Vertically"
+msgstr "Вирівняти вертикально"
+
+#. i18n("Distribute Horizontally"), 0, 0, itemDocument, SLOT(distributeHorizontally()), ac, "distribute_horizontally" );
+#: src/itemview.cpp:98
+#, kde-format
+msgid "Distribute Horizontally"
+msgstr "Розподілити горизонтально"
+
+#. i18n("Distribute Vertically"), 0, 0, itemDocument, SLOT(distributeVertically()), ac, "distribute_vertically" );
+#: src/itemview.cpp:105
+#, kde-format
+msgid "Distribute Vertically"
+msgstr "Розподілити вертикально"
+
+#. i18n("Draw"), "paintbrush", 0, 0, 0, ac, "edit_draw" );
+#: src/itemview.cpp:114 src/itemview.cpp:120
+#, kde-format
+msgid "Draw"
+msgstr "Креслення"
+
+#. i18n("Raise Selection"), "object-order-raise", Qt::Key_PageUp,   itemDocument, SLOT(raiseZ()), ac, "edit_raise" );
+#: src/itemview.cpp:134
+#, kde-format
+msgid "Raise Selection"
+msgstr "Підняти позначене"
+
+#. i18n("Lower Selection"), "object-order-lower", Qt::Key_PageDown, itemDocument, SLOT(lowerZ()), ac, "edit_lower" );
+#: src/itemview.cpp:142
+#, kde-format
+msgid "Lower Selection"
+msgstr "Опустити позначене"
+
+#: src/itemview.cpp:612 src/itemview.cpp:620
+#, kde-format
+msgid "Left click to add. Right click to resume normal editing"
+msgstr ""
+"Клацніть лівою, щоб додати. Клацніть правою, щоб відновити звичайне "
+"редагування."
+
+#: src/itemview.cpp:615
+#, kde-format
+msgid "Click and hold to start drawing."
+msgstr "Натисніть і утримуйте кнопку миші, щоб розпочати креслення."
+
+#: src/itemview.cpp:623
+#, kde-format
+msgid "Right click to cancel the connector"
+msgstr "Клацніть правою, щоб скасувати з’єднання"
+
+#: src/katemdi.cpp:421
+#, kde-format
+msgid "Behavior"
+msgstr "Поведінка"
+
+#. i18n("Make Non-Persistent") : i18n("Make Persistent"), 10); // 2018.11.22
+#: src/katemdi.cpp:424
+#, kde-format
+msgid "Make Non-Persistent"
+msgstr "Зробити не стійкою"
+
+#: src/katemdi.cpp:424
+#, kde-format
+msgid "Make Persistent"
+msgstr "Зробити стійкою"
+
+#: src/katemdi.cpp:426
+#, kde-format
+msgid "Move To"
+msgstr "Пересунути до"
+
+#. i18n("Left Sidebar"),0);  // 2018.11.22
+#: src/katemdi.cpp:430
+#, kde-format
+msgid "Left Sidebar"
+msgstr "Ліва бічна панель"
+
+#. i18n("Right Sidebar"),1); // 2018.11.22
+#: src/katemdi.cpp:434
+#, kde-format
+msgid "Right Sidebar"
+msgstr "Права бічна панель"
+
+#. i18n("Top Sidebar"),2); // 2018.11.22
+#: src/katemdi.cpp:438
+#, kde-format
+msgid "Top Sidebar"
+msgstr "Верхня бічна панель"
+
+#. i18n("Bottom Sidebar"),3); // 2018.11.22
+#: src/katemdi.cpp:442
+#, kde-format
+msgid "Bottom Sidebar"
+msgstr "Нижня бічна панель"
+
+#: src/ktechlab.cpp:183
+#, kde-format
+msgid "Project"
+msgstr "Проєкт"
+
+#: src/ktechlab.cpp:187
+#, kde-format
+msgid "Components"
+msgstr "Компоненти"
+
+#: src/ktechlab.cpp:195
+#, kde-format
+msgid "Flow Parts"
+msgstr "Частині діаграми"
+
+#. i18n("Mechanics"), "ktechlab_mechanics", 0, this, SLOT(slotFileNewMechanics()), ac, "newfile_mechanics" ))->plug( p->menu() );
+#. "ktechlab_mechanics" -- for the future
+#: src/ktechlab.cpp:200 src/ktechlab.cpp:491
+#: src/mechanics/mechanicsdocument.cpp:28
+#, kde-format
+msgid "Mechanics"
+msgstr "Mechanics"
+
+#. i18n: ectx: ToolBar (itemEditorTB)
+#: src/ktechlab.cpp:205 src/ktechlabcircuitui.rc:34
+#: src/ktechlabflowcodeui.rc:28 src/ktechlabmechanicsui.rc:8
+#, kde-format
+msgid "Item Editor"
+msgstr "Редактор елементів"
+
+#: src/ktechlab.cpp:209
+#, kde-format
+msgid "Context Help"
+msgstr "Контекстна довідка"
+
+#: src/ktechlab.cpp:213
+#, kde-format
+msgid "Messages"
+msgstr "Повідомлення"
+
+#: src/ktechlab.cpp:218
+#, kde-format
+msgid "Symbol Viewer"
+msgstr "Переглядач символів"
+
+#: src/ktechlab.cpp:225
+#, kde-format
+msgid "Scope Screen (Very Rough)"
+msgstr "Загальний перегляд (дуже грубо)"
+
+#. i18n("&New"), "document-new",
+#. KStandardShortcut::shortcut(KStandardShortcut::New), this, SLOT(slotFileNew()), ac, "newfile_popup" );
+#: src/ktechlab.cpp:450
+#, kde-format
+msgid "&New"
+msgstr "С&творити"
+
+#. i18n("C source"), "text-x-csrc", 0, this, SLOT(slotFileNewC()), ac, "newfile_c" ))->plug( p->menu() );
+#: src/ktechlab.cpp:466
+#, kde-format
+msgid "C source"
+msgstr "Початковий код C"
+
+#. i18n("FlowCode"), "application-x-flowcode", 0, this, SLOT(slotFileNewFlowCode()), ac, "newfile_flowcode" ))->plug( p->menu() );
+#: src/ktechlab.cpp:482 src/languages/flowcode.cpp:28
+#, kde-format
+msgid "FlowCode"
+msgstr "FlowCode"
+
+#. i18n("New Project..."), "window-new",			0, pm, SLOT(slotNewProject()),			ac, 	"project_new" );
+#: src/ktechlab.cpp:517
+#, kde-format
+msgid "New Project..."
+msgstr "Створити проєкт…"
+
+#. i18n("Open Project..."), "project-open",		0, pm, SLOT(slotOpenProject()),			ac, 	"project_open" );
+#: src/ktechlab.cpp:524
+#, kde-format
+msgid "Open Project..."
+msgstr "Відкрити проєкт…"
+
+#: src/ktechlab.cpp:530
+#, kde-format
+msgid "Open &Recent Project..."
+msgstr "Відкрити &недавній проєкт…"
+
+#. i18n("Export to Makefile..."), "document-export",	0, pm, SLOT(slotExportToMakefile()),		ac, "project_export_makefile" );
+#: src/ktechlab.cpp:537
+#, kde-format
+msgid "Export to Makefile..."
+msgstr "Експортувати до Makefile…"
+
+#. i18n("Create Subproject..."), 0,				0, pm, SLOT(slotCreateSubproject()),		ac, "project_create_subproject" );
+#: src/ktechlab.cpp:544
+#, kde-format
+msgid "Create Subproject..."
+msgstr "Створити підпроєкт…"
+
+#. i18n("Add Existing File..."), "document-open",		0, pm, SLOT(slotAddFile()),					ac, "project_add_existing_file" );
+#: src/ktechlab.cpp:551
+#, kde-format
+msgid "Add Existing File..."
+msgstr "Додати наявний файл…"
+
+#. i18n("Add Current File..."), "document-import",		0, pm, SLOT(slotAddCurrentFile()),			ac, "project_add_current_file" );
+#: src/ktechlab.cpp:558
+#, kde-format
+msgid "Add Current File..."
+msgstr "Додати поточний файл…"
+
+#. i18n("Close Project"), "window-close",			0, pm, SLOT(slotCloseProject()),			ac, "project_close" );
+#: src/ktechlab.cpp:567
+#, kde-format
+msgid "Close Project"
+msgstr "Закрити проєкт"
+
+#. i18n("Remove from Project"), "edit-delete",		0, pm, SLOT(slotRemoveSelected()),			ac, "project_remove_selected" );
+#: src/ktechlab.cpp:574
+#, kde-format
+msgid "Remove from Project"
+msgstr "Вилучити з проєкту"
+
+#. i18n("Insert Existing File..."), "document-open",	0, pm, SLOT(slotSubprojectAddExistingFile()),	ac, "subproject_add_existing_file" );
+#: src/ktechlab.cpp:581
+#, kde-format
+msgid "Insert Existing File..."
+msgstr "Вставити наявний файл…"
+
+#. i18n("Insert Current File..."), "document-import",	0, pm, SLOT(slotSubprojectAddCurrentFile()),ac, "subproject_add_current_file" );
+#: src/ktechlab.cpp:588
+#, kde-format
+msgid "Insert Current File..."
+msgstr "Вставити поточний файл…"
+
+#. i18n("Linker Options..."), "configure",		0, pm, SLOT(slotSubprojectLinkerOptions()),	ac, "project_item_linker_options" );
+#: src/ktechlab.cpp:595
+#, kde-format
+msgid "Linker Options..."
+msgstr "Параметри компонувальника…"
+
+#. i18n("Build..."), "launch",					0, pm, SLOT(slotItemBuild()),				ac, "project_item_build" );
+#: src/ktechlab.cpp:602
+#, kde-format
+msgid "Build..."
+msgstr "Зібрати…"
+
+#. i18n("Upload..."), "convert_to_pic",			0, pm, SLOT(slotItemUpload()),				ac, "project_item_upload" );
+#: src/ktechlab.cpp:609
+#, kde-format
+msgid "Upload..."
+msgstr "Вивантажити…"
+
+#. i18n("Processing Options..."), "configure",	0, pm, SLOT(slotItemProcessingOptions()),	ac, "project_item_processing_options" );
+#: src/ktechlab.cpp:616
+#, kde-format
+msgid "Processing Options..."
+msgstr "Параметри обробки…"
+
+#. i18n("Split View Left/Right"), "view-split-left-right", Qt::CTRL|Qt::SHIFT|Qt::Key_L, this, SLOT(slotViewSplitLeftRight()), ac, "view_split_leftright" );
+#: src/ktechlab.cpp:625
+#, kde-format
+msgid "Split View Left/Right"
+msgstr "Розділений перегляд: ліворуч/праворуч"
+
+#. i18n("Split View Top/Bottom"), "view-split-top-bottom", Qt::CTRL|Qt::SHIFT|Qt::Key_T, this, SLOT(slotViewSplitTopBottom()), ac, "view_split_topbottom" );
+#: src/ktechlab.cpp:632
+#, kde-format
+msgid "Split View Top/Bottom"
+msgstr "Розділений перегляд: вгорі/внизу"
+
+#. i18n("Run Simulation"), "media-playback-start", Qt::Key_F10, 0, 0, ac, "simulation_run" );
+#: src/ktechlab.cpp:639
+#, kde-format
+msgid "Run Simulation"
+msgstr "Почати імітацію"
+
+#: src/ktechlab.cpp:644
+#, kde-format
+msgid "Pause Simulation"
+msgstr "Призупинити імітацію"
+
+#: src/ktechlab.cpp:671
+#, kde-format
+msgid "Internals"
+msgstr "Внутрішня частина роботи програми"
+
+#: src/ktechlab.cpp:672
+#, kde-format
+msgid "Square Wave"
+msgstr "Квадратний сигнал"
+
+#: src/ktechlab.cpp:673
+#, kde-format
+msgid "2-Way Switch"
+msgstr "2-позиційний перемикач"
+
+#: src/ktechlab.cpp:674
+#, kde-format
+msgid "3-Way Switch"
+msgstr "3-позиційний перемикач"
+
+#: src/ktechlab.cpp:676
+#, kde-format
+msgid "LRC"
+msgstr "LRC"
+
+#: src/ktechlab.cpp:677
+#, kde-format
+msgid "Resistors in Parallel"
+msgstr "З’єднані паралельно резистори"
+
+#: src/ktechlab.cpp:678
+#, kde-format
+msgid "Resistors in Series"
+msgstr "З’єднані послідовно резистори"
+
+#: src/ktechlab.cpp:679
+#, kde-format
+msgid "Voltage Divider"
+msgstr "Дільник напруги"
+
+#: src/ktechlab.cpp:680
+#, kde-format
+msgid "Full Wave Rectifier"
+msgstr "Повний міст"
+
+#: src/ktechlab.cpp:681
+#, kde-format
+msgid "Half Wave Rectifier"
+msgstr "Напівміст"
+
+#: src/ktechlab.cpp:683
+#, kde-format
+msgid "AND"
+msgstr "І"
+
+#: src/ktechlab.cpp:684
+#, kde-format
+msgid "NAND"
+msgstr "NAND"
+
+#: src/ktechlab.cpp:685
+#, kde-format
+msgid "NOR"
+msgstr "NOR"
+
+#: src/ktechlab.cpp:686
+#, kde-format
+msgid "OR"
+msgstr "АБО"
+
+#: src/ktechlab.cpp:687
+#, kde-format
+msgid "Decoupler"
+msgstr "Розв’язувальний пристрій"
+
+#: src/ktechlab.cpp:688
+#, kde-format
+msgid "Inverting Amplifier"
+msgstr "Підсилювач-інвертор"
+
+#: src/ktechlab.cpp:689
+#, kde-format
+msgid "Noninverting Amplifier"
+msgstr "Синфазний підсилювач"
+
+#: src/ktechlab.cpp:690
+#, kde-format
+msgid "Instrumentation Amplifier"
+msgstr "Вимірювальний підсилювач"
+
+#: src/ktechlab.cpp:691
+#, kde-format
+msgid "Astable Multivibrator"
+msgstr "Астабільний мультивібратор"
+
+#: src/ktechlab.cpp:693
+#, kde-format
+msgid "Schmitt Trigger"
+msgstr "Перемикач Шмітта"
+
+#: src/ktechlab.cpp:694
+#, kde-format
+msgid "Switch"
+msgstr "Перемкнути"
+
+#: src/ktechlab.cpp:991
+#, kde-format
+msgid "Close"
+msgstr "Закрити"
+
+#: src/ktechlab.cpp:996
+#, kde-format
+msgid "Save"
+msgstr "Зберегти"
+
+#: src/ktechlab.cpp:999
+#, kde-format
+msgid "Reload"
+msgstr "Перезавантажити"
+
+#: src/ktechlab.cpp:1002
+#, kde-format
+msgid "Close All Others"
+msgstr "Закрити всі інші"
+
+#: src/ktechlab.cpp:1164
+#, kde-format
+msgid "Intel Hex"
+msgstr "Intel Hex"
+
+#: src/ktechlab.cpp:1168 src/ktechlab.cpp:1171 src/projectmanager.cpp:910
+#, kde-format
+msgid "Open Location"
+msgstr "Відкрити адресу"
+
+#: src/ktechlab.cpp:1322
+#, kde-format
+msgid "Exiting..."
+msgstr "Вихід…"
+
+#. i18n: ectx: Menu (tools)
+#: src/ktechlabcircuitui.rc:6 src/ktechlabflowcodeui.rc:5
+#: src/ktechlabitemviewui.rc:25 src/ktechlabkateui.rc:55
+#: src/ktechlabtextui.rc:15 src/ktechlabui.rc:37
+#, kde-format
+msgid "&Tools"
+msgstr "&Інструменти"
+
+#. i18n: ectx: Menu (routing_mode_menu)
+#: src/ktechlabcircuitui.rc:9 src/ktechlabflowcodeui.rc:8
+#, kde-format
+msgid "Routing Mode"
+msgstr "Режим маршрутизації"
+
+#. i18n: ectx: Menu (file)
+#: src/ktechlabitemviewui.rc:6 src/ktechlabkateui.rc:6 src/ktechlabtextui.rc:6
+#: src/ktechlabui.rc:6
+#, kde-format
+msgid "&File"
+msgstr "&Файл"
+
+#. i18n: ectx: Menu (edit)
+#: src/ktechlabitemviewui.rc:11 src/ktechlabkateui.rc:15
+#, kde-format
+msgid "&Edit"
+msgstr "З&міни"
+
+#. i18n: ectx: Menu (view)
+#: src/ktechlabitemviewui.rc:18 src/ktechlabkateui.rc:31 src/ktechlabui.rc:11
+#, kde-format
+msgid "&View"
+msgstr "П&ерегляд"
+
+#. i18n: ectx: ToolBar (toolsToolBar)
+#: src/ktechlabitemviewui.rc:34
+#, kde-format
+msgid "Tools"
+msgstr "Інструменти"
+
+#. i18n: ectx: Menu (codefolding)
+#: src/ktechlabkateui.rc:45
+#, kde-format
+msgid "&Code Folding"
+msgstr "Згортання &коду"
+
+#. i18n: ectx: Menu (settings)
+#: src/ktechlabkateui.rc:93
+#, kde-format
+msgid "&Settings"
+msgstr "П&араметри"
+
+#. i18n: ectx: ToolBar (toolsToolBar)
+#: src/ktechlabkateui.rc:116 src/ktechlabtextui.rc:82
+#, kde-format
+msgid "Main Toolbar"
+msgstr "Головна панель"
+
+#. i18n: ectx: Menu (debug)
+#: src/ktechlabtextui.rc:53
+#, kde-format
+msgid "&Debug"
+msgstr "Діа&гностика"
+
+#. i18n: ectx: ToolBar (debugTB)
+#: src/ktechlabtextui.rc:90
+#, kde-format
+msgid "Debugger"
+msgstr "Діагностика"
+
+#. i18n: ectx: Menu (project)
+#: src/ktechlabui.rc:21
+#, kde-format
+msgid "&Project"
+msgstr "&Проєкт"
+
+#. i18n: ectx: Menu (examples)
+#: src/ktechlabui.rc:45
+#, kde-format
+msgid "Examples"
+msgstr "Приклади"
+
+#. i18n: ectx: Menu (examples_555)
+#: src/ktechlabui.rc:47
+#, kde-format
+msgid "555s"
+msgstr "555s"
+
+#. i18n: ectx: Menu (examples_basic)
+#: src/ktechlabui.rc:50
+#, kde-format
+msgid "Basic"
+msgstr "Базовий"
+
+#. i18n: ectx: Menu (examples_diodes)
+#: src/ktechlabui.rc:53
+#, kde-format
+msgid "Diodes"
+msgstr "Діоди"
+
+#. i18n: ectx: Menu (examples_jfets)
+#: src/ktechlabui.rc:56
+#, kde-format
+msgid "JFETs"
+msgstr "JFET-и"
+
+#. i18n: ectx: Menu (examples_matrix_disp_driver)
+#: src/ktechlabui.rc:59
+#, kde-format
+msgid "Matrix Display Drivers"
+msgstr "Драйвери матричного дисплея"
+
+#. i18n: ectx: Menu (examples_mosfets)
+#: src/ktechlabui.rc:62
+#, kde-format
+msgid "MOSFETs"
+msgstr "MOSFET-и"
+
+#. i18n: ectx: Menu (examples_transistors)
+#: src/ktechlabui.rc:65
+#, kde-format
+msgid "Transistors"
+msgstr "Транзистори"
+
+#. i18n: ectx: Menu (examples_opamps)
+#: src/ktechlabui.rc:68
+#, kde-format
+msgid "Opamps"
+msgstr "Операційні підсилювачі"
+
+#: src/languages/flowcode.cpp:30
+#, kde-format
+msgid "*** Microbe generation successful ***"
+msgstr "*** Успішне створення коду Microbe ***"
+
+#: src/languages/flowcode.cpp:31
+#, kde-format
+msgid "*** Microbe generation failed ***"
+msgstr "*** Не вдалося створити код Microbe ***"
+
+#: src/languages/flowcode.cpp:173
+#, kde-format
+msgid "Warning: Floating connection for %1"
+msgstr "Попередження: незакріплене з’єднання для %1"
+
+#: src/languages/flowcode.cpp:187
+#, kde-format
+msgid ""
+"KTechlab was unable to find the \"Start\" part.\n"
+"This must be included as the starting point for your program."
+msgstr ""
+"KTechlab не вдалося знайти частину «Start».\n"
+"Цю частину слід включити як початкову точку вашої програми."
+
+#: src/languages/gpasm.cpp:27
+#, kde-format
+msgid "*** Assembly successful ***"
+msgstr "*** Успішне асемблювання ***"
+
+#: src/languages/gpasm.cpp:28
+#, kde-format
+msgid "*** Assembly failed ***"
+msgstr "*** Помилка асемблювання ***"
+
+#: src/languages/gpasm.cpp:114
+#, kde-format
+msgid "Assembly failed. Please check you have gputils installed."
+msgstr ""
+"Не вдалося виконати асемблювання. Будь ласка, перевірте, чи встановлено "
+"gputils."
+
+#: src/languages/gpdasm.cpp:27
+#, kde-format
+msgid "*** Disassembly successful ***"
+msgstr "*** Успішне дизасемблювання ***"
+
+#: src/languages/gpdasm.cpp:28
+#, kde-format
+msgid "*** Disassembly failed ***"
+msgstr "*** Помилка дизасемблювання ***"
+
+#: src/languages/gpdasm.cpp:49
+#, kde-format
+msgid "Disassembly failed. Please check you have gputils installed."
+msgstr ""
+"Не вдалося виконати асемблювання. Будь ласка, перевірте, чи встановлено "
+"gputils."
+
+#: src/languages/gplib.cpp:22
+#, kde-format
+msgid "*** Archiving successful ***"
+msgstr "*** Успішне архівування ***"
+
+#: src/languages/gplib.cpp:23
+#, kde-format
+msgid "*** Archiving failed ***"
+msgstr "*** Помилка архівування ***"
+
+#: src/languages/gplib.cpp:46 src/languages/gplink.cpp:157
+#, kde-format
+msgid "Linking failed. Please check you have gputils installed."
+msgstr ""
+"Не вдалося виконати компонування. Будь ласка, перевірте, чи встановлено "
+"gputils."
+
+#: src/languages/gplink.cpp:30
+#, kde-format
+msgid "*** Linking successful ***"
+msgstr "*** Успішне компонування ***"
+
+#: src/languages/gplink.cpp:31
+#, kde-format
+msgid "*** Linking failed ***"
+msgstr "*** Помилка компонування ***"
+
+#: src/languages/languagemanager.cpp:49
+#, kde-format
+msgid ""
+"These messages show the output of language-related functionality such as "
+"compiling and assembling.<br><br>For error messages, clicking on the line "
+"will automatically open up the file at the position of the error."
+msgstr ""
+"Ці повідомлення виведено функціональною частиною, пов’язаною із мовою, "
+"зокрема засобами компіляції та асемблювання.<br><br>Для повідомлень щодо "
+"помилок клацання на рядку повідомлення автоматично відкриватиме файл на "
+"рядку, виконання коду з якого призвело до помилки."
+
+#: src/languages/microbe.cpp:28 src/languages/sdcc.cpp:29
+#, kde-format
+msgid "*** Compilation failed ***"
+msgstr "*** Помилка компіляції ***"
+
+#: src/languages/microbe.cpp:29 src/languages/sdcc.cpp:28
+#, kde-format
+msgid "*** Compilation successful ***"
+msgstr "*** Успішна компіляція ***"
+
+#: src/languages/microbe.cpp:77
+#, kde-format
+msgid ""
+"Assembly failed. Please check you have KTechlab installed properly (\"microbe"
+"\" could not be started)."
+msgstr ""
+"Не вдалося виконати асемблювання. Будь ласка, перевірте, чи встановлено "
+"KTechlab (не вдалося запустити програму «microbe»)."
+
+#: src/languages/picprogrammer.cpp:62 src/languages/picprogrammer.cpp:73
+#: src/languages/picprogrammer.cpp:84 src/languages/picprogrammer.cpp:94
+#: src/languages/picprogrammer.cpp:104 src/languages/picprogrammer.cpp:114
+#: src/languages/picprogrammer.cpp:125 src/languages/picprogrammer.cpp:138
+#: src/languages/picprogrammer.cpp:149 src/languages/picprogrammer.cpp:160
+#: src/languages/picprogrammer.cpp:171
+#, kde-format
+msgid "Supported programmers: %1"
+msgstr "Підтримувані програматори: %1"
+
+#: src/languages/picprogrammer.cpp:63 src/languages/picprogrammer.cpp:85
+#: src/languages/picprogrammer.cpp:115
+#, kde-format
+msgid "<br>Interface: Serial Port"
+msgstr "<br>Інтерфейс: послідовний порт"
+
+#: src/languages/picprogrammer.cpp:74 src/languages/picprogrammer.cpp:95
+#: src/languages/picprogrammer.cpp:139 src/languages/picprogrammer.cpp:150
+#: src/languages/picprogrammer.cpp:161 src/languages/picprogrammer.cpp:172
+#, kde-format
+msgid "<br>Interface: Parallel Port"
+msgstr "<br>Інтерфейс: паралельний порт"
+
+#: src/languages/picprogrammer.cpp:105
+#, kde-format
+msgid "<br>Interface: USB Port"
+msgstr "<br>Інтерфейс: порт USB"
+
+#: src/languages/picprogrammer.cpp:126
+#, kde-format
+msgid "<br>Interface: Serial Port and Parallel Port"
+msgstr "<br>Інтерфейс: послідовний порт і паралельний порт"
+
+#: src/languages/picprogrammer.cpp:330
+#, kde-format
+msgid "*** Programming successful ***"
+msgstr "*** Успішне програмування ***"
+
+#: src/languages/picprogrammer.cpp:331
+#, kde-format
+msgid "*** Programming failed ***"
+msgstr "*** Помилка програмування ***"
+
+#: src/languages/processchain.cpp:61
+#, kde-format
+msgid "Building: %1"
+msgstr "Збираємо: %1"
+
+#: src/languages/sdcc.cpp:42
+#, kde-format
+msgid "Could not find PIC with ID \"%1\"."
+msgstr "Не вдалося знайти PIC з ідентифікатором «%1»."
+
+#: src/languages/sdcc.cpp:154
+#, kde-format
+msgid "Compilation failed. Please check you have sdcc installed."
+msgstr ""
+"Не вдалося виконати компіляцію. Будь ласка, перевірте, чи встановлено sdcc."
+
+#: src/mechanics/chassiscircular2.cpp:31 src/mechanics/chassiscircular2.cpp:37
+#, kde-format
+msgid "Circular 2-Wheel Chassis"
+msgstr "Кругове двоколісне шасі"
+
+#: src/mechanics/chassiscircular2.cpp:31
+#, kde-format
+msgid "Chassis'"
+msgstr "Апаратний блок"
+
+#: src/mechanics/mechanicsitem.cpp:41
+#, kde-format
+msgid "Mass"
+msgstr "Маса"
+
+#: src/mechanics/mechanicsitem.cpp:49
+#, kde-format
+msgid "Moment of Inertia"
+msgstr "Момент інерції"
+
+#: src/picitem.cpp:236
+#, kde-format
+msgid "Advanced..."
+msgstr "Додатково…"
+
+#: src/projectmanager.cpp:411
+#, kde-format
+msgid "Do not know how to build \"%1\" (output URL is empty)."
+msgstr "Невідомий спосіб збирання «%1» (адреса виведення є порожньою)."
+
+#: src/projectmanager.cpp:420
+#, kde-format
+msgid "Do not know how to build \"%1\" (library does not exist in project)."
+msgstr "Невідомий спосіб збирання «%1» (у проєкті немає бібліотеки)."
+
+#: src/projectmanager.cpp:446
+#, kde-format
+msgid "Do not know how to build \"%1\" (unknown output type)."
+msgstr "Невідомий спосіб збирання «%1» (невідомий тип виведення)."
+
+#: src/projectmanager.cpp:800
+#, kde-format
+msgid "Project could not be saved to \"%1\""
+msgstr "Не вдалося зберегти проєкт до «%1»"
+
+#: src/projectmanager.cpp:800
+#, kde-format
+msgid "Saving Project"
+msgstr "Збереження проєкту"
+
+#: src/projectmanager.cpp:863
+#, kde-format
+msgid ""
+"Displays the list of files in the project.\n"
+"To open or close a project, use the \"Project\" menu. Right click on a file "
+"to remove it from the project"
+msgstr ""
+"Показує список файлів у проєкті.\n"
+"Щоб відкрити або закрити проєкт, скористайтеся меню «Проєкт». Клацніть "
+"правою кнопкою миші на пункті файла, щоб вилучити його з проєкту."
+
+#: src/projectmanager.cpp:866
+#, kde-format
+msgid "Project Manager"
+msgstr "Керування проєктами"
+
+#: src/projectmanager.cpp:908
+#, kde-format
+msgid "KTechlab Project"
+msgstr "Проєкт KTechlab"
+
+#: src/projectmanager.cpp:1078
+#, kde-format
+msgid "Do you really want to remove \"%1\"?"
+msgstr "Ви справді хочете вилучити «%1»?"
+
+#: src/projectmanager.cpp:1078
+#, kde-format
+msgid "Remove Project File?"
+msgstr "Вилучити файл проєкту?"
+
+#: src/textdocument.cpp:83
+#, kde-format
+msgid "Failed to create editor"
+msgstr "Не вдалося створити редактор"
+
+#: src/textdocument.cpp:96
+#, kde-format
+msgid "Failed to create MarkInterface"
+msgstr "Не вдалося створити MarkInterface"
+
+#: src/textdocument.cpp:606
+#, kde-format
+msgid "%1 - %2"
+msgstr "%1 – %2"
+
+#: src/textdocument.cpp:754
+#, kde-format
+msgid "Unknown code type."
+msgstr "Невідомий тип коду."
+
+#: src/textdocument.cpp:754 src/textdocument.cpp:758
+#, kde-format
+msgid "Cannot debug"
+msgstr "Діагностика неможлива"
+
+#: src/textdocument.cpp:758
+#, kde-format
+msgid "Cannot debug hex."
+msgstr "Неможливо виконувати діагностику для шістнадцяткового коду."
+
+#. i18n("Format Assembly Code"), "", Qt::Key_F12, textDocument, SLOT(formatAssembly()), ac, "format_asm" );
+#: src/textview.cpp:80
+#, kde-format
+msgid "Format Assembly Code"
+msgstr "Форматувати код асемблера"
+
+#. i18n("Set &Breakpoint"), 0, 0, this, SLOT(toggleBreakpoint()), ac, "debug_toggle_breakpoint" );
+#: src/textview.cpp:91 src/textview.cpp:513
+#, kde-format
+msgid "Set &Breakpoint"
+msgstr "Встановити &точку зупинки"
+
+#. i18n("Run"), "debug-run", 0, textDocument, SLOT(debugRun()), ac, "debug_run" );
+#: src/textview.cpp:98
+#, kde-format
+msgid "Run"
+msgstr "Запустити"
+
+#. i18n("Stop"), "process-stop", 0, textDocument, SLOT(debugStop()), ac, "debug_stop" );
+#: src/textview.cpp:112
+#, kde-format
+msgid "Stop"
+msgstr "Зупинити"
+
+#. i18n("Step Over"), "debug-step-over", 0, textDocument, SLOT(debugStepOver()), ac, "debug_step_over" );
+#: src/textview.cpp:127
+#, kde-format
+msgid "Step Over"
+msgstr "Переступити"
+
+#. i18n("Step Out"), "debug-step-out", 0, textDocument, SLOT(debugStepOut()), ac, "debug_step_out" );
+#: src/textview.cpp:134
+#, kde-format
+msgid "Step Out"
+msgstr "Вийти"
+
+#: src/textview.cpp:494
+#, kde-format
+msgid " Line: %1 Col: %2 "
+msgstr " Рядок: %1 Поз: %2 "
+
+#: src/textview.cpp:511
+#, kde-format
+msgid "Clear &Breakpoint"
+msgstr "Вилучити &точку зупинки"
+
+#: src/variant.cpp:96
+#, kde-format
+msgid "True"
+msgstr "Так"
+
+#: src/variant.cpp:96
+#, kde-format
+msgid "False"
+msgstr "Ні"
+
+#: src/viewcontainer.cpp:259
+#, kde-format
+msgid "(empty)"
+msgstr "(порожній)"
+
+#: src/viewcontainer.cpp:523
+#, kde-format
+msgid "Open Document"
+msgstr "Відкрити документ"
+
+#~ msgid "Custom..."
+#~ msgstr "Нетиповий…"
+
+#~ msgid "Open Recent"
+#~ msgstr "Відкрити недавні"
+
+#~ msgid "PNG Image"
+#~ msgstr "зображення PNG"
+
+#~ msgid "BMP Image"
+#~ msgstr "зображення BMP"
+
+#~ msgid "SVG Image"
+#~ msgstr "зображення SVG"
+
+#~ msgid "Unknown extension, please select one from the filter list."
+#~ msgstr ""
+#~ "Невідомий суфікс назви. Будь ласка, виберіть суфікс зі списку "
+#~ "фільтрування."
+
+#~ msgid "Discard"
+#~ msgstr "Відкинути"
+
+#~ msgid "Link libraries outside project"
+#~ msgstr "Скомпонувати бібліотеки поза проєктом"
+
+#~ msgid "&Help"
+#~ msgstr "&Довідка"
+
+#~ msgid "Libkatepart not available for constructing editor"
+#~ msgstr ""
+#~ "Недоступна бібліотека libkatepart, яка потрібна для побудови редактора"
+
+#~ msgid "Initial Port Settings"
+#~ msgstr "Початкові параметри порту"
+
+#~ msgid "Initial Variable Values"
+#~ msgstr "Початкові значення змінних"
+
+#~ msgid "Pin Map Definitions"
+#~ msgstr "Визначення карти контактів"
+
+#~ msgid "Output Method"
+#~ msgstr "Спосіб виведення"
+
+#~ msgid "Output File Options"
+#~ msgstr "Параметри файла виведення даних"
+
+#~ msgid "Programmer Configuration"
+#~ msgstr "Налаштування програматора"
+
+#~ msgid "Commands"
+#~ msgstr "Команди"
+
+#~ msgid "Keeping the project up as a maintainer during the time David left"
+#~ msgstr "Супровід проєкту після відходу Девіда"
+
+#~ msgid "Some bug-fixes"
+#~ msgstr "Деякі виправлення вад"
+
+#~ msgid "Asm Formatting"
+#~ msgstr "Форматування asm"
+
+#~ msgid "Gpasm Settings"
+#~ msgstr "Параметри Gpasm"
+
+#~ msgid "Gplink Settings"
+#~ msgstr "Параметри Gplink"
+
+#~ msgid "PIC Programmer Config"
+#~ msgstr "Налаштування програматора PIC"
+
+#~ msgid "SDCC Options"
+#~ msgstr "Параметри SDCC"
+
+#~ msgid "KTechLab Icon Tester"
+#~ msgstr "Засіб тестування піктограм KTechLab"
+
+#~ msgid "Alt+N"
+#~ msgstr "Alt+N"

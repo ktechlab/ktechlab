@@ -1,0 +1,95 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="flowcode">
+	<title
+>&flowcode;</title>
+	
+	<sect1 id="flowcode_introduction">
+		<title
+>Introducció</title>
+		
+		<para
+>El &flowcode; permet una construcció molt ràpida i senzilla d'un programa PIC. Una vegada que l'usuari ha construït un diagrama de flux a partir de les parts disponibles del programa, el &ktechlab; pot convertir el diagrama de flux en diversos formats. Per a generar hexadecimal, per exemple, es porta a terme la següent cadena de conversions:</para>
+		
+		<orderedlist>
+			<listitem
+><para
+>El &flowcode; es converteix a &microbe;, un llenguatge d'alt nivell en el qual el compilador es distribueix amb el &ktechlab;.</para
+></listitem>
+			<listitem
+><para
+>L'executable <command
+>microbe</command
+> després compila el fitxer de &microbe; en assemblador PIC.</para
+></listitem>
+			<listitem
+><para
+>Finalment, el <command
+>gpasm</command
+> pren el fitxer en assemblador PIC i genera l'hexadecimal per al programa.</para
+></listitem>
+		</orderedlist>
+		
+		<para
+>Per descomptat, si no teniu instal·lades les gputils -amb les quals es distribueix el <command
+>gpasm</command
+>- no es podrà realitzar l'últim pas.</para>
+		
+	</sect1>
+	
+	<sect1 id="flowcode_creation">
+		<title
+>Crear un programa</title>
+		
+		<para
+>Cada programa de &flowcode; necessita un punt de partida únic: aquest és el lloc des d'on s'executarà el vostre programa en iniciar el PIC. Per a definir aquest punt, obriu la barra lateral FlowParts que hi ha a l'esquerra i arrossegueu-lo a través de la part <guilabel
+>Inici</guilabel
+>. El &ktechlab; només us permetrà utilitzar-ne un.</para>
+		
+		<para
+>Després podreu construir el vostre programa utilitzant les parts predefinides que hi ha a l'esquerra, o inserir el codi propi (en el format en assemblador o &microbe;) a través de la part <guilabel
+>Incrusta</guilabel
+>. El flux del programa es controla a través de les connexions entre les FlowPart, la <xref linkend="connecting_components"/> ofereix més detalls sobre la creació de les connexions.</para>
+		
+		<para
+>El &flowcode; imposa limitacions a més de les dels circuits sobre els quals es pot connectar. Per exemple, cada FlowPart només pot tenir una connexió de sortida. Les limitacions addicionals es descriuen en la <xref linkend="nestling_flowcode"/>.</para>
+	</sect1>
+	
+	<sect1 id="pic_settings">
+		<title
+>Configuració del PIC</title>
+		
+		<para
+>Quan creeu un document nou de &flowcode;, veureu una imatge del PIC que esteu utilitzant a la cantonada superior esquerra de l'àrea de treball. Això representa la configuració inicial del PIC.</para>
+		
+		<para
+>Cada pin que es mostra a la imatge del PIC mostra el tipus inicial del pin (entrada o sortida) i el seu estat inicial (alt o baix). Podeu canviar-los arrossegant el pin per a establir el tipus i fent-hi clic per a canviar el seu estat.</para>
+		
+		<para
+>El diàleg <guilabel
+>Arranjament</guilabel
+>, el qual s'invoca fent clic al botó <guibutton
+>Arranjament</guibutton
+>, també permet editar els tipus i estats dels pins inicials, en aquest cas, editant els valors binaris escrits en els registres PORT i TRIS. No obstant això, a més de la configuració dels pins, el diàleg permet editar els valors inicials de les variables en el programa PIC.</para>
+		
+		<para
+>A la part inferior, hi ha una llista dels mapes de pins que hi ha definits actualment, així com els botons per a manipular-los. Els mapes de pins s'utilitzen per a especificar com es connecten set segments o un teclat numèric amb un PIC. Per a utilitzar les parts de &flowcode; <guilabel
+>Set segments</guilabel
+> o <guilabel
+>Teclat numèric</guilabel
+>, primer haureu de definir aquí un mapa de pins.</para>
+		
+	</sect1>
+	
+	<sect1 id="nestling_flowcode">
+		<title
+>&flowcode; imbricat</title>
+		
+		<para
+>Moltes FlowPart, com subrutines i bucles, poden contenir codi propi. Després de crear un contenidor, les FlowPart es poden afegir arrossegant o deixant-les anar al contenidor. El contenidor es ressaltarà per a indicar que es convertirà en el nou pare de la FlowPart.</para>
+		
+		<para
+>El contenidor assumeix la responsabilitat de les FlowPart imbricades a l'interior. Si no es fa clic al botó expandeix, totes les FlowPart contingudes s'ocultaran i, de la mateixa manera, el contingut es mostrarà quan es faci clic de nou al botó expandeix. No es poden fer connexions entre les FlowPart en contenidors diferents, i el contingut d'un contenidor es mourà juntament amb el contenidor.</para>
+		
+	</sect1>
+	
+</chapter>
