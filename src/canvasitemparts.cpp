@@ -30,7 +30,7 @@ GuiPart::GuiPart(CNItem *parent, const QRect &r, KtlQCanvas *canvas)
     , b_pointsAdded(false)
     , m_originalRect(r)
 {
-    connect(parent, &CNItem::moveBy, this, &GuiPart::slotMoveBy);
+    connect(parent, &CNItem::movedBy, this, &GuiPart::slotMoveBy);
     setZ(parent->z() + 0.5);
 }
 
