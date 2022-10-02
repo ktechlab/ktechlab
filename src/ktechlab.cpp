@@ -1240,22 +1240,24 @@ void KTechlab::addRecentFile( const QUrl &url )
 QList<QUrl> KTechlab::getFileURLs( bool allowMultiple )
 {
 	QString filter;
-	filter = QString("*|%1\n"
-			"*.asm *.src *.inc|%2 (*.asm, *.src, *.inc)\n"
-			"*.hex|%3 (*.hex)\n"
-			"*.circuit|%4 (*.circuit)\n"
-			"*.flowcode|FlowCode (*.flowcode)\n"
-			"*.basic *.microbe|Microbe (*.microbe, *.basic)"
-					/*"*.mechanics|Mechanics (*.mechanics)\n"*/)
-					.arg(i18n("All Files"))
-					.arg(i18n("Assembly Code"))
-					.arg(i18n("Intel Hex"))
-					.arg(i18n("Circuit"));
+    filter = QString(
+                 "*|%1 (*)\n"
+                 ";;*.asm *.src *.inc|%2 (*.asm, *.src, *.inc)\n"
+                 ";;*.hex|%3 (*.hex)\n"
+                 ";;*.circuit|%4 (*.circuit)\n"
+                 ";;*.flowcode|FlowCode (*.flowcode)\n"
+                 ";;*.basic *.microbe|Microbe (*.microbe, *.basic)"
+                 /*"*.mechanics|Mechanics (*.mechanics)\n"*/)
+                 .arg(i18n("All Files"))
+                 .arg(i18n("Assembly Code"))
+                 .arg(i18n("Intel Hex"))
+                 .arg(i18n("Circuit"));
 
-	if ( allowMultiple )
-		return QFileDialog::getOpenFileUrls(nullptr, i18n("Open Location"), QUrl(), filter);
-	
-	else {
+
+    if (allowMultiple)
+        return QFileDialog::getOpenFileUrls(nullptr, i18n("Open Location"), QUrl(), filter);
+
+    else {
         QUrl ret = QFileDialog::getOpenFileUrl(nullptr, i18n("Open Location"), QUrl(), filter);
         return { ret };
     }
