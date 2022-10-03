@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-06-27 00:46+0000\n"
+"POT-Creation-Date: 2022-10-03 00:51+0000\n"
 "PO-Revision-Date: 2021-05-06 06:38+0200\n"
 "Last-Translator: Burkhard Lück <lueck@hube-lueck.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -977,23 +977,23 @@ msgstr "Konstruktionsdatei „%1“ lässt sich nicht öffnen"
 msgid "Could not open text file \"%1\""
 msgstr "Textdatei „%1“ lässt sich nicht öffnen"
 
-#: src/document.cpp:101
+#: src/document.cpp:102
 #, kde-format
 msgid "Save Location"
 msgstr "Datei speichern"
 
-#: src/document.cpp:107 src/itemdocument.cpp:825
+#: src/document.cpp:108 src/itemdocument.cpp:825
 #, kde-format
 msgid ""
 "A file named \"%1\" already exists. Are you sure you want to overwrite it?"
 msgstr "Eine Datei \"%1\" existiert bereits. Möchten Sie diese überschreiben?"
 
-#: src/document.cpp:107 src/itemdocument.cpp:828
+#: src/document.cpp:108 src/itemdocument.cpp:828
 #, kde-format
 msgid "Overwrite File?"
 msgstr "Datei überschreiben?"
 
-#: src/document.cpp:126
+#: src/document.cpp:134
 #, kde-format
 msgid ""
 "The document '%1' has been modified.\n"
@@ -1002,7 +1002,7 @@ msgstr ""
 "Das Dokument '%1' wurde geändert.\n"
 "Möchten Sie es speichern?"
 
-#: src/document.cpp:126
+#: src/document.cpp:134
 #, kde-format
 msgid "Save Document?"
 msgstr "Dokument speichern?"
@@ -1150,8 +1150,8 @@ msgstr "Ausrichtung"
 
 #: src/electronics/circuitdocument.cpp:47
 #: src/electronics/components/piccomponent.cpp:92 src/flowcodedocument.cpp:49
-#: src/flowcodedocument.cpp:169 src/flowcodedocument.cpp:190
-#: src/flowcodedocument.cpp:211 src/ktechlab.cpp:1162
+#: src/flowcodedocument.cpp:170 src/flowcodedocument.cpp:191
+#: src/flowcodedocument.cpp:212 src/ktechlab.cpp:1162
 #: src/mechanics/mechanicsdocument.cpp:28 src/projectmanager.cpp:908
 #: src/textdocument.cpp:437 src/textdocument.cpp:472
 #, kde-format
@@ -1165,12 +1165,12 @@ msgstr "Alle Dateien"
 msgid "Circuit"
 msgstr "Schaltung"
 
-#: src/electronics/circuitdocument.cpp:740
+#: src/electronics/circuitdocument.cpp:741
 #, kde-format
 msgid "No components were found in the selection."
 msgstr "Keine Bauelemente im ausgewählten Bereich."
 
-#: src/electronics/circuitdocument.cpp:747
+#: src/electronics/circuitdocument.cpp:748
 #, kde-format
 msgid "No External Connection components were found in the selection."
 msgstr "Keine externen Verbindungen im ausgewählten Bereich."
@@ -2096,7 +2096,7 @@ msgstr "Alle unterstützten Dateien"
 msgid "Symbol File"
 msgstr "Symboldatei"
 
-#: src/electronics/components/piccomponent.cpp:89 src/flowcodedocument.cpp:190
+#: src/electronics/components/piccomponent.cpp:89 src/flowcodedocument.cpp:191
 #: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1163 src/textdocument.cpp:437
 #, kde-format
 msgid "Assembly Code"
@@ -2439,17 +2439,17 @@ msgstr "Unbekannt"
 msgid "Subcircuits"
 msgstr "Teilschaltungen"
 
-#: src/flowcodedocument.cpp:167
+#: src/flowcodedocument.cpp:168
 #, kde-format
 msgid "Microbe Code Output"
 msgstr "Microbe Code Ausgabe"
 
-#: src/flowcodedocument.cpp:188 src/textdocument.cpp:431
+#: src/flowcodedocument.cpp:189 src/textdocument.cpp:431
 #, kde-format
 msgid "Assembly Code Output"
 msgstr "Assemblercode Ausgabe"
 
-#: src/flowcodedocument.cpp:209 src/textdocument.cpp:470
+#: src/flowcodedocument.cpp:210 src/textdocument.cpp:470
 #, kde-format
 msgid "Hex Code Output"
 msgstr "HEX-Code Ausgabe"

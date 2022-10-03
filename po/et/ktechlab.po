@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-06-27 00:46+0000\n"
+"POT-Creation-Date: 2022-10-03 00:51+0000\n"
 "PO-Revision-Date: 2020-04-28 10:48+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -963,23 +963,23 @@ msgstr ""
 msgid "Could not open text file \"%1\""
 msgstr "Tekstifaili \"%1\" avamine nurjus"
 
-#: src/document.cpp:101
+#: src/document.cpp:102
 #, kde-format
 msgid "Save Location"
 msgstr "Asukoha salvestamine"
 
-#: src/document.cpp:107 src/itemdocument.cpp:825
+#: src/document.cpp:108 src/itemdocument.cpp:825
 #, kde-format
 msgid ""
 "A file named \"%1\" already exists. Are you sure you want to overwrite it?"
 msgstr "Fail nimega \"%1\" on juba olemas. Kas tõesti see üle kirjutada?"
 
-#: src/document.cpp:107 src/itemdocument.cpp:828
+#: src/document.cpp:108 src/itemdocument.cpp:828
 #, kde-format
 msgid "Overwrite File?"
 msgstr "Kas kirjutada fail üle?"
 
-#: src/document.cpp:126
+#: src/document.cpp:134
 #, kde-format
 msgid ""
 "The document '%1' has been modified.\n"
@@ -988,7 +988,7 @@ msgstr ""
 "Dokumenti \"%1\" on muudetud.\n"
 "Kas salvestada see?"
 
-#: src/document.cpp:126
+#: src/document.cpp:134
 #, kde-format
 msgid "Save Document?"
 msgstr "Kas salvestada dokument?"
@@ -1136,8 +1136,8 @@ msgstr "Orientatsioon"
 
 #: src/electronics/circuitdocument.cpp:47
 #: src/electronics/components/piccomponent.cpp:92 src/flowcodedocument.cpp:49
-#: src/flowcodedocument.cpp:169 src/flowcodedocument.cpp:190
-#: src/flowcodedocument.cpp:211 src/ktechlab.cpp:1162
+#: src/flowcodedocument.cpp:170 src/flowcodedocument.cpp:191
+#: src/flowcodedocument.cpp:212 src/ktechlab.cpp:1162
 #: src/mechanics/mechanicsdocument.cpp:28 src/projectmanager.cpp:908
 #: src/textdocument.cpp:437 src/textdocument.cpp:472
 #, kde-format
@@ -1151,12 +1151,12 @@ msgstr "Kõik failid"
 msgid "Circuit"
 msgstr "Vooluring"
 
-#: src/electronics/circuitdocument.cpp:740
+#: src/electronics/circuitdocument.cpp:741
 #, kde-format
 msgid "No components were found in the selection."
 msgstr "Valikus ei leitud ühtegi komponenti."
 
-#: src/electronics/circuitdocument.cpp:747
+#: src/electronics/circuitdocument.cpp:748
 #, kde-format
 msgid "No External Connection components were found in the selection."
 msgstr "Valikus ei leitud ühtegi välise ühenduse komponenti."
@@ -2080,7 +2080,7 @@ msgstr "Kõik toetatud failid"
 msgid "Symbol File"
 msgstr ""
 
-#: src/electronics/components/piccomponent.cpp:89 src/flowcodedocument.cpp:190
+#: src/electronics/components/piccomponent.cpp:89 src/flowcodedocument.cpp:191
 #: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1163 src/textdocument.cpp:437
 #, kde-format
 msgid "Assembly Code"
@@ -2417,17 +2417,17 @@ msgstr "Tundmatu"
 msgid "Subcircuits"
 msgstr ""
 
-#: src/flowcodedocument.cpp:167
+#: src/flowcodedocument.cpp:168
 #, kde-format
 msgid "Microbe Code Output"
 msgstr "Microbe koodi väljund"
 
-#: src/flowcodedocument.cpp:188 src/textdocument.cpp:431
+#: src/flowcodedocument.cpp:189 src/textdocument.cpp:431
 #, kde-format
 msgid "Assembly Code Output"
 msgstr ""
 
-#: src/flowcodedocument.cpp:209 src/textdocument.cpp:470
+#: src/flowcodedocument.cpp:210 src/textdocument.cpp:470
 #, kde-format
 msgid "Hex Code Output"
 msgstr ""
