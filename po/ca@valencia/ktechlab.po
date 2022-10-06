@@ -3785,7 +3785,7 @@ msgstr "Tipus de fitxer:"
 #: src/gui/newfilewidget.ui:129
 #, kde-format
 msgid "&Add to project"
-msgstr "&Afig al projecte"
+msgstr "Afi&g al projecte"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/gui/newpinmappingwidget.ui:33
@@ -3890,13 +3890,13 @@ msgstr "Carrega el fitxer en una vista &nova"
 #: src/gui/outputmethodwidget.ui:80
 #, kde-format
 msgid "&Add to Project"
-msgstr "&Afig al projecte"
+msgstr "Afi&g al projecte"
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
 #: src/gui/picprogrammerconfigwidget.ui:48
 #, kde-format
 msgid "&Add ..."
-msgstr "&Afig «...»"
+msgstr "Afi&g «...»"
 
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
 #: src/gui/picprogrammerconfigwidget.ui:55
@@ -4396,7 +4396,7 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:300
 #, kde-format
 msgid "&Optimize for fast code (--opt-code-speed)"
-msgstr "&Optimitza per a codi ràpid (--opt-code-speed)"
+msgstr "Opti&mitza per a codi ràpid (--opt-code-speed)"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_peep_asm)
 #: src/gui/sdccoptionswidget.ui:307
@@ -5157,7 +5157,7 @@ msgstr "Mode d'encaminament"
 #: src/ktechlabui.rc:6
 #, kde-format
 msgid "&File"
-msgstr "&Fitxer"
+msgstr "Fi&txer"
 
 #. i18n: ectx: Menu (edit)
 #: src/ktechlabitemviewui.rc:11 src/ktechlabkateui.rc:15
