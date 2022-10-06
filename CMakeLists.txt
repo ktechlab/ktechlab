@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.1)
 #set( KTECHLAB_DEVELOPER_BUILD "true" )
 
 project( ktechlab )
-set( VERSION 0.50.0 )
+set( VERSION 0.50.1 )
 
 # set(CMAKE_DEBUG_TARGET_PROPERTIES INCLUDE_DIRECTORIES)
 
