@@ -921,7 +921,7 @@ msgstr ""
 #: src/core/main.cpp:56
 #, kde-format
 msgid "Document to open."
-msgstr "Document que cal obrir."
+msgstr "Document que s'obrirà."
 
 #: src/docmanager.cpp:96
 #, kde-format
