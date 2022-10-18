@@ -21,6 +21,7 @@
     <comment xml:lang="ru">KTechlab Circuit</comment>
     <comment xml:lang="sl">KTechlab Circuit</comment>
     <comment xml:lang="sv">Ktechlab-krets</comment>
+    <comment xml:lang="tr">KTechlab devresi</comment>
     <comment xml:lang="uk">схема KTechlab</comment>
     <glob pattern="*.circuit"/>
   </mime-type>
@@ -44,6 +45,7 @@
     <comment xml:lang="ru">KTechlab FlowCode</comment>
     <comment xml:lang="sl">KTechlab FlowCode</comment>
     <comment xml:lang="sv">Ktechlab FlowCode</comment>
+    <comment xml:lang="tr">KTechlab FlowCode</comment>
     <comment xml:lang="uk">FlowCode KTechlab</comment>
     <glob pattern="*.flowcode"/>
   </mime-type>
@@ -68,6 +70,7 @@
     <comment xml:lang="ru">KTechlab project</comment>
     <comment xml:lang="sl">KTechlab project</comment>
     <comment xml:lang="sv">Ktechlab-projekt</comment>
+    <comment xml:lang="tr">KTechlab projesi</comment>
     <comment xml:lang="uk">проєкт KTechlab</comment>
     <glob pattern="*.ktechlab"/>
   </mime-type>
@@ -91,6 +94,7 @@
     <comment xml:lang="ru">KTechlab Microbe</comment>
     <comment xml:lang="sl">KTechlab Microbe</comment>
     <comment xml:lang="sv">Ktechlab Microbe</comment>
+    <comment xml:lang="tr">KTechlab Microbe</comment>
     <comment xml:lang="uk">Microbe KTechlab</comment>
     <glob pattern="*.microbe"/>
     <glob pattern="*.basic"/>
