@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-03 00:51+0000\n"
-"PO-Revision-Date: 2022-10-18 02:31+0300\n"
+"PO-Revision-Date: 2022-10-21 12:56+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -66,275 +66,275 @@ msgstr "PIC 16f877,16f627 ve 16f628 eklendi"
 #: microbe/main.cpp:62
 #, kde-format
 msgid "Show source code lines in assembly output"
-msgstr ""
+msgstr "Assembly çıktısında kaynak kodu satırlarını göster"
 
 #: microbe/main.cpp:64
 #, kde-format
 msgid "Do not attempt optimization of generated instructions."
-msgstr ""
+msgstr "Üretilmiş yönergeleri eniyilemeye çalışma."
 
 #: microbe/main.cpp:66
 #, kde-format
 msgid "Input filename"
-msgstr ""
+msgstr "Dosya adı gir"
 
 #: microbe/main.cpp:67
 #, kde-format
 msgid "Output filename"
-msgstr ""
+msgstr "Dosya adı çık"
 
 #: microbe/microbe.cpp:93
 #, kde-format
 msgid "Could not open file '%1'\n"
-msgstr ""
+msgstr "'%1' dosyası açılamadı\n"
 
 #: microbe/microbe.cpp:223
 #, kde-format
 msgid "Unknown statement"
-msgstr ""
+msgstr "Bilinmeyen ifade"
 
 #: microbe/microbe.cpp:226
 #, kde-format
 msgid "Port '%1' is not supported by target PIC"
-msgstr ""
+msgstr "'%1' kapısı, hedef PIC tarafından desteklenmiyor"
 
 #: microbe/microbe.cpp:229
 #, kde-format
 msgid "Pin identifier was not followed by '='"
-msgstr ""
+msgstr "Pim tanımlayıcısından sonra '=' gelmiyor"
 
 #: microbe/microbe.cpp:232
 #, kde-format
 msgid "Pin state can only be 'high' or 'low'"
-msgstr ""
+msgstr "Pim durumu yalnızca 'high' veya 'low' olabilir"
 
 #: microbe/microbe.cpp:235
 #, kde-format
 msgid "Invalid token '%1'. Port identifier should be followed by '='"
-msgstr ""
+msgstr "Geçersiz jeton '%1'. Kapı tanımlayıcısından sonra '=' gelmeli"
 
 #: microbe/microbe.cpp:238
 #, kde-format
 msgid "Unexpected statement before '{'"
-msgstr ""
+msgstr "'{' öncesi beklenmedik ifade"
 
 #: microbe/microbe.cpp:241
 #, kde-format
 msgid "Mismatched brackets in expression '%1'"
-msgstr ""
+msgstr "'%1' ifadesinde eşleşmeyen ayraçlar"
 
 #: microbe/microbe.cpp:244
 #, kde-format
 msgid "Invalid '=' found in expression"
-msgstr ""
+msgstr "İfadede geçersiz '=' bulundu"
 
 #: microbe/microbe.cpp:247
 #, kde-format
 msgid "Reserved keyword '%1' cannot be a variable name."
-msgstr ""
+msgstr "Ayrılmış anahtar sözcük '%1', bir değişken adı olamaz."
 
 #: microbe/microbe.cpp:250
 #, kde-format
 msgid "Nothing between operators"
-msgstr ""
+msgstr "İşleçler arasında bir şey yok"
 
 #: microbe/microbe.cpp:253
 #, kde-format
 msgid "Missing operator or space in operand"
-msgstr ""
+msgstr "İşlenen içinde eksik işleç veya boşluk"
 
 #: microbe/microbe.cpp:257
 #, kde-format
 msgid "Unknown variable"
-msgstr ""
+msgstr "Bilinmeyen değişken"
 
 #: microbe/microbe.cpp:259
 #, kde-format
 msgid "Unknown variable '%1'"
-msgstr ""
+msgstr "Bilinmeyen değişken '%1'"
 
 #: microbe/microbe.cpp:262
 #, kde-format
 msgid "Could not open include file '%1'"
-msgstr ""
+msgstr "İçerme dosyası '%1' açılamadı"
 
 #: microbe/microbe.cpp:265
 #, kde-format
 msgid "Division by zero"
-msgstr ""
+msgstr "Sıfırla bölüm"
 
 #: microbe/microbe.cpp:268
 #, kde-format
 msgid "Number too big"
-msgstr ""
+msgstr "Sayı pek büyük"
 
 #: microbe/microbe.cpp:271
 #, kde-format
 msgid "Step can only be a constant expression"
-msgstr ""
+msgstr "Adım, yalnızca sabit bir ifade olabilir"
 
 #: microbe/microbe.cpp:274
 #, kde-format
 msgid "Delay must be a positive constant value"
-msgstr ""
+msgstr "Gecikme, sabit bir pozitif değer olmalı"
 
 #: microbe/microbe.cpp:277
 #, kde-format
 msgid "'high' or 'low' expected after pin expression '%1'"
-msgstr ""
+msgstr "Pim ifadesi '%1' sonrası 'high' veya 'low' bekleniyordu"
 
 #: microbe/microbe.cpp:280
 #, kde-format
 msgid "Comparison operator in '%1' is not recognized"
-msgstr ""
+msgstr "Karşılaştırma işleci '%1' tanımlanamadı"
 
 #: microbe/microbe.cpp:283
 #, kde-format
 msgid "Subroutine definition before end of program"
-msgstr ""
+msgstr "Program sonu öncesi alt rutin tanımı"
 
 #: microbe/microbe.cpp:286
 #, kde-format
 msgid "Interrupt routine definition before end of program"
-msgstr ""
+msgstr "Program sonu öncesi yarıda kesme rutini tanımı"
 
 #: microbe/microbe.cpp:289
 #, kde-format
 msgid "Label expected"
-msgstr ""
+msgstr "Etiket bekleniyordu"
 
 #: microbe/microbe.cpp:292
 #, kde-format
 msgid "Extra tokens at end of line"
-msgstr ""
+msgstr "Satır sonunda ek jetonlar"
 
 #: microbe/microbe.cpp:295
 #, kde-format
 msgid "Expected '%1'"
-msgstr ""
+msgstr "'%1' bekleniyordu"
 
 #: microbe/microbe.cpp:298
 #, kde-format
 msgid "Pin list expected"
-msgstr ""
+msgstr "Pim listesi bekleniyordu"
 
 #: microbe/microbe.cpp:301
 #, kde-format
 msgid "Alias already defined"
-msgstr ""
+msgstr "Arma halihazırda tanımlanmış"
 
 #: microbe/microbe.cpp:304
 #, kde-format
 msgid "Interrupt type not supported by target PIC"
-msgstr ""
+msgstr "Yarıda kesme türü, hedef PIC tarafından desteklenmiyor"
 
 #: microbe/microbe.cpp:307
 #, kde-format
 msgid "Interrupt already defined"
-msgstr ""
+msgstr "Yarıda kesme halihazırda tanımlanmış"
 
 #: microbe/microbe.cpp:310
 #, kde-format
 msgid "Variable '%1' is read only"
-msgstr ""
+msgstr "'%1' değişkeni saltokunur"
 
 #: microbe/microbe.cpp:313
 #, kde-format
 msgid "Variable '%1' is write only"
-msgstr ""
+msgstr "'%1' değişkeni saltyazılır"
 
 #: microbe/microbe.cpp:316
 #, kde-format
 msgid "Invalid pin list size"
-msgstr ""
+msgstr "Geçersiz pim listesi boyutu"
 
 #: microbe/microbe.cpp:319
 #, kde-format
 msgid "Variable '%1' is already defined"
-msgstr ""
+msgstr "'%1' değişkeni halihazırda tanımlanmış"
 
 #: microbe/microbe.cpp:322
 #, kde-format
 msgid "'%1' is not a valid variable name"
-msgstr ""
+msgstr "'%1', geçerli bir değişken adı değil"
 
 #: microbe/microbe.cpp:325
 #, kde-format
 msgid "Variable expected"
-msgstr ""
+msgstr "Değişken bekleniyordu"
 
 #: microbe/microbe.cpp:328
 #, kde-format
 msgid "Name expected"
-msgstr ""
+msgstr "Ad bekleniyordu"
 
 #: microbe/optimizer.cpp:71
 #, kde-format
 msgid "Internal issue: Optimization has not finished in %1 iterations."
-msgstr ""
+msgstr "İç hata: Eniyileme, %1 yinelemede tamamlanmadı."
 
 #: src/circuitview.cpp:35
 #, kde-format
 msgid "Dump linear equations"
-msgstr ""
+msgstr "Doğrusal denklemleri dök"
 
 #. i18n("0 Degrees"), "", 0, circuitDocument, SLOT(setOrientation0()), ac, "edit_orientation_0" );
 #. ra->setExclusiveGroup("orientation"); // TODO test
 #: src/circuitview.cpp:47
 #, kde-format
 msgid "0 Degrees"
-msgstr ""
+msgstr "0 derece"
 
 #. i18n("90 Degrees"), "", 0, circuitDocument, SLOT(setOrientation90()), ac, "edit_orientation_90" );
 #. ra->setExclusiveGroup("orientation"); // TODO test
 #: src/circuitview.cpp:56
 #, kde-format
 msgid "90 Degrees"
-msgstr ""
+msgstr "90 derece"
 
 #. i18n("180 Degrees"), "", 0, circuitDocument, SLOT(setOrientation180()), ac, "edit_orientation_180" );
 #. ra->setExclusiveGroup("orientation"); // TODO test
 #: src/circuitview.cpp:64
 #, kde-format
 msgid "180 Degrees"
-msgstr ""
+msgstr "180 derece"
 
 #. i18n("270 Degrees"), "", 0, circuitDocument, SLOT(setOrientation270()), ac, "edit_orientation_270" );
 #. ra->setExclusiveGroup("orientation"); // TODO test
 #: src/circuitview.cpp:72
 #, kde-format
 msgid "270 Degrees"
-msgstr ""
+msgstr "270 derece"
 
 #. i18n("Create Subcircuit"), "", 0, circuitDocument, SLOT(createSubcircuit()), ac, "circuit_create_subcircuit" );
 #: src/circuitview.cpp:80
 #, kde-format
 msgid "Create Subcircuit"
-msgstr ""
+msgstr "Alt Devre Oluştur"
 
 #. i18n("Rotate Clockwise"), "object-rotate-right", "]", circuitDocument, SLOT(rotateClockwise()), ac, "edit_rotate_cw" );
 #: src/circuitview.cpp:87
 #, kde-format
 msgid "Rotate Clockwise"
-msgstr ""
+msgstr "Saat Yönünde Döndür"
 
 #. i18n("Rotate Counter-Clockwise"), "object-rotate-left", "[", circuitDocument, SLOT(rotateCounterClockwise()), ac, "edit_rotate_ccw" );
 #: src/circuitview.cpp:94
 #, kde-format
 msgid "Rotate Counter-Clockwise"
-msgstr ""
+msgstr "Saat Yönünün Tersine Döndür"
 
 #. i18n("Flip Horizontally"), "", 0, circuitDocument, SLOT(flipHorizontally()), ac, "edit_flip_horizontally" );
 #: src/circuitview.cpp:101
 #, kde-format
 msgid "Flip Horizontally"
-msgstr ""
+msgstr "Yatay Ters Çevir"
 
 #. i18n("Flip Vertically"), "", 0, circuitDocument, SLOT(flipVertically()), ac, "edit_flip_vertically" );
 #: src/circuitview.cpp:108
 #, kde-format
 msgid "Flip Vertically"
-msgstr ""
+msgstr "Dikey Ters Çevir"
 
 #: src/circuitview.cpp:118
 #, kde-format
@@ -350,388 +350,399 @@ msgid ""
 "connecting the components with an External Connection, selecting the desired "
 "components and clicking on \"Create Subcircuit\" in the right-click menu."
 msgstr ""
+"Soldaki bileşen seçiciden bileşenleri sürükleyerek bir devre yapın. Bileşen "
+"bağlayıcılarından kablolar sürükleyerek bağlantılar oluşturun."
+"<br><br>Benzetim, öntanımlı olarak çalışır; ancak Araçlar menüsünden "
+"durdurulabilir ve sürdürülebilir.<br><br>Bir kabloyu silmek için, onu bir "
+"seçim kutusuyla seçin ve sil düğmesine basın.<br><br>Bir bileşenin "
+"özniteliklerini düzenlemek için onu seçin (başka bir türden bileşenin seçili "
+"olmadığından emin olun) ve araç çubuğunda düzenleyin. Daha gelişmiş "
+"özellikler sağdaki öge düzenleyici ile düzenlenebilirler.<br><br>Alt "
+"devreler, bileşenleri bir Dış Bağlantı ile bağlayarak, arzu edilen "
+"bileşenleri seçerek ve sağ tık menüsünden \"Alt Devre Oluştur\" seçilerek "
+"oluşturulabilir."
 
 #: src/circuitview.cpp:132
 #, kde-format
 msgid "Simulation Initializing"
-msgstr ""
+msgstr "Benzetim İlklendiriliyor"
 
 #: src/circuitview.cpp:144
 #, kde-format
 msgid "Simulation Running"
-msgstr ""
+msgstr "Benzetim Çalışıyor"
 
 #: src/circuitview.cpp:144
 #, kde-format
 msgid "Simulation Paused"
-msgstr ""
+msgstr "Benzetim Duraklatıldı"
 
 #. i18n: ectx: label, entry (MaxUndo), group (General)
 #: src/core/ktechlab.kcfg:10
 #, kde-format
 msgid "Maximum number of undo steps"
-msgstr ""
+msgstr "En çok geri alma sayısı"
 
 #. i18n: ectx: label, entry (RestoreDocumentsOnStartup), group (General)
 #: src/core/ktechlab.kcfg:14
 #, kde-format
 msgid "Restore Documents on Startup"
-msgstr ""
+msgstr "Başlangıçta Belgeleri Geri Yükle"
 
 #. i18n: ectx: label, entry (RaiseItemSelectors), group (General)
 #: src/core/ktechlab.kcfg:18
 #, kde-format
 msgid "Raise appropriate Item Selector on document creation"
-msgstr ""
+msgstr "Belge oluştururken uygun olan Öge Seçici'yi yükselt"
 
 #. i18n: ectx: label, entry (RaiseMessagesLog), group (General)
 #: src/core/ktechlab.kcfg:22
 #, kde-format
 msgid "Raise Messages Log on Compiling"
-msgstr ""
+msgstr "Derlemede İleti Günlüğünü Yükselt"
 
 #. i18n: ectx: label, entry (ShowVoltageBars), group (General)
 #: src/core/ktechlab.kcfg:26
 #, kde-format
 msgid "Show Voltage Bars"
-msgstr ""
+msgstr "Voltaj Çubuklarını Göster"
 
 #. i18n: ectx: label, entry (ShowVoltageColor), group (General)
 #: src/core/ktechlab.kcfg:30
 #, kde-format
 msgid "Show Voltage as Color"
-msgstr ""
+msgstr "Voltajı Renk Olarak Göster"
 
 #. i18n: ectx: label, entry (AnimateWires), group (General)
 #: src/core/ktechlab.kcfg:34
 #, kde-format
 msgid "Animate Wires (current or power)"
-msgstr ""
+msgstr "Kabloları Canlandır (akım veya güç)"
 
 #. i18n: ectx: label, entry (RefreshRate), group (General)
 #: src/core/ktechlab.kcfg:38
 #, kde-format
 msgid "Refresh Rate"
-msgstr ""
+msgstr "Yenileme Hızı"
 
 #. i18n: ectx: label, entry (GridColor), group (General)
 #: src/core/ktechlab.kcfg:42
 #, kde-format
 msgid "Color of grid lines"
-msgstr ""
+msgstr "Izgara çizgilerinin rengi"
 
 #. i18n: ectx: label, entry (ShowGrid), group (General)
 #: src/core/ktechlab.kcfg:46
 #, kde-format
 msgid "Whether the grid should be shown."
-msgstr ""
+msgstr "Izgaranın gösterilip gösterilmeyeceği."
 
 #. i18n: ectx: label, entry (ReuseSameViewForOutput), group (General)
 #: src/core/ktechlab.kcfg:50
 #, kde-format
 msgid "Whether the same output should be use for generation of code, etc"
-msgstr ""
+msgstr "Aynı çıktının kod üretmede kullanılıp kullanılmayacağı"
 
 #. i18n: ectx: label, entry (IndentAsmName), group (AsmFormatter)
 #: src/core/ktechlab.kcfg:57
 #, kde-format
 msgid "Indentation of Instruction Names"
-msgstr ""
+msgstr "Yönerge Adlarının Girintilemesi"
 
 #. i18n: ectx: label, entry (IndentAsmData), group (AsmFormatter)
 #: src/core/ktechlab.kcfg:61
 #, kde-format
 msgid "Indentation of Instruction Data"
-msgstr ""
+msgstr "Yönerge Verisinin Girintilemesi"
 
 #. i18n: ectx: label, entry (IndentComment), group (AsmFormatter)
 #: src/core/ktechlab.kcfg:65
 #, kde-format
 msgid "Indentation of Comments"
-msgstr ""
+msgstr "Yorumların Girintilemesi"
 
 #. i18n: ectx: label, entry (IndentEqu), group (AsmFormatter)
 #: src/core/ktechlab.kcfg:69
 #, kde-format
 msgid "Indentation of 'equ'"
-msgstr ""
+msgstr "'equ'nun Girintilemesi"
 
 #. i18n: ectx: label, entry (IndentEquValue), group (AsmFormatter)
 #: src/core/ktechlab.kcfg:73
 #, kde-format
 msgid "Indentation of 'equ' Value"
-msgstr ""
+msgstr "'equ' Değerinin Girintilemesi"
 
 #. i18n: ectx: label, entry (AutoFormatMBOutput), group (AsmFormatter)
 #: src/core/ktechlab.kcfg:77
 #, kde-format
 msgid "Automatically format Microbe output"
-msgstr ""
+msgstr "Microbe Çıktısını Kendiliğinden Biçimlendir"
 
 #. i18n: ectx: label, entry (LogicSymbolShapes), group (Logic)
 #: src/core/ktechlab.kcfg:84
 #, kde-format
 msgid "Logic Symbol Shapes"
-msgstr ""
+msgstr "Mantık Sembolü Şekilleri"
 
 #. i18n: ectx: label, entry (LogicRisingTrigger), group (Logic)
 #: src/core/ktechlab.kcfg:92
 #, kde-format
 msgid "Rising Trigger Threshold"
-msgstr ""
+msgstr "Yükselen Tetik Eşiği"
 
 #. i18n: ectx: label, entry (LogicFallingTrigger), group (Logic)
 #: src/core/ktechlab.kcfg:96
 #, kde-format
 msgid "Falling Trigger Threshold"
-msgstr ""
+msgstr "Düşen Tetik Eşiği"
 
 #. i18n: ectx: label, entry (LogicOutputHigh), group (Logic)
 #: src/core/ktechlab.kcfg:100
 #, kde-format
 msgid "Logic Output High"
-msgstr ""
+msgstr "Mantık Çıktısı Yükseği"
 
 #. i18n: ectx: label, entry (LogicOutputHighImpedance), group (Logic)
 #: src/core/ktechlab.kcfg:104
 #, kde-format
 msgid "Logic Output High Impedance"
-msgstr ""
+msgstr "Mantık Çıktısı Yüksek Özdirenci"
 
 #. i18n: ectx: label, entry (LogicOutputLowImpedance), group (Logic)
 #: src/core/ktechlab.kcfg:108
 #, kde-format
 msgid "Logic Output Low Impedance"
-msgstr ""
+msgstr "Mantık Çıktısı Düşük Özdirenci"
 
 #. i18n: ectx: label, entry (HexFormat), group (Gpasm)
 #: src/core/ktechlab.kcfg:115
 #, kde-format
 msgid "Hex Format"
-msgstr ""
+msgstr "Onaltılık Biçim"
 
 #. i18n: ectx: label, entry (Radix), group (Gpasm)
 #: src/core/ktechlab.kcfg:125
 #, kde-format
 msgid "Radix"
-msgstr ""
+msgstr "Kök"
 
 #. i18n: ectx: label, entry (GpasmWarningLevel), group (Gpasm)
 #: src/core/ktechlab.kcfg:135
 #, kde-format
 msgid "GpasmWarning Level"
-msgstr ""
+msgstr "GpasmUyarı Düzeyi"
 
 #. i18n: ectx: label, entry (IgnoreCase), group (Gpasm)
 #: src/core/ktechlab.kcfg:144
 #, kde-format
 msgid "Ignore Case"
-msgstr ""
+msgstr "BÜYÜK/küçük Harf Duyarsız"
 
 #. i18n: ectx: label, entry (DosFormat), group (Gpasm)
 #: src/core/ktechlab.kcfg:148
 #, kde-format
 msgid "Dos Formatting"
-msgstr ""
+msgstr "DOS Biçimlendirmesi"
 
 #. i18n: ectx: label, entry (MiscGpasmOptions), group (Gpasm)
 #. i18n: ectx: label, entry (MiscSDCCOptions), group (SDCC)
 #: src/core/ktechlab.kcfg:152 src/core/ktechlab.kcfg:299
 #, kde-format
 msgid "Other Options"
-msgstr ""
+msgstr "Diğer Seçenekler"
 
 #. i18n: ectx: label, entry (SDCC_nostdlib), group (SDCC)
 #: src/core/ktechlab.kcfg:159
 #, kde-format
 msgid "Do not search in the standard library directory"
-msgstr ""
+msgstr "Standart kitaplık dizininde arama yapma"
 
 #. i18n: ectx: label, entry (SDCC_nostdinc), group (SDCC)
 #: src/core/ktechlab.kcfg:163
 #, kde-format
 msgid "Do not search in the standard include directory"
-msgstr ""
+msgstr "Standart içerilecekler dizininde arama yapma"
 
 #. i18n: ectx: label, entry (SDCC_less_pedantic), group (SDCC)
 #: src/core/ktechlab.kcfg:167
 #, kde-format
 msgid "Disable pedantic warnings"
-msgstr ""
+msgstr "Çokbilmiş uyarıları devre dışı bırak"
 
 #. i18n: ectx: label, entry (SDCC_std_c89), group (SDCC)
 #: src/core/ktechlab.kcfg:171
 #, kde-format
 msgid "Strictly follow the C89 standard"
-msgstr ""
+msgstr "Sıkı bir biçimde C89 standardını izle"
 
 #. i18n: ectx: label, entry (SDCC_std_c99), group (SDCC)
 #: src/core/ktechlab.kcfg:175
 #, kde-format
 msgid "Strictly follow the C99 standard"
-msgstr ""
+msgstr "Sıkı bir biçimde C99 standardını izle"
 
 #. i18n: ectx: label, entry (SDCC_stack_auto), group (SDCC)
 #: src/core/ktechlab.kcfg:180
 #, kde-format
 msgid "Stack automatic variables"
-msgstr ""
+msgstr "Otomatik değişkenleri yığ"
 
 #. i18n: ectx: label, entry (SDCC_int_long_reent), group (SDCC)
 #: src/core/ktechlab.kcfg:184
 #, kde-format
 msgid "Integer libraries have been compiled as reentrant"
-msgstr ""
+msgstr "Tamsayı kitaplıkları, yeniden girişli olarak derlendi"
 
 #. i18n: ectx: label, entry (SDCC_float_reent), group (SDCC)
 #: src/core/ktechlab.kcfg:188
 #, kde-format
 msgid "Floating point library has been compiled as reentrant"
-msgstr ""
+msgstr "Kayan noktalı değer kitaplığı, yeniden girişli olarak derlendi"
 
 #. i18n: ectx: label, entry (SDCC_fommit_frame_pointer), group (SDCC)
 #: src/core/ktechlab.kcfg:192
 #, kde-format
 msgid "Leave out the frame pointer"
-msgstr ""
+msgstr "Çerçeve işaretçisini dışarıda bırak"
 
 #. i18n: ectx: label, entry (SDCC_no_xinit_opt), group (SDCC)
 #: src/core/ktechlab.kcfg:196
 #, kde-format
 msgid "Do not memcpy initialized data from code space to xdata space"
-msgstr ""
+msgstr "İlklendirilmiş veriyi kod alanından xdata alanına memcpy yapma"
 
 #. i18n: ectx: label, entry (SDCC_all_callee_saves), group (SDCC)
 #: src/core/ktechlab.kcfg:200
 #, kde-format
 msgid "Callee will always save registers used"
-msgstr ""
+msgstr "Çağrılan, her zaman kullanılan yazmaçları kaydeder"
 
 #. i18n: ectx: label, entry (SDCC_nooverlay), group (SDCC)
 #: src/core/ktechlab.kcfg:205
 #, kde-format
 msgid "Do not overlay parameters and local variables"
-msgstr ""
+msgstr "Parametreleri ve yerel değişkenleri üst üste bindirme"
 
 #. i18n: ectx: label, entry (SDCC_nogcse), group (SDCC)
 #: src/core/ktechlab.kcfg:209
 #, kde-format
 msgid "Disable the GCSE optimization"
-msgstr ""
+msgstr "GCSE eniyilemesini devre dışı bırak"
 
 #. i18n: ectx: label, entry (SDCC_nolabelopt), group (SDCC)
 #: src/core/ktechlab.kcfg:213
 #, kde-format
 msgid "Do not optimize labels"
-msgstr ""
+msgstr "Etiketleri eniyileme"
 
 #. i18n: ectx: label, entry (SDCC_noinvariant), group (SDCC)
 #: src/core/ktechlab.kcfg:217
 #, kde-format
 msgid "Disable optimization of invariants"
-msgstr ""
+msgstr "Değişmezlerin eniyilemesini devre dışı bırak"
 
 #. i18n: ectx: label, entry (SDCC_noinduction), group (SDCC)
 #: src/core/ktechlab.kcfg:221
 #, kde-format
 msgid "Disable loop variable induction"
-msgstr ""
+msgstr "Döngü değişken tümevarımını devre dışı bırak"
 
 #. i18n: ectx: label, entry (SDCC_no_peep), group (SDCC)
 #: src/core/ktechlab.kcfg:225
 #, kde-format
 msgid "Disable peep-hole optimization"
-msgstr ""
+msgstr "Anahtar deliği eniyilemesini devre dışı bırak"
 
 #. i18n: ectx: label, entry (SDCC_noloopreverse), group (SDCC)
 #: src/core/ktechlab.kcfg:229
 #, kde-format
 msgid "Do not do loop reversal optimization"
-msgstr ""
+msgstr "Geriye dönük döngü eniyilemesi yapma"
 
 #. i18n: ectx: label, entry (SDCC_opt_code_size), group (SDCC)
 #: src/core/ktechlab.kcfg:233
 #, kde-format
 msgid "Optimize for compact code"
-msgstr ""
+msgstr "Az ve öz kod için eniyile"
 
 #. i18n: ectx: label, entry (SDCC_opt_code_speed), group (SDCC)
 #: src/core/ktechlab.kcfg:237
 #, kde-format
 msgid "Optimize for fast code"
-msgstr ""
+msgstr "Tez kod için eniyile"
 
 #. i18n: ectx: label, entry (SDCC_peep_asm), group (SDCC)
 #: src/core/ktechlab.kcfg:241
 #, kde-format
 msgid "Pass inline assembler code through peep hole optimizer"
-msgstr ""
+msgstr "Satır için Assembler kodunu anahtar deliği eniyileyicisinden geçir"
 
 #. i18n: ectx: label, entry (SDCC_nojtbound), group (SDCC)
 #: src/core/ktechlab.kcfg:245
 #, kde-format
 msgid "Do not generate boundary check for jump tables"
-msgstr ""
+msgstr "Atlama tabloları için sınır denetimleri üretme"
 
 #. i18n: ectx: label, entry (SDCC_nodefaultlibs), group (SDCC)
 #: src/core/ktechlab.kcfg:250
 #, kde-format
 msgid "Do not use default libraries"
-msgstr ""
+msgstr "Öntanımlı kitaplıkları kullanma"
 
 #. i18n: ectx: label, entry (SDCC_pno_banksel), group (SDCC)
 #: src/core/ktechlab.kcfg:254
 #, kde-format
 msgid "Do not generate BANKSEL directives"
-msgstr ""
+msgstr "BANKSEL yönetmelikleri üretme"
 
 #. i18n: ectx: label, entry (SDCC_pstack_model_large), group (SDCC)
 #: src/core/ktechlab.kcfg:258
 #, kde-format
 msgid "Use large stack model"
-msgstr ""
+msgstr "Geniş yığın modeli kullan"
 
 #. i18n: ectx: label, entry (SDCC_debug_xtra), group (SDCC)
 #: src/core/ktechlab.kcfg:262
 #, kde-format
 msgid "Show more debug info in assembly output"
-msgstr ""
+msgstr "Assembly çıktısında daha çok hata ayıklama bilgisi göster"
 
 #. i18n: ectx: label, entry (SDCC_denable_peeps), group (SDCC)
 #: src/core/ktechlab.kcfg:266
 #, kde-format
 msgid "Explicit enable of peepholes"
-msgstr ""
+msgstr "Anahtar deliklerini açıkça etkinleştir"
 
 #. i18n: ectx: label, entry (SDCC_calltree), group (SDCC)
 #: src/core/ktechlab.kcfg:270
 #, kde-format
 msgid "Dump call tree in .calltree file"
-msgstr ""
+msgstr "Çağrı ağacını .calltree dosyasına dök"
 
 #. i18n: ectx: label, entry (SDCC_fstack), group (SDCC)
 #: src/core/ktechlab.kcfg:274
 #, kde-format
 msgid "Enable stack optimizations"
-msgstr ""
+msgstr "Yığın eniyilemelerini etkinleştir"
 
 #. i18n: ectx: label, entry (SDCC_optimize_goto), group (SDCC)
 #: src/core/ktechlab.kcfg:278
 #, kde-format
 msgid "Try to use conditional BRA instead of GOTO"
-msgstr ""
+msgstr "GOTO yerine koşulsal BRA kullanmaya çalış"
 
 #. i18n: ectx: label, entry (SDCC_optimize_cmp), group (SDCC)
 #: src/core/ktechlab.kcfg:282
 #, kde-format
 msgid "Try to optimize some compares"
-msgstr ""
+msgstr "Bazı karşılaştırmaları eniyilemeye çalış"
 
 #. i18n: ectx: label, entry (SDCC_optimize_df), group (SDCC)
 #: src/core/ktechlab.kcfg:286
 #, kde-format
 msgid "Thorough data flow analysis"
-msgstr ""
+msgstr "Kapsamlı veri akışı çözümlemesi"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_use_non_free)
 #. i18n: ectx: label, entry (SDCC_use_non_free), group (SDCC)
