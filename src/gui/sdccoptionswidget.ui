@@ -128,7 +128,7 @@
           <string/>
          </property>
          <property name="whatsThis">
-          <string>All functions in the source file will be compiled as reentrant, i.e. the parameters and local variables will be allocated on the stack. If this option is used all source files in the project should be compiled with this option. It automatically implies -int-long-reent and -float-reent.</string>
+          <string>All functions in the source file will be compiled as reentrant, i.e. the parameters and local variables will be allocated on the stack. If this option is used all source files in the project should be compiled with this option. It automatically implies --int-long-reent and --float-reent.</string>
          </property>
          <property name="text">
           <string>Stack auto&amp;matic variables (--stack-auto)</string>
