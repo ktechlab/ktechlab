@@ -429,7 +429,7 @@ TRISB = 255
 <title
 >Variables</title>
 	<para
->Totes les variables són sencers de 8 bits sense signe, el qual dona un interval des de 0 fins a 255. El <application
+>Totes les variables són enters de 8 bits sense signe, el qual dona un interval des de 0 fins a 255. El <application
 >&microbe;</application
 > admet les operacions unàries típiques (actuant sobre una variable) i les operacions binàries (actuant sobre dues variables) que són admeses pel PIC. A més, el &microbe; també admet la divisió i la multiplicació. </para>
 	<sect2 id="unary">

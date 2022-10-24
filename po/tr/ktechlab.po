@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-03 00:51+0000\n"
-"PO-Revision-Date: 2022-10-21 12:56+0300\n"
+"PO-Revision-Date: 2022-10-23 12:09+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -405,13 +405,13 @@ msgstr "Derlemede İleti Günlüğünü Yükselt"
 #: src/core/ktechlab.kcfg:26
 #, kde-format
 msgid "Show Voltage Bars"
-msgstr "Voltaj Çubuklarını Göster"
+msgstr "Gerilim Çubuklarını Göster"
 
 #. i18n: ectx: label, entry (ShowVoltageColor), group (General)
 #: src/core/ktechlab.kcfg:30
 #, kde-format
 msgid "Show Voltage as Color"
-msgstr "Voltajı Renk Olarak Göster"
+msgstr "Gerilimi Renk Olarak Göster"
 
 #. i18n: ectx: label, entry (AnimateWires), group (General)
 #: src/core/ktechlab.kcfg:34
@@ -749,242 +749,247 @@ msgstr "Kapsamlı veri akışı çözümlemesi"
 #: src/core/ktechlab.kcfg:290 src/gui/sdccoptionswidget.ui:95
 #, kde-format
 msgid "Search / include non-free licensed libraries and header files"
-msgstr ""
+msgstr "Özgür olmayan lisanslı kitaplıkları ve üstbilgi dosyalarını ara/içer"
 
 #. i18n: ectx: label, entry (SDCC_install_prefix), group (SDCC)
 #: src/core/ktechlab.kcfg:294
 #, kde-format
 msgid "Location where SDCC in installed"
-msgstr ""
+msgstr "SDCC'nin kurulu olduğu konum"
 
 #. i18n: ectx: label, entry (PicProgrammerProgram), group (PicProgramming)
 #: src/core/ktechlab.kcfg:306
 #, kde-format
 msgid "The application to use to program the PIC."
-msgstr ""
+msgstr "PIC'i programlamak için kullanılacak uygulama."
 
 #. i18n: ectx: label, entry (PicProgrammerPort), group (PicProgramming)
 #: src/core/ktechlab.kcfg:310
 #, kde-format
 msgid "The device (serial, parallel, etc...) used to program the PIC."
-msgstr ""
+msgstr "PIC'i programlamak için kullanılacak aygıt (seri, paralel vb.)."
 
 #. i18n: ectx: label, entry (gplink_link_shared), group (Gplink)
 #: src/core/ktechlab.kcfg:317
 #, kde-format
 msgid "Check this if SDCC uses shared libs for compiling (newer SDCC does so)"
 msgstr ""
+"SDCC, derleme için paylaşılan kitaplıklar kullanıyorsa bunu imleyin (yeni "
+"SDCC öyle yapıyor)"
 
 #: src/core/main.cpp:35
 #, kde-format
 msgid "KTechLab"
-msgstr ""
+msgstr "KTechLab"
 
 #: src/core/main.cpp:35
 #, kde-format
 msgid "An IDE for microcontrollers and electronics"
 msgstr ""
+"Mikro denetimciler ve elektronikler için bir tümleşik geliştirme ortamı"
 
 #: src/core/main.cpp:35
 #, kde-format
 msgid "(C) 2003-2017, The KTechLab developers"
-msgstr ""
+msgstr "(C) 2003-2017, KTechLab geliştiricileri"
 
 #: src/core/main.cpp:36
 #, kde-format
 msgid "Alan Grimes"
-msgstr ""
+msgstr "Alan Grimes"
 
 #: src/core/main.cpp:36
 #, kde-format
 msgid "Developer, Simulation"
-msgstr ""
+msgstr "Geliştirme, benzetim"
 
 #: src/core/main.cpp:37
 #, kde-format
 msgid "Zoltan Padrah"
-msgstr ""
+msgstr "Zoltan Padrah"
 
 #: src/core/main.cpp:37
 #, kde-format
 msgid "Developer"
-msgstr ""
+msgstr "Geliştirici"
 
 #: src/core/main.cpp:38
 #, kde-format
 msgid "Julian Bäume"
-msgstr ""
+msgstr "Julian Bäume"
 
 #: src/core/main.cpp:38
 #, kde-format
 msgid "Developer, KDE4 Port, GUI"
-msgstr ""
+msgstr "Geliştirici, KDE4 Aktarımı, Kullanıcı Arayüzü"
 
 #: src/core/main.cpp:39
 #, kde-format
 msgid "Juan De Vincenzo"
-msgstr ""
+msgstr "Juan De Vincenzo"
 
 #: src/core/main.cpp:39
 #, kde-format
 msgid "KDE4 Port"
-msgstr ""
+msgstr "KDE4 aktarımı"
 
 #: src/core/main.cpp:40
 #, kde-format
 msgid "Lawrence Shafer"
-msgstr ""
+msgstr "Lawrence Shafer"
 
 #: src/core/main.cpp:40
 #, kde-format
 msgid "Website, wiki and forum"
-msgstr ""
+msgstr "Web sitesi, viki ve forum"
 
 #: src/core/main.cpp:41
 #, kde-format
 msgid "Jason Lucas"
-msgstr ""
+msgstr "Jason Lucas"
 
 #: src/core/main.cpp:41
 #, kde-format
 msgid "Keeping up the project during lack of developers"
-msgstr ""
+msgstr "Geliştiriciler ortada yokken proje bakımı"
 
 #: src/core/main.cpp:42
 #, kde-format
 msgid "Former developer, project founder, former maintainer"
-msgstr ""
+msgstr "Önceki geliştirici, projeyi yaratan, önceki bakımcı"
 
 #: src/core/main.cpp:43
 #, kde-format
 msgid "Former developer"
-msgstr ""
+msgstr "Önceki bakımcı"
 
 #: src/core/main.cpp:44
 #, kde-format
 msgid "Couriousous"
-msgstr ""
+msgstr "Cesaretlendirme"
 
 #: src/core/main.cpp:44
 #, kde-format
 msgid "JK flip-flop, asynchronous preset/reset in the D flip-flop"
-msgstr ""
+msgstr "JK flip-flop, D flip-flop'unda eşzamansız önayar/sıfırlama"
 
 #: src/core/main.cpp:45 src/electronics/components/rotoswitch.cpp:41
 #, kde-format
 msgid "Rotary Switch"
-msgstr ""
+msgstr "Döner düğme"
 
 #: src/core/main.cpp:45
 #, kde-format
 msgid "John Myers"
-msgstr ""
+msgstr "John Myers"
 
 #: src/core/main.cpp:46
 #, kde-format
 msgid "Ali Akcaagac"
-msgstr ""
+msgstr "Ali Akçaağac"
 
 #: src/core/main.cpp:46
 #, kde-format
 msgid "Glib friendliness"
-msgstr ""
+msgstr "Glib dostluğu"
 
 #: src/core/main.cpp:47
 #, kde-format
 msgid "David Leggett"
-msgstr ""
+msgstr "David Leggett"
 
 #: src/core/main.cpp:47
 #, kde-format
 msgid "Former website hosting and feedback during early development"
-msgstr ""
+msgstr "İlk geliştirme sırasında web sitesi alan sağlama ve geri bildirim"
 
 #: src/core/main.cpp:56
 #, kde-format
 msgid "Document to open."
-msgstr ""
+msgstr "Açılacak belge."
 
 #: src/docmanager.cpp:96
 #, kde-format
 msgid "Could not open '%1'"
-msgstr ""
+msgstr "'%1' açılamadı"
 
 #: src/docmanager.cpp:164
 #, kde-format
 msgid "Untitled (Circuit %1)"
-msgstr ""
+msgstr "Adsız (Devre %1)"
 
 #: src/docmanager.cpp:166
 #, kde-format
 msgid "Untitled (Circuit)"
-msgstr ""
+msgstr "Adsız (Devre)"
 
 #: src/docmanager.cpp:172
 #, kde-format
 msgid "Untitled (FlowCode %1)"
-msgstr ""
+msgstr "Adsız (FlowCode %1)"
 
 #: src/docmanager.cpp:174
 #, kde-format
 msgid "Untitled (FlowCode)"
-msgstr ""
+msgstr "Adsız (FlowCode)"
 
 #: src/docmanager.cpp:180
 #, kde-format
 msgid "Untitled (Mechanics %1)"
-msgstr ""
+msgstr "Adsız (Mechanics %1)"
 
 #: src/docmanager.cpp:182
 #, kde-format
 msgid "Untitled (Mechanics)"
-msgstr ""
+msgstr "Adsız (Mechanics)"
 
 #: src/docmanager.cpp:188
 #, kde-format
 msgid "Untitled (%1)"
-msgstr ""
+msgstr "Adsız (%1)"
 
 #: src/docmanager.cpp:190 src/view.cpp:242
 #, kde-format
 msgid "Untitled"
-msgstr ""
+msgstr "Adsız"
 
 #: src/docmanager.cpp:407
 #, kde-format
 msgid "Could not open Circuit file \"%1\""
-msgstr ""
+msgstr "\"%1\" devre dosyası açılamadı"
 
 #: src/docmanager.cpp:422
 #, kde-format
 msgid "Could not open FlowCode file \"%1\""
-msgstr ""
+msgstr "\"%1\" FlowCode dosyası açılamadı"
 
 #: src/docmanager.cpp:437
 #, kde-format
 msgid "Could not open Mechanics file \"%1\""
-msgstr ""
+msgstr "\"%1\" Mechanics dosyası açılamadı"
 
 #: src/docmanager.cpp:455
 #, kde-format
 msgid "Could not open text file \"%1\""
-msgstr ""
+msgstr "\"%1\" metin dosyası açılamadı"
 
 #: src/document.cpp:102
 #, kde-format
 msgid "Save Location"
-msgstr ""
+msgstr "Konumu Kaydet"
 
 #: src/document.cpp:108 src/itemdocument.cpp:825
 #, kde-format
 msgid ""
 "A file named \"%1\" already exists. Are you sure you want to overwrite it?"
 msgstr ""
+"\"%1\" adlı bir dosya halihazırda var. Üzerine yazmak istediğinize emin "
+"misiniz?"
 
 #: src/document.cpp:108 src/itemdocument.cpp:828
 #, kde-format
 msgid "Overwrite File?"
-msgstr ""
+msgstr "Üzerine Yaz?"
 
 #: src/document.cpp:134
 #, kde-format
@@ -992,152 +997,154 @@ msgid ""
 "The document '%1' has been modified.\n"
 "Do you want to save it?"
 msgstr ""
+"\"%1\" dosyası değiştirildi.\n"
+"Kaydetmek istiyor musunuz?"
 
 #: src/document.cpp:134
 #, kde-format
 msgid "Save Document?"
-msgstr ""
+msgstr "Dosyayı Kaydet?"
 
 #: src/drawparts/dpimage.cpp:129 src/drawparts/dpline.cpp:29
 #: src/drawparts/dpline.cpp:142 src/drawparts/dptext.cpp:36
 #: src/drawparts/solidshape.cpp:29 src/drawparts/solidshape.cpp:135
 #, kde-format
 msgid "Other"
-msgstr ""
+msgstr "Diğer"
 
 #: src/drawparts/dpimage.cpp:129 src/drawparts/dpimage.cpp:145
 #: src/itemview.cpp:127
 #, kde-format
 msgid "Image"
-msgstr ""
+msgstr "Görsel"
 
 #: src/drawparts/dpimage.cpp:148
 #, kde-format
 msgid "Image File"
-msgstr ""
+msgstr "Görsel Dosyası"
 
 #: src/drawparts/dpline.cpp:29 src/drawparts/dpline.cpp:36 src/itemview.cpp:123
 #, kde-format
 msgid "Line"
-msgstr ""
+msgstr "Çizgi"
 
 #: src/drawparts/dpline.cpp:39 src/drawparts/solidshape.cpp:50
 #, kde-format
 msgid "Line Color"
-msgstr ""
+msgstr "Çizgi Rengi"
 
 #: src/drawparts/dpline.cpp:43 src/drawparts/solidshape.cpp:54
 #, kde-format
 msgid "Line Width"
-msgstr ""
+msgstr "Çizgi Genişliği"
 
 #: src/drawparts/dpline.cpp:49 src/drawparts/solidshape.cpp:62
 #, kde-format
 msgid "Line Style"
-msgstr ""
+msgstr "Çizgi Biçemi"
 
 #: src/drawparts/dpline.cpp:54
 #, kde-format
 msgid "Cap Style"
-msgstr ""
+msgstr "Başlık Biçemi"
 
 #: src/drawparts/dpline.cpp:142 src/drawparts/dpline.cpp:148
 #: src/itemview.cpp:124
 #, kde-format
 msgid "Arrow"
-msgstr ""
+msgstr "Ok"
 
 #: src/drawparts/dpline.cpp:158
 #, kde-format
 msgid "Head angle"
-msgstr ""
+msgstr "Kafa açısı"
 
 #: src/drawparts/dptext.cpp:36
 #, kde-format
 msgid "Canvas Text"
-msgstr ""
+msgstr "Tuval Metni"
 
 #: src/drawparts/dptext.cpp:43 src/drawparts/dptext.cpp:46 src/itemview.cpp:122
 #, kde-format
 msgid "Text"
-msgstr ""
+msgstr "Metin"
 
 #: src/drawparts/dptext.cpp:50 src/drawparts/solidshape.cpp:40
 #, kde-format
 msgid "Display Background"
-msgstr ""
+msgstr "Ekran Arka Planı"
 
 #: src/drawparts/dptext.cpp:55 src/drawparts/solidshape.cpp:45
 #, kde-format
 msgid "Background Color"
-msgstr ""
+msgstr "Arka Plan Rengi"
 
 #: src/drawparts/dptext.cpp:60
 #, kde-format
 msgid "Frame Color"
-msgstr ""
+msgstr "Çerçeve Rengi"
 
 #: src/drawparts/drawpart.cpp:189
 #, kde-format
 msgid "Solid"
-msgstr ""
+msgstr "Katı"
 
 #: src/drawparts/drawpart.cpp:191 src/drawparts/drawpart.cpp:207
 #, kde-format
 msgid "None"
-msgstr ""
+msgstr "Yok"
 
 #: src/drawparts/drawpart.cpp:193 src/drawparts/drawpart.cpp:209
 #, kde-format
 msgid "Dash"
-msgstr ""
+msgstr "Tire"
 
 #: src/drawparts/drawpart.cpp:195 src/drawparts/drawpart.cpp:211
 #, kde-format
 msgid "Dot"
-msgstr ""
+msgstr "Nokta"
 
 #: src/drawparts/drawpart.cpp:197 src/drawparts/drawpart.cpp:213
 #, kde-format
 msgid "Dash Dot"
-msgstr ""
+msgstr "Tire Nokta"
 
 #: src/drawparts/drawpart.cpp:199 src/drawparts/drawpart.cpp:215
 #, kde-format
 msgid "Dash Dot Dot"
-msgstr ""
+msgstr "Tire Nokta Nokta"
 
 #: src/drawparts/drawpart.cpp:223
 #, kde-format
 msgid "Flat"
-msgstr ""
+msgstr "Düz"
 
 #: src/drawparts/drawpart.cpp:225 src/drawparts/drawpart.cpp:235
 #, kde-format
 msgid "Square"
-msgstr ""
+msgstr "Kare"
 
 #: src/drawparts/drawpart.cpp:227 src/drawparts/drawpart.cpp:237
 #, kde-format
 msgid "Round"
-msgstr ""
+msgstr "Yuvarlak"
 
 #: src/drawparts/solidshape.cpp:29 src/drawparts/solidshape.cpp:36
 #: src/itemview.cpp:126
 #, kde-format
 msgid "Rectangle"
-msgstr ""
+msgstr "Dörtgen"
 
 #: src/drawparts/solidshape.cpp:135 src/drawparts/solidshape.cpp:141
 #: src/itemview.cpp:125
 #, kde-format
 msgid "Ellipse"
-msgstr ""
+msgstr "Elips"
 
 #: src/electronics/circuitdocument.cpp:43
 #, kde-format
 msgid "Orientation"
-msgstr ""
+msgstr "Yönelim"
 
 #: src/electronics/circuitdocument.cpp:47
 #: src/electronics/components/piccomponent.cpp:92 src/flowcodedocument.cpp:49
@@ -1147,24 +1154,24 @@ msgstr ""
 #: src/textdocument.cpp:437 src/textdocument.cpp:472
 #, kde-format
 msgid "All Files"
-msgstr ""
+msgstr "Tüm Dosyalar"
 
 #. i18n("Circuit"), "application-x-circuit", 0, this, SLOT(slotFileNewCircuit()), ac, "newfile_circuit" ))->plug( p->menu() );
 #: src/electronics/circuitdocument.cpp:47 src/gui/newfiledlg.cpp:77
 #: src/ktechlab.cpp:474 src/ktechlab.cpp:1165
 #, kde-format
 msgid "Circuit"
-msgstr ""
+msgstr "Devre"
 
 #: src/electronics/circuitdocument.cpp:741
 #, kde-format
 msgid "No components were found in the selection."
-msgstr ""
+msgstr "Seçimde hiçbir bileşen bulunamadı."
 
 #: src/electronics/circuitdocument.cpp:748
 #, kde-format
 msgid "No External Connection components were found in the selection."
-msgstr ""
+msgstr "Seçimde hiçbir dış bağlantı bileşeni bulunamadı."
 
 #: src/electronics/components/addac.cpp:33
 #: src/electronics/components/addac.cpp:38
@@ -1184,43 +1191,43 @@ msgstr ""
 #: src/electronics/components/ram.cpp:31
 #, kde-format
 msgid "Integrated Circuits"
-msgstr ""
+msgstr "Tümleşik Devreler"
 
 #: src/electronics/components/addac.cpp:33
 #, kde-format
 msgid "Analog-Digital"
-msgstr ""
+msgstr "Örneksel-Sayısal"
 
 #: src/electronics/components/addac.cpp:38
 #, kde-format
 msgid "Digital-Analog"
-msgstr ""
+msgstr "Sayısal-Örneksel"
 
 #: src/electronics/components/addac.cpp:49
 #, kde-format
 msgid "Number Bits"
-msgstr ""
+msgstr "Sayı Bitleri"
 
 #: src/electronics/components/addac.cpp:55
 #, kde-format
 msgid "Input Range"
-msgstr ""
+msgstr "Girdi Erimi"
 
 #: src/electronics/components/addac.cpp:78
 #, kde-format
 msgid "ADC"
-msgstr ""
+msgstr "ADC"
 
 #: src/electronics/components/addac.cpp:161
 #, kde-format
 msgid "DAC"
-msgstr ""
+msgstr "DAC"
 
 #: src/electronics/components/bidirled.cpp:29
 #: src/electronics/components/bidirled.cpp:35
 #, kde-format
 msgid "Bidirectional LED"
-msgstr ""
+msgstr "İki Yönlü LED"
 
 #: src/electronics/components/bidirled.cpp:29
 #: src/electronics/components/ecsevensegment.cpp:30
@@ -1236,54 +1243,54 @@ msgstr ""
 #: src/electronics/components/probe.cpp:207
 #, kde-format
 msgid "Outputs"
-msgstr ""
+msgstr "Çıktılar"
 
 #: src/electronics/components/bidirled.cpp:52
 #, kde-format
 msgid "Color 1"
-msgstr ""
+msgstr "Renk 1"
 
 #: src/electronics/components/bidirled.cpp:56
 #, kde-format
 msgid "Colour 2"
-msgstr ""
+msgstr "Renk 2"
 
 #: src/electronics/components/binarycounter.cpp:29
 #: src/electronics/components/binarycounter.cpp:52
 #, kde-format
 msgid "Binary Counter"
-msgstr ""
+msgstr "İkili Sayacı"
 
 #: src/electronics/components/binarycounter.cpp:67
 #: src/electronics/components/flipflop.cpp:27
 #: src/electronics/components/flipflop.cpp:237
 #, kde-format
 msgid "Trigger Edge"
-msgstr ""
+msgstr "Tetik Sınırı"
 
 #: src/electronics/components/binarycounter.cpp:69
 #: src/electronics/components/flipflop.cpp:29
 #: src/electronics/components/flipflop.cpp:239
 #, kde-format
 msgid "Rising"
-msgstr ""
+msgstr "Yükseliyor"
 
 #: src/electronics/components/binarycounter.cpp:70
 #: src/electronics/components/flipflop.cpp:30
 #: src/electronics/components/flipflop.cpp:240
 #, kde-format
 msgid "Falling"
-msgstr ""
+msgstr "Düşüyor"
 
 #: src/electronics/components/binarycounter.cpp:75
 #, kde-format
 msgid "Bit Count"
-msgstr ""
+msgstr "Bit Sayısı"
 
 #: src/electronics/components/bussplitter.cpp:26
 #, kde-format
 msgid "Bus"
-msgstr ""
+msgstr "Veriyolu"
 
 #: src/electronics/components/bussplitter.cpp:26
 #: src/electronics/components/externalconnection.cpp:24
@@ -1291,17 +1298,17 @@ msgstr ""
 #: src/electronics/components/serialportcomponent.cpp:44
 #, kde-format
 msgid "Connections"
-msgstr ""
+msgstr "Bağlantılar"
 
 #: src/electronics/components/bussplitter.cpp:34
 #, kde-format
 msgid "Bus Splitter"
-msgstr ""
+msgstr "Veriyolu Ayırıcı"
 
 #: src/electronics/components/bussplitter.cpp:41
 #, kde-format
 msgid "Size"
-msgstr ""
+msgstr "Boyut"
 
 #: src/electronics/components/capacitor.cpp:26
 #: src/electronics/components/ecpotentiometer.cpp:28
@@ -1313,37 +1320,37 @@ msgstr ""
 #: src/electronics/components/voltageregulator.cpp:29
 #, kde-format
 msgid "Passive"
-msgstr ""
+msgstr "Pasif"
 
 #: src/electronics/components/capacitor.cpp:26
 #: src/electronics/components/capacitor.cpp:32 src/ktechlab.cpp:675
 #, kde-format
 msgid "Capacitor"
-msgstr ""
+msgstr "Sığaç"
 
 #: src/electronics/components/capacitor.cpp:41
 #: src/electronics/components/variablecapacitor.cpp:62
 #, kde-format
 msgid "Capacitance"
-msgstr ""
+msgstr "Sığallık"
 
 #: src/electronics/components/demultiplexer.cpp:27
 #: src/electronics/components/demultiplexer.cpp:38
 #, kde-format
 msgid "Demultiplexer"
-msgstr ""
+msgstr "Çoğullama Çözücü"
 
 #: src/electronics/components/demultiplexer.cpp:43
 #: src/electronics/components/multiplexer.cpp:43
 #: src/electronics/components/ram.cpp:53
 #, kde-format
 msgid "Address Size"
-msgstr ""
+msgstr "Adres Boyutu"
 
 #: src/electronics/components/dependentsource.cpp:37
 #, kde-format
 msgid "Gain"
-msgstr ""
+msgstr "Kazanç"
 
 #: src/electronics/components/dependentsource.cpp:129
 #: src/electronics/components/dependentsource.cpp:172
@@ -1357,47 +1364,47 @@ msgstr ""
 #: src/electronics/components/ecvoltagesource.cpp:31
 #, kde-format
 msgid "Sources"
-msgstr ""
+msgstr "Kaynaklar"
 
 #: src/electronics/components/dependentsource.cpp:129
 #, kde-format
 msgid "CCCS"
-msgstr ""
+msgstr "CCCS"
 
 #: src/electronics/components/dependentsource.cpp:135
 #, kde-format
 msgid "Current Controlled Current Source"
-msgstr ""
+msgstr "Akımı Denetlenen Akım Kaynağı"
 
 #: src/electronics/components/dependentsource.cpp:172
 #, kde-format
 msgid "CCVS"
-msgstr ""
+msgstr "CCVS"
 
 #: src/electronics/components/dependentsource.cpp:178
 #, kde-format
 msgid "Current Controlled Voltage Source"
-msgstr ""
+msgstr "Akımı Denetlenen Voltaj Kaynağı"
 
 #: src/electronics/components/dependentsource.cpp:214
 #, kde-format
 msgid "VCCS"
-msgstr ""
+msgstr "VCCS"
 
 #: src/electronics/components/dependentsource.cpp:220
 #, kde-format
 msgid "Voltage Controlled Current Source"
-msgstr ""
+msgstr "Gerilimi Denetlenen Akım Kaynağı"
 
 #: src/electronics/components/dependentsource.cpp:256
 #, kde-format
 msgid "VCVS"
-msgstr ""
+msgstr "VCVS"
 
 #: src/electronics/components/dependentsource.cpp:262
 #, kde-format
 msgid "Voltage Controlled Voltage Source"
-msgstr ""
+msgstr "Gerilimi Denetlenen Voltaj Kaynağı"
 
 #: src/electronics/components/discretelogic.cpp:32
 #: src/electronics/components/discretelogic.cpp:90
@@ -1413,58 +1420,58 @@ msgstr ""
 #: src/gui/settingsdlg.cpp:136
 #, kde-format
 msgid "Logic"
-msgstr ""
+msgstr "Mantık"
 
 #: src/electronics/components/discretelogic.cpp:32
 #: src/electronics/components/discretelogic.cpp:43 src/ktechlab.cpp:682
 #: src/ktechlab.cpp:692
 #, kde-format
 msgid "Inverter"
-msgstr ""
+msgstr "Evirgeç"
 
 #: src/electronics/components/discretelogic.cpp:90
 #: src/electronics/components/discretelogic.cpp:101
 #, kde-format
 msgid "Buffer"
-msgstr ""
+msgstr "Arabellek"
 
 #: src/electronics/components/discretelogic.cpp:147
 #: src/electronics/components/discretelogic.cpp:153
 #, kde-format
 msgid "Logic Input"
-msgstr ""
+msgstr "Mantık Girdisi"
 
 #: src/electronics/components/discretelogic.cpp:160
 #, kde-format
 msgid "Use Toggle"
-msgstr ""
+msgstr "Kullanım Anahtarı"
 
 #: src/electronics/components/discretelogic.cpp:203
 #: src/electronics/components/discretelogic.cpp:214
 #, kde-format
 msgid "Logic Output"
-msgstr ""
+msgstr "Mantık Çıktısı"
 
 #: src/electronics/components/ec555.cpp:28
 #: src/electronics/components/ec555.cpp:34
 #, kde-format
 msgid "555"
-msgstr ""
+msgstr "555"
 
 #: src/electronics/components/ecbcdto7segment.cpp:43
 #, kde-format
 msgid "BCD to 7 Segment"
-msgstr ""
+msgstr "7 Bölüte BCD"
 
 #: src/electronics/components/ecbcdto7segment.cpp:54
 #, kde-format
 msgid "BCD to Seven Segment"
-msgstr ""
+msgstr "Yedi Bölüte BCD"
 
 #: src/electronics/components/ecbjt.cpp:31
 #, kde-format
 msgid "NPN"
-msgstr ""
+msgstr "NPN"
 
 #: src/electronics/components/ecbjt.cpp:31
 #: src/electronics/components/ecbjt.cpp:36
@@ -1477,190 +1484,190 @@ msgstr ""
 #: src/electronics/components/ecmosfet.cpp:79
 #, kde-format
 msgid "Discrete"
-msgstr ""
+msgstr "Ayrık"
 
 #: src/electronics/components/ecbjt.cpp:36
 #, kde-format
 msgid "PNP"
-msgstr ""
+msgstr "PNP"
 
 #: src/electronics/components/ecbjt.cpp:44
 #, kde-format
 msgid "NPN Transistor"
-msgstr ""
+msgstr "NPN İleteci"
 
 #: src/electronics/components/ecbjt.cpp:46
 #, kde-format
 msgid "PNP Transistor"
-msgstr ""
+msgstr "PNP İleteci"
 
 #: src/electronics/components/ecbjt.cpp:54
 #: src/electronics/components/ecmosfet.cpp:128
 #, kde-format
 msgid "Saturation Current"
-msgstr ""
+msgstr "Doygunluk Akımı"
 
 #: src/electronics/components/ecbjt.cpp:62
 #: src/electronics/components/ecmosfet.cpp:136
 #, kde-format
 msgid "Forward Coefficient"
-msgstr ""
+msgstr "İleri Katsayısı"
 
 #: src/electronics/components/ecbjt.cpp:69
 #: src/electronics/components/ecmosfet.cpp:143
 #, kde-format
 msgid "Reverse Coefficient"
-msgstr ""
+msgstr "Geri Katsayısı"
 
 #: src/electronics/components/ecbjt.cpp:76
 #: src/electronics/components/ecmosfet.cpp:150
 #, kde-format
 msgid "Forward Beta"
-msgstr ""
+msgstr "İleri Betası"
 
 #: src/electronics/components/ecbjt.cpp:83
 #: src/electronics/components/ecmosfet.cpp:157
 #, kde-format
 msgid "Reverse Beta"
-msgstr ""
+msgstr "Geri Betası"
 
 #: src/electronics/components/ecclockinput.cpp:41
 #: src/electronics/components/ecclockinput.cpp:47
 #, kde-format
 msgid "Clock Input"
-msgstr ""
+msgstr "Saat Girdisi"
 
 #: src/electronics/components/ecclockinput.cpp:69 src/flowparts/pulse.cpp:46
 #, kde-format
 msgid "Low Time"
-msgstr ""
+msgstr "Düşük Zaman"
 
 #: src/electronics/components/ecclockinput.cpp:75 src/flowparts/pulse.cpp:41
 #, kde-format
 msgid "High Time"
-msgstr ""
+msgstr "Yüksek Zaman"
 
 #: src/electronics/components/eccurrentsignal.cpp:28
 #: src/electronics/components/eccurrentsignal.cpp:34
 #, kde-format
 msgid "Current Signal"
-msgstr ""
+msgstr "Akım Sinyali"
 
 #: src/electronics/components/eccurrentsignal.cpp:45
 #: src/electronics/components/ecvoltagesignal.cpp:49
 #, kde-format
 msgid "Frequency"
-msgstr ""
+msgstr "Sıklık"
 
 #: src/electronics/components/eccurrentsignal.cpp:52
 #, kde-format
 msgid "Current Range"
-msgstr ""
+msgstr "Akım Erimi"
 
 #: src/electronics/components/eccurrentsource.cpp:27
 #: src/electronics/components/eccurrentsource.cpp:33
 #, kde-format
 msgid "Current Source"
-msgstr ""
+msgstr "Akım Kaynağı"
 
 #: src/electronics/components/eccurrentsource.cpp:43
 #, kde-format
 msgid "Current"
-msgstr ""
+msgstr "Akım"
 
 #: src/electronics/components/ecdiode.cpp:26
 #: src/electronics/components/ecdiode.cpp:32
 #, kde-format
 msgid "Diode"
-msgstr ""
+msgstr "Diyot"
 
 #: src/electronics/components/ecdiode.cpp:52
 #: src/electronics/components/ledbargraphdisplay.cpp:122
 #, kde-format
 msgid "Emission Coefficient"
-msgstr ""
+msgstr "Salım Katsayısı"
 
 #: src/electronics/components/ecdiode.cpp:59
 #: src/electronics/components/ledbargraphdisplay.cpp:129
 #, kde-format
 msgid "Breakdown Voltage"
-msgstr ""
+msgstr "Kırılım Gerilimi"
 
 #: src/electronics/components/ecfixedvoltage.cpp:26
 #: src/electronics/components/ecfixedvoltage.cpp:32
 #, kde-format
 msgid "Fixed Voltage"
-msgstr ""
+msgstr "Sabit Gerilim"
 
 #: src/electronics/components/ecfixedvoltage.cpp:43
 #: src/electronics/components/ecvoltagesource.cpp:49
 #, kde-format
 msgid "Voltage"
-msgstr ""
+msgstr "Gerilim"
 
 #: src/electronics/components/ecground.cpp:26
 #, kde-format
 msgid "Ground (0V)"
-msgstr ""
+msgstr "Toprak (0V)"
 
 #: src/electronics/components/ecground.cpp:32
 #, kde-format
 msgid "Ground"
-msgstr ""
+msgstr "Toprak"
 
 #. i18n("n JFET"),
 #: src/electronics/components/ecjfet.cpp:32
 #, kde-format
 msgid "n-JFET"
-msgstr ""
+msgstr "n-JFET"
 
 #. i18n("p JFET"),
 #: src/electronics/components/ecjfet.cpp:43
 #, kde-format
 msgid "p-JFET"
-msgstr ""
+msgstr "p-JFET"
 
 #: src/electronics/components/ecjfet.cpp:55
 #, kde-format
 msgid "N-Channel JFET"
-msgstr ""
+msgstr "N Kanalı JFET"
 
 #: src/electronics/components/ecjfet.cpp:57
 #, kde-format
 msgid "P-Channel JFET"
-msgstr ""
+msgstr "P Kanalı JFET"
 
 #: src/electronics/components/ecjfet.cpp:65
 #, kde-format
 msgid "Threshold voltage"
-msgstr ""
+msgstr "Eşik gerilimi"
 
 #: src/electronics/components/ecjfet.cpp:73
 #, kde-format
 msgid "Transcondutance"
-msgstr ""
+msgstr "Geçiş iletimi"
 
 #: src/electronics/components/ecjfet.cpp:81
 #, kde-format
 msgid "Saturation current"
-msgstr ""
+msgstr "Doygunluk akımı"
 
 #: src/electronics/components/ecjfet.cpp:89
 #, kde-format
 msgid "PN emission coefficient"
-msgstr ""
+msgstr "PN salım katsayısı"
 
 #: src/electronics/components/ecjfet.cpp:97
 #, kde-format
 msgid "Isr emission coefficient"
-msgstr ""
+msgstr "Isr salım katsayısı"
 
 #: src/electronics/components/eckeypad.cpp:26
 #: src/electronics/components/eckeypad.cpp:34 src/flowparts/keypad.cpp:25
 #: src/flowparts/keypad.cpp:31
 #, kde-format
 msgid "Keypad"
-msgstr ""
+msgstr "Düğme Takımı"
 
 #: src/electronics/components/eckeypad.cpp:26
 #: src/electronics/components/pushswitch.cpp:30
@@ -1672,82 +1679,82 @@ msgstr ""
 #: src/electronics/components/toggleswitch.cpp:291
 #, kde-format
 msgid "Switches"
-msgstr ""
+msgstr "Anahtarlar"
 
 #: src/electronics/components/eckeypad.cpp:37
 #, kde-format
 msgid "Use Toggles"
-msgstr ""
+msgstr "Anahtarlar Kullan"
 
 #: src/electronics/components/eckeypad.cpp:41
 #: src/electronics/components/matrixdisplay.cpp:61
 #, kde-format
 msgid "Columns"
-msgstr ""
+msgstr "Sütunlar"
 
 #. i18n("n-e MOSFET"),
 #: src/electronics/components/ecmosfet.cpp:43
 #, kde-format
 msgid "n-MOSFET"
-msgstr ""
+msgstr "n-MOSFET"
 
 #. i18n("p-e MOSFET"),
 #: src/electronics/components/ecmosfet.cpp:54
 #, kde-format
 msgid "p-MOSFET"
-msgstr ""
+msgstr "p-MOSFET"
 
 #: src/electronics/components/ecmosfet.cpp:66
 #, kde-format
 msgid "n-d MOSFET"
-msgstr ""
+msgstr "n-d MOSFET"
 
 #: src/electronics/components/ecmosfet.cpp:78
 #, kde-format
 msgid "p-d MOSFET"
-msgstr ""
+msgstr "p-d MOSFET"
 
 #: src/electronics/components/ecmosfet.cpp:92
 #, kde-format
 msgid "N-Channel Enhancement MOSFET"
-msgstr ""
+msgstr "N Kanalı Güçlendirmesi MOSFET"
 
 #: src/electronics/components/ecmosfet.cpp:97
 #, kde-format
 msgid "P-Channel Enhancement MOSFET"
-msgstr ""
+msgstr "P Kanalı Güçlendirmesi MOSFET"
 
 #: src/electronics/components/ecmosfet.cpp:104
 #, kde-format
 msgid "N-Channel Depletion MOSFET"
-msgstr ""
+msgstr "N Kanalı Tüketimi MOSFET"
 
 #: src/electronics/components/ecmosfet.cpp:110
 #, kde-format
 msgid "P-Channel Depletion MOSFET"
-msgstr ""
+msgstr "P Kanalı Tüketimi MOSFET"
 
 #: src/electronics/components/ecmosfet.cpp:122
 #, kde-format
 msgctxt "mosfet body/bulk pin"
 msgid "Body Pin"
-msgstr ""
+msgstr "Gövde Pimi"
 
 #: src/electronics/components/ecopamp.cpp:26
 #, kde-format
 msgid "Op Amp"
-msgstr ""
+msgstr "Op Amp"
 
 #: src/electronics/components/ecopamp.cpp:32
 #, kde-format
 msgid "Operational Amplifier"
-msgstr ""
+msgstr "İşlemsel Yükseltici"
 
 #: src/electronics/components/ecpotentiometer.cpp:28
 #: src/electronics/components/ecpotentiometer.cpp:34
 #, kde-format
 msgid "Potentiometer"
-msgstr ""
+msgstr "Potansiyoölçer"
 
 #: src/electronics/components/ecpotentiometer.cpp:48
 #: src/electronics/components/resistor.cpp:40
@@ -1755,19 +1762,19 @@ msgstr ""
 #: src/electronics/components/variableresistor.cpp:54
 #, kde-format
 msgid "Resistance"
-msgstr ""
+msgstr "Direnç"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, typeCombo)
 #: src/electronics/components/ecsevensegment.cpp:30
 #: src/flowparts/sevenseg.cpp:25 src/gui/newpinmappingwidget.ui:105
 #, kde-format
 msgid "Seven Segment"
-msgstr ""
+msgstr "Yedi Bölüt"
 
 #: src/electronics/components/ecsevensegment.cpp:36
 #, kde-format
 msgid "Seven Segment LED"
-msgstr ""
+msgstr "Yedi Bölütlü LED"
 
 #: src/electronics/components/ecsevensegment.cpp:43
 #: src/electronics/components/led.cpp:43
@@ -1776,74 +1783,74 @@ msgstr ""
 #: src/electronics/components/probe.cpp:33
 #, kde-format
 msgid "Color"
-msgstr ""
+msgstr "Renk"
 
 #: src/electronics/components/ecsevensegment.cpp:47
 #: src/electronics/components/matrixdisplay.cpp:71
 #: src/electronics/components/matrixdisplaydriver.cpp:311
 #, kde-format
 msgid "Configuration"
-msgstr ""
+msgstr "Yapılandırma"
 
 #: src/electronics/components/ecsevensegment.cpp:49
 #, kde-format
 msgid "Common Cathode"
-msgstr ""
+msgstr "Ortak Eksi Uç"
 
 #: src/electronics/components/ecsevensegment.cpp:50
 #, kde-format
 msgid "Common Anode"
-msgstr ""
+msgstr "Ortak Artı Uç"
 
 #: src/electronics/components/ecsignallamp.cpp:34
 #: src/electronics/components/ecsignallamp.cpp:40
 #, kde-format
 msgid "Signal Lamp"
-msgstr ""
+msgstr "Sinyal Lambası"
 
 #: src/electronics/components/ecsubcircuit.cpp:36
 #, kde-format
 msgid "Subcircuit"
-msgstr ""
+msgstr "Alt Devre"
 
 #: src/electronics/components/ecvoltagesignal.cpp:32
 #: src/electronics/components/ecvoltagesignal.cpp:38
 #, kde-format
 msgid "Voltage Signal"
-msgstr ""
+msgstr "Gerilim Sinyali"
 
 #: src/electronics/components/ecvoltagesignal.cpp:56
 #, kde-format
 msgid "Voltage Range"
-msgstr ""
+msgstr "Gerilim Erimi"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
 #: src/electronics/components/ecvoltagesignal.cpp:66 src/gui/logicwidget.ui:142
 #, kde-format
 msgid "Output"
-msgstr ""
+msgstr "Çıktı"
 
 #: src/electronics/components/ecvoltagesignal.cpp:68
 #, kde-format
 msgid "Peak"
-msgstr ""
+msgstr "Tavan"
 
 #: src/electronics/components/ecvoltagesignal.cpp:69
 #, kde-format
 msgid "RMS"
-msgstr ""
+msgstr "RMS"
 
 #: src/electronics/components/ecvoltagesource.cpp:31
 #: src/electronics/components/ecvoltagesource.cpp:37
 #, kde-format
 msgid "Battery"
-msgstr ""
+msgstr "Pil"
 
 #: src/electronics/components/externalconnection.cpp:24
 #: src/electronics/components/externalconnection.cpp:30
 #, kde-format
 msgid "External Connection"
-msgstr ""
+msgstr "Dış Bağlantı"
 
 #. i18n: ectx: property (text), widget (QLabel, m_pNameLabel)
 #: src/electronics/components/externalconnection.cpp:34
@@ -1853,195 +1860,195 @@ msgstr ""
 #: src/gui/symbolviewer.cpp:193
 #, kde-format
 msgid "Name"
-msgstr ""
+msgstr "Ad"
 
 #: src/electronics/components/flipflop.cpp:70
 #, kde-format
 msgid "D Flip-Flop"
-msgstr ""
+msgstr "D Flip-Flop"
 
 #: src/electronics/components/flipflop.cpp:76
 #, kde-format
 msgid "D-Type Flip-Flop"
-msgstr ""
+msgstr "D Türü Flip-Flop"
 
 #: src/electronics/components/flipflop.cpp:221
 #, kde-format
 msgid "JK Flip-Flop"
-msgstr ""
+msgstr "JK Flip-Flop"
 
 #: src/electronics/components/flipflop.cpp:227
 #, kde-format
 msgid "JK-Type Flip-Flop"
-msgstr ""
+msgstr "JK Türü Flip-Flop"
 
 #: src/electronics/components/flipflop.cpp:369
 #: src/electronics/components/flipflop.cpp:375
 #, kde-format
 msgid "SR Flip-Flop"
-msgstr ""
+msgstr "SR Flip-Flop"
 
 #: src/electronics/components/fulladder.cpp:30
 #: src/electronics/components/fulladder.cpp:36
 #, kde-format
 msgid "Adder"
-msgstr ""
+msgstr "Ekleyici"
 
 #: src/electronics/components/inductor.cpp:25
 #: src/electronics/components/inductor.cpp:31
 #, kde-format
 msgid "Inductor"
-msgstr ""
+msgstr "Doğuşturucu"
 
 #: src/electronics/components/inductor.cpp:40
 #, kde-format
 msgid "Inductance"
-msgstr ""
+msgstr "Doğuşturu"
 
 #: src/electronics/components/led.cpp:28 src/electronics/components/led.cpp:35
 #, kde-format
 msgid "LED"
-msgstr ""
+msgstr "LED"
 
 #: src/electronics/components/ledbargraphdisplay.cpp:86
 #: src/electronics/components/ledbargraphdisplay.cpp:92
 #, kde-format
 msgid "Bar Graph Display"
-msgstr ""
+msgstr "Bar Çizelgesi Görünümü"
 
 #: src/electronics/components/ledbargraphdisplay.cpp:102
 #: src/electronics/components/matrixdisplay.cpp:55
 #, kde-format
 msgid "Rows"
-msgstr ""
+msgstr "Satırlar"
 
 #: src/electronics/components/magnitudecomparator.cpp:30
 #: src/electronics/components/magnitudecomparator.cpp:36
 #, kde-format
 msgid "Magnitude Comparator"
-msgstr ""
+msgstr "Büyüklük Karşılaştırıcı"
 
 #: src/electronics/components/magnitudecomparator.cpp:39
 #: src/electronics/components/multiinputgate.cpp:55
 #, kde-format
 msgid "Number Inputs"
-msgstr ""
+msgstr "Sayı Girdileri"
 
 #: src/electronics/components/matrixdisplay.cpp:32
 #: src/electronics/components/matrixdisplay.cpp:38
 #, kde-format
 msgid "Matrix Display"
-msgstr ""
+msgstr "Matris Görünümü"
 
 #: src/electronics/components/matrixdisplay.cpp:73
 #: src/electronics/components/matrixdisplaydriver.cpp:313
 #, kde-format
 msgid "Row Cathode"
-msgstr ""
+msgstr "Satır Eksi Ucu"
 
 #: src/electronics/components/matrixdisplay.cpp:74
 #: src/electronics/components/matrixdisplaydriver.cpp:314
 #, kde-format
 msgid "Column Cathode"
-msgstr ""
+msgstr "Sütun Eksi Ucu"
 
 #: src/electronics/components/matrixdisplaydriver.cpp:298
 #: src/electronics/components/matrixdisplaydriver.cpp:304 src/ktechlab.cpp:695
 #, kde-format
 msgid "Matrix Display Driver"
-msgstr ""
+msgstr "Matris Ekran Sürücüsü"
 
 #: src/electronics/components/meter.cpp:40
 #, kde-format
 msgid "Minimum Value"
-msgstr ""
+msgstr "En Düşük Değer"
 
 #: src/electronics/components/meter.cpp:46
 #, kde-format
 msgid "Maximum Value"
-msgstr ""
+msgstr "En Yüksek Değer"
 
 #: src/electronics/components/meter.cpp:161
 #, kde-format
 msgid "Frequency Meter (TODO)"
-msgstr ""
+msgstr "Sıklıkölçer (Yapılacak)"
 
 #: src/electronics/components/meter.cpp:167
 #, kde-format
 msgid "Frequency Meter"
-msgstr ""
+msgstr "Sıklıkölçer"
 
 #: src/electronics/components/meter.cpp:194
 #: src/electronics/components/meter.cpp:200
 #, kde-format
 msgid "Ammeter"
-msgstr ""
+msgstr "Akımölçer"
 
 #: src/electronics/components/meter.cpp:228
 #: src/electronics/components/meter.cpp:234
 #, kde-format
 msgid "Voltmeter"
-msgstr ""
+msgstr "Gerilimölçer"
 
 #: src/electronics/components/multiinputgate.cpp:218
 #: src/electronics/components/multiinputgate.cpp:224
 #, kde-format
 msgid "XNOR gate"
-msgstr ""
+msgstr "XNOR Kapısı"
 
 #: src/electronics/components/multiinputgate.cpp:278
 #: src/electronics/components/multiinputgate.cpp:284
 #, kde-format
 msgid "XOR gate"
-msgstr ""
+msgstr "XOR Kapısı"
 
 #: src/electronics/components/multiinputgate.cpp:336
 #: src/electronics/components/multiinputgate.cpp:342
 #, kde-format
 msgid "OR gate"
-msgstr ""
+msgstr "OR Kapısı"
 
 #: src/electronics/components/multiinputgate.cpp:395
 #, kde-format
 msgid "NOR gate"
-msgstr ""
+msgstr "NOR Kapısı"
 
 #: src/electronics/components/multiinputgate.cpp:401
 #, kde-format
 msgid "NOR Gate"
-msgstr ""
+msgstr "NOR Kapısı"
 
 #: src/electronics/components/multiinputgate.cpp:454
 #, kde-format
 msgid "NAND gate"
-msgstr ""
+msgstr "NAND Kapısı"
 
 #: src/electronics/components/multiinputgate.cpp:460
 #, kde-format
 msgid "NAND Gate"
-msgstr ""
+msgstr "NAND Kapısı"
 
 #: src/electronics/components/multiinputgate.cpp:508
 #, kde-format
 msgid "AND gate"
-msgstr ""
+msgstr "AND Kapısı"
 
 #: src/electronics/components/multiinputgate.cpp:514
 #, kde-format
 msgid "AND Gate"
-msgstr ""
+msgstr "AND Kapısı"
 
 #: src/electronics/components/multiplexer.cpp:32
 #: src/electronics/components/multiplexer.cpp:38
 #, kde-format
 msgid "Multiplexer"
-msgstr ""
+msgstr "Çoklayıcı"
 
 #: src/electronics/components/parallelportcomponent.cpp:43
 #: src/electronics/components/parallelportcomponent.cpp:49
 #, kde-format
 msgid "Parallel Port"
-msgstr ""
+msgstr "Paralel Kapı"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/electronics/components/parallelportcomponent.cpp:143
@@ -2050,51 +2057,51 @@ msgstr ""
 #: src/gui/programmerwidget.ui:62
 #, kde-format
 msgid "Port"
-msgstr ""
+msgstr "Kapı"
 
 #: src/electronics/components/parallelportcomponent.cpp:170
 #: src/electronics/components/serialportcomponent.cpp:190
 #, kde-format
 msgid "Could not open port %1"
-msgstr ""
+msgstr "%1 kapısı açılamadı"
 
 #: src/electronics/components/piccomponent.cpp:60
 #, kde-format
 msgid "PIC Micro"
-msgstr ""
+msgstr "PIC Mikro"
 
 #: src/electronics/components/piccomponent.cpp:63
 #, kde-format
 msgid "<Enter location of PIC Program>"
-msgstr ""
+msgstr "<PIC programının konumunu girin>"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, m_typeCombo)
 #: src/electronics/components/piccomponent.cpp:84
 #: src/gui/createsubprojectwidget.ui:59
 #, kde-format
 msgid "Program"
-msgstr ""
+msgstr "Program"
 
 #: src/electronics/components/piccomponent.cpp:86
 #, kde-format
 msgid "All Supported Files"
-msgstr ""
+msgstr "Tüm Desteklenen Dosyalar"
 
 #: src/electronics/components/piccomponent.cpp:88
 #, kde-format
 msgid "Symbol File"
-msgstr ""
+msgstr "Sembol Dosyası"
 
 #: src/electronics/components/piccomponent.cpp:89 src/flowcodedocument.cpp:191
 #: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1163 src/textdocument.cpp:437
 #, kde-format
 msgid "Assembly Code"
-msgstr ""
+msgstr "Assembly Kodu"
 
 #: src/electronics/components/piccomponent.cpp:156
 #, kde-format
 msgid "The file \"%1\" does not exist."
-msgstr ""
+msgstr "\"%1\" dosyası yok."
 
 #: src/electronics/components/piccomponent.cpp:164
 #, kde-format
