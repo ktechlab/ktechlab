@@ -180,7 +180,7 @@
       <li xml:lang="ru">Два режима маршрутизации соединителей: автоматический и ручной</li>
       <li xml:lang="sl">Dva načina usmerjanja priključkov: samodejni in ročni</li>
       <li xml:lang="sv">Två sätt att sammankoppla anslutningar: automatisk och manuell</li>
-      <li xml:lang="tr">Bağlayıcı rotalama için iki kip: Otomatik ve el ile</li>
+      <li xml:lang="tr">Bağlayıcı yönlendirme için iki kip: Otomatik ve elle</li>
       <li xml:lang="uk">Два режими маршрутизації з’єднань: автоматичний і ручний.</li>
       <li xml:lang="x-test">xxTwo modes of connector routing: automatic and manualxx</li>
       <li>Several ways to define the PIC logic: assembly code, Microbe (own high level programming language) code, C code, and visual FlowCode</li>

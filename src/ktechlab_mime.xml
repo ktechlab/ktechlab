@@ -21,7 +21,7 @@
     <comment xml:lang="ru">KTechlab Circuit</comment>
     <comment xml:lang="sl">KTechlab Circuit</comment>
     <comment xml:lang="sv">Ktechlab-krets</comment>
-    <comment xml:lang="tr">KTechlab devresi</comment>
+    <comment xml:lang="tr">KTechlab Devresi</comment>
     <comment xml:lang="uk">схема KTechlab</comment>
     <glob pattern="*.circuit"/>
   </mime-type>
@@ -70,7 +70,7 @@
     <comment xml:lang="ru">KTechlab project</comment>
     <comment xml:lang="sl">KTechlab project</comment>
     <comment xml:lang="sv">Ktechlab-projekt</comment>
-    <comment xml:lang="tr">KTechlab projesi</comment>
+    <comment xml:lang="tr">KTechlab Projesi</comment>
     <comment xml:lang="uk">проєкт KTechlab</comment>
     <glob pattern="*.ktechlab"/>
   </mime-type>
