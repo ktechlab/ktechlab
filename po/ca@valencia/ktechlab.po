@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-03 00:51+0000\n"
-"PO-Revision-Date: 2022-09-07 18:50+0200\n"
+"PO-Revision-Date: 2022-10-23 20:33+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -387,7 +387,7 @@ msgstr "La simulació es troba en pausa"
 #: src/core/ktechlab.kcfg:10
 #, kde-format
 msgid "Maximum number of undo steps"
-msgstr "Nombre màxim de passos a desfer"
+msgstr "Nombre màxim de passos que s'han de desfer"
 
 #. i18n: ectx: label, entry (RestoreDocumentsOnStartup), group (General)
 #: src/core/ktechlab.kcfg:14
@@ -600,7 +600,7 @@ msgstr "Variables automàtiques de la pila"
 #: src/core/ktechlab.kcfg:184
 #, kde-format
 msgid "Integer libraries have been compiled as reentrant"
-msgstr "Les biblioteques dels sencers s'han compilat com a reentrants"
+msgstr "Les biblioteques d'enters s'han compilat com a reentrants"
 
 #. i18n: ectx: label, entry (SDCC_float_reent), group (SDCC)
 #: src/core/ktechlab.kcfg:188
@@ -3053,14 +3053,15 @@ msgid ""
 "Maximum undo steps for work area. This does not apply to text documents - "
 "that is configurable separately under Configure Editor."
 msgstr ""
-"Nombre màxim de passos a desfer per a l'àrea de treball. Açò no s'aplica als "
-"documents de text -es pot configurar per separat a «Configura l'editor»-."
+"Nombre màxim de passos que es desfaran per a l'àrea de treball. Açò no "
+"s'aplica als documents de text -es pot configurar per separat en «Configura "
+"l'editor»-."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/gui/generaloptionswidget.ui:88
 #, kde-format
 msgid "Maximum undo steps for work area:"
-msgstr "Nombre màxim de passos a desfer per a l'àrea de treball:"
+msgstr "Nombre màxim de passos que es desfaran per a l'àrea de treball:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowVoltageBars)
 #: src/gui/generaloptionswidget.ui:98
@@ -4231,8 +4232,8 @@ msgid ""
 "Integer (16 bit) and long (32 bit) libraries have been compiled as "
 "reentrant. Note by default these libraries are compiled as non-reentrant."
 msgstr ""
-"Les biblioteques dels sencers (16 bits) i (32 bits) llargs s'han compilat "
-"com a reentrants. Cal tindre en compte que de manera predeterminada estes "
+"Les biblioteques d'enters (16 bits) i (32 bits) llargs s'han compilat com a "
+"reentrants. Cal tindre en compte que de manera predeterminada estes "
 "biblioteques es compilen com a no reentrants."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_int_long_reent)
@@ -4240,7 +4241,7 @@ msgstr ""
 #, kde-format
 msgid "Integer li&braries were compiled as reentrant (--int-long-reent)"
 msgstr ""
-"Les &biblioteques dels sencers quan es compilen com a reentrants (--int-long-"
+"Les &biblioteques d'enters quan es compilen com a reentrants (--int-long-"
 "reent)"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_float_reent)
