@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-03 00:51+0000\n"
+"POT-Creation-Date: 2022-10-27 00:49+0000\n"
 "PO-Revision-Date: 2022-01-08 09:19+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -4178,12 +4178,17 @@ msgstr "&Tworzenie kodu"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_stack_auto)
 #: src/gui/sdccoptionswidget.ui:131
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "All functions in the source file will be compiled as reentrant, i.e. the "
+#| "parameters and local variables will be allocated on the stack. If this "
+#| "option is used all source files in the project should be compiled with "
+#| "this option. It automatically implies -int-long-reent and -float-reent."
 msgid ""
 "All functions in the source file will be compiled as reentrant, i.e. the "
 "parameters and local variables will be allocated on the stack. If this "
 "option is used all source files in the project should be compiled with this "
-"option. It automatically implies -int-long-reent and -float-reent."
+"option. It automatically implies --int-long-reent and --float-reent."
 msgstr ""
 "Wszystkie funkcje w pliku źródłowym zostaną skompilowane jako wielobieżne, "
 "tj. parametry i lokalne zmienne zostaną przypisane na stosie. Jeśli ta opcja "

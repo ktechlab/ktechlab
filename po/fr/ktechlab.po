@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-03 00:51+0000\n"
+"POT-Creation-Date: 2022-10-27 00:49+0000\n"
 "PO-Revision-Date: 2020-11-21 21:07+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -4230,12 +4230,17 @@ msgstr "Génér&ation de code"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_stack_auto)
 #: src/gui/sdccoptionswidget.ui:131
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "All functions in the source file will be compiled as reentrant, i.e. the "
+#| "parameters and local variables will be allocated on the stack. If this "
+#| "option is used all source files in the project should be compiled with "
+#| "this option. It automatically implies -int-long-reent and -float-reent."
 msgid ""
 "All functions in the source file will be compiled as reentrant, i.e. the "
 "parameters and local variables will be allocated on the stack. If this "
 "option is used all source files in the project should be compiled with this "
-"option. It automatically implies -int-long-reent and -float-reent."
+"option. It automatically implies --int-long-reent and --float-reent."
 msgstr ""
 "Toutes les fonctions du fichier source seront compilées comme ré-entrantes, "
 "c'est-à-dire que les paramètres et les variables locales seront allouées "
