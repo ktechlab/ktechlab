@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-27 00:49+0000\n"
-"PO-Revision-Date: 2020-04-27 15:40+0100\n"
+"PO-Revision-Date: 2022-10-27 23:58+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -4220,12 +4220,7 @@ msgstr "Ger&ação de Código"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_stack_auto)
 #: src/gui/sdccoptionswidget.ui:131
-#, fuzzy, kde-format
-#| msgid ""
-#| "All functions in the source file will be compiled as reentrant, i.e. the "
-#| "parameters and local variables will be allocated on the stack. If this "
-#| "option is used all source files in the project should be compiled with "
-#| "this option. It automatically implies -int-long-reent and -float-reent."
+#, kde-format
 msgid ""
 "All functions in the source file will be compiled as reentrant, i.e. the "
 "parameters and local variables will be allocated on the stack. If this "
@@ -4235,7 +4230,7 @@ msgstr ""
 "Todas as funções no ficheiro de código serão compiladas como reentrantes, i."
 "e. os parâmetros e variáveis locais serão colocados na pilha. Se esta opção "
 "for usada, todos os ficheiros de código do projecto deverão ser compilados "
-"com esta opção. Implica automaticamente o '-int-long-reent' e o '-float-"
+"com esta opção. Implica automaticamente o '--int-long-reent' e o '--float-"
 "reent'."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_stack_auto)
@@ -5641,9 +5636,3 @@ msgstr "(vazio)"
 #, kde-format
 msgid "Open Document"
 msgstr "Abrir um Documento"
-
-#~ msgid "Custom..."
-#~ msgstr "Personalizar..."
-
-#~ msgid "Open Recent"
-#~ msgstr "Abrir um Recente"

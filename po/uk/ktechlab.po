@@ -3,13 +3,13 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2016, 2017, 2018, 2020.
+# Yuri Chornoivan <yurchor@ukr.net>, 2016, 2017, 2018, 2020, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-27 00:49+0000\n"
-"PO-Revision-Date: 2020-04-27 10:30+0300\n"
+"PO-Revision-Date: 2022-10-27 13:34+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 20.07.70\n"
+"X-Generator: Lokalize 20.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -4193,12 +4193,7 @@ msgstr "С&творення коду"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_stack_auto)
 #: src/gui/sdccoptionswidget.ui:131
-#, fuzzy, kde-format
-#| msgid ""
-#| "All functions in the source file will be compiled as reentrant, i.e. the "
-#| "parameters and local variables will be allocated on the stack. If this "
-#| "option is used all source files in the project should be compiled with "
-#| "this option. It automatically implies -int-long-reent and -float-reent."
+#, kde-format
 msgid ""
 "All functions in the source file will be compiled as reentrant, i.e. the "
 "parameters and local variables will be allocated on the stack. If this "
@@ -4208,8 +4203,8 @@ msgstr ""
 "Усі функції у файлі початкового коду буде зібрано як функції для повторного "
 "використання, тобто параметри та локальні змінні буде розміщено у стеку. "
 "Якщо пункт позначено, усі файли початкового коду у проєкті буде зібрано з "
-"цим параметром збирання. Автоматично додаються параметри -int-long-reent і -"
-"float-reent."
+"цим параметром збирання. Автоматично додаються параметри --int-long-reent і "
+"--float-reent."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_stack_auto)
 #: src/gui/sdccoptionswidget.ui:134

@@ -1,7 +1,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Freek de Kruijf <freekdekruijf@kde.nl>, 2017, 2018, 2020, 2021.
+# Freek de Kruijf <freekdekruijf@kde.nl>, 2017, 2018, 2020, 2021, 2022.
 # Ronald Stroethoff <stroet43@zonnet.nl>, 2017.
 # Lo Fernchu <lofernchu@zonnet.nl>, 2017.
 msgid ""
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-27 00:49+0000\n"
-"PO-Revision-Date: 2021-12-04 10:44+0100\n"
+"PO-Revision-Date: 2022-10-27 12:14+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -17,17 +17,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.08.3\n"
+"X-Generator: Lokalize 22.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Freek de Kruijf - t/m 2020,Ronald Stroethoff"
+msgstr "Ronald Stroethoff,Freek de Kruijf - t/m 2022"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "freekdekruijf@kde.nl,stroet43@zonnet.nl"
+msgstr "stroet43@zonnet.nl,freekdekruijf@kde.nl"
 
 #: microbe/main.cpp:46 src/flowcodeview.cpp:39 src/ktechlab.cpp:500
 #: src/textview.cpp:66
@@ -4192,12 +4192,7 @@ msgstr "Codegener&atie"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_stack_auto)
 #: src/gui/sdccoptionswidget.ui:131
-#, fuzzy, kde-format
-#| msgid ""
-#| "All functions in the source file will be compiled as reentrant, i.e. the "
-#| "parameters and local variables will be allocated on the stack. If this "
-#| "option is used all source files in the project should be compiled with "
-#| "this option. It automatically implies -int-long-reent and -float-reent."
+#, kde-format
 msgid ""
 "All functions in the source file will be compiled as reentrant, i.e. the "
 "parameters and local variables will be allocated on the stack. If this "
@@ -4207,7 +4202,7 @@ msgstr ""
 "Alle functies in de bronbestand worden gecompileerd met reentrant, d.w.z. de "
 "parameters en lokale variabelen worden op de stack geplaatst. Als u deze "
 "optie kiest dan moet u voor alle bronbestanden in het project met deze optie "
-"compileren. Het houdt automatisch ook in -int-long-reent en -float-reent."
+"compileren. Het houdt automatisch ook in --int-long-reent en --float-reent."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_stack_auto)
 #: src/gui/sdccoptionswidget.ui:134
