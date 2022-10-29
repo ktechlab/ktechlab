@@ -1,16 +1,16 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the ktechlab package.
 #
-# Martin Srebotnjak <miles@filmsi.net>, 2022.
 #
+# Martin Srebotnjak <miles@filmsi.net>, 2022.
+# Matjaž Jeran <matjaz.jeran@amis.net>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-27 00:49+0000\n"
-"PO-Revision-Date: 2022-08-09 18:42+0200\n"
-"Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
+"PO-Revision-Date: 2022-10-28 06:42+0200\n"
+"Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Lokalize 22.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -4174,12 +4174,7 @@ msgstr "Tvorb&a kode"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_stack_auto)
 #: src/gui/sdccoptionswidget.ui:131
-#, fuzzy, kde-format
-#| msgid ""
-#| "All functions in the source file will be compiled as reentrant, i.e. the "
-#| "parameters and local variables will be allocated on the stack. If this "
-#| "option is used all source files in the project should be compiled with "
-#| "this option. It automatically implies -int-long-reent and -float-reent."
+#, kde-format
 msgid ""
 "All functions in the source file will be compiled as reentrant, i.e. the "
 "parameters and local variables will be allocated on the stack. If this "
@@ -4187,9 +4182,10 @@ msgid ""
 "option. It automatically implies --int-long-reent and --float-reent."
 msgstr ""
 "Vse funkcije v izvorni datoteki bodo sestavljene kot ponovno vstopne, t.j. "
-"parametri in krajevne spremenljivke bodo dodeljene na skladu. Če je ta "
-"možnost uporabljena, morajo biti vse izvorne datoteke v projektu prevedene s "
-"to možnostjo. Samodejno implicira parametra -int-long-reent in -float-reent."
+"parametri in krajevne spremenljivke bodo nahajale na skladu. Če je "
+"uporabljena ta možnost, morajo biti vse izvorne datoteke v projektu "
+"prevedene s to nastavitvijo. Samodejno implicira parametra -int-long-reent "
+"in -float-reent."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_stack_auto)
 #: src/gui/sdccoptionswidget.ui:134
