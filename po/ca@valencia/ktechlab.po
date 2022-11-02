@@ -365,8 +365,8 @@ msgstr ""
 "barra d'eines. Es poden editar més propietats avançades utilitzant el "
 "selector d'elements de la dreta.<br><br>Els subcircuits es poden crear "
 "connectant els components amb una «Connexió externa», seleccionant els "
-"components desitjats i fent clic sobre «Crea un subcircuit» en el menú del "
-"clic dret."
+"components desitjats i fent clic en «Crea un subcircuit» en el menú del clic "
+"dret."
 
 #: src/circuitview.cpp:132
 #, kde-format
@@ -3434,7 +3434,7 @@ msgid ""
 msgstr ""
 "Afegiu els components al diagrama de circuits arrossegant-los dins del "
 "circuit.<br><br>Per a afegir més d'un component del mateix tipus, feu doble "
-"clic sobre un component i feu clic repetidament en el circuit per a "
+"clic damunt d'un component i feu clic repetidament en el circuit per a "
 "col·locar el component. Feu clic dret per a parar l'acció d'ubicació."
 "<br><br>Alguns components (com els subcircuits) es poden eliminar fent clic "
 "dret sobre l'element i seleccionant «Elimina»."
@@ -3448,7 +3448,7 @@ msgid ""
 "stop placement."
 msgstr ""
 "Afegiu la FlowPart al document FlowCode arrossegant-l'hi.<br><br>Per a "
-"afegir més d'una FlowPart del mateix tipus, feu doble clic sobre una "
+"afegir més d'una FlowPart del mateix tipus, feu doble clic damunt d'una "
 "FlowPart i feu clic repetidament al FlowChart per a col·locar el component. "
 "Feu clic dret per a parar l'acció d'ubicació."
 
@@ -5360,7 +5360,8 @@ msgid ""
 msgstr ""
 "Estos missatges mostren l'eixida de la funcionalitat relativa al llenguatge "
 "com ara la compilació i l'assemblatge.<br><br>Per als missatges d'error, "
-"fent clic a la línia obrirà automàticament el fitxer a la posició de l'error."
+"fent clic en la línia obrirà automàticament el fitxer a la posició de "
+"l'error."
 
 #: src/languages/microbe.cpp:28 src/languages/sdcc.cpp:29
 #, kde-format
