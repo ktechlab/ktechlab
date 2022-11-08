@@ -5500,7 +5500,7 @@ msgid ""
 msgstr ""
 "Mostra la llista dels fitxers en el projecte.\n"
 "Per a obrir o tancar un projecte, utilitzeu el menú «Projecte». Feu clic "
-"dret sobre un fitxer per a eliminar-lo del projecte"
+"dret damunt d'un fitxer per a eliminar-lo del projecte"
 
 #: src/projectmanager.cpp:866
 #, kde-format
