@@ -699,7 +699,7 @@ msgstr "No generes cap comprovació de límits per a taules de salts"
 #: src/core/ktechlab.kcfg:250
 #, kde-format
 msgid "Do not use default libraries"
-msgstr "No utilitzes les biblioteques per defecte"
+msgstr "No utilitzes les biblioteques predeterminades"
 
 #. i18n: ectx: label, entry (SDCC_pno_banksel), group (SDCC)
 #: src/core/ktechlab.kcfg:254
@@ -4437,7 +4437,7 @@ msgstr "Específic del PIC&16"
 #: src/gui/sdccoptionswidget.ui:347
 #, kde-format
 msgid "Do not use default libraries (--nodefaultlibs)"
-msgstr "No utilitzes les biblioteques per defecte (--nodefaultlibs)"
+msgstr "No utilitzes les biblioteques predeterminades (--nodefaultlibs)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_pno_banksel)
 #: src/gui/sdccoptionswidget.ui:357
