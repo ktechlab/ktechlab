@@ -4308,7 +4308,7 @@ msgstr ""
 #, kde-format
 msgid "Disable overlaying leaf function &auto variables (--nooverlay)"
 msgstr ""
-"Inhabilita les variables &automàtiques a la funció de fulla superposada (--"
+"Inhabilita les variables &automàtiques en la funció de fulla superposada (--"
 "nooverlay)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nogcse)
