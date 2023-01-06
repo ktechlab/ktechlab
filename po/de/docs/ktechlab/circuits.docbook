@@ -1,0 +1,84 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="circuits">
+	<title>Circuits</title>
+	
+	<sect1 id="placing_components">
+		<title>Placing components</title>
+		<para>On the left, you'll find the <guilabel>Components</guilabel> tab.</para>
+		
+		<para>Dragging a component from the sidebar into the circuit will place it under the mouse cursor. Alternatively, you can double click on an item in the <guilabel>Components</guilabel> sidebar to repeatedly add it to the circuit. In this mode, a copy of the selected component will be placed repeatedly on mouse left-clicking until either &Esc; is pressed, or the mouse is right-clicked.</para>
+		
+		<para>To reposition a component, left-click and drag. You'll find it snapping to the underlying grid. If you drag the component out of the right or bottom edges of the workarea, the workarea will resize itself to accommodate.</para>
+		
+		<para>All components have a notion of orientation; 0, 90, 180 and 270 degrees. Those that aren't symmetrical about an axis can also be flipped. To rotate a selection of components, either right click and select from the <guimenu>Orientation</guimenu> menu, or click on the rotate buttons in the toolbar. The latter can also be accessed by pressing the <keycap>[</keycap> and <keycap>]</keycap> keys (familiar to <application>Inkscape</application> users). The <guilabel>Item</guilabel> sidebar (on the right) provides a powerful method of setting the orientation by providing previews of the components. Flipping components is also only possibly via the <guilabel>Item</guilabel> sidebar.</para>
+	</sect1>
+	
+	<sect1 id="connecting_components">
+		<title>Connecting Components</title>
+		<para>There are two modes for creating connections (wires): automatic, and manual. These modes are selected via the <guimenu>Connection Routing Mode</guimenu> pulldown menu in the toolbar. Experiment with both - automatic routing is often better for small circuits, whereas more complex circuits may need manual routing.</para>
+		
+		<para>In automatic mode, create a connection by dragging from either a component pin or an existing connection, and releasing the mouse over the desired pin or connection. You'll see the straight-line being drawn turn orange when a valid connection will be created on mouse release. If the line you're drawing is black, it's either because there's nothing beneath the mouse cursor, or you're attempting to connect together two items which are already connected. When flowcharting, the criteria for a valid connection are more complex - but we'll get to that later.</para>
+		
+		<para>The best way to get a feel for manual connection routing is by experimenting with it. Click on the starting pin or connection, and then extend the proto-connector by moving the mouse away from where you clicked. To place a corner, left-click. To cancel drawing the connection, either press &Esc;, or right-click the mouse.</para>
+		
+		<para>&ktechlab; tries its best to maintain the routes your connections take. However, if dragging a component results in the end points of a connection moving relative to each other, &ktechlab; will be forced to redraw the connection using auto-routing. Before moving a component, you can see which connectors will have to be rerouted - as they will turn gray on clicking.</para>
+		
+		<para>To remove an existing connection, select it by drawing a small select-rectangle over part of the connector, and hit <keycap>Del</keycap>.</para>
+	</sect1>
+	
+	<sect1 id="component_attributes">
+		<title>Component Attributes</title>
+		<para>Most components will have editable attributes, such as the resistance for resistors. By default, you can edit simple attributes in the toolbar, when a group of the same type of components are selected. If your selection contains a mixture of different types of components (such as resistors and capacitors), then no attributes will be displayed for editing.</para>
+		
+		<para>Some components have more advanced attributes which are not accessible via the toolbar. These are found in the <guilabel>Item</guilabel> sidebar on the right. The diode, for example, has a variety of behavioral characteristics that you can edit here.</para>
+<!-- Not in 0.3.6 version
+		<para>If your selection of components have different values for their attributes (for example, different resistances for a selection of resistors), the <guilabel>Item</guilabel> sidebar will have the disagreeing attributes grayed-out. You can enable these by clicking the <guibutton>Merge properties</guibutton> button.</para>
+
+		<para>The "Defaults" button will reset the component attributes to the ones it had on creation.</para>
+		-->
+		<para>There is one type of attribute that cannot be editable by either the toolbar or Item sidebar - multiline text. Double clicking on the item will bring up a dialog box where the text can be entered.</para>
+	</sect1>
+	
+	<sect1 id="circuit_simulation">
+		<title>Simulation</title>
+		<para>By default, the simulation will be running when you create a new circuit. The status of the simulation is displayed in the lower right of a circuit view, and can be changed via the <guimenu>Tools</guimenu> menu. Firstly - a little explanation on how the Simulator works. This should allow you to make the most out of it.</para>
+		
+		<para>When a circuit is created or modified, the affected areas are partitioned up into groups of pins and connections that can be considered independent. Each group is then simulated as a separate entity (although still interacting via the components), with the simulation provided dependent on the group's complexity. Complex groups, such as those involving nonlinear components like LEDs, are slow to simulate. Groups that contain only logic pins, of which only one controls the value on those pins, are the fastest to simulate.</para>
+		
+		<para>The results of the simulation are provided through several graphical means.</para>
+		
+		<para>The pins on the components will display voltage sidebars. These are colored orange for positive voltage, and blue for negative voltage. Their length depends on the voltage level, and their width on the amount of current flowing through the pin. These can be turned off in the <guilabel>General</guilabel> page of the <guilabel>Configuration</guilabel> dialog.</para>
+		
+		<para>Hovering the mouse over a pin or connection will display a small tooltip showing the voltage and current at that point in the circuit. Several components also provide graphical feedback - for example, LEDs and voltmeters or ammeters.</para>
+		
+		<para>Lastly, there is the oscilloscope, discussed in the next section.</para>
+	</sect1>
+	
+	<sect1 id="oscilloscope">
+		<title>Oscilloscope</title>
+		<para>The oscilloscope can record logic, voltage and current data. The logic probe is optimized for storing boolean samples, and so should be used instead of the voltage probe when measuring logic.</para>
+		
+		<para>To collect data, create a new probe component, and attach it to an appropriate point in the circuit. You'll see the output immediately drawn in the oscilloscope. Adding more probes will squash the outputs next to each other - you can reposition these by dragging the arrows on the left of the oscilloscope view, and change their colors via the probe's attributes.</para>
+		
+		<para>For voltage and current probes, the range of input values can be adjusted in the <guilabel>Item Editor</guilabel> sidebar on the right.</para>
+		
+		<para>Zooming is controlled by a slider. The scaling is logarithmic; for every few pixels that the slider moves along, the zoom factor will be multiplied by a constant. &ktechlab; simulates logic to a maximum precision of 1 microsecond, and at maximum zoom level, one microsecond is represented by 8 pixels.</para>
+		
+		<para>When the scrollbar is dragged to the end, it will remain there as new data is recorded. Otherwise, the position of the scrollbar remains fixed in time. The oscilloscope view can also be moved forwards and backwards by left-clicking and dragging the view. Due to limitations of the underlying widget system, scrolling will be very granular at maximum zoom.</para>
+		
+		<para>Right-clicking on the oscilloscope view brings up a menu where you can control the number of times the oscilloscope view is updated. This allows for either a smoother display, or reducing CPU usage.</para>
+	</sect1>
+	
+	<sect1 id="subcircuits">
+		<title>Subcircuits</title>
+		<para>Subcircuits offer a reusable and tidy way of using a circuit, when you're only interested in interacting with external connections to the circuit. The subcircuit is creating as an IC, with the pins acting as the interaction with the internal circuit.</para>
+		
+		<para>First, the circuit to be used in as a template for creating a subcircuit from must be constructed. The points of interaction are defined via <guilabel>External Connection</guilabel> components. These must be connected up, and positioned where you want the pin to be positioned on the subcircuit IC.</para>
+		
+		<para>Next, select the group of components and external connections to be turned into a subcircuit, and select <guimenuitem>Create Subcircuit</guimenuitem> from the right-click menu. You'll be offered to enter a name for the subcircuit. Once created, the name will popup in the <guilabel>Components</guilabel> selector under the <guilabel>Subcircuits</guilabel> selection. This can be treated as any normal component - with the additional option of removing it by right-clicking on the item and selecting <guimenuitem>Remove</guimenuitem>.</para>
+	</sect1>
+	
+</chapter>
+
+
+

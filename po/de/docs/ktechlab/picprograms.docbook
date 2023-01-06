@@ -1,0 +1,44 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="pic_programs">
+	<title>PIC Programs</title>
+	
+	<sect1 id="manipulation">
+		<title>Manipulation</title>
+		
+		<para>When you create a FlowCode or a Text document, you'll notice a drop down menu in the toolbar with a rocket icon. From here, you can manipulate your PIC program; changing it to different forms.</para>
+		
+		<itemizedlist>
+				<listitem><para><guimenuitem>Convert to &microbe;</guimenuitem> - This is used only in &flowcode; documents. This is explained further in <xref linkend="flowcode"/>.</para></listitem>
+			
+				<listitem><para><guimenuitem>Convert to Assembly</guimenuitem> - This can be used in four contexts. When a &flowcode; document is open, it will output the &flowcode; as assembly instructions. When a &microbe; document is open, it will invoke the <command>microbe</command> program distributed with &ktechlab; to compile the program. Similarly, if a C program is open, it will attempt to compile it via SDCC. When a text document containing PIC hex is open, it will invoke <command>gpdasm</command> to disassemble the hex.</para></listitem>
+			
+				<listitem><para><guimenuitem>Convert to Hex</guimenuitem> - This can also be used in four contexts. As with <guimenuitem>Convert to Assembly</guimenuitem>, this can be used with &flowcode;, &microbe; and C documents. It will also be enabled when an assembly document is open to assemble it via <command>gpasm</command>.</para></listitem>
+			
+				<listitem><para><guimenuitem>Upload to PIC</guimenuitem> - This assembles the PIC program currently being edited, and uploads it using the programmer that the user has selected.</para></listitem>
+		</itemizedlist>
+		
+		<para>None of these actions require the current document to be saved - very useful for when a quick program is required. For non-PIC targets, the <guilabel>Output</guilabel> dialog invoked on clicking on one of these actions can either output the result (always text in the above three cases) to a fresh document, or to a file. If the output is saved to file, it also provides options to load the file after creation, and adding the newly created file to the open project (if one is open).</para>
+		
+		<para>Note that you can make &ktechlab; always use the same view for displaying the outputted content by selecting the option under <guilabel>General</guilabel> settings.</para>
+	</sect1>
+	
+	<sect1 id="uploading">
+		<title>Uploading</title>
+		
+		<para>&ktechlab; uses third-party programmers to upload programs to PICs. A variety of common programmers come predefined. Others can be added via the <guilabel>Settings</guilabel> dialog.<!-- See the <ulink url="http://ktechlab.org/pic_programmers.php">&ktechlab; website</ulink> for more information.--></para>
+		
+		<para>The list of ports is obtained from scanning for serial and parallel ports that are readable and writable. Serial ports are looked for in:</para>
+			<itemizedlist>
+				<listitem><para>/dev/ttyS<emphasis>[0..7]</emphasis></para></listitem>
+				<listitem><para>/dev/tts/<emphasis>[0..7]</emphasis></para></listitem>
+				<listitem><para>/dev/ttyUSB<emphasis>[0..7]</emphasis></para></listitem>
+				<listitem><para>/dev/usb/tts/<emphasis>[0..7]</emphasis></para></listitem>
+			</itemizedlist>
+		<para>Parallel ports are looked for in:
+			<itemizedlist>
+				<listitem><para>/dev/usb/parport<emphasis>[0..7]</emphasis></para></listitem>
+				<listitem><para>/dev/usb/parports/<emphasis>[0..7]</emphasis></para></listitem>
+			</itemizedlist>
+		</para>
+	</sect1>
+</chapter>

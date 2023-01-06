@@ -1,0 +1,52 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="flowcode">
+	<title>&flowcode;</title>
+	
+	<sect1 id="flowcode_introduction">
+		<title>Introduction</title>
+		
+		<para>&flowcode; allows for very quick and easy construction of a PIC program. After the user has constructed a flowchart from the program parts available, &ktechlab; can then convert the flowchart into a number of formats. To output hex, for example, the following chain of conversions takes place:</para>
+		
+		<orderedlist>
+			<listitem><para>The &flowcode; is converted to &microbe;; a high-level language whose compiler is distributed with &ktechlab;.</para></listitem>
+			<listitem><para>The <command>microbe</command> executable then compiles the &microbe; file to PIC assembly.</para></listitem>
+			<listitem><para>Finally, <command>gpasm</command> takes the PIC assembly file, and outputs the hex for the program.</para></listitem>
+		</orderedlist>
+		
+		<para>Of course, if you don't have gputils installed - with which <command>gpasm</command> is distributed - then the last step can't be performed.</para>
+		
+	</sect1>
+	
+	<sect1 id="flowcode_creation">
+		<title>Creating a Program</title>
+		
+		<para>Every &flowcode; program needs a unique starting point - this is the place where your program will be run from on PIC startup. To define this point, open up the FlowParts sidebar on the left, and drag across the <guilabel>Start</guilabel> part. &ktechlab; will only allow you to use one of these.</para>
+		
+		<para>You can then construct your program by using the predefined parts on the left - or insert code of your own (in assembly or &microbe; format) via the <guilabel>Embed</guilabel> part. The flow of the program is controlled via the connections between the FlowParts - <xref linkend="connecting_components"/> offers more detail on creating connections.</para>
+		
+		<para>&flowcode; imposes limitations in addition to those of circuits on what can be connected. For example, each FlowPart can only have one output connection. Additional limitations are described in <xref linkend="nestling_flowcode"/>.</para>
+	</sect1>
+	
+	<sect1 id="pic_settings">
+		<title>PIC Settings</title>
+		
+		<para>When you create a new &flowcode; document, you'll notice a picture of the PIC you're using in the top-left corner of the work area. This represents the initial settings of the PIC.</para>
+		
+		<para>Each pin shown on the picture of the PIC shows the initial type of pin (input or output), and its initial state (high or low). You can change these by dragging the pin to set the type, and clicking on it to toggle its state.</para>
+		
+		<para>The <guilabel>Settings</guilabel> dialog, invoked by clicking on the <guibutton>Settings</guibutton> button, also allows you to edit the initial pin types and states - in this case, by editing the binary values written to the PORT and TRIS registers. As well as pin settings though, the dialog allows editing of the initial values of variables in the PIC program.</para>
+		
+		<para>At the bottom, there is a list of currently defined pin maps, as well as buttons to manipulate them. Pin maps are used to specify how a seven segment or a keypad is connected to a PIC. To use the <guilabel>Seven Segment</guilabel> or the <guilabel>Keypad</guilabel> &flowcode; parts, you will need to define a pin map here first.</para>
+		
+	</sect1>
+	
+	<sect1 id="nestling_flowcode">
+		<title>Nestling &flowcode;</title>
+		
+		<para>Many FlowParts, such as subroutines and loops, can contain code of their own. After creating such a container, FlowParts can be added by either dragging or dropping them into the container. The container will be highlighted to indicate that it will become the new parent of the FlowPart.</para>
+		
+		<para>The container takes responsibility for FlowParts nestled inside. If the expand button is unclicked, all contained FlowParts will be hidden - and likewise, the contents will be shown when the expand button is clicked again. Connections cannot be made between FlowParts in different containers, and the contents of a container will be moved about along with the container.</para>
+		
+	</sect1>
+	
+</chapter>
