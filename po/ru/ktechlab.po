@@ -3,13 +3,14 @@
 #
 # Alexander Potashev <aspotashev@gmail.com>, 2019.
 # Мария Шикунова <translation-team@basealt.ru>, 2021, 2022.
+# Alexander Yavorsky <kekcuha@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-27 00:49+0000\n"
-"PO-Revision-Date: 2022-01-24 16:29+0300\n"
-"Last-Translator: Мария Шикунова <translation-team@basealt.ru>\n"
+"PO-Revision-Date: 2023-01-12 11:13+0300\n"
+"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -4192,12 +4193,7 @@ msgstr "Генер&ация кода"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_stack_auto)
 #: src/gui/sdccoptionswidget.ui:131
-#, fuzzy, kde-format
-#| msgid ""
-#| "All functions in the source file will be compiled as reentrant, i.e. the "
-#| "parameters and local variables will be allocated on the stack. If this "
-#| "option is used all source files in the project should be compiled with "
-#| "this option. It automatically implies -int-long-reent and -float-reent."
+#, kde-format
 msgid ""
 "All functions in the source file will be compiled as reentrant, i.e. the "
 "parameters and local variables will be allocated on the stack. If this "
@@ -4206,9 +4202,9 @@ msgid ""
 msgstr ""
 "Все функции в файле исходного кода будут скомпилированы как функции для "
 "повторного использования, то есть параметры и локальные переменные будут "
-"размещены в стеке. Если эта функция включена, все файлв исходного кода в "
+"размещены в стеке. Если эта функция включена, все файлы исходного кода в "
 "проекте будут скомпилированы с этим параметром сборки. Они автоматически "
-"будут добавлены в параметры -int-long-reent и -float-reent."
+"будут добавлены в параметры --int-long-reent и --float-reent."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_stack_auto)
 #: src/gui/sdccoptionswidget.ui:134
