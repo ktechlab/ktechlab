@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-27 00:49+0000\n"
-"PO-Revision-Date: 2022-09-23 12:48+0200\n"
+"PO-Revision-Date: 2023-01-13 19:07+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
-"Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
+"Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -92,7 +92,7 @@ msgstr "ფაილ %1-ის გახსნა შეუძლებელი
 #: microbe/microbe.cpp:223
 #, kde-format
 msgid "Unknown statement"
-msgstr ""
+msgstr "უცნობი ოპერატორი"
 
 #: microbe/microbe.cpp:226
 #, kde-format
@@ -137,7 +137,7 @@ msgstr ""
 #: microbe/microbe.cpp:250
 #, kde-format
 msgid "Nothing between operators"
-msgstr ""
+msgstr "სიცარიელე ოპერატორებს შორის"
 
 #: microbe/microbe.cpp:253
 #, kde-format
@@ -202,7 +202,7 @@ msgstr ""
 #: microbe/microbe.cpp:289
 #, kde-format
 msgid "Label expected"
-msgstr ""
+msgstr "მოველოდი ჭდეს"
 
 #: microbe/microbe.cpp:292
 #, kde-format
@@ -212,7 +212,7 @@ msgstr ""
 #: microbe/microbe.cpp:295
 #, kde-format
 msgid "Expected '%1'"
-msgstr ""
+msgstr "მოველოდი '%1'"
 
 #: microbe/microbe.cpp:298
 #, kde-format
@@ -222,7 +222,7 @@ msgstr ""
 #: microbe/microbe.cpp:301
 #, kde-format
 msgid "Alias already defined"
-msgstr ""
+msgstr "მეტსახელი უკვე აღწერილია"
 
 #: microbe/microbe.cpp:304
 #, kde-format
@@ -232,42 +232,42 @@ msgstr ""
 #: microbe/microbe.cpp:307
 #, kde-format
 msgid "Interrupt already defined"
-msgstr ""
+msgstr "წყვეტა უკვე არწერილია"
 
 #: microbe/microbe.cpp:310
 #, kde-format
 msgid "Variable '%1' is read only"
-msgstr ""
+msgstr "ცვლადი '%1' მხოლოდ-წაკითხადია"
 
 #: microbe/microbe.cpp:313
 #, kde-format
 msgid "Variable '%1' is write only"
-msgstr ""
+msgstr "ცვლადი '%1' მხოლოდ ჩაწერადია"
 
 #: microbe/microbe.cpp:316
 #, kde-format
 msgid "Invalid pin list size"
-msgstr ""
+msgstr "პინების სიის არასწორი ზომა"
 
 #: microbe/microbe.cpp:319
 #, kde-format
 msgid "Variable '%1' is already defined"
-msgstr ""
+msgstr "ცვლადი '%1' უკვე აღწერილია"
 
 #: microbe/microbe.cpp:322
 #, kde-format
 msgid "'%1' is not a valid variable name"
-msgstr ""
+msgstr "'%1' ცვლადის მისაღებ სახელს არ წარმოადგენს"
 
 #: microbe/microbe.cpp:325
 #, kde-format
 msgid "Variable expected"
-msgstr ""
+msgstr "მოველოდი ცვლადს"
 
 #: microbe/microbe.cpp:328
 #, kde-format
 msgid "Name expected"
-msgstr ""
+msgstr "მოველოდი სახელს"
 
 #: microbe/optimizer.cpp:71
 #, kde-format
@@ -355,29 +355,29 @@ msgstr ""
 #: src/circuitview.cpp:132
 #, kde-format
 msgid "Simulation Initializing"
-msgstr ""
+msgstr "სიმულაციის ინიციალიზაცია"
 
 #: src/circuitview.cpp:144
 #, kde-format
 msgid "Simulation Running"
-msgstr ""
+msgstr "სიმულაცია გაშვებულია"
 
 #: src/circuitview.cpp:144
 #, kde-format
 msgid "Simulation Paused"
-msgstr ""
+msgstr "სიმულაცია შეჩერებულია"
 
 #. i18n: ectx: label, entry (MaxUndo), group (General)
 #: src/core/ktechlab.kcfg:10
 #, kde-format
 msgid "Maximum number of undo steps"
-msgstr ""
+msgstr "დაბრუნების ბიჯების რაოდენობა"
 
 #. i18n: ectx: label, entry (RestoreDocumentsOnStartup), group (General)
 #: src/core/ktechlab.kcfg:14
 #, kde-format
 msgid "Restore Documents on Startup"
-msgstr ""
+msgstr "გაშვებისას დოკუმენტების აღდგენა"
 
 #. i18n: ectx: label, entry (RaiseItemSelectors), group (General)
 #: src/core/ktechlab.kcfg:18
@@ -395,13 +395,13 @@ msgstr ""
 #: src/core/ktechlab.kcfg:26
 #, kde-format
 msgid "Show Voltage Bars"
-msgstr ""
+msgstr "ვოლტაჟის ზოლების ჩვენება"
 
 #. i18n: ectx: label, entry (ShowVoltageColor), group (General)
 #: src/core/ktechlab.kcfg:30
 #, kde-format
 msgid "Show Voltage as Color"
-msgstr ""
+msgstr "ვოლტაჟის ფერებად ჩვენება"
 
 #. i18n: ectx: label, entry (AnimateWires), group (General)
 #: src/core/ktechlab.kcfg:34
@@ -419,7 +419,7 @@ msgstr "განახლების სიხშირე"
 #: src/core/ktechlab.kcfg:42
 #, kde-format
 msgid "Color of grid lines"
-msgstr ""
+msgstr "ბადის ხაზების ფერი"
 
 #. i18n: ectx: label, entry (ShowGrid), group (General)
 #: src/core/ktechlab.kcfg:46
@@ -509,7 +509,7 @@ msgstr ""
 #: src/core/ktechlab.kcfg:115
 #, kde-format
 msgid "Hex Format"
-msgstr ""
+msgstr "თექვსმეტობითი ფორმატი"
 
 #. i18n: ectx: label, entry (Radix), group (Gpasm)
 #: src/core/ktechlab.kcfg:125
@@ -624,7 +624,7 @@ msgstr ""
 #: src/core/ktechlab.kcfg:213
 #, kde-format
 msgid "Do not optimize labels"
-msgstr ""
+msgstr "ჭდეების ოპტიმიზაციის გამორთვა"
 
 #. i18n: ectx: label, entry (SDCC_noinvariant), group (SDCC)
 #: src/core/ktechlab.kcfg:217
@@ -648,19 +648,19 @@ msgstr ""
 #: src/core/ktechlab.kcfg:229
 #, kde-format
 msgid "Do not do loop reversal optimization"
-msgstr ""
+msgstr "მარყუჟის რევერსის ოპტიმიზაციის გამორთვა"
 
 #. i18n: ectx: label, entry (SDCC_opt_code_size), group (SDCC)
 #: src/core/ktechlab.kcfg:233
 #, kde-format
 msgid "Optimize for compact code"
-msgstr ""
+msgstr "კომპაქტური კოდისთვის ოპტიმიზაცია"
 
 #. i18n: ectx: label, entry (SDCC_opt_code_speed), group (SDCC)
 #: src/core/ktechlab.kcfg:237
 #, kde-format
 msgid "Optimize for fast code"
-msgstr ""
+msgstr "სწრაფი კოდისთვის ოპტიმიზაცია"
 
 #. i18n: ectx: label, entry (SDCC_peep_asm), group (SDCC)
 #: src/core/ktechlab.kcfg:241
@@ -678,7 +678,7 @@ msgstr ""
 #: src/core/ktechlab.kcfg:250
 #, kde-format
 msgid "Do not use default libraries"
-msgstr ""
+msgstr "ნაგულისხმები ბიბლიოთეკები გამოყენებული არ იქნება"
 
 #. i18n: ectx: label, entry (SDCC_pno_banksel), group (SDCC)
 #: src/core/ktechlab.kcfg:254
@@ -818,7 +818,7 @@ msgstr "Juan De Vincenzo"
 #: src/core/main.cpp:39
 #, kde-format
 msgid "KDE4 Port"
-msgstr ""
+msgstr "KDE4-ზე გადატანა"
 
 #: src/core/main.cpp:40
 #, kde-format
@@ -848,7 +848,7 @@ msgstr ""
 #: src/core/main.cpp:43
 #, kde-format
 msgid "Former developer"
-msgstr ""
+msgstr "ყოფილი პროგრამისტი"
 
 #: src/core/main.cpp:44
 #, kde-format
@@ -893,7 +893,7 @@ msgstr ""
 #: src/core/main.cpp:56
 #, kde-format
 msgid "Document to open."
-msgstr ""
+msgstr "გასახსნელი დოკუმენტი."
 
 #: src/docmanager.cpp:96
 #, kde-format
@@ -933,7 +933,7 @@ msgstr ""
 #: src/docmanager.cpp:188
 #, kde-format
 msgid "Untitled (%1)"
-msgstr ""
+msgstr "უსახელო (%1)"
 
 #: src/docmanager.cpp:190 src/view.cpp:242
 #, kde-format
@@ -1226,7 +1226,7 @@ msgstr ""
 #: src/electronics/components/probe.cpp:207
 #, kde-format
 msgid "Outputs"
-msgstr ""
+msgstr "გამოტანა"
 
 #: src/electronics/components/bidirled.cpp:52
 #, kde-format
@@ -1679,23 +1679,23 @@ msgstr "სვეტები"
 #: src/electronics/components/ecmosfet.cpp:43
 #, kde-format
 msgid "n-MOSFET"
-msgstr ""
+msgstr "n-MOSFET"
 
 #. i18n("p-e MOSFET"),
 #: src/electronics/components/ecmosfet.cpp:54
 #, kde-format
 msgid "p-MOSFET"
-msgstr ""
+msgstr "p-MOSFET"
 
 #: src/electronics/components/ecmosfet.cpp:66
 #, kde-format
 msgid "n-d MOSFET"
-msgstr ""
+msgstr "n-d MOSFET"
 
 #: src/electronics/components/ecmosfet.cpp:78
 #, kde-format
 msgid "p-d MOSFET"
-msgstr ""
+msgstr "p-d MOSFET"
 
 #: src/electronics/components/ecmosfet.cpp:92
 #, kde-format
@@ -1944,28 +1944,28 @@ msgstr ""
 #: src/electronics/components/meter.cpp:40
 #, kde-format
 msgid "Minimum Value"
-msgstr ""
+msgstr "მინიმალური მნიშვნელობა"
 
 #: src/electronics/components/meter.cpp:46
 #, kde-format
 msgid "Maximum Value"
-msgstr ""
+msgstr "მაქსიმალური მნიშვნელობა"
 
 #: src/electronics/components/meter.cpp:161
 #, kde-format
 msgid "Frequency Meter (TODO)"
-msgstr ""
+msgstr "სიხშირესაზომი"
 
 #: src/electronics/components/meter.cpp:167
 #, kde-format
 msgid "Frequency Meter"
-msgstr ""
+msgstr "სიხშირესაზომი"
 
 #: src/electronics/components/meter.cpp:194
 #: src/electronics/components/meter.cpp:200
 #, kde-format
 msgid "Ammeter"
-msgstr ""
+msgstr "ამპერმეტრი"
 
 #: src/electronics/components/meter.cpp:228
 #: src/electronics/components/meter.cpp:234
@@ -2352,7 +2352,7 @@ msgstr ""
 #: src/electronics/gpsimprocessor.cpp:151
 #, kde-format
 msgid "Bad File"
-msgstr ""
+msgstr "არასწორი ფაილი"
 
 #: src/electronics/gpsimprocessor.cpp:154
 #, kde-format
@@ -2362,7 +2362,7 @@ msgstr ""
 #: src/electronics/gpsimprocessor.cpp:154
 #, kde-format
 msgid "Unreadable File"
-msgstr ""
+msgstr "წაუკითხვადი ფაილი"
 
 #: src/electronics/gpsimprocessor.cpp:158
 #, kde-format
@@ -2392,7 +2392,7 @@ msgstr "SFR"
 #: src/electronics/gpsimprocessor.cpp:744 src/textdocument.cpp:100
 #, kde-format
 msgid "Breakpoint"
-msgstr ""
+msgstr "გამართვის წერტილი"
 
 #: src/electronics/gpsimprocessor.cpp:747
 #, kde-format
@@ -2485,7 +2485,7 @@ msgstr ""
 #: src/flowparts/callsub.cpp:47
 #, kde-format
 msgid "Call %1"
-msgstr ""
+msgstr "%1-ის გამოძახება"
 
 #: src/flowparts/count.cpp:25 src/flowparts/delay.cpp:25
 #: src/flowparts/inputbutton.cpp:24 src/flowparts/keypad.cpp:25
@@ -2512,12 +2512,12 @@ msgstr "დაყოვნება"
 #: src/flowparts/delay.cpp:37
 #, kde-format
 msgid "Pause Length"
-msgstr ""
+msgstr "პაუზის ხანგრძლივობა"
 
 #: src/flowparts/delay.cpp:49
 #, kde-format
 msgid "Delay for %1 sec"
-msgstr ""
+msgstr "%1 წამით დაყოვნება"
 
 #: src/flowparts/embed.cpp:25 src/flowparts/embed.cpp:31
 #, kde-format
@@ -2577,7 +2577,7 @@ msgstr "ცვლადი"
 #: src/flowparts/forloop.cpp:43
 #, kde-format
 msgid "Initial Value"
-msgstr ""
+msgstr "საწყისი მნიშვნელობა"
 
 #: src/flowparts/forloop.cpp:47
 #, kde-format
@@ -2786,7 +2786,7 @@ msgstr ""
 #: src/flowparts/varcomparison.cpp:25
 #, kde-format
 msgid "Comparison"
-msgstr ""
+msgstr "შედარება"
 
 #: src/flowparts/varcomparison.cpp:31
 #, kde-format
@@ -2866,7 +2866,7 @@ msgstr ""
 #: src/gui/asmformattingwidget.ui:78
 #, kde-format
 msgid "Instruction Name"
-msgstr ""
+msgstr "ინსტრუქციის სახელი"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoFormatMBOutput)
 #: src/gui/asmformattingwidget.ui:162
@@ -2884,7 +2884,7 @@ msgstr ""
 #: src/gui/contexthelp.cpp:245 src/gui/itemeditor/itemeditor.cpp:141
 #, kde-format
 msgid "No Item Selected"
-msgstr ""
+msgstr "არაფერი მოგინიშნავთ"
 
 #: src/gui/contexthelp.cpp:255 src/gui/itemeditor/itemeditor.cpp:108
 #, kde-format
@@ -2932,19 +2932,19 @@ msgstr "..."
 #: src/gui/contexthelpwidget.ui:183
 #, kde-format
 msgid "S&ave"
-msgstr ""
+msgstr "შენა&ხვა"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/gui/createsubprojectwidget.ui:28
 #, kde-format
 msgid "Subproject Details"
-msgstr ""
+msgstr "ქვეპროექტის დეტალები"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: src/gui/createsubprojectwidget.ui:38
 #, kde-format
 msgid "Target File:"
-msgstr ""
+msgstr "სამიზნე ფაილი:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
@@ -2975,13 +2975,13 @@ msgstr ""
 #: src/gui/generaloptionswidget.ui:55
 #, kde-format
 msgid "Grid Colour"
-msgstr ""
+msgstr "ბადის ფერი"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowGrid)
 #: src/gui/generaloptionswidget.ui:62
 #, kde-format
 msgid "Show &grid:"
-msgstr ""
+msgstr "&ბადის ჩვენება:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, textLabel1)
 #: src/gui/generaloptionswidget.ui:85
@@ -3025,7 +3025,7 @@ msgstr ""
 #: src/gui/generaloptionswidget.ui:152
 #, kde-format
 msgid "Refresh rate:"
-msgstr ""
+msgstr "განახლების სიხშირე:"
 
 #. i18n: ectx: property (text), widget (QLabel, refreshRateLabel)
 #: src/gui/generaloptionswidget.ui:162
@@ -3306,7 +3306,7 @@ msgstr "პარამეტრი"
 #: src/gui/itemeditor/propertyeditor.cpp:283
 #, kde-format
 msgid "Undo changes"
-msgstr ""
+msgstr "ცვლილებების გაუქმება"
 
 #: src/gui/itemeditor/propertyeditorfile.cpp:36
 #, kde-format
@@ -3510,7 +3510,7 @@ msgstr "ყველას გასუფთავება"
 #: src/gui/microselectwidget.cpp:29
 #, kde-format
 msgid "Microprocessor"
-msgstr ""
+msgstr "მიკროპროცესორი"
 
 #: src/gui/microselectwidget.cpp:37
 #, kde-format
@@ -3525,7 +3525,7 @@ msgstr ""
 #: src/gui/microsettingsdlg.cpp:59 src/picitem.cpp:290
 #, kde-format
 msgid "PIC Settings"
-msgstr ""
+msgstr "PIC -ის მორგება"
 
 #: src/gui/microsettingsdlg.cpp:70
 #, kde-format
@@ -3569,7 +3569,7 @@ msgstr "ცვლადის სახელი"
 #: src/gui/microsettingsdlg.cpp:133
 #, kde-format
 msgid "Variable value"
-msgstr ""
+msgstr "ცვლადის მნიშვნელობა"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: src/gui/microsettingsdlg.cpp:259 src/gui/newpinmappingwidget.ui:48
@@ -3611,7 +3611,7 @@ msgstr "წაშლა"
 #: src/gui/microsettingswidget.ui:139
 #, kde-format
 msgid "Modif&y"
-msgstr ""
+msgstr "&შეცვლა"
 
 #. i18n: ectx: property (text), widget (QPushButton, pinMapRename)
 #: src/gui/microsettingswidget.ui:146
@@ -3643,7 +3643,7 @@ msgstr ""
 #: src/gui/newfilewidget.ui:72
 #, kde-format
 msgid "New File Details"
-msgstr ""
+msgstr "ახალი ფაილის დეტალები"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2_2)
 #: src/gui/newfilewidget.ui:82
@@ -3655,7 +3655,7 @@ msgstr "ფაილის ტიპი:"
 #: src/gui/newfilewidget.ui:129
 #, kde-format
 msgid "&Add to project"
-msgstr ""
+msgstr "&პროექტისთვის დამატება"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/gui/newpinmappingwidget.ui:33
@@ -3687,7 +3687,7 @@ msgstr ""
 #: src/gui/newprojectwidget.ui:23
 #, kde-format
 msgid "Final location:"
-msgstr ""
+msgstr "საბოლოო მდებარეობა:"
 
 #. i18n: ectx: property (text), widget (QLabel, locationLabel)
 #: src/gui/newprojectwidget.ui:33
@@ -3705,23 +3705,23 @@ msgstr "მდებარეობა:"
 #: src/gui/newprojectwidget.ui:74
 #, kde-format
 msgid "New Project Details"
-msgstr ""
+msgstr "ახალი პროექტის დეტალები"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel10)
 #: src/gui/newprojectwidget.ui:84
 #, kde-format
 msgid "Project Name:"
-msgstr ""
+msgstr "პროექტის სახელი:"
 
 #: src/gui/oscilloscope.cpp:319
 #, kde-format
 msgid "Oscilloscope"
-msgstr ""
+msgstr "ოსცილოსკოპი"
 
 #: src/gui/oscilloscopeview.cpp:124
 #, kde-format
 msgid "Framerate"
-msgstr ""
+msgstr "კადრების სიჩქარე"
 
 #. i18n("%1 fps", QString::number(num)), num);   // 2018.12.07
 #. fpsMenu.setItemChecked( num, num == m_fps);
@@ -3740,13 +3740,13 @@ msgstr "გადიდება"
 #: src/gui/outputmethodwidget.ui:44
 #, kde-format
 msgid "Displa&y directly"
-msgstr ""
+msgstr "&პირდაპირ ჩვენება"
 
 #. i18n: ectx: property (text), widget (QRadioButton, saveFileCheck)
 #: src/gui/outputmethodwidget.ui:54
 #, kde-format
 msgid "Sa&ve to file"
-msgstr ""
+msgstr "&ფაილში შენახვა"
 
 #. i18n: ectx: property (text), widget (QCheckBox, loadFileCheck)
 #: src/gui/outputmethodwidget.ui:73
@@ -3836,7 +3836,7 @@ msgstr ""
 #: src/gui/picprogrammerconfigwidget.ui:202
 #, kde-format
 msgid "Default port:"
-msgstr ""
+msgstr "ნაგულისხმები პორტი:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/gui/processingoptionswidget.ui:49
@@ -3862,17 +3862,17 @@ msgstr "ახალი პროექტი"
 #: src/gui/projectdlgs.cpp:129
 #, kde-format
 msgid "Create Subproject"
-msgstr ""
+msgstr "ქვეპროექტის შექმნა"
 
 #: src/gui/projectdlgs.cpp:182
 #, kde-format
 msgid "Linker Options"
-msgstr ""
+msgstr "მიმბმელის მორგება"
 
 #: src/gui/projectdlgs.cpp:317
 #, kde-format
 msgid "Processing Options"
-msgstr ""
+msgstr "დამუშავების მორგება"
 
 #. i18n("Bold"), "format-text-bold", Qt::CTRL + Qt::Key_B, 0, 0, ac, "format_bold" );
 #: src/gui/richtexteditor.cpp:66
@@ -3903,7 +3903,7 @@ msgstr "სია"
 #: src/gui/richtexteditor.cpp:103 src/gui/richtexteditor.cpp:112
 #, kde-format
 msgid "Text Alignment"
-msgstr ""
+msgstr "ტექსტის გასწორება"
 
 #. i18n("Align Left"),		Qt::AlignLeft );
 #: src/gui/richtexteditor.cpp:116
@@ -3915,7 +3915,7 @@ msgstr "მარცხნივ სწორება"
 #: src/gui/richtexteditor.cpp:118
 #, kde-format
 msgid "Align Center"
-msgstr ""
+msgstr "ცენტრზე სწორება"
 
 #. i18n("Align Right"),	Qt::AlignRight );
 #: src/gui/richtexteditor.cpp:120
@@ -3927,14 +3927,14 @@ msgstr "მარჯვნივ სწორება"
 #: src/gui/richtexteditor.cpp:122
 #, kde-format
 msgid "Align Block"
-msgstr ""
+msgstr "ბლოკის სწორება"
 
 #. i18n("Text Vertical Alignment"), "text", 0, 0, 0, ac, "text_vertical_alignment" );
 #. i18n("Text Vertical Alignment") );
 #: src/gui/richtexteditor.cpp:128 src/gui/richtexteditor.cpp:136
 #, kde-format
 msgid "Text Vertical Alignment"
-msgstr ""
+msgstr "ტექსტის ვერტიკალური სწორება"
 
 #: src/gui/richtexteditor.cpp:139
 #, kde-format
@@ -3969,7 +3969,7 @@ msgstr "X"
 #: src/gui/scopescreenwidget.ui:36
 #, kde-format
 msgid "Intervals"
-msgstr ""
+msgstr "ინტერვალები"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: src/gui/scopescreenwidget.ui:88
@@ -4131,7 +4131,7 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:208
 #, kde-format
 msgid "&Optimization"
-msgstr ""
+msgstr "&ოპტიმიზაცია"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_nooverlay)
 #: src/gui/sdccoptionswidget.ui:214
@@ -4475,7 +4475,7 @@ msgstr ""
 #: src/itemdocumentdata.cpp:112 src/projectmanager.cpp:748
 #, kde-format
 msgid "Could not open %1 for reading"
-msgstr ""
+msgstr "%1-ის წასაკითხად გახსნის შეცდომა"
 
 #: src/itemdocumentdata.cpp:133 src/projectmanager.cpp:764
 #, kde-format
@@ -4688,7 +4688,7 @@ msgstr "&ახალი"
 #: src/ktechlab.cpp:466
 #, kde-format
 msgid "C source"
-msgstr ""
+msgstr "C-ის საწყისი კოდი"
 
 #. i18n("FlowCode"), "application-x-flowcode", 0, this, SLOT(slotFileNewFlowCode()), ac, "newfile_flowcode" ))->plug( p->menu() );
 #: src/ktechlab.cpp:482 src/languages/flowcode.cpp:28
@@ -4789,13 +4789,13 @@ msgstr ""
 #: src/ktechlab.cpp:625
 #, kde-format
 msgid "Split View Left/Right"
-msgstr ""
+msgstr "ხედის მარჯვენა/მარცხენაზე გაყოფა"
 
 #. i18n("Split View Top/Bottom"), "view-split-top-bottom", Qt::CTRL|Qt::SHIFT|Qt::Key_T, this, SLOT(slotViewSplitTopBottom()), ac, "view_split_topbottom" );
 #: src/ktechlab.cpp:632
 #, kde-format
 msgid "Split View Top/Bottom"
-msgstr ""
+msgstr "ხედის ზედა/ქვედაზე გაყოფა"
 
 #. i18n("Run Simulation"), "media-playback-start", Qt::Key_F10, 0, 0, ac, "simulation_run" );
 #: src/ktechlab.cpp:639
@@ -4991,7 +4991,7 @@ msgstr "ხელსაწყოები"
 #: src/ktechlabkateui.rc:45
 #, kde-format
 msgid "&Code Folding"
-msgstr ""
+msgstr "&კოდის დაკეცვა"
 
 #. i18n: ectx: Menu (settings)
 #: src/ktechlabkateui.rc:93
@@ -5373,18 +5373,18 @@ msgstr "შეჩერება"
 #: src/textview.cpp:127
 #, kde-format
 msgid "Step Over"
-msgstr ""
+msgstr "გადაბიჯება"
 
 #. i18n("Step Out"), "debug-step-out", 0, textDocument, SLOT(debugStepOut()), ac, "debug_step_out" );
 #: src/textview.cpp:134
 #, kde-format
 msgid "Step Out"
-msgstr ""
+msgstr "გამობიჯება"
 
 #: src/textview.cpp:494
 #, kde-format
 msgid " Line: %1 Col: %2 "
-msgstr ""
+msgstr " ხაზი: %1 სვეტი: %2 "
 
 #: src/textview.cpp:511
 #, kde-format
