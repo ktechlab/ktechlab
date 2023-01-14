@@ -15,6 +15,7 @@
   <name xml:lang="gl">KTechlab</name>
   <name xml:lang="id">KTechlab</name>
   <name xml:lang="it">KTechlab</name>
+  <name xml:lang="ka">KTechlab</name>
   <name xml:lang="ko">KTechlab</name>
   <name xml:lang="nl">KTechlab</name>
   <name xml:lang="pl">KTechlab</name>
@@ -38,6 +39,7 @@
   <summary xml:lang="gl">IDE para microcontroladores e compoñentes electrónicos</summary>
   <summary xml:lang="id">IDE untuk mikrokontroler dan elektronik</summary>
   <summary xml:lang="it">Un IDE per microcontrollori ed elettronica</summary>
+  <summary xml:lang="ka">IDE მიკროელექტრონიკისა და ელექტრონიკისთვის</summary>
   <summary xml:lang="ko">마이크로컨트롤러와 전자 회로 IDE</summary>
   <summary xml:lang="nl">IDE (ontwikkelomgeving) voor microcontrollers en elektronica</summary>
   <summary xml:lang="pl">IDE dla mikrokontrolerów i elektroniki</summary>
@@ -62,6 +64,7 @@
     <p xml:lang="gl">KTechlab é un IDE para microcontroladores e compoñentes electrónicos deseñado para ser todo o fácil de usar e non intrusivo posíbel.</p>
     <p xml:lang="id">KTechlab adalah sebuah IDE untuk mikrokontroler dan elektronik yang didesain agar mudah digunakan dan tidak seribet mungkin.</p>
     <p xml:lang="it">KTechlab è un IDE per microcontrollori ed elettronica progettato per essere semplice da usare e meno invadente possibile.</p>
+    <p xml:lang="ka">KTechlab-ი IDE-ა მიკროკონტროლერებისა და ელექტრონიკისთვის, განკუთვნილი იყოს ისეთი ადვილი და ინტუიტიური, როგორც ეს საერთოდ შესაძლებელია.</p>
     <p xml:lang="ko">KTechlab은 사용하기 쉽게 설계된 마이크로와 전자 회로 IDE입니다.</p>
     <p xml:lang="nl">KTechlab is een IDE (ontwikkelomgeving) voor microcontrollers en elektronica ontworpen voor gemakkelijk gebruik en zo weinig opdringerig als mogelijk.</p>
     <p xml:lang="pl">KTechlab jest IDE (zintegrowanym środowiskiem programistycznym) dla mikrokontrolerów i elektroniki stworzonym, aby być łatwym w użyciu i nie przeszkadzać tam, gdzie tylko jest to możliwe.</p>
@@ -85,6 +88,7 @@
     <p xml:lang="gl">Funcionalidades:</p>
     <p xml:lang="id">Fitur:</p>
     <p xml:lang="it">Caratteristiche:</p>
+    <p xml:lang="ka">თვისებები:</p>
     <p xml:lang="ko">기능:</p>
     <p xml:lang="nl">Kenmerken:</p>
     <p xml:lang="pl">Możliwości:</p>
@@ -108,6 +112,7 @@
       <li xml:lang="gl">Unha gran variedade de compoñentes con características editábeis</li>
       <li xml:lang="id">Berbagai macam komponen dengan karakteristik yang dapat diedit</li>
       <li xml:lang="it">Ampia gamma di componenti con caratteristiche modificabili</li>
+      <li xml:lang="ka">ხელმისაწვდომი ნაწილების დიდი არჩევანი, ჩასწორებადი თვისებებით</li>
       <li xml:lang="ko">다양한 구성 요소와 특성 편집 기능</li>
       <li xml:lang="nl">Brede reeks van componenten met bewerkbare karakteristieken</li>
       <li xml:lang="pl">Wiele części składowych z edytowalnymi charakterystykami</li>
@@ -130,6 +135,7 @@
       <li xml:lang="gl">Editor visual de circuítos</li>
       <li xml:lang="id">Pengedit visual untuk sirkuit</li>
       <li xml:lang="it">Editor visuale di circuiti</li>
+      <li xml:lang="ka">წრედების ვიზუალური რედაქტორი</li>
       <li xml:lang="ko">시각적 회로 편집기</li>
       <li xml:lang="nl">Visuele bewerker voor schakelingen</li>
       <li xml:lang="pl">Graficzny edytor dla obwodów</li>
@@ -152,6 +158,7 @@
       <li xml:lang="gl">Axuda contextual para os compoñentes</li>
       <li xml:lang="id">Bantuan konteks untuk komponen</li>
       <li xml:lang="it">Aiuto contestuale sui componenti</li>
+      <li xml:lang="ka">კომპონენტების კონტექსტური მენიუ</li>
       <li xml:lang="ko">구성 요소에 대한 문맥 도움말</li>
       <li xml:lang="nl">Contexthulp voor de componenten</li>
       <li xml:lang="pl">Pomoc podręczna dla części składowych</li>
@@ -172,6 +179,7 @@
       <li xml:lang="gl">Dous modos de planificación de ruta de conector: automática e manual</li>
       <li xml:lang="id">Dua mode pada penjaluran konektor: otomatis dan manual</li>
       <li xml:lang="it">Due modi di connessione: automatica e manuale</li>
+      <li xml:lang="ka">კონექტორის რაუტინგის ორი რეჟიმი: ავტომატური და ხელით</li>
       <li xml:lang="ko">커넥터 배치 모드: 자동 및 수동</li>
       <li xml:lang="nl">Twee manieren van routering van verbindingen: automatisch en handmatig</li>
       <li xml:lang="pl">Dwa tryby tworzenia ścieżek: samoczynny oraz ręczny</li>
@@ -213,6 +221,7 @@
       <li xml:lang="gl">Conversión do código de programación entre as linguaxes permitidas</li>
       <li xml:lang="id">Interkonversi kode pemrograman antara bahasa yang didukung</li>
       <li xml:lang="it">Interconversione del codice di programmazione fra i linguaggi supportati</li>
+      <li xml:lang="ka">მხარდაჭერილ პროგრამირების ენებს შორის გადაყვანა</li>
       <li xml:lang="ko">지원하는 언어간 프로그래밍 코드 변환</li>
       <li xml:lang="nl">Onderlinge conversie van de programmeercode tussen ondersteunde talen</li>
       <li xml:lang="pl">Przekształcanie kodu pomiędzy obsługiwanymi językami</li>
@@ -234,6 +243,7 @@
       <li xml:lang="gl">Depurador integrado</li>
       <li xml:lang="id">Debugger bawaan</li>
       <li xml:lang="it">Debugger interno</li>
+      <li xml:lang="ka">ჩაშენებული გამმართველი</li>
       <li xml:lang="ko">내장 디버거</li>
       <li xml:lang="nl">Ingebouwde debugger</li>
       <li xml:lang="pl">Wbudowany program diagnostyczny</li>
@@ -254,6 +264,7 @@
       <li xml:lang="gl">Simulación de osciloscopios e sondas</li>
       <li xml:lang="id">Simulasi dengan osiloskop dan probe</li>
       <li xml:lang="it">Simulazione con oscilloscopio e con sonde</li>
+      <li xml:lang="ka">ოსცილოსკოპებისა და სინჯების სიმულაცია</li>
       <li xml:lang="ko">오실로스코프와 프로브 시뮬레이션</li>
       <li xml:lang="nl">Simulatie met oscilloscope en probes</li>
       <li xml:lang="pl">Symulacje przy użyciu oscyloskopu i mierników</li>
