@@ -3636,7 +3636,7 @@ msgstr "Micro"
 #: src/gui/microsettingsdlg.cpp:59 src/picitem.cpp:290
 #, kde-format
 msgid "PIC Settings"
-msgstr "Configuració del PIC"
+msgstr "Configureu el PIC"
 
 #: src/gui/microsettingsdlg.cpp:70
 #, kde-format
