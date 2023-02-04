@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-27 00:49+0000\n"
-"PO-Revision-Date: 2023-01-13 09:38+0100\n"
+"PO-Revision-Date: 2023-01-31 11:33+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -4615,7 +4615,7 @@ msgstr "Levý postranní panel"
 #: src/katemdi.cpp:434
 #, kde-format
 msgid "Right Sidebar"
-msgstr "Pravá postranní panel"
+msgstr "Pravý postranní panel"
 
 #. i18n("Top Sidebar"),2); // 2018.11.22
 #: src/katemdi.cpp:438
