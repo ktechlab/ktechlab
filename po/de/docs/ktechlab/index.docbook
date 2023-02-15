@@ -1,0 +1,76 @@
+<?xml version="1.0" ?>
+<!-- kate: tab-width 2; indent-mode xml; -->
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+		  <!ENTITY ktechlab "KTechlab">
+			<!ENTITY ktechlab-quick SYSTEM "quick.docbook">
+		  <!ENTITY ktechlab-pic-programs SYSTEM "picprograms.docbook">
+		  <!ENTITY ktechlab-circuits SYSTEM "circuits.docbook">
+		  <!ENTITY ktechlab-flowcode SYSTEM "flowcode.docbook">
+		  <!ENTITY ktechlab-microbe SYSTEM "microbe.docbook">
+		  <!ENTITY ktechlab-debugging SYSTEM "debugging.docbook">
+		  <!ENTITY ktechlab-faq SYSTEM "faq.docbook">
+		  <!ENTITY microbe "Microbe">
+			<!ENTITY flowcode "FlowCode">
+		  <!ENTITY % addindex "IGNORE">
+		  <!ENTITY % German "INCLUDE">
+]>
+
+<book lang="&language;">
+	<bookinfo>
+		<title
+>Das Handbuch zu &ktechlab;</title>
+		<authorgroup>
+			<author
+><firstname
+>David</firstname
+> <surname
+>Saxton</surname
+> <affiliation
+><address
+><email
+>david&#64;bluehaze&#46;org</email
+></address
+></affiliation>
+			</author>
+			<author
+><firstname
+>Daniel</firstname
+> <surname
+>Clarke</surname
+> </author>
+		</authorgroup>
+		<date
+>2017-01-01</date>
+		<releaseinfo
+>0.3.6</releaseinfo>
+		<abstract>
+			<para
+>KTechlab ist eine Entwicklungsumgebung für Mikrocontroller und Elektronik.</para
+> 
+		</abstract>
+		<keywordset>
+			<keyword
+>KTechlab</keyword>
+			<keyword
+>KDE</keyword>
+			<keyword
+>Entwicklung</keyword>
+			<keyword
+>Elektronik</keyword>
+			<keyword
+>Simulation</keyword>
+			<keyword
+>PICs</keyword>
+			<keyword
+>Microbe</keyword>
+		</keywordset>
+	</bookinfo>
+
+	&ktechlab-quick;
+	&ktechlab-pic-programs;
+	&ktechlab-circuits;
+	&ktechlab-flowcode;
+	&ktechlab-microbe;
+	&ktechlab-debugging;
+	&ktechlab-faq;
+</book>
