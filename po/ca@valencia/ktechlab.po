@@ -4908,7 +4908,7 @@ msgstr "Obri un projecte &recent..."
 #: src/ktechlab.cpp:537
 #, kde-format
 msgid "Export to Makefile..."
-msgstr "Exporta a Makefile..."
+msgstr "Exporta cap a Makefile..."
 
 #. i18n("Create Subproject..."), 0,				0, pm, SLOT(slotCreateSubproject()),		ac, "project_create_subproject" );
 #: src/ktechlab.cpp:544
