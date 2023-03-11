@@ -4446,7 +4446,7 @@ msgstr ""
 #, kde-format
 msgid "Ena&ble inline assembly peephole optimization (--peep-asm)"
 msgstr ""
-"Activer l'o&ptimisation de l'assembleur en ligne à accès direct (--&no-peep)"
+"Activer l'o&ptimisation de l'assembleur en ligne à accès direct (--peep-asm)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nojtbound)
 #: src/gui/sdccoptionswidget.ui:317
