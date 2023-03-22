@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-27 00:49+0000\n"
-"PO-Revision-Date: 2023-03-12 15:42+0100\n"
+"PO-Revision-Date: 2023-03-21 19:51+0100\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -4569,7 +4569,7 @@ msgstr "Grafikexport"
 #: src/itemdocumentdata.cpp:112 src/projectmanager.cpp:748
 #, kde-format
 msgid "Could not open %1 for reading"
-msgstr "%1 kann nicht zum Lesen geöffnet werden"
+msgstr "%1 lässt sich nicht zum Lesen öffnen"
 
 #: src/itemdocumentdata.cpp:133 src/projectmanager.cpp:764
 #, kde-format
@@ -4584,7 +4584,7 @@ msgstr ""
 #, kde-format
 msgid "Could not open '%1' for writing. Check that you have write permissions"
 msgstr ""
-"„%1“ kann nicht zum Schreiben geöffnet werden. Bitte prüfen Sie die "
+"„%1“ lässt sich nicht zum Schreiben öffnen. Bitte prüfen Sie die "
 "Zugriffsrechte"
 
 #: src/itemdocumentdata.cpp:175
