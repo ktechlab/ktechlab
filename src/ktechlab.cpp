@@ -46,6 +46,7 @@
 #include <QIcon>
 #include <QMenu>
 #include <QMimeData>
+#include <QScreen>
 #include <QStandardPaths>
 #include <QTabWidget>
 
@@ -822,7 +823,13 @@ void KTechlab::savePropertiesInConfig(KConfig *conf)
     // Piss off KMainWindow
     // conf->setGroup("KateMDI");
     int scnum = QApplication::desktop()->screenNumber(parentWidget());
-    QRect desk = QApplication::desktop()->screenGeometry(scnum);
+    //QRect desk = QApplication::desktop()->screenGeometry(scnum);
+    QList<QScreen*> screenPtrList = QGuiApplication::screens();
+    QScreen * screenPtr = screenPtrList.value(scnum);
+    QRect desk(0,0,800,600);
+    if (screenPtr) {
+        desk = screenPtr->geometry();
+    }
     grKateMdi.deleteEntry(QString::fromLatin1("Width %1").arg(desk.width()));
     grKateMdi.deleteEntry(QString::fromLatin1("Height %1").arg(desk.height()));
 
