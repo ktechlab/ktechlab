@@ -169,10 +169,14 @@ struct PropertyEditorStyledItemColValue : public QStyledItemDelegate {
         case Variant::Type::Bool: {
             painter->fillRect(left, top, width, height, QBrush(bgColor));
             if (property->value().toBool()) {
-                painter->drawPixmap(left + margin, top + height / 2 - 8, SmallIcon("dialog-ok"));
+                QIcon dialogOkIcon = QIcon::fromTheme("dialog-ok");
+                QPixmap okPixmap = dialogOkIcon.pixmap(KIconLoader::SizeSmall);
+                painter->drawPixmap(left + margin, top + height / 2 - 8, okPixmap);
                 painter->drawText(QRect(left + margin + 20, top, width, height - 1), Qt::AlignVCenter, i18n("Yes"));
             } else {
-                painter->drawPixmap(left + margin, top + height / 2 - 8, SmallIcon("dialog-cancel"));
+                QIcon dialogCancelIcon = QIcon::fromTheme("dialog-cancel");
+                QPixmap cancelPixmap = dialogCancelIcon.pixmap(KIconLoader::SizeSmall);
+                painter->drawPixmap(left + margin, top + height / 2 - 8, cancelPixmap);
                 painter->drawText(QRect(left + margin + 20, top, width, height - 1), Qt::AlignVCenter, i18n("No"));
             }
             break;
