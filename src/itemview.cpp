@@ -453,7 +453,7 @@ void ItemView::contentsWheelEvent(QWheelEvent *e)
     if (eventInfo.ctrlPressed) {
         // Zooming in or out
 
-        if (eventInfo.scrollDelta > 0)
+        if (eventInfo.pixelDelta.y() > 0)
             zoomIn(eventInfo.pos);
         else
             zoomOut(eventInfo.pos);
@@ -725,16 +725,18 @@ void CVBEditor::updateWorldMatrix()
 
 void CVBEditor::contentsWheelEvent(QWheelEvent *e)
 {
-    QWheelEvent ce(viewport()->mapFromGlobal(e->globalPos()),
-                   e->globalPos(),
-                   e->delta(),
-                   // e->state()
-                   e->buttons(),
-                   e->modifiers());
+    QWheelEvent ce(viewport()->mapFromGlobal(e->globalPosition().toPoint()),
+                    e->globalPosition(),
+                    e->pixelDelta(),
+                    e->angleDelta(),
+                    e->buttons(),
+                    e->modifiers(),
+                    e->phase(),
+                    e->inverted());
 
-    if (e->orientation() == Qt::Horizontal && horizontalScrollBar())
+    if ((e->angleDelta().x() != 0) && horizontalScrollBar())
         QApplication::sendEvent(horizontalScrollBar(), e);
-    else if (e->orientation() == Qt::Vertical && verticalScrollBar())
+    else if ((e->angleDelta().y() != 0) && verticalScrollBar())
         QApplication::sendEvent(verticalScrollBar(), e);
 
 #if 0

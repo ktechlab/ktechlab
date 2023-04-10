@@ -1160,12 +1160,20 @@ void KtlQ3ScrollView::wheelEvent(QWheelEvent *e)
 {
     /* QWheelEvent ce(viewport()->mapFromGlobal(e->globalPos()),
                     e->globalPos(), e->delta(), e->state());  - 2018.11.30*/
-    QWheelEvent ce(viewport()->mapFromGlobal(e->globalPos()), e->globalPos(), e->delta(), e->buttons(), e->modifiers());
+    /* QWheelEvent ce(viewport()->mapFromGlobal(e->globalPos()), e->globalPos(), e->delta(), e->buttons(), e->modifiers());  - 2023.04.10 */
+    QWheelEvent ce(viewport()->mapFromGlobal(e->globalPosition().toPoint()),
+                e->globalPosition(),
+                e->pixelDelta(),
+                e->angleDelta(),
+                e->buttons(),
+                e->modifiers(),
+                e->phase(),
+                e->inverted());
     viewportWheelEvent(&ce);
     if (!ce.isAccepted()) {
-        if (e->orientation() == Qt::Horizontal && horizontalScrollBar())
+        if ((e->angleDelta().x() != 0) && horizontalScrollBar())
             horizontalScrollBar()->event(e);
-        else if (e->orientation() == Qt::Vertical && verticalScrollBar())
+        else if ((e->angleDelta().y() != 0) && verticalScrollBar())
             verticalScrollBar()->event(e);
     } else {
         e->accept();
@@ -1880,7 +1888,8 @@ void KtlQ3ScrollView::viewportWheelEvent(QWheelEvent *e)
     */
     /* QWheelEvent ce(viewportToContents(e->pos()),
         e->globalPos(), e->delta(), e->state()); */
-    QWheelEvent ce(viewportToContents(e->pos()), e->globalPos(), e->delta(), e->buttons(), e->modifiers());
+    QWheelEvent ce(viewportToContents(e->position().toPoint()), e->globalPosition(), e->pixelDelta(), e->angleDelta(),
+                   e->buttons(), e->modifiers(), e->phase(), e->inverted());
     contentsWheelEvent(&ce);
     if (ce.isAccepted())
         e->accept();

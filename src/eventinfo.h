@@ -43,8 +43,10 @@ public:
     QPoint pos;
     QPoint globalPos;
     KtlQCanvasItem *qcanvasItemClickedOn;
-    short scrollDelta;
-    Qt::Orientation scrollOrientation;
+    QPoint pixelDelta;
+    QPoint angleDelta;
+    Qt::ScrollPhase phase;
+    bool inverted;
     bool isRightClick;
     bool isMiddleClick;
     bool ctrlPressed;

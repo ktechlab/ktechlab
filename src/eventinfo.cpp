@@ -44,23 +44,23 @@ EventInfo::EventInfo(ItemView *itemView, QMouseEvent *e)
     altPressed = e->modifiers() & Qt::AltModifier;      // QMouseEvent::AltButton;
     if (ItemDocument *id = dynamic_cast<ItemDocument *>(itemView->document()))
         qcanvasItemClickedOn = id->itemAtTop(pos);
-    scrollDelta = 0;
-    scrollOrientation = Qt::Vertical;
 }
 
 EventInfo::EventInfo(ItemView *itemView, QWheelEvent *e)
 {
     reset();
 
-    extractPos(itemView, e->pos());
-    globalPos = e->globalPos();
+    extractPos(itemView, e->position().toPoint());
+    globalPos = e->globalPosition().toPoint();
     ctrlPressed = e->modifiers() & Qt::ControlModifier; // QMouseEvent::ControlButton;
     shiftPressed = e->modifiers() & Qt::ShiftModifier;  // QMouseEvent::ShiftButton;
     altPressed = e->modifiers() & Qt::AltModifier;      // QMouseEvent::AltButton;
     if (ItemDocument *id = dynamic_cast<ItemDocument *>(itemView->document()))
         qcanvasItemClickedOn = id->itemAtTop(pos);
-    scrollDelta = e->delta();
-    scrollOrientation = e->orientation();
+    pixelDelta = e->pixelDelta();
+    angleDelta = e->angleDelta();
+    phase = e->phase();
+    inverted = e->inverted();
 }
 
 void EventInfo::reset()
@@ -71,8 +71,12 @@ void EventInfo::reset()
     shiftPressed = false;
     altPressed = false;
     qcanvasItemClickedOn = nullptr;
-    scrollDelta = 0;
-    scrollOrientation = Qt::Vertical;
+    pixelDelta.setX(0);
+    pixelDelta.setY(0);
+    angleDelta.setX(0);
+    angleDelta.setY(0);
+    phase = Qt::NoScrollPhase;
+    inverted = false;
 }
 
 QMouseEvent *EventInfo::mousePressEvent(int dx, int dy) const
@@ -114,5 +118,9 @@ QMouseEvent *EventInfo::mouseMoveEvent(int dx, int dy) const
 QWheelEvent *EventInfo::wheelEvent(int dx, int dy) const
 {
     return new QWheelEvent(
-        pos + QPoint(dx, dy), scrollDelta, Qt::NoButton, (ctrlPressed ? Qt::ControlModifier : Qt::NoModifier) | (shiftPressed ? Qt::ShiftModifier : Qt::NoModifier) | (altPressed ? Qt::AltModifier : Qt::NoModifier), scrollOrientation);
+        pos + QPoint(dx, dy), globalPos,
+        pixelDelta, angleDelta,
+        Qt::NoButton,
+        (ctrlPressed ? Qt::ControlModifier : Qt::NoModifier) | (shiftPressed ? Qt::ShiftModifier : Qt::NoModifier) | (altPressed ? Qt::AltModifier : Qt::NoModifier),
+        phase, inverted);
 }

@@ -518,11 +518,14 @@ void Slider::mouseMoveEvent(QMouseEvent *e)
 
 void Slider::wheelEvent(QWheelEvent *e)
 {
-    QWheelEvent event(e->pos() - QPoint(int(x()), int(y())),
-                      e->delta(),
-                      e->buttons(),
-                      e->modifiers(), // e->state(),
-                      e->orientation());
+    QWheelEvent event(e->position() - QPoint(int(x()), int(y())),
+                   e->globalPosition() - QPoint(int(x()), int(y())),
+                   e->pixelDelta(),
+                   e->angleDelta(),
+                   e->buttons(),
+                   e->modifiers(),
+                   e->phase(),
+                   e->inverted());
     m_slider->wheelEvent(&event);
     if (event.isAccepted())
         e->accept();
