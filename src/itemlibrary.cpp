@@ -525,7 +525,7 @@ bool ItemLibrary::saveDescriptions(const QString &languageCode)
     const QStringMap itemDescriptions = m_itemDescriptions[languageCode];
     for (auto descIt = itemDescriptions.begin(), end = itemDescriptions.end(); descIt != end; ++descIt) {
         stream << QString::fromLatin1("<!-- item: %1 -->\n").arg(descIt.key());
-        stream << descIt.value() << endl;
+        stream << descIt.value() << Qt::endl;
     }
 
     file.close();
