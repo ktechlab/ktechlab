@@ -546,7 +546,7 @@ void PropertyEditor::reset()
 
 QSize PropertyEditor::sizeHint() const
 {
-    return QSize(QFontMetrics(font()).width(horizontalHeaderItem(0)->text() + horizontalHeaderItem(1)->text() + "   "), QTableWidget::sizeHint().height());
+    return QSize(QFontMetrics(font()).horizontalAdvance(horizontalHeaderItem(0)->text() + horizontalHeaderItem(1)->text() + "   "), QTableWidget::sizeHint().height());
 }
 
 void PropertyEditor::create(ItemGroup *b)
