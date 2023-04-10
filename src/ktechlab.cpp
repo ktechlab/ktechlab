@@ -924,7 +924,7 @@ void KTechlab::slotOptionsShowStatusbar()
 void KTechlab::slotOptionsConfigureKeys()
 {
     //     KKeyDialog::configureKeys(actionCollection(), "ktechlabui.rc");
-    KShortcutsDialog::configure(actionCollection(), KShortcutsEditor::LetterShortcutsAllowed, this, true);
+    KShortcutsDialog::showDialog(actionCollection(), KShortcutsEditor::LetterShortcutsAllowed, this);
 }
 
 void KTechlab::slotOptionsConfigureToolbars()
