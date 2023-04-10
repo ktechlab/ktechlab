@@ -1329,7 +1329,7 @@ void Canvas::drawForeground(QPainter &p, const QRect &clip)
 
     // p.setBrush( firstView->colorGroup().background() ); // 2018.12.02
     p.setBrush(firstView->palette().window());
-    p.drawRoundRect(x, y, w + 2 * b, h + 2 * b, (8 * 200) / (w + 2 * b), (8 * 200) / (h + 2 * b));
+    p.drawRoundedRect(x, y, w + 2 * b, h + 2 * b, (8 * 200) / (w + 2 * b), (8 * 200) / (h + 2 * b), Qt::RelativeSize);
     // 	t->draw( &p, x+b, y+b, QRect(), firstView->colorGroup() );
     t->resize(w + 2 * b, h + 2 * b);
     t->viewport()->setAutoFillBackground(false);

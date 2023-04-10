@@ -285,7 +285,7 @@ void PicItem::drawShape(QPainter &p)
     p.setBrush(QColor(0xef, 0xff, 0xef));
     p.setFont(font());
 
-    p.drawRoundRect(_x, _y, width(), height(), 2000 / width(), 2000 / height());
+    p.drawRoundedRect(_x, _y, width(), height(), 2000 / width(), 2000 / height(), Qt::RelativeSize);
 
     p.drawText(_x + TopPadding - 2, _y, width() - TopPadding + 2, TopPadding, Qt::AlignVCenter, i18n("PIC Settings"));
 

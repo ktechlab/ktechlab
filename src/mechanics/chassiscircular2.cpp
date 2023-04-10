@@ -130,8 +130,8 @@ void ChassisCircular2::drawShape(QPainter &p)
 
     p.setPen(Qt::black);
     p.setBrush(Qt::NoBrush);
-    p.drawRoundRect(int(X), int(y1), int(w / 4), int(H), 25, 50);
-    p.drawRoundRect(int(X), int(y2), int(w / 4), int(H), 25, 50);
+    p.drawRoundedRect(int(X), int(y1), int(w / 4), int(H), 25, 50, Qt::RelativeSize);
+    p.drawRoundedRect(int(X), int(y2), int(w / 4), int(H), 25, 50, Qt::RelativeSize);
 
     deinitPainter(p);
 }

@@ -268,15 +268,15 @@ void FlowPart::drawShape(QPainter &p)
         CNItem::drawShape(p);
         break;
     case FlowPart::ps_call:
-        p.drawRoundRect(int(_x), int(_y), int(w), int(h + 1), int(1000. / w), int(1000. / h));
+        p.drawRoundedRect(int(_x), int(_y), int(w), int(h + 1), int(1000. / w), int(1000. / h), Qt::RelativeSize);
         p.drawLine(int(_x + 8), int(_y), int(_x + 8), int(_y + h));
         p.drawLine(int(_x + w - 8), int(_y), int(_x + w - 8), int(_y + h));
         break;
     case FlowPart::ps_process:
-        p.drawRoundRect(int(_x), int(_y), int(w), int(h + 1), int(1000. / w), int(1000. / h));
+        p.drawRoundedRect(int(_x), int(_y), int(w), int(h + 1), int(1000. / w), int(1000. / h), Qt::RelativeSize);
         break;
     case FlowPart::ps_round:
-        p.drawRoundRect(int(_x), int(_y), int(w), int(h + 1), 30, 100);
+        p.drawRoundedRect(int(_x), int(_y), int(w), int(h + 1), 30, 100, Qt::RelativeSize);
         break;
     }
 
@@ -823,8 +823,8 @@ void FlowPart::orientationPixmap(uint orientation, QPixmap &pm) const
             maskPainter.drawLines(cross);
             // END Draw "false" output as a cross
         } else if (m_stdInput || m_stdOutput) {
-            p.drawRoundRect(int(0.3 * size.width()), int(0.4 * size.height()), int(0.4 * size.width()), int(0.2 * size.height()));
-            maskPainter.drawRoundRect(int(0.3 * size.width()), int(0.4 * size.height()), int(0.4 * size.width()), int(0.2 * size.height()));
+            p.drawRoundedRect(int(0.3 * size.width()), int(0.4 * size.height()), int(0.4 * size.width()), int(0.2 * size.height()), 25, 25, Qt::RelativeSize);
+            maskPainter.drawRoundedRect(int(0.3 * size.width()), int(0.4 * size.height()), int(0.4 * size.width()), int(0.2 * size.height()), 25, 25, Qt::RelativeSize);
 
             int hal = 5; // half arrow length
             int haw = 3; // half arrow width

@@ -118,11 +118,11 @@ void FlowContainer::drawShape(QPainter &p)
     p.setBrush(QColor(col, 0xff, col));
     if (b_expanded) {
         p.setPen(Qt::DotLine);
-        p.drawRoundRect(_x, _y, width(), topStrip, 1500 / width(), 1500 / topStrip);
-        p.drawRoundRect(_x, _y + height() - botStrip, width(), botStrip, 1500 / width(), 1500 / botStrip);
+        p.drawRoundedRect(_x, _y, width(), topStrip, 1500 / width(), 1500 / topStrip, Qt::RelativeSize);
+        p.drawRoundedRect(_x, _y + height() - botStrip, width(), botStrip, 1500 / width(), 1500 / botStrip, Qt::RelativeSize);
     } else {
         p.setPen(QPen((isSelected() ? m_selectedCol : Qt::black), 1, Qt::SolidLine));
-        p.drawRoundRect(_x, _y, width(), topStrip, 1500 / width(), 1500 / topStrip);
+        p.drawRoundedRect(_x, _y, width(), topStrip, 1500 / width(), 1500 / topStrip, Qt::RelativeSize);
     }
 
     p.setPen(Qt::black);
@@ -132,7 +132,7 @@ void FlowContainer::drawShape(QPainter &p)
     if (b_expanded) {
         p.setPen(Qt::SolidLine);
         p.setBrush(Qt::NoBrush);
-        p.drawRoundRect(_x, _y, width(), height(), 1500 / width(), 1500 / height());
+        p.drawRoundedRect(_x, _y, width(), height(), 1500 / width(), 1500 / height(), Qt::RelativeSize);
     }
 }
 
