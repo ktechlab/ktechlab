@@ -776,7 +776,7 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 	else if ( name == "keypad" || name == "sevenseg" )
 	{
 		//QStringList pins = QStringList::split( ' ', fieldMap["pinlist"].string() );
-        QStringList pins = fieldMap["pinlist"].string().split(' ', QString::SkipEmptyParts);
+        QStringList pins = fieldMap["pinlist"].string().split(' ', Qt::SkipEmptyParts);
 		QString variableName = fieldMap["name"].string();
 
 		if ( mb->isVariableKnown( variableName ) )

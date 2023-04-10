@@ -317,7 +317,7 @@ MatrixDisplayDriver::MatrixDisplayDriver(ICNDocument *icnDocument, bool newItem,
     property("diode-configuration")->setAdvanced(true);
 
     // QStringList pins = QStringList::split( ',', "D0,D1,D2,D3,D4,D5,D6,D7,,,,,,C4,C3,C2,C1,C0,,R0,R1,R2,R3,R4,R5,R6", true );
-    QStringList pins = QString("D0,D1,D2,D3,D4,D5,D6,D7,,,,,,C4,C3,C2,C1,C0,,R0,R1,R2,R3,R4,R5,R6").split(',', QString::KeepEmptyParts);
+    QStringList pins = QString("D0,D1,D2,D3,D4,D5,D6,D7,,,,,,C4,C3,C2,C1,C0,,R0,R1,R2,R3,R4,R5,R6").split(',', Qt::KeepEmptyParts);
     initDIPSymbol(pins, 64);
     initDIP(pins);
 

@@ -107,7 +107,7 @@ bool AsmParser::parse(GpsimDebugger *debugger)
             // \t[".line"/"#MSRC"]\t[file-line]; [file-name]\t[c/microbe source code for that line]
             // We're screwed if the file name contains tabs, but hopefully not many do...
             // QStringList lineParts = QStringList::split( '\t', line ); // 2018.12.01
-            QStringList lineParts = line.split('\t', QString::SkipEmptyParts);
+            QStringList lineParts = line.split('\t', Qt::SkipEmptyParts);
             if (lineParts.size() < 2)
                 qCWarning(KTL_LOG) << "Line is in wrong format for extracting source line and file: \"" << line << "\"";
             else {

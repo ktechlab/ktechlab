@@ -163,7 +163,7 @@ void ECKeyPad::buttonStateChanged(const QString &id, bool state)
     if (!id.startsWith("b_"))
         return;
 
-    QStringList tags = id.split('_', QString::SkipEmptyParts); // QStringList::split( '_', id ); // 2018.12.01
+    QStringList tags = id.split('_', Qt::SkipEmptyParts); // QStringList::split( '_', id ); // 2018.12.01
     const int i = tags[1].toInt();
     const int j = tags[2].toInt();
     m_switch[i][j]->setState(state ? Switch::Closed : Switch::Open);

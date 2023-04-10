@@ -112,7 +112,7 @@ QString AsmFormatter::tidyEqu(const QString &oldLine)
     code.remove(comment);
     code = code.simplified();
 
-    QStringList parts = code.split(' ', QString::SkipEmptyParts); // QStringList::split( ' ', code ); // 2018.12.01
+    QStringList parts = code.split(' ', Qt::SkipEmptyParts); // QStringList::split( ' ', code ); // 2018.12.01
 
     QString pad0, pad1, pad2;
     pad0.fill(' ', m_indentEqu - (parts.at(0)).length());
@@ -136,7 +136,7 @@ AsmFormatter::LineType AsmFormatter::lineType(QString line)
 
     line.remove(extractComment(line));
 
-    QStringList parts = line.split(' ', QString::SkipEmptyParts); // QStringList::split( ' ', line ); // 2018.12.01
+    QStringList parts = line.split(' ', Qt::SkipEmptyParts); // QStringList::split( ' ', line ); // 2018.12.01
     QStringList::iterator end = parts.end();
     for (QStringList::iterator it = parts.begin(); it != end; ++it) {
         if ((*it).toLower() == "equ")
@@ -158,7 +158,7 @@ InstructionParts::InstructionParts(QString line)
     line.remove(m_comment);
 
     line = line.simplified();
-    QStringList parts = line.split(' ', QString::SkipEmptyParts); // QStringList::split( ' ', line ); // 2018.12.01
+    QStringList parts = line.split(' ', Qt::SkipEmptyParts); // QStringList::split( ' ', line ); // 2018.12.01
 
     bool foundOperand = false;
     QStringList::iterator end = parts.end();

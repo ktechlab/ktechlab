@@ -345,7 +345,7 @@ void ItemDocumentData::elementToMicroData(QDomElement element)
 
                     PinMapping pinMapping(type);
                     // pinMapping.setPins( QStringList::split( " ", childElement.attribute( "map", 0 ) ) ); // 2018.12.01
-                    pinMapping.setPins(childElement.attribute("map", nullptr).split(" ", QString::SkipEmptyParts));
+                    pinMapping.setPins(childElement.attribute("map", nullptr).split(" ", Qt::SkipEmptyParts));
 
                     m_microData.pinMappings[id] = pinMapping;
                 }
@@ -620,7 +620,7 @@ void ItemDocumentData::elementToConnectorData(QDomElement element)
     connectorData.manualRoute = (element.attribute("manual-route", "0") == "1");
     QString route = element.attribute("route", "");
 
-    QStringList points = route.split(",", QString::SkipEmptyParts); // QStringList::split( ",", route ); // 2018.12.01
+    QStringList points = route.split(",", Qt::SkipEmptyParts); // QStringList::split( ",", route ); // 2018.12.01
     if (route.isEmpty()) {
         points = QStringList();
     }

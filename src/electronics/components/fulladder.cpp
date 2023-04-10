@@ -38,7 +38,7 @@ FullAdder::FullAdder(ICNDocument *icnDocument, bool newItem, const char *id)
     ALogic = BLogic = inLogic = nullptr;
     outLogic = SLogic = nullptr;
 
-    QStringList pins = QString("A,B,>,,S,C").split(',', QString::KeepEmptyParts);
+    QStringList pins = QString("A,B,>,,S,C").split(',', Qt::KeepEmptyParts);
     initDIPSymbol(pins, 48);
     initDIP(pins);
 
