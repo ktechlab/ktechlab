@@ -259,7 +259,7 @@ ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *w
     } else {
         widget->hide();
         // widget->reparent (m_ownSplit, 0, QPoint()); // 2018.11.22
-        widget->setParent(m_ownSplit, nullptr);
+        widget->setParent(m_ownSplit);
         QPoint p;
         widget->setGeometry(p.x(), p.y(), width(), height());
         widget->m_sidebar = this;
