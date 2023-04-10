@@ -259,7 +259,7 @@ void ItemDocument::print()
 
     // we let our view do the actual printing
     // Q3PaintDeviceMetrics metrics( printer ); // 2018.08.13 - replaced with method call
-    QRect pageRect = printer->pageRect();
+    QRect pageRect = printer->pageLayout().paintRectPixels(printer->resolution());
 
     // Round to 16 so that we cut in the middle of squares
     int w = pageRect.width();
