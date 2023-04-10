@@ -139,7 +139,7 @@ SettingsDlg::SettingsDlg(QWidget *parent, const char *name, KCoreConfigSkeleton 
     addPage(m_sdccOptionsWidget, "SDCC", "text-x-csrc", "SDCC");
 
     connect(m_generalOptionsWidget->refreshRateSlider, &QSlider::valueChanged, this, &SettingsDlg::slotUpdateRefreshRateLabel);
-    connect(m_picProgrammerConfigWidget->kcfg_PicProgrammerProgram, qOverload<const QString &>(&KComboBox::activated), this, &SettingsDlg::slotUpdatePicProgrammerDescription);
+    connect(m_picProgrammerConfigWidget->kcfg_PicProgrammerProgram, qOverload<const QString &>(&KComboBox::textActivated), this, &SettingsDlg::slotUpdatePicProgrammerDescription);
     connect(m_picProgrammerConfigWidget->removeButton, &QPushButton::clicked, this, &SettingsDlg::slotRemoveProgrammerConfig);
     connect(m_picProgrammerConfigWidget->addButton, &QPushButton::clicked, this, &SettingsDlg::slotAddProgrammerConfig);
 

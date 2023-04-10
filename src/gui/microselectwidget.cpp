@@ -56,7 +56,7 @@ MicroSelectWidget::MicroSelectWidget(QWidget *parent, Qt::WindowFlags)
 
     updateFromAllowed();
     setMicro("P16F84");
-    connect(m_pMicroFamily, qOverload<const QString &>(&KComboBox::activated), this, &MicroSelectWidget::microFamilyChanged);
+    connect(m_pMicroFamily, qOverload<const QString &>(&KComboBox::textActivated), this, &MicroSelectWidget::microFamilyChanged);
 }
 
 MicroSelectWidget::~MicroSelectWidget()

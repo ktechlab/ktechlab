@@ -127,7 +127,7 @@ PropertyEditorList::PropertyEditorList(QWidget *parent, Property *property)
 
     setWidget(box, m_combo->lineEdit());
 
-    connect(m_combo, qOverload<const QString &>(&PropComboBox::activated), this, &PropertyEditorList::valueChanged);
+    connect(m_combo, qOverload<const QString &>(&PropComboBox::textActivated), this, &PropertyEditorList::valueChanged);
     connect(m_property, qOverload<const QString &>(&Property::valueChanged), this, [this](const QString &str) { m_combo->setCurrentItem(str); });
 }
 
