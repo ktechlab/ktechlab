@@ -11,7 +11,7 @@
 
 #include <QFile>
 #include <QStandardPaths>
-#include <QTime>
+#include <QElapsedTimer>
 
 #include <cassert>
 
@@ -63,7 +63,7 @@ ComponentModelLibrary::~ComponentModelLibrary()
 
 void ComponentModelLibrary::loadModels()
 {
-    QTime ct;
+    QElapsedTimer ct;
     ct.start();
 
     QStringList files;

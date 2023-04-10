@@ -41,6 +41,7 @@
 #include <QToolButton>
 // #include <q3ptrlist.h>
 #include <QDesktopWidget>
+#include <QElapsedTimer>
 #include <QFileDialog>
 #include <QIcon>
 #include <QMenu>
@@ -76,7 +77,7 @@ KTechlab::KTechlab()
     setObjectName("KTechlab");
     m_pSelf = this;
 
-    QTime ct;
+    QElapsedTimer ct;
     ct.start();
 
     m_bIsShown = false;
