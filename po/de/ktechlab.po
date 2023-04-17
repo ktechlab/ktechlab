@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:49+0000\n"
-"PO-Revision-Date: 2023-03-21 19:51+0100\n"
+"PO-Revision-Date: 2023-04-16 14:06+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 22.07.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -73,7 +73,7 @@ msgstr "Quelltextzeilen in Assembler-Ausgabe anzeigen"
 #: microbe/main.cpp:64
 #, kde-format
 msgid "Do not attempt optimization of generated instructions."
-msgstr ""
+msgstr "Generierte Instruktionen nicht optimieren."
 
 #: microbe/main.cpp:66
 #, kde-format
@@ -2336,7 +2336,7 @@ msgstr "Ausgangsspannung"
 #: src/electronics/gpsimprocessor.cpp:139
 #, kde-format
 msgid "The cod file \"%1\" was not found."
-msgstr "Die cod Datei \"%1\" wurde nicht gefunden."
+msgstr "Die cod-Datei „%1“ wurde nicht gefunden."
 
 #: src/electronics/gpsimprocessor.cpp:139
 #, kde-format
@@ -2346,7 +2346,7 @@ msgstr "Datei nicht gefunden"
 #: src/electronics/gpsimprocessor.cpp:142
 #, kde-format
 msgid "The processor for cod file \"%1\" is unrecognized."
-msgstr "Der Prozessor für cod Datei \"%1\" ist unbekannt."
+msgstr "Der Prozessor für cod-Datei „%1“ ist unbekannt."
 
 #: src/electronics/gpsimprocessor.cpp:142
 #, kde-format
@@ -2356,7 +2356,7 @@ msgstr "Unbekannter Prozessor"
 #: src/electronics/gpsimprocessor.cpp:145
 #, kde-format
 msgid "The file name \"%1\" is too long."
-msgstr "Der Dateiname \"%1\" ist zu lang."
+msgstr "Der Dateiname „%1“ ist zu lang."
 
 #: src/electronics/gpsimprocessor.cpp:145
 #, kde-format
@@ -2366,8 +2366,7 @@ msgstr "Dateiname zu lang"
 #: src/electronics/gpsimprocessor.cpp:148
 #, kde-format
 msgid "The lst file associated with the cod file \"%1\" was not found."
-msgstr ""
-"Die mit der cod Datei \"%1\" verknüpfte lst Datei wurde nicht gefunden."
+msgstr "Die mit der cod-Datei „%1“ verknüpfte lst Datei wurde nicht gefunden."
 
 #: src/electronics/gpsimprocessor.cpp:148
 #, kde-format
@@ -2377,7 +2376,7 @@ msgstr "LST Datei nicht gefunden"
 #: src/electronics/gpsimprocessor.cpp:151
 #, kde-format
 msgid "The cod file \"%1\" is bad."
-msgstr "Die cod Datei \"%1\" ist ungültig."
+msgstr "Die cod-Datei „%1“ ist ungültig."
 
 #: src/electronics/gpsimprocessor.cpp:151
 #, kde-format
@@ -2387,7 +2386,7 @@ msgstr "Ungültige Datei"
 #: src/electronics/gpsimprocessor.cpp:154
 #, kde-format
 msgid "The cod file \"%1\" could not be read from."
-msgstr "Von der cod-Datei \"%1\" kann nicht gelesen werden."
+msgstr "Von der cod-Datei „%1“ kann nicht gelesen werden."
 
 #: src/electronics/gpsimprocessor.cpp:154
 #, kde-format
@@ -2395,10 +2394,9 @@ msgid "Unreadable File"
 msgstr "Unlesbare Datei"
 
 #: src/electronics/gpsimprocessor.cpp:158
-#, fuzzy, kde-format
-#| msgid "An error occured with the cod file \"%1\"."
+#, kde-format
 msgid "An error occurred with the cod file \"%1\"."
-msgstr "Bei der cod Datei \"%1\" ist ein Fehler aufgetreten."
+msgstr "Bei der cod-Datei „%1“ ist ein Fehler aufgetreten."
 
 #: src/electronics/gpsimprocessor.cpp:158
 #, kde-format
