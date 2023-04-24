@@ -2,7 +2,7 @@
 # translation of ktechlab.po.po to
 # Copyright (C) 2005 Free Software Foundation, Inc.
 # Davide Setti / vad <davide.setti@gmail.com>, 2005.
-# Paolo Zamponi <zapaolo@email.it>, 2017, 2019.
+# Paolo Zamponi <feus73@gmail.com>, 2017, 2019.
 # Vincenzo Reale <smart2128vr@gmail.com>, 2020, 2022.
 #
 msgid ""
