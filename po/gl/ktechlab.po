@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
+# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2019, 2023.
 #
-# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:49+0000\n"
-"PO-Revision-Date: 2019-09-29 09:06+0200\n"
+"PO-Revision-Date: 2023-04-30 11:25+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 19.11.70\n"
+"X-Generator: Lokalize 23.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -56,13 +56,12 @@ msgstr "David Saxton"
 #: microbe/main.cpp:55
 #, kde-format
 msgid "George John"
-msgstr ""
+msgstr "George John"
 
 #: microbe/main.cpp:55
-#, fuzzy, kde-format
-#| msgid "Modified to add pic 16f877,16f627 and 16f628 by George John"
+#, kde-format
 msgid "Added pic 16f877,16f627 and 16f628"
-msgstr "Modificado para engadir os PIC 16f877,16f627 e 16f628 de George John"
+msgstr "Engadiu pic 16f877,16f627 e 16f628"
 
 #: microbe/main.cpp:62
 #, kde-format
@@ -875,7 +874,8 @@ msgstr "Couriousous"
 #: src/core/main.cpp:44
 #, kde-format
 msgid "JK flip-flop, asynchronous preset/reset in the D flip-flop"
-msgstr "Biestábel JK, predefinir e restabelecer no biestábel D"
+msgstr ""
+"Biestábel JK, predefinición ou restabelecemento asíncronos no biestábel D"
 
 #: src/core/main.cpp:45 src/electronics/components/rotoswitch.cpp:41
 #, kde-format
@@ -1340,7 +1340,7 @@ msgstr "Capacitancia"
 #: src/electronics/components/demultiplexer.cpp:38
 #, kde-format
 msgid "Demultiplexer"
-msgstr "Desmultiplexador"
+msgstr "Demultiplexor"
 
 #: src/electronics/components/demultiplexer.cpp:43
 #: src/electronics/components/multiplexer.cpp:43
@@ -2044,7 +2044,7 @@ msgstr "Porta AND"
 #: src/electronics/components/multiplexer.cpp:38
 #, kde-format
 msgid "Multiplexer"
-msgstr "Multiplexador"
+msgstr "Multiplexor"
 
 #: src/electronics/components/parallelportcomponent.cpp:43
 #: src/electronics/components/parallelportcomponent.cpp:49
@@ -2479,6 +2479,7 @@ msgstr "Hexadecimal"
 msgid "PIC (upload)"
 msgstr "PIC (enviar)"
 
+# well-spelled: FlowChart
 #: src/flowcodeview.cpp:55
 #, kde-format
 msgid ""
@@ -2631,6 +2632,7 @@ msgstr "Valor final"
 msgid "Step"
 msgstr "Paso"
 
+# well-spelled: BotónDeEntrada
 #: src/flowparts/inputbutton.cpp:24 src/flowparts/inputbutton.cpp:30
 #, kde-format
 msgid "InputButton"
@@ -3277,28 +3279,24 @@ msgid "Export As Image"
 msgstr "Exportar como imaxe"
 
 #: src/gui/imageexportdlg.cpp:45
-#, fuzzy, kde-format
-#| msgid "Formatter"
+#, kde-format
 msgid "Format:"
-msgstr "Formatador"
+msgstr "Formato:"
 
 #: src/gui/imageexportdlg.cpp:51
-#, fuzzy, kde-format
-#| msgid "File Type:"
+#, kde-format
 msgid "File name:"
-msgstr "Tipo de ficheiro:"
+msgstr "Nome do ficheiro:"
 
 #: src/gui/imageexportdlg.cpp:57
-#, fuzzy, kde-format
-#| msgid "Crop image"
+#, kde-format
 msgid "Crop image:"
-msgstr "Cortar a imaxe"
+msgstr "Recortar a imaxe:"
 
 #: src/gui/imageexportdlg.cpp:64
-#, fuzzy, kde-format
-#| msgid "Image Export"
+#, kde-format
 msgid "Export"
-msgstr "Exportación de imaxe"
+msgstr "Exportar"
 
 #: src/gui/itemeditor/componentmodelwidget.cpp:51
 #, kde-format
@@ -4183,12 +4181,7 @@ msgstr "Xer&ación de código"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_stack_auto)
 #: src/gui/sdccoptionswidget.ui:131
-#, fuzzy, kde-format
-#| msgid ""
-#| "All functions in the source file will be compiled as reentrant, i.e. the "
-#| "parameters and local variables will be allocated on the stack. If this "
-#| "option is used all source files in the project should be compiled with "
-#| "this option. It automatically implies -int-long-reent and -float-reent."
+#, kde-format
 msgid ""
 "All functions in the source file will be compiled as reentrant, i.e. the "
 "parameters and local variables will be allocated on the stack. If this "
@@ -4198,7 +4191,7 @@ msgstr ""
 "Todas as funcións do ficheiro fonte compilaranse como re-entrantes, é dicir, "
 "os parámetros e as variábeis locais asignaranse á rima. Se se usa esta "
 "opción todos os ficheiros fonte do proxecto deberían compilarse con esta "
-"opción. Implica automaticamente -int-long-reent e -float-reent."
+"opción. Implica automaticamente --int-long-reent e --float-reent."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_stack_auto)
 #: src/gui/sdccoptionswidget.ui:134
@@ -5069,7 +5062,7 @@ msgstr "Amplificador de instrumentación"
 #: src/ktechlab.cpp:693
 #, kde-format
 msgid "Astable Multivibrator"
-msgstr "Multivibrador aestábel"
+msgstr "Multivibrador transitorio"
 
 #: src/ktechlab.cpp:695
 #, kde-format
