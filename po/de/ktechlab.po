@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:49+0000\n"
-"PO-Revision-Date: 2023-04-16 14:06+0200\n"
+"PO-Revision-Date: 2023-05-05 19:57+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -4906,10 +4906,9 @@ msgid "Pause Simulation"
 msgstr "Simulation anhalten"
 
 #: src/ktechlab.cpp:673
-#, fuzzy, kde-format
-#| msgid "Internals"
+#, kde-format
 msgid "Internals"
-msgstr "Intervalle"
+msgstr "Interna"
 
 #: src/ktechlab.cpp:674
 #, kde-format
