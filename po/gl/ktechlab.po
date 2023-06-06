@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-11 00:49+0000\n"
-"PO-Revision-Date: 2023-04-30 11:25+0200\n"
+"PO-Revision-Date: 2023-06-05 15:07+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.0\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2868,7 +2868,7 @@ msgid ""
 "The values control the indentation from the left margin of the various types "
 "of assembly code."
 msgstr ""
-"Os valores controlan o sangrado desde o marxe da esquerda dos distintos "
+"Os valores controlan o sangrado desde a marxe da esquerda dos distintos "
 "tipos de código de ensamblador."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox64)
@@ -3795,7 +3795,7 @@ msgstr "Teclado numérico (4×4)"
 #: src/gui/newprojectwidget.ui:23
 #, kde-format
 msgid "Final location:"
-msgstr "Destino final:"
+msgstr "Destino:"
 
 #. i18n: ectx: property (text), widget (QLabel, locationLabel)
 #: src/gui/newprojectwidget.ui:33
@@ -5212,7 +5212,7 @@ msgstr "Díodos"
 #: src/ktechlabui.rc:56
 #, kde-format
 msgid "JFETs"
-msgstr "JFETs"
+msgstr "JFET"
 
 #. i18n: ectx: Menu (examples_matrix_disp_driver)
 #: src/ktechlabui.rc:59
@@ -5224,7 +5224,7 @@ msgstr "Controladores de pantalla de matriz"
 #: src/ktechlabui.rc:62
 #, kde-format
 msgid "MOSFETs"
-msgstr "MOSFETs"
+msgstr "MOSFET"
 
 #. i18n: ectx: Menu (examples_transistors)
 #: src/ktechlabui.rc:65
