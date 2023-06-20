@@ -66,7 +66,7 @@ msgstr "Engadiu pic 16f877,16f627 e 16f628"
 #: microbe/main.cpp:62
 #, kde-format
 msgid "Show source code lines in assembly output"
-msgstr "Mostrar as liñas de código fonte na saída de ensamblador"
+msgstr "Amosar as liñas de código fonte na saída de ensamblador"
 
 #: microbe/main.cpp:64
 #, kde-format
@@ -406,13 +406,13 @@ msgstr "Elevar o rexistro de mensaxes ao compilar"
 #: src/core/ktechlab.kcfg:26
 #, kde-format
 msgid "Show Voltage Bars"
-msgstr "Mostrar as barras de voltaxe"
+msgstr "Amosar as barras de voltaxe"
 
 #. i18n: ectx: label, entry (ShowVoltageColor), group (General)
 #: src/core/ktechlab.kcfg:30
 #, kde-format
 msgid "Show Voltage as Color"
-msgstr "Mostrar a voltaxe como cor"
+msgstr "Amosar a voltaxe como cor"
 
 #. i18n: ectx: label, entry (AnimateWires), group (General)
 #: src/core/ktechlab.kcfg:34
@@ -436,7 +436,7 @@ msgstr "Cor das liñas de grade"
 #: src/core/ktechlab.kcfg:46
 #, kde-format
 msgid "Whether the grid should be shown."
-msgstr "Se mostrar a grade."
+msgstr "Se amosar a grade."
 
 #. i18n: ectx: label, entry (ReuseSameViewForOutput), group (General)
 #: src/core/ktechlab.kcfg:50
@@ -709,7 +709,7 @@ msgstr "Usar o modelo de rima grande"
 #: src/core/ktechlab.kcfg:262
 #, kde-format
 msgid "Show more debug info in assembly output"
-msgstr "Mostrar máis información de depuración na saída de ensamblador"
+msgstr "Amosar máis información de depuración na saída de ensamblador"
 
 #. i18n: ectx: label, entry (SDCC_denable_peeps), group (SDCC)
 #: src/core/ktechlab.kcfg:266
@@ -1074,7 +1074,7 @@ msgstr "Texto"
 #: src/drawparts/dptext.cpp:50 src/drawparts/solidshape.cpp:40
 #, kde-format
 msgid "Display Background"
-msgstr "Mostrar o fondo"
+msgstr "Amosar o fondo"
 
 #: src/drawparts/dptext.cpp:55 src/drawparts/solidshape.cpp:45
 #, kde-format
@@ -2761,7 +2761,7 @@ msgstr "Sete segmentos"
 #: src/flowparts/sevenseg.cpp:50
 #, kde-format
 msgid "Display %1 on %2"
-msgstr "Mostrar %1 en %2"
+msgstr "Amosar %1 en %2"
 
 #: src/flowparts/start.cpp:25 src/flowparts/start.cpp:31
 #: src/flowparts/start.cpp:34
@@ -3022,7 +3022,7 @@ msgstr "Cor da grade"
 #: src/gui/generaloptionswidget.ui:62
 #, kde-format
 msgid "Show &grid:"
-msgstr "Mostrar a &grade:"
+msgstr "Amosar a &grade:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, textLabel1)
 #: src/gui/generaloptionswidget.ui:85
@@ -3045,7 +3045,7 @@ msgstr "Pasos máximos de desfacer da zona de traballo:"
 #: src/gui/generaloptionswidget.ui:98
 #, kde-format
 msgid "Show voltage bars &on electronic components"
-msgstr "Mostrar as barras de voltaxe n&os compoñentes electrónicos"
+msgstr "Amosar as barras de voltaxe n&os compoñentes electrónicos"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowVoltageColor)
 #: src/gui/generaloptionswidget.ui:105
@@ -3057,13 +3057,13 @@ msgstr "Colorar os cables para que coincidan coa voltaxe"
 #: src/gui/generaloptionswidget.ui:115
 #, kde-format
 msgid "Animate wires to show the current or power flow"
-msgstr "Anima os cables para mostrar o fluxo de corrente ou enerxía"
+msgstr "Anima os cables para amosar o fluxo de corrente ou enerxía"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox21)
 #: src/gui/generaloptionswidget.ui:125
 #, kde-format
 msgid "Display Refresh Rate"
-msgstr "Mostrar a taxa de actualización"
+msgstr "Amosar a taxa de actualización"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3_2)
 #: src/gui/generaloptionswidget.ui:152
@@ -3236,8 +3236,8 @@ msgid ""
 "\" will suppress messages. <li>\"Errors\" will suppress both messages and "
 "warnings.</ul>"
 msgstr ""
-"Isto define o liminar das mensaxes que se mostran na vista de rexistro."
-"<ul><li>«Todo» mostrará toda a saída: información, avisos e erros."
+"Isto define o liminar das mensaxes que se amosan na vista de rexistro."
+"<ul><li>«Todo» amosará toda a saída: información, avisos e erros."
 "<li>«Avisos» ocultará as mensaxes.<li>«Erros» ocultará tanto as mensaxes "
 "como os avisos.</ul>"
 
@@ -3848,7 +3848,7 @@ msgstr "Ampliación"
 #: src/gui/outputmethodwidget.ui:44
 #, kde-format
 msgid "Displa&y directly"
-msgstr "Mostrar &directamente"
+msgstr "Amosar &directamente"
 
 #. i18n: ectx: property (text), widget (QRadioButton, saveFileCheck)
 #: src/gui/outputmethodwidget.ui:54
@@ -4426,8 +4426,7 @@ msgstr "Usar o modelo de &rima grande (--pstack-model=large)"
 #, kde-format
 msgid "Show more debug info in assembl&y output (--debug-xtra)"
 msgstr ""
-"Mostrar máis información de depuración na saída de &ensamblador (--debug-"
-"xtra)"
+"Amosar máis información de depuración na saída de &ensamblador (--debug-xtra)"
 
 # skip-rule: normalization-ble
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_denable_peeps)
@@ -5324,7 +5323,7 @@ msgid ""
 "compiling and assembling.<br><br>For error messages, clicking on the line "
 "will automatically open up the file at the position of the error."
 msgstr ""
-"Estas mensaxes mostran a saída da funcionalidade relacionada coas linguaxes, "
+"Estas mensaxes amosan a saída da funcionalidade relacionada coas linguaxes, "
 "como compilar e ensamblador.<br><br>Para as mensaxes de erro, premer a liña "
 "abrirá automaticamente o ficheiro na posición do erro."
 
