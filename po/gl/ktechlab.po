@@ -3454,7 +3454,7 @@ msgstr "Saída a un ficheir&o de mapa (-m)"
 #: src/gui/linkeroptionswidget.ui:86
 #, kde-format
 msgid "Linker Script (-s):"
-msgstr "Script de ligador (-s):"
+msgstr "Guión de ligador (-s):"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
 #: src/gui/linkeroptionswidget.ui:102
@@ -3714,7 +3714,7 @@ msgstr "&Modificar"
 #: src/gui/microsettingswidget.ui:146
 #, kde-format
 msgid "Rename"
-msgstr "Cambiar de nome"
+msgstr "Renomear"
 
 #: src/gui/newfiledlg.cpp:56 src/ktechlab.cpp:457
 #, kde-format
@@ -5461,7 +5461,7 @@ msgid ""
 "To open or close a project, use the \"Project\" menu. Right click on a file "
 "to remove it from the project"
 msgstr ""
-"Mostra a lista de ficheiros do proxecto.\n"
+"Amosa a lista de ficheiros do proxecto.\n"
 "Para abrir ou pechar un proxecto use o menú «Proxecto». Faga clic dereito "
 "nun ficheiro para retiralo do proxecto"
 
