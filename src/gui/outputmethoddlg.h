@@ -19,6 +19,7 @@ class KTechlab;
 class MicroSelectWidget;
 class OutputMethodDlg;
 class OutputMethodWidget;
+class FileFilters;
 
 class OutputMethodInfo
 {
@@ -92,7 +93,7 @@ public:
     ~OutputMethodDlg() override;
 
     void setOutputExtension(const QString &outputExtension);
-    void setFilter(const QString &filter);
+    void setFileFilters(const FileFilters &filters);
     void setMethod(OutputMethodInfo::Method::Type m);
     void setOutputFile(const QUrl &out);
     void setPicID(const QString &id);

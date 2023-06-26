@@ -24,6 +24,7 @@
 #include "programmerdlg.h"
 #include "symbolviewer.h"
 #include "textview.h"
+#include "filefilters.h"
 
 // #include <kate/katedocument.h>
 #include <QAction>
@@ -434,7 +435,10 @@ void TextDocument::convertToAssembly()
         dlg.microSelect()->setAllowedAsmSet(AsmInfo::PIC14 | AsmInfo::PIC16);
 
     dlg.setOutputExtension(".asm");
-    dlg.setFilter(QString("*.asm *.src *.inc|%1 (*.asm, *.src, *.inc)\n*|%2").arg(i18n("Assembly Code")).arg(i18n("All Files")));
+    dlg.setFileFilters({
+        {i18n("Assembly Code") + QLatin1String(" (*.asm, *.src, *.inc)"), QStringLiteral("*.asm *.src *.inc")},
+        {i18n("All Files"), QStringLiteral("*")},
+    });
     const int accepted = dlg.exec();
     if (accepted != QDialog::Accepted)
         return;
@@ -469,7 +473,10 @@ void TextDocument::convertToHex()
 
     OutputMethodDlg dlg(i18n("Hex Code Output"), url(), showPICSelect, KTechlab::self());
     dlg.setOutputExtension(".hex");
-    dlg.setFilter(QString("*.hex|Hex (*.hex)\n*|%1").arg(i18n("All Files")));
+    dlg.setFileFilters({
+        {i18n("Hex Code") + QLatin1String(" (*.hex)"), QStringLiteral("*.hex")},
+        {i18n("All Files"), QStringLiteral("*")},
+    });
 
     if (m_guessedCodeType == TextDocument::ct_c)
         dlg.microSelect()->setAllowedAsmSet(AsmInfo::PIC14 | AsmInfo::PIC16);

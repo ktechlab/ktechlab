@@ -82,15 +82,16 @@ PICComponent::PICComponent(ICNDocument *icnDocument, bool newItem, const char *i
 
     createProperty("program", Variant::Type::FileName);
     property("program")->setCaption(i18n("Program"));
-    QString filter;
-    filter = QString("*.flowcode *.cod *.asm *.basic *.c|%1").arg(i18n("All Supported Files"));
-    filter += QString("\n*.flowcode|FlowCode (*.flowcode)");
-    filter += QString("\n*.cod|%1 (*.cod)").arg(i18n("Symbol File"));
-    filter += QString("\n*.asm|%1 (*.asm)").arg(i18n("Assembly Code"));
-    filter += QString("\n*.basic *.microbe|Microbe (*.basic, *.microbe)");
-    filter += QString("\n*.c|C (*.c)");
-    filter += QString("\n*|%1").arg(i18n("All Files"));
-    property("program")->setFilter(filter);
+    const FileFilters fileFilters({
+        {i18n("All Supported Files"), QStringLiteral("*.flowcode *.cod *.asm *.basic *.microbe *.c")},
+        {i18n("FlowCode") + QLatin1String(" (*.flowcode)"),        QStringLiteral("*.flowcode")},
+        {i18n("Symbol File") + QLatin1String(" (*.cod)"),          QStringLiteral("*.cod")},
+        {i18n("Assembly Code") + QLatin1String(" (*.asm)"),        QStringLiteral("*.asm")},
+        {i18n("Microbe") + QLatin1String(" (*.basic, *.microbe)"), QStringLiteral("*.basic *.microbe")},
+        {i18n("C Code") + QLatin1String(" (*.c)"),                 QStringLiteral("*.c")},
+        {i18n("All Files"), QStringLiteral("*")},
+    });
+    property("program")->setFileFilters(fileFilters);
 
     // Used for restoring the pins on file loading before we have had a change
     // to compile the PIC program

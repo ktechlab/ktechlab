@@ -15,6 +15,8 @@
 #include <QStringList>
 #include <QVariant>
 
+#include "filefilters.h"
+
 /// \todo Replace "Variant" with "Property"
 class Variant;
 typedef Variant Property;
@@ -81,15 +83,15 @@ public:
      */
     void setType(Type::Value type);
     /**
-     * Returns the filter used for file dialogs (if this is of type Type::FileName)
+     * Returns the filters used for file dialogs (if this is of type Type::FileName)
      */
-    QString filter() const
+    FileFilters fileFilters() const
     {
-        return m_filter;
+        return m_fileFilters;
     }
-    void setFilter(const QString &filter)
+    void setFileFilters(const FileFilters &fileFilters)
     {
-        m_filter = filter;
+        m_fileFilters = fileFilters;
     }
     /**
      * The selection of colours to be used in the combo box - e.g.
@@ -281,7 +283,7 @@ private:
     QString m_editorCaption;  // Text displayed before the data entry widget in the toolbar
     bool m_bAdvanced;         // If advanced, only display data in item editor
     bool m_bHidden;           // If hidden, do not allow user to change data
-    QString m_filter;         // If type() == Type::FileName this is the filter used in file dialogs.
+    FileFilters m_fileFilters; // If type() == Type::FileName these are the filters used in file dialogs.
     bool m_bSetDefault;       // If false, then the default will be set to the first thing this variant is set to
     Type::Value m_type;
     QStringMap m_allowed;

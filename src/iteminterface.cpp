@@ -301,7 +301,7 @@ QWidget *ItemInterface::configWidget()
             const QStringList allowed = vait.value()->allowed();
 
             KUrlComboRequester *urlreq = new KUrlComboRequester(configWidget);
-            urlreq->setFilter(vait.value()->filter());
+            urlreq->setFilter(vait.value()->fileFilters().toKDEStyleString());
             connectMapWidget(urlreq, SIGNAL(urlSelected(QUrl)));
             m_stringURLReqMap[vait.key()] = urlreq;
 

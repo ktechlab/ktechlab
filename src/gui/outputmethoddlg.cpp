@@ -15,6 +15,7 @@
 #include "microselectwidget.h"
 #include "projectmanager.h"
 #include "textdocument.h"
+#include "filefilters.h"
 
 #include <KUrlRequester>
 
@@ -124,9 +125,9 @@ void OutputMethodDlg::setOutputExtension(const QString &extension)
     m_outputExtension = extension;
 }
 
-void OutputMethodDlg::setFilter(const QString &filter)
+void OutputMethodDlg::setFileFilters(const FileFilters &filters)
 {
-    m_widget->outputFileURL->setFilter(filter);
+    m_widget->outputFileURL->setFilter(filters.toKDEStyleString());
 }
 
 void OutputMethodDlg::setMethod(OutputMethodInfo::Method::Type m)

@@ -24,6 +24,7 @@
 #include "picitem.h"
 #include "programmerdlg.h"
 #include "textdocument.h"
+#include "filefilters.h"
 
 #include <KLocalizedString>
 
@@ -167,7 +168,10 @@ void FlowCodeDocument::convertToMicrobe()
 {
     OutputMethodDlg *dlg = new OutputMethodDlg(i18n("Microbe Code Output"), url(), false, activeView());
     dlg->setOutputExtension(".microbe");
-    dlg->setFilter(QString("*.microbe|Microbe (*.microbe)\n*|%1").arg(i18n("All Files")));
+    dlg->setFileFilters({
+        {i18n("Microbe") + QLatin1String(" (*.microbe)"), QStringLiteral("*.microbe")},
+        {i18n("All Files"), QStringLiteral("*")},
+    });
 
     const int accepted = dlg->exec();
     if (accepted != QDialog::Accepted) {
@@ -188,7 +192,10 @@ void FlowCodeDocument::convertToAssembly()
 {
     OutputMethodDlg *dlg = new OutputMethodDlg(i18n("Assembly Code Output"), url(), false, activeView());
     dlg->setOutputExtension(".asm");
-    dlg->setFilter(QString("*.asm *.src *.inc|%1 (*.asm, *.src, *.inc)\n*|%2").arg(i18n("Assembly Code")).arg(i18n("All Files")));
+    dlg->setFileFilters({
+        {i18n("Assembly Code") + QLatin1String(" (*.asm, *.src, *.inc)"), QStringLiteral("*.asm *.src *.inc")},
+        {i18n("All Files"), QStringLiteral("*")},
+    });
 
     const int accepted = dlg->exec();
     if (accepted != QDialog::Accepted) {
@@ -209,7 +216,10 @@ void FlowCodeDocument::convertToHex()
 {
     OutputMethodDlg *dlg = new OutputMethodDlg(i18n("Hex Code Output"), url(), false, KTechlab::self());
     dlg->setOutputExtension(".hex");
-    dlg->setFilter(QString("*.hex|Hex (*.hex)\n*|%1").arg(i18n("All Files")));
+    dlg->setFileFilters({
+        {i18n("Hex Code") + QLatin1String(" (*.hex)"), QStringLiteral("*.hex")},
+        {i18n("All Files"), QStringLiteral("*")},
+    });
 
     const int accepted = dlg->exec();
     if (accepted != QDialog::Accepted) {

@@ -112,6 +112,7 @@ SET(ktechlab_SRCS
     ./micro/microinfo.cpp
     ./micro/asminfo.cpp
     ./ciwidgetmgr.cpp
+    ./filefilters.cpp
     ./fpnode.cpp
     ./textdocument.cpp
     ./filemetainfo.cpp
