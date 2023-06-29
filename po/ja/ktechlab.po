@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-11 00:49+0000\n"
+"POT-Creation-Date: 2023-06-29 00:49+0000\n"
 "PO-Revision-Date: 2016-12-31 12:53-0800\n"
 "Last-Translator: Japanese KDE translation team <kde-jp@kde.org>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -24,7 +24,8 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 
-#: microbe/main.cpp:46 src/flowcodeview.cpp:39 src/ktechlab.cpp:502
+#: microbe/main.cpp:46 src/electronics/components/piccomponent.cpp:90
+#: src/flowcodedocument.cpp:172 src/flowcodeview.cpp:39 src/ktechlab.cpp:502
 #: src/textview.cpp:66
 #, kde-format
 msgid "Microbe"
@@ -1126,11 +1127,11 @@ msgid "Orientation"
 msgstr ""
 
 #: src/electronics/circuitdocument.cpp:47
-#: src/electronics/components/piccomponent.cpp:92 src/flowcodedocument.cpp:49
-#: src/flowcodedocument.cpp:170 src/flowcodedocument.cpp:191
-#: src/flowcodedocument.cpp:212 src/ktechlab.cpp:1170
+#: src/electronics/components/piccomponent.cpp:92 src/flowcodedocument.cpp:50
+#: src/flowcodedocument.cpp:173 src/flowcodedocument.cpp:197
+#: src/flowcodedocument.cpp:221 src/ktechlab.cpp:1170
 #: src/mechanics/mechanicsdocument.cpp:28 src/projectmanager.cpp:908
-#: src/textdocument.cpp:437 src/textdocument.cpp:472
+#: src/textdocument.cpp:440 src/textdocument.cpp:478
 #, kde-format
 msgid "All Files"
 msgstr ""
@@ -2066,23 +2067,35 @@ msgstr ""
 msgid "All Supported Files"
 msgstr ""
 
+#. i18n("FlowCode"), "application-x-flowcode", 0, this, SLOT(slotFileNewFlowCode()), ac, "newfile_flowcode" ))->plug( p->menu() );
+#: src/electronics/components/piccomponent.cpp:87 src/ktechlab.cpp:484
+#: src/languages/flowcode.cpp:28
+#, kde-format
+msgid "FlowCode"
+msgstr ""
+
 #: src/electronics/components/piccomponent.cpp:88
 #, kde-format
 msgid "Symbol File"
 msgstr ""
 
-#: src/electronics/components/piccomponent.cpp:89 src/flowcodedocument.cpp:191
-#: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1171 src/textdocument.cpp:437
+#: src/electronics/components/piccomponent.cpp:89 src/flowcodedocument.cpp:196
+#: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1171 src/textdocument.cpp:439
 #, kde-format
 msgid "Assembly Code"
 msgstr ""
 
-#: src/electronics/components/piccomponent.cpp:156
+#: src/electronics/components/piccomponent.cpp:91
+#, kde-format
+msgid "C Code"
+msgstr ""
+
+#: src/electronics/components/piccomponent.cpp:157
 #, kde-format
 msgid "The file \"%1\" does not exist."
 msgstr ""
 
-#: src/electronics/components/piccomponent.cpp:164
+#: src/electronics/components/piccomponent.cpp:165
 #, kde-format
 msgid ""
 "\"%1\" is not a valid PIC program.\n"
@@ -2091,7 +2104,7 @@ msgid ""
 "\".hex\" is allowed, provided that there is a corresponding \".cod\" file."
 msgstr ""
 
-#: src/electronics/components/piccomponent.cpp:240
+#: src/electronics/components/piccomponent.cpp:241
 #, kde-format
 msgid ""
 "(No\n"
@@ -2385,7 +2398,7 @@ msgstr ""
 msgid "SFR"
 msgstr ""
 
-#: src/electronics/gpsimprocessor.cpp:744 src/textdocument.cpp:100
+#: src/electronics/gpsimprocessor.cpp:744 src/textdocument.cpp:101
 #, kde-format
 msgid "Breakpoint"
 msgstr ""
@@ -2405,19 +2418,24 @@ msgstr ""
 msgid "Subcircuits"
 msgstr ""
 
-#: src/flowcodedocument.cpp:168
+#: src/flowcodedocument.cpp:169
 #, kde-format
 msgid "Microbe Code Output"
 msgstr ""
 
-#: src/flowcodedocument.cpp:189 src/textdocument.cpp:431
+#: src/flowcodedocument.cpp:193 src/textdocument.cpp:432
 #, kde-format
 msgid "Assembly Code Output"
 msgstr ""
 
-#: src/flowcodedocument.cpp:210 src/textdocument.cpp:470
+#: src/flowcodedocument.cpp:217 src/textdocument.cpp:474
 #, kde-format
 msgid "Hex Code Output"
+msgstr ""
+
+#: src/flowcodedocument.cpp:220 src/textdocument.cpp:477
+#, kde-format
+msgid "Hex Code"
 msgstr ""
 
 #. i18n("Convert to..."), "fork", 0, 0, 0, ac, "program_convert" );
@@ -4686,12 +4704,6 @@ msgstr ""
 msgid "C source"
 msgstr ""
 
-#. i18n("FlowCode"), "application-x-flowcode", 0, this, SLOT(slotFileNewFlowCode()), ac, "newfile_flowcode" ))->plug( p->menu() );
-#: src/ktechlab.cpp:484 src/languages/flowcode.cpp:28
-#, kde-format
-msgid "FlowCode"
-msgstr ""
-
 #. i18n("New Project..."), "window-new",			0, pm, SLOT(slotNewProject()),			ac, 	"project_new" );
 #: src/ktechlab.cpp:519
 #, kde-format
@@ -5311,32 +5323,32 @@ msgstr ""
 msgid "Remove Project File?"
 msgstr ""
 
-#: src/textdocument.cpp:83
+#: src/textdocument.cpp:84
 #, kde-format
 msgid "Failed to create editor"
 msgstr ""
 
-#: src/textdocument.cpp:96
+#: src/textdocument.cpp:97
 #, kde-format
 msgid "Failed to create MarkInterface"
 msgstr ""
 
-#: src/textdocument.cpp:606
+#: src/textdocument.cpp:613
 #, kde-format
 msgid "%1 - %2"
 msgstr ""
 
-#: src/textdocument.cpp:754
+#: src/textdocument.cpp:761
 #, kde-format
 msgid "Unknown code type."
 msgstr ""
 
-#: src/textdocument.cpp:754 src/textdocument.cpp:758
+#: src/textdocument.cpp:761 src/textdocument.cpp:765
 #, kde-format
 msgid "Cannot debug"
 msgstr ""
 
-#: src/textdocument.cpp:758
+#: src/textdocument.cpp:765
 #, kde-format
 msgid "Cannot debug hex."
 msgstr ""

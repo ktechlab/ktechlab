@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab 0.3.7\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-11 00:49+0000\n"
+"POT-Creation-Date: 2023-06-29 00:49+0000\n"
 "PO-Revision-Date: 2013-05-19 18:42+0200\n"
 "Last-Translator: Peter Bojtos <ptr@ulx.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -27,7 +27,8 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 
-#: microbe/main.cpp:46 src/flowcodeview.cpp:39 src/ktechlab.cpp:502
+#: microbe/main.cpp:46 src/electronics/components/piccomponent.cpp:90
+#: src/flowcodedocument.cpp:172 src/flowcodeview.cpp:39 src/ktechlab.cpp:502
 #: src/textview.cpp:66
 #, kde-format
 msgid "Microbe"
@@ -1223,11 +1224,11 @@ msgid "Orientation"
 msgstr "Tájolás"
 
 #: src/electronics/circuitdocument.cpp:47
-#: src/electronics/components/piccomponent.cpp:92 src/flowcodedocument.cpp:49
-#: src/flowcodedocument.cpp:170 src/flowcodedocument.cpp:191
-#: src/flowcodedocument.cpp:212 src/ktechlab.cpp:1170
+#: src/electronics/components/piccomponent.cpp:92 src/flowcodedocument.cpp:50
+#: src/flowcodedocument.cpp:173 src/flowcodedocument.cpp:197
+#: src/flowcodedocument.cpp:221 src/ktechlab.cpp:1170
 #: src/mechanics/mechanicsdocument.cpp:28 src/projectmanager.cpp:908
-#: src/textdocument.cpp:437 src/textdocument.cpp:472
+#: src/textdocument.cpp:440 src/textdocument.cpp:478
 #, kde-format
 msgid "All Files"
 msgstr "Az összes fájl"
@@ -2166,23 +2167,36 @@ msgstr "Program"
 msgid "All Supported Files"
 msgstr "Az összes támogatott fájl"
 
+#. i18n("FlowCode"), "application-x-flowcode", 0, this, SLOT(slotFileNewFlowCode()), ac, "newfile_flowcode" ))->plug( p->menu() );
+#: src/electronics/components/piccomponent.cpp:87 src/ktechlab.cpp:484
+#: src/languages/flowcode.cpp:28
+#, kde-format
+msgid "FlowCode"
+msgstr "FlowCode"
+
 #: src/electronics/components/piccomponent.cpp:88
 #, kde-format
 msgid "Symbol File"
 msgstr "Szimbólum fájl"
 
-#: src/electronics/components/piccomponent.cpp:89 src/flowcodedocument.cpp:191
-#: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1171 src/textdocument.cpp:437
+#: src/electronics/components/piccomponent.cpp:89 src/flowcodedocument.cpp:196
+#: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1171 src/textdocument.cpp:439
 #, kde-format
 msgid "Assembly Code"
 msgstr "Assembly kód"
 
-#: src/electronics/components/piccomponent.cpp:156
+#: src/electronics/components/piccomponent.cpp:91
+#, fuzzy, kde-format
+#| msgid "Code"
+msgid "C Code"
+msgstr "Kód"
+
+#: src/electronics/components/piccomponent.cpp:157
 #, kde-format
 msgid "The file \"%1\" does not exist."
 msgstr "\"%1\" fájl nem létezik."
 
-#: src/electronics/components/piccomponent.cpp:164
+#: src/electronics/components/piccomponent.cpp:165
 #, kde-format
 msgid ""
 "\"%1\" is not a valid PIC program.\n"
@@ -2195,7 +2209,7 @@ msgstr ""
 "\".cod\", \".asm\", \".flowcode\", \".basic\", \".microbe\" vagy \".c\".\n"
 "a \".hex\" engedélyezett, feltéve, hogy ott van egy megfelelő \".cod\" fájl."
 
-#: src/electronics/components/piccomponent.cpp:240
+#: src/electronics/components/piccomponent.cpp:241
 #, kde-format
 msgid ""
 "(No\n"
@@ -2495,7 +2509,7 @@ msgstr "Fájl"
 msgid "SFR"
 msgstr "SFR"
 
-#: src/electronics/gpsimprocessor.cpp:744 src/textdocument.cpp:100
+#: src/electronics/gpsimprocessor.cpp:744 src/textdocument.cpp:101
 #, kde-format
 msgid "Breakpoint"
 msgstr "Töréspont"
@@ -2515,19 +2529,25 @@ msgstr "Ismeretlen"
 msgid "Subcircuits"
 msgstr "Aláramkörök"
 
-#: src/flowcodedocument.cpp:168
+#: src/flowcodedocument.cpp:169
 #, kde-format
 msgid "Microbe Code Output"
 msgstr "Microbe Code Kimenet "
 
-#: src/flowcodedocument.cpp:189 src/textdocument.cpp:431
+#: src/flowcodedocument.cpp:193 src/textdocument.cpp:432
 #, kde-format
 msgid "Assembly Code Output"
 msgstr "Assembly Kód Kimenet "
 
-#: src/flowcodedocument.cpp:210 src/textdocument.cpp:470
+#: src/flowcodedocument.cpp:217 src/textdocument.cpp:474
 #, kde-format
 msgid "Hex Code Output"
+msgstr "Hex Kód Kimenet "
+
+#: src/flowcodedocument.cpp:220 src/textdocument.cpp:477
+#, fuzzy, kde-format
+#| msgid "Hex Code Output"
+msgid "Hex Code"
 msgstr "Hex Kód Kimenet "
 
 #. i18n("Convert to..."), "fork", 0, 0, 0, ac, "program_convert" );
@@ -4989,12 +5009,6 @@ msgstr "&Új"
 msgid "C source"
 msgstr "C forrás"
 
-#. i18n("FlowCode"), "application-x-flowcode", 0, this, SLOT(slotFileNewFlowCode()), ac, "newfile_flowcode" ))->plug( p->menu() );
-#: src/ktechlab.cpp:484 src/languages/flowcode.cpp:28
-#, kde-format
-msgid "FlowCode"
-msgstr "FlowCode"
-
 #. i18n("New Project..."), "window-new",			0, pm, SLOT(slotNewProject()),			ac, 	"project_new" );
 #: src/ktechlab.cpp:519
 #, fuzzy, kde-format
@@ -5640,32 +5654,32 @@ msgstr "Valóban el akarja távolítani ezt: \"%1\"?"
 msgid "Remove Project File?"
 msgstr "Eltávolítsa a Projekt fájlt?"
 
-#: src/textdocument.cpp:83
+#: src/textdocument.cpp:84
 #, kde-format
 msgid "Failed to create editor"
 msgstr ""
 
-#: src/textdocument.cpp:96
+#: src/textdocument.cpp:97
 #, kde-format
 msgid "Failed to create MarkInterface"
 msgstr ""
 
-#: src/textdocument.cpp:606
+#: src/textdocument.cpp:613
 #, kde-format
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: src/textdocument.cpp:754
+#: src/textdocument.cpp:761
 #, kde-format
 msgid "Unknown code type."
 msgstr "Ismeretlen kódtípus."
 
-#: src/textdocument.cpp:754 src/textdocument.cpp:758
+#: src/textdocument.cpp:761 src/textdocument.cpp:765
 #, kde-format
 msgid "Cannot debug"
 msgstr "Hibakeresés nem lehetséges"
 
-#: src/textdocument.cpp:758
+#: src/textdocument.cpp:765
 #, kde-format
 msgid "Cannot debug hex."
 msgstr "Hex hibakeresés nem lehetséges."
