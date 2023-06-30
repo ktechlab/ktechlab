@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-29 00:49+0000\n"
-"PO-Revision-Date: 2023-03-04 23:29+0100\n"
+"PO-Revision-Date: 2023-06-29 11:03+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2092,10 +2092,9 @@ msgid "Assembly Code"
 msgstr ""
 
 #: src/electronics/components/piccomponent.cpp:91
-#, fuzzy, kde-format
-#| msgid "Code"
+#, kde-format
 msgid "C Code"
-msgstr "Kód"
+msgstr "Kód C"
 
 #: src/electronics/components/piccomponent.cpp:157
 #, kde-format
@@ -2441,10 +2440,9 @@ msgid "Hex Code Output"
 msgstr ""
 
 #: src/flowcodedocument.cpp:220 src/textdocument.cpp:477
-#, fuzzy, kde-format
-#| msgid "Code"
+#, kde-format
 msgid "Hex Code"
-msgstr "Kód"
+msgstr "Šestnáctkový kód"
 
 #. i18n("Convert to..."), "fork", 0, 0, 0, ac, "program_convert" );
 #: src/flowcodeview.cpp:32

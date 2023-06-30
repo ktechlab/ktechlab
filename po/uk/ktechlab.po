@@ -3,13 +3,13 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2016, 2017, 2018, 2020, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2016, 2017, 2018, 2020, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-29 00:49+0000\n"
-"PO-Revision-Date: 2022-10-27 13:34+0300\n"
+"PO-Revision-Date: 2023-06-29 08:52+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -2123,10 +2123,9 @@ msgid "Assembly Code"
 msgstr "Код асемблера"
 
 #: src/electronics/components/piccomponent.cpp:91
-#, fuzzy, kde-format
-#| msgid "Code"
+#, kde-format
 msgid "C Code"
-msgstr "Код"
+msgstr "Код C"
 
 #: src/electronics/components/piccomponent.cpp:157
 #, kde-format
@@ -2479,10 +2478,9 @@ msgid "Hex Code Output"
 msgstr "Виведення шістнадцяткового коду"
 
 #: src/flowcodedocument.cpp:220 src/textdocument.cpp:477
-#, fuzzy, kde-format
-#| msgid "Hex Code Output"
+#, kde-format
 msgid "Hex Code"
-msgstr "Виведення шістнадцяткового коду"
+msgstr "Шістн. код"
 
 #. i18n("Convert to..."), "fork", 0, 0, 0, ac, "program_convert" );
 #: src/flowcodeview.cpp:32

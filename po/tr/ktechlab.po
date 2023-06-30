@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-29 00:49+0000\n"
-"PO-Revision-Date: 2023-06-04 01:55+0300\n"
+"PO-Revision-Date: 2023-06-29 05:30+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -2107,10 +2107,9 @@ msgid "Assembly Code"
 msgstr "Assembly Kodu"
 
 #: src/electronics/components/piccomponent.cpp:91
-#, fuzzy, kde-format
-#| msgid "Code"
+#, kde-format
 msgid "C Code"
-msgstr "Kod"
+msgstr "C Kodu"
 
 #: src/electronics/components/piccomponent.cpp:157
 #, kde-format
@@ -2464,10 +2463,9 @@ msgid "Hex Code Output"
 msgstr "Onaltılık Kod Çıktısı"
 
 #: src/flowcodedocument.cpp:220 src/textdocument.cpp:477
-#, fuzzy, kde-format
-#| msgid "Hex Code Output"
+#, kde-format
 msgid "Hex Code"
-msgstr "Onaltılık Kod Çıktısı"
+msgstr "Onaltılık Kod"
 
 #. i18n("Convert to..."), "fork", 0, 0, 0, ac, "program_convert" );
 #: src/flowcodeview.cpp:32

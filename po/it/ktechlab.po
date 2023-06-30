@@ -3,21 +3,21 @@
 # Copyright (C) 2005 Free Software Foundation, Inc.
 # Davide Setti / vad <davide.setti@gmail.com>, 2005.
 # Paolo Zamponi <feus73@gmail.com>, 2017, 2019.
-# Vincenzo Reale <smart2128vr@gmail.com>, 2020, 2022.
+# Vincenzo Reale <smart2128vr@gmail.com>, 2020, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-29 00:49+0000\n"
-"PO-Revision-Date: 2022-11-03 14:32+0100\n"
+"PO-Revision-Date: 2023-06-29 10:32+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 23.04.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, kde-format
@@ -2121,10 +2121,9 @@ msgid "Assembly Code"
 msgstr "Codice Assembly"
 
 #: src/electronics/components/piccomponent.cpp:91
-#, fuzzy, kde-format
-#| msgid "Code"
+#, kde-format
 msgid "C Code"
-msgstr "Codice"
+msgstr "Codice C"
 
 #: src/electronics/components/piccomponent.cpp:157
 #, kde-format
@@ -2479,10 +2478,9 @@ msgid "Hex Code Output"
 msgstr "Output del codice esadecimale"
 
 #: src/flowcodedocument.cpp:220 src/textdocument.cpp:477
-#, fuzzy, kde-format
-#| msgid "Hex Code Output"
+#, kde-format
 msgid "Hex Code"
-msgstr "Output del codice esadecimale"
+msgstr "Codice esadecimale"
 
 #. i18n("Convert to..."), "fork", 0, 0, 0, ac, "program_convert" );
 #: src/flowcodeview.cpp:32
