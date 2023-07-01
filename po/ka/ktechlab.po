@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-29 00:49+0000\n"
-"PO-Revision-Date: 2023-01-13 19:07+0100\n"
+"PO-Revision-Date: 2023-06-30 06:20+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -774,7 +774,7 @@ msgstr "KTechLab"
 #: src/core/main.cpp:35
 #, kde-format
 msgid "An IDE for microcontrollers and electronics"
-msgstr ""
+msgstr "IDE მიკროელექტრონიკისა და ელექტრონიკისთვის"
 
 #: src/core/main.cpp:35
 #, kde-format
@@ -1066,7 +1066,7 @@ msgstr "ფონის ფერი"
 #: src/drawparts/dptext.cpp:60
 #, kde-format
 msgid "Frame Color"
-msgstr ""
+msgstr "ჩარჩოს ფერი"
 
 #: src/drawparts/drawpart.cpp:189
 #, kde-format
@@ -1269,7 +1269,7 @@ msgstr "ეცემა"
 #: src/electronics/components/binarycounter.cpp:75
 #, kde-format
 msgid "Bit Count"
-msgstr ""
+msgstr "ბიტების რაოდენობა"
 
 #: src/electronics/components/bussplitter.cpp:26
 #, kde-format
@@ -1316,20 +1316,20 @@ msgstr "კონდენსატორი"
 #: src/electronics/components/variablecapacitor.cpp:62
 #, kde-format
 msgid "Capacitance"
-msgstr ""
+msgstr "მოცულობა"
 
 #: src/electronics/components/demultiplexer.cpp:27
 #: src/electronics/components/demultiplexer.cpp:38
 #, kde-format
 msgid "Demultiplexer"
-msgstr ""
+msgstr "დემულტიპლექსერი"
 
 #: src/electronics/components/demultiplexer.cpp:43
 #: src/electronics/components/multiplexer.cpp:43
 #: src/electronics/components/ram.cpp:53
 #, kde-format
 msgid "Address Size"
-msgstr ""
+msgstr "მისამართის ზომა"
 
 #: src/electronics/components/dependentsource.cpp:37
 #, kde-format
@@ -1423,18 +1423,18 @@ msgstr "ბaფერი"
 #: src/electronics/components/discretelogic.cpp:153
 #, kde-format
 msgid "Logic Input"
-msgstr ""
+msgstr "ლოგიკური შეყვანა"
 
 #: src/electronics/components/discretelogic.cpp:160
 #, kde-format
 msgid "Use Toggle"
-msgstr ""
+msgstr "გადართვა"
 
 #: src/electronics/components/discretelogic.cpp:203
 #: src/electronics/components/discretelogic.cpp:214
 #, kde-format
 msgid "Logic Output"
-msgstr ""
+msgstr "ლოგიკური გამოყვანა"
 
 #: src/electronics/components/ec555.cpp:28
 #: src/electronics/components/ec555.cpp:34
@@ -1478,12 +1478,12 @@ msgstr "PNP"
 #: src/electronics/components/ecbjt.cpp:44
 #, kde-format
 msgid "NPN Transistor"
-msgstr ""
+msgstr "NPN ტრანზისტორი"
 
 #: src/electronics/components/ecbjt.cpp:46
 #, kde-format
 msgid "PNP Transistor"
-msgstr ""
+msgstr "PNP ტრანზისტორი"
 
 #: src/electronics/components/ecbjt.cpp:54
 #: src/electronics/components/ecmosfet.cpp:128
@@ -1592,7 +1592,7 @@ msgstr "Ვოლტაჟი"
 #: src/electronics/components/ecground.cpp:26
 #, kde-format
 msgid "Ground (0V)"
-msgstr ""
+msgstr "დამიწება (0V)"
 
 #: src/electronics/components/ecground.cpp:32
 #, kde-format
@@ -1614,17 +1614,17 @@ msgstr "p-JFET"
 #: src/electronics/components/ecjfet.cpp:55
 #, kde-format
 msgid "N-Channel JFET"
-msgstr ""
+msgstr "N-არხიანი JFET"
 
 #: src/electronics/components/ecjfet.cpp:57
 #, kde-format
 msgid "P-Channel JFET"
-msgstr ""
+msgstr "P-არხიანი JFET"
 
 #: src/electronics/components/ecjfet.cpp:65
 #, kde-format
 msgid "Threshold voltage"
-msgstr ""
+msgstr "ზღვრული ვოლტაჟი"
 
 #: src/electronics/components/ecjfet.cpp:73
 #, kde-format
@@ -1732,13 +1732,13 @@ msgstr ""
 #: src/electronics/components/ecopamp.cpp:32
 #, kde-format
 msgid "Operational Amplifier"
-msgstr ""
+msgstr "ოპერაციული გამაძლიერებელი"
 
 #: src/electronics/components/ecpotentiometer.cpp:28
 #: src/electronics/components/ecpotentiometer.cpp:34
 #, kde-format
 msgid "Potentiometer"
-msgstr ""
+msgstr "პოტენციომეტრი"
 
 #: src/electronics/components/ecpotentiometer.cpp:48
 #: src/electronics/components/resistor.cpp:40
@@ -1746,14 +1746,14 @@ msgstr ""
 #: src/electronics/components/variableresistor.cpp:54
 #, kde-format
 msgid "Resistance"
-msgstr ""
+msgstr "წინაღობა"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, typeCombo)
 #: src/electronics/components/ecsevensegment.cpp:30
 #: src/flowparts/sevenseg.cpp:25 src/gui/newpinmappingwidget.ui:105
 #, kde-format
 msgid "Seven Segment"
-msgstr ""
+msgstr "შვიდი სეგმენტი"
 
 #: src/electronics/components/ecsevensegment.cpp:36
 #, kde-format
@@ -1779,18 +1779,18 @@ msgstr "გამართვა"
 #: src/electronics/components/ecsevensegment.cpp:49
 #, kde-format
 msgid "Common Cathode"
-msgstr ""
+msgstr "საერთო აკათოდი"
 
 #: src/electronics/components/ecsevensegment.cpp:50
 #, kde-format
 msgid "Common Anode"
-msgstr ""
+msgstr "საერთო ანოდი"
 
 #: src/electronics/components/ecsignallamp.cpp:34
 #: src/electronics/components/ecsignallamp.cpp:40
 #, kde-format
 msgid "Signal Lamp"
-msgstr ""
+msgstr "სიგნალის ნათურა"
 
 #: src/electronics/components/ecsubcircuit.cpp:36
 #, kde-format
@@ -1801,12 +1801,12 @@ msgstr ""
 #: src/electronics/components/ecvoltagesignal.cpp:38
 #, kde-format
 msgid "Voltage Signal"
-msgstr ""
+msgstr "ვოლტაჟის სიგნალი"
 
 #: src/electronics/components/ecvoltagesignal.cpp:56
 #, kde-format
 msgid "Voltage Range"
-msgstr ""
+msgstr "ვოლტაჟის დიაპაზონი"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
 #: src/electronics/components/ecvoltagesignal.cpp:66 src/gui/logicwidget.ui:142
@@ -1834,7 +1834,7 @@ msgstr "ელემენტი"
 #: src/electronics/components/externalconnection.cpp:30
 #, kde-format
 msgid "External Connection"
-msgstr ""
+msgstr "გარე მიერთება"
 
 #. i18n: ectx: property (text), widget (QLabel, m_pNameLabel)
 #: src/electronics/components/externalconnection.cpp:34
@@ -2090,10 +2090,9 @@ msgid "Assembly Code"
 msgstr ""
 
 #: src/electronics/components/piccomponent.cpp:91
-#, fuzzy, kde-format
-#| msgid "Code"
+#, kde-format
 msgid "C Code"
-msgstr "კოდი"
+msgstr "C კოდი"
 
 #: src/electronics/components/piccomponent.cpp:157
 #, kde-format
@@ -2183,7 +2182,7 @@ msgstr "ღილაკის ტექსტი"
 #: src/electronics/components/pushswitch.cpp:45
 #, kde-format
 msgid "Bounce"
-msgstr ""
+msgstr "ხტუნვა"
 
 #: src/electronics/components/pushswitch.cpp:50
 #, kde-format
@@ -2439,10 +2438,9 @@ msgid "Hex Code Output"
 msgstr ""
 
 #: src/flowcodedocument.cpp:220 src/textdocument.cpp:477
-#, fuzzy, kde-format
-#| msgid "Code"
+#, kde-format
 msgid "Hex Code"
-msgstr "კოდი"
+msgstr "თექვსმეტობითი კოდი"
 
 #. i18n("Convert to..."), "fork", 0, 0, 0, ac, "program_convert" );
 #: src/flowcodeview.cpp:32
@@ -3263,7 +3261,7 @@ msgstr "გატანა"
 #: src/gui/itemeditor/componentmodelwidget.cpp:51
 #, kde-format
 msgid "Filter here..."
-msgstr ""
+msgstr "გაფილტვრა..."
 
 #: src/gui/itemeditor/componentmodelwidget.cpp:61
 #, kde-format
@@ -3540,7 +3538,7 @@ msgstr "ოჯახი"
 #: src/gui/microselectwidget.cpp:47
 #, kde-format
 msgid "Micro"
-msgstr ""
+msgstr "მიკრო"
 
 #: src/gui/microsettingsdlg.cpp:59 src/picitem.cpp:290
 #, kde-format
@@ -4680,7 +4678,7 @@ msgstr ""
 #: src/ktechlab.cpp:211
 #, kde-format
 msgid "Context Help"
-msgstr ""
+msgstr "კონტექსტური დახმარება"
 
 #: src/ktechlab.cpp:215
 #, kde-format
@@ -4825,7 +4823,7 @@ msgstr ""
 #: src/ktechlab.cpp:673
 #, kde-format
 msgid "Internals"
-msgstr ""
+msgstr "შიდა"
 
 #: src/ktechlab.cpp:674
 #, kde-format
