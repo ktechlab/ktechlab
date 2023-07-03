@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-29 00:49+0000\n"
-"PO-Revision-Date: 2023-06-05 15:07+0200\n"
+"PO-Revision-Date: 2023-06-30 08:53+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -42,7 +42,7 @@ msgstr "O compilador de Microbe"
 #: microbe/main.cpp:50
 #, kde-format
 msgid "(C) 2004-2005, The KTechlab developers"
-msgstr "© 2004-2005 Desenvolvedores de KTechLab"
+msgstr "© 2004-2005 Equipo de desenvolvemento de KTechLab"
 
 #: microbe/main.cpp:53 src/core/main.cpp:43
 #, kde-format
@@ -491,13 +491,13 @@ msgstr "Formas dos símbolos lóxicos"
 #: src/core/ktechlab.kcfg:92
 #, kde-format
 msgid "Rising Trigger Threshold"
-msgstr "Liminar de desencadeamento de elevación"
+msgstr "Limiar detonante de elevación"
 
 #. i18n: ectx: label, entry (LogicFallingTrigger), group (Logic)
 #: src/core/ktechlab.kcfg:96
 #, kde-format
 msgid "Falling Trigger Threshold"
-msgstr "Liminar de desencadeamento de caída"
+msgstr "Limiar detonante de caída"
 
 #. i18n: ectx: label, entry (LogicOutputHigh), group (Logic)
 #: src/core/ktechlab.kcfg:100
@@ -558,13 +558,13 @@ msgstr "Outras opcións"
 #: src/core/ktechlab.kcfg:159
 #, kde-format
 msgid "Do not search in the standard library directory"
-msgstr "Non buscar no directorio da biblioteca estándar"
+msgstr "Non buscar no cartafol da biblioteca estándar"
 
 #. i18n: ectx: label, entry (SDCC_nostdinc), group (SDCC)
 #: src/core/ktechlab.kcfg:163
 #, kde-format
 msgid "Do not search in the standard include directory"
-msgstr "Non buscar no directorio de inclusión estándar"
+msgstr "Non buscar no cartafol de inclusión estándar"
 
 #. i18n: ectx: label, entry (SDCC_less_pedantic), group (SDCC)
 #: src/core/ktechlab.kcfg:167
@@ -754,7 +754,8 @@ msgstr "Mediante a análise de fluxo de datos"
 #, kde-format
 msgid "Search / include non-free licensed libraries and header files"
 msgstr ""
-"Buscar e incluír bibliotecas e ficheiros de cabeceira con licenzas privativas"
+"Buscar e incluír bibliotecas e ficheiros de cabeceira con licenzas "
+"privativas."
 
 #. i18n: ectx: label, entry (SDCC_install_prefix), group (SDCC)
 #: src/core/ktechlab.kcfg:294
@@ -795,7 +796,7 @@ msgstr "Un IDE para microcontroladores e compoñentes electrónicos"
 #: src/core/main.cpp:35
 #, kde-format
 msgid "(C) 2003-2017, The KTechLab developers"
-msgstr "© 2003-2017 Desenvolvedores de KTechLab"
+msgstr "© 2003-2017 Equipo de desenvolvemento de KTechLab"
 
 #: src/core/main.cpp:36
 #, kde-format
@@ -805,7 +806,7 @@ msgstr "Alan Grimes"
 #: src/core/main.cpp:36
 #, kde-format
 msgid "Developer, Simulation"
-msgstr "Desenvolvedor, simulación"
+msgstr "Desenvolvemento, simulación."
 
 #: src/core/main.cpp:37
 #, kde-format
@@ -815,7 +816,7 @@ msgstr "Zoltan Padrah"
 #: src/core/main.cpp:37
 #, kde-format
 msgid "Developer"
-msgstr "Desenvolvedor"
+msgstr "Desenvolvemento."
 
 #: src/core/main.cpp:38
 #, kde-format
@@ -825,7 +826,7 @@ msgstr "Julian Bäume"
 #: src/core/main.cpp:38
 #, kde-format
 msgid "Developer, KDE4 Port, GUI"
-msgstr "Desenvolvedor, migración a KDE 4, interface gráfica de usuario"
+msgstr "Desenvolvemento, migración a KDE 4, interface gráfica."
 
 #: src/core/main.cpp:39
 #, kde-format
@@ -855,17 +856,18 @@ msgstr "Jason Lucas"
 #: src/core/main.cpp:41
 #, kde-format
 msgid "Keeping up the project during lack of developers"
-msgstr "Mantendo o proxecto cando faltan desenvolvedores"
+msgstr "Mantemento do proxecto cando faltan persoas desenvolvedoras."
 
 #: src/core/main.cpp:42
 #, kde-format
 msgid "Former developer, project founder, former maintainer"
-msgstr "Desenvolvedor principal, fundador do proxecto, antigo mantedor"
+msgstr ""
+"Desenvolvemento principal, fundación do proxecto, mantemento anteriormente."
 
 #: src/core/main.cpp:43
 #, kde-format
 msgid "Former developer"
-msgstr "Antigo desenvolvedor"
+msgstr "Desenvolvemento anteriormente."
 
 #: src/core/main.cpp:44
 #, kde-format
@@ -1269,7 +1271,7 @@ msgstr "Contador binario"
 #: src/electronics/components/flipflop.cpp:237
 #, kde-format
 msgid "Trigger Edge"
-msgstr "Bordo de desencadeamento"
+msgstr "Bordo detonante"
 
 #: src/electronics/components/binarycounter.cpp:69
 #: src/electronics/components/flipflop.cpp:29
@@ -2109,10 +2111,9 @@ msgid "Assembly Code"
 msgstr "Código ensamblador"
 
 #: src/electronics/components/piccomponent.cpp:91
-#, fuzzy, kde-format
-#| msgid "Code"
+#, kde-format
 msgid "C Code"
-msgstr "Código"
+msgstr "Código C"
 
 #: src/electronics/components/piccomponent.cpp:157
 #, kde-format
@@ -2466,10 +2467,9 @@ msgid "Hex Code Output"
 msgstr "Saída de código hexadecimal"
 
 #: src/flowcodedocument.cpp:220 src/textdocument.cpp:477
-#, fuzzy, kde-format
-#| msgid "Hex Code Output"
+#, kde-format
 msgid "Hex Code"
-msgstr "Saída de código hexadecimal"
+msgstr "Código hexadecimal"
 
 #. i18n("Convert to..."), "fork", 0, 0, 0, ac, "program_convert" );
 #: src/flowcodeview.cpp:32
@@ -2553,7 +2553,7 @@ msgstr "Funcións"
 #: src/flowparts/count.cpp:39 src/flowparts/inputbutton.cpp:36
 #, kde-format
 msgid "Trigger"
-msgstr "Desencadeamento"
+msgstr "Detonante"
 
 #: src/flowparts/count.cpp:54
 #, kde-format
@@ -2931,7 +2931,7 @@ msgstr "Nome da instrución"
 #: src/gui/asmformattingwidget.ui:162
 #, kde-format
 msgid "&Automatically format Microbe output"
-msgstr "Formatar &automaticamente a saída de Microbe"
+msgstr "Formatar &automaticamente a saída de Microbe."
 
 #: src/gui/contexthelp.cpp:65
 #, kde-format
@@ -2958,7 +2958,7 @@ msgstr "Varios elementos"
 #: src/gui/contexthelpwidget.ui:173 src/gui/oscilloscopewidget.ui:157
 #, kde-format
 msgid "Reset"
-msgstr "Restabelecer"
+msgstr "Restabelecer."
 
 #: src/gui/contexthelp.cpp:330
 #, kde-format
@@ -2980,7 +2980,7 @@ msgstr "Editar"
 #: src/gui/contexthelpwidget.ui:138
 #, kde-format
 msgid "Context Help Directory"
-msgstr "Directorio da axuda contextual"
+msgstr "Cartafol da axuda contextual."
 
 #. i18n: ectx: property (text), widget (QToolButton, m_pChangeDescriptionsDirectory)
 #. i18n: ectx: property (text), widget (QToolButton, m_pResetButton)
@@ -3024,7 +3024,7 @@ msgstr "Biblioteca"
 #: src/gui/generaloptionswidget.ui:29
 #, kde-format
 msgid "Reuse the same output view for code generation"
-msgstr "Usar de novo a mesma vista de saída para a xeración de código"
+msgstr "Usar de novo a mesma vista de saída para a xeración de código."
 
 #. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_GridColor)
 #: src/gui/generaloptionswidget.ui:52
@@ -3065,19 +3065,19 @@ msgstr "Pasos máximos de desfacer da zona de traballo:"
 #: src/gui/generaloptionswidget.ui:98
 #, kde-format
 msgid "Show voltage bars &on electronic components"
-msgstr "Amosar as barras de voltaxe n&os compoñentes electrónicos"
+msgstr "Amosar as barras de voltaxe n&os compoñentes electrónicos."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowVoltageColor)
 #: src/gui/generaloptionswidget.ui:105
 #, kde-format
 msgid "Color the wires to match the voltage"
-msgstr "Colorar os cables para que coincidan coa voltaxe"
+msgstr "Colorar os cables para que coincidan coa voltaxe."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateWires)
 #: src/gui/generaloptionswidget.ui:115
 #, kde-format
 msgid "Animate wires to show the current or power flow"
-msgstr "Anima os cables para amosar o fluxo de corrente ou enerxía"
+msgstr "Anima os cables para amosar o fluxo de corrente ou enerxía."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox21)
 #: src/gui/generaloptionswidget.ui:125
@@ -3105,7 +3105,8 @@ msgid ""
 "compromise between CPU usage and smoothness of display."
 msgstr ""
 "Este é o número de veces por segundo que se actualiza a vista da zona de "
-"traballo; un punto medio entre o uso de CPU e unha visualización fluída."
+"traballo; un punto medio entre o uso de procesador e unha visualización "
+"fluída."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
 #: src/gui/generaloptionswidget.ui:202
@@ -3117,19 +3118,19 @@ msgstr "Comodidade"
 #: src/gui/generaloptionswidget.ui:208
 #, kde-format
 msgid "Restore opened doc&uments on startup"
-msgstr "Restaurar os doc&umentos abertos no inicio"
+msgstr "Restaurar os doc&umentos abertos no inicio."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RaiseItemSelectors)
 #: src/gui/generaloptionswidget.ui:215
 #, kde-format
 msgid "Raise the &appropriate item selector on creating a new document"
-msgstr "Elevar o selector de elementos &axeitado ao crear un novo documento"
+msgstr "Elevar o selector de elementos &axeitado ao crear un novo documento."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RaiseMessagesLog)
 #: src/gui/generaloptionswidget.ui:222
 #, kde-format
 msgid "Raise the &Messages log when compiling"
-msgstr "Elevar o rexistro de &mensaxes ao compilar"
+msgstr "Elevar o rexistro de &mensaxes ao compilar."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: src/gui/gpasmsettingswidget.ui:32
@@ -3156,14 +3157,14 @@ msgid ""
 "All user defined symbols and macros are case sensitive. This option makes "
 "them case insensitive."
 msgstr ""
-"Todos os símbolos e macros definidas polo usuario distinguen maiúsculas. "
-"Esta opción impide que o fagan."
+"Todos os símbolos e macros definidas pola persoa usuaria distinguen "
+"maiúsculas. Esta opción impide que o fagan."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_IgnoreCase)
 #: src/gui/gpasmsettingswidget.ui:65
 #, kde-format
 msgid "Ign&ore case (-i)"
-msgstr "Ign&orar as maiúsculas (-i)"
+msgstr "Ign&orar as maiúsculas (-i)."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_DosFormat)
 #: src/gui/gpasmsettingswidget.ui:72
@@ -3182,7 +3183,7 @@ msgstr ""
 #: src/gui/gpasmsettingswidget.ui:75
 #, kde-format
 msgid "Generate DOS-formatted hex file (-&n)"
-msgstr "Xerar un ficheiro hexadecimal formatado como DOS (-&n)"
+msgstr "Xerar un ficheiro hexadecimal formatado como DOS (-&n)."
 
 #. i18n: ectx: property (toolTip), widget (QComboBox, kcfg_HexFormat)
 #. i18n: ectx: property (toolTip), widget (KComboBox, m_pHexFormat)
@@ -3290,7 +3291,7 @@ msgstr "Outras opcións:"
 #: src/gui/gplinksettingswidget.ui:26
 #, kde-format
 msgid "Link with shared libraries (&use this with new SDCC)"
-msgstr "Ligar con bibliotecas compartidas (&use isto con SDCC novos)"
+msgstr "Ligar con bibliotecas compartidas (&use isto con SDCC novos)."
 
 #: src/gui/imageexportdlg.cpp:32 src/itemdocument.cpp:848
 #: src/itemdocument.cpp:854
@@ -3359,7 +3360,7 @@ msgid ""
 "Properties\" to make them the same.<br/>Select \"Defaults\" to set all "
 "properties to their default values"
 msgstr ""
-"<p>Mostra propiedades asociadas os elementos seleccionados actualmente.<br/"
+"<p>Amosa propiedades asociadas os elementos seleccionados actualmente.<br/"
 ">Seleccione unha propiedade para cambiar o seu valor. Se se seleccionan "
 "varios elementos con valores distintos a propiedade aparecerá en gris, use "
 "«Fusionar as propiedades» para igualalas.<br/>Seleccione «Valores "
@@ -3462,13 +3463,13 @@ msgstr ""
 #: src/gui/linkeroptionswidget.ui:56
 #, kde-format
 msgid "Library Directory (-I):"
-msgstr "Directorio de bibliotecas (-I):"
+msgstr "Cartafol de bibliotecas (-I):"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_pOutputMap)
 #: src/gui/linkeroptionswidget.ui:79
 #, kde-format
 msgid "&Output a map file (-m)"
-msgstr "Saída a un ficheir&o de mapa (-m)"
+msgstr "Saída a un ficheir&o de mapa (-m)."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel8)
 #: src/gui/linkeroptionswidget.ui:86
@@ -3540,13 +3541,13 @@ msgstr ""
 #: src/gui/logicwidget.ui:91
 #, kde-format
 msgid "Falling Trigger Threshold:"
-msgstr "Liminar de desencadeamento de caída:"
+msgstr "Limiar detonante de caída:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/gui/logicwidget.ui:129
 #, kde-format
 msgid "Rising Trigger Threshold:"
-msgstr "Liminar de desencadeamento de elevación:"
+msgstr "Limiar detonante de elevación:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, textLabel2)
 #. i18n: ectx: property (toolTip), widget (QDoubleSpinBox, kcfg_LogicOutputHigh)
@@ -3649,8 +3650,8 @@ msgid ""
 msgstr ""
 "Edite aquí o valor inicial dos portos. Por cada número binario a orde de "
 "dereita a esquerda vai do alfinete 0 ao 7.<br><br>O editor de «Tipo (TRIS)» "
-"mostra o estado inicial de entrada e saída dos portos; 1 representa unha "
-"entrada e 0 unha saída.<br><br>O editor de «Estado (PORT)» mostra o estado "
+"amosa o estado inicial de entrada e saída dos portos; 1 representa unha "
+"entrada e 0 unha saída.<br><br>O editor de «Estado (PORT)» amosa o estado "
 "inicial de alto ou baixo dos portos; 1 representa alto, 0 representa baixo."
 
 #: src/gui/microsettingsdlg.cpp:75
@@ -3781,7 +3782,7 @@ msgstr "Tipo de ficheiro:"
 #: src/gui/newfilewidget.ui:129
 #, kde-format
 msgid "&Add to project"
-msgstr "Eng&adir ao proxecto"
+msgstr "Eng&adir ao proxecto."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/gui/newpinmappingwidget.ui:33
@@ -3880,13 +3881,13 @@ msgstr "&Gardar nun ficheiro"
 #: src/gui/outputmethodwidget.ui:73
 #, kde-format
 msgid "Load File in &New View"
-msgstr "Cargar o ficheiro nunha &nova vista"
+msgstr "Cargar o ficheiro nunha &nova vista."
 
 #. i18n: ectx: property (text), widget (QCheckBox, addToProjectCheck)
 #: src/gui/outputmethodwidget.ui:80
 #, kde-format
 msgid "&Add to Project"
-msgstr "&Engadir ao proxecto"
+msgstr "&Engadir ao proxecto."
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
 #: src/gui/picprogrammerconfigwidget.ui:48
@@ -4127,13 +4128,13 @@ msgstr "&Xeral"
 #: src/gui/sdccoptionswidget.ui:42
 #, kde-format
 msgid "Do not search in the standard librar&y directory (--nostdlib)"
-msgstr "Non buscar no directorio da &biblioteca estándar (--nostdlib)"
+msgstr "Non buscar no cartafol da &biblioteca estándar (--nostdlib)."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nostdinc)
 #: src/gui/sdccoptionswidget.ui:49
 #, kde-format
 msgid "Do not search in the standard include directory (--nostdinc)"
-msgstr "Non buscar no directorio de inclusión estándar (--nostdinc)"
+msgstr "Non buscar no cartafol de inclusión estándar (--nostdinc)."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_less_pedantic)
 #: src/gui/sdccoptionswidget.ui:59
@@ -5512,7 +5513,7 @@ msgstr "Non se puido crear MarkInterface"
 #: src/textdocument.cpp:613
 #, kde-format
 msgid "%1 - %2"
-msgstr "%1 - %2"
+msgstr "%1 — %2"
 
 #: src/textdocument.cpp:761
 #, kde-format
