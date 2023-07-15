@@ -767,4 +767,6 @@ DebugLine::DebugLine()
 }
 // END class DebugLine
 
+#include "moc_gpsimprocessor.cpp"
+
 #endif

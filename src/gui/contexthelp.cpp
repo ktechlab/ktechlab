@@ -464,3 +464,5 @@ void ContextHelp::openURL(const QUrl &url /*, const KParts::OpenUrlArguments & *
     }
     }
 }
+
+#include "moc_contexthelp.cpp"

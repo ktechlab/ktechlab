@@ -687,3 +687,5 @@ const QPixmap &ResizeHandle::handlePixmap(DrawType drawType, bool hover)
     return blank;
 }
 // END class ResizeHandle
+
+#include "moc_resizeoverlay.cpp"

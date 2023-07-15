@@ -367,3 +367,5 @@ void FlowContainer::setVisible(bool yes)
     FlowPart::setVisible(yes);
     updateContainedVisibility();
 }
+
+#include "moc_flowcontainer.cpp"

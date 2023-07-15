@@ -213,3 +213,5 @@ void OrientationWidget::updateShownOrientation()
     }
 }
 // END class OrientationWidget
+
+#include "moc_orientationwidget.cpp"

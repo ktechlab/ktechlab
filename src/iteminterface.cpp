@@ -575,3 +575,5 @@ void ItemInterface::slotSetData(const QString &id, QVariant value)
     if (p_cvb)
         p_cvb->requestStateSave(m_currentActionTicket);
 }
+
+#include "moc_iteminterface.cpp"

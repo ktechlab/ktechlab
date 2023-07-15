@@ -101,3 +101,5 @@ void ImageExportDialog::updateExportButton()
 
     m_exportButton->setEnabled(acceptable);
 }
+
+#include "moc_imageexportdlg.cpp"

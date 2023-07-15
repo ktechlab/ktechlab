@@ -1113,3 +1113,5 @@ ElementMap::ElementMap()
         n[i] = nullptr;
 }
 // END class ElementMap
+
+#include "moc_component.cpp"

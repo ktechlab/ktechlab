@@ -610,3 +610,5 @@ void Slider::posChanged()
     }
 }
 // END Class Slider
+
+#include "moc_canvasitemparts.cpp"

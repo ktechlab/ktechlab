@@ -819,3 +819,5 @@ void CVBEditor::viewportResizeEvent(QResizeEvent *e)
     p_itemView->requestDocumentResizeToCanvasItems();
 }
 // END class CVBEditor
+
+#include "moc_itemview.cpp"

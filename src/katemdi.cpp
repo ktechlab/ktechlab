@@ -894,3 +894,5 @@ void KateMDI::MainWindow::updateSidebarMinimumSizes()
 // END MAIN WINDOW
 
 }
+
+#include "moc_katemdi.cpp"

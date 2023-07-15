@@ -1192,3 +1192,5 @@ void ProjectManager::slotContextMenuRequested(const QPoint &pos)
     }
 }
 // END class ProjectManager
+
+#include "moc_projectmanager.cpp"

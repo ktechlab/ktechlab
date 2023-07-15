@@ -475,3 +475,5 @@ bool FlowICNDocument::joinConnectors(FPNode *node)
 
     return true;
 }
+
+#include "moc_flowicndocument.cpp"

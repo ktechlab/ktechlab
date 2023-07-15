@@ -94,3 +94,5 @@ void LanguageManager::slotParaClicked(const QString &message, MessageInfo messag
     Q_UNUSED(message);
     DocManager::self()->gotoTextLine(QUrl::fromUserInput(messageInfo.fileURL()), messageInfo.fileLine());
 }
+
+#include "moc_languagemanager.cpp"

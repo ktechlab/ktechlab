@@ -370,3 +370,5 @@ void ProcessingOptionsDlg::accept()
 }
 
 // END class ProcessingOptionsDlg
+
+#include "moc_projectdlgs.cpp"

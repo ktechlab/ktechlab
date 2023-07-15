@@ -177,3 +177,5 @@ MicroSelectWidget *OutputMethodDlg::microSelect() const
     return m_widget->m_pMicroSelect;
 }
 // END class OutputMethodDlg
+
+#include "moc_outputmethoddlg.cpp"

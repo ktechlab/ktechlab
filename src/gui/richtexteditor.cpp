@@ -420,3 +420,5 @@ RichTextEditorDlg::RichTextEditorDlg(QWidget *parent, const QString &caption)
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 // END class RichTextEditorDlg
+
+#include "moc_richtexteditor.cpp"

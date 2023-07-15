@@ -845,3 +845,5 @@ void DirCursor::initCursors()
     // 	pm.setMask(mask);
     // 	pm = c.pi
 }
+
+#include "moc_icndocument.cpp"

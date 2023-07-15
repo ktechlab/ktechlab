@@ -786,3 +786,5 @@ PropertyEditorItem *PropertyEditor::selectedItem()
     }
     return itemProp;
 }
+
+#include "moc_propertyeditor.cpp"

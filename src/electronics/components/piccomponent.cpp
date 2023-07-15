@@ -411,4 +411,6 @@ void PICComponent::slotUpdateBtns()
     canvas()->setChanged(button("reload")->boundingRect());
 }
 
+#include "moc_piccomponent.cpp"
+
 #endif

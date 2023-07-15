@@ -1396,3 +1396,5 @@ void KTechlab::slotViewSplitTopBottom()
     // 	view->document()->createView( vc, vaId );
     (void)vaId;
 }
+
+#include "moc_ktechlab.cpp"

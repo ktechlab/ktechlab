@@ -1384,3 +1384,5 @@ QSize KtlQCanvasView::sizeHint() const
                                             // should maybe take transformations into account
     return (canvas()->size() + 2 * QSize(frameWidth(), frameWidth())).boundedTo(3 * QApplication::desktop()->size() / 4);
 }
+
+#include "moc_canvas.cpp"

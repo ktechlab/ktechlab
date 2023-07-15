@@ -380,3 +380,5 @@ void PIC_IC::initPackage(MicroInfo *microInfo)
     addDisplayText("picid", QRect(offsetX(), offsetY() - 16, width(), 16), microInfo->id());
 }
 // END class PIC_IC
+
+#include "moc_pinmapping.cpp"

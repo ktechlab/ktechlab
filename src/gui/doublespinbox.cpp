@@ -478,3 +478,5 @@ double DoubleSpinBox::roundToOneSF(double value)
 //
 // 	setValue( value );
 // }
+
+#include "moc_doublespinbox.cpp"

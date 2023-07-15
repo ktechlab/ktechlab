@@ -143,3 +143,5 @@ void PropertyEditorList::valueChanged(const QString &text)
     ItemInterface::self()->setProperty(m_property);
 }
 // END class PropertyEditorList
+
+#include "moc_propertyeditorlist.cpp"

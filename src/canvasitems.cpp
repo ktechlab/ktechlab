@@ -723,3 +723,5 @@ void KtlQCanvasPolygonalItem::scanPolygon(const QPolygon &pa, int winding, KtlQP
     KtlQCanvasPolygonScanner scanner(process);
     scanner.scan(pa, winding);
 }
+
+#include "moc_canvasitems.cpp"

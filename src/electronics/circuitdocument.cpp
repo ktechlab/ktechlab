@@ -797,3 +797,5 @@ void CircuitDocument::displayEquations()
     }
     qCDebug(KTL_LOG) << "######################################################";
 }
+
+#include "moc_circuitdocument.cpp"

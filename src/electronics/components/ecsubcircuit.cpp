@@ -108,3 +108,5 @@ void ECSubcircuit::drawShape(QPainter &p)
 {
     Component::drawShape(p);
 }
+
+#include "moc_ecsubcircuit.cpp"

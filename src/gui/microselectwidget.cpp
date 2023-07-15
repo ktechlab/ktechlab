@@ -177,3 +177,5 @@ void MicroSelectWidget::microFamilyChanged(const QString &family)
         }
     }
 }
+
+#include "moc_microselectwidget.cpp"

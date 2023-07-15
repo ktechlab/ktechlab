@@ -174,3 +174,5 @@ void FileMetaInfo::loadAllMetaInfo()
     }
 }
 // END class FileMetaInfo
+
+#include "moc_filemetainfo.cpp"

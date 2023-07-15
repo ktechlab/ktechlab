@@ -2788,3 +2788,5 @@ QSize KtlQ3ScrollView::cachedSizeHint() const
 }
 
 // QT_END_NAMESPACE
+
+#include "moc_ktlq3scrollview.cpp"

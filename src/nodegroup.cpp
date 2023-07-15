@@ -508,3 +508,5 @@ void NodeGroup::addExtNode(Node *node)
         node->setNodeGroup(this);
     }
 }
+
+#include "moc_nodegroup.cpp"

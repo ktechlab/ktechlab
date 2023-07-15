@@ -379,3 +379,5 @@ CombinedMechanicsInfo::CombinedMechanicsInfo(const MechanicsInfo &info)
     x = 0.;
     y = 0.;
 }
+
+#include "moc_mechanicsitem.cpp"

@@ -470,3 +470,5 @@ void MicroSettingsDlg::checkAddVariableRow()
         }
     }
 }
+
+#include "moc_microsettingsdlg.cpp"

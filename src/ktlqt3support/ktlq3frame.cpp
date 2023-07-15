@@ -199,3 +199,5 @@ int KtlQ3Frame::frameWidth() const
 }
 
 QT_END_NAMESPACE
+
+#include "moc_ktlq3frame.cpp"

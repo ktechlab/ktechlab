@@ -453,3 +453,5 @@ void Simulator::detachCircuit(Circuit *circuit)
 }
 
 // END class Simulator
+
+#include "moc_simulator.cpp"

@@ -178,3 +178,5 @@ void MechanicsDocument::selectAll()
 void MechanicsDocument::copy()
 {
 }
+
+#include "moc_mechanicsdocument.cpp"

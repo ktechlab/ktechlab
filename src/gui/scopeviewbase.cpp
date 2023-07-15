@@ -113,3 +113,5 @@ template<typename T> void ScopeViewBase::drawProbeMap(QPainter &p, QMap<int, T *
         drawProbe(p, probe);
     }
 }
+
+#include "moc_scopeviewbase.cpp"

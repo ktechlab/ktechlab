@@ -372,3 +372,5 @@ Connector *FPNode::getAConnector() const
 
     return nullptr;
 }
+
+#include "moc_fpnode.cpp"

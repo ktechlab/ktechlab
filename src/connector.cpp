@@ -645,3 +645,5 @@ void ConnectorLine::drawShape(QPainter &p)
     }
 }
 // END class ConnectorLine
+
+#include "moc_connector.cpp"

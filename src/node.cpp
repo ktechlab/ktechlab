@@ -176,3 +176,5 @@ void Node::deinitPainter(QPainter &p)
     p.rotate(-m_dir);
     p.translate(-int(x()), -int(y()));
 }
+
+#include "moc_node.cpp"

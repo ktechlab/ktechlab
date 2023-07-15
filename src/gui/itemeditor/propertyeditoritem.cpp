@@ -217,3 +217,5 @@ void PropertyEditorItem::updateValue(bool alsoParent)
 // {
 // }
 // END class PropertyEditorItem
+
+#include "moc_propertyeditoritem.cpp"

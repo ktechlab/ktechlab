@@ -475,3 +475,5 @@ MechanicsSelector::MechanicsSelector(QWidget *parent)
     }
 }
 // END class MechanicsSelector
+
+#include "moc_itemselector.cpp"

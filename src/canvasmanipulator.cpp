@@ -1782,3 +1782,5 @@ ManipulatorInfo::ManipulatorInfo()
 {
 }
 // END class ManipulatorInfo
+
+#include "moc_canvasmanipulator.cpp"

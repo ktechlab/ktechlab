@@ -36,3 +36,5 @@ void MechanicsView::dragEnterEvent(QDragEnterEvent *e)
     // e->setAccepted( e->provides("ktechlab/mechanical") ); // 2019.04.14
     e->setAccepted(e->mimeData()->hasFormat("ktechlab/mechanical"));
 }
+
+#include "moc_mechanicsview.cpp"

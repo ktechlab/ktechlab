@@ -213,3 +213,5 @@ void MechanicsGroup::setItems(KtlQCanvasItemList list)
 void MechanicsGroup::updateInfo()
 {
 }
+
+#include "moc_mechanicsgroup.cpp"

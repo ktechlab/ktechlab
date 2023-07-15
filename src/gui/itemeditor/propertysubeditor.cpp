@@ -67,3 +67,5 @@ void PropertySubEditor::setWidget(QWidget *w, QWidget *focusProxy)
 PropertySubEditor::~PropertySubEditor()
 {
 }
+
+#include "moc_propertysubeditor.cpp"

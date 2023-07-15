@@ -190,3 +190,5 @@ void Document::setDCOPID(unsigned id)
         m_pDocumentIface->setObjId("Document#" + docID);
     }
 }
+
+#include "moc_document.cpp"

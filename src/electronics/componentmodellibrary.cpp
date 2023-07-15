@@ -172,3 +172,5 @@ void ComponentModelLibrary::loadModels()
     qCDebug(KTL_LOG) << "It took " << ct.elapsed() << " milliseconds to read in the component models.";
 }
 // END class ComponentModelLibrary
+
+#include "moc_componentmodellibrary.cpp"

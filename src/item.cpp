@@ -598,3 +598,5 @@ void Item::propertyChangedInitial()
     m_pPropertyChangedTimer->start(0 /*, true */);
 }
 // END Data stuff
+
+#include "moc_item.cpp"

@@ -461,3 +461,5 @@ TextDocument *DocManager::openTextFile(const QUrl &url, ViewArea *viewArea)
     emit fileOpened(url);
     return document;
 }
+
+#include "moc_docmanager.cpp"

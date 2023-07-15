@@ -332,3 +332,5 @@ Connector *ECNode::getAConnector() const
     else
         return nullptr;
 }
+
+#include "moc_ecnode.cpp"

@@ -207,3 +207,5 @@ bool Switch::calculateCurrent()
 
     return true;
 }
+
+#include "moc_switch.cpp"

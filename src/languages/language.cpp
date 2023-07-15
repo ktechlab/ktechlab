@@ -515,3 +515,5 @@ ProcessOptions::ProcessPath::MediaType ProcessOptions::ProcessPath::to(Path path
     return Unknown;
 }
 // END class ProcessOptions
+
+#include "moc_language.cpp"

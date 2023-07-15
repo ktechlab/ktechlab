@@ -133,3 +133,5 @@ void ICNView::slotUpdateRoutingToggles(bool manualRouting)
     else
         m_pAutoRoutingAction->setChecked(true);
 }
+
+#include "moc_icnview.cpp"

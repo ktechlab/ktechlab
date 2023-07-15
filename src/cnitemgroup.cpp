@@ -584,3 +584,5 @@ QStringList CNItemGroup::itemIDs()
     }
     return list;
 }
+
+#include "moc_cnitemgroup.cpp"

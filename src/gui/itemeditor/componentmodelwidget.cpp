@@ -124,3 +124,5 @@ void ComponentModelWidget::setFilter(const QString &filter)
     }
 }
 // END class ComponentModelWidget
+
+#include "moc_componentmodelwidget.cpp"

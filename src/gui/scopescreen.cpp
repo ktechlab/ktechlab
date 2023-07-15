@@ -56,3 +56,5 @@ ScopeScreen *ScopeScreen::self(KateMDI::ToolView *parent)
     pSelf = new ScopeScreen(parent);
     return pSelf;
 }
+
+#include "moc_scopescreen.cpp"
