@@ -760,7 +760,7 @@ msgstr "SDCC 설치 경로"
 #: src/core/ktechlab.kcfg:306
 #, kde-format
 msgid "The application to use to program the PIC."
-msgstr "PIC를 프로그램할 때 사용할 프로그램입니다."
+msgstr "PIC를 앱할 때 사용할 앱입니다."
 
 #. i18n: ectx: label, entry (PicProgrammerPort), group (PicProgramming)
 #: src/core/ktechlab.kcfg:310
