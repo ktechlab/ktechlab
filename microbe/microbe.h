@@ -96,11 +96,11 @@ class SourceLineMicrobe
 @author Daniel Clarke
 @author David Saxton
 */
-class Microbe
+class MicrobeApp
 {
 	public:
-		Microbe();
-		~Microbe();
+		MicrobeApp();
+		~MicrobeApp();
 		
 		enum MistakeType
 		{
@@ -172,7 +172,7 @@ class Microbe
 		 */
 		void addAlias( const QString & name, const QString & dest );
 		/**
-		 * Tell Microbe that a minimum of the given delay routine needs to be
+		 * Tell MicrobeApp that a minimum of the given delay routine needs to be
 		 * created.
 		 * @see PIC14::DelaySubroutine
 		 * @param routine - DelaySubroutine enum, higher is more priority

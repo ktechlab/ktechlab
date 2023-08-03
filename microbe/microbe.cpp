@@ -38,8 +38,8 @@
 using namespace std;
 
 
-//BEGIN class Microbe
-Microbe::Microbe()
+//BEGIN class MicrobeApp
+MicrobeApp::MicrobeApp()
 {
 	m_maxDelaySubroutine = PIC14::Delay_None;
 	m_dest = 0;
@@ -71,12 +71,12 @@ Microbe::Microbe()
 }
 
 
-Microbe::~Microbe()
+MicrobeApp::~MicrobeApp()
 {
 }
 
 
-QString Microbe::compile( const QString & url, bool optimize )
+QString MicrobeApp::compile( const QString & url, bool optimize )
 {
 	QFile file( url );
 	if( file.open( QIODevice::ReadOnly ) )
@@ -124,13 +124,13 @@ QString Microbe::compile( const QString & url, bool optimize )
 }
 
 
-PIC14 * Microbe::makePic()
+PIC14 * MicrobeApp::makePic()
 {
 	return new PIC14( this, (PIC14::Type)m_picType );
 }
 
 
-void Microbe::simplifyProgram()
+void MicrobeApp::simplifyProgram()
 {
 	SourceLineList simplified;
 
@@ -214,7 +214,7 @@ void Microbe::simplifyProgram()
 }
 
 
-void Microbe::compileError( MistakeType type, const QString & context, const SourceLineMicrobe & sourceLine )
+void MicrobeApp::compileError( MistakeType type, const QString & context, const SourceLineMicrobe & sourceLine )
 {
 	QString message;
 	switch (type)
@@ -338,7 +338,7 @@ void Microbe::compileError( MistakeType type, const QString & context, const Sou
 }
 
 
-bool Microbe::isValidVariableName( const QString & variableName)
+bool MicrobeApp::isValidVariableName( const QString & variableName)
 {
 
 //*****modified checking is included for preventing the uses of registername as varable name*****
@@ -418,7 +418,7 @@ bool Microbe::isValidVariableName( const QString & variableName)
 }
 
 
-void Microbe::addVariable( const Variable & variable )
+void MicrobeApp::addVariable( const Variable & variable )
 {
 	if ( variable.type() == Variable::invalidType )
 		return;
@@ -428,7 +428,7 @@ void Microbe::addVariable( const Variable & variable )
 }
 
 
-Variable Microbe::variable( const QString & name ) const
+Variable MicrobeApp::variable( const QString & name ) const
 {
 	VariableList::const_iterator end = m_variables.end();
 	for ( VariableList::const_iterator it = m_variables.begin(); it != end; ++it )
@@ -440,26 +440,26 @@ Variable Microbe::variable( const QString & name ) const
 }
 
 
-bool Microbe::isVariableKnown( const QString & name ) const
+bool MicrobeApp::isVariableKnown( const QString & name ) const
 {
 	return variable(name).type() != Variable::invalidType;
 }
 
 
-void Microbe::addDelayRoutineWanted( unsigned routine )
+void MicrobeApp::addDelayRoutineWanted( unsigned routine )
 {
 	if ( m_maxDelaySubroutine < routine )
 		m_maxDelaySubroutine = routine;
 }
 
 
-void Microbe::addAlias( const QString & name, const QString & dest )
+void MicrobeApp::addAlias( const QString & name, const QString & dest )
 {
 	m_aliasList[name] = dest;
 }
 
 
-QString Microbe::alias( const QString & alias ) const
+QString MicrobeApp::alias( const QString & alias ) const
 {
 	// If the string is an alias, return the real string,
 	// otherwise just return the alias as that is the real string.
@@ -470,7 +470,7 @@ QString Microbe::alias( const QString & alias ) const
 }
 
 
-void Microbe::setInterruptUsed(const QString &interruptName)
+void MicrobeApp::setInterruptUsed(const QString &interruptName)
 {
 	// Don't add it again if it is already in the list
 	if ( m_usedInterrupts.contains( interruptName ) )
@@ -479,19 +479,19 @@ void Microbe::setInterruptUsed(const QString &interruptName)
 }
 
 
-bool Microbe::isInterruptUsed( const QString & interruptName )
+bool MicrobeApp::isInterruptUsed( const QString & interruptName )
 {
 	return m_usedInterrupts.contains( interruptName );
 }
 
 
-QString Microbe::dest() const
+QString MicrobeApp::dest() const
 {
 	return QString("__op%1").arg(m_dest);
 }
 
 
-void Microbe::incDest()
+void MicrobeApp::incDest()
 {
 	m_dest++;
 // 	if ( ++m_dest > m_highestDest )
@@ -499,17 +499,17 @@ void Microbe::incDest()
 }
 
 
-void Microbe::decDest()
+void MicrobeApp::decDest()
 {
 	m_dest--;
 }
 
 
-void Microbe::resetDest()
+void MicrobeApp::resetDest()
 {
 	m_dest = 0;
 }
-//END class Microbe
+//END class MicrobeApp
 
 
 

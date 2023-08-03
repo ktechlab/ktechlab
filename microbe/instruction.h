@@ -1289,7 +1289,7 @@ class Instr_xorlw : public Instruction
 
 
 
-//BEGIN Microbe (non-assembly) Operations
+//BEGIN MicrobeApp (non-assembly) Operations
 class Instr_sourceCode : public Instruction
 {
 	public:
@@ -1320,7 +1320,7 @@ class Instr_raw : public Instruction
 		InstructionType type() const override { return Raw; }
 		AssemblyType assemblyType() const override { return None; }
 };
-//END Microbe (non-assembly) Operations
+//END MicrobeApp (non-assembly) Operations
 
 
 

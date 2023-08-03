@@ -196,16 +196,16 @@ typedef QMap<QString,OutputField> OutputFieldMap;
 class Parser
 {
 	public:
-		Parser( Microbe * mb );
+		Parser( MicrobeApp * mb );
 		~Parser();
 	
 		/**
-		 * Report a compile error to Microbe; the current source line will be
+		 * Report a compile error to MicrobeApp; the current source line will be
 		 * sent. Context is extra information to be inserted into the error
 		 * message, only applicable to some errors (such as a use of a reserved
 		 * keyword).
 		 */
-		void mistake( Microbe::MistakeType type, const QString & context = nullptr );
+		void mistake( MicrobeApp::MistakeType type, const QString & context = nullptr );
 		/**
 		 * Creates a new instance of the parser class with all state information
 		 * (class members) copied from this instance of the class. Don't forget to
@@ -229,7 +229,7 @@ class Parser
 		 * some more code
 		 * }
 		 * returns ("more code","some more code").
-		 * Note that Microbe has already put the braces on separate lines for us.
+		 * Note that MicrobeApp has already put the braces on separate lines for us.
 		 * @param it is the iterator at the position of the first brace, this
 		 * function will return with it pointing at the matching closing brace.
 		 * @param end is the iterator pointing to the end of the source line
@@ -283,7 +283,7 @@ class Parser
 		DefinitionMap m_definitionMap;
 		PIC14 * m_pPic;
 		bool m_bPassedEnd;
-		Microbe * mb;
+		MicrobeApp * mb;
 		Code * m_code;
 		SourceLineMicrobe m_currentSourceLine;
 		

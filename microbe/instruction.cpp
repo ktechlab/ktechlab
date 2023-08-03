@@ -3752,7 +3752,7 @@ ProcessorBehaviour Instr_xorlw::behaviour() const
 
 
 
-//BEGIN Microbe (non-assembly) Operations
+//BEGIN MicrobeApp (non-assembly) Operations
 QString Instr_sourceCode::code() const
 {
 	QStringList sourceLines = m_raw.split("\n", Qt::SkipEmptyParts); // QString::split("\n",m_raw);
@@ -3770,5 +3770,5 @@ QString Instr_raw::code() const
 {
 	return m_raw;
 }
-//END Microbe (non-assembly) Operations
+//END MicrobeApp (non-assembly) Operations
 

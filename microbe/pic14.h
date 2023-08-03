@@ -34,7 +34,7 @@
 #include <QList>
 
 class Code;
-class Microbe;
+class MicrobeApp;
 class Parser;
 
 /**
@@ -102,7 +102,7 @@ class PIC14
 			Delay_50S	= 4
 		};
 		
-		/*PIC14::*/PIC14( Microbe * master, Type type );
+		/*PIC14::*/PIC14( MicrobeApp * master, Type type );
 		~PIC14();
 		
 		/**
@@ -248,11 +248,11 @@ class PIC14
 		void multiply();
 		void divide();
 	
-		/** @see Microbe::m_picType */
+		/** @see MicrobeApp::m_picType */
 		Type m_type;
 	
 		Parser * m_parser;
-		Microbe * mb;
+		MicrobeApp * mb;
 		Code * m_pCode;
 	
 		void ifInitCode( const QString &val1, const QString &val2, LocationType val1Type, LocationType val2Type );

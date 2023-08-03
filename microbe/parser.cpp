@@ -36,7 +36,7 @@ using namespace std;
 
 
 //BEGIN class Parser
-Parser::Parser( Microbe * _mb )
+Parser::Parser( MicrobeApp * _mb )
 {
 	m_code = nullptr;
 	m_pPic = nullptr;
@@ -230,7 +230,7 @@ Code * Parser::parse( const SourceLineList & lines )
 					m_pPic->Slabel( label );
 				}
 				else
-					mistake( Microbe::Microbe::UnknownStatement );
+					mistake( MicrobeApp::MicrobeApp::UnknownStatement );
 			}
 
 			continue; // Give up on the current statement
@@ -278,11 +278,11 @@ Code * Parser::parse( const SourceLineList & lines )
 					if( token.isEmpty() )
 					{
 						if(field.type() == Field::Label)
-							mistake( Microbe::Microbe::LabelExpected );
+							mistake( MicrobeApp::MicrobeApp::LabelExpected );
 						else if (field.type() == Field::Variable)
-							mistake( Microbe::VariableExpected );
+							mistake( MicrobeApp::VariableExpected );
 						else // field.type() == Field::Name
-							mistake( Microbe::NameExpected );
+							mistake( MicrobeApp::NameExpected );
 						errorInLine = true;
 						continue;
 					}
@@ -335,7 +335,7 @@ Code * Parser::parse( const SourceLineList & lines )
 					token = line.mid( position + 1 );
 					position = line.length() + 1;
 					if ( token.isEmpty() )
-						mistake( Microbe::PinListExpected );
+						mistake( MicrobeApp::PinListExpected );
 					else
 						saveToken = true;
 
@@ -351,7 +351,7 @@ Code * Parser::parse( const SourceLineList & lines )
 					}
 					else if( position != -1  && position <= int(line.length()) )
 					{
-						mistake( Microbe::UnexpectedStatementBeforeBracket );
+						mistake( MicrobeApp::UnexpectedStatementBeforeBracket );
 						errorInLine = true;
 						continue;
 					}
@@ -379,7 +379,7 @@ Code * Parser::parse( const SourceLineList & lines )
 						else
 						{
 							// Otherwise raise an appropriate error
-							mistake( Microbe::FixedStringExpected, field.string() );
+							mistake( MicrobeApp::FixedStringExpected, field.string() );
 							errorInLine = true;
 							continue;
 						}
@@ -440,7 +440,7 @@ Code * Parser::parse( const SourceLineList & lines )
 		// processed.
 		if( position != -1  && position <= int(line.length()) )
 		{
-			mistake( Microbe::TooManyTokens );
+			mistake( MicrobeApp::TooManyTokens );
 			errorInLine = true;
 		}
 
@@ -481,10 +481,10 @@ bool Parser::processAssignment(const QString &line)
 
 		// check port is valid
 		if ( portPin.pin() == -1 )
-			mistake( Microbe::InvalidPort, firstToken );
+			mistake( MicrobeApp::InvalidPort, firstToken );
 		// more error checking
 		if ( tokens[1] != "=" )
-			mistake( Microbe::UnassignedPin );
+			mistake( MicrobeApp::UnassignedPin );
 
 		QString state = tokens[2];
 		if( state == "high" )
@@ -492,14 +492,14 @@ bool Parser::processAssignment(const QString &line)
 		else if( state == "low" )
 			m_pPic->Ssetlh( portPin, false );
 		else
-			mistake( Microbe::NonHighLowPinState );
+			mistake( MicrobeApp::NonHighLowPinState );
 	}
 	// no dots, lets try for just a port name
 	else if( m_pPic->isValidPort( firstToken ) )
 	{
 		// error checking
 		if ( tokens[1] != "=" )
-			mistake( Microbe::UnassignedPort, tokens[1] );
+			mistake( MicrobeApp::UnassignedPort, tokens[1] );
 
 		Expression( m_pPic, mb, m_currentSourceLine, false ).compileExpression(line.mid(line.indexOf("=")+1));
 		m_pPic->saveResultToVar( firstToken );
@@ -520,11 +520,11 @@ bool Parser::processAssignment(const QString &line)
 
 		if ( !mb->isValidVariableName( firstToken ) )
 		{
-			mistake( Microbe::InvalidVariableName, firstToken );
+			mistake( MicrobeApp::InvalidVariableName, firstToken );
 			return true;
 		}
 
-		// Don't care whether or not the variable is new; Microbe will only add it if it
+		// Don't care whether or not the variable is new; MicrobeApp will only add it if it
 		// hasn't been defined yet.
 		mb->addVariable( Variable( Variable::charType, firstToken ) );
 
@@ -538,7 +538,7 @@ bool Parser::processAssignment(const QString &line)
 				break;
 
 			case Variable::keypadType:
-				mistake( Microbe::ReadOnlyVariable, v.name() );
+				mistake( MicrobeApp::ReadOnlyVariable, v.name() );
 				break;
 
 			case Variable::sevenSegmentType:
@@ -615,7 +615,7 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 	{
 		if(!m_bPassedEnd)
 		{
-			mistake( Microbe::InterruptBeforeEnd );
+			mistake( MicrobeApp::InterruptBeforeEnd );
 		}
 		else
 		{
@@ -628,15 +628,15 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 
 		if(!m_bPassedEnd)
 		{
-			mistake( Microbe::InterruptBeforeEnd );
+			mistake( MicrobeApp::InterruptBeforeEnd );
 		}
 		else if( !m_pPic->isValidInterrupt( interrupt ) )
 		{
-			mistake( Microbe::InvalidInterrupt );
+			mistake( MicrobeApp::InvalidInterrupt );
 		}
 		else if ( mb->isInterruptUsed( interrupt ) )
 		{
-			mistake( Microbe::InterruptRedefined );
+			mistake( MicrobeApp::InterruptRedefined );
 		}
 		else
 		{
@@ -683,7 +683,7 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 			bool isConstant;
 			step = processConstant(step,&isConstant);
 			if( !isConstant )
-				mistake( Microbe::NonConstantStep );
+				mistake( MicrobeApp::NonConstantStep );
 		}
 
 		SourceLineList tempList;
@@ -702,7 +702,7 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 
 		// Check to see whether or not we've already aliased it...
 // 		if ( mb->alias(alias) != alias )
-// 			mistake( Microbe::AliasRedefined );
+// 			mistake( MicrobeApp::AliasRedefined );
 // 		else
 			mb->addAlias( alias, dest );
 	}
@@ -711,9 +711,9 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 		QString variableName = fieldMap["variable"].string();
 
 		if ( !mb->isVariableKnown( variableName ) )
-			mistake( Microbe::UnknownVariable );
+			mistake( MicrobeApp::UnknownVariable );
 		else if ( !mb->variable( variableName ).isWritable() )
-			mistake( Microbe::ReadOnlyVariable, variableName );
+			mistake( MicrobeApp::ReadOnlyVariable, variableName );
 		else
 			m_pPic->SincVar( variableName );
 	}
@@ -722,9 +722,9 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 		QString variableName = fieldMap["variable"].string();
 
 		if ( !mb->isVariableKnown( variableName ) )
-			mistake( Microbe::UnknownVariable );
+			mistake( MicrobeApp::UnknownVariable );
 		else if ( !mb->variable( variableName ).isWritable() )
-			mistake( Microbe::ReadOnlyVariable, variableName );
+			mistake( MicrobeApp::ReadOnlyVariable, variableName );
 		else
 			m_pPic->SdecVar( variableName );
 	}
@@ -733,9 +733,9 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 		QString variableName = fieldMap["variable"].string();
 
 		if ( !mb->isVariableKnown( variableName ) )
-			mistake( Microbe::UnknownVariable );
+			mistake( MicrobeApp::UnknownVariable );
 		else if ( !mb->variable( variableName ).isWritable() )
-			mistake( Microbe::ReadOnlyVariable, variableName );
+			mistake( MicrobeApp::ReadOnlyVariable, variableName );
 		else
 			m_pPic->SrotlVar( variableName );
 	}
@@ -744,9 +744,9 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 		QString variableName = fieldMap["variable"].string();
 
 		if ( !mb->isVariableKnown( variableName ) )
-			mistake( Microbe::UnknownVariable );
+			mistake( MicrobeApp::UnknownVariable );
 		else if ( !mb->variable( variableName ).isWritable() )
-			mistake( Microbe::ReadOnlyVariable, variableName );
+			mistake( MicrobeApp::ReadOnlyVariable, variableName );
 		else
 			m_pPic->SrotrVar( variableName );
 	}
@@ -761,7 +761,7 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 		bool isConstant;
 		QString delay = processConstant(fieldMap["expression"].string(),&isConstant,true);
 		if (!isConstant)
-			mistake( Microbe::NonConstantDelay );
+			mistake( MicrobeApp::NonConstantDelay );
 // 		else m_pPic->Sdelay( fieldMap["expression"].string(), "");
 		else
 		{
@@ -770,7 +770,7 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 			if ( length_ms >= 0 )
 				m_pPic->Sdelay( length_ms * 1000 ); // Pause the delay length in microseconds
 			else
-				mistake( Microbe::NonConstantDelay );
+				mistake( MicrobeApp::NonConstantDelay );
 		}
 	}
 	else if ( name == "keypad" || name == "sevenseg" )
@@ -781,7 +781,7 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 
 		if ( mb->isVariableKnown( variableName ) )
 		{
-			mistake( Microbe::VariableRedefined, variableName );
+			mistake( MicrobeApp::VariableRedefined, variableName );
 			return;
 		}
 
@@ -810,7 +810,7 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 		else // name == "sevenseg"
 		{
 			if ( pinList.size() != 7 )
-				mistake( Microbe::InvalidPinMapSize );
+				mistake( MicrobeApp::InvalidPinMapSize );
 			else
 			{
 				Variable v( Variable::sevenSegmentType, variableName );
@@ -822,7 +822,7 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 }
 
 
-void Parser::mistake( Microbe::MistakeType type, const QString & context )
+void Parser::mistake( MicrobeApp::MistakeType type, const QString & context )
 {
 	mb->compileError( type, context, m_currentSourceLine );
 }
@@ -1050,7 +1050,7 @@ OutputField::OutputField( const QString & string/*, int lineNumber*/ )
 				includeFile.close();
     			}
     			else
-    			mistake( Microbe::UnopenableInclude, filename );
+    			mistake( MicrobeApp::UnopenableInclude, filename );
  		}
 #endif
 

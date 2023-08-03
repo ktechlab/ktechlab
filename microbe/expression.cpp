@@ -33,7 +33,7 @@
 #include <QDebug>
 #include <QRegExp>
 
-Expression::Expression( PIC14 *pic, Microbe *master, SourceLineMicrobe sourceLine, bool suppressNumberTooBig )
+Expression::Expression( PIC14 *pic, MicrobeApp *master, SourceLineMicrobe sourceLine, bool suppressNumberTooBig )
 	: m_sourceLine(sourceLine)
 {
 	m_pic = pic;
@@ -156,7 +156,7 @@ void Expression::traverseTree( BTreeNode *root, bool conditionalRoot )
 
 	if(t.current()->childOp()==divbyzero)
 	{
-		mistake( Microbe::DivisionByZero );
+		mistake( MicrobeApp::DivisionByZero );
 	}
 
 	// If we are at the top level of something like 'if a == 3 then', then we are ready to put
@@ -499,12 +499,12 @@ void Expression::compileConditional( const QString & expression, Code * ifCode, 
 {
 	if( expression.contains(QRegExp("=>|=<|=!")) )
 	{
-		mistake( Microbe::InvalidComparison, expression );
+		mistake( MicrobeApp::InvalidComparison, expression );
 		return;
 	}
 	if( expression.contains(QRegExp("[^=><!][=][^=]")))
 	{
-		mistake( Microbe::InvalidEquals );
+		mistake( MicrobeApp::InvalidEquals );
 		return;
 	}
 	// Make a tree to put the expression in.
@@ -572,7 +572,7 @@ bool Expression::isUnaryOp(Operation op)
 }
 
 
-void Expression::mistake( Microbe::MistakeType type, const QString & context )
+void Expression::mistake( MicrobeApp::MistakeType type, const QString & context )
 {
 	mb->compileError( type, context, m_sourceLine );
 }
@@ -672,7 +672,7 @@ QString Expression::stripBrackets( QString expression )
 		}
 		if( i == int(expression.length() - 1) && bracketLevel > 0 )
 		{
-			mistake( Microbe::MismatchedBrackets, expression );
+			mistake( MicrobeApp::MismatchedBrackets, expression );
 			// Stray brackets might cause the expressionession parser some problems,
 			// so we just avoid parsing anything altogether
 			expression = "";
@@ -721,27 +721,27 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 
 	// Check for the most common mistake ever!
 	if(expr.contains("="))
-		mistake( Microbe::InvalidEquals );
+		mistake( MicrobeApp::InvalidEquals );
 	// Check for reserved keywords
 	if(expr=="to"||expr=="step"||expr=="then")
-		mistake( Microbe::ReservedKeyword, expr );
+		mistake( MicrobeApp::ReservedKeyword, expr );
 
 	// Check for empty expressions, or expressions contating spaces
 	// both indicating a Mistake.
 	if(expr.isEmpty())
-		mistake( Microbe::ConsecutiveOperators );
+		mistake( MicrobeApp::ConsecutiveOperators );
 	else if(expr.contains(QRegExp("\\s")) && t!= extpin)
-		mistake( Microbe::MissingOperator );
+		mistake( MicrobeApp::MissingOperator );
 
 //***************modified isValidRegister is included ***********************//
 
 	if( t == variable && !mb->isVariableKnown(expr) && !m_pic->isValidPort( expr ) && !m_pic->isValidTris( expr )&&!m_pic->isValidRegister( expr ) )
-		mistake( Microbe::UnknownVariable, expr );
+		mistake( MicrobeApp::UnknownVariable, expr );
 
 //modification ends
 
 	if ( mb->isVariableKnown(expr) && !mb->variable(expr).isReadable() )
-		mistake( Microbe::WriteOnlyVariable, expr );
+		mistake( MicrobeApp::WriteOnlyVariable, expr );
 
 	node->setType(t);
 
@@ -749,7 +749,7 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 	// anything outside the range [0-255].
 	if( t == number && !m_bSupressNumberTooBig && (expr.toInt() > 255) )
 	{
-		mistake( Microbe::NumberTooBig );
+		mistake( MicrobeApp::NumberTooBig );
 	}
 
 	// if there was a pin, we need to decocde it.
@@ -763,7 +763,7 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 		{
 			NOT = expr.contains("low");
 			if(!expr.contains("high") && !expr.contains("low"))
-				mistake( Microbe::HighLowExpected, expr );
+				mistake( MicrobeApp::HighLowExpected, expr );
 			expr = expr.left(i-1);
 		}
 		else NOT = false;

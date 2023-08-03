@@ -55,7 +55,7 @@ bool LEDSegTable[][7] = {
 
 
 
-PIC14::PIC14( Microbe * master, Type type )
+PIC14::PIC14( MicrobeApp * master, Type type )
 {
 	mb = master;
 	m_pCode = nullptr;

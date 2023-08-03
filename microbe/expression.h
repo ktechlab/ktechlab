@@ -32,7 +32,7 @@
 
 class PIC14;
 class BTreeNode;
-class Microbe;
+class MicrobeApp;
 
 /**
 @author Daniel Clarke
@@ -66,7 +66,7 @@ class Expression
 			le
 		};
 		
-		Expression(PIC14 *pic, Microbe *master, SourceLineMicrobe sourceLine, bool supressNumberTooBig );
+		Expression(PIC14 *pic, MicrobeApp *master, SourceLineMicrobe sourceLine, bool supressNumberTooBig );
 		~Expression();
 		
 		/**
@@ -84,7 +84,7 @@ class Expression
 		
 	private:
 		PIC14 *m_pic;
-		Microbe *mb;
+		MicrobeApp *mb;
 	
 		/** Turns the operations encoded in the given tree into assembly code */
 		void traverseTree( BTreeNode *root, bool conditionalRoot = false );
@@ -104,7 +104,7 @@ class Expression
 	
 		QString stripBrackets( QString expression );
 	
-		void mistake( Microbe::MistakeType type, const QString & context = nullptr );
+		void mistake( MicrobeApp::MistakeType type, const QString & context = nullptr );
 	
 		SourceLineMicrobe m_sourceLine;
 	

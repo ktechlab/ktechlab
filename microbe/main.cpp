@@ -72,7 +72,7 @@ int main(int argc, char **argv)
     const QStringList positionArguments = parser.positionalArguments();
     if (positionArguments.count() == 2 )
 	{
-		Microbe mb;	
+		MicrobeApp mb;
 //		QString s = mb.compile( positionArguments[0], parser.isSet(showSourceOption), !parser.isSet(noOptimizeOption));
 
 		QString s = mb.compile( positionArguments[0], !parser.isSet(noOptimizeOption));
