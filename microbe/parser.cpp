@@ -427,7 +427,7 @@ Code * Parser::parse( const SourceLineList & lines )
 			if ( saveSingleLine )
 			{
 				SourceLineList list;
-				list << SourceLine( token, nullptr, -1 );
+				list << SourceLineMicrobe( token, nullptr, -1 );
 				fieldMap[field.key()] = OutputField( list );
 			}
 
@@ -687,7 +687,7 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 		}
 
 		SourceLineList tempList;
-		tempList << SourceLine( fieldMap["initExpression"].string(), nullptr, -1 );
+		tempList << SourceLineMicrobe( fieldMap["initExpression"].string(), nullptr, -1 );
 
 		m_pPic->Sfor( parseWithChild( fieldMap["code"].bracedCode() ), parseWithChild( tempList ), endExpr, variable, step, stepPositive );
 	}
@@ -752,7 +752,7 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 	}
 	else if( name == "asm" )
 	{
-		m_pPic->Sasm( SourceLine::toStringList( fieldMap["code"].bracedCode() ).join("\n") );
+		m_pPic->Sasm( SourceLineMicrobe::toStringList( fieldMap["code"].bracedCode() ).join("\n") );
 	}
 	else if( name == "delay" )
 	{

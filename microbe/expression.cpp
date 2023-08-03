@@ -33,7 +33,7 @@
 #include <QDebug>
 #include <QRegExp>
 
-Expression::Expression( PIC14 *pic, Microbe *master, SourceLine sourceLine, bool suppressNumberTooBig )
+Expression::Expression( PIC14 *pic, Microbe *master, SourceLineMicrobe sourceLine, bool suppressNumberTooBig )
 	: m_sourceLine(sourceLine)
 {
 	m_pic = pic;

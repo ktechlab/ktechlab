@@ -84,7 +84,7 @@ QString Microbe::compile( const QString & url, bool optimize )
 		QTextStream stream(&file);
 		unsigned line = 0;
 		while( !stream.atEnd() )
-			m_program += SourceLine( stream.readLine(), url, line++ );
+			m_program += SourceLineMicrobe( stream.readLine(), url, line++ );
 		file.close();
 		simplifyProgram();
 	}
@@ -190,8 +190,8 @@ void Microbe::simplifyProgram()
 					if ( commentType != None )
 						break;
 
-					simplified << SourceLine( simplifiedLine.simplified(), (*it).url(), (*it).line() );
-					simplified << SourceLine( c, (*it).url(), (*it).line() );
+					simplified << SourceLineMicrobe( simplifiedLine.simplified(), (*it).url(), (*it).line() );
+					simplified << SourceLineMicrobe( c, (*it).url(), (*it).line() );
 
 					simplifiedLine = "";
 					continue;
@@ -201,7 +201,7 @@ void Microbe::simplifyProgram()
 				simplifiedLine += c;
 		}
 
-		simplified << SourceLine( simplifiedLine.simplified(), (*it).url(), (*it).line() );
+		simplified << SourceLineMicrobe( simplifiedLine.simplified(), (*it).url(), (*it).line() );
 	}
 
 	m_program.clear();
@@ -214,7 +214,7 @@ void Microbe::simplifyProgram()
 }
 
 
-void Microbe::compileError( MistakeType type, const QString & context, const SourceLine & sourceLine )
+void Microbe::compileError( MistakeType type, const QString & context, const SourceLineMicrobe & sourceLine )
 {
 	QString message;
 	switch (type)
@@ -513,8 +513,8 @@ void Microbe::resetDest()
 
 
 
-//BEGIN class SourceLine
-SourceLine::SourceLine( const QString & text, const QString & url, int line )
+//BEGIN class SourceLineMicrobe
+SourceLineMicrobe::SourceLineMicrobe( const QString & text, const QString & url, int line )
 {
 	m_text = text;
 	m_url = url;
@@ -522,13 +522,13 @@ SourceLine::SourceLine( const QString & text, const QString & url, int line )
 }
 
 
-SourceLine::SourceLine()
+SourceLineMicrobe::SourceLineMicrobe()
 {
 	m_line = -1;
 }
 
 
-QStringList SourceLine::toStringList( const SourceLineList & lines )
+QStringList SourceLineMicrobe::toStringList( const SourceLineList & lines )
 {
 	QStringList joined;
 	SourceLineList::const_iterator end = lines.end();
@@ -537,5 +537,5 @@ QStringList SourceLine::toStringList( const SourceLineList & lines )
 	return joined;
 
 }
-//END class SourceLine
+//END class SourceLineMicrobe
 

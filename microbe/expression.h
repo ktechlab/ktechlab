@@ -66,7 +66,7 @@ class Expression
 			le
 		};
 		
-		Expression(PIC14 *pic, Microbe *master, SourceLine sourceLine, bool supressNumberTooBig );
+		Expression(PIC14 *pic, Microbe *master, SourceLineMicrobe sourceLine, bool supressNumberTooBig );
 		~Expression();
 		
 		/**
@@ -106,7 +106,7 @@ class Expression
 	
 		void mistake( Microbe::MistakeType type, const QString & context = nullptr );
 	
-		SourceLine m_sourceLine;
+		SourceLineMicrobe m_sourceLine;
 	
 		Code * m_ifCode;
 		Code * m_elseCode;

@@ -57,29 +57,29 @@ enum ExprType
 };
 
 
-class SourceLine;
-typedef QList<SourceLine> SourceLineList;
+class SourceLineMicrobe;
+typedef QList<SourceLineMicrobe> SourceLineList;
 /**
 Represents a source line, with the convention of line number starting at zero.
 @author David Saxton
 */
-class SourceLine
+class SourceLineMicrobe
 {
 	public:
 		/**
 		 * The QList template requires a default constructor - calling this
-		 * though creates an invalid SourceLine with line() returning -1. So
+		 * though creates an invalid SourceLineMicrobe with line() returning -1. So
 		 * this constructor should never be used.
 		 */
-		SourceLine();
-		SourceLine( const QString & text, const QString & url, int line );
+		SourceLineMicrobe();
+		SourceLineMicrobe( const QString & text, const QString & url, int line );
 		
 		QString text() const { return m_text; }
 		QString url() const { return m_url; }
 		int line() const { return m_line; }
 		
 		/**
-		 * Extracts the text from each SourceLine and adds it to the
+		 * Extracts the text from each SourceLineMicrobe and adds it to the
 		 * returned QStringList.
 		 */
 		static QStringList toStringList( const SourceLineList & lines );
@@ -157,7 +157,7 @@ class Microbe
 		 * Adds the given compiler error at the file line number to the
 		 * compilation report.
 		 */
-		void compileError( MistakeType type, const QString & context, const SourceLine & sourceLine );
+		void compileError( MistakeType type, const QString & context, const SourceLineMicrobe & sourceLine );
 		/**
 		 * This is for generating unique numbers for computer generated labels.
 		 */

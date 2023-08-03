@@ -46,7 +46,7 @@ class Statement
 		/**
 		 * The original microbe source line.
 		 */
-		SourceLine content;
+		SourceLineMicrobe content;
 		/**
 		 * Returns the microbe code from content.
 		 */
@@ -285,7 +285,7 @@ class Parser
 		bool m_bPassedEnd;
 		Microbe * mb;
 		Code * m_code;
-		SourceLine m_currentSourceLine;
+		SourceLineMicrobe m_currentSourceLine;
 		
 	private: // Disable copy constructor and operator=
 		Parser( const Parser & );
