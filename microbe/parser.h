@@ -37,6 +37,8 @@ class PIC14;
 class Statement
 {
 	public:
+		Statement();
+
 		/**
 		 * Is the assembly output generated for this statement.
 		 */

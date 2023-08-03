@@ -828,6 +828,9 @@ void Parser::mistake( Microbe::MistakeType type, const QString & context )
 }
 
 
+Statement::Statement() : code(NULL) {
+}
+
 // static function
 QStringList Statement::tokenise(const QString &line)
 {
