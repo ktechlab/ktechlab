@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-29 00:49+0000\n"
-"PO-Revision-Date: 2023-06-29 09:28+0200\n"
+"PO-Revision-Date: 2023-08-07 21:20+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.04.3\n"
 "X-Accelerator-Marker: &\n"
 
 #, kde-format
@@ -445,6 +445,7 @@ msgstr "Color de les línies de la graella"
 msgid "Whether the grid should be shown."
 msgstr "Si s'ha de mostrar la graella."
 
+# skip-rule: punctuation-period-no
 #. i18n: ectx: label, entry (ReuseSameViewForOutput), group (General)
 #: src/core/ktechlab.kcfg:50
 #, kde-format
@@ -1763,6 +1764,7 @@ msgctxt "mosfet body/bulk pin"
 msgid "Body Pin"
 msgstr "PIN del cos"
 
+# skip-rule: punctuation-period-no
 #: src/electronics/components/ecopamp.cpp:26
 #, kde-format
 msgid "Op Amp"
