@@ -502,8 +502,12 @@ void Connector::updateConnectorLines(bool forceRedraw)
         bool changed = (item->z() != z) || (item->pen() != pen) || (item->isVisible() != isVisible());
 
         if (!changed) {
-            if (forceRedraw)
-                canvas()->setChanged(item->boundingRect());
+            if (forceRedraw) {
+                KtlQCanvas *canvasPtr = canvas();
+                if (canvasPtr) {
+                    canvasPtr->setChanged(item->boundingRect());
+                } // else we have a crash... see https://bugs.kde.org/show_bug.cgi?id=473717
+            }
             continue;
         }
 
