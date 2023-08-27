@@ -221,7 +221,9 @@ signals:
     void numWiresChanged(unsigned newNum);
 
 public slots:
-    void removeConnector(Node * = nullptr);
+    void removeConnectorNoArg();
+    void removeConnectorNodeArg(Node *);
+    void removeConnector(Node *);
 
     // protected:
     //	bool m_bIsSyncingWires;

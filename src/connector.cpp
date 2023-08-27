@@ -85,6 +85,14 @@ void Connector::setParentContainer(const QString &cnItemId)
     p_parentContainer = p_icnDocument->cnItemWithID(cnItemId);
 }
 
+void Connector::removeConnectorNoArg() {
+    removeConnector(nullptr);
+}
+
+void Connector::removeConnectorNodeArg(Node *) {
+    removeConnector(nullptr);
+}
+
 void Connector::removeConnector(Node *)
 {
     if (b_deleted)

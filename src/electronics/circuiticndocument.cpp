@@ -130,7 +130,7 @@ Connector *CircuitICNDocument::createConnector(Node *node, Connector *con, const
     new3->updateDrawList();
 
     // Now it's safe to remove the connector...
-    con->removeConnector();
+    con->removeConnectorNoArg();
     flushDeleteList();
 
     deleteNodeGroup(conStartNode);
@@ -189,13 +189,13 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
         qCWarning(KTL_LOG) << "Not all the connectors were created, this should never happen";
 
         if (con1a)
-            con1a->removeConnector();
+            con1a->removeConnectorNoArg();
         if (con1b)
-            con1b->removeConnector();
+            con1b->removeConnectorNoArg();
         if (con2a)
-            con2a->removeConnector();
+            con2a->removeConnectorNoArg();
         if (con2b)
-            con2b->removeConnector();
+            con2b->removeConnectorNoArg();
 
         newNode1->removeNode();
         newNode2->removeNode();
@@ -232,8 +232,8 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
     con2b->updateDrawList();
 
     // Now it's safe to remove the connectors
-    con1->removeConnector();
-    con2->removeConnector();
+    con1->removeConnectorNoArg();
+    con2->removeConnectorNoArg();
 
     flushDeleteList();
 
@@ -479,8 +479,8 @@ bool CircuitICNDocument::joinConnectors(ECNode *node)
     newCon->updateDrawList();
 
     node->removeNode();
-    con1->removeConnector();
-    con2->removeConnector();
+    con1->removeConnectorNoArg();
+    con2->removeConnectorNoArg();
 
     return true;
 }

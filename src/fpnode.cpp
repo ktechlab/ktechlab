@@ -181,12 +181,12 @@ void FPNode::removeConnector(Connector *connector)
     // FIXME dynamic_cast connector
     it = m_inFlowConnList.find(dynamic_cast<FlowConnector *>(connector));
     if (it != m_inFlowConnList.end()) {
-        (*it)->removeConnector();
+        (*it)->removeConnectorNoArg();
         (*it) = nullptr;
     }
 
     if ((Connector *)m_outputConnector == connector) {
-        connector->removeConnector();
+        connector->removeConnectorNoArg();
         m_outputConnector = nullptr;
     }
 }

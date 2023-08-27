@@ -541,7 +541,7 @@ void CNItemGroup::deleteAllItems()
     const ConnectorList::iterator conEnd = m_connectorList.end();
     for (ConnectorList::iterator it = m_connectorList.begin(); it != conEnd; ++it) {
         if (*it) {
-            (*it)->removeConnector();
+            (*it)->removeConnectorNoArg();
         }
     }
 

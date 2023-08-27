@@ -850,7 +850,7 @@ void ItemDocumentData::restoreDocument(ItemDocument *itemDocument)
             const ConnectorList::iterator removeEnd = removeConnectors.end();
             for (ConnectorList::iterator it = removeConnectors.begin(); it != removeEnd; ++it) {
                 if ((*it)->canvas())
-                    (*it)->removeConnector();
+                    (*it)->removeConnectorNoArg();
             }
         }
     }
@@ -1201,8 +1201,7 @@ void SubcircuitData::initECSubcircuit(ECSubcircuit *ecSubcircuit)
             connector->updateConnectorPoints(false);
             connector->setVisible(false);
             connector->setCanvas(nullptr);
-            // TODO Review this: The slot needs more arguments than the signal provides
-            ecSubcircuit->connect(ecSubcircuit, &ECSubcircuit::subcircuitDeleted, connector, [&connector]() { connector->removeConnector(); });
+            ecSubcircuit->connect(ecSubcircuit, &ECSubcircuit::subcircuitDeleted, connector, &Connector::removeConnectorNoArg);
         }
     }
     const NodeDataMap::iterator nodeEnd = m_nodeDataMap.end();

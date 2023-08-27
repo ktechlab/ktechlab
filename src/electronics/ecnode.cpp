@@ -267,7 +267,7 @@ bool ECNode::handleNewConnector(Connector *connector)
         return false;
     }
 
-    connect(this, &ECNode::removed, connector, &Connector::removeConnector);
+    connect(this, &ECNode::removed, connector, &Connector::removeConnectorNodeArg);
     connect(connector, &Connector::removed, this, &ECNode::checkForRemoval);
     connect(connector, &Connector::selected, this, &ECNode::setNodeSelected);
 
@@ -320,7 +320,7 @@ void ECNode::removeConnector(Connector *connector)
     int i = m_connectorList.indexOf(connector);
     it = (i == -1 ? m_connectorList.end() : (m_connectorList.begin() + i));
     if (it != m_connectorList.end()) {
-        (*it)->removeConnector();
+        (*it)->removeConnectorNoArg();
         (*it) = nullptr;
     }
 }

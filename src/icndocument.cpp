@@ -484,7 +484,7 @@ void ICNDocument::appendDeleteList(KtlQCanvasItem *qcanvasItem)
         }
 
         if (connector)
-            connector->removeConnector();
+            connector->removeConnectorNoArg();
         else
             qCWarning(KTL_LOG) << "unrecognised KtlQCanvasItem " << qcanvasItem;
     }

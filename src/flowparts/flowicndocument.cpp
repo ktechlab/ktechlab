@@ -216,7 +216,7 @@ Connector *FlowICNDocument::createConnector(Node *node, Connector *con, const QP
     new3->updateDrawList();
 
     // Now it's safe to remove the connector...
-    con->removeConnector();
+    con->removeConnectorNoArg();
     flushDeleteList();
 
     deleteNodeGroup(conStartNode);
@@ -470,8 +470,8 @@ bool FlowICNDocument::joinConnectors(FPNode *node)
     newCon->updateDrawList();
 
     node->removeNode();
-    con1->removeConnector();
-    con2->removeConnector();
+    con1->removeConnectorNoArg();
+    con2->removeConnectorNoArg();
 
     return true;
 }
