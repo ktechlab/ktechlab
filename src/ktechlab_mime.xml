@@ -26,6 +26,7 @@
     <comment xml:lang="sv">Ktechlab-krets</comment>
     <comment xml:lang="tr">KTechlab Devresi</comment>
     <comment xml:lang="uk">схема KTechlab</comment>
+    <comment xml:lang="zh_CN">KTechlab 电路图</comment>
     <glob pattern="*.circuit"/>
   </mime-type>
   <mime-type type="application/x-flowcode">
@@ -53,6 +54,7 @@
     <comment xml:lang="sv">Ktechlab FlowCode</comment>
     <comment xml:lang="tr">KTechlab FlowCode</comment>
     <comment xml:lang="uk">FlowCode KTechlab</comment>
+    <comment xml:lang="zh_CN">KTechlab 矩阵流程代码</comment>
     <glob pattern="*.flowcode"/>
   </mime-type>
   <mime-type type="application/x-ktechlab">
@@ -81,6 +83,7 @@
     <comment xml:lang="sv">Ktechlab-projekt</comment>
     <comment xml:lang="tr">KTechlab Projesi</comment>
     <comment xml:lang="uk">проєкт KTechlab</comment>
+    <comment xml:lang="zh_CN">KTechlab 工程</comment>
     <glob pattern="*.ktechlab"/>
   </mime-type>
   <mime-type type="application/x-microbe">
@@ -108,6 +111,7 @@
     <comment xml:lang="sv">Ktechlab Microbe</comment>
     <comment xml:lang="tr">KTechlab Microbe</comment>
     <comment xml:lang="uk">Microbe KTechlab</comment>
+    <comment xml:lang="zh_CN">KTechlab 微生物</comment>
     <glob pattern="*.microbe"/>
     <glob pattern="*.basic"/>
   </mime-type>
