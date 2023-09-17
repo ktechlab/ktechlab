@@ -1,0 +1,12 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/kxmlgui5/ktechlab">
+        <file>ktechlabui.rc</file>
+        <file>ktechlabcircuitui.rc</file>
+        <file>ktechlabflowcodeui.rc</file>
+        <file>ktechlabitemviewui.rc</file>
+        <file>ktechlabmechanicsui.rc</file>
+        <file>ktechlabtextui.rc</file>
+        <file>ktechlabkateui.rc</file>
+    </qresource>
+</RCC>

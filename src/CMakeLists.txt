@@ -335,6 +335,7 @@ set(ktechlab_DCOP_SKEL_SRCS
 add_executable(ktechlab
     core/main.cpp
     ${ktechlab_SRCS}
+    ktechlab.qrc
     )
 
 target_link_libraries( ktechlab
@@ -412,15 +413,6 @@ endif()
 ########### install files ###############
 
 install(FILES microbe.xml DESTINATION ${KDE_INSTALL_DATADIR}/katepart5/syntax)
-install(FILES
-    ktechlabui.rc
-    ktechlabcircuitui.rc
-    ktechlabflowcodeui.rc
-	ktechlabitemviewui.rc
-	ktechlabmechanicsui.rc
-	ktechlabtextui.rc
-	ktechlabkateui.rc
-	DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/ktechlab)
 install(FILES org.kde.ktechlab.desktop DESTINATION ${KDE_INSTALL_APPDIR})
 install(FILES ktechlab_mime.xml DESTINATION ${KDE_INSTALL_MIMEDIR})
 install(FILES org.kde.ktechlab.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR} )
