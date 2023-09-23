@@ -124,7 +124,7 @@ bool FPNode::handleNewConnector(Connector *connector)
         return false;
 
     // FIXME dynamic_cast connector
-    if (m_inFlowConnList.contains(dynamic_cast<FlowConnector *>(connector)) || ((Connector *)m_outputConnector == connector)) {
+    if (m_inFlowConnList.contains(dynamic_cast<FlowConnector *>(connector)) || (static_cast<Connector *>(m_outputConnector) == connector)) {
         qCWarning(KTL_LOG) << " Already have connector = " << connector;
         return false;
     }
@@ -185,7 +185,7 @@ void FPNode::removeConnector(Connector *connector)
         (*it) = nullptr;
     }
 
-    if ((Connector *)m_outputConnector == connector) {
+    if (static_cast<Connector *>(m_outputConnector) == connector) {
         connector->removeConnectorNoArg();
         m_outputConnector = nullptr;
     }
@@ -210,7 +210,7 @@ void FPNode::checkForRemoval(Connector *connector)
 
 void FPNode::removeNullConnectors()
 {
-    m_inFlowConnList.remove((FlowConnector *)nullptr);
+    m_inFlowConnList.remove(static_cast<FlowConnector *>(nullptr));
 }
 
 QPoint FPNode::findConnectorDivergePoint(bool *found)
@@ -343,22 +343,22 @@ bool FPNode::isConnected(Node *node, NodeList *checkedNodes)
 
 ConnectorList FPNode::inputConnectorList() const
 {
-    return (ConnectorList)(FlowConnectorList)m_inFlowConnList;
+    return static_cast<ConnectorList>(static_cast<FlowConnectorList>(m_inFlowConnList));
 }
 
 ConnectorList FPNode::outputConnectorList() const
 {
     ConnectorList out;
     if (m_outputConnector)
-        out.append((Connector *)m_outputConnector); // un upcast between downcasts :o
+        out.append(static_cast<Connector *>(m_outputConnector)); // un upcast between downcasts :o
     return out;
 }
 
 ConnectorList FPNode::getAllConnectors() const
 {
-    ConnectorList all = (ConnectorList)(FlowConnectorList)m_inFlowConnList;
+    ConnectorList all = static_cast<ConnectorList>(static_cast<FlowConnectorList>(m_inFlowConnList));
     if (m_outputConnector)
-        all.append((Connector *)m_outputConnector);
+        all.append(static_cast<Connector *>(m_outputConnector));
     return all;
 }
 
