@@ -38,7 +38,7 @@ ItemEditor *ItemEditor::self(KateMDI::ToolView *parent)
 }
 
 ItemEditor::ItemEditor(KateMDI::ToolView *parent)
-    : QWidget((QWidget *)parent)
+    : QWidget(static_cast<QWidget *>(parent))
 {
     setObjectName("Item Editor");
     setWhatsThis(i18n("This allows editing of advanced properties of the selected item(s). Right click on the picture of the item to set the orientation."));

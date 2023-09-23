@@ -278,7 +278,7 @@ void RichTextEditor::slotSetAlignment(QAction *act)
 {
     int alignment = act->data().toInt();
     QTextBlockFormat format = m_pEditor->textCursor().blockFormat();
-    format.setAlignment((Qt::AlignmentFlag)alignment);
+    format.setAlignment(static_cast<Qt::AlignmentFlag>(alignment));
     m_pEditor->textCursor().mergeBlockFormat(format);
 }
 
@@ -288,7 +288,7 @@ void RichTextEditor::slotSetVerticalAlignment(QAction *action)
     // m_pEditor->setVerticalAlignment( (Q3TextEdit::VerticalAlignment)a );
     // m_pEditor->setAlignment(a);
     QTextCharFormat format;
-    format.setVerticalAlignment((QTextCharFormat::VerticalAlignment)a);
+    format.setVerticalAlignment(static_cast<QTextCharFormat::VerticalAlignment>(a));
     m_pEditor->mergeCurrentCharFormat(format);
 }
 
