@@ -206,7 +206,7 @@ ProjectItem::ProjectItem(ProjectItem *parent, Type type, ProjectManager *project
 
 ProjectItem::~ProjectItem()
 {
-    m_children.removeAll((ProjectItem *)nullptr);
+    m_children.removeAll(static_cast<ProjectItem *>(nullptr));
     ProjectItemList::iterator end = m_children.end();
     for (ProjectItemList::iterator it = m_children.begin(); it != end; ++it)
         (*it)->deleteLater();
@@ -285,7 +285,7 @@ void ProjectItem::updateControlChildMicroIDs()
         break;
     }
 
-    m_children.removeAll((ProjectItem *)nullptr);
+    m_children.removeAll(static_cast<ProjectItem *>(nullptr));
     ProjectItemList::iterator end = m_children.end();
     for (ProjectItemList::iterator it = m_children.begin(); it != end; ++it)
         (*it)->setUseParentMicroID(control);
@@ -426,7 +426,7 @@ bool ProjectItem::build(ProcessOptionsList *pol)
     }
 
     // Build all children
-    m_children.removeAll((ProjectItem *)nullptr);
+    m_children.removeAll(static_cast<ProjectItem *>(nullptr));
     ProjectItemList::iterator cend = m_children.end();
     for (ProjectItemList::iterator it = m_children.begin(); it != cend; ++it) {
         if (!(*it)->build(pol))
@@ -476,7 +476,7 @@ bool ProjectItem::build(ProcessOptionsList *pol)
         QStringList inputFiles;
 
         // Link child objects
-        m_children.removeAll((ProjectItem *)nullptr);
+        m_children.removeAll(static_cast<ProjectItem *>(nullptr));
         ProjectItemList::iterator cend = m_children.end();
         for (ProjectItemList::iterator it = m_children.begin(); it != cend; ++it)
             inputFiles << (*it)->outputURL().toLocalFile();
@@ -513,7 +513,7 @@ void ProjectItem::upload(ProcessOptionsList *pol)
 {
     build(pol);
 
-    ProgrammerDlg *dlg = new ProgrammerDlg(microID(), (QWidget *)KTechlab::self());
+    ProgrammerDlg *dlg = new ProgrammerDlg(microID(), static_cast<QWidget *>(KTechlab::self()));
     dlg->setObjectName("Programmer Dlg");
 
     const int accepted = dlg->exec();
@@ -595,7 +595,7 @@ bool ProjectItem::closeOpenFiles()
     if (doc && !doc->fileClose())
         return false;
 
-    m_children.removeAll((ProjectItem *)nullptr);
+    m_children.removeAll(static_cast<ProjectItem *>(nullptr));
     ProjectItemList::iterator end = m_children.end();
     for (ProjectItemList::iterator it = m_children.begin(); it != end; ++it) {
         if (!(*it)->closeOpenFiles())
@@ -635,7 +635,7 @@ void ProjectItem::addFile(const QUrl &url)
     if (url.isEmpty())
         return;
 
-    m_children.removeAll((ProjectItem *)nullptr);
+    m_children.removeAll(static_cast<ProjectItem *>(nullptr));
     ProjectItemList::iterator end = m_children.end();
     for (ProjectItemList::iterator it = m_children.begin(); it != end; ++it) {
         if ((*it)->type() == FileType && (*it)->url() == url)
@@ -806,7 +806,7 @@ bool ProjectInfo::save()
     QDomElement root = doc.createElement("project");
     doc.appendChild(root);
 
-    m_children.removeAll((ProjectItem *)nullptr);
+    m_children.removeAll(static_cast<ProjectItem *>(nullptr));
     const QUrl baseDirUrl = m_url.adjusted(QUrl::RemoveFilename);
     ProjectItemList::const_iterator end = m_children.end();
     for (ProjectItemList::const_iterator it = m_children.begin(); it != end; ++it)
