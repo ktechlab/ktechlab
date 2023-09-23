@@ -109,7 +109,7 @@ QString MicrobeApp::compile( const QString & url, bool optimize )
 
 	Code * code = parser.parse( m_program );
 	pic->setCode( code );
-	pic->addCommonFunctions( (PIC14::DelaySubroutine)m_maxDelaySubroutine );
+	pic->addCommonFunctions( static_cast<PIC14::DelaySubroutine>(m_maxDelaySubroutine) );
 
 	pic->postCompileConstruct( m_usedInterrupts );
 	code->postCompileConstruct();
@@ -126,7 +126,7 @@ QString MicrobeApp::compile( const QString & url, bool optimize )
 
 PIC14 * MicrobeApp::makePic()
 {
-	return new PIC14( this, (PIC14::Type)m_picType );
+	return new PIC14( this, static_cast<PIC14::Type>(m_picType) );
 }
 
 
