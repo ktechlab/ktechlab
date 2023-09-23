@@ -25,7 +25,7 @@
 PropertyEditorColor::PropertyEditorColor(QWidget *parent, Property *property)
     : PropertySubEditor(parent, property)
 {
-    m_pColorCombo = ColorUtils::createColorCombo((ColorUtils::ColorScheme)property->colorScheme(), this);
+    m_pColorCombo = ColorUtils::createColorCombo(static_cast<ColorUtils::ColorScheme>(property->colorScheme()), this);
     m_pColorCombo->setColor(property->value().value<QColor>());
     m_pColorCombo->resize(width(), height());
     m_pColorCombo->show();
