@@ -12,6 +12,12 @@
 #include "docmanager.h"
 #include "document.h"
 
+// needed for casts below to compile
+#include "electronics/circuitdocument.h"
+#include "flowcodedocument.h"
+#include "mechanicsdocument.h"
+#include "textdocument.h"
+
 DocManagerIface::DocManagerIface(DocManager *docManager)
     : DCOPObject(/* TODO "DocumentManager" */)
 {
@@ -39,22 +45,22 @@ void DocManagerIface::gotoTextLine(const QString &url, int line)
 
 DCOPRef DocManagerIface::createTextDocument()
 {
-    return docToRef((Document *)m_pDocManager->createTextDocument());
+    return docToRef(static_cast<Document *>(m_pDocManager->createTextDocument()));
 }
 
 DCOPRef DocManagerIface::createCircuitDocument()
 {
-    return docToRef((Document *)m_pDocManager->createCircuitDocument());
+    return docToRef(static_cast<Document *>(m_pDocManager->createCircuitDocument()));
 }
 
 DCOPRef DocManagerIface::createFlowCodeDocument()
 {
-    return docToRef((Document *)m_pDocManager->createFlowCodeDocument());
+    return docToRef(static_cast<Document *>(m_pDocManager->createFlowCodeDocument()));
 }
 
 DCOPRef DocManagerIface::createMechanicsDocument()
 {
-    return docToRef((Document *)m_pDocManager->createMechanicsDocument());
+    return docToRef(static_cast<Document *>(m_pDocManager->createMechanicsDocument()));
 }
 
 DCOPRef DocManagerIface::docToRef(Document *document)
