@@ -260,9 +260,10 @@ void SettingsDlg::slotRemoveProgrammerConfig()
 
     QString program = combo->currentText();
 
-    KMessageBox::ButtonCode confirm = (KMessageBox::ButtonCode)KMessageBox::warningContinueCancel(this, i18n("Remove programmer configuration \"%1\"?", program), i18n("Remove \"%1\"", program)
-                                                                                                  //, i18n("Remove")
-    );
+    KMessageBox::ButtonCode confirm = static_cast<KMessageBox::ButtonCode>(
+        KMessageBox::warningContinueCancel(this, i18n("Remove programmer configuration \"%1\"?", program),
+                                           i18n("Remove \"%1\"", program)
+    ));
     if (confirm == KMessageBox::Cancel)
         return;
 
