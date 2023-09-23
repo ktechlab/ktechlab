@@ -2274,13 +2274,13 @@ void Code::merge( Code * code, InstructionPosition middleInsertionPosition )
 	// Reparent instructions
 	for ( unsigned i = 0; i < PositionCount; ++i )
 	{
-		InstructionList * list = code->instructionList( (InstructionPosition)i );
+		InstructionList * list = code->instructionList( static_cast<InstructionPosition>(i) );
 		InstructionList::const_iterator end = list->end();
 		for ( InstructionList::const_iterator it = list->begin(); it != end; ++it )
-			append( *it, ( (i == Middle) ? middleInsertionPosition : (InstructionPosition)i ) );
+			append( *it, ( (i == Middle) ? middleInsertionPosition : static_cast<InstructionPosition>(i) ) );
 
 		// Queue any labels that the other code has queued
-		m_queuedLabels[i] += code->queuedLabels( (InstructionPosition)i );
+		m_queuedLabels[i] += code->queuedLabels( static_cast<InstructionPosition>(i) );
 	}
 }
 
@@ -2542,7 +2542,7 @@ CodeIterator Code::begin()
 		CodeIterator codeIterator;
 		codeIterator.code = this;
 		codeIterator.it = m_instructionLists[i].begin();
-		codeIterator.pos = (Code::InstructionPosition)i;
+		codeIterator.pos = static_cast<Code::InstructionPosition>(i);
 		codeIterator.list = & m_instructionLists[i];
 		codeIterator.listEnd = m_instructionLists[i].end();
 
@@ -2561,7 +2561,7 @@ CodeIterator Code::end()
 	CodeIterator codeIterator;
 	codeIterator.code = this;
 	codeIterator.it = m_instructionLists[ PositionCount - 1 ].end();
-	codeIterator.pos = (Code::InstructionPosition)(Code::PositionCount - 1);
+	codeIterator.pos = static_cast<Code::InstructionPosition>(Code::PositionCount - 1);
 	codeIterator.list = & m_instructionLists[ PositionCount - 1 ];
 	codeIterator.listEnd = m_instructionLists[ PositionCount - 1 ].end();
 	return codeIterator;
@@ -2581,7 +2581,7 @@ CodeConstIterator Code::begin() const
 		CodeConstIterator codeIterator;
 		codeIterator.code = this;
 		codeIterator.it = m_instructionLists[i].begin();
-		codeIterator.pos = (Code::InstructionPosition)i;
+		codeIterator.pos = static_cast<Code::InstructionPosition>(i);
 		codeIterator.list = & m_instructionLists[i];
 		codeIterator.listEnd = m_instructionLists[i].end();
 
@@ -2600,7 +2600,7 @@ CodeConstIterator Code::end() const
 	CodeConstIterator codeIterator;
 	codeIterator.code = this;
 	codeIterator.it = m_instructionLists[ PositionCount - 1 ].end();
-	codeIterator.pos = (Code::InstructionPosition)(Code::PositionCount - 1);
+	codeIterator.pos = static_cast<Code::InstructionPosition>(Code::PositionCount - 1);
 	codeIterator.list = & m_instructionLists[ PositionCount - 1 ];
 	codeIterator.listEnd = m_instructionLists[ PositionCount - 1 ].end();
 	return codeIterator;
@@ -2620,7 +2620,7 @@ CodeIterator & CodeIterator::operator ++ ()
 		if ( ++it == listEnd && pos < (Code::PositionCount - 1) )
 		{
 			bool found = false;
-			for ( pos = (Code::InstructionPosition)(pos+1); pos < Code::PositionCount; pos = (Code::InstructionPosition)(pos+1) )
+			for ( pos = static_cast<Code::InstructionPosition>(pos+1); pos < Code::PositionCount; pos = static_cast<Code::InstructionPosition>(pos+1) )
 			{
 				list = code->instructionList( pos );
 				listEnd = list->end();
@@ -2670,7 +2670,7 @@ CodeConstIterator & CodeConstIterator::operator ++ ()
 		if ( ++it == listEnd && pos < (Code::PositionCount - 1) )
 		{
 			bool found = false;
-			for ( pos = (Code::InstructionPosition)(pos+1); pos < Code::PositionCount; pos = (Code::InstructionPosition)(pos+1) )
+			for ( pos = static_cast<Code::InstructionPosition>(pos+1); pos < Code::PositionCount; pos = static_cast<Code::InstructionPosition>(pos+1) )
 			{
 				list = code->instructionList( pos );
 				listEnd = list->end();
