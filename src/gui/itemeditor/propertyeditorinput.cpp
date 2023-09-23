@@ -83,7 +83,7 @@ PropertyEditorSpin::PropertyEditorSpin(QWidget *parent, Property *property)
 {
     m_leaveTheSpaceForRevertButton = true;
 
-    m_spinBox = new PropIntSpinBox((int)property->minValue(), (int)property->maxValue(), 1, 0, 10, this);
+    m_spinBox = new PropIntSpinBox(static_cast<int>(property->minValue()), static_cast<int>(property->maxValue()), 1, 0, 10, this);
 
     m_spinBox->resize(width(), height());
     m_spinBox->setValue(property->value().toInt());

@@ -71,7 +71,7 @@ void Document::slotViewDestroyed(QObject *obj)
 
     m_viewList.removeAll(view);
 
-    if (m_pActiveView == (QPointer<View>)view) {
+    if (m_pActiveView == static_cast<QPointer<View> >(view)) {
         m_pActiveView = nullptr;
         emit viewUnfocused();
     }
