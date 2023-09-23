@@ -83,7 +83,7 @@ SymbolViewer *SymbolViewer::self(KateMDI::ToolView *parent)
 }
 
 SymbolViewer::SymbolViewer(KateMDI::ToolView *parent)
-    : QWidget((QWidget *)parent)
+    : QWidget(static_cast<QWidget *>(parent))
 {
     if (parent->layout()) {
         parent->layout()->addWidget(this);
@@ -144,7 +144,7 @@ void SymbolViewer::saveProperties(KConfig *config)
     // QString oldGroup = config->group();
 
     KConfigGroup grSym = config->group("SymbolEditor");
-    grSym.writeEntry("Radix", (int)m_valueRadix);
+    grSym.writeEntry("Radix", static_cast<int>(m_valueRadix));
 
     // config->setGroup( oldGroup );
 }
@@ -155,7 +155,7 @@ void SymbolViewer::readProperties(KConfig *config)
 
     KConfigGroup grSym = config->group("SymbolEditor");
 
-    m_valueRadix = (SymbolViewer::Radix)grSym.readEntry("Radix", (int)Decimal);
+    m_valueRadix = static_cast<SymbolViewer::Radix>(grSym.readEntry("Radix", static_cast<int>(Decimal)));
 
     int pos = 4;
     switch (m_valueRadix) {

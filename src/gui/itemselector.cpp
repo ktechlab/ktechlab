@@ -431,7 +431,7 @@ FlowPartSelector *FlowPartSelector::self(KateMDI::ToolView *parent)
 }
 
 FlowPartSelector::FlowPartSelector(KateMDI::ToolView *parent)
-    : ItemSelector((QWidget *)parent)
+    : ItemSelector(static_cast<QWidget *>(parent))
 {
     setWhatsThis(
         i18n("Add FlowPart to the FlowCode document by dragging them there.<br><br>To add more than one FlowPart of the same type, doubleclick on a FlowPart, and click repeatedly in the FlowChart to place the component. Right click to "
@@ -455,14 +455,14 @@ MechanicsSelector *MechanicsSelector::self(KateMDI::ToolView *parent)
 {
     if (!m_pSelf) {
         assert(parent);
-        m_pSelf = new MechanicsSelector((QWidget *)parent);
+        m_pSelf = new MechanicsSelector(static_cast<QWidget *>(parent));
         m_pSelf->setObjectName("Mechanics Selector");
     }
     return m_pSelf;
 }
 
 MechanicsSelector::MechanicsSelector(QWidget *parent)
-    : ItemSelector((QWidget *)parent)
+    : ItemSelector(static_cast<QWidget *>(parent))
 {
     setWhatsThis(i18n("Add mechanical parts to the mechanics work area by dragging them there."));
 
