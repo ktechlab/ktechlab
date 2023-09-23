@@ -157,7 +157,7 @@ CreateSubprojectDlg::~CreateSubprojectDlg()
 void CreateSubprojectDlg::accept()
 {
     m_targetFile = m_pWidget->m_targetFile->url().toLocalFile();
-    m_type = (Type)m_pWidget->m_typeCombo->currentIndex();
+    m_type = static_cast<Type>(m_pWidget->m_typeCombo->currentIndex());
 
     QDialog::accept();
 }
@@ -287,7 +287,7 @@ void LinkerOptionsDlg::accept()
     m_pLinkerOptions->setLinkedInternal(linkedInternal);
 
     m_pLinkerOptions->setLinkedExternal(m_pWidget->m_pExternalLibraries->items());
-    m_pLinkerOptions->setHexFormat((LinkerOptions::HexFormat::type)m_pWidget->m_pHexFormat->currentIndex());
+    m_pLinkerOptions->setHexFormat(static_cast<LinkerOptions::HexFormat::type>(m_pWidget->m_pHexFormat->currentIndex()));
     m_pLinkerOptions->setOutputMapFile(m_pWidget->m_pOutputMap->isChecked());
     m_pLinkerOptions->setLibraryDir(m_pWidget->m_pLibraryDir->text());
     m_pLinkerOptions->setLinkerScript(m_pWidget->m_pLinkerScript->text());
