@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-29 00:49+0000\n"
+"POT-Creation-Date: 2023-09-24 00:45+0000\n"
 "PO-Revision-Date: 2023-08-08 00:05+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1851,7 +1851,7 @@ msgstr "외부 연결"
 #. i18n: ectx: property (text), widget (QLabel, m_pNameLabel)
 #: src/electronics/components/externalconnection.cpp:34
 #: src/gui/contexthelpwidget.ui:29 src/gui/microsettingsdlg.cpp:331
-#: src/gui/settingsdlg.cpp:286 src/gui/symbolviewer.cpp:124
+#: src/gui/settingsdlg.cpp:287 src/gui/symbolviewer.cpp:124
 #: src/gui/symbolviewer.cpp:126 src/gui/symbolviewer.cpp:191
 #: src/gui/symbolviewer.cpp:193
 #, kde-format
@@ -4518,17 +4518,17 @@ msgstr "<b>%1</b>을(를) 찾을 수 없습니다.<br>"
 msgid "<b>%1</b> found: %2<br>"
 msgstr "<b>%1</b> 찾음: %2<br>"
 
-#: src/gui/settingsdlg.cpp:263
+#: src/gui/settingsdlg.cpp:264
 #, kde-format
 msgid "Remove programmer configuration \"%1\"?"
 msgstr "프로그래머 설정 \"%1\"을(를) 삭제하시겠습니까?"
 
-#: src/gui/settingsdlg.cpp:263
+#: src/gui/settingsdlg.cpp:265
 #, kde-format
 msgid "Remove \"%1\""
 msgstr "\"%1\" 삭제"
 
-#: src/gui/settingsdlg.cpp:286
+#: src/gui/settingsdlg.cpp:287
 #, kde-format
 msgid "Configuration Name"
 msgstr "설정 이름"

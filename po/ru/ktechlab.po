@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-29 00:49+0000\n"
+"POT-Creation-Date: 2023-09-24 00:45+0000\n"
 "PO-Revision-Date: 2023-01-12 11:13+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -1872,7 +1872,7 @@ msgstr "Внешнее соединение"
 #. i18n: ectx: property (text), widget (QLabel, m_pNameLabel)
 #: src/electronics/components/externalconnection.cpp:34
 #: src/gui/contexthelpwidget.ui:29 src/gui/microsettingsdlg.cpp:331
-#: src/gui/settingsdlg.cpp:286 src/gui/symbolviewer.cpp:124
+#: src/gui/settingsdlg.cpp:287 src/gui/symbolviewer.cpp:124
 #: src/gui/symbolviewer.cpp:126 src/gui/symbolviewer.cpp:191
 #: src/gui/symbolviewer.cpp:193
 #, kde-format
@@ -4583,17 +4583,17 @@ msgstr "Не удалось найти <b>%1</b>.<br>"
 msgid "<b>%1</b> found: %2<br>"
 msgstr "Найдено <b>%1</b>: %2<br>"
 
-#: src/gui/settingsdlg.cpp:263
+#: src/gui/settingsdlg.cpp:264
 #, kde-format
 msgid "Remove programmer configuration \"%1\"?"
 msgstr "Удалить параметры программатора «%1»?"
 
-#: src/gui/settingsdlg.cpp:263
+#: src/gui/settingsdlg.cpp:265
 #, kde-format
 msgid "Remove \"%1\""
 msgstr "Удалить «%1»"
 
-#: src/gui/settingsdlg.cpp:286
+#: src/gui/settingsdlg.cpp:287
 #, kde-format
 msgid "Configuration Name"
 msgstr "Название конфигурации"
