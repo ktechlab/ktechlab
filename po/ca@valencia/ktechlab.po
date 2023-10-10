@@ -4657,7 +4657,7 @@ msgstr "Alineació"
 #: src/itemdocument.cpp:848
 #, kde-format
 msgid "SVG export is sub-functional"
-msgstr "L'exportació a SVG és quasi funcional"
+msgstr "L'exportació cap a SVG és quasi funcional"
 
 #: src/itemdocument.cpp:854
 #, kde-format
