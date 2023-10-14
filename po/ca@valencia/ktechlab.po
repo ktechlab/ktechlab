@@ -4812,7 +4812,7 @@ msgstr "Fes persistent"
 #: src/katemdi.cpp:426
 #, kde-format
 msgid "Move To"
-msgstr "Mou a"
+msgstr "Mou cap a"
 
 #. i18n("Left Sidebar"),0);  // 2018.11.22
 #: src/katemdi.cpp:430
