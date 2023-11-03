@@ -15,14 +15,14 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-24 00:45+0000\n"
-"PO-Revision-Date: 2023-09-09 16:14+0200\n"
+"PO-Revision-Date: 2023-11-01 21:46+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.0\n"
+"X-Generator: Lokalize 23.08.2\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -821,7 +821,7 @@ msgstr ""
 #: src/core/main.cpp:35
 #, kde-format
 msgid "(C) 2003-2017, The KTechLab developers"
-msgstr "(c) 2003-2017 Les développeurs de KTechLab"
+msgstr "(c) 2003 - 2017 L'équipe de développement de KTechLab"
 
 #: src/core/main.cpp:36
 #, kde-format
@@ -2026,7 +2026,7 @@ msgstr "Voltmètre"
 #: src/electronics/components/multiinputgate.cpp:224
 #, kde-format
 msgid "XNOR gate"
-msgstr "Porte XNOR"
+msgstr "Porte « XNOR »"
 
 #: src/electronics/components/multiinputgate.cpp:278
 #: src/electronics/components/multiinputgate.cpp:284
@@ -2063,12 +2063,12 @@ msgstr "Porte NAND"
 #: src/electronics/components/multiinputgate.cpp:508
 #, kde-format
 msgid "AND gate"
-msgstr "Porte AND"
+msgstr "Porte » ET »"
 
 #: src/electronics/components/multiinputgate.cpp:514
 #, kde-format
 msgid "AND Gate"
-msgstr "Porte AND"
+msgstr "Porte « ET »"
 
 #: src/electronics/components/multiplexer.cpp:32
 #: src/electronics/components/multiplexer.cpp:38
@@ -3223,9 +3223,9 @@ msgid ""
 "GPASM supports inhx8m, inhx8s, inhx16, and inhx32 hex file formats. This "
 "option controls which hex file format is used."
 msgstr ""
-"GPASM utilise les formats de fichiers hexadécimaux inhx8m, inhx8s, inhx16, "
-"et inhx32. Cette option permet de choisir le format de fichier hexadécimal à "
-"utiliser."
+"Le logiciel » gpasm » utilise les formats de fichiers hexadécimaux "
+"« inhx8m », « inhx8s », « inhx16 » et « inhx32 ». Cette option permet de "
+"choisir le format de fichier hexadécimal à utiliser."
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_HexFormat)
 #. i18n: ectx: property (text), item, widget (KComboBox, m_pHexFormat)
@@ -3479,10 +3479,11 @@ msgid ""
 "click repeatedly in the FlowChart to place the component. Right click to "
 "stop placement."
 msgstr ""
-"Pour ajouter un composant FlowPart au document FlowCode, le faire glisser "
-"ici.<br><br>Pour ajouter plus d'un composant FlowPart du même type, double-"
-"cliquer sur le composant Flow puis cliquer successivement dans le graphe "
-"Flow pour placer le composant. Le clic droit arrête cette fonction."
+"Pour ajouter un composant « FlowPart » au document « FlowCode », le faire "
+"glisser ici.<br><br>Pour ajouter plus d'un composant FlowPart du même type, "
+"double-cliquer sur le composant « Flow » puis cliquer successivement dans le "
+"graphe « Flow » pour placer le composant. Le clic droit arrête cette "
+"fonction."
 
 #: src/gui/itemselector.cpp:440
 #, kde-format
@@ -5139,7 +5140,7 @@ msgstr "Multi-vibrateur instable"
 #: src/ktechlab.cpp:695
 #, kde-format
 msgid "Schmitt Trigger"
-msgstr "Trigger de Schmitt"
+msgstr "Déclencheur de Schmitt"
 
 #: src/ktechlab.cpp:696
 #, kde-format
@@ -5284,7 +5285,7 @@ msgstr "Diodes"
 #: src/ktechlabui.rc:56
 #, kde-format
 msgid "JFETs"
-msgstr "JFETs"
+msgstr "JFET"
 
 #. i18n: ectx: Menu (examples_matrix_disp_driver)
 #: src/ktechlabui.rc:59
@@ -5296,7 +5297,7 @@ msgstr "Pilotes d'afficheur matriciel"
 #: src/ktechlabui.rc:62
 #, kde-format
 msgid "MOSFETs"
-msgstr "MOSFETs"
+msgstr "MOSFET"
 
 #. i18n: ectx: Menu (examples_transistors)
 #: src/ktechlabui.rc:65
@@ -5348,8 +5349,8 @@ msgstr "*** L'assemblage a échoué ***"
 #, kde-format
 msgid "Assembly failed. Please check you have gputils installed."
 msgstr ""
-"L'assemblage a échoué. Veuillez vérifier que gputils est correctement "
-"installé."
+"L'assemblage a échoué. Veuillez vérifier que le paquet « gputils » est "
+"correctement installé."
 
 #: src/languages/gpdasm.cpp:27
 #, kde-format
@@ -5365,8 +5366,8 @@ msgstr "*** Le désassemblage a échoué ***"
 #, kde-format
 msgid "Disassembly failed. Please check you have gputils installed."
 msgstr ""
-"Le désassemblage a échoué. Veuillez vérifier que gputils est correctement "
-"installé."
+"Le désassemblage a échoué. Veuillez vérifier que le paquet « gputils » est "
+"correctement installé."
 
 #: src/languages/gplib.cpp:22
 #, kde-format
@@ -5382,7 +5383,8 @@ msgstr "*** L'archivage a échoué ***"
 #, kde-format
 msgid "Linking failed. Please check you have gputils installed."
 msgstr ""
-"La liaison a échoué. Veuillez vérifier que gputils est correctement installé."
+"La liaison a échoué. Veuillez vérifier que le paquet « gputils » est "
+"correctement installé."
 
 #: src/languages/gplink.cpp:30
 #, kde-format
@@ -5487,12 +5489,12 @@ msgstr ""
 #: src/mechanics/chassiscircular2.cpp:31 src/mechanics/chassiscircular2.cpp:37
 #, kde-format
 msgid "Circular 2-Wheel Chassis"
-msgstr "Chassis circulaire à deux roues"
+msgstr "Châssis circulaire à deux roues"
 
 #: src/mechanics/chassiscircular2.cpp:31
 #, kde-format
 msgid "Chassis'"
-msgstr "Chassis"
+msgstr "Châssis"
 
 #: src/mechanics/mechanicsitem.cpp:41
 #, kde-format
