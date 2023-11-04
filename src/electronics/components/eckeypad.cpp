@@ -18,7 +18,7 @@
 
 Item *ECKeyPad::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECKeyPad((ICNDocument *)itemDocument, newItem, id);
+    return new ECKeyPad(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECKeyPad::libraryItem()

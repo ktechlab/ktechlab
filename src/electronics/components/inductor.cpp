@@ -17,7 +17,7 @@
 
 Item *Inductor::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new Inductor((ICNDocument *)itemDocument, newItem, id);
+    return new Inductor(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *Inductor::libraryItem()

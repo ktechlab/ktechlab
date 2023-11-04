@@ -22,7 +22,7 @@
 
 Item *ECSubcircuit::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECSubcircuit((ICNDocument *)itemDocument, newItem, id);
+    return new ECSubcircuit(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECSubcircuit::libraryItem()

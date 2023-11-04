@@ -17,12 +17,12 @@
 
 Item *ECJFET::constructNJFET(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECJFET(JFET::nJFET, (ICNDocument *)itemDocument, newItem, id ? id : "njfet");
+    return new ECJFET(JFET::nJFET, static_cast<ICNDocument *>(itemDocument), newItem, id ? id : "njfet");
 }
 
 Item *ECJFET::constructPJFET(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECJFET(JFET::pJFET, (ICNDocument *)itemDocument, newItem, id ? id : "pjfet");
+    return new ECJFET(JFET::pJFET, static_cast<ICNDocument *>(itemDocument), newItem, id ? id : "pjfet");
 }
 
 LibraryItem *ECJFET::libraryItemNJFET()

@@ -20,7 +20,7 @@
 
 Item *LED::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new LED((ICNDocument *)itemDocument, newItem, id);
+    return new LED(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *LED::libraryItem()
@@ -51,9 +51,9 @@ LED::~LED()
 void LED::dataChanged()
 {
     QColor color = dataColor("0-color");
-    r = color.red() / (double)0x100;
-    g = color.green() / (double)0x100;
-    b = color.blue() / (double)0x100;
+    r = color.red() / double(0x100);
+    g = color.green() / double(0x100);
+    b = color.blue() / double(0x100);
 }
 
 void LED::stepNonLogic()
@@ -73,7 +73,7 @@ void LED::drawShape(QPainter &p)
     uint _b;
 
     if (lastUpdatePeriod != 0.) {
-        last_brightness = (uint)(avg_brightness / lastUpdatePeriod);
+        last_brightness = uint(avg_brightness / lastUpdatePeriod);
     }
 
     _b = last_brightness;
@@ -113,5 +113,5 @@ uint LED::brightness(double i)
         return 0;
     if (i < 0.002)
         return 255;
-    return (uint)(255 * (1 - ((i - 0.002) / 0.016)));
+    return uint(255 * (1 - ((i - 0.002) / 0.016)));
 }

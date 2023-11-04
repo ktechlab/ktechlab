@@ -19,11 +19,11 @@
 
 Item *ECMOSFET::constructNEM(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECMOSFET(MOSFET::neMOSFET, (ICNDocument *)itemDocument, newItem, id ? id : "nemosfet");
+    return new ECMOSFET(MOSFET::neMOSFET, static_cast<ICNDocument *>(itemDocument), newItem, id ? id : "nemosfet");
 }
 Item *ECMOSFET::constructPEM(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECMOSFET(MOSFET::peMOSFET, (ICNDocument *)itemDocument, newItem, id ? id : "pemosfet");
+    return new ECMOSFET(MOSFET::peMOSFET, static_cast<ICNDocument *>(itemDocument), newItem, id ? id : "pemosfet");
 }
 #if 0
 Item * ECMOSFET::constructNDM( ItemDocument * itemDocument, bool newItem, const char * id )
@@ -87,7 +87,7 @@ ECMOSFET::ECMOSFET(int MOSFET_type, ICNDocument *icnDocument, bool newItem, cons
     : Component(icnDocument, newItem, id)
 {
     m_MOSFET_type = MOSFET_type;
-    switch ((MOSFET::MOSFET_type)m_MOSFET_type) {
+    switch (static_cast<MOSFET::MOSFET_type>(m_MOSFET_type)) {
     case MOSFET::neMOSFET: {
         m_name = i18n("N-Channel Enhancement MOSFET");
         break;

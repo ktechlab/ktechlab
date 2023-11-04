@@ -16,7 +16,7 @@
 
 Item *ExternalConnection::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ExternalConnection((ICNDocument *)itemDocument, newItem, id);
+    return new ExternalConnection(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ExternalConnection::libraryItem()
@@ -54,8 +54,8 @@ void ExternalConnection::dataChanged()
 void ExternalConnection::drawShape(QPainter &p)
 {
     initPainter(p);
-    int _x = (int)x() - 8;
-    int _y = (int)y() - 8;
+    int _x = int(x()) - 8;
+    int _y = int(y()) - 8;
     p.drawEllipse(_x, _y, width(), height());
 
     p.drawLine(_x + 3, _y + 6, _x + 12, _y + 6);

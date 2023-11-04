@@ -19,7 +19,7 @@
 
 Item *ECGround::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECGround((ICNDocument *)itemDocument, newItem, id);
+    return new ECGround(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 LibraryItem *ECGround::libraryItem()
 {
@@ -43,8 +43,8 @@ ECGround::~ECGround()
 void ECGround::drawShape(QPainter &p)
 {
     initPainter(p);
-    int _x = (int)x() - 8;
-    int _y = (int)y() - 8;
+    int _x = int(x()) - 8;
+    int _y = int(y()) - 8;
     QPen pen;
     pen.setWidth(2);
     pen.setColor(p.pen().color());

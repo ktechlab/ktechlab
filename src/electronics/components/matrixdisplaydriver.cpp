@@ -290,7 +290,7 @@ inline static bool displayBit(unsigned value, unsigned row, unsigned column)
 
 Item *MatrixDisplayDriver::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new MatrixDisplayDriver((ICNDocument *)itemDocument, newItem, id);
+    return new MatrixDisplayDriver(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *MatrixDisplayDriver::libraryItem()

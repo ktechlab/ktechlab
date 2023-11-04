@@ -26,7 +26,7 @@
 
 Item *ECSignalLamp::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECSignalLamp((ICNDocument *)itemDocument, newItem, id);
+    return new ECSignalLamp(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECSignalLamp::libraryItem()
@@ -73,7 +73,7 @@ void ECSignalLamp::drawShape(QPainter &p)
 
     // Calculate the brightness as a linear function of power, bounded below by
     // 25 milliWatts and above by 500 milliWatts.
-    int brightness = (avgPower < LIGHTUP) ? 255 : ((avgPower > WATTAGE) ? 0 : (int)(255 * (1 - ((avgPower - LIGHTUP) / (WATTAGE - LIGHTUP)))));
+    int brightness = (avgPower < LIGHTUP) ? 255 : ((avgPower > WATTAGE) ? 0 : int(255 * (1 - ((avgPower - LIGHTUP) / (WATTAGE - LIGHTUP)))));
     advanceSinceUpdate = 0;
 
     p.setBrush(QColor(255, 255, brightness));

@@ -20,7 +20,7 @@
 
 Item *ECCell::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECCell((ICNDocument *)itemDocument, newItem, id);
+    return new ECCell(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECCell::libraryItem()
@@ -71,8 +71,8 @@ void ECCell::drawShape(QPainter &p)
 {
     initPainter(p);
 
-    int _x = (int)x() - 8;
-    int _y = (int)y() - 24;
+    int _x = int(x()) - 8;
+    int _y = int(y()) - 24;
 
     p.drawLine(_x, _y + 20, _x, _y + 28);
     p.drawLine(_x + 5, _y + 16, _x + 5, _y + 32);

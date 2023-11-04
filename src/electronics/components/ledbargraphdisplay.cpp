@@ -48,9 +48,9 @@ void LEDPart::setDiodeSettings(const DiodeSettings &ds)
 
 void LEDPart::setColor(const QColor &color)
 {
-    r = color.red() / (double)0x100;
-    g = color.green() / (double)0x100;
-    b = color.blue() / (double)0x100;
+    r = color.red() / double(0x100);
+    g = color.green() / double(0x100);
+    b = color.blue() / double(0x100);
 }
 
 void LEDPart::step()
@@ -65,7 +65,7 @@ void LEDPart::draw(QPainter &p, int x, int y, int w, int h)
     if (lastUpdatePeriod == 0.)
         _b = last_brightness;
     else {
-        _b = (uint)(avg_brightness / lastUpdatePeriod);
+        _b = uint(avg_brightness / lastUpdatePeriod);
         last_brightness = _b;
     }
 
@@ -78,7 +78,7 @@ void LEDPart::draw(QPainter &p, int x, int y, int w, int h)
 
 Item *LEDBarGraphDisplay::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new LEDBarGraphDisplay((ICNDocument *)itemDocument, newItem, id);
+    return new LEDBarGraphDisplay(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *LEDBarGraphDisplay::libraryItem()
@@ -203,7 +203,7 @@ void LEDBarGraphDisplay::initPins()
     if (numRows > m_numRows) {
         // Create the extra LED parts required.
         for (unsigned i = m_numRows; i < numRows; i++)
-            m_LEDParts[i] = new LEDPart((Component *)this, QString("p_" + QString::number(i)), QString("n_" + QString::number(i)));
+            m_LEDParts[i] = new LEDPart(static_cast<Component *>(this), QString("p_" + QString::number(i)), QString("n_" + QString::number(i)));
     } else {
         // Remove excess LED parts.
         for (unsigned i = numRows; i < m_numRows; i++) {
@@ -228,8 +228,8 @@ void LEDBarGraphDisplay::drawShape(QPainter &p)
     initPainter(p);
 
     // Init _x and _y to top left hand corner of component.
-    int _x = (int)(x() + offsetX());
-    int _y = (int)(y() + offsetY());
+    int _x = int(x() + offsetX());
+    int _y = int(y() + offsetY());
 
     // Draw LED elements, passing in a position for each.
     for (unsigned i = 0; i < m_numRows; i++)

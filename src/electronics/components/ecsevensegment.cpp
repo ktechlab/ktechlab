@@ -22,7 +22,7 @@
 
 Item *ECSevenSegment::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECSevenSegment((ICNDocument *)itemDocument, newItem, id);
+    return new ECSevenSegment(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECSevenSegment::libraryItem()
@@ -127,9 +127,9 @@ void ECSevenSegment::drawShape(QPainter &p)
     const int _width = 20;
     const int _height = 32;
 
-    const int x1 = (int)x() + offsetX() + (width() - _width) / 2 - 1;
+    const int x1 = int(x()) + offsetX() + (width() - _width) / 2 - 1;
     const int x2 = x1 + _width;
-    const int y1 = (int)y() + offsetY() + (height() - _height) / 2;
+    const int y1 = int(y()) + offsetY() + (height() - _height) / 2;
     const int y2 = y1 + _height / 2;
     const int y3 = y1 + _height;
     const int ds = 2; // "Slope"
@@ -141,7 +141,7 @@ void ECSevenSegment::drawShape(QPainter &p)
 
     if (lastUpdatePeriod != 0.) {
         for (uint i = 0; i < 8; ++i) {
-            last_brightness[i] = (uint)(avg_brightness[i] / lastUpdatePeriod);
+            last_brightness[i] = uint(avg_brightness[i] / lastUpdatePeriod);
         }
     }
 

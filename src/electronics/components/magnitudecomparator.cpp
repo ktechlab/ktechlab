@@ -22,7 +22,7 @@ void MagnitudeComparator_inStateChangedWithVal(void *objV, bool state) { // Enab
 
 Item *MagnitudeComparator::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new MagnitudeComparator((ICNDocument *)itemDocument, newItem, id);
+    return new MagnitudeComparator(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *MagnitudeComparator::libraryItem()
@@ -94,7 +94,7 @@ void MagnitudeComparator::inStateChanged()
 void MagnitudeComparator::initPins()
 {
     const double numInputs = dataInt("numInput");
-    int newABLogicCount = (int)numInputs;
+    int newABLogicCount = int(numInputs);
 
     if (newABLogicCount == m_oldABLogicCount)
         return;

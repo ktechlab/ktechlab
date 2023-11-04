@@ -18,7 +18,7 @@
 
 Item *ECOpAmp::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECOpAmp((ICNDocument *)itemDocument, newItem, id);
+    return new ECOpAmp(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECOpAmp::libraryItem()

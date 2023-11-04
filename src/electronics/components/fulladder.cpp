@@ -22,7 +22,7 @@ void FullAdder_inStateChanged(void *objV, bool state) { // Enable
 
 Item *FullAdder::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new FullAdder((ICNDocument *)itemDocument, newItem, id);
+    return new FullAdder(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *FullAdder::libraryItem()

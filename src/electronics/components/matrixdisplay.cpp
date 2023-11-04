@@ -24,7 +24,7 @@
 
 Item *MatrixDisplay::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new MatrixDisplay((ICNDocument *)itemDocument, newItem, id);
+    return new MatrixDisplay(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *MatrixDisplay::libraryItem()

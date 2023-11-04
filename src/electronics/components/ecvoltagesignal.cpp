@@ -24,7 +24,7 @@
 
 Item *ECVoltageSignal::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECVoltageSignal((ICNDocument *)itemDocument, newItem, id);
+    return new ECVoltageSignal(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECVoltageSignal::libraryItem()
@@ -96,6 +96,6 @@ void ECVoltageSignal::dataChanged()
 void ECVoltageSignal::drawShape(QPainter &p)
 {
     initPainter(p);
-    p.drawEllipse((int)x() - 8, (int)y() - 8, width(), height());
+    p.drawEllipse(int(x()) - 8, int(y()) - 8, width(), height());
     deinitPainter(p);
 }

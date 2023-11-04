@@ -20,7 +20,7 @@
 
 Item *ECPotentiometer::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECPotentiometer((ICNDocument *)itemDocument, newItem, id);
+    return new ECPotentiometer(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECPotentiometer::libraryItem()
@@ -74,8 +74,8 @@ void ECPotentiometer::sliderValueChanged(const QString &id, int newValue)
 
     m_sliderProp = (newValue - 50.0) / 100.0;
 
-    m_r1->setResistance(m_resistance * (double)newValue / 100.);
-    m_r2->setResistance(m_resistance * (double)(100. - newValue) / 100.);
+    m_r1->setResistance(m_resistance * double(newValue) / 100.);
+    m_r2->setResistance(m_resistance * double(100. - newValue) / 100.);
 }
 
 void ECPotentiometer::drawShape(QPainter &p)
