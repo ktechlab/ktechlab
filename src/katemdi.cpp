@@ -406,7 +406,7 @@ void Sidebar::tabClicked(int i)
 bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 {
     if (ev->type() == QEvent::ContextMenu) {
-        QContextMenuEvent *e = (QContextMenuEvent *)ev;
+        QContextMenuEvent *e = static_cast<QContextMenuEvent *>(ev);
         KMultiTabBarTab *bt = dynamic_cast<KMultiTabBarTab *>(obj);
         if (bt) {
             qCDebug(KTL_LOG) << "Request for popup";
@@ -465,7 +465,7 @@ void Sidebar::buttonPopupActivate(QAction *action)
     // move ids
     if (id < 4) {
         // move + show ;)
-        m_mainWin->moveToolView(w, (KMultiTabBar::KMultiTabBarPosition)id);
+        m_mainWin->moveToolView(w, KMultiTabBar::KMultiTabBarPosition(id));
         m_mainWin->showToolView(w);
     }
 
@@ -529,7 +529,7 @@ void Sidebar::restoreSession(KConfigGroup *configGr)
 
         // then: remove this items from the button bar
         // do this backwards, to minimize the relayout efforts
-        for (int i = m_toolviews.size() - 1; i >= (int)firstWrong; --i) {
+        for (int i = m_toolviews.size() - 1; i >= int(firstWrong); --i) {
             removeTab(m_widgetToId[m_toolviews[i]]);
         }
 
@@ -592,7 +592,7 @@ void Sidebar::saveSession(KConfigGroup *config)
     for (int i = 0; i < m_toolviews.size(); ++i) {
         ToolView *tv = m_toolviews[i];
 
-        config->writeEntry(QString("Kate-MDI-ToolView-%1-Position").arg(tv->id), (int)tv->sidebar()->sidebarPosition());
+        config->writeEntry(QString("Kate-MDI-ToolView-%1-Position").arg(tv->id), int(tv->sidebar()->sidebarPosition()));
         config->writeEntry(QString("Kate-MDI-ToolView-%1-Sidebar-Position").arg(tv->id), i);
         config->writeEntry(QString("Kate-MDI-ToolView-%1-Visible").arg(tv->id), tv->visible());
         config->writeEntry(QString("Kate-MDI-ToolView-%1-Persistent").arg(tv->id), tv->persistent);
@@ -688,7 +688,7 @@ ToolView *MainWindow::createToolView(const QString &identifier, KMultiTabBar::KM
     // try the restore config to figure out real pos
     if (m_restoreConfig && m_restoreConfig->hasGroup(m_restoreGroup)) {
         KConfigGroup grRest = m_restoreConfig->group(m_restoreGroup);
-        pos = (KMultiTabBar::KMultiTabBarPosition)grRest.readEntry(QString("Kate-MDI-ToolView-%1-Position").arg(identifier), (int)pos);
+        pos = KMultiTabBar::KMultiTabBarPosition(grRest.readEntry(QString("Kate-MDI-ToolView-%1-Position").arg(identifier), int(pos)));
     }
 
     ToolView *v = m_sidebars[pos]->addWidget(icon, text, nullptr);
@@ -746,7 +746,7 @@ bool MainWindow::moveToolView(ToolView *widget, KMultiTabBar::KMultiTabBarPositi
     // try the restore config to figure out real pos
     if (m_restoreConfig && m_restoreConfig->hasGroup(m_restoreGroup)) {
         KConfigGroup grRest = m_restoreConfig->group(m_restoreGroup);
-        pos = (KMultiTabBar::KMultiTabBarPosition)grRest.readEntry(QString("Kate-MDI-ToolView-%1-Position").arg(widget->id), (int)pos);
+        pos = KMultiTabBar::KMultiTabBarPosition(grRest.readEntry(QString("Kate-MDI-ToolView-%1-Position").arg(widget->id), int(pos)));
     }
 
     m_sidebars[pos]->addWidget(widget->icon, widget->text, widget);
@@ -821,7 +821,7 @@ void MainWindow::startRestore(KConfig *config, const QString &group)
     m_hSplitter->setSizes(hs);
     m_vSplitter->setSizes(vs);
 
-    setToolViewStyle((KMultiTabBar::KMultiTabBarStyle)grRestWnd.readEntry("Kate-MDI-Sidebar-Style", (int)toolViewStyle()));
+    setToolViewStyle(KMultiTabBar::KMultiTabBarStyle(grRestWnd.readEntry("Kate-MDI-Sidebar-Style", int(toolViewStyle()))));
 }
 
 void MainWindow::finishRestore()
@@ -836,7 +836,7 @@ void MainWindow::finishRestore()
         // reshuffle toolviews only if needed
         KConfigGroup grRest = m_restoreConfig->group(m_restoreGroup);
         for (int i = 0; i < m_toolviews.size(); ++i) {
-            KMultiTabBar::KMultiTabBarPosition newPos = (KMultiTabBar::KMultiTabBarPosition)grRest.readEntry(QString("Kate-MDI-ToolView-%1-Position").arg(m_toolviews[i]->id), (int)m_toolviews[i]->sidebar()->sidebarPosition());
+            KMultiTabBar::KMultiTabBarPosition newPos = KMultiTabBar::KMultiTabBarPosition(grRest.readEntry(QString("Kate-MDI-ToolView-%1-Position").arg(m_toolviews[i]->id), int(m_toolviews[i]->sidebar()->sidebarPosition())));
 
             if (m_toolviews[i]->sidebar()->sidebarPosition() != newPos) {
                 moveToolView(m_toolviews[i], newPos);
@@ -877,7 +877,7 @@ void MainWindow::saveSession(KConfigGroup *grConf)
     grConf->writeEntry("Kate-MDI-V-Splitter", vs);
 
     // save sidebar style
-    grConf->writeEntry("Kate-MDI-Sidebar-Style", (int)toolViewStyle());
+    grConf->writeEntry("Kate-MDI-Sidebar-Style", int(toolViewStyle()));
 
     // save the sidebars
     for (unsigned int i = 0; i < 4; ++i)
