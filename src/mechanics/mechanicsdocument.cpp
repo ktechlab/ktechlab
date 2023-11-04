@@ -84,8 +84,8 @@ Item *MechanicsDocument::addItem(const QString &id, const QPoint &p, bool newIte
 
     QRect rect = item->boundingRect();
 
-    int dx = (int)(p.x()) - rect.width() / 2;
-    int dy = (int)(p.y()) - rect.height() / 2;
+    int dx = int(p.x()) - rect.width() / 2;
+    int dy = int(p.y()) - rect.height() / 2;
 
     if (dx < 16 || dx > (m_canvas->width()))
         dx = 16;

@@ -11,6 +11,8 @@
 #include "chassiscircular2.h"
 
 #include "libraryitem.h"
+#include "mechanicsitem.h"
+#include "mechanicsdocument.h"
 
 #include <KLocalizedString>
 #include <QPainter>
@@ -23,7 +25,7 @@ double normalizeAngle(double angle);
 
 Item *ChassisCircular2::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ChassisCircular2((MechanicsDocument *)itemDocument, newItem, id);
+    return new ChassisCircular2(static_cast<MechanicsDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ChassisCircular2::libraryItem()
