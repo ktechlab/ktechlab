@@ -52,7 +52,7 @@ CNItem::~CNItem()
         if (it.value())
             it.value()->setCanvas(nullptr);
 
-        delete (Text *)it.value();
+        delete static_cast<Text *>(it.value());
     }
     m_textMap.clear();
 
@@ -116,7 +116,7 @@ void CNItem::updateNodeLevels()
 
     const ItemList::iterator end = m_children.end();
     for (ItemList::iterator it = m_children.begin(); it != end; ++it) {
-        if (CNItem *cnItem = dynamic_cast<CNItem *>((Item *)*it))
+        if (CNItem *cnItem = dynamic_cast<CNItem *>(static_cast<Item *>(*it)))
             cnItem->updateNodeLevels();
     }
 }
