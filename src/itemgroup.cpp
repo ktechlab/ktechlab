@@ -60,7 +60,7 @@ ItemList ItemGroup::items(bool excludeParentedItems) const
             if (children.count(*it) > 1)
                 *it = nullptr;
         }
-        children.removeAll((Item *)nullptr);
+        children.removeAll(static_cast<Item *>(nullptr));
 
         items += children;
         parents = children;
