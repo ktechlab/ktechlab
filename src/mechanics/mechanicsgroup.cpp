@@ -79,7 +79,7 @@ void MechanicsGroup::setRaised(bool isRaised)
     b_isRaised = isRaised;
     const ItemList::iterator end = m_itemList.end();
     for (ItemList::iterator it = m_itemList.begin(); it != end; ++it) {
-        MechanicsItem *mechanicsItem = dynamic_cast<MechanicsItem *>((Item *)*it);
+        MechanicsItem *mechanicsItem = dynamic_cast<MechanicsItem *>(static_cast<Item *>(*it));
         if (mechanicsItem)
             mechanicsItem->setRaised(b_isRaised);
     }
@@ -89,9 +89,9 @@ void MechanicsGroup::setSelectionMode(uint sm)
 {
     const ItemList::iterator end = m_itemList.end();
     for (ItemList::iterator it = m_itemList.begin(); it != end; ++it) {
-        MechanicsItem *mechanicsItem = dynamic_cast<MechanicsItem *>((Item *)*it);
+        MechanicsItem *mechanicsItem = dynamic_cast<MechanicsItem *>(static_cast<Item *>(*it));
         if (mechanicsItem)
-            mechanicsItem->setSelectionMode((MechanicsItem::SelectionMode)sm);
+            mechanicsItem->setSelectionMode(static_cast<MechanicsItem::SelectionMode>(sm));
     }
 }
 
@@ -101,7 +101,7 @@ MechanicsItemList MechanicsGroup::extractMechanicsItems() const
 
     const ItemList::const_iterator end = m_itemList.end();
     for (ItemList::const_iterator it = m_itemList.begin(); it != end; ++it) {
-        MechanicsItem *mechanicsItem = dynamic_cast<MechanicsItem *>((Item *)*it);
+        MechanicsItem *mechanicsItem = dynamic_cast<MechanicsItem *>(static_cast<Item *>(*it));
         if (mechanicsItem)
             mechanicsItemList.append(mechanicsItem);
     }
