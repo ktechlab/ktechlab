@@ -19,7 +19,7 @@
 
 Item *Demultiplexer::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new Demultiplexer((ICNDocument *)itemDocument, newItem, id);
+    return new Demultiplexer(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *Demultiplexer::libraryItem()
@@ -59,7 +59,7 @@ Demultiplexer::~Demultiplexer()
 void Demultiplexer::dataChanged()
 {
     if (hasProperty("numInput") && dataInt("numInput") != -1) {
-        int addressSize = int(std::ceil(std::log((double)dataInt("numInput")) / std::log(2.0)));
+        int addressSize = int(std::ceil(std::log(double(dataInt("numInput"))) / std::log(2.0)));
         property("numInput")->setValue(-1);
 
         if (addressSize < 1)

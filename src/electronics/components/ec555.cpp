@@ -20,7 +20,7 @@
 
 Item *EC555::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new EC555((ICNDocument *)itemDocument, newItem, id);
+    return new EC555(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *EC555::libraryItem()

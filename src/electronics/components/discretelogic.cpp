@@ -21,7 +21,7 @@
 // BEGIN class Inverter
 Item *Inverter::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new Inverter((ICNDocument *)itemDocument, newItem, id);
+    return new Inverter(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *Inverter::libraryItem()
@@ -66,8 +66,8 @@ void Inverter::inStateChanged(bool newState)
 void Inverter::drawShape(QPainter &p)
 {
     initPainter(p);
-    int _x = (int)x() - 8;
-    int _y = (int)y() - 8;
+    int _x = int(x()) - 8;
+    int _y = int(y()) - 8;
     QPolygon pa(3);
     pa[0] = QPoint(_x, _y);
     pa[1] = QPoint(_x + width() - 6, _y + (height() / 2));
@@ -82,7 +82,7 @@ void Inverter::drawShape(QPainter &p)
 // BEGIN class Buffer
 Item *Buffer::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new Buffer((ICNDocument *)itemDocument, newItem, id);
+    return new Buffer(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *Buffer::libraryItem()
@@ -124,8 +124,8 @@ void Buffer::inStateChanged(bool newState)
 void Buffer::drawShape(QPainter &p)
 {
     initPainter(p);
-    int _x = (int)x() - 8;
-    int _y = (int)y() - 8;
+    int _x = int(x()) - 8;
+    int _y = int(y()) - 8;
     QPolygon pa(3);
     pa[0] = QPoint(_x, _y);
     pa[1] = QPoint(_x + width(), _y + (height() / 2));
@@ -139,7 +139,7 @@ void Buffer::drawShape(QPainter &p)
 // BEGIN class ECLogicInput
 Item *ECLogicInput::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECLogicInput((ICNDocument *)itemDocument, newItem, id);
+    return new ECLogicInput(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECLogicInput::libraryItem()
@@ -181,7 +181,7 @@ void ECLogicInput::drawShape(QPainter &p)
         p.setBrush(QColor(255, 166, 0));
     else
         p.setBrush(Qt::white);
-    p.drawEllipse((int)x() - 4, (int)y() - 6, 12, 12);
+    p.drawEllipse(int(x()) - 4, int(y()) - 6, 12, 12);
     deinitPainter(p);
 }
 
@@ -195,7 +195,7 @@ void ECLogicInput::buttonStateChanged(const QString &, bool state)
 // BEGIN class ECLogicOutput
 Item *ECLogicOutput::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECLogicOutput((ICNDocument *)itemDocument, newItem, id);
+    return new ECLogicOutput(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECLogicOutput::libraryItem()

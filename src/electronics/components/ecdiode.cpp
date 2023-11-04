@@ -18,7 +18,7 @@
 
 Item *ECDiode::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECDiode((ICNDocument *)itemDocument, newItem, id);
+    return new ECDiode(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECDiode::libraryItem()

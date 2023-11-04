@@ -18,7 +18,7 @@
 
 Item *Capacitor::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new Capacitor((ICNDocument *)itemDocument, newItem, id);
+    return new Capacitor(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *Capacitor::libraryItem()
@@ -65,8 +65,8 @@ void Capacitor::drawShape(QPainter &p)
 {
     initPainter(p);
 
-    int _y = (int)y() - 8;
-    int _x = (int)x() - 8;
+    int _y = int(y()) - 8;
+    int _x = int(x()) - 8;
 
     QPen pen;
     pen.setWidth(1);

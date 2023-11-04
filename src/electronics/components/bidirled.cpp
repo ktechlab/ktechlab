@@ -21,7 +21,7 @@
 
 Item *BiDirLED::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new BiDirLED((ICNDocument *)itemDocument, newItem, id);
+    return new BiDirLED(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *BiDirLED::libraryItem()
@@ -115,8 +115,8 @@ void BiDirLED::drawShape(QPainter &p)
     lastUpdatePeriod = 0.;
 
     // Draw the arrows indicating it's a LED
-    int _x = (int)x() - 2;
-    int _y = (int)y() - 21;
+    int _x = int(x()) - 2;
+    int _y = int(y()) - 21;
 
     p.drawLine(_x + 9, _y + 3, _x + 12, _y);  // Tail of left arrow
     p.drawLine(_x + 12, _y, _x + 10, _y);     // Left edge of left arrow tip

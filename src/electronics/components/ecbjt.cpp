@@ -18,12 +18,12 @@
 
 Item *ECBJT::constructNPN(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECBJT(true, (ICNDocument *)itemDocument, newItem, id);
+    return new ECBJT(true, static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 Item *ECBJT::constructPNP(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECBJT(false, (ICNDocument *)itemDocument, newItem, id);
+    return new ECBJT(false, static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECBJT::libraryItemNPN()

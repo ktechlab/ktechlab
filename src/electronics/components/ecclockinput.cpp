@@ -33,7 +33,7 @@ static inline uint roundDouble(const double x)
 
 Item *ECClockInput::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECClockInput((ICNDocument *)itemDocument, newItem, id);
+    return new ECClockInput(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECClockInput::libraryItem()
@@ -56,7 +56,7 @@ ECClockInput::ECClockInput(ICNDocument *icnDocument, bool newItem, const char *i
     m_pSimulator = Simulator::self();
 
     for (unsigned i = 0; i < LOGIC_UPDATE_PER_STEP; i++) {
-        ComponentCallback *ccb = new ComponentCallback(this, (VoidCallbackPtr)(&ECClockInput::stepCallback));
+        ComponentCallback *ccb = new ComponentCallback(this, static_cast<VoidCallbackPtr>(&ECClockInput::stepCallback));
         m_pComponentCallback[i] = new list<ComponentCallback>;
         m_pComponentCallback[i]->push_back(*ccb);
     }
@@ -101,7 +101,7 @@ void ECClockInput::dataChanged()
         if (setStepCallbacks) {
             m_pSimulator->detachComponentCallbacks(*this);
         } else {
-            m_pSimulator->attachComponentCallback(this, (VoidCallbackPtr)(&ECClockInput::stepLogic));
+            m_pSimulator->attachComponentCallback(this, static_cast<VoidCallbackPtr>(&ECClockInput::stepLogic));
         }
     }
 
@@ -169,8 +169,8 @@ void ECClockInput::drawShape(QPainter &p)
 {
     initPainter(p);
 
-    int _x = (int)x() - 10;
-    int _y = (int)y() - 8;
+    int _x = int(x()) - 10;
+    int _y = int(y()) - 8;
 
     p.drawRect(_x - 6, _y, 32, 16);
 

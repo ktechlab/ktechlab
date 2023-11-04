@@ -35,7 +35,7 @@ static bool numbers[16][7] = {{1, 1, 1, 1, 1, 1, 0},  // 0
 
 Item *ECBCDTo7Segment::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECBCDTo7Segment((ICNDocument *)itemDocument, newItem, id);
+    return new ECBCDTo7Segment(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECBCDTo7Segment::libraryItem()

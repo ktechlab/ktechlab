@@ -18,7 +18,7 @@
 
 Item *BinaryCounter::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new BinaryCounter((ICNDocument *)itemDocument, newItem, id);
+    return new BinaryCounter(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *BinaryCounter::libraryItem()

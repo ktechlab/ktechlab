@@ -20,12 +20,12 @@
 
 Item *ADC::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ADC((ICNDocument *)itemDocument, newItem, id);
+    return new ADC(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 Item *DAC::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new DAC((ICNDocument *)itemDocument, newItem, id);
+    return new DAC(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ADC::libraryItem()

@@ -20,7 +20,7 @@
 
 Item *ECCurrentSignal::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECCurrentSignal((ICNDocument *)itemDocument, newItem, id);
+    return new ECCurrentSignal(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECCurrentSignal::libraryItem()
@@ -78,6 +78,6 @@ void ECCurrentSignal::dataChanged()
 void ECCurrentSignal::drawShape(QPainter &p)
 {
     initPainter(p);
-    p.drawEllipse((int)x() - 8, (int)y() - 8, width(), height());
+    p.drawEllipse(int(x()) - 8, int(y()) - 8, width(), height());
     deinitPainter(p);
 }

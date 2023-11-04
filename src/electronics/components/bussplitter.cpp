@@ -18,7 +18,7 @@
 
 Item *BusSplitter::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new BusSplitter((ICNDocument *)itemDocument, newItem, id);
+    return new BusSplitter(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *BusSplitter::libraryItem()

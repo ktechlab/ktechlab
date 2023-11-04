@@ -46,8 +46,8 @@ DependentSource::~DependentSource()
 
 void DependentSource::drawOutline(QPainter &p)
 {
-    const int _x = (int)x() - 16;
-    const int _y = (int)y() - 32;
+    const int _x = int(x()) - 16;
+    const int _y = int(y()) - 32;
 
     // Top rectangle
     p.drawRect(_x, _y + 19, width(), 11);
@@ -79,8 +79,8 @@ void DependentSource::drawOutline(QPainter &p)
 
 void DependentSource::drawTopArrow(QPainter &p)
 {
-    const int _x = (int)x() - 16;
-    const int _y = (int)y() - 32;
+    const int _x = int(x()) - 16;
+    const int _y = int(y()) - 32;
 
     if (p.pen().color() == m_selectedCol)
         p.setPen(Qt::black);
@@ -99,8 +99,8 @@ void DependentSource::drawTopArrow(QPainter &p)
 
 void DependentSource::drawBottomArrow(QPainter &p)
 {
-    const int _x = (int)x() - 16;
-    const int _y = (int)y() - 32;
+    const int _x = int(x()) - 16;
+    const int _y = int(y()) - 32;
 
     if (p.pen().color() == m_selectedCol)
         p.setPen(Qt::black);
@@ -121,7 +121,7 @@ void DependentSource::drawBottomArrow(QPainter &p)
 // BEGIN class ECCCCS
 Item *ECCCCS::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECCCCS((ICNDocument *)itemDocument, newItem, id);
+    return new ECCCCS(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECCCCS::libraryItem()
@@ -164,7 +164,7 @@ void ECCCCS::drawShape(QPainter &p)
 // BEGIN class ECCCVS
 Item *ECCCVS::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECCCVS((ICNDocument *)itemDocument, newItem, id);
+    return new ECCCVS(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECCCVS::libraryItem()
@@ -206,7 +206,7 @@ void ECCCVS::drawShape(QPainter &p)
 // BEGIN class ECVCCS
 Item *ECVCCS::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECVCCS((ICNDocument *)itemDocument, newItem, id);
+    return new ECVCCS(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECVCCS::libraryItem()
@@ -248,7 +248,7 @@ void ECVCCS::drawShape(QPainter &p)
 // BEGIN class ECVCVS
 Item *ECVCVS::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECVCVS((ICNDocument *)itemDocument, newItem, id);
+    return new ECVCVS(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECVCVS::libraryItem()

@@ -19,7 +19,7 @@
 
 Item *ECFixedVoltage::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECFixedVoltage((ICNDocument *)itemDocument, newItem, id);
+    return new ECFixedVoltage(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 LibraryItem *ECFixedVoltage::libraryItem()
 {

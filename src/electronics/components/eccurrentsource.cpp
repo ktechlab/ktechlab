@@ -19,7 +19,7 @@
 
 Item *ECCurrentSource::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECCurrentSource((ICNDocument *)itemDocument, newItem, id);
+    return new ECCurrentSource(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECCurrentSource::libraryItem()
@@ -66,8 +66,8 @@ void ECCurrentSource::drawShape(QPainter &p)
 {
     initPainter(p);
 
-    int _x = (int)x() - 16;
-    int _y = (int)y() - 24;
+    int _x = int(x()) - 16;
+    int _y = int(y()) - 24;
 
     // Top arrow indicating current direction
     p.drawLine(_x + width(), _y + 19, _x, _y + 19);
