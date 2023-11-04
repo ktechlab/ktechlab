@@ -788,7 +788,7 @@ Diode *Component::createDiode(Pin *n0, Pin *n1)
 
 JFET *Component::createJFET(Pin *D, Pin *G, Pin *S, int JFET_type)
 {
-    JFET *e = new JFET((JFET::JFET_type)JFET_type);
+    JFET *e = new JFET(JFET::JFET_type(JFET_type));
 
     QList<Pin *> pins;
     pins << D << G << S;
@@ -835,7 +835,7 @@ LogicOut *Component::createLogicOut(Pin *node, bool isHigh)
 
 MOSFET *Component::createMOSFET(Pin *D, Pin *G, Pin *S, Pin *B, int MOSFET_type)
 {
-    MOSFET *e = new MOSFET((MOSFET::MOSFET_type)MOSFET_type);
+    MOSFET *e = new MOSFET(MOSFET::MOSFET_type(MOSFET_type));
 
     QList<Pin *> pins;
     pins << D << G << S << B;

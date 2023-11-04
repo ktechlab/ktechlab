@@ -31,7 +31,7 @@ inline double calcIProp(const double i)
 
 inline int calcThickness(const double prop)
 {
-    return (int)((iLength - 2) * prop + 2);
+    return int((iLength - 2) * prop + 2);
 }
 
 inline int calcLength(double v)

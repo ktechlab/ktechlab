@@ -381,7 +381,7 @@ bool CircuitICNDocument::registerItem(KtlQCanvasItem *qcanvasItem)
     if (!ItemDocument::registerItem(qcanvasItem)) {
         if (ECNode *node = dynamic_cast<ECNode *>(qcanvasItem)) {
             m_ecNodeList[node->id()] = node;
-            emit nodeAdded((Node *)node);
+            emit nodeAdded(static_cast<Node *>(node));
         } else if (Connector *connector = dynamic_cast<Connector *>(qcanvasItem)) {
             m_connectorList.append(connector);
             emit connectorAdded(connector);

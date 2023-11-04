@@ -42,7 +42,7 @@ double ElementSignal::advance(double delta)
         return 1 - remainder(val, 2);
     }
     case ElementSignal::st_square:
-        return (((int)trunc(m_time * m_omega / M_PI) & 1) == 0) ? 1 : -1;
+        return ((int(trunc(m_time * m_omega / M_PI)) & 1) == 0) ? 1 : -1;
     case ElementSignal::st_triangular:
         // TODO Triangular signal
         return 0.;
