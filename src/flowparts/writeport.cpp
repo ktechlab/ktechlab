@@ -12,12 +12,13 @@
 
 #include "flowcode.h"
 #include "libraryitem.h"
+#include "icndocument.h"
 
 #include <KLocalizedString>
 
 Item *WritePort::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new WritePort((ICNDocument *)itemDocument, newItem, id);
+    return new WritePort(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *WritePort::libraryItem()

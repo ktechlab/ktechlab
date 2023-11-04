@@ -12,12 +12,13 @@
 
 #include "flowcode.h"
 #include "libraryitem.h"
+#include "icndocument.h"
 
 #include <KLocalizedString>
 
 Item *VarComparison::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new VarComparison((ICNDocument *)itemDocument, newItem, id);
+    return new VarComparison(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *VarComparison::libraryItem()

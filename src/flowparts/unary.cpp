@@ -12,12 +12,13 @@
 
 #include "flowcode.h"
 #include "libraryitem.h"
+#include "icndocument.h"
 
 #include <KLocalizedString>
 
 Item *Unary::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new Unary((ICNDocument *)itemDocument, newItem, id);
+    return new Unary(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *Unary::libraryItem()

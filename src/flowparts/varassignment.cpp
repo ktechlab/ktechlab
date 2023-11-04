@@ -12,12 +12,13 @@
 
 #include "flowcode.h"
 #include "libraryitem.h"
+#include "icndocument.h"
 
 #include <KLocalizedString>
 
 Item *VarAssignment::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new VarAssignment((ICNDocument *)itemDocument, newItem, id);
+    return new VarAssignment(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *VarAssignment::libraryItem()

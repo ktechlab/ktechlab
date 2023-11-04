@@ -11,12 +11,13 @@
 #include "pulse.h"
 #include "flowcode.h"
 #include "libraryitem.h"
+#include "icndocument.h"
 
 #include <KLocalizedString>
 
 Item *Pulse::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new Pulse((ICNDocument *)itemDocument, newItem, id);
+    return new Pulse(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *Pulse::libraryItem()

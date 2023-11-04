@@ -12,12 +12,13 @@
 
 #include "flowcode.h"
 #include "libraryitem.h"
+#include "icndocument.h"
 
 #include <KLocalizedString>
 
 Item *SevenSeg::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new SevenSeg((ICNDocument *)itemDocument, newItem, id);
+    return new SevenSeg(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *SevenSeg::libraryItem()

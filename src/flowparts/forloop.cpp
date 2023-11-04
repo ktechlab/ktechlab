@@ -12,12 +12,13 @@
 
 #include "flowcode.h"
 #include "libraryitem.h"
+#include "icndocument.h"
 
 #include <KLocalizedString>
 
 Item *ForLoop::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ForLoop((ICNDocument *)itemDocument, newItem, id);
+    return new ForLoop(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ForLoop::libraryItem()

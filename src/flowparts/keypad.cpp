@@ -12,12 +12,13 @@
 
 #include "flowcode.h"
 #include "libraryitem.h"
+#include "icndocument.h"
 
 #include <KLocalizedString>
 
 Item *Keypad::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new Keypad((ICNDocument *)itemDocument, newItem, id);
+    return new Keypad(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *Keypad::libraryItem()

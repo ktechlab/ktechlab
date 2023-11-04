@@ -12,12 +12,13 @@
 
 #include "flowcode.h"
 #include "libraryitem.h"
+#include "icndocument.h"
 
 #include <KLocalizedString>
 
 Item *TestPin::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new TestPin((ICNDocument *)itemDocument, newItem, id);
+    return new TestPin(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *TestPin::libraryItem()
@@ -54,8 +55,8 @@ void TestPin::dataChanged()
 void TestPin::generateMicrobe(FlowCode *code)
 {
     const QString pin = dataString("pin");
-    const QString port = "PORT" + QString((QChar)pin[1]);
-    const QString bit = (QChar)pin[2];
+    const QString port = "PORT" + QString(static_cast<QChar>(pin[1]));
+    const QString bit = static_cast<QChar>(pin[2]);
 
     handleIfElse(code, port + "." + bit + " is high", port + "." + bit + " is low", "stdoutput", "altoutput");
 

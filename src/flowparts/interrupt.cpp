@@ -12,12 +12,13 @@
 
 #include "flowcode.h"
 #include "libraryitem.h"
+#include "icndocument.h"
 
 #include <KLocalizedString>
 
 Item *Interrupt::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new Interrupt((ICNDocument *)itemDocument, newItem, id);
+    return new Interrupt(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *Interrupt::libraryItem()

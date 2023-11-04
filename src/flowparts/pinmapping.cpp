@@ -316,7 +316,7 @@ PinMapView::~PinMapView()
 // BEGIN class PIC_IC
 Item *PIC_IC::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new PIC_IC((ICNDocument *)itemDocument, newItem, id);
+    return new PIC_IC(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *PIC_IC::libraryItem()

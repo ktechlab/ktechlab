@@ -20,7 +20,7 @@
 
 Item *SetPin::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new SetPin((ICNDocument *)itemDocument, newItem, id);
+    return new SetPin(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *SetPin::libraryItem()
@@ -58,16 +58,16 @@ void SetPin::dataChanged()
 void SetPin::generateMicrobe(FlowCode *code)
 {
     const QString pin = dataString("pin");
-    const QString port = "PORT" + QString((QChar)pin[1]);
-    const QString bit = (QChar)pin[2];
+    const QString port = "PORT" + QString(static_cast<QChar>(pin[1]));
+    const QString bit = static_cast<QChar>(pin[2]);
     code->addCode(port + "." + bit + " = " + dataString("state"));
     code->addCodeBranch(outputPart("stdoutput"));
 
 #if 0
 	const QString pin = dataString("pin");
 	const bool isHigh = (dataString("state") == "High");
-	const QString port = "PORT" + QString((QChar)pin[1]);
-	const QString bit = (QChar)pin[2];
+	const QString port = "PORT" + QString(static_cast<QChar>(pin[1]));
+	const QString bit = static_cast<QChar>(pin[2]);
 	
 	QString newCode;
 	if (isHigh)

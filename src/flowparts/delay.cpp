@@ -12,12 +12,13 @@
 
 #include "flowcode.h"
 #include "libraryitem.h"
+#include "icndocument.h"
 
 #include <KLocalizedString>
 
 Item *Delay::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new Delay((ICNDocument *)itemDocument, newItem, id);
+    return new Delay(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *Delay::libraryItem()
