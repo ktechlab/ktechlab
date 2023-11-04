@@ -350,7 +350,7 @@ void ICNDocument::getTranslatable(const ItemList &itemList, ConnectorList *fixed
     {
         const ItemList::const_iterator itemListEnd = itemList.end();
         for (ItemList::const_iterator it = itemList.begin(); it != itemListEnd; ++it) {
-            CNItem *cnItem = dynamic_cast<CNItem *>((Item *)*it);
+            CNItem *cnItem = dynamic_cast<CNItem *>(static_cast<Item *>(*it));
             if (!cnItem || !cnItem->canvas())
                 continue;
 
@@ -362,7 +362,7 @@ void ICNDocument::getTranslatable(const ItemList &itemList, ConnectorList *fixed
             }
 
             ConnectorList conList = cnItem->connectorList();
-            conList.removeAll((Connector *)nullptr);
+            conList.removeAll(static_cast<Connector *>(nullptr));
 
             const ConnectorList::iterator clEnd = conList.end();
             for (ConnectorList::iterator clit = conList.begin(); clit != clEnd; ++clit) {
@@ -772,7 +772,7 @@ ConnectorList ICNDocument::getCommonConnectors(const ItemList &list)
             *it = nullptr;
         }
     }
-    connectorList.removeAll((Connector *)nullptr);
+    connectorList.removeAll(static_cast<Connector *>(nullptr));
     return connectorList;
 }
 
@@ -783,7 +783,7 @@ NodeList ICNDocument::getCommonNodes(const ItemList &list)
     const ItemList::const_iterator listEnd = list.end();
     for (ItemList::const_iterator it = list.begin(); it != listEnd; ++it) {
         NodeInfoMap nodeMap;
-        CNItem *cnItem = dynamic_cast<CNItem *>((Item *)*it);
+        CNItem *cnItem = dynamic_cast<CNItem *>(static_cast<Item *>(*it));
 
         if (cnItem)
             nodeMap = cnItem->nodeMap();
