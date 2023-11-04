@@ -12,12 +12,13 @@
 
 #include "flowcode.h"
 #include "libraryitem.h"
+#include "icndocument.h"
 
 #include <KLocalizedString>
 
 Item *Repeat::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new Repeat((ICNDocument *)itemDocument, newItem, id);
+    return new Repeat(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *Repeat::libraryItem()

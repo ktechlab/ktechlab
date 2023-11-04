@@ -12,12 +12,13 @@
 
 #include "flowcode.h"
 #include "libraryitem.h"
+#include "icndocument.h"
 
 #include <KLocalizedString>
 
 Item *While::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new While((ICNDocument *)itemDocument, newItem, id);
+    return new While(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *While::libraryItem()
