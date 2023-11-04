@@ -315,7 +315,7 @@ bool CNItemGroup::canRotate() const
     const ItemList::const_iterator end = m_itemList.end();
     for (ItemList::const_iterator it = m_itemList.begin(); it != end; ++it) {
         // Components can rotate
-        if (dynamic_cast<Component *>((Item *)*it))
+        if (dynamic_cast<Component *>(static_cast<Item *>(*it)))
             return true;
     }
     return false;
@@ -326,7 +326,7 @@ bool CNItemGroup::canFlip() const
     const ItemList::const_iterator end = m_itemList.end();
     for (ItemList::const_iterator it = m_itemList.begin(); it != end; ++it) {
         // Components can flip
-        if (dynamic_cast<Component *>((Item *)*it))
+        if (dynamic_cast<Component *>(static_cast<Item *>(*it)))
             return true;
     }
     return false;
@@ -336,7 +336,7 @@ void CNItemGroup::slotRotateCW()
 {
     const ItemList::iterator end = m_itemList.end();
     for (ItemList::iterator it = m_itemList.begin(); it != end; ++it) {
-        Component *component = dynamic_cast<Component *>((Item *)*it);
+        Component *component = dynamic_cast<Component *>(static_cast<Item *>(*it));
         if (component && component->isMovable()) {
             int oldAngle = component->angleDegrees();
             component->setAngleDegrees(oldAngle + 90);
@@ -349,7 +349,7 @@ void CNItemGroup::slotRotateCCW()
 {
     const ItemList::iterator end = m_itemList.end();
     for (ItemList::iterator it = m_itemList.begin(); it != end; ++it) {
-        Component *component = dynamic_cast<Component *>((Item *)*it);
+        Component *component = dynamic_cast<Component *>(static_cast<Item *>(*it));
         if (component && component->isMovable()) {
             int oldAngle = component->angleDegrees();
             component->setAngleDegrees(oldAngle - 90);
@@ -362,7 +362,7 @@ void CNItemGroup::flipHorizontally()
 {
     const ItemList::iterator end = m_itemList.end();
     for (ItemList::iterator it = m_itemList.begin(); it != end; ++it) {
-        Component *component = dynamic_cast<Component *>((Item *)*it);
+        Component *component = dynamic_cast<Component *>(static_cast<Item *>(*it));
         if (component && component->isMovable()) {
             bool oldFlipped = component->flipped();
             component->setFlipped(!oldFlipped);
@@ -375,7 +375,7 @@ void CNItemGroup::flipVertically()
 {
     const ItemList::iterator end = m_itemList.end();
     for (ItemList::iterator it = m_itemList.begin(); it != end; ++it) {
-        Component *component = dynamic_cast<Component *>((Item *)*it);
+        Component *component = dynamic_cast<Component *>(static_cast<Item *>(*it));
         if (component && component->isMovable()) {
             bool oldFlipped = component->flipped();
 
@@ -403,8 +403,8 @@ bool CNItemGroup::haveSameOrientation() const
 
     const ItemList::const_iterator end = m_itemList.end();
     for (ItemList::const_iterator it = m_itemList.begin(); it != end; ++it) {
-        Component *component = dynamic_cast<Component *>((Item *)*it);
-        FlowPart *flowpart = dynamic_cast<FlowPart *>((Item *)*it);
+        Component *component = dynamic_cast<Component *>(static_cast<Item *>(*it));
+        FlowPart *flowpart = dynamic_cast<FlowPart *>(static_cast<Item *>(*it));
 
         if (component && flowpart)
             return false;
@@ -450,7 +450,7 @@ void CNItemGroup::setOrientationAngle(int _angle)
 {
     const ItemList::iterator end = m_itemList.end();
     for (ItemList::iterator it = m_itemList.begin(); it != end; ++it) {
-        Component *component = dynamic_cast<Component *>((Item *)*it);
+        Component *component = dynamic_cast<Component *>(static_cast<Item *>(*it));
         if (component && component->isMovable()) {
             int oldAngle = component->angleDegrees();
             if (oldAngle != _angle) {
@@ -465,7 +465,7 @@ void CNItemGroup::setComponentOrientation(int angleDegrees, bool flipped)
 {
     const ItemList::iterator end = m_itemList.end();
     for (ItemList::iterator it = m_itemList.begin(); it != end; ++it) {
-        Component *component = dynamic_cast<Component *>((Item *)*it);
+        Component *component = dynamic_cast<Component *>(static_cast<Item *>(*it));
         if (component && component->isMovable()) {
             int oldAngle = component->angleDegrees();
             int oldFlipped = component->flipped();
@@ -482,7 +482,7 @@ void CNItemGroup::setFlowPartOrientation(unsigned orientation)
 {
     const ItemList::iterator end = m_itemList.end();
     for (ItemList::iterator it = m_itemList.begin(); it != end; ++it) {
-        FlowPart *flowPart = dynamic_cast<FlowPart *>((Item *)*it);
+        FlowPart *flowPart = dynamic_cast<FlowPart *>(static_cast<Item *>(*it));
         if (flowPart && flowPart->isMovable())
             flowPart->setOrientation(orientation);
     }
