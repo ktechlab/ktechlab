@@ -36,8 +36,8 @@ FlowContainer::FlowContainer(ICNDocument *_icnDocument, bool newItem, const QStr
     m_rectangularOverlay = new RectangularOverlay(this, 8, 8);
     setSize(-160, -120, 320, 240);
 
-    m_int_in = (FPNode *)createNode(width() / 2, 8 + topStrip, 90, "int_in", Node::fp_out);
-    m_int_out = (FPNode *)createNode(width() / 2, height() - 8 - botStrip, 270, "int_out", Node::fp_in);
+    m_int_in = static_cast<FPNode *>(createNode(width() / 2, 8 + topStrip, 90, "int_in", Node::fp_out));
+    m_int_out = static_cast<FPNode *>(createNode(width() / 2, height() - 8 - botStrip, 270, "int_out", Node::fp_in));
 
     button("expandBtn")->setState(true);
 
@@ -82,7 +82,7 @@ void FlowContainer::filterEndPartIDs(QStringList *ids)
 
 void FlowContainer::createTopContainerNode()
 {
-    m_ext_in = (FPNode *)createNode(width() / 2, -8, 270, "ext_in", Node::fp_in);
+    m_ext_in = static_cast<FPNode *>(createNode(width() / 2, -8, 270, "ext_in", Node::fp_in));
     m_ext_in->setLevel(level());
     m_rectangularOverlay->removeTopMiddle();
     updateAttachedPositioning();
@@ -90,7 +90,7 @@ void FlowContainer::createTopContainerNode()
 
 void FlowContainer::createBotContainerNode()
 {
-    m_ext_out = (FPNode *)createNode(width() / 2, height() + 8, 90, "ext_out", Node::fp_out);
+    m_ext_out = static_cast<FPNode *>(createNode(width() / 2, height() + 8, 90, "ext_out", Node::fp_out));
     m_ext_out->setLevel(level());
     m_rectangularOverlay->removeBotMiddle();
     updateAttachedPositioning();
@@ -109,8 +109,8 @@ void FlowContainer::drawShape(QPainter &p)
     if (!m_sizeRect.isValid())
         return;
 
-    const int _x = (int)x() + offsetX();
-    const int _y = (int)y() + offsetY();
+    const int _x = int(x()) + offsetX();
+    const int _y = int(y()) + offsetY();
 
     int col = 0xef + level() * 0x6;
     if (col > 0xff)
@@ -173,8 +173,8 @@ void FlowContainer::updateConnectorPoints(bool add)
     if (!cells)
         return;
 
-    int _x = (int)x() + offsetX();
-    int _y = (int)y() + offsetY();
+    int _x = int(x()) + offsetX();
+    int _y = int(y()) + offsetY();
     int w = width();
     int h = b_expanded ? height() : topStrip;
 
@@ -250,7 +250,7 @@ bool FlowContainer::parentIsCollapsed() const
     if (!p_parentItem)
         return false;
 
-    FlowContainer *fc = dynamic_cast<FlowContainer *>((Item *)(p_parentItem));
+    FlowContainer *fc = dynamic_cast<FlowContainer *>(static_cast<Item *>((p_parentItem)));
     return !fc->isExpanded() || fc->parentIsCollapsed();
 }
 
