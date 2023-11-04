@@ -1475,71 +1475,71 @@ bool KtlQ3ScrollView::eventFilter(QObject *obj, QEvent *e)
         switch (e->type()) {
             /* Forward many events to viewport...() functions */
         case QEvent::Paint:
-            viewportPaintEvent((QPaintEvent *)e);
+            viewportPaintEvent(static_cast<QPaintEvent *>(e));
             break;
         case QEvent::Resize:
             if (!d->clipped_viewport)
-                viewportResizeEvent((QResizeEvent *)e);
+                viewportResizeEvent(static_cast<QResizeEvent *>(e));
             break;
         case QEvent::MouseButtonPress:
             if (disabled)
                 return false;
-            viewportMousePressEvent((QMouseEvent *)e);
-            if (((QMouseEvent *)e)->isAccepted())
+            viewportMousePressEvent(static_cast<QMouseEvent *>(e));
+            if ((static_cast<QMouseEvent *>(e))->isAccepted())
                 return true;
             break;
         case QEvent::MouseButtonRelease:
             if (disabled)
                 return false;
-            viewportMouseReleaseEvent((QMouseEvent *)e);
-            if (((QMouseEvent *)e)->isAccepted())
+            viewportMouseReleaseEvent(static_cast<QMouseEvent *>(e));
+            if ((static_cast<QMouseEvent *>(e))->isAccepted())
                 return true;
             break;
         case QEvent::MouseButtonDblClick:
             if (disabled)
                 return false;
-            viewportMouseDoubleClickEvent((QMouseEvent *)e);
-            if (((QMouseEvent *)e)->isAccepted())
+            viewportMouseDoubleClickEvent(static_cast<QMouseEvent *>(e));
+            if ((static_cast<QMouseEvent *>(e))->isAccepted())
                 return true;
             break;
         case QEvent::MouseMove:
             if (disabled)
                 return false;
-            viewportMouseMoveEvent((QMouseEvent *)e);
-            if (((QMouseEvent *)e)->isAccepted())
+            viewportMouseMoveEvent(static_cast<QMouseEvent *>(e));
+            if ((static_cast<QMouseEvent *>(e))->isAccepted())
                 return true;
             break;
 #ifndef QT_NO_DRAGANDDROP
         case QEvent::DragEnter:
             if (disabled)
                 return false;
-            viewportDragEnterEvent((QDragEnterEvent *)e);
+            viewportDragEnterEvent(static_cast<QDragEnterEvent *>(e));
             break;
         case QEvent::DragMove: {
             if (disabled)
                 return false;
             if (d->drag_autoscroll) {
-                QPoint vp = ((QDragMoveEvent *)e)->pos();
+                QPoint vp = (static_cast<QDragMoveEvent *>(e))->pos();
                 QRect inside_margin(autoscroll_margin, autoscroll_margin, visibleWidth() - autoscroll_margin * 2, visibleHeight() - autoscroll_margin * 2);
                 if (!inside_margin.contains(vp)) {
                     startDragAutoScroll();
                     // Keep sending move events
-                    ((QDragMoveEvent *)e)->accept(QRect(0, 0, 0, 0));
+                    (static_cast<QDragMoveEvent *>(e))->accept(QRect(0, 0, 0, 0));
                 }
             }
-            viewportDragMoveEvent((QDragMoveEvent *)e);
+            viewportDragMoveEvent(static_cast<QDragMoveEvent *>(e));
         } break;
         case QEvent::DragLeave:
             if (disabled)
                 return false;
             stopDragAutoScroll();
-            viewportDragLeaveEvent((QDragLeaveEvent *)e);
+            viewportDragLeaveEvent(static_cast<QDragLeaveEvent *>(e));
             break;
         case QEvent::Drop:
             if (disabled)
                 return false;
             stopDragAutoScroll();
-            viewportDropEvent((QDropEvent *)e);
+            viewportDropEvent(static_cast<QDropEvent *>(e));
             break;
 #endif // QT_NO_DRAGANDDROP
 #ifndef QT_NO_WHEELEVENT
@@ -1551,12 +1551,12 @@ bool KtlQ3ScrollView::eventFilter(QObject *obj, QEvent *e)
         case QEvent::ContextMenu:
             if (disabled)
                 return false;
-            viewportContextMenuEvent((QContextMenuEvent *)e);
-            if (((QContextMenuEvent *)e)->isAccepted())
+            viewportContextMenuEvent(static_cast<QContextMenuEvent *>(e));
+            if ((static_cast<QContextMenuEvent *>(e))->isAccepted())
                 return true;
             break;
         case QEvent::ChildRemoved:
-            removeChild((QWidget *)((QChildEvent *)e)->child());
+            removeChild(static_cast<QWidget *>((static_cast<QChildEvent *>(e))->child()));
             break;
         // case QEvent::LayoutHint:  // 2018.12.08 - deprecated
         //    d->autoResizeHint(this);
@@ -1564,7 +1564,7 @@ bool KtlQ3ScrollView::eventFilter(QObject *obj, QEvent *e)
         default:
             break;
         }
-    } else if (d && d->rec((QWidget *)obj)) { // must be a child
+    } else if (d && d->rec(static_cast<QWidget *>(obj))) { // must be a child
         if (e->type() == QEvent::Resize)
             d->autoResize(this);
         else if (e->type() == QEvent::Move)

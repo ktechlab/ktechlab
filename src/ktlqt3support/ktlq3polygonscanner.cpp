@@ -414,7 +414,7 @@ static bool miInsertEdgeInET(EdgeTable *ET, EdgeTableEntry *ETE, int scanline, S
      */
     if ((!pSLL) || (pSLL->scanline > scanline)) {
         if (*iSLLBlock > SLLSPERBLOCK - 1) {
-            tmpSLLBlock = (ScanLineListBlock *)malloc(sizeof(ScanLineListBlock));
+            tmpSLLBlock = static_cast<ScanLineListBlock *>(malloc(sizeof(ScanLineListBlock)));
             if (!tmpSLLBlock)
                 return false;
             (*SLLBlock)->next = tmpSLLBlock;
@@ -725,7 +725,7 @@ void KtlQ3PolygonScanner::scan(const QPolygon &pa, bool winding, int index, int 
 */
 void KtlQ3PolygonScanner::scan(const QPolygon &pa, bool winding, int index, int npoints, Edge edges)
 {
-    DDXPointPtr ptsIn = (DDXPointPtr)pa.data();
+    DDXPointPtr ptsIn = reinterpret_cast<DDXPointPtr>( const_cast<QPoint*>(pa.data()));
     ptsIn += index;
     EdgeTableEntry *pAET;  /* the Active Edge Table   */
     int y;                 /* the current scanline    */
@@ -753,7 +753,7 @@ void KtlQ3PolygonScanner::scan(const QPolygon &pa, bool winding, int index, int 
     if (npoints < 3)
         return;
 
-    if (!(pETEs = (EdgeTableEntry *)malloc(sizeof(EdgeTableEntry) * npoints)))
+    if (!(pETEs = static_cast<EdgeTableEntry *>(malloc(sizeof(EdgeTableEntry) * npoints))))
         return;
     ptsOut = FirstPoint;
     width = FirstWidth;
@@ -792,7 +792,7 @@ void KtlQ3PolygonScanner::scan(const QPolygon &pa, bool winding, int index, int 
                  *  send out the buffer when its full
                  */
                 if (nPts == NUMPTSTOBUFFER) {
-                    processSpans(nPts, (QPoint *)FirstPoint, FirstWidth);
+                    processSpans(nPts, reinterpret_cast<QPoint *>(FirstPoint), FirstWidth);
                     ptsOut = FirstPoint;
                     width = FirstWidth;
                     nPts = 0;
@@ -840,7 +840,7 @@ void KtlQ3PolygonScanner::scan(const QPolygon &pa, bool winding, int index, int 
                      *  send out the buffer
                      */
                     if (nPts == NUMPTSTOBUFFER) {
-                        processSpans(nPts, (QPoint *)FirstPoint, FirstWidth);
+                        processSpans(nPts, reinterpret_cast<QPoint *>(FirstPoint), FirstWidth);
                         ptsOut = FirstPoint;
                         width = FirstWidth;
                         nPts = 0;
@@ -870,7 +870,7 @@ void KtlQ3PolygonScanner::scan(const QPolygon &pa, bool winding, int index, int 
      *     Get any spans that we missed by buffering
      */
 
-    processSpans(nPts, (QPoint *)FirstPoint, FirstWidth);
+    processSpans(nPts, reinterpret_cast<QPoint *>(FirstPoint), FirstWidth);
     free(pETEs);
     miFreeStorage(SLLBlock.next);
 }
