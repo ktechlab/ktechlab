@@ -135,8 +135,8 @@ void Pin::addOutputWire(Wire *wire)
 
 bool Pin::calculateCurrentFromWires()
 {
-    m_inputWireList.removeAll((Wire *)nullptr);
-    m_outputWireList.removeAll((Wire *)nullptr);
+    m_inputWireList.removeAll(static_cast<Wire *>(nullptr));
+    m_outputWireList.removeAll(static_cast<Wire *>(nullptr));
 
     const WireList inputs = m_inputWireList;
     const WireList outputs = m_outputWireList;
