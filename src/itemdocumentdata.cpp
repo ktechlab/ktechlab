@@ -811,7 +811,7 @@ void ItemDocumentData::restoreDocument(ItemDocument *itemDocument)
 
     {
         ItemList removeItems = itemDocument->itemList();
-        removeItems.removeAll((Item *)nullptr);
+        removeItems.removeAll(static_cast<Item *>(nullptr));
 
         const ItemDataMap::iterator end = m_itemDataMap.end();
         for (ItemDataMap::iterator it = m_itemDataMap.begin(); it != end; ++it)
@@ -827,7 +827,7 @@ void ItemDocumentData::restoreDocument(ItemDocument *itemDocument)
     if (icnd) {
         {
             NodeList removeNodes = icnd->nodeList();
-            removeNodes.removeAll((Node *)nullptr);
+            removeNodes.removeAll(static_cast<Node *>(nullptr));
 
             const NodeDataMap::iterator end = m_nodeDataMap.end();
             for (NodeDataMap::iterator it = m_nodeDataMap.begin(); it != end; ++it)
@@ -841,7 +841,7 @@ void ItemDocumentData::restoreDocument(ItemDocument *itemDocument)
         }
         {
             ConnectorList removeConnectors = icnd->connectorList();
-            removeConnectors.removeAll((Connector *)nullptr);
+            removeConnectors.removeAll(static_cast<Connector *>(nullptr));
 
             const ConnectorDataMap::iterator end = m_connectorDataMap.end();
             for (ConnectorDataMap::iterator it = m_connectorDataMap.begin(); it != end; ++it)
@@ -991,7 +991,7 @@ void ItemDocumentData::mergeWithDocument(ItemDocument *itemDocument, bool select
         const ItemList fcdItems = fcd->itemList();
         const ItemList::const_iterator fcdItemsEnd = fcdItems.constEnd();
         for (ItemList::const_iterator it = fcdItems.constBegin(); it != fcdItemsEnd; ++it) {
-            if (FlowContainer *fc = dynamic_cast<FlowContainer *>((Item *)*it))
+            if (FlowContainer *fc = dynamic_cast<FlowContainer *>(static_cast<Item *>(*it)))
                 fc->updateContainedVisibility();
         }
     }
