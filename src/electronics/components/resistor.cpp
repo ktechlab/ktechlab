@@ -18,7 +18,7 @@
 
 Item *Resistor::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new Resistor((ICNDocument *)itemDocument, newItem, id);
+    return new Resistor(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *Resistor::libraryItem()
@@ -62,6 +62,6 @@ void Resistor::dataChanged()
 void Resistor::drawShape(QPainter &p)
 {
     initPainter(p);
-    p.drawRect((int)x() - 16, (int)y() - 6, width(), 12);
+    p.drawRect(int(x()) - 16, int(y()) - 6, width(), 12);
     deinitPainter(p);
 }

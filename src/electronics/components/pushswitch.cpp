@@ -22,7 +22,7 @@
 // BEGIN class ECPTBSwitch
 Item *ECPTBSwitch::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECPTBSwitch((ICNDocument *)itemDocument, newItem, id);
+    return new ECPTBSwitch(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECPTBSwitch::libraryItem()
@@ -76,8 +76,8 @@ void ECPTBSwitch::drawShape(QPainter &p)
 {
     initPainter(p);
 
-    int _x = (int)x() - 16;
-    int _y = (int)y() - 8;
+    int _x = int(x()) - 16;
+    int _y = int(y()) - 8;
     const int radius = 2;
     const int _height = height() - 8;
 
@@ -105,7 +105,7 @@ void ECPTBSwitch::buttonStateChanged(const QString &id, bool state)
 // BEGIN class ECPTMSwitch
 Item *ECPTMSwitch::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECPTMSwitch((ICNDocument *)itemDocument, newItem, id);
+    return new ECPTMSwitch(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECPTMSwitch::libraryItem()
@@ -159,8 +159,8 @@ void ECPTMSwitch::drawShape(QPainter &p)
 {
     initPainter(p);
 
-    int _x = (int)x() - 16;
-    int _y = (int)y() - 8;
+    int _x = int(x()) - 16;
+    int _y = int(y()) - 8;
     const int radius = 2;
     const int _height = height() - 8;
 

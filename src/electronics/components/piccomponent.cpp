@@ -41,7 +41,7 @@ QString PICComponent::_def_PICComponent_fileName;
 
 Item *PICComponent::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new PICComponent((ICNDocument *)itemDocument, newItem, id);
+    return new PICComponent(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *PICComponent::libraryItem()

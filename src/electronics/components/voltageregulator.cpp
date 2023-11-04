@@ -21,7 +21,7 @@
 
 Item *VoltageRegulator::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new VoltageRegulator((ICNDocument *)itemDocument, newItem, id);
+    return new VoltageRegulator(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *VoltageRegulator::libraryItem()
@@ -52,8 +52,8 @@ void VoltageRegulator::drawShape(QPainter &p)
     initPainter(p);
 
     // Get centre point of component.
-    // int _y = (int)y();
-    // int _x = (int)x();
+    // int _y = int(y());
+    // int _x = int(x());
 
     deinitPainter(p);
 }

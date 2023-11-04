@@ -24,7 +24,7 @@ void Multiplexer_inStateChanged(void *objV, bool state) {
 
 Item *Multiplexer::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new Multiplexer((ICNDocument *)itemDocument, newItem, id);
+    return new Multiplexer(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *Multiplexer::libraryItem()
@@ -59,7 +59,7 @@ Multiplexer::~Multiplexer()
 void Multiplexer::dataChanged()
 {
     if (hasProperty("numInput") && dataInt("numInput") != -1) {
-        int addressSize = int(std::ceil(std::log((double)dataInt("numInput")) / std::log(2.0)));
+        int addressSize = int(std::ceil(std::log(double(dataInt("numInput"))) / std::log(2.0)));
         property("numInput")->setValue(-1);
 
         if (addressSize < 1)

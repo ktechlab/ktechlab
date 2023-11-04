@@ -26,7 +26,7 @@
 // BEGIN class ECRotoSwitch
 Item *ECRotoSwitch::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECRotoSwitch((ICNDocument *)itemDocument, newItem, id);
+    return new ECRotoSwitch(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECRotoSwitch::libraryItem()

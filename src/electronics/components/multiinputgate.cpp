@@ -179,7 +179,7 @@ void MultiInputGate::updateAttachedPositioning()
         if (m_bLikeOR) {
             int length = 8;
             if (m_logicSymbolShape == Distinctive) {
-                length += (int)std::sqrt((double)(64 * n * n - (8 * n - 8 - 16 * i) * (8 * n - 8 - 16 * i))) / n;
+                length += int(std::sqrt(double(64 * n * n - (8 * n - 8 - 16 * i) * (8 * n - 8 - 16 * i)))) / n;
             }
             inNode[i]->setLength(length);
         }
@@ -210,7 +210,7 @@ void MultiInputGate::drawShape(QPainter &p)
 // BEGIN class ECXNor
 Item *ECXnor::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECXnor((ICNDocument *)itemDocument, newItem, id);
+    return new ECXnor(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECXnor::libraryItem()
@@ -249,8 +249,8 @@ void ECXnor::drawShape(QPainter &p)
     }
 
     initPainter(p);
-    int _x = (int)x() + offsetX();
-    int _y = (int)y() + offsetY();
+    int _x = int(x()) + offsetX();
+    int _y = int(y()) + offsetY();
 
     p.save();
     p.setPen(Qt::NoPen);
@@ -270,7 +270,7 @@ void ECXnor::drawShape(QPainter &p)
 // BEGIN class ECXor
 Item *ECXor::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECXor((ICNDocument *)itemDocument, newItem, id);
+    return new ECXor(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECXor::libraryItem()
@@ -309,8 +309,8 @@ void ECXor::drawShape(QPainter &p)
     }
 
     initPainter(p);
-    int _x = (int)x() + offsetX();
-    int _y = (int)y() + offsetY();
+    int _x = int(x()) + offsetX();
+    int _y = int(y()) + offsetY();
 
     p.save();
     p.setPen(Qt::NoPen);
@@ -328,7 +328,7 @@ void ECXor::drawShape(QPainter &p)
 // BEGIN class ECOr
 Item *ECOr::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECOr((ICNDocument *)itemDocument, newItem, id);
+    return new ECOr(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECOr::libraryItem()
@@ -367,8 +367,8 @@ void ECOr::drawShape(QPainter &p)
     }
 
     initPainter(p);
-    int _x = (int)x() + offsetX();
-    int _y = (int)y() + offsetY();
+    int _x = int(x()) + offsetX();
+    int _y = int(y()) + offsetY();
 
     p.save();
     p.setPen(Qt::NoPen);
@@ -387,7 +387,7 @@ void ECOr::drawShape(QPainter &p)
 // BEGIN class ECNor
 Item *ECNor::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECNor((ICNDocument *)itemDocument, newItem, id);
+    return new ECNor(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECNor::libraryItem()
@@ -426,8 +426,8 @@ void ECNor::drawShape(QPainter &p)
     }
 
     initPainter(p);
-    int _x = (int)x() + offsetX();
-    int _y = (int)y() + offsetY();
+    int _x = int(x()) + offsetX();
+    int _y = int(y()) + offsetY();
 
     p.save();
     p.setPen(Qt::NoPen);
@@ -446,7 +446,7 @@ void ECNor::drawShape(QPainter &p)
 // BEGIN class ECNand
 Item *ECNand::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECNand((ICNDocument *)itemDocument, newItem, id);
+    return new ECNand(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECNand::libraryItem()
@@ -486,8 +486,8 @@ void ECNand::drawShape(QPainter &p)
     }
 
     initPainter(p);
-    int _x = (int)x() + offsetX();
-    int _y = (int)y() + offsetY();
+    int _x = int(x()) + offsetX();
+    int _y = int(y()) + offsetY();
     p.drawChord(_x - width() + 6, _y, 2 * width() - 12, height(), -16 * 90, 16 * 180);
     p.drawEllipse(_x + width() - 6, _y + (height() / 2) - 3, 6, 6);
     deinitPainter(p);
@@ -497,7 +497,7 @@ void ECNand::drawShape(QPainter &p)
 // BEGIN class ECAnd
 Item *ECAnd::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECAnd((ICNDocument *)itemDocument, newItem, id);
+    return new ECAnd(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECAnd::libraryItem()
@@ -541,8 +541,8 @@ void ECAnd::drawShape(QPainter &p)
 
     initPainter(p);
 
-    int _x = (int)x() + offsetX();
-    int _y = (int)y() + offsetY();
+    int _x = int(x()) + offsetX();
+    int _y = int(y()) + offsetY();
 
     p.drawChord(_x - width(), _y, 2 * width(), height(), -16 * 90, 16 * 180);
 

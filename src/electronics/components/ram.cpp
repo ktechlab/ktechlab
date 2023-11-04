@@ -23,7 +23,7 @@ void RAM_inStateChanged(void *objV, bool state) {
 
 Item *RAM::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new RAM((ICNDocument *)itemDocument, newItem, id);
+    return new RAM(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *RAM::libraryItem()

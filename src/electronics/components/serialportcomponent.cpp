@@ -36,7 +36,7 @@ void SerialPortComponent_dtrCallback(void *objV, bool state) {
 
 Item *SerialPortComponent::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new SerialPortComponent((ICNDocument *)itemDocument, newItem, id);
+    return new SerialPortComponent(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *SerialPortComponent::libraryItem()

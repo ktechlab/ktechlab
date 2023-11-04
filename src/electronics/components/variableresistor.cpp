@@ -21,7 +21,7 @@
 
 Item *VariableResistor::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new VariableResistor((ICNDocument *)itemDocument, newItem, id);
+    return new VariableResistor(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *VariableResistor::libraryItem()
@@ -129,8 +129,8 @@ void VariableResistor::drawShape(QPainter &p)
     initPainter(p);
 
     // Get centre point of component.
-    int _y = (int)y();
-    int _x = (int)x();
+    int _y = int(y());
+    int _x = int(x());
 
     p.drawRect(_x - 16, _y - 6, width(), 12);
     p.drawLine(_x - 12, _y + 12, _x + 13, _y - 13);

@@ -35,7 +35,7 @@ void ParallelPortComponent_controlCallback(void *objV, bool state) {
 
 Item *ParallelPortComponent::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ParallelPortComponent((ICNDocument *)itemDocument, newItem, id);
+    return new ParallelPortComponent(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ParallelPortComponent::libraryItem()

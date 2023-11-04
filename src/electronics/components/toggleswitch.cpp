@@ -21,7 +21,7 @@
 // BEGIN class ECDPDT
 Item *ECDPDT::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECDPDT((ICNDocument *)itemDocument, newItem, id);
+    return new ECDPDT(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECDPDT::libraryItem()
@@ -83,8 +83,8 @@ void ECDPDT::drawShape(QPainter &p)
 {
     initPainter(p);
 
-    int _x = (int)x() - 16;
-    int _y = (int)y() - 32;
+    int _x = int(x()) - 16;
+    int _y = int(y()) - 32;
     const int radius = 2;
 
     p.drawEllipse(_x, _y + 15, 2 * radius, 2 * radius);
@@ -115,7 +115,7 @@ void ECDPDT::buttonStateChanged(const QString &, bool state)
 // BEGIN class ECDPST
 Item *ECDPST::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECDPST((ICNDocument *)itemDocument, newItem, id);
+    return new ECDPST(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECDPST::libraryItem()
@@ -172,8 +172,8 @@ void ECDPST::drawShape(QPainter &p)
 {
     initPainter(p);
 
-    int _x = (int)x() - 16;
-    int _y = (int)y() - 16;
+    int _x = int(x()) - 16;
+    int _y = int(y()) - 16;
     const int radius = 2;
 
     p.drawEllipse(_x, _y + 6, 2 * radius, 2 * radius);
@@ -200,7 +200,7 @@ void ECDPST::buttonStateChanged(const QString &, bool state)
 // BEGIN class ECSPDT
 Item *ECSPDT::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECSPDT((ICNDocument *)itemDocument, newItem, id);
+    return new ECSPDT(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECSPDT::libraryItem()
@@ -258,8 +258,8 @@ void ECSPDT::drawShape(QPainter &p)
 {
     initPainter(p);
 
-    int _x = (int)x() - 16;
-    int _y = (int)y() - 16;
+    int _x = int(x()) - 16;
+    int _y = int(y()) - 16;
     const int radius = 2;
 
     p.drawEllipse(_x, _y + 15, 2 * radius, 2 * radius);
@@ -283,7 +283,7 @@ void ECSPDT::buttonStateChanged(const QString &, bool state)
 // BEGIN class ECSPST
 Item *ECSPST::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECSPST((ICNDocument *)itemDocument, newItem, id);
+    return new ECSPST(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECSPST::libraryItem()
@@ -339,8 +339,8 @@ void ECSPST::drawShape(QPainter &p)
 {
     initPainter(p);
 
-    int _x = (int)x() - 16;
-    int _y = (int)y() - 8;
+    int _x = int(x()) - 16;
+    int _y = int(y()) - 8;
     const int radius = 2;
 
     p.drawEllipse(_x, _y + 7, 2 * radius, 2 * radius);

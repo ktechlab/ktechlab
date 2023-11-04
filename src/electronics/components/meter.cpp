@@ -95,7 +95,7 @@ bool Meter::contentChanged() const
 void Meter::drawShape(QPainter &p)
 {
     initPainter(p);
-    p.drawEllipse((int)x() - 16, (int)y() - 16, width(), width());
+    p.drawEllipse(int(x()) - 16, int(y()) - 16, width(), width());
     p.setPen(QPen(Qt::black, 2));
     p.setBrush(Qt::black);
 
@@ -153,7 +153,7 @@ QString Meter::displayText()
 // BEGIN class FrequencyMeter
 Item *FrequencyMeter::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new FrequencyMeter((ICNDocument *)itemDocument, newItem, id);
+    return new FrequencyMeter(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *FrequencyMeter::libraryItem()
@@ -183,7 +183,7 @@ double FrequencyMeter::meterValue()
 // BEGIN class ECAmmeter
 Item *ECAmmeter::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECAmmeter((ICNDocument *)itemDocument, newItem, id);
+    return new ECAmmeter(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECAmmeter::libraryItem()
@@ -220,7 +220,7 @@ double ECAmmeter::meterValue()
 // BEGIN class ECVoltmeter
 Item *ECVoltMeter::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ECVoltMeter((ICNDocument *)itemDocument, newItem, id);
+    return new ECVoltMeter(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ECVoltMeter::libraryItem()

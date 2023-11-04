@@ -127,7 +127,7 @@ void FloatingProbe::drawShape(QPainter &p)
 // BEGIN class VoltageProbe
 Item *VoltageProbe::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new VoltageProbe((ICNDocument *)itemDocument, newItem, id);
+    return new VoltageProbe(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *VoltageProbe::libraryItem()
@@ -159,7 +159,7 @@ void VoltageProbe::stepNonLogic()
 // BEGIN class CurrentProbe
 Item *CurrentProbe::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new CurrentProbe((ICNDocument *)itemDocument, newItem, id);
+    return new CurrentProbe(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *CurrentProbe::libraryItem()
@@ -196,7 +196,7 @@ void LogicProbe_logicCallback(void *objV, bool state) {
 
 Item *LogicProbe::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new LogicProbe((ICNDocument *)itemDocument, newItem, id);
+    return new LogicProbe(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *LogicProbe::libraryItem()

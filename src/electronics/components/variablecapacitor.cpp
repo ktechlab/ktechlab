@@ -22,7 +22,7 @@
 
 Item *VariableCapacitor::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new VariableCapacitor((ICNDocument *)itemDocument, newItem, id);
+    return new VariableCapacitor(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *VariableCapacitor::libraryItem()
@@ -147,8 +147,8 @@ void VariableCapacitor::drawShape(QPainter &p)
     initPainter(p);
 
     // Get centre point of component.
-    int _y = (int)y();
-    int _x = (int)x();
+    int _y = int(y());
+    int _x = int(x());
 
     p.drawRect(_x - 8, _y - 8, 5, 16);
     p.drawRect(_x + 3, _y - 8, 5, 16);

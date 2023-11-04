@@ -18,7 +18,7 @@
 
 Item *ResistorDIP::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new ResistorDIP((ICNDocument *)itemDocument, newItem, id);
+    return new ResistorDIP(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *ResistorDIP::libraryItem()
