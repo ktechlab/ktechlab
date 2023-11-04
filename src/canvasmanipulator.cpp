@@ -209,7 +209,7 @@ void CMManager::mouseMoveEvent(const EventInfo &eventInfo)
     else
         item = dynamic_cast<Item *>(qcnItem);
 
-    if (p_lastMouseOverItem != (QPointer<Item>)item) {
+    if (p_lastMouseOverItem != static_cast<QPointer<Item> >(item)) {
         QEvent event(QEvent::Leave);
 
         if (p_lastMouseOverItem)
@@ -234,7 +234,7 @@ void CMManager::mouseMoveEvent(const EventInfo &eventInfo)
 
 void CMManager::updateCurrentResizeHandle(ResizeHandle *resizeHandle)
 {
-    if (p_lastMouseOverResizeHandle != (QPointer<ResizeHandle>)resizeHandle) {
+    if (p_lastMouseOverResizeHandle != static_cast<QPointer<ResizeHandle> >(resizeHandle)) {
         if (p_lastMouseOverResizeHandle)
             p_lastMouseOverResizeHandle->setHover(false);
         p_lastMouseOverResizeHandle = resizeHandle;
@@ -563,7 +563,7 @@ bool CMAutoConnector::mousePressedInitial(const EventInfo &eventInfo)
     p_startNode = dynamic_cast<Node *>(eventInfo.qcanvasItemClickedOn);
 
     if (p_startNode) {
-        m_eventInfo.pos = m_prevPos = p_icnDocument->gridSnap(QPoint((int)p_startNode->x(), (int)p_startNode->y()));
+        m_eventInfo.pos = m_prevPos = p_icnDocument->gridSnap(QPoint(int(p_startNode->x()), int(p_startNode->y())));
         if (p_startNode->numCon(true, false) > 2) {
             p_startConnector = toConnector(p_startNode);
             p_startNode = nullptr;
@@ -704,8 +704,8 @@ bool CMManualConnector::mousePressedInitial(const EventInfo &eventInfo)
     QPoint sp;
 
     if ((p_startNode = dynamic_cast<Node *>(eventInfo.qcanvasItemClickedOn))) {
-        sp.setX((int)p_startNode->x());
-        sp.setY((int)p_startNode->y());
+        sp.setX(int(p_startNode->x()));
+        sp.setY(int(p_startNode->y()));
         if (p_startNode->numCon(true, false) > 2) {
             p_startConnector = toConnector(p_startNode);
             p_startNode = nullptr;
@@ -878,18 +878,18 @@ bool CMItemMove::mousePressedInitial(const EventInfo &eventInfo)
         const ItemList &itemList = p_icnDocument->itemList();
         const ItemList::const_iterator ciEnd = itemList.end();
         for (ItemList::const_iterator it = itemList.begin(); it != ciEnd; ++it) {
-            if (FlowContainer *flowContainer = dynamic_cast<FlowContainer *>((Item *)*it))
+            if (FlowContainer *flowContainer = dynamic_cast<FlowContainer *>(static_cast<Item *>(*it)))
                 flowContainer->setFullBounds(true);
         }
     }
 
     ItemList itemList = p_cnItemSelectList->items(false);
-    itemList.removeAll((Item *)nullptr);
+    itemList.removeAll(static_cast<Item *>(nullptr));
 
     m_bItemsSnapToGrid = false;
     const ItemList::iterator itemListEnd = itemList.end();
     for (ItemList::iterator it = itemList.begin(); it != itemListEnd; ++it) {
-        CNItem *cnItem = dynamic_cast<CNItem *>((Item *)*it);
+        CNItem *cnItem = dynamic_cast<CNItem *>(static_cast<Item *>(*it));
         if (!cnItem || !cnItem->canvas())
             continue;
 
@@ -928,7 +928,7 @@ void CMItemMove::scrollCanvasToSelection()
 {
     QRect bound;
     ItemList itemList = p_cnItemSelectList->items(false);
-    itemList.removeAll((Item *)nullptr);
+    itemList.removeAll(static_cast<Item *>(nullptr));
     const ItemList::iterator itemListEnd = itemList.end();
     for (ItemList::iterator it = itemList.begin(); it != itemListEnd; ++it)
         bound |= (*it)->boundingRect();
@@ -1054,7 +1054,7 @@ bool CMItemMove::mouseReleased(const EventInfo &eventInfo)
     const ItemList &cnItemList = p_icnDocument->itemList();
     const ItemList::const_iterator end = cnItemList.end();
     for (ItemList::const_iterator it = cnItemList.begin(); it != end; ++it) {
-        if (FlowContainer *flowContainer = dynamic_cast<FlowContainer *>((Item *)*it))
+        if (FlowContainer *flowContainer = dynamic_cast<FlowContainer *>(static_cast<Item *>(*it)))
             flowContainer->setFullBounds(false);
     }
 
@@ -1502,7 +1502,7 @@ bool CMDraw::mousePressedInitial(const EventInfo &eventInfo)
 {
     m_eventInfo = eventInfo;
 
-    switch ((DrawPart::DrawAction)p_cmManager->drawAction()) {
+    switch (static_cast<DrawPart::DrawAction>(p_cmManager->drawAction())) {
     case DrawPart::da_text:
     case DrawPart::da_rectangle:
     case DrawPart::da_image: {
@@ -1608,7 +1608,7 @@ bool CMDraw::mouseReleased(const EventInfo & /*eventInfo*/)
         return true;
 
     QString id;
-    switch ((DrawPart::DrawAction)p_cmManager->drawAction()) {
+    switch (static_cast<DrawPart::DrawAction>(p_cmManager->drawAction())) {
     case DrawPart::da_rectangle:
         id = "dp/rectangle";
         break;
@@ -1708,7 +1708,7 @@ void ManualConnectorDraw::mouseMoved(const QPoint &pos)
     if (!b_orientationDefined) {
         QPoint previousStart = m_previousCon->startPoint();
 
-        double distance = std::sqrt(std::pow((double)(m_currentPos.x() - previousStart.x()), 2.) + std::pow((double)(m_currentPos.y() - previousStart.y()), 2.));
+        double distance = std::sqrt(std::pow(double(m_currentPos.x() - previousStart.x()), 2.) + std::pow(double(m_currentPos.y() - previousStart.y()), 2.));
 
         if (distance < 24) {
             b_currentVertical = (std::abs(double(m_currentPos.x() - previousStart.x())) >= std::abs(double(m_currentPos.y() - previousStart.y())));
