@@ -388,7 +388,7 @@ QImage ItemLibrary::componentImage(Component *component, const uint maxSize)
         bound.setRight(bound.right() - (dy / 2));
     }
 
-    const bool cache = ((bound.width() * bound.height()) > (int)maxSize);
+    const bool cache = ((bound.width() * bound.height()) > int(maxSize));
     QString type;
     if (cache && m_imageMap.contains(component->type()))
         return m_imageMap[component->type()];

@@ -71,7 +71,7 @@ void ItemInterface::slotGetActionTicket()
 void ItemInterface::slotItemDocumentChanged(ItemDocument *doc)
 {
     slotClearAll();
-    if (ItemDocument *itemDocument = dynamic_cast<ItemDocument *>((Document *)p_cvb)) {
+    if (ItemDocument *itemDocument = dynamic_cast<ItemDocument *>(static_cast<Document *>(p_cvb))) {
         disconnect(itemDocument, &ItemDocument::selectionChanged, this, &ItemInterface::slotUpdateItemInterface);
     }
 
@@ -141,7 +141,7 @@ void ItemInterface::slotUpdateItemInterface()
 
     ContextHelp::self()->slotUpdate(p_lastItem);
     ItemEditor::self()->slotUpdate(p_itemGroup);
-    if (CNItem *cnItem = dynamic_cast<CNItem *>((Item *)p_lastItem)) {
+    if (CNItem *cnItem = dynamic_cast<CNItem *>(static_cast<Item *>(p_lastItem))) {
         ItemEditor::self()->slotUpdate(cnItem);
     }
 
@@ -162,7 +162,7 @@ void ItemInterface::slotUpdateItemInterface()
 
 void ItemInterface::updateItemActions()
 {
-    ItemView *itemView = ((ItemDocument *)p_cvb) ? dynamic_cast<ItemView *>(p_cvb->activeView()) : nullptr;
+    ItemView *itemView = (static_cast<ItemDocument *>(p_cvb)) ? dynamic_cast<ItemView *>(p_cvb->activeView()) : nullptr;
     if (!itemView)
         return;
 
@@ -176,7 +176,7 @@ void ItemInterface::updateItemActions()
         KTechlab::self()->actionByName("edit_copy")->setEnabled(itemsSelected);
     }
 
-    CNItemGroup *cnItemGroup = dynamic_cast<CNItemGroup *>((ItemGroup *)p_itemGroup);
+    CNItemGroup *cnItemGroup = dynamic_cast<CNItemGroup *>(static_cast<ItemGroup *>(p_itemGroup));
     CircuitView *circuitView = dynamic_cast<CircuitView *>(itemView);
 
     if (cnItemGroup && circuitView) {
@@ -192,7 +192,7 @@ void ItemInterface::updateItemActions()
 
 void ItemInterface::setFlowPartOrientation(unsigned orientation)
 {
-    CNItemGroup *cnItemGroup = dynamic_cast<CNItemGroup *>((ItemGroup *)p_itemGroup);
+    CNItemGroup *cnItemGroup = dynamic_cast<CNItemGroup *>(static_cast<ItemGroup *>(p_itemGroup));
     if (!cnItemGroup)
         return;
 
@@ -201,7 +201,7 @@ void ItemInterface::setFlowPartOrientation(unsigned orientation)
 
 void ItemInterface::setComponentOrientation(int angleDegrees, bool flipped)
 {
-    CNItemGroup *cnItemGroup = dynamic_cast<CNItemGroup *>((ItemGroup *)p_itemGroup);
+    CNItemGroup *cnItemGroup = dynamic_cast<CNItemGroup *>(static_cast<ItemGroup *>(p_itemGroup));
     if (!cnItemGroup)
         return;
 
@@ -340,8 +340,8 @@ QWidget *ItemInterface::configWidget()
         }
         case Variant::Type::Int: {
             QSpinBox *spin = new QSpinBox(configWidget);
-            spin->setMinimum((int)vait.value()->minValue());
-            spin->setMaximum((int)vait.value()->maxValue());
+            spin->setMinimum(int(vait.value()->minValue()));
+            spin->setMaximum(int(vait.value()->maxValue()));
             spin->setValue(vait.value()->value().toInt());
 
             connectMapWidget(spin, SIGNAL(valueChanged(int)));
@@ -366,7 +366,7 @@ QWidget *ItemInterface::configWidget()
         case Variant::Type::Color: {
             QColor value = vait.value()->value().value<QColor>();
 
-            KColorCombo *colorBox = ColorUtils::createColorCombo((ColorUtils::ColorScheme)vait.value()->colorScheme(), configWidget);
+            KColorCombo *colorBox = ColorUtils::createColorCombo(static_cast<ColorUtils::ColorScheme>(vait.value()->colorScheme()), configWidget);
 
             colorBox->setColor(value);
             connectMapWidget(colorBox, SIGNAL(activated(const QColor &)));

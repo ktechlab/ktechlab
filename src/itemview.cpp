@@ -763,35 +763,35 @@ bool CVBEditor::event(QEvent *e)
 
     switch (e->type()) {
     case QEvent::MouseButtonPress:
-        p_itemView->contentsMousePressEvent((QMouseEvent *)e);
-        return ((QMouseEvent *)e)->isAccepted();
+        p_itemView->contentsMousePressEvent(static_cast<QMouseEvent *>(e));
+        return (static_cast<QMouseEvent *>(e))->isAccepted();
 
     case QEvent::MouseButtonRelease:
-        p_itemView->contentsMouseReleaseEvent((QMouseEvent *)e);
-        return ((QMouseEvent *)e)->isAccepted();
+        p_itemView->contentsMouseReleaseEvent(static_cast<QMouseEvent *>(e));
+        return (static_cast<QMouseEvent *>(e))->isAccepted();
 
     case QEvent::MouseButtonDblClick:
-        p_itemView->contentsMouseDoubleClickEvent((QMouseEvent *)e);
-        return ((QMouseEvent *)e)->isAccepted();
+        p_itemView->contentsMouseDoubleClickEvent(static_cast<QMouseEvent *>(e));
+        return (static_cast<QMouseEvent *>(e))->isAccepted();
 
     case QEvent::MouseMove:
-        p_itemView->contentsMouseMoveEvent((QMouseEvent *)e);
-        return ((QMouseEvent *)e)->isAccepted();
+        p_itemView->contentsMouseMoveEvent(static_cast<QMouseEvent *>(e));
+        return (static_cast<QMouseEvent *>(e))->isAccepted();
 
     case QEvent::DragEnter:
-        p_itemView->dragEnterEvent((QDragEnterEvent *)e);
+        p_itemView->dragEnterEvent(static_cast<QDragEnterEvent *>(e));
         return true;
 
     case QEvent::DragMove:
-        p_itemView->dragMoveEvent((QDragMoveEvent *)e);
+        p_itemView->dragMoveEvent(static_cast<QDragMoveEvent *>(e));
         return true;
 
     case QEvent::DragLeave:
-        p_itemView->dragLeaveEvent((QDragLeaveEvent *)e);
+        p_itemView->dragLeaveEvent(static_cast<QDragLeaveEvent *>(e));
         return true;
 
     case QEvent::Drop:
-        p_itemView->dropEvent((QDropEvent *)e);
+        p_itemView->dropEvent(static_cast<QDropEvent *>(e));
         return true;
 
     case QEvent::Enter:
@@ -803,8 +803,8 @@ bool CVBEditor::event(QEvent *e)
         return true;
 
     case QEvent::Wheel:
-        p_itemView->contentsWheelEvent((QWheelEvent *)e);
-        return ((QWheelEvent *)e)->isAccepted();
+        p_itemView->contentsWheelEvent(static_cast<QWheelEvent *>(e));
+        return (static_cast<QWheelEvent *>(e))->isAccepted();
 
     default:
         return KtlQCanvasView::event(e);
