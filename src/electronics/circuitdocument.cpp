@@ -361,11 +361,11 @@ void CircuitDocument::calculateConnectorCurrents()
     PinList groundPins;
 
     // Tell the Pins to reset their calculated currents to zero
-    m_pinList.removeAll((Pin *)nullptr);
+    m_pinList.removeAll(static_cast<Pin *>(nullptr));
 
     const PinList::iterator pinEnd = m_pinList.end();
     for (PinList::iterator it = m_pinList.begin(); it != pinEnd; ++it) {
-        if (Pin *n = dynamic_cast<Pin *>((Pin *)*it)) {
+        if (Pin *n = dynamic_cast<Pin *>(static_cast<Pin *>(*it))) {
             n->resetCurrent();
             n->setSwitchCurrentsUnknown();
 
@@ -389,7 +389,7 @@ void CircuitDocument::calculateConnectorCurrents()
         (*it)->setNodalCurrents();
 
     // And now for the wires and switches...
-    m_wireList.removeAll((Wire *)nullptr);
+    m_wireList.removeAll(static_cast<Wire *>(nullptr));
     const WireList::iterator clEnd = m_wireList.end();
     for (WireList::iterator it = m_wireList.begin(); it != clEnd; ++it)
         (*it)->setCurrentKnown(false);
@@ -731,11 +731,11 @@ void CircuitDocument::createSubcircuit()
     ItemList itemList = m_selectList->items();
     const ItemList::iterator itemListEnd = itemList.end();
     for (ItemList::iterator it = itemList.begin(); it != itemListEnd; ++it) {
-        if (!dynamic_cast<Component *>((Item *)*it))
+        if (!dynamic_cast<Component *>(static_cast<Item *>(*it)))
             *it = nullptr;
     }
 
-    itemList.removeAll((Item *)nullptr);
+    itemList.removeAll(static_cast<Item *>(nullptr));
 
     if (itemList.isEmpty()) {
         KMessageBox::error(activeView(), i18n("No components were found in the selection."));
