@@ -75,8 +75,8 @@ inline QPolygon arrowPoints(int dir)
 
 void JunctionFlowNode::drawShape(QPainter &p)
 {
-    const int _x = (int)x();
-    const int _y = (int)y();
+    const int _x = int(x());
+    const int _y = int(y());
 
     if (!m_inFlowConnList.isEmpty()) {
         const FlowConnectorList::iterator end = m_inFlowConnList.end();

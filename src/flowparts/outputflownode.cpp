@@ -70,8 +70,8 @@ inline QPolygon arrowPoints(int dir)
 
 void OutputFlowNode::drawShape(QPainter &p)
 {
-    const int _x = (int)x();
-    const int _y = (int)y();
+    const int _x = int(x());
+    const int _y = int(y());
 
     if (m_dir == 0)
         p.drawLine(_x, _y, _x - 8, _y);
