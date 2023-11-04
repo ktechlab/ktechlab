@@ -12,12 +12,13 @@
 
 #include "flowcode.h"
 #include "libraryitem.h"
+#include "icndocument.h"
 
 #include <KLocalizedString>
 
 Item *Embed::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-    return new Embed((ICNDocument *)itemDocument, newItem, id);
+    return new Embed(static_cast<ICNDocument *>(itemDocument), newItem, id);
 }
 
 LibraryItem *Embed::libraryItem()
