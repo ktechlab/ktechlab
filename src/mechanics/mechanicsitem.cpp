@@ -92,7 +92,7 @@ void MechanicsItem::dataChanged()
 
 PositionInfo MechanicsItem::absolutePosition() const
 {
-    MechanicsItem *parentMechItem = dynamic_cast<MechanicsItem *>((Item *)(p_parentItem));
+    MechanicsItem *parentMechItem = dynamic_cast<MechanicsItem *>(static_cast<Item *>(p_parentItem));
     if (parentMechItem)
         return parentMechItem->absolutePosition() + m_relativePosition;
 
@@ -188,7 +188,7 @@ void MechanicsItem::updateMechanicsInfoCombined()
 
     const ItemList::const_iterator end = m_children.end();
     for (ItemList::const_iterator it = m_children.begin(); it != end; ++it) {
-        MechanicsItem *child = dynamic_cast<MechanicsItem *>((Item *)*it);
+        MechanicsItem *child = dynamic_cast<MechanicsItem *>(static_cast<Item *>(*it));
         if (child) {
             CombinedMechanicsInfo *childInfo = child->mechanicsInfoCombined();
             const PositionInfo relativeChildPosition = child->relativePosition();
