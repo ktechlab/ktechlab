@@ -145,7 +145,7 @@ void FlowCodeDocument::setLastTextOutputTarget(TextDocument *target)
 void FlowCodeDocument::slotConvertTo(QAction *action)
 {
     int target = action->data().toInt();
-    switch ((ConvertToTarget)target) {
+    switch (ConvertToTarget(target)) {
     case FlowCodeDocument::MicrobeOutput:
         convertToMicrobe();
         break;
@@ -238,7 +238,7 @@ void FlowCodeDocument::convertToHex()
 
 void FlowCodeDocument::convertToPIC()
 {
-    ProgrammerDlg *dlg = new ProgrammerDlg(microSettings()->microInfo()->id(), (QWidget *)KTechlab::self());
+    ProgrammerDlg *dlg = new ProgrammerDlg(microSettings()->microInfo()->id(), static_cast<QWidget *>(KTechlab::self()));
     dlg->setObjectName("Programmer Dlg");
 
     const int accepted = dlg->exec();
