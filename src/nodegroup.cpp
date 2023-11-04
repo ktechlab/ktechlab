@@ -30,13 +30,13 @@ NodeGroup::~NodeGroup()
 {
     clearConList();
 
-    m_extNodeList.removeAll((Node *)nullptr);
+    m_extNodeList.removeAll(static_cast<Node *>(nullptr));
     const NodeList::iterator xnEnd = m_extNodeList.end();
     for (NodeList::iterator it = m_extNodeList.begin(); it != xnEnd; ++it)
         (*it)->setNodeGroup(nullptr);
     m_extNodeList.clear();
 
-    m_nodeList.removeAll((Node *)nullptr);
+    m_nodeList.removeAll(static_cast<Node *>(nullptr));
     const NodeList::iterator nEnd = m_nodeList.end();
     for (NodeList::iterator it = m_nodeList.begin(); it != nEnd; ++it)
         (*it)->setNodeGroup(nullptr);
@@ -50,7 +50,7 @@ void NodeGroup::setVisible(bool visible)
 
     b_visible = visible;
 
-    m_nodeList.removeAll((Node *)nullptr);
+    m_nodeList.removeAll(static_cast<Node *>(nullptr));
     const NodeList::iterator nEnd = m_nodeList.end();
     for (NodeList::iterator it = m_nodeList.begin(); it != nEnd; ++it)
         (*it)->setVisible(visible);
@@ -86,8 +86,8 @@ void NodeGroup::translate(int dx, int dy)
     if ((dx == 0) && (dy == 0))
         return;
 
-    m_conList.removeAll((Connector *)nullptr);
-    m_nodeList.removeAll((Node *)nullptr);
+    m_conList.removeAll(static_cast<Connector *>(nullptr));
+    m_nodeList.removeAll(static_cast<Node *>(nullptr));
 
     const ConnectorList::iterator conEnd = m_conList.end();
     for (ConnectorList::iterator it = m_conList.begin(); it != conEnd; ++it) {
@@ -127,7 +127,7 @@ void NodeGroup::updateRoutes()
         currentList += route;
 
         ConRouter cr(p_icnDocument);
-        cr.mapRoute((int)n1->x(), (int)n1->y(), (int)n2->x(), (int)n2->y());
+        cr.mapRoute(int(n1->x()), int(n1->y()), int(n2->x()), int(n2->y()));
         if (cr.pointList(false).size() <= 0) {
             qCDebug(KTL_LOG) << "no ConRouter points, giving up";
             return; // continue might get to an infinite loop
@@ -139,7 +139,7 @@ void NodeGroup::updateRoutes()
         Node *prev = n1;
         NodeList::iterator routeIt = route.begin();
         for (QPointListList::iterator it = pl.begin(); it != plEnd; ++it) {
-            Node *next = (routeIt == routeEnd) ? n2 : (Node *)*(routeIt++);
+            Node *next = (routeIt == routeEnd) ? n2 : static_cast<Node *>(*(routeIt++));
             removeRoutedNodes(&currentList, prev, next);
             QPointList pointList = *it;
             if (!pointList.isEmpty() && prev != n1) {
@@ -286,8 +286,8 @@ void NodeGroup::findBestPair(NodeList *list, Node **n1, Node **n2)
         NodeList::iterator it2 = it1;
         for (++it2; it2 != end; ++it2) {
             if (*it1 != *it2 && canRoute(*it1, *it2)) {
-                const int dx = (int)((*it1)->x() - (*it2)->x());
-                const int dy = (int)((*it1)->y() - (*it2)->y());
+                const int dx = int((*it1)->x() - (*it2)->x());
+                const int dy = int((*it1)->y() - (*it2)->y());
                 const int distance = std::abs(dx) + std::abs(dy);
                 if (distance < shortest) {
                     shortest = distance;
@@ -363,7 +363,7 @@ void NodeGroup::removeRoutedNodes(NodeList *nodes, Node *n1, Node *n2)
             *it = nullptr;
         }
     }
-    nodes->removeAll((Node *)nullptr);
+    nodes->removeAll(static_cast<Node *>(nullptr));
 
     const int n1pos = getNodePos(n1);
     const int n2pos = getNodePos(n2);
