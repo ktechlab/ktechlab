@@ -53,7 +53,7 @@ public:
     // QList's interface
     typedef QPointer<FlowConnector> T;
 
-#define CAST_POINTER (QPointer<Connector>)(Connector *)(FlowConnector *)
+#define CAST_POINTER_CONN(p) (static_cast<QPointer<Connector> >(static_cast<Connector*>(static_cast<FlowConnector*>(p))))
 
     typedef QList<T>::iterator iterator;
     typedef QList<T>::const_iterator const_iterator;

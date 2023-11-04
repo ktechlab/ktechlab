@@ -22,7 +22,7 @@ FlowConnectorList::FlowConnectorList(const QList<T> &l)
 { // O(n)
     FlowConnectorList::iterator it, end = flowList.end();
     for (it = flowList.begin(); it != end; it++)
-        list.append(CAST_POINTER * it);
+        list.append(CAST_POINTER_CONN(* it));
 }
 
 // FlowConnectorList::FlowConnectorList ( const std::list<FlowConnectorList::T> & l ) : flowList(l) {
@@ -37,7 +37,7 @@ QList<FlowConnectorList::T> &FlowConnectorList::operator=(const QList<FlowConnec
     list.clear();
     FlowConnectorList::iterator it, end = flowList.end();
     for (it = flowList.begin(); it != end; it++)
-        list.append(CAST_POINTER * it);
+        list.append(CAST_POINTER_CONN(* it));
     return flowList;
 }
 
@@ -57,31 +57,31 @@ QList<FlowConnectorList::T> &FlowConnectorList::operator=(const QList<FlowConnec
 
 FlowConnectorList::iterator FlowConnectorList::insert(FlowConnectorList::iterator it, const FlowConnectorList::T &x)
 { // O(n)
-    list.insert(convertIterator(it), CAST_POINTER x);
+    list.insert(convertIterator(it), CAST_POINTER_CONN(x));
     return flowList.insert(it, x);
 }
 
 uint FlowConnectorList::remove(const FlowConnectorList::T &x)
 {
-    list.removeAll(CAST_POINTER x);
+    list.removeAll(CAST_POINTER_CONN(x));
     return flowList.removeAll(x);
 }
 
 QList<FlowConnectorList::T> &FlowConnectorList::operator<<(const FlowConnectorList::T &x)
 {
-    list << CAST_POINTER x;
+    list << CAST_POINTER_CONN(x);
     return flowList << x;
 }
 
 void FlowConnectorList::push_front(const FlowConnectorList::T &x)
 {
-    list.push_front(CAST_POINTER x);
+    list.push_front(CAST_POINTER_CONN(x));
     flowList.push_front(x);
 }
 
 void FlowConnectorList::push_back(const FlowConnectorList::T &x)
 {
-    list.push_back(CAST_POINTER x);
+    list.push_back(CAST_POINTER_CONN(x));
     flowList.push_back(x);
 }
 
@@ -94,7 +94,7 @@ QList<FlowConnectorList::T> &FlowConnectorList::operator+=(const QList<FlowConne
 { // O(n)
     const_iterator end = l.end();
     for (const_iterator it = l.begin(); it != end; it++)
-        list.append(CAST_POINTER * it);
+        list.append(CAST_POINTER_CONN(* it));
     return flowList += l;
 }
 
@@ -104,7 +104,7 @@ QList<FlowConnectorList::T> &FlowConnectorList::operator+=(const QList<FlowConne
 
 FlowConnectorList::iterator FlowConnectorList::append(const FlowConnectorList::T &x)
 {
-    list.append(CAST_POINTER x);
+    list.append(CAST_POINTER_CONN(x));
     // return flowList.append(x);
     flowList.append(x);
     iterator ret = flowList.end();
@@ -114,7 +114,7 @@ FlowConnectorList::iterator FlowConnectorList::append(const FlowConnectorList::T
 
 FlowConnectorList::iterator FlowConnectorList::prepend(const FlowConnectorList::T &x)
 {
-    list.prepend(CAST_POINTER x);
+    list.prepend(CAST_POINTER_CONN(x));
     // return flowList.prepend(x);
     flowList.prepend(x);
     return flowList.begin();
@@ -122,7 +122,7 @@ FlowConnectorList::iterator FlowConnectorList::prepend(const FlowConnectorList::
 
 QList<FlowConnectorList::T> &FlowConnectorList::operator+=(const FlowConnectorList::T &x)
 {
-    list += CAST_POINTER x;
+    list += CAST_POINTER_CONN(x);
     return flowList += x;
 }
 
