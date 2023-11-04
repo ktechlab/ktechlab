@@ -63,7 +63,7 @@ void DebugManager::urlOpened(TextDocument *td)
     if (td->debuggerIsRunning())
         return;
 
-    m_processors.removeAll((GpsimProcessor *)nullptr);
+    m_processors.removeAll(static_cast<GpsimProcessor *>(nullptr));
     GpsimProcessorList::iterator end = m_processors.end();
     for (GpsimProcessorList::iterator it = m_processors.begin(); it != end; ++it) {
         if (!(*it)->sourceFileList().contains(td->url().path()))
