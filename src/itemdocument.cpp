@@ -276,8 +276,8 @@ void ItemDocument::print()
     m_canvas->setBackgroundPixmap(QPixmap(0, 0) /* 0 */);
 
     QRect bounding = canvasBoundingRect();
-    unsigned int rows = (unsigned)std::ceil(double(bounding.height()) / double(h));
-    unsigned int cols = (unsigned)std::ceil(double(bounding.width()) / double(w));
+    unsigned int rows = unsigned(std::ceil(double(bounding.height()) / double(h)));
+    unsigned int cols = unsigned(std::ceil(double(bounding.width()) / double(w)));
     int offset_x = bounding.x();
     int offset_y = bounding.y();
 
@@ -705,10 +705,10 @@ void ItemDocument::resizeCanvasToItems()
 {
     QRect bound = canvasBoundingRect();
 
-    m_viewList.removeAll((View *)nullptr);
+    m_viewList.removeAll(static_cast<View *>(nullptr));
     const ViewList::iterator end = m_viewList.end();
     for (ViewList::iterator it = m_viewList.begin(); it != end; ++it) {
-        ItemView *iv = static_cast<ItemView *>((View *)*it);
+        ItemView *iv = static_cast<ItemView *>(static_cast<View *>(*it));
         CVBEditor *cvbEditor = iv->cvbEditor();
 
         QPoint topLeft = iv->mousePosToCanvasPos(QPoint(0, 0));
@@ -745,7 +745,7 @@ void ItemDocument::updateItemViewScrollbars()
 
     const ViewList::iterator end = m_viewList.end();
     for (ViewList::iterator it = m_viewList.begin(); it != end; ++it) {
-        ItemView *itemView = static_cast<ItemView *>((View *)*it);
+        ItemView *itemView = static_cast<ItemView *>(static_cast<View *>(*it));
         CVBEditor *cvbEditor = itemView->cvbEditor();
         // TODO QT3
         cvbEditor->setVScrollBarMode(((h * itemView->zoomLevel()) > cvbEditor->visibleHeight()) ? KtlQ3ScrollView::AlwaysOn : KtlQ3ScrollView::AlwaysOff);
@@ -761,7 +761,7 @@ QRect ItemDocument::canvasBoundingRect() const
     Item *dragItem = nullptr;
     const ViewList::const_iterator viewsEnd = m_viewList.end();
     for (ViewList::const_iterator it = m_viewList.begin(); it != viewsEnd; ++it) {
-        dragItem = (static_cast<ItemView *>((View *)*it))->dragItem();
+        dragItem = (static_cast<ItemView *>(static_cast<View *>(*it)))->dragItem();
         if (dragItem)
             break;
     }
@@ -1171,7 +1171,7 @@ void CanvasTip::display(const QPoint &pos)
 
 QString CanvasTip::displayText(unsigned num) const
 {
-    if (m_v.size() <= (int)num)
+    if (m_v.size() <= int(num))
         return QString();
 
     return QString("%1%2V  %3%4A")
