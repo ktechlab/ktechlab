@@ -96,14 +96,14 @@ void PinItem::drawShape(QPainter &p)
     int left;
     int right;
     if (onLeft) {
-        right = (int)x();
+        right = int(x());
         left = right - 8;
     } else {
-        left = (int)x() + PinLength;
+        left = int(x()) + PinLength;
         right = left + 8;
     }
 
-    int midY = (int)y() + PinWidth / 2;
+    int midY = int(y()) + PinWidth / 2;
     QPolygon pa(3);
     int midLeft = left + (8 - PinDirArrow) / 2;
     int midRight = left + (8 + PinDirArrow) / 2;
@@ -139,9 +139,9 @@ QRect PinItem::boundingRect() const
 {
     QRect r = m_textRect;
     if (onLeft)
-        r.setLeft((int)x() - 10);
+        r.setLeft(int(x()) - 10);
     else
-        r.setRight((int)x() + PinLength + 10);
+        r.setRight(int(x()) + PinLength + 10);
 
     return r;
 }
@@ -202,13 +202,13 @@ void PinItem::calcTextRect()
     }
     // note: br is assigned but not used; here might be some bug...
     if (onLeft) {
-        m_textRect.setLeft((int)x() + PinLength + 2);
-        m_textRect.setRight((int)x() + InnerWidth / 2);
+        m_textRect.setLeft(int(x()) + PinLength + 2);
+        m_textRect.setRight(int(x()) + InnerWidth / 2);
         // br = p.boundingRect( m_textRect, Qt::AlignLeft, m_pinSettings->id() ); // 2016.05.03 - do not create dummy widget
         br = fontMetrics.boundingRect(m_textRect, Qt::AlignLeft, m_pinSettings->id());
     } else {
         m_textRect.setLeft(m_textRect.right() - InnerWidth / 2);
-        m_textRect.setRight((int)x() - 2);
+        m_textRect.setRight(int(x()) - 2);
         // br = p.boundingRect( m_textRect, Qt::AlignRight, m_pinSettings->id() ); // 2016.05.03 - do not create dummy widget
         br = fontMetrics.boundingRect(m_textRect, Qt::AlignRight, m_pinSettings->id());
     }
