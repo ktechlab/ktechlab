@@ -34,7 +34,7 @@ ResizeOverlay::~ResizeOverlay()
     for (ResizeHandleMap::iterator it = m_resizeHandleMap.begin(); it != end; ++it) {
         if (it.value())
             it.value()->setCanvas(nullptr);
-        delete (ResizeHandle *)it.value();
+        delete static_cast<ResizeHandle *>(it.value());
     }
     m_resizeHandleMap.clear();
 }
