@@ -1203,7 +1203,7 @@ KtlQCanvasItemList KtlQCanvas::collisions(const QPolygon &chunklist, const KtlQC
     // Q3PtrDict<void> seen;
     QHash<KtlQCanvasItem *, bool> seen;
     KtlQCanvasItemList result;
-    for (int i = 0; i < (int)chunklist.count(); i++) {
+    for (int i = 0; i < int(chunklist.count()); i++) {
         int x = chunklist[i].x();
         int y = chunklist[i].y();
         if (validChunk(x, y)) {

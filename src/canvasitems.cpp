@@ -120,19 +120,19 @@ void KtlQCanvasItem::setVisible(bool yes)
 {
     if (vis != yes) {
         if (yes) {
-            vis = (uint)yes;
+            vis = uint(yes);
             addToChunks();
         } else {
             removeFromChunks();
-            vis = (uint)yes;
+            vis = uint(yes);
         }
     }
 }
 
 void KtlQCanvasItem::setSelected(const bool yes)
 {
-    if ((bool)sel != yes) {
-        sel = (uint)yes;
+    if (bool(sel) != yes) {
+        sel = uint(yes);
         changeChunks();
     }
 }
@@ -228,7 +228,7 @@ void KtlQCanvasItem::addToChunks()
 {
     if (isVisible() && canvas()) {
         QPolygon pa = chunks();
-        for (int i = 0; i < (int)pa.count(); i++)
+        for (int i = 0; i < int(pa.count()); i++)
             canvas()->addItemToChunk(this, pa[i].x(), pa[i].y());
         val = true;
     }
@@ -238,7 +238,7 @@ void KtlQCanvasItem::removeFromChunks()
 {
     if (isVisible() && canvas()) {
         QPolygon pa = chunks();
-        for (int i = 0; i < (int)pa.count(); i++)
+        for (int i = 0; i < int(pa.count()); i++)
             canvas()->removeItemFromChunk(this, pa[i].x(), pa[i].y());
     }
 }
@@ -249,7 +249,7 @@ void KtlQCanvasItem::changeChunks()
         if (!val)
             addToChunks();
         QPolygon pa = chunks();
-        for (int i = 0; i < (int)pa.count(); i++)
+        for (int i = 0; i < int(pa.count()); i++)
             canvas()->setChangedChunk(pa[i].x(), pa[i].y());
     }
 }
@@ -419,7 +419,7 @@ void KtlQCanvasPolygon::setPoints(QPolygon pa)
     removeFromChunks();
     *poly = pa;
     poly->detach(); // Explicit sharing is stupid.
-    poly->translate((int)x(), (int)y());
+    poly->translate(int(x()), int(y()));
     addToChunks();
 }
 
@@ -490,7 +490,7 @@ void KtlQCanvasLine::setPoints(int xa, int ya, int xb, int yb)
 
 void KtlQCanvasLine::drawShape(QPainter &p)
 {
-    p.drawLine((int)(x() + x1), (int)(y() + y1), (int)(x() + x2), (int)(y() + y2));
+    p.drawLine(int(x() + x1), int(y() + y1), int(x() + x2), int(y() + y2));
 }
 
 QPolygon KtlQCanvasLine::areaPoints() const
@@ -606,7 +606,7 @@ QPolygon KtlQCanvasRectangle::areaPoints() const
         pw = 1;
     if (pen() == Qt::NoPen)
         pw = 0;
-    pa[0] = QPoint((int)x() - pw, (int)y() - pw);
+    pa[0] = QPoint(int(x()) - pw, int(y()) - pw);
     pa[1] = pa[0] + QPoint(w + pw * 2, 0);
     pa[2] = pa[1] + QPoint(0, h + pw * 2);
     pa[3] = pa[0] + QPoint(0, h + pw * 2);
@@ -615,7 +615,7 @@ QPolygon KtlQCanvasRectangle::areaPoints() const
 
 void KtlQCanvasRectangle::drawShape(QPainter &p)
 {
-    p.drawRect((int)x(), (int)y(), w, h);
+    p.drawRect(int(x()), int(y()), w, h);
 }
 
 KtlQCanvasEllipse::KtlQCanvasEllipse(KtlQCanvas *canvas)
