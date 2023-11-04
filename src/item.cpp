@@ -453,7 +453,7 @@ bool Item::contains(Item *item, bool direct) const
 {
     const ItemList::const_iterator end = m_children.end();
     for (ItemList::const_iterator it = m_children.begin(); it != end; ++it) {
-        if ((Item *)*it == item || (!direct && (*it)->contains(item, false)))
+        if (static_cast<Item *>(*it) == item || (!direct && (*it)->contains(item, false)))
             return true;
     }
     return false;
@@ -484,7 +484,7 @@ void Item::updateZ(int baseZ)
 
 int Item::getNumberPre(double num)
 {
-    return (int)(num / getMultiplier(num));
+    return int(num / getMultiplier(num));
 }
 
 QString Item::getNumberMag(double num)
@@ -497,7 +497,7 @@ QString Item::getNumberMag(double num)
     else if (exp_n >= maxPrefixExp)
         return SIprefix[numPrefix - 1];
     else
-        return SIprefix[(int)std::floor((double)(exp_n / 3)) - (int)floor(double(minPrefixExp / 3))];
+        return SIprefix[int(std::floor(double(exp_n / 3))) - int(floor(double(minPrefixExp / 3)))];
 }
 
 double Item::getMultiplier(double num)
