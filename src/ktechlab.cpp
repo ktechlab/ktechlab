@@ -239,7 +239,7 @@ void KTechlab::addWindow(ViewContainer *vc)
         connect(vc, &ViewContainer::destroyed, this, &KTechlab::slotViewContainerDestroyed);
     }
 
-    m_viewContainerList.removeAll((ViewContainer *)nullptr);
+    m_viewContainerList.removeAll(static_cast<ViewContainer *>(nullptr));
     slotUpdateTabWidget();
     slotDocModifiedChanged();
 }
@@ -409,7 +409,7 @@ void KTechlab::setupTabWidget()
 
 void KTechlab::slotUpdateTabWidget()
 {
-    m_viewContainerList.removeAll((ViewContainer *)nullptr);
+    m_viewContainerList.removeAll(static_cast<ViewContainer *>(nullptr));
 
     bool noWindows = m_viewContainerList.isEmpty();
 
@@ -758,7 +758,7 @@ void KTechlab::slotViewContainerActivated(int /*index*/)
 void KTechlab::slotViewContainerDestroyed(QObject *object)
 {
     m_viewContainerList.removeAll(static_cast<ViewContainer *>(object));
-    m_viewContainerList.removeAll((ViewContainer *)nullptr);
+    m_viewContainerList.removeAll(static_cast<ViewContainer *>(nullptr));
     slotUpdateTabWidget();
 }
 
@@ -778,7 +778,7 @@ void KTechlab::savePropertiesInConfig(KConfig *conf)
     grUi.writeEntry("Width", width());
     grUi.writeEntry("Height", height());
     // grUi.writeEntry( "WinState", KWin::windowInfo( winId(), NET::WMState ).state() );
-    grUi.writeEntry("WinState", (qulonglong)KWindowInfo(winId(), NET::WMState).state());
+    grUi.writeEntry("WinState", qulonglong(KWindowInfo(winId(), NET::WMState).state()));
 
 #ifndef NO_GPSIM
     SymbolViewer::self()->saveProperties(conf);
@@ -988,7 +988,7 @@ void KTechlab::slotTabContext(const QPoint &pos)
     // Find the document on whose tab the user clicked
     m_pContextMenuContainer = nullptr;
 
-    m_viewContainerList.removeAll((ViewContainer *)nullptr);
+    m_viewContainerList.removeAll(static_cast<ViewContainer *>(nullptr));
 
     const ViewContainerList::iterator vcEnd = m_viewContainerList.end();
     for (ViewContainerList::iterator it = m_viewContainerList.begin(); it != vcEnd; ++it) {
@@ -1126,7 +1126,7 @@ void KTechlab::slotFileNew()
         TextDocument *textDocument = DocManager::self()->createTextDocument();
 
         if (textDocument)
-            textDocument->slotInitLanguage((TextDocument::CodeType)codeType);
+            textDocument->slotInitLanguage(TextDocument::CodeType(codeType));
 
         created = textDocument;
     }
