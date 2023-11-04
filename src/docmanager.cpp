@@ -295,7 +295,7 @@ void DocManager::slotViewFocused(View *view)
     if (view->viewContainer() != vc)
         view = vc->activeView();
 
-    if (!view || (View *)p_focusedView == view)
+    if (!view || static_cast<View *>(p_focusedView) == view)
         return;
 
     if (p_focusedView)
@@ -303,7 +303,7 @@ void DocManager::slotViewFocused(View *view)
 
     p_focusedView = view;
 
-    if (TextView *textView = dynamic_cast<TextView *>((View *)p_focusedView))
+    if (TextView *textView = dynamic_cast<TextView *>(static_cast<View *>(p_focusedView)))
         KTechlab::self()->factory()->addClient(textView->kateView());
     else
         KTechlab::self()->factory()->addClient(p_focusedView);
