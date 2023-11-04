@@ -141,7 +141,7 @@ void Gplink::processInput(ProcessOptions options)
                 picLibSubdir = "pic16";
                 break;
             default:
-                qCWarning(KTL_LOG) << "Inexpected instruction set: " << (int)info->instructionSet()->set();
+                qCWarning(KTL_LOG) << "Inexpected instruction set: " << int(info->instructionSet()->set());
                 break;
             }
             *m_languageProcess << "-I" << m_sdccLibDir + "/" + picLibSubdir;
