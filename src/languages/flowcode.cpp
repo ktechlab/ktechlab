@@ -155,7 +155,7 @@ QString FlowCode::generateMicrobe(const ItemList &itemList, MicroSettings *setti
         if (!*it)
             continue;
 
-        FlowPart *startPart = dynamic_cast<FlowPart *>((Item *)*it);
+        FlowPart *startPart = dynamic_cast<FlowPart *>(static_cast<Item *>(*it));
 
         if (!startPart)
             continue;
@@ -173,7 +173,7 @@ QString FlowCode::generateMicrobe(const ItemList &itemList, MicroSettings *setti
                 outputWarning(i18n("Warning: Floating connection for %1", startPart->id()));
         }
 
-        FlowContainer *fc = dynamic_cast<FlowContainer *>((Item *)*it);
+        FlowContainer *fc = dynamic_cast<FlowContainer *>(static_cast<Item *>(*it));
 
         if ((*it)->id().startsWith("START") && startPart) {
             foundStart = true;
