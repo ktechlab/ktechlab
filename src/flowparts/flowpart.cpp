@@ -112,7 +112,7 @@ void FlowPart::setCaption(const QString &caption)
     QFontMetrics fontMetrics(font());
     const int text_width = fontMetrics.boundingRect(boundingRect(), (Qt::TextSingleLine | Qt::AlignHCenter | Qt::AlignVCenter), caption).width();
 
-    int width = std::max(((int)(text_width / 16)) * 16, 48);
+    int width = std::max((int(text_width / 16)) * 16, 48);
 
     switch (m_flowSymbol) {
     case FlowPart::ps_call:
@@ -146,17 +146,17 @@ void FlowPart::postResize()
 
 void FlowPart::createStdInput()
 {
-    m_stdInput = (FPNode *)createNode(0, 0, 270, "stdinput", Node::fp_in);
+    m_stdInput = static_cast<FPNode *>(createNode(0, 0, 270, "stdinput", Node::fp_in));
     updateNodePositions();
 }
 void FlowPart::createStdOutput()
 {
-    m_stdOutput = (FPNode *)createNode(0, 0, 90, "stdoutput", Node::fp_out);
+    m_stdOutput = static_cast<FPNode *>(createNode(0, 0, 90, "stdoutput", Node::fp_out));
     updateNodePositions();
 }
 void FlowPart::createAltOutput()
 {
-    m_altOutput = (FPNode *)createNode(0, 0, 0, "altoutput", Node::fp_out);
+    m_altOutput = static_cast<FPNode *>(createNode(0, 0, 0, "altoutput", Node::fp_out));
     updateNodePositions();
 }
 
@@ -195,8 +195,8 @@ void FlowPart::initSymbol(FlowPart::FlowSymbol symbol, int width)
         int point = 0;
         for (double y = -1.0; y <= 1.0; y += 4.0 / (RP_NUM - 2)) {
             x = sqrt(1 - y * y) * halfHeight;
-            pa[point] = QPoint((int)(width + x) - halfHeight, (int)(halfHeight * y));
-            pa[RP_NUM - 1 - point] = QPoint((int)(halfHeight - x), (int)(halfHeight * y));
+            pa[point] = QPoint(int(width + x) - halfHeight, int(halfHeight * y));
+            pa[RP_NUM - 1 - point] = QPoint(int(halfHeight - x), int(halfHeight * y));
             point++;
         }
 
