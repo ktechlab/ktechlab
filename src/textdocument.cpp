@@ -98,8 +98,8 @@ TextDocument::TextDocument(const QString &caption)
         return;
     }
 
-    markIface->setMarkDescription((KTextEditor::MarkInterface::MarkTypes)Breakpoint, i18n("Breakpoint"));
-    markIface->setMarkPixmap((KTextEditor::MarkInterface::MarkTypes)Breakpoint, *inactiveBreakpointPixmap());
+    markIface->setMarkDescription(static_cast<KTextEditor::MarkInterface::MarkTypes>(Breakpoint), i18n("Breakpoint"));
+    markIface->setMarkPixmap(static_cast<KTextEditor::MarkInterface::MarkTypes>(Breakpoint), *inactiveBreakpointPixmap());
     markIface->setMarkPixmap(KTextEditor::MarkInterface::BreakpointActive, *activeBreakpointPixmap());
     markIface->setMarkPixmap(KTextEditor::MarkInterface::BreakpointReached, *reachedBreakpointPixmap());
     markIface->setMarkPixmap(KTextEditor::MarkInterface::BreakpointDisabled, *disabledBreakpointPixmap());
@@ -119,7 +119,7 @@ TextDocument::~TextDocument()
     if (KTechlab::self()) {
         ViewList::iterator end = m_viewList.end();
         for (ViewList::iterator it = m_viewList.begin(); it != end; ++it) {
-            if (TextView *tv = dynamic_cast<TextView *>((View *)*it)) {
+            if (TextView *tv = dynamic_cast<TextView *>(static_cast<View *>(*it))) {
                 KTextEditor::View *kv = tv->kateView();
                 KTechlab::self()->factory()->removeClient(kv);
             }
@@ -186,12 +186,12 @@ void TextDocument::setText(const QString &text, bool asInitial)
 
     const ViewList::iterator end = m_viewList.end();
     for (ViewList::iterator it = m_viewList.begin(); it != end; ++it)
-        (static_cast<TextView *>((View *)*it))->saveCursorPosition();
+        (static_cast<TextView *>(static_cast<View *>(*it)))->saveCursorPosition();
 
     m_doc->setText(text);
 
     for (ViewList::iterator it = m_viewList.begin(); it != end; ++it)
-        (static_cast<TextView *>((View *)*it))->restoreCursorPosition();
+        (static_cast<TextView *>(static_cast<View *>(*it)))->restoreCursorPosition();
 
     if (asInitial) {
         // m_doc->clearUndo(); // TODO FIXME
@@ -292,7 +292,7 @@ void TextDocument::slotInitLanguage(CodeType type)
 
     ViewList::iterator end = m_viewList.end();
     for (ViewList::iterator it = m_viewList.begin(); it != end; ++it) {
-        if (TextView *tv = dynamic_cast<TextView *>((View *)*it))
+        if (TextView *tv = dynamic_cast<TextView *>(static_cast<View *>(*it)))
             tv->initCodeActions();
     }
 }
@@ -384,7 +384,7 @@ QString TextDocument::outputFilePath(const QString &ext)
 void TextDocument::slotConvertTo(QAction *action)
 {
     int target = action->data().toInt();
-    switch ((ConvertToTarget)target) {
+    switch (static_cast<ConvertToTarget>(target)) {
     case TextDocument::MicrobeOutput:
         break;
 
@@ -524,7 +524,7 @@ void TextDocument::convertToPIC()
         return;
     }
 
-    ProgrammerDlg *dlg = new ProgrammerDlg(picID, (QWidget *)KTechlab::self());
+    ProgrammerDlg *dlg = new ProgrammerDlg(picID, static_cast<QWidget *>(KTechlab::self()));
     dlg->setObjectName("Programmer Dlg");
 
     if (m_guessedCodeType == TextDocument::ct_c)
