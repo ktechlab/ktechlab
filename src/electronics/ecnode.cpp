@@ -288,7 +288,7 @@ Connector *ECNode::createConnector(Node *node)
 
 void ECNode::removeNullConnectors()
 {
-    m_connectorList.removeAll((Connector *)nullptr);
+    m_connectorList.removeAll(static_cast<Connector *>(nullptr));
 }
 
 int ECNode::numCon(bool includeParentItem, bool includeHiddenConnectors) const
