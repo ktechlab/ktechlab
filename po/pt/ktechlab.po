@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-24 00:45+0000\n"
+"POT-Creation-Date: 2023-11-05 12:38+0000\n"
 "PO-Revision-Date: 2023-07-03 00:56+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -1577,12 +1577,12 @@ msgstr "Beta Inverso"
 msgid "Clock Input"
 msgstr "Entrada de Relógio"
 
-#: src/electronics/components/ecclockinput.cpp:69 src/flowparts/pulse.cpp:46
+#: src/electronics/components/ecclockinput.cpp:69 src/flowparts/pulse.cpp:47
 #, kde-format
 msgid "Low Time"
 msgstr "Tempo em Baixo"
 
-#: src/electronics/components/ecclockinput.cpp:75 src/flowparts/pulse.cpp:41
+#: src/electronics/components/ecclockinput.cpp:75 src/flowparts/pulse.cpp:42
 #, kde-format
 msgid "High Time"
 msgstr "Tempo em Alto"
@@ -1703,8 +1703,8 @@ msgid "Isr emission coefficient"
 msgstr "Coeficiente de emissão Isr"
 
 #: src/electronics/components/eckeypad.cpp:26
-#: src/electronics/components/eckeypad.cpp:34 src/flowparts/keypad.cpp:25
-#: src/flowparts/keypad.cpp:31
+#: src/electronics/components/eckeypad.cpp:34 src/flowparts/keypad.cpp:26
+#: src/flowparts/keypad.cpp:32
 #, kde-format
 msgid "Keypad"
 msgstr "Teclado"
@@ -1806,7 +1806,7 @@ msgstr "Resistência"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, typeCombo)
 #: src/electronics/components/ecsevensegment.cpp:30
-#: src/flowparts/sevenseg.cpp:25 src/gui/newpinmappingwidget.ui:105
+#: src/flowparts/sevenseg.cpp:26 src/gui/newpinmappingwidget.ui:105
 #, kde-format
 msgid "Seven Segment"
 msgstr "Sete Segmentos"
@@ -2093,7 +2093,7 @@ msgstr "Porta Paralela"
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/electronics/components/parallelportcomponent.cpp:143
 #: src/electronics/components/serialportcomponent.cpp:119
-#: src/flowparts/readport.cpp:38 src/flowparts/writeport.cpp:43
+#: src/flowparts/readport.cpp:39 src/flowparts/writeport.cpp:44
 #: src/gui/programmerwidget.ui:62
 #, kde-format
 msgid "Port"
@@ -2285,8 +2285,8 @@ msgstr "Resistência"
 msgid "Resistor DIP"
 msgstr "Resistência DIP"
 
-#: src/electronics/components/resistordip.cpp:45 src/flowparts/count.cpp:25
-#: src/flowparts/count.cpp:31
+#: src/electronics/components/resistordip.cpp:45 src/flowparts/count.cpp:26
+#: src/flowparts/count.cpp:32
 #, kde-format
 msgid "Count"
 msgstr "Quantidade"
@@ -2554,172 +2554,172 @@ msgstr ""
 "seleccionado.<br/><br/>Lembre-se que não é possível criar ligações entre "
 "fluxos em contentores diferentes ou em níveis diferentes."
 
-#: src/flowparts/callsub.cpp:25 src/flowparts/embed.cpp:25
-#: src/flowparts/end.cpp:25 src/flowparts/interrupt.cpp:25
-#: src/flowparts/start.cpp:25 src/flowparts/sub.cpp:25
+#: src/flowparts/callsub.cpp:26 src/flowparts/embed.cpp:26
+#: src/flowparts/end.cpp:26 src/flowparts/interrupt.cpp:26
+#: src/flowparts/start.cpp:26 src/flowparts/sub.cpp:26
 #, kde-format
 msgid "Common"
 msgstr "Comum"
 
-#: src/flowparts/callsub.cpp:25 src/flowparts/callsub.cpp:31
+#: src/flowparts/callsub.cpp:26 src/flowparts/callsub.cpp:32
 #, kde-format
 msgid "Sub Call"
 msgstr "Sub-Chamada"
 
-#: src/flowparts/callsub.cpp:37 src/flowparts/sub.cpp:25
-#: src/flowparts/sub.cpp:34
+#: src/flowparts/callsub.cpp:38 src/flowparts/sub.cpp:26
+#: src/flowparts/sub.cpp:35
 #, kde-format
 msgid "Subroutine"
 msgstr "Sub-Rotina"
 
-#: src/flowparts/callsub.cpp:47
+#: src/flowparts/callsub.cpp:48
 #, kde-format
 msgid "Call %1"
 msgstr "Ligar a %1"
 
-#: src/flowparts/count.cpp:25 src/flowparts/delay.cpp:25
-#: src/flowparts/inputbutton.cpp:24 src/flowparts/keypad.cpp:25
-#: src/flowparts/pulse.cpp:24 src/flowparts/sevenseg.cpp:25
+#: src/flowparts/count.cpp:26 src/flowparts/delay.cpp:26
+#: src/flowparts/inputbutton.cpp:25 src/flowparts/keypad.cpp:26
+#: src/flowparts/pulse.cpp:25 src/flowparts/sevenseg.cpp:26
 #, kde-format
 msgid "Functions"
 msgstr "Funções"
 
-#: src/flowparts/count.cpp:39 src/flowparts/inputbutton.cpp:36
+#: src/flowparts/count.cpp:40 src/flowparts/inputbutton.cpp:37
 #, kde-format
 msgid "Trigger"
 msgstr "Evento"
 
-#: src/flowparts/count.cpp:54
+#: src/flowparts/count.cpp:55
 #, kde-format
 msgid "Count %1 for %2 sec"
 msgstr "Contar até %1 durante %2 s"
 
-#: src/flowparts/delay.cpp:25 src/flowparts/delay.cpp:31
+#: src/flowparts/delay.cpp:26 src/flowparts/delay.cpp:32
 #, kde-format
 msgid "Delay"
 msgstr "Atraso"
 
-#: src/flowparts/delay.cpp:37
+#: src/flowparts/delay.cpp:38
 #, kde-format
 msgid "Pause Length"
 msgstr "Duração da Pausa"
 
-#: src/flowparts/delay.cpp:49
+#: src/flowparts/delay.cpp:50
 #, kde-format
 msgid "Delay for %1 sec"
 msgstr "Atraso de %1 s"
 
-#: src/flowparts/embed.cpp:25 src/flowparts/embed.cpp:31
+#: src/flowparts/embed.cpp:26 src/flowparts/embed.cpp:32
 #, kde-format
 msgid "Embed"
 msgstr "Incorporar"
 
-#: src/flowparts/embed.cpp:39
+#: src/flowparts/embed.cpp:40
 #, kde-format
 msgid "Type"
 msgstr "Tipo"
 
-#: src/flowparts/embed.cpp:42
+#: src/flowparts/embed.cpp:43
 #, kde-format
 msgid "Code"
 msgstr "Código"
 
-#: src/flowparts/embed.cpp:43
+#: src/flowparts/embed.cpp:44
 #, kde-format
 msgid "// Embedded code:"
 msgstr "// Código incorporado:"
 
-#: src/flowparts/embed.cpp:53
+#: src/flowparts/embed.cpp:54
 #, kde-format
 msgid "%1: %2..."
 msgstr "%1: %2..."
 
-#: src/flowparts/end.cpp:25 src/flowparts/end.cpp:31 src/flowparts/end.cpp:34
+#: src/flowparts/end.cpp:26 src/flowparts/end.cpp:32 src/flowparts/end.cpp:35
 #, kde-format
 msgid "End"
 msgstr "Fim"
 
-#: src/flowparts/forloop.cpp:25 src/flowparts/repeat.cpp:25
-#: src/flowparts/while.cpp:25
+#: src/flowparts/forloop.cpp:26 src/flowparts/repeat.cpp:26
+#: src/flowparts/while.cpp:26
 #, kde-format
 msgid "Loops"
 msgstr "Ciclos"
 
-#: src/flowparts/forloop.cpp:25
+#: src/flowparts/forloop.cpp:26
 #, kde-format
 msgid "For"
 msgstr "Para"
 
-#: src/flowparts/forloop.cpp:31
+#: src/flowparts/forloop.cpp:32
 #, kde-format
 msgid "For Loop"
 msgstr "Ciclo 'Para'"
 
-#: src/flowparts/forloop.cpp:38 src/flowparts/keypad.cpp:38
-#: src/flowparts/readport.cpp:43 src/flowparts/repeat.cpp:37
-#: src/flowparts/sevenseg.cpp:38 src/flowparts/unary.cpp:38
-#: src/flowparts/varassignment.cpp:37 src/flowparts/varcomparison.cpp:38
-#: src/flowparts/while.cpp:37 src/flowparts/writeport.cpp:38
+#: src/flowparts/forloop.cpp:39 src/flowparts/keypad.cpp:39
+#: src/flowparts/readport.cpp:44 src/flowparts/repeat.cpp:38
+#: src/flowparts/sevenseg.cpp:39 src/flowparts/unary.cpp:39
+#: src/flowparts/varassignment.cpp:38 src/flowparts/varcomparison.cpp:39
+#: src/flowparts/while.cpp:38 src/flowparts/writeport.cpp:39
 #, kde-format
 msgid "Variable"
 msgstr "Variável"
 
-#: src/flowparts/forloop.cpp:43
+#: src/flowparts/forloop.cpp:44
 #, kde-format
 msgid "Initial Value"
 msgstr "Valor Inicial"
 
-#: src/flowparts/forloop.cpp:47
+#: src/flowparts/forloop.cpp:48
 #, kde-format
 msgctxt "for x = 1 to"
 msgid "to"
 msgstr "até"
 
-#: src/flowparts/forloop.cpp:48
+#: src/flowparts/forloop.cpp:49
 #, kde-format
 msgid "End Value"
 msgstr "Valor Final"
 
 #. i18n("Step"), "debug-step-instruction", Qt::CTRL|Qt::ALT|Qt::Key_Right, textDocument, SLOT(debugStep()), ac, "debug_step" );
-#: src/flowparts/forloop.cpp:53 src/textview.cpp:119
+#: src/flowparts/forloop.cpp:54 src/textview.cpp:119
 #, kde-format
 msgid "Step"
 msgstr "Passo"
 
-#: src/flowparts/inputbutton.cpp:24 src/flowparts/inputbutton.cpp:30
+#: src/flowparts/inputbutton.cpp:25 src/flowparts/inputbutton.cpp:31
 #, kde-format
 msgid "InputButton"
 msgstr "InputButton"
 
-#: src/flowparts/inputbutton.cpp:41 src/flowparts/pulse.cpp:51
-#: src/flowparts/setpin.cpp:45 src/flowparts/testpin.cpp:38
+#: src/flowparts/inputbutton.cpp:42 src/flowparts/pulse.cpp:52
+#: src/flowparts/setpin.cpp:45 src/flowparts/testpin.cpp:39
 #, kde-format
 msgid "Pin"
 msgstr "Pino"
 
-#: src/flowparts/inputbutton.cpp:51
+#: src/flowparts/inputbutton.cpp:52
 #, kde-format
 msgid "Continue on %1 %2"
 msgstr "Continuar em %1 %2"
 
 #. i18n("Interrupt"), "media-playback-pause", 0, textDocument, SLOT(debugInterrupt()), ac, "debug_interrupt" );
-#: src/flowparts/interrupt.cpp:25 src/flowparts/interrupt.cpp:31
-#: src/flowparts/interrupt.cpp:41 src/textview.cpp:105
+#: src/flowparts/interrupt.cpp:26 src/flowparts/interrupt.cpp:32
+#: src/flowparts/interrupt.cpp:42 src/textview.cpp:105
 #, kde-format
 msgid "Interrupt"
 msgstr "Interromper"
 
-#: src/flowparts/interrupt.cpp:51
+#: src/flowparts/interrupt.cpp:52
 #, kde-format
 msgid "Interrupt %1"
 msgstr "Interromper o %1"
 
-#: src/flowparts/keypad.cpp:41 src/flowparts/sevenseg.cpp:41
+#: src/flowparts/keypad.cpp:42 src/flowparts/sevenseg.cpp:42
 #, kde-format
 msgid "Pin map"
 msgstr "Mapa de pinos"
 
-#: src/flowparts/keypad.cpp:50 src/flowparts/readport.cpp:53
+#: src/flowparts/keypad.cpp:51 src/flowparts/readport.cpp:54
 #, kde-format
 msgid "Read %1 to %2"
 msgstr "Ler o %1 para %2"
@@ -2729,56 +2729,56 @@ msgstr "Ler o %1 para %2"
 msgid "Pin Map Editor"
 msgstr "Editor do Mapa de Pinos"
 
-#: src/flowparts/pulse.cpp:24 src/flowparts/pulse.cpp:30
+#: src/flowparts/pulse.cpp:25 src/flowparts/pulse.cpp:31
 #, kde-format
 msgid "Pulse"
 msgstr "Impulso"
 
-#: src/flowparts/pulse.cpp:36
+#: src/flowparts/pulse.cpp:37
 #, kde-format
 msgid "Duration"
 msgstr "Duração"
 
-#: src/flowparts/pulse.cpp:62
+#: src/flowparts/pulse.cpp:63
 #, kde-format
 msgid "Pulse %1 for %2 sec"
 msgstr "Impulso de %1 durante %2 s"
 
-#: src/flowparts/readport.cpp:25 src/flowparts/setpin.cpp:28
-#: src/flowparts/testpin.cpp:25 src/flowparts/writeport.cpp:25
+#: src/flowparts/readport.cpp:26 src/flowparts/setpin.cpp:28
+#: src/flowparts/testpin.cpp:26 src/flowparts/writeport.cpp:26
 #, kde-format
 msgid "I\\/O"
 msgstr "E\\/S"
 
-#: src/flowparts/readport.cpp:25 src/flowparts/readport.cpp:31
+#: src/flowparts/readport.cpp:26 src/flowparts/readport.cpp:32
 #, kde-format
 msgid "Read from Port"
 msgstr "Ler da Porta"
 
-#: src/flowparts/readport.cpp:37
+#: src/flowparts/readport.cpp:38
 #, kde-format
 msgid "Read"
 msgstr "Ler"
 
-#: src/flowparts/readport.cpp:42
+#: src/flowparts/readport.cpp:43
 #, kde-format
 msgctxt "read from port to x"
 msgid "to"
 msgstr "para"
 
-#: src/flowparts/repeat.cpp:25 src/flowparts/repeat.cpp:31
+#: src/flowparts/repeat.cpp:26 src/flowparts/repeat.cpp:32
 #, kde-format
 msgid "Repeat"
 msgstr "Repetir"
 
-#: src/flowparts/repeat.cpp:42 src/flowparts/unary.cpp:41
-#: src/flowparts/varcomparison.cpp:49 src/flowparts/while.cpp:42
+#: src/flowparts/repeat.cpp:43 src/flowparts/unary.cpp:42
+#: src/flowparts/varcomparison.cpp:50 src/flowparts/while.cpp:43
 #, kde-format
 msgid "Operation"
 msgstr "Operação"
 
-#: src/flowparts/repeat.cpp:52 src/flowparts/varassignment.cpp:42
-#: src/flowparts/varcomparison.cpp:53 src/flowparts/while.cpp:52
+#: src/flowparts/repeat.cpp:53 src/flowparts/varassignment.cpp:43
+#: src/flowparts/varcomparison.cpp:54 src/flowparts/while.cpp:53
 #: src/gui/itemeditor/propertyeditor.cpp:257 src/gui/symbolviewer.cpp:125
 #: src/gui/symbolviewer.cpp:127 src/gui/symbolviewer.cpp:192
 #: src/gui/symbolviewer.cpp:194
@@ -2786,7 +2786,7 @@ msgstr "Operação"
 msgid "Value"
 msgstr "Valor"
 
-#: src/flowparts/repeat.cpp:62
+#: src/flowparts/repeat.cpp:63
 #, kde-format
 msgid "repeat until %1 %2 %3"
 msgstr "repetir até %1 %2 %3"
@@ -2806,110 +2806,110 @@ msgstr "Estado"
 msgid "Set %1 %2"
 msgstr "Mudar o %1 %2"
 
-#: src/flowparts/sevenseg.cpp:31
+#: src/flowparts/sevenseg.cpp:32
 #, kde-format
 msgid "SevenSeg"
 msgstr "SeteSeg"
 
-#: src/flowparts/sevenseg.cpp:50
+#: src/flowparts/sevenseg.cpp:51
 #, kde-format
 msgid "Display %1 on %2"
 msgstr "Mostrar %1 no %2"
 
-#: src/flowparts/start.cpp:25 src/flowparts/start.cpp:31
-#: src/flowparts/start.cpp:34
+#: src/flowparts/start.cpp:26 src/flowparts/start.cpp:32
+#: src/flowparts/start.cpp:35
 #, kde-format
 msgid "Start"
 msgstr "Iniciar"
 
-#: src/flowparts/sub.cpp:31
+#: src/flowparts/sub.cpp:32
 #, kde-format
 msgid "Sub"
 msgstr "Sub"
 
-#: src/flowparts/testpin.cpp:25 src/flowparts/testpin.cpp:31
+#: src/flowparts/testpin.cpp:26 src/flowparts/testpin.cpp:32
 #, kde-format
 msgid "Test Pin State"
 msgstr "Testar o Estado do Pino"
 
-#: src/flowparts/unary.cpp:25 src/flowparts/varassignment.cpp:25
-#: src/flowparts/varcomparison.cpp:25
+#: src/flowparts/unary.cpp:26 src/flowparts/varassignment.cpp:26
+#: src/flowparts/varcomparison.cpp:26
 #, kde-format
 msgid "Variables"
 msgstr "Variáveis"
 
-#: src/flowparts/unary.cpp:25 src/flowparts/unary.cpp:31
+#: src/flowparts/unary.cpp:26 src/flowparts/unary.cpp:32
 #, kde-format
 msgid "Unary"
 msgstr "Unário"
 
-#: src/flowparts/unary.cpp:43
+#: src/flowparts/unary.cpp:44
 #, kde-format
 msgid "Rotate Left"
 msgstr "Rodar para a Esquerda"
 
-#: src/flowparts/unary.cpp:44
+#: src/flowparts/unary.cpp:45
 #, kde-format
 msgid "Rotate Right"
 msgstr "Rodar para a Direita"
 
-#: src/flowparts/unary.cpp:45
+#: src/flowparts/unary.cpp:46
 #, kde-format
 msgid "Increment"
 msgstr "Incremento"
 
-#: src/flowparts/unary.cpp:46
+#: src/flowparts/unary.cpp:47
 #, kde-format
 msgid "Decrement"
 msgstr "Decremento"
 
-#: src/flowparts/varassignment.cpp:25
+#: src/flowparts/varassignment.cpp:26
 #, kde-format
 msgid "Assignment"
 msgstr "Atribuição"
 
-#: src/flowparts/varassignment.cpp:31
+#: src/flowparts/varassignment.cpp:32
 #, kde-format
 msgid "Variable Assignment"
 msgstr "Atribuição de Variável"
 
-#: src/flowparts/varcomparison.cpp:25
+#: src/flowparts/varcomparison.cpp:26
 #, kde-format
 msgid "Comparison"
 msgstr "Comparação"
 
-#: src/flowparts/varcomparison.cpp:31
+#: src/flowparts/varcomparison.cpp:32
 #, kde-format
 msgid "Variable Comparison"
 msgstr "Comparação de Variáveis"
 
-#: src/flowparts/while.cpp:25 src/flowparts/while.cpp:31
+#: src/flowparts/while.cpp:26 src/flowparts/while.cpp:32
 #, kde-format
 msgid "While"
 msgstr "Enquanto"
 
-#: src/flowparts/while.cpp:62
+#: src/flowparts/while.cpp:63
 #, kde-format
 msgid "while %1 %2 %3"
 msgstr "enquanto %1 %2 %3"
 
-#: src/flowparts/writeport.cpp:25 src/flowparts/writeport.cpp:31
+#: src/flowparts/writeport.cpp:26 src/flowparts/writeport.cpp:32
 #, kde-format
 msgid "Write to Port"
 msgstr "Escrever na Porta"
 
-#: src/flowparts/writeport.cpp:37
+#: src/flowparts/writeport.cpp:38
 #, kde-format
 msgid "Write"
 msgstr "Escrever"
 
-#: src/flowparts/writeport.cpp:42
+#: src/flowparts/writeport.cpp:43
 #, kde-format
 msgctxt "write to port"
 msgid "to"
 msgstr "para"
 
-#: src/flowparts/writeport.cpp:53
+#: src/flowparts/writeport.cpp:54
 #, kde-format
 msgid "Write %1 to %2"
 msgstr "Escrever %1 para %2"
@@ -5468,12 +5468,12 @@ msgstr "Não foi possível encontrar o PIC com o ID \"%1\"."
 msgid "Compilation failed. Please check you have sdcc installed."
 msgstr "A compilação falhou. Verifique por favor se tem o 'sdcc' instalado."
 
-#: src/mechanics/chassiscircular2.cpp:31 src/mechanics/chassiscircular2.cpp:37
+#: src/mechanics/chassiscircular2.cpp:33 src/mechanics/chassiscircular2.cpp:39
 #, kde-format
 msgid "Circular 2-Wheel Chassis"
 msgstr "Chassis Circular de 2 Rodas"
 
-#: src/mechanics/chassiscircular2.cpp:31
+#: src/mechanics/chassiscircular2.cpp:33
 #, kde-format
 msgid "Chassis'"
 msgstr "Chassis'"
