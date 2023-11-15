@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 12:38+0000\n"
-"PO-Revision-Date: 2023-07-04 14:28-0300\n"
+"PO-Revision-Date: 2023-11-14 11:43-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -559,13 +559,13 @@ msgstr "Outras opções"
 #: src/core/ktechlab.kcfg:159
 #, kde-format
 msgid "Do not search in the standard library directory"
-msgstr "Não pesquisar no diretório da biblioteca padrão"
+msgstr "Não pesquisar na pasta da biblioteca padrão"
 
 #. i18n: ectx: label, entry (SDCC_nostdinc), group (SDCC)
 #: src/core/ktechlab.kcfg:163
 #, kde-format
 msgid "Do not search in the standard include directory"
-msgstr "Não pesquisar no diretório de inclusão padrão"
+msgstr "Não pesquisar na pasta de inclusão padrão"
 
 #. i18n: ectx: label, entry (SDCC_less_pedantic), group (SDCC)
 #: src/core/ktechlab.kcfg:167
@@ -2977,7 +2977,7 @@ msgstr "Editar"
 #: src/gui/contexthelpwidget.ui:138
 #, kde-format
 msgid "Context Help Directory"
-msgstr "Diretório de ajuda contextual"
+msgstr "Pasta de ajuda contextual"
 
 #. i18n: ectx: property (text), widget (QToolButton, m_pChangeDescriptionsDirectory)
 #. i18n: ectx: property (text), widget (QToolButton, m_pResetButton)
@@ -3455,7 +3455,7 @@ msgstr ""
 #: src/gui/linkeroptionswidget.ui:56
 #, kde-format
 msgid "Library Directory (-I):"
-msgstr "Diretório da biblioteca (-I):"
+msgstr "Pasta da biblioteca (-I):"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_pOutputMap)
 #: src/gui/linkeroptionswidget.ui:79
@@ -4121,13 +4121,13 @@ msgstr "G&eral"
 #: src/gui/sdccoptionswidget.ui:42
 #, kde-format
 msgid "Do not search in the standard librar&y directory (--nostdlib)"
-msgstr "Não pesquise no diretório da &biblioteca padrão (--nostdlib)"
+msgstr "Não pesquise na pasta da &biblioteca padrão (--nostdlib)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nostdinc)
 #: src/gui/sdccoptionswidget.ui:49
 #, kde-format
 msgid "Do not search in the standard include directory (--nostdinc)"
-msgstr "Não pesquise no diretório de inclusão padrão (--nostdinc)"
+msgstr "Não pesquise na pasta de inclusão padrão (--nostdinc)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_less_pedantic)
 #: src/gui/sdccoptionswidget.ui:59
