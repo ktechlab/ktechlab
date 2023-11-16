@@ -790,8 +790,8 @@ msgstr ""
 #, kde-format
 msgid "Check this if SDCC uses shared libs for compiling (newer SDCC does so)"
 msgstr ""
-"Marqueu-la si la SDCC utilitza biblioteques compartides per a compilar (les "
-"versions recents de la SDCC ho fan)"
+"Seleccioneu-la si la SDCC utilitza biblioteques compartides per a compilar "
+"(les versions recents de la SDCC ho fan)"
 
 #: src/core/main.cpp:35
 #, kde-format
