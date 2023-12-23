@@ -8,7 +8,7 @@
 # Marc Lavallée <marc@hacklava.net>, 2005, 2006.
 # Alain PORTAL <aportal@univ-montp2.fr>, 2007.
 # Simon Depiets <sdepiets@gmail.com>, 2018.
-# SPDX-FileCopyrightText: 2020, 2022, 2023 Xavier Besnard <xavier.besnard@neuf.fr>
+# SPDX-FileCopyrightText: 2020, 2022, 2023 Xavier Besnard <xavier.besnard@kde.org>
 #
 msgid ""
 msgstr ""
