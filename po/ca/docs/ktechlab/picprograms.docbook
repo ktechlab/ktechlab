@@ -69,7 +69,7 @@
 >.</para>
 		
 		<para
->La llista de ports s'obté d'escanejar els ports sèrie i paral·lels que siguin de lectura i escriptura. Els ports sèrie se cerquen a:</para>
+>La llista de ports s'obté d'escanejar els ports en sèrie i paral·lel que siguin de lectura i escriptura. Els ports en sèrie se cerquen a:</para>
 			<itemizedlist>
 				<listitem
 ><para
@@ -97,7 +97,7 @@
 ></listitem>
 			</itemizedlist>
 		<para
->Els ports paral·lels se cerquen a: <itemizedlist>
+>Els ports en paral·lel se cerquen a: <itemizedlist>
 				<listitem
 ><para
 >/dev/usb/parport<emphasis
