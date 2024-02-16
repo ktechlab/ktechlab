@@ -302,23 +302,23 @@ double DoubleSpinBox::getNextDownStepValue(double in)
 
 double DoubleSpinBox::valueFromText(const QString &text) const
 {
-    qCDebug(KTL_DOUBLESPINBOX_LOG) << "text = " << text;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << "valueFromText = " << text;
 
     QLocale locale;
 
     // Fetch the characters that we don't want to discard
-    const QString exclude = QString(locale.decimalPoint()) + locale.groupSeparator() + locale.positiveSign() + locale.negativeSign();
-
+    // This does NOT properly escape
+    // const QString exclude = QString(locale.decimalPoint()) + locale.groupSeparator() + locale.positiveSign() + locale.negativeSign();
     QString textToStrip(text);
-    QString numberToRead = textToStrip.remove(QRegExp("[^" + exclude + "\\d]"));
+    QString numberToRead = textToStrip.remove(QRegExp("[^\\.+\\-\\d]"));
 
     bool ok;
     double value = locale.toDouble(numberToRead, &ok);
     if (!ok) {
-        qCDebug(KTL_DOUBLESPINBOX_LOG) << "numberToRead = |" << numberToRead << "| NOT OK";
+        qCDebug(KTL_DOUBLESPINBOX_LOG) << "  numberToRead = |" << numberToRead << "| NOT OK";
         value = 0;
     }
-    qCDebug(KTL_DOUBLESPINBOX_LOG) << "numberToRead = " << numberToRead << ", value = " << value;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << "  numberToRead = " << numberToRead << ", value = " << value;
 
     if (value > maximum()) {
         value = maximum();
@@ -348,7 +348,7 @@ double DoubleSpinBox::valueFromText(const QString &text) const
             siExp = '1';
         }
 
-        qCDebug(KTL_DOUBLESPINBOX_LOG) << "SI exp = " << siExp;
+        qCDebug(KTL_DOUBLESPINBOX_LOG) << "  SI exp = " << siExp;
 
         if (siExp.isLetter() || siExp.isSymbol()) {
             multiplier = CNItem::getMultiplier(QString(siExp));
@@ -356,12 +356,12 @@ double DoubleSpinBox::valueFromText(const QString &text) const
             multiplier = 1;
         }
     }
-    qCDebug(KTL_DOUBLESPINBOX_LOG) << "multiplier = " << multiplier;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << "  multiplier = " << multiplier;
 
     // value /= Item::getMultiplier( value );
     value *= multiplier;
 
-    qCDebug(KTL_DOUBLESPINBOX_LOG) << "value = " << value;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << "  result = " << value;
 
     return value;
 }
@@ -383,7 +383,7 @@ double DoubleSpinBox::valueFromText(const QString &text) const
 
 QString DoubleSpinBox::textFromValue(double value) const
 {
-    qCDebug(KTL_DOUBLESPINBOX_LOG) << " value = " << value;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << "textFromValue = " << value;
 
     //     int leftDigits = (int)floor( log10( abs( value ) ) ) + 1;
     //     if ( leftDigits < 0 ) {
@@ -395,15 +395,15 @@ QString DoubleSpinBox::textFromValue(double value) const
 
     double toDisplayNr = value / multiplier;
 
-    qCDebug(KTL_DOUBLESPINBOX_LOG) << "toDisplayNr = " << toDisplayNr;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << "  toDisplayNr = " << toDisplayNr;
 
-    QString numberStr = QLocale().toString(toDisplayNr, 'f', 0 /* 3-leftDigits */);
+    QString numberStr = QLocale().toString(toDisplayNr, 'f', 3 /* 3-leftDigits */);
 
     QString magStr = Item::getNumberMag(value);
 
     QString toRet = numberStr + " " + magStr + m_unit;
 
-    qCDebug(KTL_DOUBLESPINBOX_LOG) << " text = " << toRet;
+    qCDebug(KTL_DOUBLESPINBOX_LOG) << "  text = " << toRet;
     return toRet;
 }
 
