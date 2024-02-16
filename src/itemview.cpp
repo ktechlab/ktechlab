@@ -453,7 +453,7 @@ void ItemView::contentsWheelEvent(QWheelEvent *e)
     if (eventInfo.ctrlPressed) {
         // Zooming in or out
 
-        if (eventInfo.pixelDelta.y() > 0)
+        if (eventInfo.angleDelta.y() > 0)
             zoomIn(eventInfo.pos);
         else
             zoomOut(eventInfo.pos);
