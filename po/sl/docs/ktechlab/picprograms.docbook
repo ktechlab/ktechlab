@@ -1,0 +1,116 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="pic_programs">
+	<title
+>PIC programi</title>
+	
+	<sect1 id="manipulation">
+		<title
+>Manipulacija</title>
+		
+		<para
+>Ko ustvarite FlowCode ali besedilni dokument, boste v orodni vrstici opazili spustni meni z ikono rakete. Od tu lahko manipulirate s svojim programom PIC; s spreminjanjem v različne oblike.</para>
+		
+		<itemizedlist>
+				<listitem
+><para
+><guimenuitem
+>Pretvori v &microbe;</guimenuitem
+> - To se uporablja samo v &flowcode; dokumentih. To je podrobneje razloženo v <xref linkend="flowcode"/>.</para
+></listitem>
+			
+				<listitem
+><para
+><guimenuitem
+>Pretvori v zbirnik</guimenuitem
+> - To je mogoče uporabiti v štirih kontekstih. Ko je &flowcode; dokument odprt, bo izpisal &flowcode; kot navodila za zbirnik. Ko je &microbe; dokument odprt, bo priklical program <command
+>microbe</command
+>, ki se distribuira z &ktechlab; za prevajanje programa. Podobno, če je program C odprt, ga bo poskušal prevesti prek SDCC. Ko je odprt tekstovni dokument, ki vsebuje hex PIC, bo poklical <command
+>gpdasm</command
+>, da razstavi hex.</para
+></listitem>
+			
+				<listitem
+><para
+><guimenuitem
+>Pretvori v hex</guimenuitem
+> – To je mogoče uporabiti tudi v štirih kontekstih. Tako kot pri <guimenuitem
+>Pretvori v zbirnik</guimenuitem
+>, lahko to uporabite z &flowcode;, &microbe; in C dokumenti. Omogočeno bo tudi, ko je dokument zbirnika odprt, ga sestavite prek <command
+>gpasm</command
+>.</para
+></listitem>
+			
+				<listitem
+><para
+><guimenuitem
+>Prenesi v PIC</guimenuitem
+> - To sestavi program PIC, ki se trenutno ureja, in ga naloži s programatorjem, ki ga je izbral uporabnik.</para
+></listitem>
+		</itemizedlist>
+		
+		<para
+>Nobeno od teh dejanj ne zahteva shranjevanja trenutnega dokumenta - zelo uporabno, ko je hitro potreben program. Za cilje, ki niso PIC, lahko pogovorno okno <guilabel
+>Izhod</guilabel
+>, ki se prikliče ob kliku enega od teh dejanj, izpiše rezultat (v zgornjih treh primerih vedno besedilo) v nov dokument ali v datoteko. Če je izhod shranjen v datoteko, ponuja tudi možnosti za nalaganje datoteke po ustvarjanju in dodajanje novo ustvarjene datoteke odprtemu projektu (če je odprt).</para>
+		
+		<para
+>Upoštevajte, da lahko pri &ktechlab; vedno uporabite isti pogled za prikaz izpisane vsebine, tako da izberete možnost pod <guilabel
+>Splošnimi</guilabel
+> nastavitvami.</para>
+	</sect1>
+	
+	<sect1 id="uploading">
+		<title
+>Prenašanje</title>
+		
+		<para
+>&ktechlab; uporablja programatorje tretjih oseb za prenašanje programov v PIC. Različni običajni programatorji so vnaprej določeni. Druge lahko dodate prek pogovornega okna <guilabel
+>Nastavitve</guilabel
+>.</para>
+		
+		<para
+>Seznam vrat se pridobi s skeniranjem serijskih in vzporednih vrat, ki so berljiva in zapisljiva. Serijska vrata se iščejo v:</para>
+			<itemizedlist>
+				<listitem
+><para
+>/dev/ttyS<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+				<listitem
+><para
+>/dev/tts/<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+				<listitem
+><para
+>/dev/ttyUSB<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+				<listitem
+><para
+>/dev/usb/tts/<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+			</itemizedlist>
+		<para
+>Vzporedna vrata se iščejo v: <itemizedlist>
+				<listitem
+><para
+>/dev/usb/parport<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+				<listitem
+><para
+>/dev/usb/parports/<emphasis
+>[0..7]</emphasis
+></para
+></listitem>
+			</itemizedlist>
+		</para>
+	</sect1>
+</chapter>

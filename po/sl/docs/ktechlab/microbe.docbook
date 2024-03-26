@@ -1,0 +1,610 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="microbe">
+<title
+>&microbe;</title>
+<sect1>
+	<title
+>Uvod in splošna sintaksa</title>
+	<para
+><application
+>Microbe</application
+> prevaja programe, napisane v jeziku po meri za PIC, kot spremljevalni program za &ktechlab;. Sintaksa je bila zasnovana tako, da ustreza &flowcode; programu. Sintaksa za zagon <command
+>microbe</command
+> iz ukazne vrstice je: <programlisting
+>microbe [možnosti] [input.microbe] [output.asm]</programlisting
+>, kjer so možnosti: </para>
+		<itemizedlist>
+			<listitem
+><para
+><function
+>--show-source</function
+> - postavi vsako vrstico &microbe; izvorno kodo kot komentar v izhodu sestavljanja pred samimi ukazi zbirnika za to vrstico.</para
+></listitem>
+			<listitem
+><para
+><function
+>--no-optimize</function
+> – Prepreči optimizacijo ukazov, ustvarjenih iz vira. Optimizacija je običajno varna, zato se ta možnost uporablja predvsem za odpravljanje napak.</para
+></listitem>
+		</itemizedlist>
+		
+	<para
+>Vhodna datoteka .microbe mora identificirati ciljni PIC tako, da vstavi ime PIC na vrh datoteke .microbe; &eg; ime PIC16F84 je "P16F84". <example
+><title
+>Enostavni popoln &microbe; program</title>
+			<programlisting role="correct"
+>P16F84
+
+a = 0
+repeat
+{
+        PORTA = a
+        a = a + 1
+}
+until a == 5
+
+end</programlisting>
+			</example>
+		</para>
+
+	<sect2 id="namingconventions">
+		<title
+>Pravila poimenovanja</title>
+		<para
+>Za imena in oznake spremenljivk veljajo naslednja pravila: <itemizedlist>
+				<listitem
+><para
+>Vsebujejo lahko samo alfanumerične znake [a..z][A..Z][0..9] in podčrtaj "_"</para
+></listitem>
+				<listitem
+><para
+>Razlikujejo med velikimi in malimi črkami..</para
+></listitem>
+				<listitem
+><para
+>Ne morejo se začeti s številko.</para
+></listitem>
+				<listitem
+><para
+>Ne smejo se začeti z <quote
+>__</quote
+> (dvojni podčrtaj), saj je to rezervirano za uporabo s strani prevajalnika.</para
+></listitem>
+			</itemizedlist>
+		</para>
+	</sect2>
+
+	<sect2 id="bracingconventions">
+		<title
+>Konvencije oklepajev</title>
+		<para
+>Zavita oklepaja, {}, označujeta začetek in konec bloka kode. Lahko se pojavita kjerkoli pred začetkom in po koncu bloka kode. Primeri sprejemljivih kodnih blokov: <programlisting role="correct"
+>statement1 {
+        some code
+}</programlisting>
+		<programlisting role="correct"
+>statement2 {
+        other code }</programlisting>
+		
+		<programlisting role="correct"
+>statement3
+{
+        other code
+}</programlisting>
+		
+		<programlisting role="correct"
+>statement5 {
+        code block
+} statement6</programlisting>
+			</para>
+		</sect2>
+		<sect2 id="commenting">
+			<title
+>Komentiranje</title>
+			<para
+>Komentiranje je podobno C. // komentar v preostaneku vrstice. /* in */označujejo večvrstični komentar. <programlisting role="correct"
+>// This is a comment
+x = 2 
+/* As is this
+multiline comment */</programlisting>
+		</para>
+	</sect2>
+
+	<sect2 id="structure">
+		<title
+>Struktura programa</title>
+		<para
+>PIC ID mora biti vstavljen na vrh programa. Konec glavnega programa je označen z <quote
+>end</quote
+>. Podprogrami morajo biti postavljeni za <quote
+>end</quote
+>. </para>
+	</sect2>
+
+	<sect2 id="subroutines">
+		<title
+>Podprogrami</title>
+		<para
+>Podprogram je mogoče poklicati od kjer koli v kodi. Sintaksa: </para>
+		<programlisting role="correct"
+>sub SubName
+{
+        // Code...
+}</programlisting>
+<para
+>Podprogram se pokliče s <quote
+>call <replaceable
+>SubName</replaceable
+></quote
+>.</para>
+	</sect2>
+</sect1>
+
+<sect1 id="languagereference">
+	<title
+>&microbe; jezikovna referenca</title>
+	<sect2 id="if">
+		<title
+>if</title>
+		<para
+>Pogojno razvejanje. Sintaksa: <programlisting role="correct"
+>if [expression] then [statement]</programlisting
+> or <programlisting role="correct">
+if [expression] then
+{
+        [statement block]
+}</programlisting
+> Similarly for else: <programlisting role="correct"
+>else [statement]</programlisting
+> or <programlisting role="correct"
+>else
+{
+        [statement block]
+}</programlisting>
+			</para>
+			
+			<example
+><title
+>if</title>
+			<programlisting role="correct"
+>if porta.0 is high then
+{
+        delay 200
+}
+else
+{
+        delay 300
+}</programlisting>
+		</example>
+	</sect2>
+	
+	<sect2 id="alias">
+		<title
+>vzdevek</title>
+		<para
+>Vzdevek enega niza v drugega. Sintaksa: <programlisting role="correct"
+>alias [from] [to]</programlisting>
+		</para>
+	</sect2>
+	
+	<sect2 id="repeat">
+		<title
+>repeat</title>
+		<para
+>Ponavljajoče izvaja blok stavkov, dokler izraz ni ocenjen kot resničen. Vrednotenje izraza se izvede po bloku stavkov, tako da bo blok stavkov vedno izveden vsaj enkrat. Sintaksa: <programlisting role="correct"
+>repeat
+{
+        [statement block]
+}
+until [expression]</programlisting>
+	</para>
+</sect2>
+
+<sect2 id="while">
+<title
+>while</title>
+	<para
+>Podobno kot ponavljanje, to večkrat izvede blok stavkov. Vendar je izraz ovrednoten pred izvedbo, ne po njej. Torej, če je izraz ob prvem prehodu ovrednoten kot false, se blok stavkov ne bo izvedel. Sintaksa: <programlisting role="correct"
+>while [expression]
+{
+        [statement block]
+}</programlisting>
+	</para>
+</sect2>
+
+
+<sect2 id="goto">
+	<title
+>goto</title>
+	<para
+>To povzroči, da se izvajanje kode nadaljuje pri naslednjem stavku za navedeno oznako. Sintaksa Goto: <programlisting role="correct"
+><function
+>goto</function
+> [labelname]</programlisting
+> Sintaksa oznake: <programlisting role="correct"
+><function
+>labelname:</function
+></programlisting
+> Izogibanje uporabi goto se pogosto šteje za dobro programsko prakso. Uporaba kontrolnih stavkov in podprogramov bo povzročila veliko bolj berljiv program. </para>
+	
+	<example
+><title
+>goto</title>
+	<programlisting role="correct"
+>goto MyLabel
+
+...
+
+[MyLabel]:
+// Code will continue at this point</programlisting>
+		</example>
+	</sect2>
+	
+	<sect2 id="call">
+		<title
+>call</title>
+		<para
+>Pokliče podprogram. Sintaksa: <programlisting role="correct"
+><function
+>call</function
+> [SubName]</programlisting
+>, kjer je <replaceable
+>SubName</replaceable
+> ime podprograma, ki ga želite poklicati. </para>
+	</sect2>
+	
+	<sect2 id="delay">
+	<title
+>delay</title>
+		<para
+>To povzroči, da se izvajanje kode ustavi za dano časovno obdobje. Interval je v milisekundah. Sintaksa: <programlisting role="correct"
+><function
+>delay</function
+> [interval]</programlisting>
+		
+		<note
+><para
+>Trenutno &microbe; predpostavlja, da PIC deluje na frekvenci 4MHz - &ie; vsako navodilo traja 1 mikrosekundo za izvedbo. Če temu ni tako, je treba interval sorazmerno prilagoditi.</para
+></note>
+		</para>
+	</sect2>
+	
+	<sect2 id="sevenseg">
+		<title
+>sevenseg</title>
+		<para
+>To se uporablja za definiranje preslikave nogic za katodni sedemsegmentni zaslon (s skupno katodo), povezan s PIC. Sintaksa: <programlisting role="correct"
+><function
+>sevenseg</function
+> [ime] [a] [b] [c] [d] [e] [f] [g]</programlisting
+> kjer je [a] ...[g] so nogice PIC, na katere so pritrjeni ustrezni segmenti sedemsegmentnega zaslona. Nogice so lahko zapisane kot PORTX.N ali RXN. </para>
+		
+		<para
+>Za prikaz številke na segmentu sedmih se preslikava nogice obravnava kot spremenljivka samo za pisanje. <example>
+				<title
+>Definiranje in izpis v sedem segmentov</title>
+				<programlisting role="correct"
+>sevenseg seg1 RB0 RB1 RB2 RB3 RB4 RB5 RB6
+seg1 = x + 2</programlisting>
+				</example>
+		</para>
+	</sect2>
+	
+	<sect2 id="keypad">
+		<title
+>keypad</title>
+		<para
+>To se uporablja za definiranje preslikave nogic za tipkovnico, povezano s PIC. Sintaksa: <programlisting role="correct"
+><function
+>keypad</function
+> [ime] [vrstica 1] ... [vrstica 4] [stolpec 1] ... [stolpec n]</programlisting
+> kjer [vrstica 1] ... [vrstica 4] in [stolpec 1] ... [stolpec n] so nogice PIC, na katere so pritrjene ustrezne vrstice in stolpci tipkovnice (trenutno število vrstic ni spremenljivo) . Glejte <xref linkend="sevenseg"/> (zgoraj) za več informacij o preslikavah nogic. </para>
+		
+		<para
+>Stolpce tipkovnice je treba potegniti navzdol preko 100k uporov na maso. Nogice vrstic morajo biti konfigurirane kot izhodi, nogice stolpcev pa kot vhodi. Ko je tipkovnica definirana, se obravnava kot spremenljivka samo za branje. <example>
+				<title
+>Definiranje in branje s tipkovnice</title>
+					<programlisting role="correct"
+>keypad keypad1 RB0 RB1 RB2 RB3 RB4 RB5 RB6
+x = keypad1</programlisting>
+			</example>
+		</para>
+			
+		<para
+>Privzeto so vrnjene vrednosti za tipkovnico: <itemizedlist
+> <listitem
+><para
+>Vrednost številke, če je številska tipka (1 do 3 v zgornji vrstici; šestnajstiški A do D navzdol v četrtem stolpcu in nadaljevanje za vsak dodatni stolpec).</para
+></listitem
+> <listitem
+><para
+>253 za tipko v vrstici 4, stolpec 1.</para
+></listitem
+> <listitem
+><para
+>254 za tipko v vrstici 4, stolpec 3.</para
+></listitem
+> </itemizedlist
+> Te vrednosti je mogoče na novo definirati z uporabo ukaza alias, kjer je ime tipke v vrstici x, stolpcu y (vrstice in stolpci, ki se začnejo pri 1), Keypad_x_y. Če želite na primer tipki zvezdica na tipkovnici 4x3 dati vrednost nič, bi uporabili naslednji vzdevek: <example>
+				<title
+>Določanje vzdevka tipke na tipkovnici za vrednost</title>
+				<programlisting role="correct"
+>alias Keypad_4_1 0</programlisting>
+			</example>
+		</para>
+	</sect2>
+</sect1>
+
+<sect1 id="picio">
+<title
+>PIC I/O</title>
+	
+	<sect2 id="tristate">
+	<title
+>Smer vrat</title>
+		<para
+>Smer vrat se nastavi tako, da se TRIS* dodeli vrednost, kjer je * črka vrat. Na primer: </para>
+		<example
+><title
+>Nastavitev smeri vrat</title>
+		<programlisting role="correct"
+>TRISB = b'01111001'</programlisting>
+		</example>
+		<para
+>Zgornje nastavi nogice RB1, RB2 in RB7 na PORTB kot izhode, druge nogice na PORTB pa kot vhode. V tem primeru je b'01111001' binarna predstavitev vrste izhoda. 1 na desni predstavlja izhod na RB0, 0 na levi pa vhod na RB7. </para>
+	</sect2>
+	
+	<sect2 id="ports">
+	<title
+>Vrata I/O</title>
+		<para
+>Vrata je mogoče obravnavati kot spremenljivko. Na primer: </para>
+		
+		<example
+><title
+>Pisanje na vrata</title>
+		<programlisting role="correct"
+>x = PORTA</programlisting>
+		</example>
+		
+		<para
+>Zgornje dodeljuje vrednost PORTA spremenljivki x. </para>
+	</sect2>
+	
+	<sect2 id="pins">
+	<title
+>Pin I/O</title>
+		<para
+>Vsako nogico na vratih dobimo tako, da pred številko nogice dodamo ime vrat; &eg; Pin 2 (začenši z nogico 0) na PORTA je znan kot <emphasis
+>PORTA.0</emphasis
+>. Sintaksa za nastavitev stanja nogice je: <programlisting role="correct"
+>PORTX.N = <emphasis
+>STATE</emphasis
+></programlisting
+>, kjer je <emphasis
+>STATE</emphasis
+> lahko <emphasis
+>high</emphasis
+> ali <emphasis
+>low</emphasis
+>. Sintaksa za preizkus stanja nogice je: <programlisting role="correct"
+><function
+>if</function
+> PORTX.N je <emphasis
+>STATE</emphasis
+> <function
+>then</function
+></programlisting
+> S kombiniranjem teh primerov imamo: </para>
+		<example
+><title
+>Nastavitev in testiranje stanja nogice</title>
+		<programlisting role="correct"
+>TRISA = 0
+TRISB = 255
+<function
+>if</function
+> PORTA.3 is <function
+>high</function
+> <function
+>then</function>
+{
+        PORTB.5 = <function
+>low</function>
+}
+<function
+>else</function>
+{
+        PORTB = PORTA + 15
+}</programlisting>
+		</example>
+	</sect2>
+</sect1>
+	
+<sect1 id="variables">
+<title
+>Spremenljivke</title>
+	<para
+>Vse spremenljivke so 8-bitna nepredznačena cela števila, ki v obsegu od 0 do 255. <application
+>&microbe;</application
+> podpira tipične unarne operacije (delujejo na eno spremenljivko) in binarne operacije (delujejo na dve spremenljivki), ki jih podpira PIC. Poleg tega &microbe; podpira tudi deljenje in množenje. </para>
+	<sect2 id="unary">
+	<title
+>Unarne operacije</title>
+		<para>
+		<itemizedlist>
+		<listitem
+><para
+><emphasis
+>rotateleft x</emphasis
+> – Zasuka spremenljivko x levo skozi prenos.</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>rotateright x</emphasis
+> – Zasuka spremenljivko x desno skozi prenos.</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>inkrement x</emphasis
+> – Poveča spremenljivko x. Če ima x vrednost 255, se x zaokroži na 0.</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>zmanjšaj x</emphasis
+> – Zmanjša spremenljivko x. Če ima x vrednost 0, se x zaokroži na 255.</para
+></listitem>
+		</itemizedlist>
+		</para>
+	</sect2>
+	
+	<sect2 id="arithmetic">
+	<title
+>Aritmetika</title>
+		<para
+>Podprte operacije: <itemizedlist>
+		<listitem
+><para
+><emphasis
+>Seštevanje:</emphasis
+> x + y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Odštevanje:</emphasis
+> x - y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Množenje:</emphasis
+> x * y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Deljenje:</emphasis
+> x / y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Binarni XOR:</emphasis
+> x XOR y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Binarni AND:</emphasis
+> x AND y</para
+></listitem>
+		<listitem
+><para
+><emphasis
+>Binarni OR:</emphasis
+> x OR y</para
+></listitem>
+		</itemizedlist>
+		</para>
+	</sect2>
+	
+	<sect2 id="comparison">
+	<title
+>Primerjava</title>
+	<para
+>Podprte operacije: </para>
+	<itemizedlist>
+	<listitem
+><para
+><emphasis
+>Enakost:</emphasis
+> x == y</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>Neenakost:</emphasis
+> x != y</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>Je večje od:</emphasis
+> x 
+> y</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>Je manjše kot:</emphasis
+> x &lt; l</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>Je večje ali enako:</emphasis
+> x &gt;= y</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>Je manjše ali enako:</emphasis
+> x &lt;= y</para
+></listitem>
+	</itemizedlist>
+	
+	<para
+>Na primer: </para>
+	<example
+><title
+>Primerjava</title>
+	<programlisting role="correct"
+><function
+>if</function
+> PORTA 
+>= 5 <function
+>then</function>
+{
+        ...
+}</programlisting>
+	</example>
+	</sect2>
+</sect1>
+
+<!--
+<sect1 id="interrupts">
+<title
+>Interrupts</title>
+	<para>
+	There are several types of events, and some of these take an optional parameter making
+	the condition under which the routine is called more specific.
+	<itemizedlist>
+	<listitem
+><para
+><emphasis
+>change &lt;pin name&gt;</emphasis>
+		 - Occurs when the state of the specified pin changes. Pin name is in the usual syntax of PORTX.n, &eg; <programlisting
+>interrupt change PORTB.4</programlisting
+></para
+></listitem>
+	<listitem
+><para
+><emphasis
+>timer</emphasis
+> - ///TODO</para
+></listitem>
+	<listitem
+><para
+><emphasis
+>external</emphasis
+> - ///TODO</para
+></listitem>
+	</itemizedlist>
+	</para>
+</sect1>
+-->
+</chapter>

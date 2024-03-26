@@ -1,0 +1,69 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="quick">
+	<title
+>Hitri ogled</title>
+	
+	<sect1 id="introduction">
+		<title
+>Uvod</title>
+		
+		<para
+>&ktechlab; je IDE za elektronska vezja in mikrokrmilnikov. Izvaja lahko simulacijo različnih komponent (logičnih, integriranih, linearnih, nelinearnih in reaktivnih), simulacijo in razhroščevanje mikrokrmilnikov PIC prek gpsim in prihaja z lastnimi tesno povezanimi in komplementarnimi jeziki na visoki ravni: &flowcode; in &microbe;.</para>
+		
+		<para
+>Zasnovan je tako, da je čim bolj enostaven za uporabo in nevsiljiv; vse komponente in FlowParts imajo kontekstno občutljivo pomoč, simulacija elektronike pa je tako preprosta kot vlečenje komponent na delovno območje in ustvarjanje konektorjev, ki se samodejno usmerijo med svojimi nožicami. &flowcode; omogoča uporabnikom, ki se šele spoznavajo s PIC-ji, da takoj ustvarijo lastne programe, medtem ko elektronska simulacija omogoča korakanje skozi program za zbirnik PIC-ja znotraj vezja.</para>
+	</sect1>
+	
+	<sect1 id="documents">
+		<title
+>Dokumenti</title>
+		<para
+>Če želite začeti uporabljati &ktechlab;, boste morali ustvariti nov dokument, katerega vrsta bo odvisna od vaše naloge:</para>
+			
+			<itemizedlist>
+				<listitem
+><para
+>&flowcode; Dokument - Izdelajte program PIC prek diagrama poteka.</para
+></listitem>
+				<listitem
+><para
+>Circuit Document – Simulirajte elektronska vezja in mikrokrmilnike.</para
+></listitem>
+				<listitem
+><para
+>&microbe; Dokument - jezik visoke ravni za PIC, ki ga uporablja tudi &flowcode; za ustvarjanje zbirnika.</para
+></listitem>
+				<listitem
+><para
+>Dokument za sestavljanje - Začnite pisati program zbirnika za PIC.</para
+></listitem>
+			</itemizedlist>
+			
+		<para
+>&ktechlab; uporablja model Document-View, tako da je logika dokumenta popolnoma ločena od odprtih pogledov dokumenta. To omogoča več ogledov iste datoteke.</para>
+		
+		<para
+>Ko ustvarite nov dokument, se pogled ustvari v ločenem zavihku. Vsak zavihek lahko podpira poljubno število pogledov, razporejenih v poljuben vzorec. To omogoča, na primer, simulacijo programa PIC v vezju, medtem ko korak po programu v dokumentu zbirnika v istem zavihku.</para>
+		
+		<para
+>Vsebino zavihkov lahko podvojite tako, da povlečete zavihek na prazno območje v vrstici z zavihki. Lahko jih vstavite v obstoječi zavihek tako, da jih povlečete na ta zavihek.</para>
+		
+		<para
+>Podrobna navodila o zgornjih dokumentih najdete v posameznih poglavjih.</para>
+	</sect1>
+	
+	<sect1 id="drawing">
+		<title
+>Risanje</title>
+		
+		<para
+>V Circuit in &flowcode; dokumentih je na voljo več orodij za risanje, vključno z besedilom. Te so na voljo s klikom na ikono čopiča v orodni vrstici. Za risanje povlecite miško, da oblikujete obliko ali črto, ki ustreza uporabljenemu risalnemu orodju.</para>
+		
+		<para
+>Ko je risba izbrana, ji lahko spremenite velikost tako, da povlečete njene ročke. Držite &Shift; med vlečenjem se bo ročka zaskočila na spodnjo mrežo. Vsako orodje ima osnovne možnosti, ki so na voljo v orodni vrstici, kot so barve. V stranski vrstici <guilabel
+>Urejevalnik elementov</guilabel
+> so na voljo tudi naprednejše možnosti, kot so slogi črt in kapic.</para>
+		
+	</sect1>
+	
+</chapter>

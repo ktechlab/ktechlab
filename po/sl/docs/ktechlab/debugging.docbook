@@ -1,0 +1,83 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="debugging">
+	<title
+>Odpravljanje napak</title>
+	
+	<sect1 id="starting_debugger">
+		<title
+>Zagon razhroščevalnika</title>
+		
+		<para
+>Podpora za odpravljanje napak je na voljo za Assembly, SDCC in Microbe, ko so odprti kot besedilni dokument. Od tu se koraki nadzirajo prek menija <guimenu
+>Odpravljanje napak</guimenu
+>. Obstajata dva načina za zagon razhroščevalnika.</para>
+		
+		<para
+>Če se program PIC že izvaja v vezju, bo dvoklik na komponento PIC odprl program. Za programe PIC v zbirniku bo razhroščevalnik za ta besedilni dokument povezan s komponento PIC. V tem primeru meni za odpravljanje napak ne more ustaviti programa PIC - ker je ta v lasti komponente PIC.</para>
+		
+		<para
+>Če je datoteka zbirnika že odprta, lahko razhroščevalnik zaženete prek menija <guimenu
+>Odpravljanje napak</guimenu
+>. Po prevajanju programa bo razhroščevalnik pripravljen, pri čemer bo program PIC zaustavljen ob prvem ukazu. Upoštevajte, da pri odpravljanju napak v visoko nivojskih jezikih trenutna točka izvajanja ne bo prikazana, če ni vrstice, ki bi ustrezala prvemu ukazu zbirnika, ki naj se izvede. V tem primeru bo klik na <guibutton
+>Naprej</guibutton
+> pripeljal točko izvajanja na prvo vrstico v programu.</para>
+	</sect1>
+	
+	<sect1 id="controlling_debugger">
+		<title
+>Krmiljenje razhroščevalnika</title>
+		
+		<para
+>Razhroščevalnik je lahko v enem od dveh načinov: tekočem in koračnem. Med delovanjem bo program PIC simuliran v realnem času. Da omogočite korakanje, je treba program PIC začasno ustaviti - bodisi s klikom na <guimenuitem
+>Prekinitev</guimenuitem
+> v meniju <guimenu
+>Odpravljanje napak</guimenu
+> ali s klikom na gumb za premor na komponenti PIC.</para>
+		
+		<para
+>V koračnem načinu zelena puščica na robu besedilnega dokumenta označuje naslednjo vrstico, ki jo je treba izvesti (znano uporabnikom <application
+>KDevelop</application
+>). Morda bo koristno vklopiti obrobo ikone v meniju <guimenu
+>Pogled</guimenu
+> (lahko jo trajno vklopite v pogovornem oknu <guilabel
+>Nastavitve urejevalnika</guilabel
+>).</para>
+		
+		<para
+>Obstajajo tri vrste korakov:</para>
+		
+		<itemizedlist>
+				<listitem
+><para
+><guimenuitem
+>Korak</guimenuitem
+> - Ta izvede trenutni ukaz. Zelena puščica se premakne v naslednjo vrstico za izvedbo.</para
+></listitem>
+				<listitem
+><para
+><guimenuitem
+>Prestop</guimenuitem
+> – Če je naslednji ukaz, ki ga je treba izvesti, klic ali podobno, bo to "prestopilo" klic in se vrnilo v način korakanja, ko se klic vrne. V nasprotnem primeru se korak čez navodilo obnaša enako kot korak. Tehnično povedano - začetna raven sklada se zabeleži in izvajanje programa se začasno ustavi, ko se raven sklada vrne na začetno raven.</para
+></listitem>
+				<listitem
+><para
+><guimenuitem
+>Izstop</guimenuitem
+> – Če je trenutna izvedba znotraj klica ali podobno, bo to počakalo, dokler se klic ne vrne. Podobno kot pri prestopanju je to enakovredno čakanju, da se raven sklada vrne na eno nižjo raven od začetne ravni, če je začetna raven večja od nič.</para
+></listitem>
+		</itemizedlist>
+		
+		<para
+>Prekinitvene točke omogočajo zaustavitev izvajanja, ko program PIC doseže dani ukaz. Če želite preklopiti prekinitveno točko v vrstici, ki vsebuje kazalec, uporabite meni <guimenu
+>Odpravljanje napak</guimenu
+> ali kliknite na rob ikone besedilnega dokumenta.</para>
+		
+		<para
+>Stranska vrstica <guilabel
+>Pregledovalnik simbolov</guilabel
+> na desni prikazuje vrednosti registrov posebnih funkcij. Če želite ugotoviti vrednost spremenljivke v registrih splošnega namena, lahko z miško premaknete nad ime spremenljivke v navodilu, ki deluje na tem registru. Upoštevajte, da izbira korena v <guilabel
+>Pregledovalniku simbolov</guilabel
+> nadzoruje tudi, kako je vrednost prikazana, ko miškin kazalec premaknete nad spremenljivko.</para>
+	</sect1>
+	
+</chapter>

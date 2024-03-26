@@ -1,0 +1,95 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="flowcode">
+	<title
+>&flowcode;</title>
+	
+	<sect1 id="flowcode_introduction">
+		<title
+>Uvod</title>
+		
+		<para
+>&flowcode; omogoča zelo hitro in enostavno izdelavo programa PIC. Ko uporabnik sestavi diagram poteka iz delov programa, ki so na voljo, &ktechlab; lahko nato pretvori diagram poteka v več formatov. Za izpis šestnajstiškega na primer poteka naslednja veriga pretvorb:</para>
+		
+		<orderedlist>
+			<listitem
+><para
+>&flowcode; se pretvori v &microbe;; visoko-nivojski jezik, katerega prevajalnik se distribuira skupaj z &ktechlab;.</para
+></listitem>
+			<listitem
+><para
+>Izvršljiva datoteka <command
+>microbe</command
+> nato prevede &microbe; datoteke v zbirnik PIC.</para
+></listitem>
+			<listitem
+><para
+>Končno <command
+>gpasm</command
+> vzame datoteko zbirnika PIC in naredi šestnajstiški izhodni program.</para
+></listitem>
+		</orderedlist>
+		
+		<para
+>Seveda, če nimate nameščenega programa gputils - s katerimi se <command
+>gpasm</command
+> distribuira - potem zadnjega koraka ni mogoče izvesti.</para>
+		
+	</sect1>
+	
+	<sect1 id="flowcode_creation">
+		<title
+>Ustvarjanje programa</title>
+		
+		<para
+>Vsak &flowcode; program potrebuje edinstveno izhodišče - to je mesto, od koder se bo vaš program zagnal ob zagonu PIC. Če želite definirati to točko, odprite stransko vrstico FlowParts na levi in povlecite čez del <guilabel
+>Začetek</guilabel
+>. &ktechlab; vam bo omogočil uporabo le enega od teh.</para>
+		
+		<para
+>Nato lahko sestavite svoj program z uporabo vnaprej določenih delov na levi - ali vstavite svojo kodo (v obliki zbirnika ali &microbe;) prek dela <guilabel
+>Vdelaj</guilabel
+>. Tok programa je nadzorovan prek povezav med FlowParts - <xref linkend="connecting_components"/> ponuja več podrobnosti o ustvarjanju povezav.</para>
+		
+		<para
+>&flowcode; nalaga omejitve poleg omejitev vezij glede tega, kaj je mogoče povezati. Na primer, vsak FlowPart ima lahko samo eno izhodno povezavo. Dodatne omejitve so opisane v <xref linkend="nestling_flowcode"/>.</para>
+	</sect1>
+	
+	<sect1 id="pic_settings">
+		<title
+>Nastavitve PIC</title>
+		
+		<para
+>Ko ustvarite nov &flowcode; dokument, boste v zgornjem levem kotu delovnega območja opazili sliko PIC-a, ki ga uporabljate. To predstavlja začetne nastavitve PIC.</para>
+		
+		<para
+>Vsaka nogica, prikazana na sliki PIC-a, prikazuje začetni tip nogice (vhod ali izhod) in njeno začetno stanje (visoko ali nizko). Te lahko spremenite tako, da povlečete nogico, da ji nastavite vrsto, in kliknete nanjo, da preklopite njeno stanje.</para>
+		
+		<para
+>Pogovorno okno <guilabel
+>Nastavitve</guilabel
+>, ki ga prikličete s klikom na gumb <guibutton
+>Nastavitve</guibutton
+>, omogoča tudi urejanje začetnih tipov in stanj nogic - v tem primeru z urejanjem binarnih vrednosti, zapisanih v registrih PORT in TRIS. Pogovorno okno poleg nastavitev nogic omogoča tudi urejanje začetnih vrednosti spremenljivk v programu PIC.</para>
+		
+		<para
+>Na dnu je seznam trenutno definiranih map nogic in gumbov za upravljanje z njimi. Mape nogic se uporabljajo za določitev, kako je sedem segmentov ali tipkovnica povezana s PIC. Za uporabo <guilabel
+>Sedem segmentov</guilabel
+> ali delov <guilabel
+>Tipkovnice</guilabel
+> &flowcode;, boste morali tukaj najprej definirati mapo nogic.</para>
+		
+	</sect1>
+	
+	<sect1 id="nestling_flowcode">
+		<title
+>Gnezdenje &flowcode;</title>
+		
+		<para
+>Mnogi FlowParts, kot so podprogrami in zanke, lahko vsebujejo lastno kodo. Ko ustvarite tak vsebnik, lahko FlowParts dodate tako, da jih povlečete ali spustite v vsebnik. Vsebnik bo označen, kar pomeni, da bo postal novi nadrejeni element FlowPart.</para>
+		
+		<para
+>Vsebnik prevzame odgovornost za FlowParts, ki so nameščeni v njem. Če gumba za razširitev ne kliknete, bodo vsi vsebovani FlowParts skriti - in prav tako bo vsebina prikazana, ko znova kliknete gumb za razširitev. Med FlowParts v različnih vsebnikih ni mogoče vzpostaviti povezav, vsebina vsebnika pa se bo premikala skupaj z vsebnikom.</para>
+		
+	</sect1>
+	
+</chapter>

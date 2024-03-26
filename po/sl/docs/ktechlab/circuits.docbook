@@ -1,0 +1,164 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="circuits">
+	<title
+>Vezja</title>
+	
+	<sect1 id="placing_components">
+		<title
+>Namestitev komponent</title>
+		<para
+>Na levi strani boste našli zavihek <guilabel
+>Komponente</guilabel
+>.</para>
+		
+		<para
+>Če povlečete komponento iz stranske vrstice v vezje, jo postavite pod kazalec miške. Druga možnost je, da dvakrat kliknete na element v stranski vrstici <guilabel
+>Komponente</guilabel
+>, da ga večkrat dodate v vezje. V tem načinu bo kopija izbrane komponente vedno znova postavljena na levi klik miške, dokler ne pritisnete &Esc; ali kliknete z desni miškinim gumbom.</para>
+		
+		<para
+>Če želite spremeniti položaj komponente, kliknite z levim gumbom miške in povlecite. Ugotovili boste, da se zaskoči na spodnjo mrežo. Če povlečete komponento z desnega ali spodnjega roba delovnega območja, se bo delovno območje prilagodilo velikosti.</para>
+		
+		<para
+>Vse komponente imajo pojem orientacije; 0, 90, 180 in 270 stopinj. Tiste, ki niso simetrični glede na os, je mogoče tudi obrniti. Če želite zasukati izbor komponent, z desnim miškinim gumbom kliknite in izberite v meniju <guimenu
+>Usmerjenost</guimenu
+> ali pa kliknite gumbe za sukanje v orodni vrstici. Do slednjega lahko dostopate tudi s pritiskom tipk <keycap
+>[</keycap
+> in <keycap
+>]</keycap
+> (ki jih poznajo uporabniki <application
+>Inkscape</application
+>). Stranska vrstica <guilabel
+>Element</guilabel
+> (na desni) nudi zmogljivo metodo za nastavitev orientacije s predogledom komponent. Obračanje komponent je prav tako možno samo prek stranske vrstice <guilabel
+>Element</guilabel
+>.</para>
+	</sect1>
+	
+	<sect1 id="connecting_components">
+		<title
+>Povezovanje komponent</title>
+		<para
+>Obstajata dva načina za ustvarjanje povezav (žic): samodejni in ročni. Ti načini so izbrani v spustnem meniju <guimenu
+>Način usmerjanja povezave</guimenu
+> v orodni vrstici. Eksperimentirajte z obema – samodejno usmerjanje je pogosto boljše za majhna vezja, medtem ko je za bolj zapletena vezja morda potrebno ročno usmerjanje.</para>
+		
+		<para
+>V samodejnem načinu ustvarite povezavo tako, da povlečete iz zatiča komponente ali obstoječe povezave in spustite miško na želeni zatič ali povezavo. Videli boste, da se narisana ravna črta obarva oranžno, ko bo po sprostitvi miške ustvarjena veljavna povezava. Če je črta, ki jo rišete, črna, je to zato, ker pod kazalcem miške ni ničesar ali pa poskušate povezati dva elementa, ki sta že povezana. Pri diagramu poteka so merila za veljavno povezavo bolj zapletena – vendar se bomo tega lotili pozneje.</para>
+		
+		<para
+>Najboljši način, da dobite občutek za ročno usmerjanje povezave, je, da z njim eksperimentirate. Kliknite začetni zatič ali povezavo in nato razširite protokonektor tako, da premaknete miško stran od mesta, kjer ste kliknili. Če želite postaviti vogal, kliknite levi gumb miške. Če želite prekiniti risanje povezave, pritisnite &Esc; ali kliknite z desnim gumbom miške.</para>
+		
+		<para
+>&ktechlab; se po svojih najboljših močeh trudi vzdrževati poti, po katerih potekajo vaše povezave. Vendar, če vlečenje komponente povzroči, da se končne točke povezave med seboj premaknejo, bo &ktechlab; prisiljen znova narisati povezavo z uporabo samodejnega usmerjanja. Preden premaknete komponento, lahko vidite, katere konektorje bo treba preusmeriti - saj bodo ob kliku postali sivi.</para>
+		
+		<para
+>Če želite odstraniti obstoječo povezavo, jo izberite tako, da narišete majhen izbirni pravokotnik čez del konektorja in pritisnite <keycap
+>Del</keycap
+>.</para>
+	</sect1>
+	
+	<sect1 id="component_attributes">
+		<title
+>Atributi komponente</title>
+		<para
+>Večina komponent bo imela atribute, ki jih je mogoče urejati, kot je upornost uporov. Privzeto lahko urejate preproste atribute v orodni vrstici, ko je izbrana skupina komponent iste vrste. Če vaš izbor vsebuje mešanico različnih vrst komponent (kot so upori in kondenzatorji), potem ne bodo prikazanih nobenih atributov urejanja.</para>
+		
+		<para
+>Nekatere komponente imajo naprednejše atribute, ki niso dostopni prek orodne vrstice. Najdete jih v stranski vrstici <guilabel
+>Element</guilabel
+> na desni. Dioda ima na primer vrsto vedenjskih značilnosti, ki jih lahko urejate tukaj.</para>
+<!-- Not in 0.3.6 version
+		<para
+>If your selection of components have different values for their attributes (for example, different resistances for a selection of resistors), the <guilabel
+>Item</guilabel
+> sidebar will have the disagreeing attributes grayed-out. You can enable these by clicking the <guibutton
+>Merge properties</guibutton
+> button.</para>
+
+		<para
+>The "Defaults" button will reset the component attributes to the ones it had on creation.</para>
+		-->
+		<para
+>Obstaja ena vrsta atributa, ki je ni mogoče urejati niti v orodni vrstici niti v stranski vrstici predmeta – večvrstično besedilo. Z dvoklikom na predmet se odpre pogovorno okno, kjer lahko vnesete besedilo.</para>
+	</sect1>
+	
+	<sect1 id="circuit_simulation">
+		<title
+>Simulacija</title>
+		<para
+>Privzeto se bo simulacija izvajala, ko ustvarite novo vezje. Stanje simulacije je prikazano v spodnjem desnem kotu pogleda vezja in ga je mogoče spremeniti prek menija <guimenu
+>Orodja</guimenu
+>. Najprej - majhna razlaga o delovanju simulatorja. To bi vam moralo omogočiti, da kar najbolje izkoristite.</para>
+		
+		<para
+>Ko je vezje ustvarjeno ali spremenjeno, so prizadeta območja razdeljena v skupine nožic in povezav, ki se lahko štejejo za neodvisne. Vsaka skupina je nato simulirana kot ločena entiteta (čeprav še vedno sodeluje prek komponent), pri čemer je zagotovljena simulacija odvisna od kompleksnosti skupine. Kompleksne skupine, kot so tiste, ki vključujejo nelinearne komponente, kot so LED, se počasi simulirajo. Skupine, ki vsebujejo samo logične nogice, od katerih samo eden nadzoruje vrednost na teh nogicah, je moč najhitreje simulirati.</para>
+		
+		<para
+>Rezultati simulacije so prikazani z več grafičnimi sredstvi.</para>
+		
+		<para
+>Nogice na komponentah bodo prikazovale napetostne stranske vrstice. Te so obarvane oranžno za pozitivno napetost in modro za negativno napetost. Njihova dolžina je odvisna od nivoja napetosti, širina pa od količine toka, ki teče skozi nogico. Te lahko izklopite na strani <guilabel
+>Splošno</guilabel
+> pogovornega okna <guilabel
+>Konfiguracija</guilabel
+>.</para>
+		
+		<para
+>Če miško premaknete nad nogico ali povezavo, se bo prikazal majhen opis orodja, ki prikazuje napetost in tok na tej točki v vezju. Več komponent zagotavlja tudi grafično povratno informacijo - na primer LED in voltmetri ali ampermetri.</para>
+		
+		<para
+>Na koncu je tu še osciloskop, o katerem razpravljamo v naslednjem razdelku.</para>
+	</sect1>
+	
+	<sect1 id="oscilloscope">
+		<title
+>Osciloskop</title>
+		<para
+>Osciloskop lahko beleži logične, napetostne in tokovne podatke. Logična sonda je optimizirana za shranjevanje logičnih vzorcev, zato jo je treba pri merjenju logike uporabiti namesto napetostne sonde.</para>
+		
+		<para
+>Za zbiranje podatkov ustvarite novo komponento sonde in jo pritrdite na ustrezno točko v vezju. Izhod boste takoj videli v osciloskopu. Če dodate več sond, boste izhode zmečkali enega poleg drugega - te lahko premaknete tako, da povlečete puščice na levi strani pogleda osciloskopa, in spremenite njihove barve prek atributov sonde.</para>
+		
+		<para
+>Za napetostne in tokovne sonde je mogoče prilagoditi obseg vhodnih vrednosti v <guilabel
+>Urejevalnik elementov</guilabel
+> stranski vrstici na desni.</para>
+		
+		<para
+>Zoomiranje nadzira drsnik. Stopnja je logaritemska; za vsakih nekaj slikovnih pik, po katerih se premika drsnik, se faktor povečave pomnoži s konstanto. &ktechlab; simulira logiko do največje natančnosti 1 mikrosekunde, pri največji stopnji povečave pa je ena mikrosekunda predstavljena z 8 slikovnimi pikami.</para>
+		
+		<para
+>Ko drsni trak povlečete do konca, bo ostal tam, ko se bodo posneli novi podatki. V nasprotnem primeru položaj drsnega traku ostane časovno nespremenljiv. Pogled osciloskopa lahko premikate tudi naprej in nazaj z levim klikom in vlečenjem pogleda. Zaradi omejitev osnovnega sistema gradnikov bo drsenje pri največji povečavi zelo razdrobljeno.</para>
+		
+		<para
+>Z desnim klikom na pogled osciloskopa se odpre meni, kjer lahko nadzirate, kolikokrat se pogled osciloskopa posodobi. To omogoča bolj gladek prikaz ali zmanjšanje porabe procesorja.</para>
+	</sect1>
+	
+	<sect1 id="subcircuits">
+		<title
+>Podvezja</title>
+		<para
+>Podvezja ponujajo ponovno uporaben in urejen način uporabe vezja, ko vas zanima samo interakcija z zunanjimi povezavami vezja. Podvezje se ustvarja kot IC, pri čemer zatiči delujejo kot interakcija z notranjim vezjem.</para>
+		
+		<para
+>Najprej je treba sestaviti vezje, ki bo uporabljeno kot predloga za ustvarjanje podvezja. Točke interakcije so določene prek komponent <guilabel
+>Zunanje povezave</guilabel
+>. Ti morajo biti povezani in nameščeni tam, kjer želite, da je zatič nameščen na podvezju IC.</para>
+		
+		<para
+>Nato izberite skupino komponent in zunanjih povezav, ki jih želite spremeniti v podvezje, in v meniju z desnim klikom izberite <guimenuitem
+>Ustvari podvezje</guimenuitem
+>. Ponudili vam bodo, da vnesete ime za podvezje. Ko je ime ustvarjeno, se bo pojavilo v izbirniku <guilabel
+>Komponente</guilabel
+> pod izbiro <guilabel
+>Podvezja</guilabel
+>. To je mogoče obravnavati kot vsako običajno komponento - z dodatno možnostjo, da jo odstranite tako, da z desnim klikom na element izberete <guimenuitem
+>Odstrani</guimenuitem
+>.</para>
+	</sect1>
+	
+</chapter>
+
+
+

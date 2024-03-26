@@ -1,0 +1,31 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="faq">
+<title
+>Pogosta vprašanja</title>
+
+<qandaset>
+	<qandaentry>
+		<question>
+			<para
+>&ktechlab; uporablja veliko procesorja</para>
+		</question>
+		
+		<answer>
+				<para
+>Možnih vzrokov je več. Simulacija vezij, ki vsebujejo tako reaktivne kot nelinearne komponente (kot so kondenzatorji in tranzistorji), zahteva veliko časa CPE za simulacijo. Simulacijo lahko zaustavite in nadaljujete prek menija <guimenu
+>Orodja</guimenu
+>.</para>
+			
+				<para
+>Risanje delovnega območja (zlasti prerisovanje številnih hitro posodabljajočih se napetostnih palic na nogicah) je prav tako zahtevno za procesor. V pogovornem oknu <guilabel
+>Nastavitve</guilabel
+> lahko zmanjšate hitrost osveževanja ali izklopite napetostne stolpce. Hitrost osveževanja <guilabel
+>Osciloskopa</guilabel
+> lahko zmanjšate tudi z desnim klikom na njegov zaslon.</para>
+
+			<para
+>Upoštevajte, da bo naslednja večja izdaja &ktechlab; lahko veliko hitrejša pri prikazovanju delovnega območja in simulaciji reaktivnih in nelinearnih komponent.</para>
+		</answer>
+	</qandaentry>
+</qandaset>
+</chapter>
