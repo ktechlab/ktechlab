@@ -346,24 +346,25 @@ target_link_libraries( ktechlab
     #ktlqt3support
 	#mechanics electronics elements components languages drawparts
 	#itemeditor math
-    KF5::I18n
-    KF5::TextWidgets
-    KF5::TextEditor
-    KF5::Parts
-    KF5::Completion
-    KF5::ConfigCore
-    KF5::ConfigGui
-    KF5::ConfigWidgets
-    KF5::CoreAddons
-    KF5::IconThemes
-    KF5::KIOCore
-    KF5::XmlGui
-    KF5::WidgetsAddons
-    KF5::WindowSystem
+    KF6::I18n
+    KF6::TextWidgets
+    KF6::TextEditor
+    KF6::Parts
+    KF6::Completion
+    KF6::ConfigCore
+    KF6::ConfigGui
+    KF6::ConfigWidgets
+    KF6::CoreAddons
+    KF6::IconThemes
+    KF6::KIOCore
+    KF6::XmlGui
+    KF6::WidgetsAddons
+    KF6::WindowSystem
 
-    Qt5::Widgets
-    Qt5::PrintSupport
-    Qt5::SerialPort
+    Qt6::Widgets
+    Qt6::PrintSupport
+    Qt6::SerialPort
+    Qt6::Core5Compat
 )
 if(GPSim_FOUND)
     target_link_libraries(ktechlab ${GPSim_LIBRARIES})
@@ -380,9 +381,9 @@ install(TARGETS ktechlab ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 # message(STATUS "include_dir end")
 
 # message(STATUS "include_dir begin")
-# get_property(dirs TARGET KF5::TextEditor PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
+# get_property(dirs TARGET KF6::TextEditor PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
 # foreach(dir ${dirs})
-#   message(STATUS "KF5::TextEditor include_dir='${dir}'")
+#   message(STATUS "KF6::TextEditor include_dir='${dir}'")
 # endforeach()
 # message(STATUS "include_dir end")
 
@@ -393,19 +394,20 @@ if(BUILD_TESTING)
     add_library(test_ktechlab STATIC ${ktechlab_SRCS})
 
     target_link_libraries(test_ktechlab
-        KF5::I18n
-        KF5::TextWidgets
-        KF5::TextEditor
-        KF5::IconThemes
-        KF5::Parts
-        KF5::WidgetsAddons
-        KF5::WindowSystem
-        KF5::ConfigWidgets
-        KF5::Completion
+        KF6::I18n
+        KF6::TextWidgets
+        KF6::TextEditor
+        KF6::IconThemes
+        KF6::Parts
+        KF6::WidgetsAddons
+        KF6::WindowSystem
+        KF6::ConfigWidgets
+        KF6::Completion
 
-        Qt5::Widgets
-        Qt5::PrintSupport
-        Qt5::SerialPort
+        Qt6::Widgets
+        Qt6::PrintSupport
+        Qt6::SerialPort
+        Qt6::Core5Compat
     )
 
 endif()

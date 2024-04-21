@@ -33,15 +33,16 @@ target_link_libraries( tests_app
 #     itemeditor
 #     test_ktechlab
 #     math
-    KF5::ConfigCore
-    KF5::ConfigGui
-    KF5::KIOCore
-    KF5::CoreAddons
-    KF5::XmlGui
-    KF5::TextEditor
+    KF6::ConfigCore
+    KF6::ConfigGui
+    KF6::KIOCore
+    KF6::CoreAddons
+    KF6::XmlGui
+    KF6::TextEditor
 
-    Qt5::Widgets
-    Qt5::Test
+    Qt6::Widgets
+    Qt6::Test
+    Qt6::Core5Compat
 )
 if(GPSim_FOUND)
     target_link_libraries(tests_app ${GPSim_LIBRARIES})

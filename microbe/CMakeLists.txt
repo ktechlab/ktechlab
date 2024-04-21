@@ -15,10 +15,11 @@ SET(microbe_SRCS
 add_executable(microbe ${microbe_SRCS})
 
 target_link_libraries(microbe
-    KF5::CoreAddons
-    KF5::I18n
+    KF6::CoreAddons
+    KF6::I18n
 
-    Qt5::Core
+    Qt6::Core
+    Qt6::Core5Compat
     )
 
 install(TARGETS microbe ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

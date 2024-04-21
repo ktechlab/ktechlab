@@ -36,16 +36,18 @@ ecm_setup_version(
 if(BUILD_TESTING)
     set(QT_ADDITIONAL_COMPONENTS Test)
 endif()
-find_package(Qt5 CONFIG REQUIRED COMPONENTS
+
+find_package(Qt6 CONFIG REQUIRED COMPONENTS
     Core
     DBus
     Widgets
     PrintSupport
     SerialPort
+    Core5Compat
     ${QT_ADDITIONAL_COMPONENTS}
     )
 
-find_package(KF5 REQUIRED COMPONENTS
+find_package(KF6 REQUIRED COMPONENTS
     Completion
     Config
     ConfigWidgets
@@ -105,11 +107,11 @@ endif (KTECHLAB_DEVELOPER_BUILD)
 
 add_definitions( -fno-inline )  # do not inline any method calls; this is useful for crash debugging
 add_definitions(
-    ${Qt5Core_EXECUTABLE_COMPILE_FLAGS}
+    ${Qt6Core_EXECUTABLE_COMPILE_FLAGS}
     ${GLIB2_DEFINITIONS}
 )
 
-message("Qt5Core_EXECUTABLE_COMPILE_FLAGS=>>>${Qt5Core_EXECUTABLE_COMPILE_FLAGS}<<<" )
+message("Qt6Core_EXECUTABLE_COMPILE_FLAGS=>>>${Qt6Core_EXECUTABLE_COMPILE_FLAGS}<<<" )
 
 
 # KDE disables STL compatibility by default; re-enabling it is supported
