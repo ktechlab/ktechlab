@@ -15,7 +15,7 @@
 
 #include "propertysubeditor.h"
 
-class QStringList;
+// class QStringList;
 class KListBox;
 class QToolButton;
 

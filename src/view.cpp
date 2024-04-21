@@ -51,7 +51,7 @@ View::View(Document *document, ViewContainer *viewContainer, uint viewAreaId)
         qCDebug(KTL_LOG) << " viewArea = " << viewArea;
 
     m_layout = new QVBoxLayout(this);
-    //m_layout->setMargin(0); // if we remove this some magic visibility calculation goes wrong
+    //m_layout->setContentsMargins(0,0,0,0); // if we remove this some magic visibility calculation goes wrong
 
     // Don't bother creating statusbar if no ktechlab as we are not a main ktechlab tab
     if (KTechlab::self()) {

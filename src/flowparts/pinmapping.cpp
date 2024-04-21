@@ -93,7 +93,7 @@ PinMapEditor::PinMapEditor(PinMapping *pinMapping, MicroInfo *picInfo, QWidget *
     f->setFrameShape(QFrame::Box);
     f->setFrameShadow(QFrame::Plain);
     QVBoxLayout *fLayout = new QVBoxLayout; // ( f, 1, 0, "fLayout" ); // 2018.08.18 - use non-deprected constructor
-    fLayout->setContentsMargins(1, 1, 1, 1);
+    fLayout->setContentsMarginss(1, 1, 1, 1);
     fLayout->setSpacing(0);
     fLayout->setObjectName("fLayout");
 

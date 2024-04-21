@@ -29,6 +29,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QRegExp>
+#include <QRegularExpression>
 #include <QString>
 
 #include <iostream>
@@ -302,7 +303,7 @@ Code * Parser::parse( const SourceLineList & lines )
 					{
 						nextField = (*it);
 						if(nextField.type() == Field::FixedString)
-							newPosition = line.indexOf(QRegExp("\\b" + nextField.string() + "\\b"));
+							newPosition = line.indexOf(QRegularExpression("\\b" + nextField.string() + "\\b"));
 						// Although code is not necessarily braced, after an expression it is the only
 						// sensilbe way to have it.
 						else if(nextField.type() == Field::Code)
@@ -366,7 +367,7 @@ Code * Parser::parse( const SourceLineList & lines )
 				case (Field::FixedString):
 				{
 					// Is the string found, and is it starting in the right place?
-					int stringPosition  = line.indexOf(QRegExp("\\b"+field.string()+"\\b"));
+					int stringPosition  = line.indexOf(QRegularExpression("\\b"+field.string()+"\\b"));
 					if( stringPosition != position || stringPosition == -1 )
 					{
 						if( !field.compulsory() )
@@ -401,7 +402,7 @@ Code * Parser::parse( const SourceLineList & lines )
 					if( nextField.type() == Field::FixedString )
 					{
 						nextStatement = *(++StatementList::Iterator(sit));
-						newPosition = nextStatement.text().indexOf(QRegExp("\\b" + nextField.string() + "\\b"));
+						newPosition = nextStatement.text().indexOf(QRegularExpression("\\b" + nextField.string() + "\\b"));
 						if(newPosition != 0)
 						{
 							// If the next field is optional just carry on as nothing happened,

@@ -93,7 +93,7 @@ SymbolViewer::SymbolViewer(KateMDI::ToolView *parent)
     }
 
     QGridLayout *grid = new QGridLayout(this /*, 1, 1, 0, 6 */);
-    grid->setMargin(0);
+    grid->setContentsMargins(0,0,0,0);
     grid->setSpacing(6);
 
     m_pSymbolList = new QTableWidget(this);

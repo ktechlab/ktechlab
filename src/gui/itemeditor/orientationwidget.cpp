@@ -33,7 +33,7 @@ OrientationWidget::OrientationWidget(QWidget *parent)
     : QWidget(parent)
 {
     QGridLayout *layout = new QGridLayout(this /*, 2, 4, 0, 4 */);
-    layout->setMargin(0);
+    layout->setContentsMargins(0,0,0,0);
     layout->setSpacing(4);
 
     for (int row = 0; row < 2; ++row) {

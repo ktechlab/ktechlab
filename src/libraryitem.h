@@ -15,7 +15,7 @@
 
 #include <QIcon>
 
-class QStringList;
+// class QStringList;
 
 /**
 This holds details of an item - id, name, category it is displayed in in its

@@ -50,7 +50,7 @@ int main()
         QString line = inputStream.readLine();
 
         // Make life easier
-        line.replace(QRegExp("\\.MODEL[^(]*\\("), "+ ");
+        line.replace(QRegularExpression("\\.MODEL[^(]*\\("), "+ ");
         line.remove(")");
 
         if (line.isEmpty())
@@ -93,7 +93,7 @@ int main()
 
         else if (line.startsWith("+ ")) {
             line.remove(0, 2); // remove "+ ":
-            QRegExp rx("([^\\s=]*)=([^\\s]*)");
+            QRegularExpression rx("([^\\s=]*)=([^\\s]*)");
 
             int pos = 0;
             while ((pos = rx.search(line, pos)) >= 0) {

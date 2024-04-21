@@ -244,7 +244,7 @@ QWidget *ItemInterface::configWidget()
     QHBoxLayout *configLayout = new QHBoxLayout(configWidget);
     // 	configLayout->setAutoAdd( true );
     configLayout->setSpacing(6);
-    configLayout->setMargin(0);
+    configLayout->setContentsMargins(0,0,0,0);
 
     // 	configLayout->addItem( new QSpacerItem( 0, 0,  QSizePolicy::Expanding, QSizePolicy::Fixed ) );
 

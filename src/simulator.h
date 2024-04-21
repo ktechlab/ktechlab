@@ -16,6 +16,8 @@
 #include "circuit.h"
 #include "logic.h"
 
+#include <QObject>
+
 /**
 This should be a multiple of 1000. It is the number of times a second that
 linear elements are updated.

@@ -32,6 +32,7 @@
 
 #include <QDebug>
 #include <QRegExp>
+#include <QRegularExpression>
 
 Expression::Expression( PIC14 *pic, MicrobeApp *master, SourceLineMicrobe sourceLine, bool suppressNumberTooBig )
 	: m_sourceLine(sourceLine)
@@ -497,12 +498,14 @@ void Expression::compileExpression( const QString & expression )
 
 void Expression::compileConditional( const QString & expression, Code * ifCode, Code * elseCode )
 {
-	if( expression.contains(QRegExp("=>|=<|=!")) )
+	if( expression.contains(QRegularExpression("=>|=<|=!")) ) // 2024.04.21 - porting to Qt6
+	// if ( QRegExp("=>|=<|=!").indexIn(expression) == -1 )
 	{
 		mistake( MicrobeApp::InvalidComparison, expression );
 		return;
 	}
-	if( expression.contains(QRegExp("[^=><!][=][^=]")))
+	if( expression.contains(QRegularExpression("[^=><!][=][^=]")))
+	// if (QRegExp("[^=><!][=][^=]").indexIn(expression) == -1 )
 	{
 		mistake( MicrobeApp::InvalidEquals );
 		return;
@@ -730,7 +733,7 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 	// both indicating a Mistake.
 	if(expr.isEmpty())
 		mistake( MicrobeApp::ConsecutiveOperators );
-	else if(expr.contains(QRegExp("\\s")) && t!= extpin)
+	else if(expr.contains(QRegularExpression("\\s")) && t!= extpin)
 		mistake( MicrobeApp::MissingOperator );
 
 //***************modified isValidRegister is included ***********************//

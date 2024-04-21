@@ -23,7 +23,8 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 // #include <k3popupmenu.h>
-#include <KRun>
+// #include <KRun> // 2024.04.21 - see below
+#include <CommandLauncherJob>
 // #include <k3iconview.h>
 
 #include <QDropEvent>
@@ -357,7 +358,7 @@ bool ContextHelp::saveDescription(const QString &language)
 // static function
 void ContextHelp::addLinkTypeAppearances(QString *html)
 {
-    QRegExp rx("<a href=\"([^\"]*)\">([^<]*)</a>");
+    QRegularExpression rx("<a href=\"([^\"]*)\">([^<]*)</a>");
 
     int pos = 0;
 

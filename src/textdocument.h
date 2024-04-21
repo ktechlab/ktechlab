@@ -20,7 +20,9 @@
 
 //#include <kate/document.h>
 #include <KTextEditor/Document>
-#include <KTextEditor/MarkInterface>
+// interface not necessary
+// https://api.kde.org/frameworks/ktexteditor/html/md__2builds_2websites_2api-kde-org_2sources_2ktexteditor_2docs_2porting__kf6.html
+// #include <KTextEditor/MarkInterface>
 
 class GpsimDebugger;
 class SourceLine;
@@ -46,7 +48,7 @@ public:
     enum CodeType { ct_unknown, ct_asm, ct_c, ct_hex, ct_microbe };
 
     enum MarkType {
-        Breakpoint = KTextEditor::MarkInterface::markType10,
+        Breakpoint = KTextEditor::Document:: /* MarkInterface:: */ markType10,
     };
 
     View *createView(ViewContainer *viewContainer, uint viewAreaId) override;

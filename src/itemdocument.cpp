@@ -43,7 +43,7 @@
 // #include <q3paintdevicemetrics.h>
 #include <QPainter>
 #include <QPicture>
-#include <QRegExp>
+#include <QRegularExpression>
 // #include <q3simplerichtext.h> // 2018.08.13 - not needed
 #include <QFile>
 #include <QPrintDialog>
@@ -552,7 +552,7 @@ void ItemDocument::unregisterUID(const QString &uid)
 
 QString ItemDocument::generateUID(QString name)
 {
-    name.remove(QRegExp("__.*")); // Change 'node__13' to 'node', for example
+    name.remove(QRegularExpression("__.*")); // Change 'node__13' to 'node', for example
     QString idAttempt = name;
 
     while (!registerUID(idAttempt))

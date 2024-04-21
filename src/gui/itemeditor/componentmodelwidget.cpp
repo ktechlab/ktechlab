@@ -30,13 +30,13 @@ ComponentModelWidget::ComponentModelWidget(QWidget *parent)
     : QWidget(parent)
 {
     QVBoxLayout *vlayout = new QVBoxLayout(this /*, 0, 6  - 2018.12.07 */);
-    vlayout->setMargin(0);
+    vlayout->setContentsMargins(0,0,0,0);
     vlayout->setSpacing(6);
 
     // parts of the following code are stolen from amarok/src/playlistwindow.cpp :)
     // BEGIN Filter lineedit
     QHBoxLayout *h1Layout = new QHBoxLayout;
-    h1Layout->setMargin(0);
+    h1Layout->setContentsMargins(0,0,0,0);
     KToolBar *bar = new KToolBar(QStringLiteral("ComponentModelSearch"), this);
     bar->setIconSize(QSize(22, 22) /*, false  ?? */); // looks more sensible
     // bar->setFlat( true ); //removes the ugly frame

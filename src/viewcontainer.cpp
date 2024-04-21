@@ -32,7 +32,7 @@ ViewContainer::ViewContainer(const QString &caption, QWidget *parent)
     connect(KTechlab::self(), &KTechlab::needUpdateCaptions, this, &ViewContainer::updateCaption);
 
     QHBoxLayout *layout = new QHBoxLayout(this);
-    layout->setMargin(0);
+    layout->setContentsMargins(0,0,0,0);
     m_baseViewArea = new ViewArea(this, this, 0, false);
     m_baseViewArea->setObjectName("viewarea_0");
     connect(m_baseViewArea, &ViewArea::destroyed, this, &ViewContainer::baseViewAreaDestroyed);
@@ -510,7 +510,7 @@ EmptyViewArea::EmptyViewArea(ViewArea *parent)
     m_pViewArea = parent;
 
     QGridLayout *layout = new QGridLayout(this /*, 5, 3, 0, 6 */);
-    layout->setMargin(0);
+    layout->setContentsMargins(0,0,0,0);
     layout->setSpacing(6);
 
     layout->setRowStretch(0, 20);

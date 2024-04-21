@@ -64,7 +64,7 @@ PropertyEditorList::PropertyEditorList(QWidget *parent, Property *property)
 {
     QWidget *box = new QWidget(this);
     QHBoxLayout *boxLayout = new QHBoxLayout;
-    boxLayout->setMargin(0);
+    boxLayout->setContentsMargins(0,0,0,0);
 
     m_combo = new PropComboBox(box);
     m_combo->setGeometry(frameGeometry());

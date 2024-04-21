@@ -313,7 +313,7 @@ bool Item::mouseDoubleClickEvent(const EventInfo &eventInfo)
         QFrame *frame = new QFrame(dlg);
         mainLayout->addWidget(frame);
         QVBoxLayout *layout = new QVBoxLayout(frame);
-        layout->setMargin(0);
+        layout->setContentsMargins(0,0,0,0);
         KTextEdit *textEdit = new KTextEdit(frame);
         // textEdit->setTextFormat( Qt::PlainText ); // 2018.12.02
         textEdit->setAcceptRichText(false);

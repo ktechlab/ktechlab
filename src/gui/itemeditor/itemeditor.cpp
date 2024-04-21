@@ -51,7 +51,7 @@ ItemEditor::ItemEditor(KateMDI::ToolView *parent)
     }
 
     QVBoxLayout *vlayout = new QVBoxLayout(this /*, 0, 6 */);
-    vlayout->setMargin(0);
+    vlayout->setContentsMargins(0,0,0,0);
     vlayout->setSpacing(6);
 
     // BEGIN Create Name Label
@@ -80,7 +80,7 @@ ItemEditor::ItemEditor(KateMDI::ToolView *parent)
     // Orientation widget stuff
     QHBoxLayout *h2Layout = new QHBoxLayout(/* vlayout , 6 */);
     vlayout->addLayout(h2Layout);
-    h2Layout->setMargin(6);
+    h2Layout->setContentsMargins(6,6,6,6);
     h2Layout->addItem(new QSpacerItem(1, 1));
     m_pOrientationWidget = new OrientationWidget(this);
     h2Layout->addWidget(m_pOrientationWidget);

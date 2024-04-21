@@ -16,7 +16,7 @@
 #include <QString>
 #include <QList>
 
-class QStringList;
+//class QStringList;
 
 struct FileFilter
 {

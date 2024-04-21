@@ -28,6 +28,7 @@
 #include <QMenu>
 #include <QPushButton>
 #include <QRegExp>
+#include <QRegularExpression>
 #include <QTextList>
 #include <QTextListFormat>
 #include <QVBoxLayout>
@@ -43,7 +44,7 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     : QWidget(parent)
 {
     QVBoxLayout *layout = new QVBoxLayout(this /*, 0, 6 */);
-    layout->setMargin(0);
+    layout->setContentsMargins(0,0,0,0);
     layout->setSpacing(6);
     m_pEditor = new QTextEdit(this); //, "RichTextEdit" );
     m_pEditor->setObjectName("RichTextEdit");
@@ -65,7 +66,7 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     // m_pTextBold = new KToggleAction( i18n("Bold"), "format-text-bold", Qt::CTRL + Qt::Key_B, 0, 0, ac, "format_bold" );
     m_pTextBold = new KToggleAction(i18n("Bold"), ac);
     m_pTextBold->setObjectName("text_bold");
-    m_pTextBold->setShortcut(Qt::CTRL + Qt::Key_B);
+    m_pTextBold->setShortcut(Qt::CTRL | Qt::Key_B);
     m_pTextBold->setIcon(QIcon::fromTheme("format-text-bold"));
     connect(m_pTextBold, &KToggleAction::toggled, this, &RichTextEditor::slotSetBold);
     // m_pTextBold->plug( tools );
@@ -201,7 +202,7 @@ QString RichTextEditor::text() const
     QString text = m_pEditor->toHtml().trimmed();
 
     // Remove the style info (e.g. style="font-size:8pt;font-family:DejaVu Sans") inserted into the body tag.
-    text.replace(QRegExp("<body style=\"[^\"]*\">"), "<body>");
+    text.replace(QRegularExpression("<body style=\"[^\"]*\">"), "<body>");
 
     // Replace all non-latin1 characters with HTML codes to represent them
     QString nonAsciiChars;

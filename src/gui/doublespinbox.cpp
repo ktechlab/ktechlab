@@ -310,7 +310,7 @@ double DoubleSpinBox::valueFromText(const QString &text) const
     // This does NOT properly escape
     // const QString exclude = QString(locale.decimalPoint()) + locale.groupSeparator() + locale.positiveSign() + locale.negativeSign();
     QString textToStrip(text);
-    QString numberToRead = textToStrip.remove(QRegExp("[^\\.+\\-\\d]"));
+    QString numberToRead = textToStrip.remove(QRegularExpression("[^\\.+\\-\\d]"));
 
     bool ok;
     double value = locale.toDouble(numberToRead, &ok);

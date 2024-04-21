@@ -25,6 +25,7 @@
 
 // #include <q3dragobject.h>
 // #include <q3popupmenu.h>
+#include <QIODevice>
 #include <QLayout>
 #include <QMenu>
 #include <QMimeData>

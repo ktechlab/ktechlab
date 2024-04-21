@@ -26,7 +26,7 @@ class ProjectItem;
 class ProjectManager;
 class QDomDocument;
 class QDomElement;
-class QStringList;
+// class QStringList;
 namespace KateMDI
 {
 class ToolView;

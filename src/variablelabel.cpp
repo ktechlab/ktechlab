@@ -24,7 +24,7 @@ VariableLabel::VariableLabel(TextView *parent)
 
     m_value = -1;
 
-    setMargin(1);
+    setContentsMargins(1,1,1,1);
     // setAutoMask( false ); // TODO is this needed?
     setFrameStyle(QFrame::Plain | QFrame::Box);
     setLineWidth(1);

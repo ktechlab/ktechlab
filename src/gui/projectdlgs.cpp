@@ -247,7 +247,7 @@ LinkerOptionsDlg::LinkerOptionsDlg(LinkerOptions *linkingOptions, QWidget *paren
         // i18n("Link libraries outside project"),
         m_pExternalLibraryRequester->customEditor(),
         m_pWidget);
-    m_pWidget->m_pExternalLibraries->layout()->setMargin(11);
+    m_pWidget->m_pExternalLibraries->layout()->setContentsMargins(11,11,11,11);
     {
         QGridLayout *grLayout = (dynamic_cast<QGridLayout *>(m_pWidget->layout()));
         // grLayout->addMultiCellWidget( m_pWidget->m_pExternalLibraries, 7, 7, 0, 1 ); // 2018.12.02

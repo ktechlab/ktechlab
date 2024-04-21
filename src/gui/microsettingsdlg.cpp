@@ -99,7 +99,7 @@ MicroSettingsDlg::MicroSettingsDlg(MicroSettings *microSettings, QWidget *parent
         // groupBox->setColumnLayout(0, Qt::Vertical ); // 2018.06.02 - not needed
         groupBox->setLayout(new QVBoxLayout);
         groupBox->layout()->setSpacing(6);
-        groupBox->layout()->setMargin(11);
+        groupBox->layout()->setContentsMargins(11,11,11,11);
         QGridLayout *groupBoxLayout = new QGridLayout(groupBox /*groupBox->layout() */);
         groupBoxLayout->setAlignment(Qt::AlignTop);
         groupBoxLayout->setSpacing(groupBox->layout()->spacing());
@@ -395,7 +395,7 @@ void MicroSettingsDlg::savePort(int row)
     bool typeOk = true;
     if (typeText.startsWith("0x", Qt::CaseInsensitive))
         type = typeText.remove(0, 2).toInt(&typeOk, 16);
-    else if (typeText.contains(QRegExp("[^01]")))
+    else if (typeText.contains(QRegularExpression("[^01]")))
         type = typeText.toInt(&typeOk, 10);
     else
         type = typeText.toInt(&typeOk, 2);
@@ -409,7 +409,7 @@ void MicroSettingsDlg::savePort(int row)
     bool stateOk = true;
     if (stateText.startsWith("0x", Qt::CaseInsensitive))
         state = stateText.remove(0, 2).toInt(&stateOk, 16);
-    else if (stateText.contains(QRegExp("[^01]")))
+    else if (stateText.contains(QRegularExpression("[^01]")))
         state = stateText.toInt(&stateOk, 10);
     else
         state = stateText.toInt(&stateOk, 2);
