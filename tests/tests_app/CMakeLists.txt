@@ -36,6 +36,7 @@ target_link_libraries( tests_app
     KF6::ConfigCore
     KF6::ConfigGui
     KF6::KIOCore
+    KF6::KIOWidgets
     KF6::CoreAddons
     KF6::XmlGui
     KF6::TextEditor

@@ -357,6 +357,7 @@ target_link_libraries( ktechlab
     KF6::CoreAddons
     KF6::IconThemes
     KF6::KIOCore
+    KF6::KIOWidgets
     KF6::XmlGui
     KF6::WidgetsAddons
     KF6::WindowSystem
@@ -403,6 +404,9 @@ if(BUILD_TESTING)
         KF6::WindowSystem
         KF6::ConfigWidgets
         KF6::Completion
+        KF6::KIOCore
+        KF6::KIOFileWidgets
+        KF6::KIOWidgets
 
         Qt6::Widgets
         Qt6::PrintSupport
