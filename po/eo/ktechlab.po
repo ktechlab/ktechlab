@@ -1,15 +1,15 @@
 # translation of ktechlab.pot to Esperanto
 # Copyright (C) 2024 Free Software Foundation, Inc.
 # This file is distributed under the same license as the ktechlab package.
-# Oliver Kellogg <okellogg@users.sourceforge.net>, 2024.
+# Oliver Kellogg <olivermkellogg@gmail.com>, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 12:38+0000\n"
-"PO-Revision-Date: 2024-03-24 10:34+0100\n"
-"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
+"PO-Revision-Date: 2024-05-30 22:41+0200\n"
+"Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -21,12 +21,12 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "Oliver Kellogg"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "olivermkellogg@gmail.com"
 
 #: microbe/main.cpp:46 src/electronics/components/piccomponent.cpp:90
 #: src/flowcodedocument.cpp:172 src/flowcodeview.cpp:39 src/ktechlab.cpp:502
@@ -697,7 +697,7 @@ msgstr "Uzi grandstakan modelon"
 #: src/core/ktechlab.kcfg:262
 #, kde-format
 msgid "Show more debug info in assembly output"
-msgstr "Montri pliajn sencimigajn informojn en eligo de aro"
+msgstr "Montri pliajn sencimigajn informojn en asembla eligo"
 
 #. i18n: ectx: label, entry (SDCC_denable_peeps), group (SDCC)
 #: src/core/ktechlab.kcfg:266
@@ -3071,7 +3071,7 @@ msgstr "Komforto"
 #: src/gui/generaloptionswidget.ui:208
 #, kde-format
 msgid "Restore opened doc&uments on startup"
-msgstr "Restarigi malfermitajn dokumentojn dum ekfunkciigo"
+msgstr "Restaŭri malfermitajn dok&umentojn dum ekfunkciigo"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RaiseItemSelectors)
 #: src/gui/generaloptionswidget.ui:215
@@ -3760,13 +3760,13 @@ msgstr "Zomo"
 #: src/gui/outputmethodwidget.ui:44
 #, kde-format
 msgid "Displa&y directly"
-msgstr "Montri rekte"
+msgstr "Montr&i rekte"
 
 #. i18n: ectx: property (text), widget (QRadioButton, saveFileCheck)
 #: src/gui/outputmethodwidget.ui:54
 #, kde-format
 msgid "Sa&ve to file"
-msgstr "Konservi al dosiero"
+msgstr "Konser&vi al dosiero"
 
 #. i18n: ectx: property (text), widget (QCheckBox, loadFileCheck)
 #: src/gui/outputmethodwidget.ui:73
@@ -4007,7 +4007,7 @@ msgstr "Deŝovo (markoj)"
 #: src/gui/sdccoptionswidget.ui:36
 #, kde-format
 msgid "Ge&neral"
-msgstr "Ĝenerale"
+msgstr "Ĝe&nerala"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nostdlib)
 #: src/gui/sdccoptionswidget.ui:42
@@ -4025,7 +4025,7 @@ msgstr "Ne serĉu en la norma inkluziva dosierujo (--nostdinc)"
 #: src/gui/sdccoptionswidget.ui:59
 #, kde-format
 msgid "Disa&ble pedantic warnings (--less-pedantic)"
-msgstr "Malŝalti pedantajn avertojn (--malpli-pedantajn)"
+msgstr "Male&bligi pedantajn avertojn (--less-pedantic)"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_std_c89)
 #: src/gui/sdccoptionswidget.ui:66
@@ -4078,7 +4078,7 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:122
 #, kde-format
 msgid "Code Gener&ation"
-msgstr "Kodgeneracio"
+msgstr "Kodgener&ado"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_stack_auto)
 #: src/gui/sdccoptionswidget.ui:131
@@ -4185,7 +4185,7 @@ msgstr "Ne optimumigos etikedojn (igas la dumpdosieroj pli legeblaj)."
 #: src/gui/sdccoptionswidget.ui:237
 #, kde-format
 msgid "Disable label optimi&zation (--nolabelopt)"
-msgstr "Malebligi etikedoptimumigon (--nolabelopt)"
+msgstr "Malebligi etikedoptimumi&gon (--nolabelopt)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_noinvariant)
 #: src/gui/sdccoptionswidget.ui:244
@@ -4265,7 +4265,7 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:310
 #, kde-format
 msgid "Ena&ble inline assembly peephole optimization (--peep-asm)"
-msgstr "Ebligi la optimumigon de enlinia kunigo (--peep-asm)"
+msgstr "E&bligi la optimumigon de enlinia kunigo (--peep-asm)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nojtbound)
 #: src/gui/sdccoptionswidget.ui:317
