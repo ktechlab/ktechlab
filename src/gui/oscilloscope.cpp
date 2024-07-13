@@ -26,6 +26,7 @@
 #include <QLabel>
 #include <QScrollBar>
 #include <QSlider>
+#include <QStyleFactory>
 #include <QTimer>
 #include <QToolButton>
 
@@ -71,8 +72,10 @@ Oscilloscope::Oscilloscope(KateMDI::ToolView *parent)
     horizontalScroll->setSingleStep(32);
     horizontalScroll->setPageStep(oscilloscopeView->width());
 
+    zoomDial->setStyle(QStyleFactory::create("Fusion"));
+
     connect(resetBtn, &QPushButton::clicked, this, &Oscilloscope::reset);
-    connect(zoomSlider, &QSlider::valueChanged, this, &Oscilloscope::slotZoomSliderChanged);
+    connect(zoomDial, &QDial::valueChanged, this, &Oscilloscope::slotZoomDialChanged);
     connect(horizontalScroll, &QScrollBar::valueChanged, this, &Oscilloscope::slotSliderValueChanged);
 
     // 	connect( pauseBtn, SIGNAL(clicked()), this, SLOT(slotTogglePause()));
@@ -140,7 +143,7 @@ void Oscilloscope::setZoomLevel(double zoomLevel)
     int at_ticks = horizontalScroll->value() + (pageLength / 2);
 
     m_zoomLevel = zoomLevel;
-    zoomSlider->setValue(int((double(zoomSlider->maximum()) * zoomLevel) + 0.5));
+    zoomDial->setValue(int((double(zoomDial->maximum()) * zoomLevel) + 0.5));
     updateScrollbars();
 
     // And restore the center position of the slider
@@ -151,9 +154,9 @@ void Oscilloscope::setZoomLevel(double zoomLevel)
     }
 }
 
-void Oscilloscope::slotZoomSliderChanged(int value)
+void Oscilloscope::slotZoomDialChanged(int value)
 {
-    setZoomLevel(double(value) / double(zoomSlider->maximum()));
+    setZoomLevel(double(value) / double(zoomDial->maximum()));
 }
 
 ProbeData *Oscilloscope::registerProbe(Probe *probe)

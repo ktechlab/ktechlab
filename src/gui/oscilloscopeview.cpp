@@ -8,9 +8,9 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "oscilloscopeview.h"
 #include "oscilloscope.h"
 #include "oscilloscopedata.h"
+#include "oscilloscopeview.h"
 #include "probepositioner.h"
 #include "simulator.h"
 
