@@ -156,7 +156,7 @@ public slots:
     /**
      * Called when the zoom slider value was changed.
      */
-    void slotZoomSliderChanged(int value);
+    void slotZoomDialChanged(int value);
     /**
      * Called when the horizontal scrollbar was scrolled by the user
      */
