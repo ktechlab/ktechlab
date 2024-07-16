@@ -47,10 +47,11 @@ protected:
     void paintEvent(QPaintEvent *event) override;
     void resizeEvent(QResizeEvent *event) override;
 
+    void drawGrid(QPainter &p);
+    void drawTimeCursorLine(QPainter &p);
     void drawLogicData(QPainter &p);
     void drawFloatingData(QPainter &p);
     void updateOutputHeight();
-    void updateTimeLabel();
 
     bool b_needRedraw;
     QPixmap *m_pixmap;
@@ -60,6 +61,7 @@ protected:
     int m_clickOffsetPos;
     Simulator *m_pSimulator;
     double m_halfOutputHeight;
+    int m_mouseXPos = -1;
 };
 
 #endif

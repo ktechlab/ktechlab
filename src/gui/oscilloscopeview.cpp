@@ -17,7 +17,6 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>
-// #include <k3popupmenu.h>
 
 #include <QCheckBox>
 #include <QCursor>
@@ -51,11 +50,10 @@ OscilloscopeView::OscilloscopeView(QWidget *parent)
     , m_pSimulator(Simulator::self())
     , m_halfOutputHeight(0.0)
 {
-    // KGlobal::config()->setGroup("Oscilloscope");
-    KConfigGroup grOscill(KSharedConfig::openConfig(), "Oscilloscope");
+    auto config = KSharedConfig::openConfig();
+    KConfigGroup grOscill(config, "Oscilloscope");
     m_fps = grOscill.readEntry("FPS", 25);
 
-    // setBackgroundMode(Qt::NoBackground); // 2018.12.07
     setBackgroundRole(QPalette::NoRole);
     setMouseTracking(true);
 
@@ -74,24 +72,13 @@ void OscilloscopeView::updateView()
         return;
 
     m_updateViewTmr->setSingleShot(true);
-    m_updateViewTmr->start(1000 / m_fps /*, true */);
+    m_updateViewTmr->start(1000 / m_fps);
 }
 
 void OscilloscopeView::updateViewTimeout()
 {
     b_needRedraw = true;
-    repaint(/* false  - 2018.12.07 */);
-    updateTimeLabel();
-}
-
-void OscilloscopeView::updateTimeLabel()
-{
-    if (testAttribute(Qt::WA_UnderMouse)) {
-        int x = mapFromGlobal(QCursor::pos()).x();
-        double time = (double(Oscilloscope::self()->scrollTime()) / LOGIC_UPDATE_RATE) + (x / Oscilloscope::self()->pixelsPerSecond());
-        Oscilloscope::self()->timeLabel->setText(QString::number(time, 'f', 6));
-    } else
-        Oscilloscope::self()->timeLabel->setText(QString());
+    repaint();
 }
 
 void OscilloscopeView::resizeEvent(QResizeEvent *e)
@@ -107,9 +94,9 @@ void OscilloscopeView::mousePressEvent(QMouseEvent *event)
     switch (event->button()) {
     case Qt::LeftButton: {
         event->accept();
+
         m_clickOffsetPos = event->pos().x();
         m_sliderValueAtClick = Oscilloscope::self()->horizontalScroll->value();
-        setCursor(Qt::SizeAllCursor);
         return;
     }
 
@@ -117,25 +104,24 @@ void OscilloscopeView::mousePressEvent(QMouseEvent *event)
         event->accept();
 
         QMenu fpsMenu;
-        // fpsMenu.insertTitle( i18n("Framerate")); // 2017.12.27 - use setTitle
-        // fpsMenu.insertItem( i18n("Framerate"), 1 );   // 2018.12.07 - use actions
-        // fpsMenu.setItemEnabled(1, false);
-        {
-            QAction *a = fpsMenu.addAction(i18n("Framerate"));
-            a->setData(1);
-            a->setEnabled(false);
-        }
-        // fpsMenu.insertSeparator(); // 2018.12.07
+        QAction *titleAction = fpsMenu.addAction(i18n("Framerate"));
+        titleAction->setEnabled(false);
         fpsMenu.addSeparator();
 
-        const int fps[] = {10, 25, 50, 75, 100};
+        QActionGroup *fpsGroup = new QActionGroup(&fpsMenu);
+        fpsGroup->setExclusive(true);
 
-        for (uint i = 0; i < 5; ++i) {
-            const int num = fps[i];
-            // fpsMenu.insertItem( i18n("%1 fps", QString::number(num)), num);   // 2018.12.07
-            // fpsMenu.setItemChecked( num, num == m_fps);
+        const std::vector<int> fpsOptions = {10, 25, 50, 75, 100};
+        int currentFps = m_fps;
+
+        for (int num : fpsOptions) {
             QAction *a = fpsMenu.addAction(i18n("%1 fps", QString::number(num)));
             a->setData(num);
+            a->setCheckable(true);
+            if (num == currentFps) {
+                a->setChecked(true);
+            }
+            fpsGroup->addAction(a);
         }
 
         connect(&fpsMenu, SIGNAL(triggered(QAction *)), this, SLOT(slotSetFrameRate(QAction *)));
@@ -153,13 +139,16 @@ void OscilloscopeView::mousePressEvent(QMouseEvent *event)
 void OscilloscopeView::mouseMoveEvent(QMouseEvent *event)
 {
     event->accept();
-    updateTimeLabel();
+
+    m_mouseXPos = event->pos().x();
 
     if (m_sliderValueAtClick != -1) {
         int dx = event->pos().x() - m_clickOffsetPos;
         int dTick = int(dx * Oscilloscope::self()->sliderTicksPerSecond() / Oscilloscope::self()->pixelsPerSecond());
         Oscilloscope::self()->horizontalScroll->setValue(m_sliderValueAtClick - dTick);
     }
+
+    update();
 }
 
 void OscilloscopeView::mouseReleaseEvent(QMouseEvent *event)
@@ -169,98 +158,93 @@ void OscilloscopeView::mouseReleaseEvent(QMouseEvent *event)
 
     event->accept();
     m_sliderValueAtClick = -1;
-    setCursor(Qt::ArrowCursor);
 }
 
 void OscilloscopeView::slotSetFrameRate(QAction *action)
 {
     int fps = action->data().toInt();
     m_fps = fps;
-    // KGlobal::config()->setGroup("Oscilloscope");
     KConfigGroup grOscill(KSharedConfig::openConfig(), "Oscilloscope");
     grOscill.writeEntry("FPS", m_fps);
 }
 
-// returns a % b
-static double lld_modulus(int64_t a, double b)
-{
-    return double(a) - int64_t(a / b) * b;
-}
-
 void OscilloscopeView::paintEvent(QPaintEvent *e)
 {
-    QRect r = e->rect();
+    QPainter p(this);
+    if (!p.isActive()) {
+        qCWarning(KTL_LOG) << "Painter is not active";
+        return;
+    }
 
     if (b_needRedraw) {
         updateOutputHeight();
-        const double pixelsPerSecond = Oscilloscope::self()->pixelsPerSecond();
-
         if (!m_pixmap) {
-            qCWarning(KTL_LOG) << " unexpected null m_pixmap in " << this;
+            qCWarning(KTL_LOG) << "Unexpected null m_pixmap";
             return;
         }
 
-        QPainter p;
-        // m_pixmap->fill( paletteBackgroundColor());
-        m_pixmap->fill(palette().color(backgroundRole()));
-        const bool startSuccess = p.begin(m_pixmap);
-        if ((!startSuccess) || (!p.isActive())) {
-            qCWarning(KTL_LOG) << " painter is not active";
+        QPainter pixmapPainter(m_pixmap);
+        if (!pixmapPainter.isActive()) {
+            qCWarning(KTL_LOG) << "Pixmap painter is not active";
+            return;
         }
 
-        p.setClipRegion(e->region());
-
-        // BEGIN Draw vertical marker lines
-        const double divisions = 5.0;
-        const double min_sep = 10.0;
-
-        double spacing = pixelsPerSecond / (std::pow(divisions, std::floor(std::log(pixelsPerSecond / min_sep) / std::log(divisions))));
-
-        // Pixels offset is the number of pixels that the view is scrolled along
-        const int64_t pixelsOffset = int64_t(Oscilloscope::self()->scrollTime() * pixelsPerSecond / LOGIC_UPDATE_RATE);
-        double linesOffset = -lld_modulus(pixelsOffset, spacing);
-
-        int blackness = 256 - int(184.0 * spacing / (min_sep * divisions * divisions));
-        p.setPen(QColor(blackness, blackness, blackness));
-
-        for (double i = linesOffset; i <= frameRect().width(); i += spacing)
-            p.drawLine(int(i), 1, int(i), frameRect().height() - 2);
-
-        spacing *= divisions;
-        linesOffset = -lld_modulus(pixelsOffset, spacing);
-
-        blackness = 256 - int(184.0 * spacing / (min_sep * divisions * divisions));
-        p.setPen(QColor(blackness, blackness, blackness));
-
-        for (double i = linesOffset; i <= frameRect().width(); i += spacing)
-            p.drawLine(int(i), 1, int(i), frameRect().height() - 2);
-
-        spacing *= divisions;
-        linesOffset = -lld_modulus(pixelsOffset, spacing);
-
-        blackness = 256 - int(184.0);
-        p.setPen(QColor(blackness, blackness, blackness));
-
-        for (double i = linesOffset; i <= frameRect().width(); i += spacing)
-            p.drawLine(int(i), 1, int(i), frameRect().height() - 2);
-        // END Draw vertical marker lines
-
-        drawLogicData(p);
-        drawFloatingData(p);
-
-        p.setPen(Qt::black);
-        p.drawRect(frameRect());
-
+        m_pixmap->fill(palette().color(backgroundRole()));
+        drawGrid(pixmapPainter);
+        drawLogicData(pixmapPainter);
+        drawFloatingData(pixmapPainter);
+        pixmapPainter.setPen(Qt::black);
+        pixmapPainter.drawRect(frameRect());
         b_needRedraw = false;
     }
 
-    // bitBlt( this, r.x(), r.y(), m_pixmap, r.x(), r.y(), r.width(), r.height()); // 2018.12.07
-    QPainter p;
-    const bool paintStarted = p.begin(this);
-    if (!paintStarted) {
-        qCWarning(KTL_LOG) << " failed to start painting ";
+    QRect r = e->rect();
+    p.drawPixmap(r, *m_pixmap, r);
+
+    if (testAttribute(Qt::WA_UnderMouse)) {
+        drawTimeCursorLine(p);
     }
-    p.drawImage(r, m_pixmap->toImage(), r);
+}
+
+void OscilloscopeView::drawGrid(QPainter &p)
+{
+    QPen gridPen(QColor(128, 128, 128, 128)); // Light grey color, semi-transparent
+    gridPen.setStyle(Qt::SolidLine);
+    p.setPen(gridPen);
+
+    const double verticalSpacing = 50.0;
+    for (double x = 0; x <= m_pixmap->width(); x += verticalSpacing) {
+        p.drawLine(QPointF(x, 0), QPointF(x, m_pixmap->height()));
+    }
+
+    const double horizontalSpacing = 50.0;
+    for (double y = 0; y <= m_pixmap->height(); y += horizontalSpacing) {
+        p.drawLine(QPointF(0, y), QPointF(m_pixmap->width(), y));
+    }
+}
+
+void OscilloscopeView::drawTimeCursorLine(QPainter &p)
+{
+    QPen linePen(Qt::red);
+    linePen.setStyle(Qt::DashLine);
+    p.setPen(linePen);
+    p.drawLine(QPoint(m_mouseXPos, 0), QPoint(m_mouseXPos, height()));
+
+    // Fetch the time from Oscilloscope and prepare for display.
+    int x = mapFromGlobal(QCursor::pos()).x();
+    double time = (double(Oscilloscope::self()->scrollTime()) / LOGIC_UPDATE_RATE) + (x / Oscilloscope::self()->pixelsPerSecond());
+    QString timeText = QString::number(time, 'f', 6);
+
+    QFont font = p.font();
+    font.setPointSize(10); // Set font size.
+    p.setFont(font);
+
+    QRect textRect = p.fontMetrics().boundingRect(timeText);
+    textRect.moveCenter(QPoint(m_mouseXPos, 20));
+    textRect.adjust(-2, -2, 2, 2);
+    p.fillRect(textRect.adjusted(-2, -2, 2, 2), Qt::white);
+    p.setPen(Qt::black);
+    p.drawText(textRect, Qt::AlignCenter, timeText);
 }
 
 void OscilloscopeView::updateOutputHeight()
