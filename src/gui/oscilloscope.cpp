@@ -73,6 +73,7 @@ Oscilloscope::Oscilloscope(KateMDI::ToolView *parent)
     horizontalScroll->setPageStep(oscilloscopeView->width());
 
     zoomDial->setStyle(QStyleFactory::create("Fusion"));
+    zoomDial->setNotchesVisible(true);
 
     connect(resetBtn, &QPushButton::clicked, this, &Oscilloscope::reset);
     connect(zoomDial, &QDial::valueChanged, this, &Oscilloscope::slotZoomDialChanged);
