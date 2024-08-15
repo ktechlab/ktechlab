@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab 0.3.7\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:38+0000\n"
+"POT-Creation-Date: 2024-08-15 01:52+0000\n"
 "PO-Revision-Date: 2013-05-19 18:42+0200\n"
 "Last-Translator: Peter Bojtos <ptr@ulx.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -3050,7 +3050,7 @@ msgstr "<h2>Többszörös elemek</h2>"
 #. i18n: ectx: property (toolTip), widget (QToolButton, m_pResetButton)
 #. i18n: ectx: property (text), widget (QPushButton, resetBtn)
 #: src/gui/contexthelp.cpp:329 src/gui/contexthelp.cpp:330
-#: src/gui/contexthelpwidget.ui:173 src/gui/oscilloscopewidget.ui:157
+#: src/gui/contexthelpwidget.ui:173 src/gui/oscilloscopewidget.ui:120
 #, kde-format
 msgid "Reset"
 msgstr "Alapállapot"
@@ -3961,27 +3961,26 @@ msgstr "Új projekt részletei"
 msgid "Project Name:"
 msgstr "Projekt neve:"
 
-#: src/gui/oscilloscope.cpp:319
+#: src/gui/oscilloscope.cpp:323
 #, kde-format
 msgid "Oscilloscope"
 msgstr "Oszcilloszkóp"
 
-#: src/gui/oscilloscopeview.cpp:124
+#: src/gui/oscilloscopeview.cpp:107
 #, kde-format
 msgid "Framerate"
 msgstr "Frame arány"
 
-#. i18n("%1 fps", QString::number(num)), num);   // 2018.12.07
-#. fpsMenu.setItemChecked( num, num == m_fps);
-#: src/gui/oscilloscopeview.cpp:137
+#: src/gui/oscilloscopeview.cpp:118
 #, kde-format
 msgid "%1 fps"
 msgstr "%1 fps"
 
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: src/gui/oscilloscopewidget.ui:71
-#, kde-format
-msgid "Zoom"
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/gui/oscilloscopewidget.ui:91
+#, fuzzy, kde-format
+#| msgid "Zoom"
+msgid "Time Zoom"
 msgstr "Nagyítás"
 
 #. i18n: ectx: property (text), widget (QRadioButton, displayDirectCheck)

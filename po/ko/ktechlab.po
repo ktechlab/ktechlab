@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:38+0000\n"
+"POT-Creation-Date: 2024-08-15 01:52+0000\n"
 "PO-Revision-Date: 2023-08-08 00:05+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -2937,7 +2937,7 @@ msgstr "여러 항목"
 #. i18n: ectx: property (toolTip), widget (QToolButton, m_pResetButton)
 #. i18n: ectx: property (text), widget (QPushButton, resetBtn)
 #: src/gui/contexthelp.cpp:329 src/gui/contexthelp.cpp:330
-#: src/gui/contexthelpwidget.ui:173 src/gui/oscilloscopewidget.ui:157
+#: src/gui/contexthelpwidget.ui:173 src/gui/oscilloscopewidget.ui:120
 #, kde-format
 msgid "Reset"
 msgstr "초기화"
@@ -3806,27 +3806,26 @@ msgstr "새 프로젝트 자세한 정보"
 msgid "Project Name:"
 msgstr "프로젝트 이름:"
 
-#: src/gui/oscilloscope.cpp:319
+#: src/gui/oscilloscope.cpp:323
 #, kde-format
 msgid "Oscilloscope"
 msgstr "오실로스코프"
 
-#: src/gui/oscilloscopeview.cpp:124
+#: src/gui/oscilloscopeview.cpp:107
 #, kde-format
 msgid "Framerate"
 msgstr "프레임 속도"
 
-#. i18n("%1 fps", QString::number(num)), num);   // 2018.12.07
-#. fpsMenu.setItemChecked( num, num == m_fps);
-#: src/gui/oscilloscopeview.cpp:137
+#: src/gui/oscilloscopeview.cpp:118
 #, kde-format
 msgid "%1 fps"
 msgstr "%1 fps"
 
-#. i18n: ectx: property (text), widget (QLabel, textLabel1)
-#: src/gui/oscilloscopewidget.ui:71
-#, kde-format
-msgid "Zoom"
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/gui/oscilloscopewidget.ui:91
+#, fuzzy, kde-format
+#| msgid "Zoom"
+msgid "Time Zoom"
 msgstr "확대/축소"
 
 #. i18n: ectx: property (text), widget (QRadioButton, displayDirectCheck)
