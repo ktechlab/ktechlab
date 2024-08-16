@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-15 01:52+0000\n"
-"PO-Revision-Date: 2023-06-29 07:07+0200\n"
+"PO-Revision-Date: 2024-08-15 06:48+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -100,7 +100,7 @@ msgstr "Neznana izjava"
 #: microbe/microbe.cpp:226
 #, kde-format
 msgid "Port '%1' is not supported by target PIC"
-msgstr "Ciljni PIC ne podpira vrat »%1«."
+msgstr "Ciljni PIC ne podpira vrat »%1«"
 
 #: microbe/microbe.cpp:229
 #, kde-format
@@ -205,7 +205,7 @@ msgstr "Opredelitev podprograma prekinitve pred koncem programa"
 #: microbe/microbe.cpp:289
 #, kde-format
 msgid "Label expected"
-msgstr "Pričakovana je oznaka."
+msgstr "Pričakovana oznaka"
 
 #: microbe/microbe.cpp:292
 #, kde-format
@@ -265,7 +265,7 @@ msgstr "»%1« ni veljavno ime spremenljivke"
 #: microbe/microbe.cpp:325
 #, kde-format
 msgid "Variable expected"
-msgstr "Pričakovana je spremenljivka."
+msgstr "Pričakovana spremenljivka"
 
 #: microbe/microbe.cpp:328
 #, kde-format
@@ -1632,7 +1632,7 @@ msgstr "n-JFET"
 #: src/electronics/components/ecjfet.cpp:43
 #, kde-format
 msgid "p-JFET"
-msgstr "P-JFET"
+msgstr "p-JFET"
 
 #: src/electronics/components/ecjfet.cpp:55
 #, kde-format
@@ -2154,7 +2154,7 @@ msgstr "Umerjanje"
 #: src/electronics/components/probe.cpp:61
 #, kde-format
 msgid "Linear"
-msgstr "linearna"
+msgstr "Linearna"
 
 #: src/electronics/components/probe.cpp:62
 #, kde-format
@@ -2628,7 +2628,7 @@ msgstr "Zanka For (za)"
 #: src/flowparts/while.cpp:38 src/flowparts/writeport.cpp:39
 #, kde-format
 msgid "Variable"
-msgstr "spremenljivi"
+msgstr "Spremenljivka"
 
 #: src/flowparts/forloop.cpp:44
 #, kde-format
@@ -3169,7 +3169,7 @@ msgid ""
 "programmers required a DOS formatted file. This option will cause gpasm to "
 "generate a DOS formatted hex file. "
 msgstr ""
-"gpasm privzeto ustvari šestnajstiške datoteke (hex) z uporabo zapisa ISO. "
+"Privzeto gpasm  ustvari šestnajstiške datoteke (hex) z uporabo zapisa ISO. "
 "Vendar pa nekateri programirniki naprav zahtevajo datoteko v obliki DOS. Ta "
 "možnost bo povzročila, da gpasm ustvari dos-oblikovano šestnajstiško "
 "datoteko. "
@@ -3851,10 +3851,9 @@ msgstr "%1 fps"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/gui/oscilloscopewidget.ui:91
-#, fuzzy, kde-format
-#| msgid "Zoom"
+#, kde-format
 msgid "Time Zoom"
-msgstr "Povečava"
+msgstr "Časovna povečava"
 
 #. i18n: ectx: property (text), widget (QRadioButton, displayDirectCheck)
 #: src/gui/outputmethodwidget.ui:44
@@ -4621,7 +4620,7 @@ msgstr "Izvoz SVG ne deluje optimalno"
 #: src/itemdocument.cpp:854
 #, kde-format
 msgid "There is nothing to crop"
-msgstr "Ničesar ni mogoče obrezati."
+msgstr "Ničesar ni mogoče obrezati"
 
 #: src/itemdocument.cpp:923
 #, kde-format

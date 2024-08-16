@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Stefan Asserhäll <stefan.asserhall@gmail.com>, 2017, 2018, 2020, 2023.
+# SPDX-FileCopyrightText: 2017, 2018, 2020, 2023, 2024 Stefan Asserhäll <stefan.asserhall@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-15 01:52+0000\n"
-"PO-Revision-Date: 2023-07-31 10:16+0200\n"
+"PO-Revision-Date: 2024-08-15 08:16+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.08.1\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3848,10 +3848,9 @@ msgstr "%1 ramar/s"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/gui/oscilloscopewidget.ui:91
-#, fuzzy, kde-format
-#| msgid "Zoom"
+#, kde-format
 msgid "Time Zoom"
-msgstr "Zooma"
+msgstr "Tidszoomning"
 
 #. i18n: ectx: property (text), widget (QRadioButton, displayDirectCheck)
 #: src/gui/outputmethodwidget.ui:44
