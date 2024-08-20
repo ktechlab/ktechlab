@@ -1,21 +1,21 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2019, 2023.
+# SPDX-FileCopyrightText: 2024 Adrián Chaves (Gallaecio)
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-15 01:52+0000\n"
-"PO-Revision-Date: 2023-06-30 08:53+0200\n"
+"PO-Revision-Date: 2024-08-19 15:16+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
-"Language-Team: Galician <proxecto@trasno.gal>\n"
+"Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.2\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3859,10 +3859,9 @@ msgstr "%1 fps"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/gui/oscilloscopewidget.ui:91
-#, fuzzy, kde-format
-#| msgid "Zoom"
+#, kde-format
 msgid "Time Zoom"
-msgstr "Ampliación"
+msgstr "Ampliación de tempo"
 
 #. i18n: ectx: property (text), widget (QRadioButton, displayDirectCheck)
 #: src/gui/outputmethodwidget.ui:44
