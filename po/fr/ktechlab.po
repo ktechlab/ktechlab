@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-15 01:52+0000\n"
-"PO-Revision-Date: 2024-08-16 10:43+0200\n"
+"PO-Revision-Date: 2024-09-01 17:35+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -922,7 +922,7 @@ msgstr "Ali Akcaagac"
 #: src/core/main.cpp:46
 #, kde-format
 msgid "Glib friendliness"
-msgstr "Facilité de « Glib »"
+msgstr "Facilité avec la bibliothèque « glib »"
 
 #: src/core/main.cpp:47
 #, kde-format
@@ -1918,7 +1918,7 @@ msgstr "Bascule de type JK"
 #: src/electronics/components/flipflop.cpp:375
 #, kde-format
 msgid "SR Flip-Flop"
-msgstr "Bascule SR"
+msgstr "Bascule RS"
 
 #: src/electronics/components/fulladder.cpp:30
 #: src/electronics/components/fulladder.cpp:36
@@ -2945,7 +2945,7 @@ msgstr "Commentaires"
 #: src/gui/asmformattingwidget.ui:68
 #, kde-format
 msgid "'equ'"
-msgstr "'equ'"
+msgstr "« equ »"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel7)
 #: src/gui/asmformattingwidget.ui:78
@@ -5481,8 +5481,8 @@ msgstr "Impossible de trouver le fichier circuit PIC « %1 »."
 #, kde-format
 msgid "Compilation failed. Please check you have sdcc installed."
 msgstr ""
-"La compilation a échoué. Veuillez vérifier que sdcc est correctement "
-"installé."
+"La compilation a échoué. Veuillez vérifier que le module « sdcc » est "
+"correctement installé."
 
 #: src/mechanics/chassiscircular2.cpp:33 src/mechanics/chassiscircular2.cpp:39
 #, kde-format
