@@ -6,7 +6,7 @@
 # Frederik Schwarzer <schwarzer@kde.org>, 2020, 2023.
 msgid ""
 msgstr ""
-"Project-Id-Version: de\n"
+"Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-15 01:52+0000\n"
 "PO-Revision-Date: 2023-05-05 19:57+0200\n"
