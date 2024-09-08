@@ -42,7 +42,7 @@ msgstr "O compilador de Microbe"
 #: microbe/main.cpp:50
 #, kde-format
 msgid "(C) 2004-2005, The KTechlab developers"
-msgstr "© 2004-2005 Equipo de desenvolvemento de KTechLab"
+msgstr "© 2004-2005 Equipo desenvolvedor de KTechLab"
 
 #: microbe/main.cpp:53 src/core/main.cpp:43
 #, kde-format
@@ -796,7 +796,7 @@ msgstr "Un IDE para microcontroladores e compoñentes electrónicos"
 #: src/core/main.cpp:35
 #, kde-format
 msgid "(C) 2003-2017, The KTechLab developers"
-msgstr "© 2003-2017 Equipo de desenvolvemento de KTechLab"
+msgstr "© 2003-2017 Equipo desenvolvedor de KTechLab"
 
 #: src/core/main.cpp:36
 #, kde-format
