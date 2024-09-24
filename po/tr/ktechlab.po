@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-15 01:52+0000\n"
-"PO-Revision-Date: 2024-08-15 14:05+0300\n"
+"PO-Revision-Date: 2024-09-23 15:31+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -42,7 +42,7 @@ msgstr "Microbe Derleyicisi"
 #: microbe/main.cpp:50
 #, kde-format
 msgid "(C) 2004-2005, The KTechlab developers"
-msgstr "(C) 2004-2005, KTechlab geliştiricileri"
+msgstr "© 2004–2005, KTechlab geliştiricileri"
 
 #: microbe/main.cpp:53 src/core/main.cpp:43
 #, kde-format
@@ -792,7 +792,7 @@ msgstr ""
 #: src/core/main.cpp:35
 #, kde-format
 msgid "(C) 2003-2017, The KTechLab developers"
-msgstr "(C) 2003-2017, KTechLab geliştiricileri"
+msgstr "© 2003–2017, KTechLab geliştiricileri"
 
 #: src/core/main.cpp:36
 #, kde-format
