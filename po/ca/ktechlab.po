@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-15 01:52+0000\n"
-"PO-Revision-Date: 2024-08-15 10:23+0200\n"
+"PO-Revision-Date: 2024-10-23 20:05+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.2\n"
 "X-Accelerator-Marker: &\n"
 
 #, kde-format
@@ -2071,7 +2071,7 @@ msgstr "Multiplexor"
 #: src/electronics/components/parallelportcomponent.cpp:49
 #, kde-format
 msgid "Parallel Port"
-msgstr "Port paral·lel"
+msgstr "Port en paral·lel"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/electronics/components/parallelportcomponent.cpp:143
@@ -2292,7 +2292,7 @@ msgstr "Nombre de posicions"
 #: src/electronics/components/serialportcomponent.cpp:50
 #, kde-format
 msgid "Serial Port"
-msgstr "Port sèrie"
+msgstr "Port en sèrie"
 
 #: src/electronics/components/toggleswitch.cpp:29
 #, kde-format
@@ -5399,14 +5399,14 @@ msgstr "Programadors admesos: %1"
 #: src/languages/picprogrammer.cpp:115
 #, kde-format
 msgid "<br>Interface: Serial Port"
-msgstr "<br>Interfície: Port sèrie"
+msgstr "<br>Interfície: Port en sèrie"
 
 #: src/languages/picprogrammer.cpp:74 src/languages/picprogrammer.cpp:95
 #: src/languages/picprogrammer.cpp:139 src/languages/picprogrammer.cpp:150
 #: src/languages/picprogrammer.cpp:161 src/languages/picprogrammer.cpp:172
 #, kde-format
 msgid "<br>Interface: Parallel Port"
-msgstr "<br>Interfície: Port paral·lel"
+msgstr "<br>Interfície: Port en paral·lel"
 
 #: src/languages/picprogrammer.cpp:105
 #, kde-format
@@ -5416,7 +5416,7 @@ msgstr "<br>Interfície: Port USB"
 #: src/languages/picprogrammer.cpp:126
 #, kde-format
 msgid "<br>Interface: Serial Port and Parallel Port"
-msgstr "<br>Interfície: Port sèrie i port paral·lel"
+msgstr "<br>Interfície: Port en sèrie i port en paral·lel"
 
 #: src/languages/picprogrammer.cpp:330
 #, kde-format
