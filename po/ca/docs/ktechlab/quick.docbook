@@ -11,7 +11,7 @@
 >El &ktechlab; és un IDE per a circuits electrònics i microcontroladors. Pot realitzar la simulació d'una varietat de components (lògics, integrats, lineals, no lineals i reactius) i depuració de microcontroladors PIC mitjançant el «gpsim», i ve amb els seus propis llenguatges d'alt nivell estretament vinculats i complementaris: &flowcode; i &microbe;.</para>
 		
 		<para
->Ha estat dissenyat per a ser el més fàcil d'emprar i no intrusiu possible. Tots els components i les FlowPart tenen ajuda sensible al context, i la simulació de l'electrònica és tan senzilla com arrossegar els components a l'àrea de treball i crear connectors que s'encaminen automàticament entre els seus pins. El &flowcode; permet als usuaris nous en el PIC, que creïn instantàniament els seus propis programes, mentre que la simulació electrònica permet recórrer el programa en assemblador del PIC dins d'un circuit.</para>
+>Ha estat dissenyat per a ser el més fàcil d'emprar i no intrusiu possible. Tots els components i les FlowPart tenen ajuda dependent del context, i la simulació de l'electrònica és tan senzilla com arrossegar els components a l'àrea de treball i crear connectors que s'encaminen automàticament entre els seus pins. El &flowcode; permet als usuaris nous en el PIC, que creïn instantàniament els seus propis programes, mentre que la simulació electrònica permet recórrer el programa en assemblador del PIC dins d'un circuit.</para>
 	</sect1>
 	
 	<sect1 id="documents">
