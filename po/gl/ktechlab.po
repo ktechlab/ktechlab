@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-15 01:52+0000\n"
-"PO-Revision-Date: 2024-12-16 01:12+0100\n"
+"PO-Revision-Date: 2024-12-17 22:35+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -2120,6 +2120,7 @@ msgstr "Código C"
 msgid "The file \"%1\" does not exist."
 msgstr "O ficheiro «%1» non existe."
 
+# skip-rule: trasno-provide
 #: src/electronics/components/piccomponent.cpp:165
 #, kde-format
 msgid ""
