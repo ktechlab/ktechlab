@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-15 01:52+0000\n"
-"PO-Revision-Date: 2024-05-30 22:41+0200\n"
+"PO-Revision-Date: 2025-01-03 21:16+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-doc@kde.org>\n"
 "Language: eo\n"
@@ -541,7 +541,7 @@ msgstr "Dos-Formatado"
 #: src/core/ktechlab.kcfg:152 src/core/ktechlab.kcfg:299
 #, kde-format
 msgid "Other Options"
-msgstr "Aliaj Opcioj"
+msgstr "Aliaj Elektebloj"
 
 #. i18n: ectx: label, entry (SDCC_nostdlib), group (SDCC)
 #: src/core/ktechlab.kcfg:159
@@ -3226,7 +3226,7 @@ msgstr "Eraroj"
 #: src/gui/gpasmsettingswidget.ui:237 src/gui/sdccoptionswidget.ui:449
 #, kde-format
 msgid "Other options:"
-msgstr "Aliaj opcioj:"
+msgstr "Aliaj elektebloj:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_gplink_link_shared)
 #: src/gui/gplinksettingswidget.ui:26
@@ -3750,10 +3750,9 @@ msgstr "%1 fps"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/gui/oscilloscopewidget.ui:91
-#, fuzzy, kde-format
-#| msgid "Zoom"
+#, kde-format
 msgid "Time Zoom"
-msgstr "Zomo"
+msgstr "Tempzomo"
 
 #. i18n: ectx: property (text), widget (QRadioButton, displayDirectCheck)
 #: src/gui/outputmethodwidget.ui:44
@@ -3886,12 +3885,12 @@ msgstr "Krei Subprojekton"
 #: src/gui/projectdlgs.cpp:182
 #, kde-format
 msgid "Linker Options"
-msgstr "Ligilaj Opcioj"
+msgstr "Ligilaj Elektebloj"
 
 #: src/gui/projectdlgs.cpp:317
 #, kde-format
 msgid "Processing Options"
-msgstr "Pretigaj Opcioj"
+msgstr "Pretigaj Elektebloj"
 
 #. i18n("Bold"), "format-text-bold", Qt::CTRL + Qt::Key_B, 0, 0, ac, "format_bold" );
 #: src/gui/richtexteditor.cpp:66
@@ -4359,7 +4358,7 @@ msgstr "Ĝenerala"
 #: src/gui/settingsdlg.cpp:133
 #, kde-format
 msgid "General Options"
-msgstr "Ĝeneralaj opcioj"
+msgstr "Ĝeneralaj Elektebloj"
 
 #: src/gui/settingsdlg.cpp:134
 #, kde-format
@@ -4784,7 +4783,7 @@ msgstr "Enigi Nunan Dosieron..."
 #: src/ktechlab.cpp:597
 #, kde-format
 msgid "Linker Options..."
-msgstr "Ligilaj Opcioj..."
+msgstr "Ligilaj Elektebloj..."
 
 #. i18n("Build..."), "launch",					0, pm, SLOT(slotItemBuild()),				ac, "project_item_build" );
 #: src/ktechlab.cpp:604
@@ -4802,7 +4801,7 @@ msgstr "Alŝuti..."
 #: src/ktechlab.cpp:618
 #, kde-format
 msgid "Processing Options..."
-msgstr "Procesaj Opcioj..."
+msgstr "Prilaboraj Elektebloj..."
 
 #. i18n("Split View Left/Right"), "view-split-left-right", Qt::CTRL|Qt::SHIFT|Qt::Key_L, this, SLOT(slotViewSplitLeftRight()), ac, "view_split_leftright" );
 #: src/ktechlab.cpp:627
