@@ -154,7 +154,7 @@ void KTechlab::slotLoadRecent(const QUrl &url)
 void KTechlab::loadInternal(const QUrl &url, bool isRecent, ViewArea *viewArea)
 {
     if (url.fileName().endsWith(".ktechlab", Qt::CaseInsensitive)) {
-        // This is a ktechlab project; it has to be handled separetly from a
+        // This is a ktechlab project; it has to be handled separately from a
         // normal file.
 
         ProjectManager::self()->slotOpenProject(url);
@@ -793,7 +793,7 @@ void KTechlab::savePropertiesInConfig(KConfig *conf)
     }
 
     // BEGIN Open Views State
-    // Remvoe old entries describing the save state - we don't want a horrible mish-mash of saved states
+    // Remove old entries describing the save state - we don't want a horrible mish-mash of saved states
     const QStringList groupList = conf->groupList();
     const QStringList::const_iterator groupListEnd = groupList.end();
     for (QStringList::const_iterator it = groupList.begin(); it != groupListEnd; ++it) {

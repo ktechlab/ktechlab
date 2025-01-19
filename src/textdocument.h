@@ -125,7 +125,7 @@ public:
     void fileSave(const QUrl &url);
     /**
      * Set the document to the given text, making the document unmodified, and
-     * reseting the undo/redo history/
+     * resetting the undo/redo history/
      * @param asInitial whether the next should be treated as if we had just
      * opened the file (no undo/redo history, and unmodified).
      */

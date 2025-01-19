@@ -293,7 +293,7 @@ PropertyEditor::PropertyEditor(QWidget *parent)
     // setRootIsDecorated( false );
     // setShowSortIndicator( false );
     // setTooltipColumn(0); // TODO equivalent?
-    setSortingEnabled(false /*true*/); // note: enabling it causes crashes, apperently
+    setSortingEnabled(false /*true*/); // note: enabling it causes crashes, apparently
     horizontalHeader()->setSortIndicatorShown(false);
     horizontalHeader()->setContentsMargins(itemMargin, itemMargin, itemMargin, itemMargin);
     // setItemMargin(2); // needed?
@@ -456,7 +456,7 @@ void PropertyEditor::showDefaultsButton(bool show)
 {
     QRect editItemRect = visualItemRect(m_editItem);
     int y = editItemRect.y(); // viewportToContents(QPoint(0, itemRect(m_editItem).y())).y(); // TODO
-    QRect geometry(columnWidth(0), y, columnWidth(1), editItemRect.height() /* m_editItem->height() TOOD */);
+    QRect geometry(columnWidth(0), y, columnWidth(1), editItemRect.height() /* m_editItem->height() TODO */);
     m_defaults->resize(m_baseRowHeight, m_baseRowHeight);
 
     if (!show) {

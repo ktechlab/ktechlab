@@ -119,7 +119,7 @@ public:
         return true;
     }
     /**
-     * @return if there is a cell containg the given canvas point.
+     * @return if there is a cell containing the given canvas point.
      */
     bool haveCellContaing(int x, int y) const
     {

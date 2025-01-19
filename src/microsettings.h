@@ -101,7 +101,7 @@ typedef QMap<QString, PinMapping> PinMappingMap;
 typedef QMap<QString, PinSettingsList> PortList;
 
 /**
-This class stores PIC settings that are specific to the PIC program being devloped.
+This class stores PIC settings that are specific to the PIC program being developed.
 This includes such things as port settings and variable settings.
 This is different from PIC info, which includes stuff such as PIC pin names
 
@@ -117,7 +117,7 @@ public:
     ~MicroSettings() override;
     /**
      * Returns microdata to describe the microsettings.
-     * This includes ports settins and variable settings
+     * This includes ports settings and variable settings
      */
     MicroData microData() const;
     void restoreFromMicroData(const MicroData &microData);
@@ -155,7 +155,7 @@ public:
      */
     void setPortType(const QString &port, int type);
     /**
-     * Returns the initial port type (intput/output) for the given port.
+     * Returns the initial port type (input/output) for the given port.
      * Each pin type occupies one bit of the returned integer.
      */
     int portType(const QString &port);
@@ -176,7 +176,7 @@ public:
      */
     VariableInfo *variableInfo(const QString &name);
     /**
-     * Deletes the variable with the given name, returns true if successul
+     * Deletes the variable with the given name, returns true if successful
      * (i.e. a variable with that name existed), or false if not
      */
     bool deleteVariable(const QString &name);

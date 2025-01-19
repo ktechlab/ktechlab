@@ -40,7 +40,7 @@ protected:
 
     double calcProp(double v) const;
 
-    bool b_firstRun;     // If true, then update the text dispalyed
+    bool b_firstRun;     // If true, then update the text displayed
     bool b_timerStarted; // The timer to change the text is started on change
     double m_timeSinceUpdate;
     double m_avgValue;

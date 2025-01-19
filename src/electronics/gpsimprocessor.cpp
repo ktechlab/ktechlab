@@ -294,7 +294,7 @@ QString GpsimProcessor::generateSymbolFile(const QString &fileName, QObject *rec
     }
     if (extension == "hex") {
         QTimer::singleShot(0, receiver, successMember);
-        // We've already checked for the existance of the ".cod" file in GpsimProcessor::isValidProgramFile
+        // We've already checked for the existence of the ".cod" file in GpsimProcessor::isValidProgramFile
         return QString(fileName).replace(".hex", ".cod");
     }
 
@@ -644,7 +644,7 @@ RegisterSet::RegisterSet(pic_processor *picProcessor)
         m_nameToRegisterMap[info->name()] = info;
         qCDebug(KTL_LOG) << " add register info " << info->name() << " at pos " << i << " addr " << info;
     }
-    RegisterInfo *info = new RegisterInfo(picProcessor->Wreg); // is tihs correct for "W" member? TODO
+    RegisterInfo *info = new RegisterInfo(picProcessor->Wreg); // is this correct for "W" member? TODO
     m_registers.append(info);
     m_nameToRegisterMap[info->name()] = info;
     qCDebug(KTL_LOG) << " add register info " << info->name() << " at end, addr " << info;

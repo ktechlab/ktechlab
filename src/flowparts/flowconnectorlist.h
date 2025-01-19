@@ -19,7 +19,7 @@
 class Connector;
 class FlowConnector;
 
-// these typedef's shoud go in a separate header one day
+// these typedef's should go in a separate header one day
 typedef QList<QPointer<Connector>> ConnectorList;
 
 /**

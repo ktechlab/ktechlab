@@ -185,7 +185,7 @@ class MicrobeApp
 		PIC14 * makePic();
 		/**
 		 * Add the interrupt as being used, i.e. make sure there is one and only
-		 * one occurance of its name in m_usedInterrupts.
+		 * one occurrence of its name in m_usedInterrupts.
 		 */ 
 		void setInterruptUsed( const QString & interruptName );
 		/**

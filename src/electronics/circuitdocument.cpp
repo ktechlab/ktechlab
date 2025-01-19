@@ -404,7 +404,7 @@ void CircuitDocument::calculateConnectorCurrents()
             if ((*itW)->calculateCurrent()) {
                 found = true;
                 itW = wires.erase(itW);
-                // note: assigning a temporary interator, incrementing and erasing, seems to crash
+                // note: assigning a temporary iterator, incrementing and erasing, seems to crash
             } else {
                 ++itW;
             }
@@ -414,7 +414,7 @@ void CircuitDocument::calculateConnectorCurrents()
         for (SwitchList::iterator it = switches.begin(); it != switchesEnd;) {
             if ((*it)->calculateCurrent()) {
                 found = true;
-                // note: assigning a temporary interator, incrementing and erasing, seems to crash
+                // note: assigning a temporary iterator, incrementing and erasing, seems to crash
                 // it = container.erase( it ) seems to crash other times
                 SwitchList::iterator oldIt = it;
                 ++it;
@@ -431,7 +431,7 @@ void CircuitDocument::calculateConnectorCurrents()
         for (PinList::iterator it = groundPins.begin(); it != groundPinsEnd;) {
             if ((*it)->calculateCurrentFromWires()) {
                 found = true;
-                // note: assigning a temporary interator, incrementing and erasing, seems to crash sometimes;
+                // note: assigning a temporary iterator, incrementing and erasing, seems to crash sometimes;
                 // it = container.erase( it ) seems to crash other times
                 PinList::iterator oldIt = it;
                 ++it;

@@ -14,7 +14,7 @@
 #include "element.h"
 
 /**
-cnode n0 has current flowing otu of it, cnode n1 has current flowing into it
+cnode n0 has current flowing out of it, cnode n1 has current flowing into it
 @author David Saxton
 @short Current Source
 */

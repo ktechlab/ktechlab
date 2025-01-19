@@ -954,7 +954,7 @@ void ItemDocumentData::mergeWithDocument(ItemDocument *itemDocument, bool select
                 // HACK // FIXME // TODO
                 // for some strange reason the lists in the ItemDocument class the ID lists for items
                 // get out of sync, so some id's are considered to be registered, but in fact they
-                // have no assiciated items; this causes stange bugs when insterting subcircuits in the circuit.
+                // have no associated items; this causes strange bugs when inserting subcircuits in the circuit.
                 // this is just a temporary fix; someone should get to the real cause of this problem and fix
                 // ItemDocument
                 if (icnd->connectorWithID(id)) {

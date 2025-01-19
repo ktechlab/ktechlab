@@ -75,7 +75,7 @@ TextDocument::TextDocument(const QString &caption)
     m_pLastTextOutputTarget = nullptr;
     m_guessedCodeType = TextDocument::ct_unknown;
     m_type = Document::dt_text;
-    // m_bookmarkActions.setAutoDelete(true); // TODO see if this genereates memory leaks
+    // m_bookmarkActions.setAutoDelete(true); // TODO see if this generates memory leaks
     m_pDocumentIface = new TextDocumentIface(this);
     KTextEditor::Editor *editor = KTextEditor::Editor::instance();
     m_doc = editor->createDocument(this);
@@ -938,7 +938,7 @@ void TextDocument::syncBreakpoints()
     if (b_lockSyncBreakpoints)
         return;
 
-    // We don't really care about synching marks if we aren't debugging / aren't able to take use of the marks
+    // We don't really care about syncing marks if we aren't debugging / aren't able to take use of the marks
     if (!m_pDebugger)
         return;
 
@@ -989,7 +989,7 @@ void TextDocument::setDebugger(GpsimDebugger *debugger, bool ownDebugger)
         return;
 
     // If we create a gpsim, then we may get called by DebugManager, which will
-    // try to claim we don't own it. So if we have a symbol file waiting, thne
+    // try to claim we don't own it. So if we have a symbol file waiting, then
     // wait until we are called from its successful creation
     if (!m_symbolFile.isEmpty() && !ownDebugger)
         return;

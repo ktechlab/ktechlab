@@ -145,8 +145,8 @@ public:
     /**
      * Returns the translation matrix used for painting et al
      * @param angleDegrees The orientation to use
-     * @param x x co-ordinate of the center of the object to be mapped
-     * @param y y co-ordinate of the center of the object to be mapped
+     * @param x x coordinate of the center of the object to be mapped
+     * @param y y coordinate of the center of the object to be mapped
      * @param inverse If false, maps the unrotated item to a rotated one, else mapped->unmapped
      */
     static QTransform transMatrix(int angleDegrees, bool flipped, int x, int y, bool inverse = false);
@@ -348,7 +348,7 @@ protected:
     ECNode *m_pNNode[4];
 
     // TODO: only Switch cares about this, so either demote it to a member of class switch or
-    // refactor it out alltogether.
+    // refactor it out altogether.
     QPointer<CircuitDocument> m_pCircuitDocument;
     int m_angleDegrees;
     bool b_flipped;
@@ -384,7 +384,7 @@ private:
     ElementMapList m_elementMapList;
     /**
      * The switches used by the component.
-TODO: ammend this comment with a more complete justification for the design decision to put this here.
+TODO: amend this comment with a more complete justification for the design decision to put this here.
      */
     SwitchList m_switchList;
     /**

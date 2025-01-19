@@ -110,7 +110,7 @@ void MechanicsDocument::deleteSelection()
     if (m_selectList->isEmpty())
         return;
 
-    // We nee to tell the selete items to remove themselves, and then
+    // We nee to tell the delete items to remove themselves, and then
     // pass the items that have add themselves to the delete list to the
     // CommandAddItems command
 

@@ -36,7 +36,7 @@
 #include <QPainter>
 #include <QTimer>
 
-// FIXME: This source file is HUUUGE!!!, contains numerous clases, should be broken down.
+// FIXME: This source file is HUUUGE!!!, contains numerous classes, should be broken down.
 
 // BEGIN class CMManager
 CMManager::CMManager(ItemDocument *itemDocument)

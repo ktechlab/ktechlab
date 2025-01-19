@@ -342,7 +342,7 @@ QRect Button::recommendedRect() const
     if (sizeHint.width() < m_originalRect.width())
         sizeHint.setWidth(m_originalRect.width());
 
-    // Hmm...for now, lets just keep the recomended rect the same height as the original rect
+    // Hmm...for now, lets just keep the recommended rect the same height as the original rect
     sizeHint.setHeight(m_originalRect.height());
 
     int hdw = (sizeHint.width() - m_originalRect.width()) / 2;

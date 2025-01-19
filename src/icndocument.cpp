@@ -235,7 +235,7 @@ bool ICNDocument::canConnect(KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *qcanv
     }
     // END Advanced level check
 
-    // Well, it looks like we can, afterall, connect them...
+    // Well, it looks like we can, after all, connect them...
     return true;
 }
 

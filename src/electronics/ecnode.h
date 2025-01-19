@@ -92,7 +92,7 @@ public:
      * by other connectors or nodes (although not through CNItems)
      * checkedNodes is a list of nodes that have already been checked for
      * being the connected nodes, and so can simply return if they are in there.
-     * If it is null, it will assume that it is the first ndoe & will create a list
+     * If it is null, it will assume that it is the first node & will create a list
      */
     bool isConnected(Node *node, NodeList *checkedNodes = nullptr) override;
     /**

@@ -126,7 +126,7 @@ void MatrixDisplay::initPins(unsigned numRows, unsigned numCols)
     m_lastUpdatePeriod = 0.0;
 
     // BEGIN Remove diodes
-    // All the diodes are going to be readded from dataChanged (where this
+    // All the diodes are going to be re-added from dataChanged (where this
     // function is called from), so easiest just to delete the diodes now and
     // resize.
 

@@ -596,7 +596,7 @@ public:
     void mouseMoved(const QPoint &pos);
     /**
      * Called when the user clicks the mouse. If the connector finishes on a
-     * valid KtlQCanvasItem (Node or Connetor), then this is returned. Otherwise,
+     * valid KtlQCanvasItem (Node or Connector), then this is returned. Otherwise,
      * null is returned.
      */
     KtlQCanvasItem *mouseClicked(const QPoint &pos);

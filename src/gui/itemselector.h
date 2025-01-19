@@ -123,7 +123,7 @@ protected:
     void writeOpenStates();
     /**
      * Reads the open status (folded or unfolded) of the given item. The default
-     * status for non-existant items is true.
+     * status for non-existent items is true.
      */
     bool readOpenState(const QString &id);
 

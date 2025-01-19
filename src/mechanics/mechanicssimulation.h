@@ -113,7 +113,7 @@ public:
 protected:
     /**
      * Attempt to find the overall parent.
-     * @returns false iff unsucessful (including if there are no MechanicsItems present)
+     * @returns false iff unsuccessful (including if there are no MechanicsItems present)
      */
     bool findOverallParent();
     /**

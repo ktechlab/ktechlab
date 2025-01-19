@@ -62,7 +62,7 @@ Parser::Parser( MicrobeApp * _mb )
 
 	definition.append( Field(Field::Label, "label") );
 	definition.append( Field(Field::Code, "code") );
-	// For backwards compataibility
+	// For backwards compatibility
 	m_definitionMap["sub"] = definition;
 	m_definitionMap["subroutine"] = definition;
 	definition.clear();
@@ -172,7 +172,7 @@ Code * Parser::parse( const SourceLineList & lines )
 
 	   Here we go through the code making each line into a statement object,
 	   looking out for braced code as we go, if we find it then we put then
-	   we make attach the braced code to the statment.
+	   we make attach the braced code to the statement.
 	*/
 
 	SourceLineList::const_iterator end = lines.end();
@@ -222,7 +222,7 @@ Code * Parser::parse( const SourceLineList & lines )
 		{
 			if( !processAssignment( (*sit).text() ) )
 			{
-				// Not an assignement, maybe a label
+				// Not an assignment, maybe a label
 				if( (*sit).isLabel() )
 				{
 					QString label = (*sit).text().left( (*sit).text().length() - 1 );
@@ -303,7 +303,7 @@ Code * Parser::parse( const SourceLineList & lines )
 						nextField = (*it);
 						if(nextField.type() == Field::FixedString)
 							newPosition = line.indexOf(QRegExp("\\b" + nextField.string() + "\\b"));
-						// Although code is not neccessarily braced, after an expression it is the only
+						// Although code is not necessarily braced, after an expression it is the only
 						// sensilbe way to have it.
 						else if(nextField.type() == Field::Code)
 						{
@@ -1029,7 +1029,7 @@ OutputField::OutputField( const QString & string/*, int lineNumber*/ )
 		else if( firstToken == "include" )
 		{
 			// only cope with 'sane' strings a.t.m.
-			// e.g. include "filename.extenstion"
+			// e.g. include "filename.extension"
 			QString filename = (*sit).content.mid( (*sit).content.find("\"") ).trimmed();
 			// don't strip whitespace from within quotes as you
 			// can have filenames composed entirely of spaces (kind of weird)...

@@ -75,7 +75,7 @@ void Expression::traverseTree( BTreeNode *root, bool conditionalRoot )
 
 	if(t.current()->hasChildren())
 	{
-		// Here we work out what needs evaulating, and in which order.
+		// Here we work out what needs evaluating, and in which order.
 		// To minimize register usage, if only one branch needs traversing,
 		// then that branch should be done first.
 		bool evaluateLeft = t.current()->left()->needsEvaluating();
@@ -439,7 +439,7 @@ void Expression::buildTree( const QString & unstrippedExpression, BTreeBase *tre
 			// don't have any of this level's operators, then the function
 			// will go to the next level as below.
 
-			// For unary opertaions, e.g NOT, we have no special
+			// For unary operations, e.g NOT, we have no special
 			// code for nodes with only one child, so we leave the left
 			// hand child blank and put the rest in the right hand node.
 			if( unary && j == 0 )
@@ -708,7 +708,7 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 	ExprType t = expressionType(expr);
 
 
-	// See if it is a single qouted character, e.g. 'A'
+	// See if it is a single quoted character, e.g. 'A'
 	if( expr.left(1) == "\'" && expr.right(1) == "\'" )
 	{
 		if( expr.length() == 3 ) // fall through to report as unknown variable if not of form 'x'
@@ -726,7 +726,7 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 	if(expr=="to"||expr=="step"||expr=="then")
 		mistake( MicrobeApp::ReservedKeyword, expr );
 
-	// Check for empty expressions, or expressions contating spaces
+	// Check for empty expressions, or expressions containing spaces
 	// both indicating a Mistake.
 	if(expr.isEmpty())
 		mistake( MicrobeApp::ConsecutiveOperators );
@@ -752,7 +752,7 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 		mistake( MicrobeApp::NumberTooBig );
 	}
 
-	// if there was a pin, we need to decocde it.
+	// if there was a pin, we need to decode it.
 	// For now and sacrificing syntax error checking
 	// we just look for the word "is" then "high" or "low".
 	if( t == extpin )

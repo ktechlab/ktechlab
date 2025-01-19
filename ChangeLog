@@ -63,7 +63,7 @@ Changes between Qt3 and Qt4 port (to be completed)
 - added flexible logging system
 - fixed removing of subcircuits from component list
 - removed: delete subcircuit with the delete key
-    - can be readded as a feature
+    - can be re-added as a feature
 - fix to allow changing the name of an external connector
 - fixed graphical glitches with external components; caused by a painter used for taking font metrics
 - fixed use-after free crash in ECSRFlipFlop::inStateChanged(), when SR flipflops are added and removed subsequenctly to a circuit
@@ -127,7 +127,7 @@ Changes between Qt3 and Qt4 port (to be completed)
 - fixed: SDCC should have an option to set extra SDCC's install prefix
 - not needed: GPLink should have an option to set the libraries' path -- it takes libraries from SDCC install prefix
 - cannot convert C code to ASM or HEX, because function __sdcc_gsinit_startup
-    - need to set proper sdcclib when linking; to be automatized
+    - need to set proper sdcclib when linking; to be automated
     - sdcc's libraries should be properly installed
 - reviewed: cannot compile code for PIC, because SDCC complains about the PIC identifier
     - pic16f84 works; others are not clear
@@ -149,12 +149,12 @@ Changes between Qt3 and Qt4 port (to be completed)
 - fix build on kubuntu 64 bit, for all combinations of installed/not installed state of gpsim/glib
     - when both (gpsim-dev and libglib2.0-dev) are installed or both are uninstalled, then ktechlab compiles and runs fine (kubunt 16.04)
 - fixed: when placing a component with slider, and clicking on the slider, the
-  slider follows the mouse cursor even after it is released; this is annyoing
+  slider follows the mouse cursor even after it is released; this is annoying
 * release 0.40.0
 - use QMenu instead of Q3PopupMenu
 - use QTextEdit instead of K3TextEdit
 - fix export as image to not generate black rectangle around exported images
-- do not depend ot KDE3 support libraries, only on KDE4 libraries; Qt3Support is still needed
+- do not depend on KDE3 support libraries, only on KDE4 libraries; Qt3Support is still needed
 - fix crash on Redo in Pin Map Editor
 - fix UI files to not use Q3* functionality
 - ported item selector

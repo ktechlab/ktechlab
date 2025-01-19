@@ -31,7 +31,7 @@
 #include <cassert>
 #include <iostream>
 using namespace std;
-//modified new varable pic_type is added
+//modified new variable pic_type is added
 extern QString pic_type;
 //BEGIN class Register
 Register::Register( Type type )
@@ -225,7 +225,7 @@ Register::Register( Type type )
 }
 
 
-Register::Register( const QString & name )//--to find a name varable or register(ex  trise)
+Register::Register( const QString & name )//--to find a name variable or register(ex  trise)
 {
 	m_name = name.trimmed();
 	QString upper = m_name.toUpper();
@@ -2613,7 +2613,7 @@ CodeConstIterator Code::end() const
 CodeIterator & CodeIterator::operator ++ ()
 {
 	// NOTE: This code is very similar to the const version.
-	// Any changes to thsi code should be applied there as well (when applicable).
+	// Any changes to this code should be applied there as well (when applicable).
 
 	do
 	{
@@ -2663,7 +2663,7 @@ void CodeIterator::insertBefore( Instruction * ins )
 CodeConstIterator & CodeConstIterator::operator ++ ()
 {
 	// NOTE: This code is very similar to the non-const version.
-	// Any changes to thsi code should be applied there as well (when applicable).
+	// Any changes to this code should be applied there as well (when applicable).
 
 	do
 	{

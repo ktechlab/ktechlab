@@ -444,7 +444,7 @@ void KtlQCanvas::setUpdatePeriod(int ms)
 }
 
 // Don't call this unless you know what you're doing.
-// p is in the content's co-ordinate example.
+// p is in the content's coordinate example.
 void KtlQCanvas::drawViewArea(KtlQCanvasView *view, QPainter *p, const QRect &vr, bool /* dbuf */ /* always false */)
 {
     QPoint tl = view->contentsToViewport(QPoint(0, 0));

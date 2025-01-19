@@ -64,7 +64,7 @@ public:
      */
     QPointList pointList(bool reverse) const;
     /**
-     * Returns a pointer to the internall cellPointList
+     * Returns a pointer to the internal cellPointList
      */
     QPointList *cellPointList()
     {
@@ -72,7 +72,7 @@ public:
     }
     /**
      * This will return two lists of Canvas points from the splitting of the
-     * route at the Canvas point "pos". The internall stored points are not
+     * route at the Canvas point "pos". The internal stored points are not
      * affected.
      */
     QPointListList splitPoints(const QPoint &pos) const;

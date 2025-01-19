@@ -17,8 +17,8 @@
 This class performs matrix storage, lu decomposition, forward and backward
 substitution, and a few other useful operations. Steps in using class:
 (1) Create an instance of this class with the correct size
-(2) Define the matrix pattern as neccessary:
-    (1) Call zero (unnecessary after initial ceration) to reset the pattern
+(2) Define the matrix pattern as necessary:
+    (1) Call zero (unnecessary after initial creation) to reset the pattern
         & matrix
     (2) Call setUse to set the use of each element in the matrix
     (3) Call createMap to generate the row-wise permutation mapping for use
@@ -26,7 +26,7 @@ substitution, and a few other useful operations. Steps in using class:
 (3) Add the values to the matrix
 (4) Call performLU, and get the results with fbSub
 (5) Repeat 2, 3, 4 or 5 as necessary.
-@todo We need to allow createMap to work while the matrix has already been initalised
+@todo We need to allow createMap to work while the matrix has already been initialised
 @short Matrix manipulation class tailored for circuit equations
 @author David Saxton
 */

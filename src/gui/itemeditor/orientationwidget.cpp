@@ -68,7 +68,7 @@ void OrientationWidget::slotUpdate(CNItemGroup *itemGroup)
     bool haveSameOrientation = itemGroup->haveSameOrientation();
 
     if (FlowPart *flowPart = dynamic_cast<FlowPart *>(static_cast<CNItem *>(m_pCNItem))) {
-        // Do we actually need to udpate the interface?
+        // Do we actually need to update the interface?
         if (m_pFlowPart && (m_bHaveSameOrientation == haveSameOrientation))
             return;
 
@@ -80,7 +80,7 @@ void OrientationWidget::slotUpdate(CNItemGroup *itemGroup)
     }
 
     else if (Component *component = dynamic_cast<Component *>(static_cast<CNItem *>(m_pCNItem))) {
-        // Do we actually need to udpate the interface?
+        // Do we actually need to update the interface?
         if (m_pComponent && (m_bHaveSameOrientation == haveSameOrientation))
             return;
 

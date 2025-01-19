@@ -39,7 +39,7 @@ VariableCapacitor::VariableCapacitor(ICNDocument *icnDocument, bool newItem, con
     setSize(-16, -8, 32, 16);
 
     // william - you might want to change this value. I added this line as it
-    // was being used unitialized (in the sliderValueChanged function when
+    // was being used uninitialized (in the sliderValueChanged function when
     // addSlider is called later on), and causing a crash - david.
     m_tickValue = 1;
 

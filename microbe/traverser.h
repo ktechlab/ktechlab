@@ -23,7 +23,7 @@
 #include "btreenode.h"
 
 /**
-Keeps persistant information needed and the algorithm for traversing the binary trees made of BTreeNodes, initialise either by passing a BTreeBase or BTreeNode to traverse a sub tree.
+Keeps persistent information needed and the algorithm for traversing the binary trees made of BTreeNodes, initialise either by passing a BTreeBase or BTreeNode to traverse a sub tree.
 
 Note that this is designed for traversing in the *reverse* way starting at the end of each branch
 in order to calculate the expression contained in the tree.

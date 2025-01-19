@@ -107,7 +107,7 @@ private:
 
 /**
 This class is an event filter to be installed in the kate view, and is used to
-do stuff like poping up menus and telling TextView that a word is being hovered
+do stuff like popping up menus and telling TextView that a word is being hovered
 over (used in the debugger).
 
 @author David Saxton

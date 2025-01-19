@@ -15,7 +15,7 @@
 #include <QPainter>
 #include <cmath>
 
-/// The maximum length of the voltage indiactor
+/// The maximum length of the voltage indicator
 const int vLength = 8;
 
 /// The current at the middle of the current indicator

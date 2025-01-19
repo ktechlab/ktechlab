@@ -32,7 +32,7 @@ protected:
     void dataChanged() override;
     /**
      * Use this to find the logically opposite comparison (e.g. "==" returns "!=",
-     * ">=" returns "<", etc). Supoorted ops: != == <= >= < >
+     * ">=" returns "<", etc). Supported ops: != == <= >= < >
      */
     QString oppOp(const QString &op);
 };

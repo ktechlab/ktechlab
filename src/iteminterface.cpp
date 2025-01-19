@@ -93,7 +93,7 @@ void ItemInterface::slotItemDocumentChanged(ItemDocument *doc)
 void ItemInterface::clearItemEditorToolBar()
 {
     if (m_pActiveItemEditorToolBar && m_toolBarWidgetID != -1) {
-        // m_pActiveItemEditorToolBar->removeItem(m_toolBarWidgetID); // TODO add proper replacmenet
+        // m_pActiveItemEditorToolBar->removeItem(m_toolBarWidgetID); // TODO add proper replacement
         m_pActiveItemEditorToolBar->clear();
     }
     m_toolBarWidgetID = -1;

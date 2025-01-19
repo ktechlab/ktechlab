@@ -143,7 +143,7 @@ void Simulator::step()
         }
 
         // Update the logic parts of our simulation
-        // const unsigned max = unsigned(LOGIC_UPDATE_RATE / LINEAR_UPDATE_RATE); // 2015.09.27 - use contants for logic updates
+        // const unsigned max = unsigned(LOGIC_UPDATE_RATE / LINEAR_UPDATE_RATE); // 2015.09.27 - use constants for logic updates
 
         for (m_llNumber = 0; m_llNumber < LOGIC_UPDATE_PER_STEP; ++m_llNumber) {
             // here starts 1 logic update

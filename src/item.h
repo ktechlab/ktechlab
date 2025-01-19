@@ -84,7 +84,7 @@ public:
     /**
      * Returns whether or not what the item is displaying has (possibly) changed
      * since this function was last called. If your item doesn't move, yet still
-     * continously changes what is being displayed (such as a seven segment
+     * continuously changes what is being displayed (such as a seven segment
      * display or a lamp), then set m_bDynamicContent to be true in the
      * constructor or reinherit this to return true when the contents of the
      * item have changed since this function was last called.

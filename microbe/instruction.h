@@ -42,7 +42,7 @@ typedef QList<Instruction*> InstructionList;
 
 /**
 Abstraction for a Register - should be used instead of a register name. Contains
-info like whether or not the adressing of the register depends on the bank
+info like whether or not the addressing of the register depends on the bank
 selection.
 
 @author David Saxton
@@ -476,7 +476,7 @@ class ProcessorBehaviour
 
 /**
 Contains information on whether a register is overwritten before its value is
-used. Each uchar respresents the 8 bits of the register; if the bit is 1, then
+used. Each uchar represents the 8 bits of the register; if the bit is 1, then
 the corresponding bit of the register is used by the Instruction or one
 of its outputs before it is overwritten.
 

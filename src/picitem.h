@@ -58,7 +58,7 @@ private:
 typedef QList<PinItem *> PinItemList;
 
 /**
-Allows visual editing of inital PIC settings
+Allows visual editing of initial PIC settings
 @author David Saxton
 */
 class PicItem : public CNItem

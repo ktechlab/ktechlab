@@ -57,7 +57,7 @@ public slots:
     /**
      * Called when the projectName or projectLocation edit boxes are edited.
      * Checks whether the resultant location combination is a valid path -
-     * if so, enabels the OK button; otherwise disables it.
+     * if so, enables the OK button; otherwise disables it.
      */
     void locationChanged(const QString &);
 

@@ -128,7 +128,7 @@ void VarComparison::generateMicrobe(FlowCode *code)
 		// check: works
 		newCode += "btfss STATUS,2 ; Check if zero flag is set\n";
 		newCode += gotoCode("altoutput") + " ; Result from calculation was non-zero; hence comparison is false\n";
-		newCode += gotoCode("stdoutput") + " ; Ouput was zero; hence comparison is true, so continue from this point\n";
+		newCode += gotoCode("stdoutput") + " ; Output was zero; hence comparison is true, so continue from this point\n";
 	}
 	else if	( test == "!=" )
 	{

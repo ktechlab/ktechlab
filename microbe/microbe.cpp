@@ -341,9 +341,9 @@ void MicrobeApp::compileError( MistakeType type, const QString & context, const 
 bool MicrobeApp::isValidVariableName( const QString & variableName)
 {
 
-//*****modified checking is included for preventing the uses of registername as varable name*****
+//*****modified checking is included for preventing the uses of registername as variable name*****
 
-//Prevent usage of register/port name as varable
+//Prevent usage of register/port name as variable
 	if (/*PORT-NAME*/ variableName == "PORTA"
 		|| variableName == "PORTB"
 		|| variableName == "PORTC"

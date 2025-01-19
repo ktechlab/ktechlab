@@ -16,7 +16,7 @@
 
 #include "icon-list-generated.h"
 
-    // TODO retun "" if ok, or an error message if it is not ok
+    // TODO return "" if ok, or an error message if it is not ok
 static void addIcon(QGridLayout *mainLayout, const char *iconName);
 
 int main(int argc, char **argv) {

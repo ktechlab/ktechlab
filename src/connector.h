@@ -111,7 +111,7 @@ public:
     /**
      * Sets the canvas points that the connector should route itself along.
      * This is used for manual routing. The cells points are absolute positions
-     * (unlike the points stored internally in this class, which are the cell poisition
+     * (unlike the points stored internally in this class, which are the cell position
      * @param setManual if true then the connector will change to a manual route one
      * @param checkEndPoints if true then will  check to see if the end points are at the nodes, and adds them if not
      */

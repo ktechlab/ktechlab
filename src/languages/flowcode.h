@@ -31,7 +31,7 @@ typedef QList<QPointer<Item>> ItemList;
 "FlowCode" can possibly be considered a misnomer, as the output is actually Microbe.
 However, the function of this class is to take a set of FlowParts, and generate the
 basic from the code that they create. The 3 simple steps for usage of this function:
-(1) Create an instance of this class, giving the Start point and setings
+(1) Create an instance of this class, giving the Start point and settings
 (2) Add all the subroutines present using addSubroutine()
 (3) Call generateMicrobe() to get the Microbe code.
 @author David Saxton

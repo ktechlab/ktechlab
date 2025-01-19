@@ -52,7 +52,7 @@ int main(int argc, char **argv)
     about.setupCommandLine(&parser);
     // 2019.10.03 - note: to add options to set icon and caption of the
     //              application's window? currently this is not implemented
-    //              but it had references in the .destop file
+    //              but it had references in the .desktop file
     parser.addPositionalArgument(QStringLiteral("url"), i18n("Document to open."), QStringLiteral("[url]"));
 
     parser.process(app);

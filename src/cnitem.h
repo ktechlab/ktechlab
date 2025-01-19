@@ -142,9 +142,9 @@ public slots:
     /**
      * Remove the item and associated nodes. It appends the item to the
      * ICNDocument's delete list, so you must call ICNDocument::flushDeleteList()
-     * after calling this (and possible ICNDocument::clearDeleteList() befor
+     * after calling this (and possible ICNDocument::clearDeleteList() before
      * calling it) The virtual function void handleRemove() is called to allow
-     * any child classes to clear up any neccessary data (which doesn't do
+     * any child classes to clear up any necessary data (which doesn't do
      * anything by default), before CNItem does the rest
      */
     void removeItem() override;

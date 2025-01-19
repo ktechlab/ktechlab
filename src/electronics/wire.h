@@ -29,7 +29,7 @@ public:
 
     /**
      * Attempts to calculate the current that is flowing through
-     * the connector. Returns true if successfuly, otherwise returns false
+     * the connector. Returns true if successfully, otherwise returns false
      */
     bool calculateCurrent();
     /**

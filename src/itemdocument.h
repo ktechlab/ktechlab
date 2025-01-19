@@ -105,7 +105,7 @@ public:
         return m_canvas;
     }
     /**
-     * Attemtps to register a unique id for the canvas view of an item on the
+     * Attempts to register a unique id for the canvas view of an item on the
      * canvas. If the id does not already exist, will return true; otherwise
      * the function will return false.
      */

@@ -331,7 +331,7 @@ public:
     /**
      * Saves the project information to file, and attempts to close all
      * open project files.
-     * @return true iff succesful
+     * @return true iff successful
      */
     bool saveAndClose();
     bool save();

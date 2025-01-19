@@ -72,7 +72,7 @@ public:
      */
     void appendDeleteList(KtlQCanvasItem *qcanvasItem) override;
     /**
-     * Permantly deletes all items that have been added to the delete list with
+     * Permanently deletes all items that have been added to the delete list with
      * the appendDeleteList( KtlQCanvasItem *qcanvasItem ) function.
      */
     void flushDeleteList() override = 0;
@@ -105,7 +105,7 @@ public:
         return m_cells;
     }
     /**
-     * Adds score to the cells at the given cell referece
+     * Adds score to the cells at the given cell reference
      */
     void addCPenalty(int x, int y, int score);
     /**

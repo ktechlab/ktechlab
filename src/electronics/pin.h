@@ -117,7 +117,7 @@ public:
         m_bCurrentIsKnown = isKnown;
     }
     /**
-     * Tell thie Pin that none of the currents from the switches have yet
+     * Tell the Pin that none of the currents from the switches have yet
      * been merged.
      */
     void setSwitchCurrentsUnknown(); // { m_switchList.erase(nullptr); m_unknownSwitchCurrents = m_switchList; }

@@ -272,7 +272,7 @@ void ItemDocument::print()
     p.setClipRect(0, 0, w, h, /* QPainter::CoordPainter */ Qt::ReplaceClip); // TODO is this correct?
 
     // Send off the painter for drawing
-    // note: What was this doing?? // set "null" background, so the background horiznotal and vertial lines are not visible
+    // note: What was this doing?? // set "null" background, so the background horiznotal and vertical lines are not visible
     m_canvas->setBackgroundPixmap(QPixmap(0, 0) /* 0 */);
 
     QRect bounding = canvasBoundingRect();
@@ -682,7 +682,7 @@ void ItemDocument::requestEvent(ItemDocumentEvent::type type)
 
 void ItemDocument::processItemDocumentEvents()
 {
-    // Copy it incase we have new events requested while doing this...
+    // Copy it in case we have new events requested while doing this...
     unsigned queuedEvents = m_queuedEvents;
     m_queuedEvents = 0;
 
@@ -913,7 +913,7 @@ void ItemDocument::exportToImage()
             saveResult = dynamic_cast<QPixmap *>(outputImage)->save(filePath, type.toLatin1().data());
     }
 
-    // if(saveResult == true)	KMessageBox::information( this, i18n("Sucessfully exported to \"%1\"", url.filename() ), i18n("Image Export") );
+    // if(saveResult == true)	KMessageBox::information( this, i18n("Successfully exported to \"%1\"", url.filename() ), i18n("Image Export") );
     // else KMessageBox::information( this, i18n("Export failed"), i18n("Image Export") );
 
     if (type == "SVG")

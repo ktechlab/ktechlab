@@ -162,7 +162,7 @@ public:
 
     // BEGIN Register-oriented operations
     /**
-     * Reads and stores the value in the given reigsters, and returns it.
+     * Reads and stores the value in the given registers, and returns it.
      */
     uchar readFromRegister(Register reg);
     /**
@@ -178,7 +178,7 @@ public:
 
     // BEGIN Changing pin directions
     /**
-     * Sets the (input / ouput) direction of the data pins.
+     * Sets the (input / output) direction of the data pins.
      */
     void setDataDirection(Direction dir);
     /**

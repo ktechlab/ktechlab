@@ -33,7 +33,7 @@ protected:
     bool isWarning(const QString &message) const override;
     bool processExited(bool successfully) override;
 
-    QString m_asmOutput; // Outputed by gpdasm
+    QString m_asmOutput; // Outputted by gpdasm
 };
 
 #endif

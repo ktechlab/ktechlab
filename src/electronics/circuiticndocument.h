@@ -79,7 +79,7 @@ public:
     void slotAssignNodeGroups() override;
 
     /**
-     * Permantly deletes all items that have been added to the delete list with
+     * Permanently deletes all items that have been added to the delete list with
      * the appendDeleteList( KtlQCanvasItem *qcanvasItem ) function.
      */
     void flushDeleteList() override;

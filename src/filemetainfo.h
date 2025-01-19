@@ -95,7 +95,7 @@ protected:
      */
     OutputMethodInfo::Method::Type toMethod(const QString &id);
     /**
-     * Conver the method (e.g. OutputMethodInfo::Method::Direct) to an id
+     * Convert the method (e.g. OutputMethodInfo::Method::Direct) to an id
      * that can be saved in the config file.
      */
     QString toID(OutputMethodInfo::Method::Type method);
@@ -121,12 +121,12 @@ public:
 
     /**
      * Initialize the TextDocument with the appropriate stored metainfo - e.g.
-     * setting the appopriate bookmarks, etc
+     * setting the appropriate bookmarks, etc
      */
     void initializeFromMetaInfo(const QUrl &url, TextDocument *textDocument);
     /**
      * Initialize the TextView with the appropriate stored metainfo - e.g.
-     * setting the appopriate cursor position, etc.
+     * setting the appropriate cursor position, etc.
      */
     void initializeFromMetaInfo(const QUrl &url, TextView *textView);
     /**

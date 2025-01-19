@@ -231,7 +231,7 @@ void PIC14::postCompileConstruct( const QStringList &interrupts )
 	{
 		// If there are no ISRs then we don't need to put in any handler code.
 		// Instead, just insert the goto start instruction in case we need to
-		// jump past any lookup tabes (and if there are none, then the optimizer
+		// jump past any lookup tables (and if there are none, then the optimizer
 		// will remove the goto instruction).
 		m_pCode->append(new Instr_goto("_start"), Code::InterruptHandler);
 		m_pCode->queueLabel( "_start", Code::LookupTable );
@@ -270,7 +270,7 @@ void PIC14::postCompileConstruct( const QStringList &interrupts )
 		// Otherwise fall through to the next.
 	}
 
-	// If there was "somehow" a suprious interrupt there isn't really
+	// If there was "somehow" a spurious interrupt there isn't really
 	// much we can do about that (??) so just fall through and hope for the worst.
 
 	m_pCode->queueLabel( "_interrupt_end", Code::InterruptHandler );
@@ -278,7 +278,7 @@ void PIC14::postCompileConstruct( const QStringList &interrupts )
 	m_pCode->append(new Instr_movwf("STATUS"), Code::InterruptHandler );
 	m_pCode->append(new Instr_swapf("W_TEMP",1), Code::InterruptHandler );
 	m_pCode->append(new Instr_swapf("W_TEMP",0), Code::InterruptHandler );
-	m_pCode->append(new Instr_retfie()); // Returns and renables globally interrupts.
+	m_pCode->append(new Instr_retfie()); // Returns and re-enables globally interrupts.
 
 	m_pCode->queueLabel( "_start", Code::LookupTable );
 }
@@ -373,7 +373,7 @@ bool PIC14::isValidTris( const QString & trisName ) const
 }
 
 //*****************Modified ****************************//
-//New function isValiedRegister is added to check whether a register is valied or not
+//New function isValiedRegister is added to check whether a register is valid or not
 bool PIC14::isValidRegister( const QString & registerName)const
 {
  	if(pic_type=="P16F84"||pic_type=="P16C84")
@@ -1103,7 +1103,7 @@ void PIC14::SsevenSegment( const Variable & pinMap )
 	// Build up what are going to write to each port from the pin map
 	struct SSPortOutput
 	{
-		bool used; // Wheter we use this port at all
+		bool used; // Whether we use this port at all
 		bool use[8]; // Whether or not we use each pin.
 		bool out[16][8]; // The bit to write to each pin for each value.
 		uchar useMask; // The bits of use[8] - this is generated later from use[8]
@@ -1328,7 +1328,7 @@ void PIC14::bitwise( Expression::Operation op, const QString &r_val1, const QStr
 
 	}
 }*/
-///comment end and the new function is given bellow -- new code is working well
+///comment end and the new function is given below -- new code is working well
 // TODO - One error with OR operation if A OR 255 result in segebentation fault
 //*****************modified to make the bit operation works***************************/
 void PIC14::bitwise( Expression::Operation op,const QString & r_val1, const QString & val2, LocationType val1Type, LocationType val2Type)

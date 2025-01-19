@@ -47,7 +47,7 @@ Resources
     - https://github.com/ktechlab/ktechlab/wiki
 
     - https://github.com/ktechlab/ktechlab
-    - https://github.com/ktechlab/ktechlab-0.3 (archive only; merged into the above repoistory)
+    - https://github.com/ktechlab/ktechlab-0.3 (archive only; merged into the above repository)
     - new commits will be always pushed to KDE Git, github will be a mirror only
 
 - KTechLab on sourceforge (mostly deprecated; source code downloads are available)

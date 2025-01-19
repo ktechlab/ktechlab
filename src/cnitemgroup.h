@@ -216,7 +216,7 @@ public slots:
      */
     void flipVertically();
     /**
-     * Flips all CNItems in the group through a veritcal axis.
+     * Flips all CNItems in the group through a vertical axis.
      */
     void flipHorizontally();
 

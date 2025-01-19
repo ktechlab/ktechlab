@@ -171,7 +171,7 @@ public:
      * of a view.
      * @param relativeViewArea the viewarea to position the new viewarea next to, if -1 then is taken to be the active view area
      * @param position Top, Right, Bottom or Left of given relativeViewArea
-     * @returns id of the view area, or -1 if unsucessful
+     * @returns id of the view area, or -1 if unsuccessful
      * @param showOpenButton Whether to present the user with the EmptyViewArea
      * widget (i.e. the new ViewArea is not destined to be immediately filled
      * with a view).

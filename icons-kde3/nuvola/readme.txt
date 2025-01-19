@@ -30,7 +30,7 @@ GUI.
 Source code, for this library means:
  - raster png image* .
 The LGPL in some sections obliges you to make the files carry
-notices. With images this is in some cases impossible or hardly usefull.
+notices. With images this is in some cases impossible or hardly useful.
 With this library a notice is placed at a prominent place in the directory
 containing the elements. You may follow this practice.
 The exception in section 6 of the GNU Lesser General Public License covers

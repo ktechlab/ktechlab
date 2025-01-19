@@ -76,7 +76,7 @@ public:
      */
     void updateItemActions();
     /**
-     * Returns a configuration widget for the component for insertion into te
+     * Returns a configuration widget for the component for insertion into the
      * ItemEditTB.
      */
     virtual QWidget *configWidget();

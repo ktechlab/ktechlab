@@ -477,7 +477,7 @@ void KtlQ3ScrollViewData::viewportResized(int w, int h)
     To enable drag-and-drop, you would setAcceptDrops(true) on the
     KtlQ3ScrollView (because drag-and-drop events propagate to the
     parent). But to work out the logical position in the view, you
-    would need to map the drop co-ordinate from being relative to the
+    would need to map the drop coordinate from being relative to the
     KtlQ3ScrollView to being relative to the contents; use the function
     viewportToContents() for this.
 

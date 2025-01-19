@@ -239,7 +239,7 @@ public:
     ~Language() override;
 
     /**
-     * Compile / assemble / dissassembly / whatever the given input.
+     * Compile / assemble / disassemble / whatever the given input.
      */
     virtual void processInput(ProcessOptions options) = 0;
     /**

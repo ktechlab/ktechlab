@@ -17,7 +17,7 @@
 #include "katemdi.h"
 #include "libraryitem.h"
 #include "mechanicsdocument.h"
-#include <vector> // Temporay fix for pthread.h problem
+#include <vector> // Temporary fix for pthread.h problem
 
 #include <KConfigGroup>
 #include <KLocalizedString>

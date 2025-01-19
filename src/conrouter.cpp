@@ -305,7 +305,7 @@ void ConRouter::mapRoute(int sx, int sy, int ex, int ey)
     m_lcx = ecx;
     m_lcy = ecy;
 
-    // First, lets try some common connector routes (which will not necesssarily
+    // First, lets try some common connector routes (which will not necessarily
     // be shortest, but they will be neat, and cut down on overall CPU usage)
     // If that fails, we will resort to a shortest-route algorithm to find an
     // appropriate route.

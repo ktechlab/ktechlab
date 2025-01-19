@@ -40,7 +40,7 @@ public:
      * Creates a PropertyEditorItem child of \a parent, associated to
      * \a property. Within property editor, items are created in
      * PropertyEditor::fill(), every time the buffer is updated. It
-     * \a property has not desctiption set, its name (i.e. not i18n'ed) is
+     * \a property has not description set, its name (i.e. not i18n'ed) is
      * reused.
      */
     PropertyEditorItem(PropertyEditorItem *parent, Property *property);

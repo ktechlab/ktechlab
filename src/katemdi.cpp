@@ -539,7 +539,7 @@ void Sidebar::restoreSession(KConfigGroup *configGr)
 
             m_toolviews[firstWrong + i] = tv;
 
-            // readd the button
+            // re-add the button
             int newId = m_widgetToId[tv];
             appendTab(tv->icon, newId, tv->text);
             connect(tab(newId), qOverload<int>(&KMultiTabBarTab::clicked), this, &Sidebar::tabClicked);

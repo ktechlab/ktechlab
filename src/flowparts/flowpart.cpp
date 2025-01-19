@@ -182,7 +182,7 @@ void FlowPart::initSymbol(FlowPart::FlowSymbol symbol, int width)
         break;
     }
     case FlowPart::ps_round: {
-        // define rounded rectangles as two semicricles with RP_NUM/2 points with gap inbetween
+        // define rounded rectangles as two semicricles with RP_NUM/2 points with gap in between
         // These points are not used for drawing; merely for passing to qcanvaspolygonitem for collision detection
         // If there is a better way for a rounder rectangle + collision detection, please let me know...
 

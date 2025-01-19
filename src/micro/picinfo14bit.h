@@ -60,7 +60,7 @@ public:
 };
 
 /**
-Note: this PIC is superseeded by 16F84. SDCC does not recognize it.
+Note: this PIC is superseded by 16F84. SDCC does not recognize it.
 @author David Saxton
  */
 class PicInfo16C84 : public PicInfo16C8x

@@ -135,7 +135,7 @@ william:
 
 The following have been brainstormed with reference to other electronics software I have used. I have found these features useful and these are all wishes for the future that may or may not be relevant to the direction the software takes in the future. I will obviously consult before attempting any of them:
 
-- Model poperty framework for components to include things like wattage, frequency, resistance, etc... of components using specs of manufactured components, with the future goal of accurate simulation of component destruction. This will also allow a parts list to be created when a circuit is completed. Just an idea, up for discussion. 
+- Model property framework for components to include things like wattage, frequency, resistance, etc... of components using specs of manufactured components, with the future goal of accurate simulation of component destruction. This will also allow a parts list to be created when a circuit is completed. Just an idea, up for discussion. 
 - Allow labeling of components in circuit, eg. R1, R2, C1, C2 etc.. Maybe a caption facility.
 - Right click properties for component model, values with separate value and multiplier selection to make it easier. This could be implemented in the Item editor too.
 -Circuit drawing on a black background to better visualise animated wires and logic levels through wires. Different view options: voltage levels, current flow, logic levels, normal(no wire animation of any sort). 

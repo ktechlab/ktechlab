@@ -158,7 +158,7 @@ void MultiInputGate::updateInputs(int newNum)
 
 void MultiInputGate::updateAttachedPositioning()
 {
-    // Check that our ndoes have been created before we attempt to use them
+    // Check that our nodes have been created before we attempt to use them
     if (!m_nodeMap.contains("p1") || !m_nodeMap.contains("in" + QString::number(m_numInputs - 1)))
         return;
 

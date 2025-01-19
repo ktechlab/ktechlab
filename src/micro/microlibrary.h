@@ -25,7 +25,7 @@ typedef QList<MicroInfo *> MicroInfoList;
 inline MicroLibrary *microLibrary();
 
 /**
-@short Stores all the avaiable PICs (info)
+@short Stores all the available PICs (info)
 @author David Saxton
 */
 class MicroLibrary

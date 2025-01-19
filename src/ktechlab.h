@@ -202,7 +202,7 @@ protected:
     /**
      * Called before the window is closed, either by the user or indirectly by the session manager.
      * This function doesn't actually close the main window; it only queries the user and closes the active view.
-     * To quit the appliaction completly, you should use KTechlab::slotFileQuit()
+     * To quit the application completely, you should use KTechlab::slotFileQuit()
      */
     bool queryClose() override;
 

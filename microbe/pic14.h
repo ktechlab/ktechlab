@@ -201,7 +201,7 @@ class PIC14
 
 		//commented for new function since it is not working 
 //		void bitwise( Expression::Operation op, const QString &val1, const QString &val2, bool val1IsNum, bool val2IsNum );
-		//code for AND OR XOR opertions 
+		//code for AND OR XOR operations 
 		void bitwise( Expression::Operation op,const QString & val1, const QString & val2, LocationType val1Type, LocationType val2Type);
 
 //*******************modification end  ---Result --- new code is working well**************
@@ -260,7 +260,7 @@ class PIC14
 		/**
 		 * The function makes sure that val1 always contains a working register
 		 * variable, if one has been passed, this is done by swapping val1 and val2 when
-		 * neccessary
+		 * necessary
 		 */
 		void rearrangeOpArguments( QString * val1, QString * val2, LocationType * val1Type, LocationType * val2Type);
 	

@@ -140,7 +140,7 @@ class Field
 		/**
 		 * Only FixedStrings may be compulsory, that is the only type that can
 		 * actually have its presence checked.
-		 * This flag is set to indicate that no error should be rasied if the 
+		 * This flag is set to indicate that no error should be raised if the 
 		 * field is not present. Note that if a field is found missing, then
 		 * the rest of the statement is ignored (regardless of whether the rest
 		 * is marked compulsory or not.)

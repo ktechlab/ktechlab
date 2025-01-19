@@ -38,7 +38,7 @@ namespace KateMDI
 class MainWindow;
 class ToolView;
 
-/** This class is needed because QSplitter cant return an index for a widget. */
+/** This class is needed because QSplitter can't return an index for a widget. */
 class Splitter : public QSplitter
 {
     Q_OBJECT
@@ -47,7 +47,7 @@ public:
     Splitter(Qt::Orientation o, QWidget *parent = nullptr);
     ~Splitter() override;
 
-    /** Since there is supposed to be only 2 childs of a katesplitter,
+    /** Since there is supposed to be only 2 children of a katesplitter,
      * any child other than the last is the first.
      * This method uses QSplitter::idAfter(widget) which
      * returns 0 if there is no widget after this one.
@@ -112,7 +112,7 @@ signals:
     void visibleChanged(bool visible);
 
     /**
-     * some internal methodes needed by the main window and the sidebars
+     * some internal methods needed by the main window and the sidebars
      */
 protected:
     MainWindow *mainWindow()
@@ -166,7 +166,7 @@ public:
 
     void setSplitter(Splitter *sp);
 
-    // HACK use these functions intead of their respective functions in
+    // HACK use these functions instead of their respective functions in
     // KMultiTabBar so that we know what they were set to.
     void setSidebarPosition(KMultiTabBarPosition pos);
     KMultiTabBar::KMultiTabBarPosition sidebarPosition() const

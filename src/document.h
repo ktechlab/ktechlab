@@ -126,7 +126,7 @@ public:
      */
     bool getURL(const QString &types, const QString &fileExtToEnforce);
     /**
-     * Attempts to open a url, and returns true if succesful.
+     * Attempts to open a url, and returns true if successful.
      * You must reinherit this function.
      */
     virtual bool openURL(const QUrl &url) = 0;
@@ -147,14 +147,14 @@ public:
         return b_modified;
     }
     /**
-     * Returns true if undo is avilable.
+     * Returns true if undo is available.
      */
     virtual bool isUndoAvailable() const
     {
         return false;
     }
     /**
-     * Returns true if redo is avilable.
+     * Returns true if redo is available.
      */
     virtual bool isRedoAvailable() const
     {
@@ -166,7 +166,7 @@ public:
     virtual void fileSaveAs() = 0;
     /**
      * Attempts to close the file without saving, prompting the user if the
-     * file has been modified. If succesful, calls QObject::deleteLater(), and
+     * file has been modified. If successful, calls QObject::deleteLater(), and
      * returns true (otherwise returns false).
      */
     virtual bool fileClose();

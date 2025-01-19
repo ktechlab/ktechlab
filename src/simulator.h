@@ -143,7 +143,7 @@ public:
     /**
      * add a callback to be executed at the current step, at the given logic update number
      * @param at the logic update number
-     * @param ccb the callback that shold be called; note that the ownership of the callback
+     * @param ccb the callback that should be called; note that the ownership of the callback
      *      object remains at the caller
      */
     inline void addStepCallback(int at, ComponentCallback *ccb);

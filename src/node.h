@@ -104,7 +104,7 @@ public:
      */
     void setOrientation(int dir);
     /**
-     * Changes the lenght of the node. By default, this is 8. Some node types
+     * Changes the length of the node. By default, this is 8. Some node types
      * (such as junctions) do not make use of this value.
      */
     void setLength(int length);
