@@ -2,9 +2,9 @@
 # SPDX-License-Identifier: CC0-1.0
 
 Dependencies:
-- 'on': ['@all']
-  'require':
-    'frameworks/ktexteditor': '@stable'
+  - 'on': ['@all']
+    'require':
+      'frameworks/ktexteditor': '@stable'
 
 Options:
   require-passing-tests-on: ['Linux', 'FreeBSD', 'Windows']
