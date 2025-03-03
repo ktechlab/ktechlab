@@ -2498,7 +2498,7 @@ msgstr "Hexadecimal"
 #: src/flowcodeview.cpp:42 src/textview.cpp:70
 #, kde-format
 msgid "PIC (upload)"
-msgstr "PIC (enviar)"
+msgstr "PIC (subir)"
 
 # well-spelled: FlowChart
 #: src/flowcodeview.cpp:55
