@@ -22,12 +22,12 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Thomas Winkel"
+msgstr "Deutsches KDE-Übersetzungsteam"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "mail@thomas-winkel.de"
+msgstr "kde-i18n-de@kde.org"
 
 #: microbe/main.cpp:46 src/electronics/components/piccomponent.cpp:90
 #: src/flowcodedocument.cpp:172 src/flowcodeview.cpp:39 src/ktechlab.cpp:502
