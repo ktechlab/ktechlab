@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the ktechlab package.
 #
-# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-15 01:52+0000\n"
-"PO-Revision-Date: 2024-09-23 15:31+0300\n"
+"PO-Revision-Date: 2025-03-13 15:49+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.11.70\n"
+"X-Generator: Lokalize 25.07.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -354,7 +354,7 @@ msgstr ""
 "Soldaki bileşen seçiciden bileşenleri sürükleyerek bir devre yapın. Bileşen "
 "bağlayıcılarından kablolar sürükleyerek bağlantılar oluşturun."
 "<br><br>Benzetim, öntanımlı olarak çalışır; ancak Araçlar menüsünden "
-"durdurulabilir ve sürdürülebilir.<br><br>Bir kabloyu silmek için, onu bir "
+"durdurulabilir ve sürdürülebilir.<br><br>Bir kabloyu silmek için onu bir "
 "seçim kutusuyla seçin ve sil düğmesine basın.<br><br>Bir bileşenin "
 "özniteliklerini düzenlemek için onu seçin (başka bir türden bileşenin seçili "
 "olmadığından emin olun) ve araç çubuğunda düzenleyin. Daha gelişmiş "
@@ -3634,8 +3634,8 @@ msgid ""
 "and 0 an output.<br><br>The \"State (PORT)\" edit shows the initial high/low "
 "state of the ports; 1 represents a high, and 0 a low."
 msgstr ""
-"Kapıların başlangıç değerlerini buradan düzenleyin. Her bir ikilik sayı "
-"için, sağdan sola olan sıralama 0 ile 7 arasındaki pimlerdir.<br><br>\"Tür "
+"Kapıların başlangıç değerlerini buradan düzenleyin. Her bir ikilik sayı için "
+"sağdan sola olan sıralama 0 ile 7 arasındaki pimlerdir.<br><br>\"Tür "
 "(TRIS)\" düzeni, kapıların başlangıç giriş-çıkış durumlarını gösterir; 1, "
 "bir girişi, 0 ise bir çıkışı belirtir.<br><br>\"State (PORT)\" düzeni, "
 "kapıların başlangıç yüksek/düşük durumlarını gösterir; 1, bir yükseği, 0 ise "
@@ -5322,7 +5322,7 @@ msgid ""
 "will automatically open up the file at the position of the error."
 msgstr ""
 "Bu iletiler, derleme ve parçaları birleştirme gibi dil ile ilgili "
-"işlevselliğin çıktısını gösterirler.<br><br>Hata iletileri için, satıra "
+"işlevselliğin çıktısını gösterirler.<br><br>Hata iletileri için satıra "
 "tıklamak, hatanın olduğu dosya satırına kendiliğinden gider."
 
 #: src/languages/microbe.cpp:28 src/languages/sdcc.cpp:29
