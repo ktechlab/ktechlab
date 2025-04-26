@@ -44,11 +44,11 @@
 
 #include <QtCore/qglobal.h>
 
-QT_BEGIN_HEADER
+// QT_BEGIN_HEADER
 
-QT_BEGIN_NAMESPACE
+// QT_BEGIN_NAMESPACE
 
-QT_MODULE(Qt3SupportLight)
+// QT_MODULE(Qt3SupportLight)
 
 class QPolygon;
 class QPoint;
@@ -68,6 +68,6 @@ public:
 
 QT_END_NAMESPACE
 
-QT_END_HEADER
+// QT_END_HEADER
 
 #endif // KTL_Q3POLYGONSCANNER_H

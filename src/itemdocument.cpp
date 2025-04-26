@@ -821,13 +821,15 @@ void ItemDocument::exportToImage()
         return;
 
     if (QFile::exists(filePath)) {
-        int query = KMessageBox::warningYesNo(KTechlab::self(),
+        int query = KMessageBox::warningTwoActions(KTechlab::self(),
                                               i18n("A file named \"%1\" already exists. "
                                                    "Are you sure you want to overwrite it?",
                                                    filePath),
-                                              i18n("Overwrite File?"));
+                                              i18n("Overwrite File?"),
+                                            KStandardGuiItem::overwrite(),
+                                            KStandardGuiItem::cancel());
 
-        if (query == KMessageBox::No)
+        if (query == KMessageBox::Cancel)
             return;
     }
 
@@ -893,7 +895,7 @@ void ItemDocument::exportToImage()
     // crop, then save.
     if (crop) {
         if (type == "SVG")
-            saveResult = dynamic_cast<QPicture *>(outputImage)->save(filePath, type.toLatin1().data());
+            saveResult = dynamic_cast<QPicture *>(outputImage)->save(filePath /*, type.toLatin1().data() */ );
         else {
             QImage img = dynamic_cast<QPixmap *>(outputImage)->toImage();
             if (saveArea.x() < 0) {
@@ -908,7 +910,7 @@ void ItemDocument::exportToImage()
         }
     } else {
         if (type == "SVG")
-            saveResult = dynamic_cast<QPicture *>(outputImage)->save(filePath, type.toLatin1().data());
+            saveResult = dynamic_cast<QPicture *>(outputImage)->save(filePath /*, type.toLatin1().data() */ );
         else
             saveResult = dynamic_cast<QPixmap *>(outputImage)->save(filePath, type.toLatin1().data());
     }

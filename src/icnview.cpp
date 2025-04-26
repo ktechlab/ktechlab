@@ -52,7 +52,8 @@ ICNView::ICNView(ICNDocument *icnDocument, ViewContainer *viewContainer, uint vi
     // m_pRoutingModeToolbarPopup = new KToolBarPopupAction( i18n("Connection Routing Mode"), "pencil", 0, 0, 0, ac, "routing_mode" );
     m_pRoutingModeToolbarPopup = new KToolBarPopupAction(QIcon(QString::fromLatin1("pencil")), i18n("Connection Routing Mode"), ac);
     m_pRoutingModeToolbarPopup->setObjectName("routing_mode");
-    m_pRoutingModeToolbarPopup->setDelayed(false);
+    //m_pRoutingModeToolbarPopup->setDelayed(false);
+    m_pRoutingModeToolbarPopup->setPopupMode(KToolBarPopupAction::InstantPopup);
     ac->addAction(m_pRoutingModeToolbarPopup->objectName(), m_pRoutingModeToolbarPopup);
 
     QMenu *m = m_pRoutingModeToolbarPopup->menu();

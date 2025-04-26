@@ -1519,7 +1519,7 @@ bool KtlQ3ScrollView::eventFilter(QObject *obj, QEvent *e)
             if (disabled)
                 return false;
             if (d->drag_autoscroll) {
-                QPoint vp = (static_cast<QDragMoveEvent *>(e))->pos();
+                QPoint vp = (static_cast<QDragMoveEvent *>(e))->position().toPoint();
                 QRect inside_margin(autoscroll_margin, autoscroll_margin, visibleWidth() - autoscroll_margin * 2, visibleHeight() - autoscroll_margin * 2);
                 if (!inside_margin.contains(vp)) {
                     startDragAutoScroll();
@@ -1747,7 +1747,7 @@ void KtlQ3ScrollView::viewportMousePressEvent(QMouseEvent *e)
 {
     /* QMouseEvent ce(e->type(), viewportToContents(e->pos()),
         e->globalPos(), e->button(), e->state()); - 2018.11.30 */
-    QMouseEvent ce(e->type(), viewportToContents(e->pos()), e->globalPos(), e->button(), e->buttons(), e->modifiers());
+    QMouseEvent ce(e->type(), viewportToContents(e->pos()), e->globalPosition(), e->button(), e->buttons(), e->modifiers());
     contentsMousePressEvent(&ce);
     if (!ce.isAccepted())
         e->ignore();
@@ -1765,7 +1765,7 @@ void KtlQ3ScrollView::viewportMouseReleaseEvent(QMouseEvent *e)
 {
     /* QMouseEvent ce(e->type(), viewportToContents(e->pos()),
         e->globalPos(), e->button(), e->state()); -- 2018.11.30 */
-    QMouseEvent ce(e->type(), viewportToContents(e->pos()), e->globalPos(), e->button(), e->buttons(), e->modifiers());
+    QMouseEvent ce(e->type(), viewportToContents(e->pos()), e->globalPosition(), e->button(), e->buttons(), e->modifiers());
     contentsMouseReleaseEvent(&ce);
     if (!ce.isAccepted())
         e->ignore();
@@ -1783,7 +1783,7 @@ void KtlQ3ScrollView::viewportMouseDoubleClickEvent(QMouseEvent *e)
 {
     /* QMouseEvent ce(e->type(), viewportToContents(e->pos()),
         e->globalPos(), e->button(), e->state());  - 2018.11.30 */
-    QMouseEvent ce(e->type(), viewportToContents(e->pos()), e->globalPos(), e->button(), e->buttons(), e->modifiers());
+    QMouseEvent ce(e->type(), viewportToContents(e->pos()), e->globalPosition(), e->button(), e->buttons(), e->modifiers());
     contentsMouseDoubleClickEvent(&ce);
     if (!ce.isAccepted())
         e->ignore();
@@ -1799,7 +1799,7 @@ void KtlQ3ScrollView::viewportMouseDoubleClickEvent(QMouseEvent *e)
 */
 void KtlQ3ScrollView::viewportMouseMoveEvent(QMouseEvent *e)
 {
-    QMouseEvent ce(e->type(), viewportToContents(e->pos()), e->globalPos(), e->button(), e->buttons(), e->modifiers());
+    QMouseEvent ce(e->type(), viewportToContents(e->pos()), e->globalPosition(), e->button(), e->buttons(), e->modifiers());
     contentsMouseMoveEvent(&ce);
     if (!ce.isAccepted())
         e->ignore();
@@ -1818,7 +1818,7 @@ void KtlQ3ScrollView::viewportMouseMoveEvent(QMouseEvent *e)
 void KtlQ3ScrollView::viewportDragEnterEvent(QDragEnterEvent *e)
 {
     // e->setPoint(viewportToContents(e->pos())); // 2018.11.30
-    QDragEnterEvent ev(viewportToContents(e->pos()), e->possibleActions(), e->mimeData(), e->mouseButtons(), e->keyboardModifiers());
+    QDragEnterEvent ev(viewportToContents(e->position().toPoint()), e->possibleActions(), e->mimeData(), e->buttons(), e->modifiers());
     contentsDragEnterEvent(&ev);
     // e->setPoint(contentsToViewport(e->pos())); // 2018.11.30
 }
@@ -1834,7 +1834,7 @@ void KtlQ3ScrollView::viewportDragEnterEvent(QDragEnterEvent *e)
 void KtlQ3ScrollView::viewportDragMoveEvent(QDragMoveEvent *e)
 {
     // e->setPoint(viewportToContents(e->pos())); // 2018.11.30
-    QDragMoveEvent ev(viewportToContents(e->pos()), e->possibleActions(), e->mimeData(), e->mouseButtons(), e->keyboardModifiers());
+    QDragMoveEvent ev(viewportToContents(e->position().toPoint()), e->possibleActions(), e->mimeData(), e->buttons(), e->modifiers());
     contentsDragMoveEvent(&ev);
     // e->setPoint(contentsToViewport(e->pos())); // 2018.11.30
 }
@@ -1863,7 +1863,7 @@ void KtlQ3ScrollView::viewportDragLeaveEvent(QDragLeaveEvent *e)
 void KtlQ3ScrollView::viewportDropEvent(QDropEvent *e)
 {
     // e->setPoint(viewportToContents(e->pos())); // 2018.11.30
-    QDropEvent ev(viewportToContents(e->pos()), e->possibleActions(), e->mimeData(), e->mouseButtons(), e->keyboardModifiers());
+    QDropEvent ev(viewportToContents(e->position().toPoint()), e->possibleActions(), e->mimeData(), e->buttons(), e->modifiers());
     contentsDropEvent(&ev);
     // e->setPoint(contentsToViewport(e->pos())); // 2018.11.30
 }

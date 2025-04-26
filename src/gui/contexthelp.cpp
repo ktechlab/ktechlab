@@ -24,7 +24,10 @@
 #include <KMessageBox>
 // #include <k3popupmenu.h>
 // #include <KRun> // 2024.04.21 - see below
-#include <CommandLauncherJob>
+#include <KIO/CommandLauncherJob>
+#include <KIO/OpenUrlJob>
+#include <KIO/JobUiDelegate>
+#include <KIO/JobUiDelegateFactory>
 // #include <k3iconview.h>
 
 #include <QDropEvent>
@@ -360,12 +363,21 @@ void ContextHelp::addLinkTypeAppearances(QString *html)
 {
     QRegularExpression rx("<a href=\"([^\"]*)\">([^<]*)</a>");
 
-    int pos = 0;
+    //int pos = 0;
+    //
+    // while ((pos = rx.indexIn(*html, pos)) >= 0) {
+    //     QString anchorText = rx.cap(0);      // contains e.g.: <a href="http://ktechlab.org/">KTechlab website</a>
+    //     const QString urlString = rx.cap(1); // contains e.g.: http://ktechlab.org/
+    //     QString text = rx.cap(2);            // contains e.g.: KTechlab website
 
-    while ((pos = rx.indexIn(*html, pos)) >= 0) {
-        QString anchorText = rx.cap(0);      // contains e.g.: <a href="http://ktechlab.org/">KTechlab website</a>
-        const QString urlString = rx.cap(1); // contains e.g.: http://ktechlab.org/
-        QString text = rx.cap(2);            // contains e.g.: KTechlab website
+    QRegularExpressionMatchIterator itMatch = rx.globalMatch(*html);
+    while (itMatch.hasNext()) {
+        QRegularExpressionMatch match = itMatch.next();
+        QString anchorText = match.captured(0);      // contains e.g.: <a href="http://ktechlab.org/">KTechlab website</a>
+        const QString urlString = match.captured(1); // contains e.g.: http://ktechlab.org/
+        QString text = match.captured(2);            // contains e.g.: KTechlab website
+
+        int pos = match.capturedStart(0);
 
         int length = anchorText.length();
 
@@ -408,7 +420,7 @@ void ContextHelp::addLinkTypeAppearances(QString *html)
         if (!newAnchorText.isEmpty())
             html->replace(pos, length, newAnchorText);
 
-        pos++; // avoid the string we just found
+        //pos++; // avoid the string we just found
     }
 }
 
@@ -458,9 +470,15 @@ void ContextHelp::openURL(const QUrl &url /*, const KParts::OpenUrlArguments & *
 
     case ExternalLink: {
         // external url
-        KRun *r = new KRun(url, this);
-        connect(r, &KRun::finished, r, &KRun::deleteLater);
-        connect(r, &KRun::error, r, &KRun::deleteLater);
+        // KRun *r = new KRun(url, this);
+        // connect(r, &KRun::finished, r, &KRun::deleteLater);
+        // connect(r, &KRun::error, r, &KRun::deleteLater);
+
+        KIO::OpenUrlJob *r = new KIO::OpenUrlJob(url, this);
+        // for "open with" functionality
+        r->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
+        connect(r, &KJob::finished, r, &KJob::deleteLater);
+        connect(r, &KJob::error, r, &KJob::deleteLater);
         break;
     }
     }

@@ -109,7 +109,7 @@ public:
     void contentsMouseDoubleClickEvent(QMouseEvent *e);
     void contentsMouseMoveEvent(QMouseEvent *e);
     void contentsWheelEvent(QWheelEvent *e);
-    void enterEvent(QEvent *e) override;
+    void enterEvent(QEnterEvent *e) override;
     void leaveEvent(QEvent *e) override;
 
     void requestDocumentResizeToCanvasItems();

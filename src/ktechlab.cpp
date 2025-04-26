@@ -40,7 +40,8 @@
 #include <QTimer>
 #include <QToolButton>
 // #include <q3ptrlist.h>
-#include <QDesktopWidget>
+//#include <QDesktopWidget>
+#include <QScreen>
 #include <QElapsedTimer>
 #include <QFileDialog>
 #include <QIcon>

@@ -535,7 +535,7 @@ void Slider::wheelEvent(QWheelEvent *e)
 void Slider::enterEvent(QEvent *e)
 {
     qCDebug(KTL_LOG);
-    m_slider->enterEvent(e);
+    m_slider->enterEvent(static_cast<QEnterEvent *>(e));
 }
 
 void Slider::leaveEvent(QEvent *e)

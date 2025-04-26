@@ -15,7 +15,8 @@
 #include <ktlqt3support/ktlq3scrollview.h>
 
 #include <QApplication>
-#include <QDesktopWidget>
+//#include <QDesktopWidget>
+#include <QScreen>
 //#include "q3ptrdict.h"
 #include <QPainter>
 #include <QTimer>

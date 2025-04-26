@@ -129,7 +129,7 @@ protected:
 
     QTreeWidgetItem *selectedItem() const;
 
-    QMimeData *mimeData(const QList<QTreeWidgetItem *> items) const override;
+    QMimeData *mimeData(const QList<QTreeWidgetItem *> & items) const override;
 
 private slots:
     void slotItemSelected();

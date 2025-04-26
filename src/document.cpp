@@ -107,7 +107,13 @@ bool Document::getURL(const QString &types, const QString &fileExtToEnforce)
     if (url.isLocalFile() && QFile::exists(url.toLocalFile())) {
         // warningTwoActionsCancel
         // https://api.kde.org/frameworks/kwidgetsaddons/html/namespaceKMessageBox.html#afc8623f694c53c0e4e33b0be47fe3db3
-        int query = KMessageBox::warningYesNo(KTechlab::self(), i18n("A file named \"%1\" already exists. Are you sure you want to overwrite it?", url.fileName()), i18n("Overwrite File?"));
+        //int query = KMessageBox::warningYesNo(KTechlab::self(), i18n("A file named \"%1\" already exists. Are you sure you want to overwrite it?", url.fileName()), i18n("Overwrite File?"));
+        int query = KMessageBox::warningTwoActions(
+            KTechlab::self(),
+            i18n("A file named \"%1\" already exists. Are you sure you want to overwrite it?", url.fileName()),
+            i18n("Overwrite File?"),
+            KStandardGuiItem::overwrite(),
+            KStandardGuiItem::cancel()) ;
         if (query == QMessageBox::No)
             return false;
     }
@@ -135,7 +141,7 @@ bool Document::fileClose()
 
         // warningTwoActionsCancel
         // https://api.kde.org/frameworks/kwidgetsaddons/html/namespaceKMessageBox.html#afc8623f694c53c0e4e33b0be47fe3db3
-        int choice = KMessageBox::warningYesNoCancel(KTechlab::self(), i18n("The document \'%1\' has been modified.\nDo you want to save it?", name), i18n("Save Document?"), KStandardGuiItem::save(), KStandardGuiItem::discard());
+        int choice = KMessageBox::warningTwoActions(KTechlab::self(), i18n("The document \'%1\' has been modified.\nDo you want to save it?", name), i18n("Save Document?"), KStandardGuiItem::save(), KStandardGuiItem::discard());
 
         if (choice == QMessageBox::Cancel)
             return false;

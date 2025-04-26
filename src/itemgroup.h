@@ -12,6 +12,7 @@
 #define ITEMGROUP_H
 
 #include <QPointer>
+#include <QObject>
 
 class Item;
 class ICNDocument;

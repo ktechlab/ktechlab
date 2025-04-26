@@ -210,7 +210,7 @@ QTreeWidgetItem *ItemSelector::selectedItem() const
     return selectedList.first();
 }
 
-QMimeData *ItemSelector::mimeData(const QList<QTreeWidgetItem *> items) const
+QMimeData *ItemSelector::mimeData(const QList<QTreeWidgetItem *> & items) const
 {
     qCDebug(KTL_LOG) << " begin ";
     if (items.size() > 1) {

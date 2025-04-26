@@ -29,9 +29,9 @@ void VariableInfo::setValue(const QVariant &_value)
 
 QString VariableInfo::valueAsString() const
 {
-    if (value.canConvert(QVariant::String))
+    if (value.canConvert(QMetaType(QMetaType::QString)))
         return value.toString();
-    if (value.canConvert(QVariant::Int))
+    if (value.canConvert(QMetaType(QMetaType::Int)))
         return QString::number(value.toInt());
     return "0";
 }

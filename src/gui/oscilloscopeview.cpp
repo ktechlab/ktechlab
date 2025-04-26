@@ -125,7 +125,7 @@ void OscilloscopeView::mousePressEvent(QMouseEvent *event)
         }
 
         connect(&fpsMenu, SIGNAL(triggered(QAction *)), this, SLOT(slotSetFrameRate(QAction *)));
-        fpsMenu.exec(event->globalPos());
+        fpsMenu.exec(event->globalPosition().toPoint());
         return;
     }
 

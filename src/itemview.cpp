@@ -113,7 +113,8 @@ ItemView::ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uin
     // KToolBarPopupAction * pa = new KToolBarPopupAction( i18n("Draw"), "paintbrush", 0, 0, 0, ac, "edit_draw" );
     KToolBarPopupAction *pa = new KToolBarPopupAction(QIcon::fromTheme("draw-brush"), i18n("Draw"), ac);
     pa->setObjectName("edit_draw");
-    pa->setDelayed(false);
+    //pa->setDelayed(false);
+    pa->setPopupMode(KToolBarPopupAction::InstantPopup);
     ac->addAction("edit_draw", pa);
 
     QMenu *m = pa->menu();
@@ -330,7 +331,7 @@ void ItemView::dropEvent(QDropEvent *event)
     stream >> text;
 
     // Get a new component item
-    p_itemDocument->addItem(text, mousePosToCanvasPos(event->pos()), true);
+    p_itemDocument->addItem(text, mousePosToCanvasPos(event->position().toPoint()), true);
 
     setFocus();
 }
@@ -501,7 +502,7 @@ void ItemView::createDragItem(QDragEnterEvent *e)
     QDataStream stream(&byteArray, QIODevice::ReadOnly);
     stream >> text;
 
-    QPoint p = mousePosToCanvasPos(e->pos());
+    QPoint p = mousePosToCanvasPos(e->position().toPoint());
 
     m_pDragItem = itemLibrary()->createItem(text, p_itemDocument, true);
 
@@ -529,7 +530,7 @@ void ItemView::dragMoveEvent(QDragMoveEvent *e)
     if (!m_pDragItem)
         return;
 
-    QPoint p = mousePosToCanvasPos(e->pos());
+    QPoint p = mousePosToCanvasPos(e->position().toPoint());
 
     if (CNItem *cnItem = dynamic_cast<CNItem *>(m_pDragItem)) {
         cnItem->move(snapToCanvas(p.x()), snapToCanvas(p.y()));
@@ -543,7 +544,7 @@ void ItemView::dragLeaveEvent(QDragLeaveEvent *)
     removeDragItem();
 }
 
-void ItemView::enterEvent(QEvent *e)
+void ItemView::enterEvent(QEnterEvent* e)
 {
     Q_UNUSED(e);
     startUpdatingStatus();
@@ -795,7 +796,7 @@ bool CVBEditor::event(QEvent *e)
         return true;
 
     case QEvent::Enter:
-        p_itemView->enterEvent(e);
+        p_itemView->enterEvent(static_cast<QEnterEvent *>(e));
         return true;
 
     case QEvent::Leave:

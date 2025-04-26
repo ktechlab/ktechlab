@@ -92,19 +92,13 @@ TextDocument::TextDocument(const QString &caption)
     // 	connect( m_doc,	SIGNAL(selectionChanged()),	this, SLOT(slotSelectionmChanged()) ); // 2016.09.08 - moved to TextView
     connect(m_doc, SIGNAL(marksChanged(KTextEditor::Document *)), this, SLOT(slotUpdateMarksInfo()));
 
-    KTextEditor::MarkInterface *markIface = qobject_cast<KTextEditor::MarkInterface *>(m_doc);
-    if (!markIface) {
-        KMessageBox::error(KTechlab::self(), i18n("Failed to create MarkInterface"));
-        return;
-    }
-
-    markIface->setMarkDescription(static_cast<KTextEditor::MarkInterface::MarkTypes>(Breakpoint), i18n("Breakpoint"));
-    markIface->setMarkPixmap(static_cast<KTextEditor::MarkInterface::MarkTypes>(Breakpoint), *inactiveBreakpointPixmap());
-    markIface->setMarkPixmap(KTextEditor::MarkInterface::BreakpointActive, *activeBreakpointPixmap());
-    markIface->setMarkPixmap(KTextEditor::MarkInterface::BreakpointReached, *reachedBreakpointPixmap());
-    markIface->setMarkPixmap(KTextEditor::MarkInterface::BreakpointDisabled, *disabledBreakpointPixmap());
-    markIface->setMarkPixmap(KTextEditor::MarkInterface::Execution, *executionPointPixmap());
-    markIface->setEditableMarks(KTextEditor::MarkInterface::Bookmark | Breakpoint);
+    m_doc->setMarkDescription(static_cast<KTextEditor::Document::MarkTypes>(Breakpoint), i18n("Breakpoint"));
+    m_doc->setMarkIcon(static_cast<KTextEditor::Document::MarkTypes>(Breakpoint), *inactiveBreakpointPixmap());
+    m_doc->setMarkIcon(KTextEditor::Document::BreakpointActive, *activeBreakpointPixmap());
+    m_doc->setMarkIcon(KTextEditor::Document::BreakpointReached, *reachedBreakpointPixmap());
+    m_doc->setMarkIcon(KTextEditor::Document::BreakpointDisabled, *disabledBreakpointPixmap());
+    m_doc->setMarkIcon(KTextEditor::Document::Execution, *executionPointPixmap());
+    m_doc->setEditableMarks(KTextEditor::Document::Bookmark | Breakpoint);
 
     m_constructorSuccessful = true;
 }
@@ -563,17 +557,14 @@ IntList TextDocument::bookmarkList() const
     IntList bookmarkList;
 
     typedef QHash<int, KTextEditor::Mark *> MarkList;
-    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(m_doc);
-    if (!iface)
-        return IntList();
     // MarkList markList = m_doc->marks();
-    const MarkList &markList = iface->marks();
+    const MarkList &markList = m_doc->marks();
 
     // Find out what marks need adding to our internal lists
     // for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
     for (MarkList::const_iterator itMark = markList.begin(); itMark != markList.end(); ++itMark) {
         const KTextEditor::Mark *mark = itMark.value();
-        if (mark->type & KTextEditor::MarkInterface::Bookmark)
+        if (mark->type & KTextEditor::Document::Bookmark)
             bookmarkList += mark->line;
     }
 
@@ -598,18 +589,14 @@ void TextDocument::slotUpdateMarksInfo()
 
     // QPtrList<KTextEditor::Mark> markList = m_doc->marks();
     typedef QHash<int, KTextEditor::Mark *> MarkList;
-    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(m_doc);
-    if (!iface)
-        return;
-    // MarkList markList = m_doc->marks();
-    MarkList markList = iface->marks();
+    MarkList markList = m_doc->marks();
 
     // Find out what marks need adding to our internal lists
     // for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
     //{
     for (MarkList::iterator itMark = markList.begin(); itMark != markList.end(); ++itMark) {
         KTextEditor::Mark *mark = itMark.value();
-        if (mark->type & KTextEditor::MarkInterface::Bookmark) {
+        if (mark->type & KTextEditor::Document::Bookmark) {
             QString actionCaption = i18n("%1 - %2", QString::number(mark->line + 1), m_doc->text(KTextEditor::Range(mark->line, 0, mark->line, 100 /* FIXME arbitrary */)));
             QString actionName = QString("bookmark_%1").arg(QString::number(mark->line));
             /*
@@ -657,19 +644,15 @@ void TextDocument::clearBookmarks()
 {
     // QPtrList<KTextEditor::Mark> markList = m_doc->marks();
     typedef QHash<int, KTextEditor::Mark *> MarkList;
-    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(m_doc);
-    if (!iface)
-        return;
-    // MarkList markList = m_doc->marks();
-    MarkList markList = iface->marks();
+    MarkList markList = m_doc->marks();
 
     // Find out what marks need adding to our internal lists
     // for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
     //{
     for (MarkList::iterator itMark = markList.begin(); itMark != markList.end(); ++itMark) {
         KTextEditor::Mark *mark = itMark.value();
-        if (mark->type & KTextEditor::MarkInterface::Bookmark)
-            iface->removeMark(mark->line, KTextEditor::MarkInterface::Bookmark);
+        if (mark->type & KTextEditor::Document::Bookmark)
+            m_doc->removeMark(mark->line, KTextEditor::Document::Bookmark);
     }
 
     slotUpdateMarksInfo();
@@ -677,15 +660,11 @@ void TextDocument::clearBookmarks()
 
 void TextDocument::setBookmark(uint line, bool isBookmark)
 {
-    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(m_doc);
-    if (!iface)
-        return;
-
     if (isBookmark)
-        iface->addMark(line, KTextEditor::MarkInterface::Bookmark);
+        m_doc->addMark(line, KTextEditor::Document::Bookmark);
 
     else
-        iface->removeMark(line, KTextEditor::MarkInterface::Bookmark);
+        m_doc->removeMark(line, KTextEditor::Document::Bookmark);
 }
 
 void TextDocument::setBreakpoints(const IntList &lines)

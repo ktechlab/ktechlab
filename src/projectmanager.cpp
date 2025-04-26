@@ -1075,7 +1075,7 @@ void ProjectManager::slotRemoveSelected()
     if (!currentItem)
         return;
 
-    int choice = KMessageBox::questionYesNo(this, i18n("Do you really want to remove \"%1\"?", currentItem->text(0)), i18n("Remove Project File?"), KGuiItem(i18n("Remove")), KGuiItem(i18n("Cancel")));
+    int choice = KMessageBox::questionTwoActions(this, i18n("Do you really want to remove \"%1\"?", currentItem->text(0)), i18n("Remove Project File?"), KGuiItem(i18n("Remove")), KGuiItem(i18n("Cancel")));
 
     if (choice == QMessageBox::No)
         return;

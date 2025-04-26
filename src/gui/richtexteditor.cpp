@@ -75,7 +75,7 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     // m_pTextItalic = new KToggleAction( i18n("Italic"), "format-text-italic", Qt::CTRL + Qt::Key_I, 0, 0, ac, "format_italic" );
     m_pTextItalic = new KToggleAction(i18n("Italic"), ac);
     m_pTextItalic->setObjectName("text_italic");
-    m_pTextItalic->setShortcut(Qt::CTRL + Qt::Key_I);
+    m_pTextItalic->setShortcut(Qt::CTRL | Qt::Key_I);
     m_pTextItalic->setIcon(QIcon::fromTheme("format-text-italic"));
     connect(m_pTextItalic, &KToggleAction::toggled, this, &RichTextEditor::slotSetItalic);
     // m_pTextItalic->plug( tools );
@@ -84,7 +84,7 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     // m_pTextUnderline = new KToggleAction( i18n("Underline"), "format-text-underline", Qt::CTRL + Qt::Key_U, 0, 0, ac, "format_underline" );
     m_pTextUnderline = new KToggleAction(i18n("Underline"), ac);
     m_pTextUnderline->setObjectName("text_under");
-    m_pTextUnderline->setShortcut(Qt::CTRL + Qt::Key_U);
+    m_pTextUnderline->setShortcut(Qt::CTRL | Qt::Key_U);
     m_pTextItalic->setIcon(QIcon::fromTheme("format-text-underline"));
     connect(m_pTextUnderline, &KToggleAction::toggled, this, &RichTextEditor::slotSetUnderline);
     // m_pTextUnderline->plug( tools );
@@ -93,7 +93,7 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     // m_pTextList = new KToggleAction( i18n("List"), "unsorted_list", Qt::CTRL + Qt::Key_L, 0, 0, ac, "format_list" );
     m_pTextList = new KToggleAction(i18n("List"), ac);
     m_pTextList->setObjectName("unsorted_list");
-    m_pTextList->setShortcut(Qt::CTRL + Qt::Key_L);
+    m_pTextList->setShortcut(Qt::CTRL | Qt::Key_L);
     m_pTextItalic->setIcon(QIcon::fromTheme("format-list-unordered"));
     connect(m_pTextList, &KToggleAction::toggled, this, &RichTextEditor::slotSetList);
     // m_pTextList->plug( tools );
@@ -105,7 +105,8 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     m_pTextAlignment->setObjectName("text_left");
     // m_pTextAlignment->plug( tools );
     tools->addAction(m_pTextAlignment);
-    m_pTextAlignment->setDelayed(false);
+    //m_pTextAlignment->setDelayed(false);
+    m_pTextAlignment->setPopupMode(KToolBarPopupAction::InstantPopup);
 
     // K3PopupMenu * m = m_pTextAlignment->menu();
     QMenu *m = m_pTextAlignment->menu();
@@ -130,7 +131,8 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     m_pTextVerticalAlignment->setObjectName("text");
     // m_pTextVerticalAlignment->plug( tools );
     tools->addAction(m_pTextVerticalAlignment);
-    m_pTextVerticalAlignment->setDelayed(false);
+    //m_pTextVerticalAlignment->setDelayed(false);
+    m_pTextVerticalAlignment->setPopupMode(KToolBarPopupAction::InstantPopup);
 
     m = m_pTextVerticalAlignment->menu();
     // m->insertTitle( i18n("Text Vertical Alignment") );

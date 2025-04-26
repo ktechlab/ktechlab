@@ -37,6 +37,7 @@
 #include <QVBoxLayout>
 //#include <qobjectlist.h>
 #include <QClipboard>
+#include <QFile>
 #include <QFocusEvent>
 #include <QMenu>
 #include <QStandardPaths>
@@ -57,7 +58,8 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
     // KToolBarPopupAction * pa = new KToolBarPopupAction( i18n("Convert to"), "fork", 0, 0, 0, ac, "program_convert" );
     KToolBarPopupAction *pa = new KToolBarPopupAction(QIcon::fromTheme("fork"), i18n("Convert To"), ac);
     pa->setObjectName("program_convert");
-    pa->setDelayed(false);
+    //pa->setDelayed(false);
+    pa->setPopupMode(KToolBarPopupAction::InstantPopup);
     ac->addAction(pa->objectName(), pa);
 
     QMenu *m = pa->menu();

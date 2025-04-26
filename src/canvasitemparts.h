@@ -232,7 +232,7 @@ public:
     {
         QToolButton::wheelEvent(e);
     }
-    void enterEvent(QEvent *) override
+    void enterEvent(QEnterEvent *) override
     {
         QToolButton::enterEvent(nullptr);
     }
@@ -329,7 +329,7 @@ public:
     {
         QSlider::wheelEvent(e);
     }
-    void enterEvent(QEvent *) override
+    void enterEvent(QEnterEvent *) override
     {
         QSlider::enterEvent(nullptr);
     }
