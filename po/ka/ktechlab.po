@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-15 01:52+0000\n"
-"PO-Revision-Date: 2023-06-30 06:20+0200\n"
+"PO-Revision-Date: 2025-04-26 10:38+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -516,7 +516,7 @@ msgstr "თექვსმეტობითი ფორმატი"
 #: src/core/ktechlab.kcfg:125
 #, kde-format
 msgid "Radix"
-msgstr ""
+msgstr "ფესვი"
 
 #. i18n: ectx: label, entry (GpasmWarningLevel), group (Gpasm)
 #: src/core/ktechlab.kcfg:135
@@ -1030,7 +1030,7 @@ msgstr "ხაზის სტილი"
 #: src/drawparts/dpline.cpp:54
 #, kde-format
 msgid "Cap Style"
-msgstr ""
+msgstr "ბოლოს სტილი"
 
 #: src/drawparts/dpline.cpp:142 src/drawparts/dpline.cpp:148
 #: src/itemview.cpp:124
@@ -1727,7 +1727,7 @@ msgstr ""
 #: src/electronics/components/ecopamp.cpp:26
 #, kde-format
 msgid "Op Amp"
-msgstr ""
+msgstr "ოპერაციული გამაძლიერებელი"
 
 #: src/electronics/components/ecopamp.cpp:32
 #, kde-format
@@ -1984,18 +1984,18 @@ msgstr ""
 #: src/electronics/components/multiinputgate.cpp:284
 #, kde-format
 msgid "XOR gate"
-msgstr ""
+msgstr "ლოგიკური ელემენტი 'არა-ან'"
 
 #: src/electronics/components/multiinputgate.cpp:336
 #: src/electronics/components/multiinputgate.cpp:342
 #, kde-format
 msgid "OR gate"
-msgstr ""
+msgstr "ლოგიკური ელემენტი 'ან'"
 
 #: src/electronics/components/multiinputgate.cpp:395
 #, kde-format
 msgid "NOR gate"
-msgstr ""
+msgstr "ლოგიკური ელემენტი 'არ-ან'"
 
 #: src/electronics/components/multiinputgate.cpp:401
 #, kde-format
@@ -2005,7 +2005,7 @@ msgstr ""
 #: src/electronics/components/multiinputgate.cpp:454
 #, kde-format
 msgid "NAND gate"
-msgstr ""
+msgstr "ლოგიკური ელემენტი 'არა და'"
 
 #: src/electronics/components/multiinputgate.cpp:460
 #, kde-format
@@ -2015,7 +2015,7 @@ msgstr ""
 #: src/electronics/components/multiinputgate.cpp:508
 #, kde-format
 msgid "AND gate"
-msgstr ""
+msgstr "ლოგიკური ელემენტი 'და'"
 
 #: src/electronics/components/multiinputgate.cpp:514
 #, kde-format
@@ -2026,7 +2026,7 @@ msgstr ""
 #: src/electronics/components/multiplexer.cpp:38
 #, kde-format
 msgid "Multiplexer"
-msgstr ""
+msgstr "მულტიპლექსორი"
 
 #: src/electronics/components/parallelportcomponent.cpp:43
 #: src/electronics/components/parallelportcomponent.cpp:49
@@ -2446,7 +2446,7 @@ msgstr "თექვსმეტობითი კოდი"
 #: src/flowcodeview.cpp:32
 #, kde-format
 msgid "Convert to..."
-msgstr ""
+msgstr "გადაყვანა..."
 
 #. i18n("Convert to"), "fork", 0, 0, 0, ac, "program_convert" );
 #: src/flowcodeview.cpp:38 src/textview.cpp:58 src/textview.cpp:65
@@ -2794,7 +2794,7 @@ msgstr "შემცირება"
 #: src/flowparts/varassignment.cpp:26
 #, kde-format
 msgid "Assignment"
-msgstr ""
+msgstr "მინიჭება"
 
 #: src/flowparts/varassignment.cpp:32
 #, kde-format
@@ -3037,7 +3037,7 @@ msgstr ""
 #: src/gui/generaloptionswidget.ui:125
 #, kde-format
 msgid "Display Refresh Rate"
-msgstr ""
+msgstr "ეკრანის განახლების სიხშირე"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3_2)
 #: src/gui/generaloptionswidget.ui:152
@@ -3748,10 +3748,9 @@ msgstr "%1 კადრი/წმ"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/gui/oscilloscopewidget.ui:91
-#, fuzzy, kde-format
-#| msgid "Zoom"
+#, kde-format
 msgid "Time Zoom"
-msgstr "გადიდება"
+msgstr "დროის გადიდება"
 
 #. i18n: ectx: property (text), widget (QRadioButton, displayDirectCheck)
 #: src/gui/outputmethodwidget.ui:44
@@ -4359,7 +4358,7 @@ msgstr "ზოგადი პარამეტრები"
 #: src/gui/settingsdlg.cpp:134
 #, kde-format
 msgid "Programmer"
-msgstr ""
+msgstr "პროგრამისტი"
 
 #: src/gui/settingsdlg.cpp:135
 #, kde-format
@@ -4487,7 +4486,7 @@ msgstr "გატანის შეცდომა"
 #: src/itemdocument.cpp:923
 #, kde-format
 msgid "Image Export"
-msgstr ""
+msgstr "გამოსახულების გატანა"
 
 #: src/itemdocumentdata.cpp:112 src/projectmanager.cpp:748
 #, kde-format
@@ -4827,7 +4826,7 @@ msgstr "შიდა"
 #: src/ktechlab.cpp:674
 #, kde-format
 msgid "Square Wave"
-msgstr ""
+msgstr "ოთხკუთხედი ტალღა"
 
 #: src/ktechlab.cpp:675
 #, kde-format
