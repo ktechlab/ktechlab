@@ -54,7 +54,7 @@
   <summary xml:lang="ru">Интегрированная среда разработки для микроконтроллеров и электроники</summary>
   <summary xml:lang="sl">Interaktivno razvojno okolje za mikrokontrolerje in elektroniko</summary>
   <summary xml:lang="sv">En integrerad utvecklingsmiljö för mikrokontroller och elektronik</summary>
-  <summary xml:lang="tr">Mikro Denetçiler ve Elektronikler için Tümleşik Geliştirme Ortamı</summary>
+  <summary xml:lang="tr">Mikro denetçiler ve elektronikler için tümleşik geliştirme ortamı</summary>
   <summary xml:lang="uk">Комплексне середовище розробки для мікроконтролерів та електроніки</summary>
   <summary xml:lang="x-test">xxIDE for microcontrollers and electronicsxx</summary>
   <description>
@@ -200,7 +200,7 @@
       <li xml:lang="ru">Два режима маршрутизации соединителей: автоматический и ручной</li>
       <li xml:lang="sl">Dva načina usmerjanja priključkov: samodejni in ročni</li>
       <li xml:lang="sv">Två sätt att sammankoppla anslutningar: automatisk och manuell</li>
-      <li xml:lang="tr">Bağlayıcı yönlendirme için iki kip: Otomatik ve elle</li>
+      <li xml:lang="tr">Bağlayıcı yönlendirme için iki kip: Kendiliğinden ve elle</li>
       <li xml:lang="uk">Два режими маршрутизації з’єднань: автоматичний і ручний.</li>
       <li xml:lang="x-test">xxTwo modes of connector routing: automatic and manualxx</li>
       <li>Several ways to define the PIC logic: assembly code, Microbe (own high level programming language) code, C code, and visual FlowCode</li>
@@ -267,7 +267,7 @@
       <li xml:lang="ru">Встроенный отладчик</li>
       <li xml:lang="sl">Vgrajen razhroščevalnik</li>
       <li xml:lang="sv">inbyggd avlusare</li>
-      <li xml:lang="tr">Yerleşik hata ayıklayıcı</li>
+      <li xml:lang="tr">Yerleşik hata ayıklayıcısı</li>
       <li xml:lang="uk">Вбудований засіб діагностики.</li>
       <li xml:lang="x-test">xxInbuilt debuggerxx</li>
       <li>Simulation with oscilloscope and probes</li>
@@ -310,7 +310,7 @@
       <li xml:lang="ru">Загрузка кода сборки в PIC с помощью аппаратного программатора</li>
       <li xml:lang="sl">Nalaganje zbirne kode v PIC s pomočjo strojnega programatorja</li>
       <li xml:lang="sv">Uppladdning av assemblerkoden till en PIC med användning av hårdvaruprogrammerare</li>
-      <li xml:lang="tr">Donanım programcısı kullanarak Assembly kodunu PIC'e yükleme</li>
+      <li xml:lang="tr">Donanım programcısı kullanarak Assembly kodunu PIC’e yükleme</li>
       <li xml:lang="uk">Вивантаження асемблерного коду на PIC за допомогою апаратного програматора.</li>
       <li xml:lang="x-test">xxUploading the assembly code to PIC using hardware programmerxx</li>
     </ul>
