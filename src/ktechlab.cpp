@@ -458,13 +458,14 @@ void KTechlab::setupActions()
     p->setShortcuts(KStandardShortcut::shortcut(KStandardShortcut::New));
     connect(p, &KToolBarPopupAction::triggered, this, &KTechlab::slotFileNew);
     ac->addAction(p->objectName(), p);
-    p->menu()->setTitle(i18n("New File"));
+    QMenu *popupM = p->popupMenu();
+    popupM->setTitle(i18n("New File"));
     {
         //(new QAction( i18n("Assembly"), "source", 0, this, SLOT(slotFileNewAssembly()), ac, "newfile_asm" ))->plug( p->menu() );
         QAction *a = new QAction(QIcon::fromTheme("source"), i18n("Assembly"), ac);
         a->setObjectName("newfile_asm");
         connect(a, &QAction::triggered, this, &KTechlab::slotFileNewAssembly);
-        p->menu()->addAction(a);
+        popupM->addAction(a);
         ac->addAction(a->objectName(), a);
     }
     {
@@ -472,7 +473,7 @@ void KTechlab::setupActions()
         QAction *a = new QAction(QIcon::fromTheme("text-x-csrc"), i18n("C source"), ac);
         a->setObjectName("newfile_c");
         connect(a, &QAction::triggered, this, &KTechlab::slotFileNewC);
-        p->menu()->addAction(a);
+        popupM->addAction(a);
         ac->addAction(a->objectName(), a);
     }
     {
@@ -480,7 +481,7 @@ void KTechlab::setupActions()
         QAction *a = new QAction(QIcon::fromTheme("application-x-circuit"), i18n("Circuit"), ac);
         a->setObjectName("newfile_circuit");
         connect(a, &QAction::triggered, this, &KTechlab::slotFileNewCircuit);
-        p->menu()->addAction(a);
+        popupM->addAction(a);
         ac->addAction(a->objectName(), a);
     }
     {
@@ -488,7 +489,7 @@ void KTechlab::setupActions()
         QAction *a = new QAction(QIcon::fromTheme("application-x-flowcode"), i18n("FlowCode"), ac);
         a->setObjectName("newfile_flowcode");
         connect(a, &QAction::triggered, this, &KTechlab::slotFileNewFlowCode);
-        p->menu()->addAction(a);
+        popupM->addAction(a);
         ac->addAction(a->objectName(), a);
     }
 #ifdef MECHANICS
@@ -497,7 +498,7 @@ void KTechlab::setupActions()
         QAction *a = new QAction(QIcon::fromTheme("" /* "ktechlab_mechanics" -- for the future */), i18n("Mechanics"), ac);
         a->setObjectName("newfile_mechanics");
         connect(a, &QAction::triggered, this, &KTechlab::slotFileNewMechanics);
-        p->menu()->addAction(a);
+        popupM->addAction(a);
         ac->addAction(a->objectName(), a);
     }
 #endif
@@ -506,7 +507,7 @@ void KTechlab::setupActions()
         QAction *a = new QAction(QIcon::fromTheme("application-x-microbe"), i18n("Microbe"), ac);
         a->setObjectName("newfile_microbe");
         connect(a, &QAction::triggered, this, &KTechlab::slotFileNewMicrobe);
-        p->menu()->addAction(a);
+        popupM->addAction(a);
         ac->addAction(a->objectName(), a);
     }
     // END New File popup

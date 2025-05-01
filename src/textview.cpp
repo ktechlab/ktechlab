@@ -62,7 +62,7 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
     pa->setPopupMode(KToolBarPopupAction::InstantPopup);
     ac->addAction(pa->objectName(), pa);
 
-    QMenu *m = pa->menu();
+    QMenu *m = pa->popupMenu();
 
     m->setTitle(i18n("Convert To"));
     QAction *actToMicrobe = m->addAction(QIcon::fromTheme("convert_to_microbe"), i18n("Microbe"));
@@ -321,7 +321,7 @@ void TextView::paste()
 
 void TextView::disableActions()
 {
-    QMenu *tb = (dynamic_cast<KToolBarPopupAction *>(actionByName("program_convert")))->menu();
+    QMenu *tb = (dynamic_cast<KToolBarPopupAction *>(actionByName("program_convert")))->popupMenu();
 
     const QList<QAction *> actions = tb->actions();
     for (QAction *a : actions) {
@@ -389,7 +389,7 @@ void TextView::initCodeActions()
 {
     disableActions();
 
-    QMenu *tb = (dynamic_cast<KToolBarPopupAction *>(actionByName("program_convert")))->menu();
+    QMenu *tb = (dynamic_cast<KToolBarPopupAction *>(actionByName("program_convert")))->popupMenu();
 
     QAction *actHexOut = nullptr;
     QAction *actPicOut = nullptr;

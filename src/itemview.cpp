@@ -117,7 +117,7 @@ ItemView::ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uin
     pa->setPopupMode(KToolBarPopupAction::InstantPopup);
     ac->addAction("edit_draw", pa);
 
-    QMenu *m = pa->menu();
+    QMenu *m = pa->popupMenu();
     m->setTitle(i18n("Draw"));
 
     m->addAction(QIcon::fromTheme("draw-text"), i18n("Text"))->setData(DrawPart::da_text);

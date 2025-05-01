@@ -34,7 +34,7 @@ FlowCodeView::FlowCodeView(FlowCodeDocument *flowCodeDocument, ViewContainer *vi
     //pa->setDelayed(false);
     pa->setPopupMode(KToolBarPopupAction::InstantPopup);
 
-    QMenu *m = pa->menu();
+    QMenu *m = pa->popupMenu();
 
     m->setTitle(i18n("Convert To"));
     m->addAction(QIcon::fromTheme("convert_to_microbe"), i18n("Microbe"))->setData(FlowCodeDocument::MicrobeOutput);

@@ -109,7 +109,7 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     m_pTextAlignment->setPopupMode(KToolBarPopupAction::InstantPopup);
 
     // K3PopupMenu * m = m_pTextAlignment->menu();
-    QMenu *m = m_pTextAlignment->menu();
+    QMenu *m = m_pTextAlignment->popupMenu();
     // m->insertTitle( i18n("Text Alignment") );
     m->setTitle(i18n("Text Alignment"));
     // m->setCheckable( true ); // 2018.12.07
@@ -134,7 +134,7 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     //m_pTextVerticalAlignment->setDelayed(false);
     m_pTextVerticalAlignment->setPopupMode(KToolBarPopupAction::InstantPopup);
 
-    m = m_pTextVerticalAlignment->menu();
+    m = m_pTextVerticalAlignment->popupMenu();
     // m->insertTitle( i18n("Text Vertical Alignment") );
     m->setTitle(i18n("Text Vertical Alignment"));
     // m->setCheckable( true ); // 2018.12.07

@@ -56,7 +56,7 @@ ICNView::ICNView(ICNDocument *icnDocument, ViewContainer *viewContainer, uint vi
     m_pRoutingModeToolbarPopup->setPopupMode(KToolBarPopupAction::InstantPopup);
     ac->addAction(m_pRoutingModeToolbarPopup->objectName(), m_pRoutingModeToolbarPopup);
 
-    QMenu *m = m_pRoutingModeToolbarPopup->menu();
+    QMenu *m = m_pRoutingModeToolbarPopup->popupMenu();
     m->setTitle(i18n("Connection Routing Mode"));
 
     m_actMenuRouteAutoRoute = m->addAction(/*QIconLoader::global()->loadIcon(
