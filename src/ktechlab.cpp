@@ -831,10 +831,12 @@ void KTechlab::savePropertiesInConfig(KConfig *conf)
     ////QRect desk = QApplication::desktop()->screenGeometry(scnum);
     //QList<QScreen*> screenPtrList = QGuiApplication::screens();
     //QScreen * screenPtr = screenPtrList.value(scnum);
-    QScreen * screenPtr = parentWidget()->screen();
     QRect desk(0,0,800,600);
-    if (screenPtr) {
-        desk = screenPtr->geometry();
+    if (parentWidget()) {
+        QScreen * screenPtr = parentWidget()->screen();
+        if (screenPtr) {
+            desk = screenPtr->geometry();
+        }
     }
     grKateMdi.deleteEntry(QString::fromLatin1("Width %1").arg(desk.width()));
     grKateMdi.deleteEntry(QString::fromLatin1("Height %1").arg(desk.height()));
