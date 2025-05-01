@@ -16,6 +16,7 @@
 #include <KShell>
 
 #include <QRegExp>
+#include <QRegularExpression>
 #include <QTimer>
 
 #include <ktechlab_debug.h>
@@ -143,7 +144,7 @@ void ExternalLanguage::displayProcessCommand()
         QList<QString>::const_iterator end = arguments.end();
 
         for (QList<QString>::const_iterator it = arguments.begin(); it != end; ++it) {
-            if ((*it).isEmpty() || (*it).contains(QRegExp("[\\s]")))
+            if ((*it).isEmpty() || (*it).contains(QRegularExpression("[\\s]")))
                 quotedArguments << KShell::quoteArg(*it);
             else
                 quotedArguments << *it;

@@ -19,6 +19,8 @@
 #include <KMessageBox>
 #include <KProcess>
 
+#include <QRegularExpression>
+
 #include <ktlconfig.h>
 #include <ktechlab_debug.h>
 
@@ -120,7 +122,7 @@ void SDCC::processInput(ProcessOptions options)
 
     if (!KTLConfig::miscSDCCOptions().isEmpty()) {
         // note: this will not work with quotes inside the text; those need special parsing
-        *m_languageProcess << (KTLConfig::miscSDCCOptions().split(QRegExp(" ")));
+        *m_languageProcess << (KTLConfig::miscSDCCOptions().split(QRegularExpression(" ")));
     }
     // END Pass custom sdcc options
 

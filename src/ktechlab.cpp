@@ -66,6 +66,9 @@
 #include <KStandardAction>
 #include <KToolBarPopupAction>
 #include <KWindowSystem>
+#include <netwm_def.h>
+#include <KWindowInfo>
+#include <KX11Extras>
 #include <KXMLGUIFactory>
 
 #include <ktlconfig.h>
@@ -823,10 +826,11 @@ void KTechlab::savePropertiesInConfig(KConfig *conf)
     saveSession(&grKateMdi);
     // Piss off KMainWindow
     // conf->setGroup("KateMDI");
-    int scnum = QApplication::desktop()->screenNumber(parentWidget());
-    //QRect desk = QApplication::desktop()->screenGeometry(scnum);
-    QList<QScreen*> screenPtrList = QGuiApplication::screens();
-    QScreen * screenPtr = screenPtrList.value(scnum);
+    //int scnum = QGuiApplication::desktop()->screenNumber(parentWidget());
+    ////QRect desk = QApplication::desktop()->screenGeometry(scnum);
+    //QList<QScreen*> screenPtrList = QGuiApplication::screens();
+    //QScreen * screenPtr = screenPtrList.value(scnum);
+    QScreen * screenPtr = parentWidget()->screen();
     QRect desk(0,0,800,600);
     if (screenPtr) {
         desk = screenPtr->geometry();
@@ -885,7 +889,8 @@ void KTechlab::readPropertiesInConfig(KConfig *conf)
     resize(grUi.readEntry("Width", 800), grUi.readEntry("Height", 500));
     const quint32 winStateDef = quint32(NET::Max);
     const quint32 winState = grUi.readEntry("WinState", winStateDef /* NET::Max */);
-    KWindowSystem::setState(winId(), NET::States(winState));
+    //KWindowSystem::setState(winId(), NET::States(winState));
+    KX11Extras::setState(winId(), NET::States(winState));
     // grUi.readEntry( "WinState", (quint32) NET::Max ) );
 }
 

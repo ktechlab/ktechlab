@@ -1383,7 +1383,8 @@ QSize KtlQCanvasView::sizeHint() const
     if (!canvas())
         return KtlQ3ScrollView::sizeHint(); // TODO QT3
                                             // should maybe take transformations into account
-    return (canvas()->size() + 2 * QSize(frameWidth(), frameWidth())).boundedTo(3 * QApplication::desktop()->size() / 4);
+    return (canvas()->size() + 2 * QSize(frameWidth(), frameWidth())).boundedTo(
+        3 *  QGuiApplication::primaryScreen()->size() /* QApplication::desktop()->size() */ / 4);
 }
 
 #include "moc_canvas.cpp"

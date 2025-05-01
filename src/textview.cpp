@@ -614,17 +614,17 @@ TextViewEventFilter::TextViewEventFilter(TextView *textView)
     //((KTextEditor::TextHintInterface*)textView->kateView()->qt_cast("KTextEditor::TextHintInterface"))->enableTextHints(0);
     {
         KTextEditor::View *view = textView->kateView();
-        KTextEditor::TextHintInterface *iface = qobject_cast<KTextEditor::TextHintInterface *>(view);
-        if (iface) {
+        //KTextEditor::TextHintInterface *iface = qobject_cast<KTextEditor::TextHintInterface *>(view);
+        //if (iface) {
             // iface->enableTextHints(0);
-            iface->registerTextHintProvider(this);
+            view->registerTextHintProvider(this);
             // connect( textView->kateView(), SIGNAL(needTextHint(int, int, QString &)), this, SLOT(slotNeedTextHint( int, int, QString& )) );
             // 2020.09.10 - no such signal
             // connect( view, SIGNAL(needTextHint(const KTextEditor::Cursor &, QString &)),
             //         this, SLOT(slotNeedTextHint(const KTextEditor::Cursor &, QString &)) );
-        } else {
-            qCWarning(KTL_LOG) << "KTextEditor::View does not implement TextHintInterface for " << view;
-        }
+        //} else {
+        //    qCWarning(KTL_LOG) << "KTextEditor::View does not implement TextHintInterface for " << view;
+        //}
     }
 
     m_pHoverTimer = new QTimer(this);
@@ -639,10 +639,10 @@ TextViewEventFilter::TextViewEventFilter(TextView *textView)
 TextViewEventFilter::~TextViewEventFilter()
 {
     KTextEditor::View *view = m_pTextView->kateView();
-    KTextEditor::TextHintInterface *iface = qobject_cast<KTextEditor::TextHintInterface *>(view);
-    if (iface) {
-        iface->unregisterTextHintProvider(this);
-    }
+    //KTextEditor::TextHintInterface *iface = qobject_cast<KTextEditor::TextHintInterface *>(view);
+    //if (iface) {
+        view->unregisterTextHintProvider(this);
+    //}
 }
 
 QString TextViewEventFilter::textHint(KTextEditor::View * /*view*/, const KTextEditor::Cursor &position)

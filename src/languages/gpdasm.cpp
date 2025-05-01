@@ -19,6 +19,7 @@
 
 #include <QFile>
 #include <QRegExp>
+#include <QRegularExpression>
 #include <QTextStream>
 
 Gpdasm::Gpdasm(ProcessChain *processChain)
@@ -94,7 +95,7 @@ MessageInfo Gpdasm::extractMessageInfo(const QString &text)
 
     // Extra line number
     const QString message = text.right(text.length() - index);
-    const int linePos = message.indexOf(QRegExp(":[\\d]+"));
+    const int linePos = message.indexOf(QRegularExpression(":[\\d]+"));
     int line = -1;
     if (linePos != -1) {
         const int linePosEnd = message.indexOf(':', linePos + 1);

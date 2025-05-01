@@ -13,7 +13,9 @@
 #include "gpsimprocessor.h"
 
 #include <QFile>
+// TODO revmoe:
 #include <QRegExp>
+#include <QRegularExpression>
 #include <QStringList>
 
 #include <ktechlab_debug.h>
@@ -49,14 +51,14 @@ bool AsmParser::parse(GpsimDebugger *debugger)
     while (!stream.atEnd()) {
         const QString line = stream.readLine().trimmed();
         if (m_type != Relocatable) {
-            QString col0 = line.section(QRegExp("[; ]"), 0, 0);
+            QString col0 = line.section(QRegularExpression("[; ]"), 0, 0);
             col0 = col0.trimmed();
             if (nonAbsoluteOps.contains(col0))
                 m_type = Relocatable;
         }
 
         if (!m_bContainsRadix) {
-            if (line.contains(QRegExp("^RADIX[\\s]*")) || line.contains(QRegExp("^radix[\\s]*")))
+            if (line.contains(QRegularExpression("^RADIX[\\s]*")) || line.contains(QRegularExpression("^radix[\\s]*")))
                 m_bContainsRadix = true;
         }
 

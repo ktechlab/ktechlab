@@ -36,9 +36,9 @@ EventInfo::EventInfo(ItemView *itemView, QMouseEvent *e)
     reset();
 
     extractPos(itemView, e->pos());
-    globalPos = e->globalPos();
+    globalPos = e->globalPosition().toPoint();
     isRightClick = e->button() == Qt::RightButton;
-    isMiddleClick = e->button() == Qt::MidButton;
+    isMiddleClick = e->button() == Qt::MiddleButton;
     ctrlPressed = e->modifiers() & Qt::ControlModifier; // QMouseEvent::ControlButton;
     shiftPressed = e->modifiers() & Qt::ShiftModifier;  // QMouseEvent::ShiftButton;
     altPressed = e->modifiers() & Qt::AltModifier;      // QMouseEvent::AltButton;
