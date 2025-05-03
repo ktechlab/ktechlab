@@ -783,7 +783,9 @@ void KTechlab::savePropertiesInConfig(KConfig *conf)
     grUi.writeEntry("Width", width());
     grUi.writeEntry("Height", height());
     // grUi.writeEntry( "WinState", KWin::windowInfo( winId(), NET::WMState ).state() );
-    grUi.writeEntry("WinState", qulonglong(KWindowInfo(winId(), NET::WMState).state()));
+    if (QGuiApplication::platformName() == "xcb") { // "xbc" == X11
+        grUi.writeEntry("WinState", qulonglong(KWindowInfo(winId(), NET::WMState).state()));
+    }
 
 #ifndef NO_GPSIM
     SymbolViewer::self()->saveProperties(conf);
@@ -893,7 +895,9 @@ void KTechlab::readPropertiesInConfig(KConfig *conf)
     const quint32 winStateDef = quint32(NET::Max);
     const quint32 winState = grUi.readEntry("WinState", winStateDef /* NET::Max */);
     //KWindowSystem::setState(winId(), NET::States(winState));
-    KX11Extras::setState(winId(), NET::States(winState));
+    if (QGuiApplication::platformName() == "xcb") { // "xbc" == X11
+        KX11Extras::setState(winId(), NET::States(winState));
+    }
     // grUi.readEntry( "WinState", (quint32) NET::Max ) );
 }
 
