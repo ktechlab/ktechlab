@@ -90,13 +90,11 @@ add_definitions(
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
 if (KTECHLAB_DEVELOPER_BUILD)
-# for debugging with GCC 5
+# for debugging with GCC + ASAN
     add_definitions( -fno-omit-frame-pointer )
     set(SANITIZE_FLAGS " -fsanitize=address -fno-omit-frame-pointer -fPIC") # address
     #set(SANITIZE_FLAGS " -fsanitize=undefined -fno-omit-frame-pointer ") # undefined
     #set(SANITIZE_FLAGS "") # disabled
-
-    #add_definitions ( -DQT3_SUPPORT_WARNINGS )
 
     add_definitions( ${SANITIZE_FLAGS} )
     SET( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${SANITIZE_FLAGS}" )
