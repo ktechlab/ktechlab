@@ -18,6 +18,7 @@
 #include <KLocalizedString>
 #include <KSharedConfig>
 
+#include <QActionGroup>
 #include <QCheckBox>
 #include <QCursor>
 #include <QLabel>
