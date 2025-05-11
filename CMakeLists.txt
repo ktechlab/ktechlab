@@ -70,7 +70,7 @@ find_package(KF6 REQUIRED COMPONENTS
 #    macro_pop_required_vars() -> cmake_pop_check_state()
 find_package(GPSim)
 
-add_definitions(-fPIC)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 add_definitions(
     -DQT_DISABLE_DEPRECATED_BEFORE=0x050000 # TODO target some reasonable version
     -DQT_DEPRECATED_WARNINGS_SINCE=0x060000 # to enable warnings for API since the disabled limit
