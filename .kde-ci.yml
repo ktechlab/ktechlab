@@ -4,7 +4,7 @@
 Dependencies:
   - 'on': ['@all']
     'require':
-      'frameworks/ktexteditor': '@stable'
+      'frameworks/ktexteditor': '@latest-kf6'
 
 Options:
   require-passing-tests-on: ['Linux', 'FreeBSD', 'Windows']
