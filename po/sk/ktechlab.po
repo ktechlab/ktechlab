@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-12 00:43+0000\n"
+"POT-Creation-Date: 2025-05-13 00:44+0000\n"
 "PO-Revision-Date: 2022-04-09 15:20+0200\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -3856,12 +3856,12 @@ msgstr "Meno projektu:"
 msgid "Oscilloscope"
 msgstr "Osciloskop"
 
-#: src/gui/oscilloscopeview.cpp:107
+#: src/gui/oscilloscopeview.cpp:108
 #, kde-format
 msgid "Framerate"
 msgstr "Rýchlosť snímkov"
 
-#: src/gui/oscilloscopeview.cpp:118
+#: src/gui/oscilloscopeview.cpp:119
 #, kde-format
 msgid "%1 fps"
 msgstr "%1 snímkov/s"

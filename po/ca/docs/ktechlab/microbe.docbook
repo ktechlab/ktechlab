@@ -29,9 +29,7 @@
 	<para
 >El fitxer d'entrada <filename class="extension"
 >.microbe</filename
-> haurà d'identificar el PIC de destinació inserint el nom del PIC a la part superior del fitxer, &pex;, el nom d'un PIC16F84 és <quote
->P16F84</quote
->. <example
+> haurà d'identificar el PIC de destinació inserint el nom del PIC a la part superior del fitxer, &pex;, el nom d'un PIC16F84 és «P16F84». <example
 ><title
 >Programa de &microbe; complet i senzill</title>
 			<programlisting role="correct"
@@ -56,9 +54,7 @@ end</programlisting>
 >Les regles següents s'apliquen als noms i etiquetes de les variables: <itemizedlist>
 				<listitem
 ><para
->Només poden contenir caràcters alfanumèrics [a..z][A..Z][0..9] i el guió baix <quote
->_</quote
->.</para
+>Només poden contenir caràcters alfanumèrics [a..z][A..Z][0..9] i el guió baix «_».</para
 ></listitem>
 				<listitem
 ><para
@@ -70,9 +66,7 @@ end</programlisting>
 ></listitem>
 				<listitem
 ><para
->No han de començar amb <quote
->__</quote
-> (doble subratllat), ja que està reservat perquè l'utilitzi el compilador.</para
+>No han de començar amb «__» (doble subratllat), ja que està reservat perquè l'utilitzi el compilador.</para
 ></listitem>
 			</itemizedlist>
 		</para>
@@ -118,11 +112,7 @@ de múltiples línies */</programlisting>
 		<title
 >Estructura del programa</title>
 		<para
->L'identificador PIC s'ha d'inserir a la part superior del programa. El final del programa principal s'indica amb <quote
->end</quote
->. Les subrutines s'han de col·locar després de <quote
->end</quote
->. </para>
+>L'identificador PIC s'ha d'inserir a la part superior del programa. El final del programa principal s'indica amb «end». Les subrutines s'han de col·locar després de «end». </para>
 	</sect2>
 
 	<sect2 id="subroutines">
@@ -136,11 +126,9 @@ de múltiples línies */</programlisting>
         // Codi...
 }</programlisting>
 <para
->La subrutina es crida amb <quote
->call <replaceable
+>La subrutina es crida amb «call <replaceable
 >SubNom</replaceable
-></quote
->.</para>
+>».</para>
 	</sect2>
 </sect1>
 

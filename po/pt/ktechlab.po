@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-12 00:43+0000\n"
+"POT-Creation-Date: 2025-05-13 00:44+0000\n"
 "PO-Revision-Date: 2023-07-03 00:56+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -3883,12 +3883,12 @@ msgstr "Nome do Projecto:"
 msgid "Oscilloscope"
 msgstr "Osciloscópio"
 
-#: src/gui/oscilloscopeview.cpp:107
+#: src/gui/oscilloscopeview.cpp:108
 #, kde-format
 msgid "Framerate"
 msgstr "Taxa de imagens"
 
-#: src/gui/oscilloscopeview.cpp:118
+#: src/gui/oscilloscopeview.cpp:119
 #, kde-format
 msgid "%1 fps"
 msgstr "%1 ips"

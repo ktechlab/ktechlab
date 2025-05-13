@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-12 00:43+0000\n"
+"POT-Creation-Date: 2025-05-13 00:44+0000\n"
 "PO-Revision-Date: 2024-08-15 09:01+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -3856,12 +3856,12 @@ msgstr "Назва проєкту:"
 msgid "Oscilloscope"
 msgstr "Осцилоскоп"
 
-#: src/gui/oscilloscopeview.cpp:107
+#: src/gui/oscilloscopeview.cpp:108
 #, kde-format
 msgid "Framerate"
 msgstr "Частота кадрів"
 
-#: src/gui/oscilloscopeview.cpp:118
+#: src/gui/oscilloscopeview.cpp:119
 #, kde-format
 msgid "%1 fps"
 msgstr "%1 кд/с"

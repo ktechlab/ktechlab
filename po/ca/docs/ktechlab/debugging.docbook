@@ -57,9 +57,7 @@
 ><para
 ><guimenuitem
 >Pas sobre</guimenuitem
-> &mdash; Si la següent instrucció que s'executarà és una crida o similar, això <quote
->passarà sobre</quote
-> la crida i tornarà al mode per passos quan la crida hagi retornat. En cas contrari, passar sobre una instrucció es comporta de forma idèntica a fer un pas. Per a dir-ho tècnicament, el nivell inicial de la pila es registra i l'execució del programa s'aturarà una vegada que el nivell de la pila torni al seu nivell inicial.</para
+> &mdash; Si la següent instrucció que s'executarà és una crida o similar, això «passarà sobre» la crida i tornarà al mode per passos quan la crida hagi retornat. En cas contrari, passar sobre una instrucció es comporta de forma idèntica a fer un pas. Per a dir-ho tècnicament, el nivell inicial de la pila es registra i l'execució del programa s'aturarà una vegada que el nivell de la pila torni al seu nivell inicial.</para
 ></listitem>
 				<listitem
 ><para
