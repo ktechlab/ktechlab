@@ -213,6 +213,7 @@
       <li xml:lang="gl">Varias formas de definir a lóxica de PIC: código de ensamblador, código de Microbe (linguaxe de programación propia de alto nivel), código de C e FlowCode visual</li>
       <li xml:lang="id">Beberapa cara untuk menentukan logika PIC: kode perakitan, kode Microbe (bahasa pemrograman tingkat tinggi), kode C, dan FlowCode visual</li>
       <li xml:lang="it">Molti modi di definire la logica del PIC: codice assembly, codice Microbe (un proprio linguaggio di programmazione ad alto livello), codice C e FlowCode visuale</li>
+      <li xml:lang="ka">PIC ლოგიკის ასემბლერის კოდის აღწერის რამდენიმე გზა. Microbe-ის (საკუთარი მაღალი დონის პროგრამირების ენა), C-ის კოდი და ვიზუალური FlowCode</li>
       <li xml:lang="ko">PIC 논리 회로를 정의하는 여러 방법: 어셈블리 코드, Microbe 코드(자체 고수준 프로그래밍 언어), C 코드, 시각적 FlowCode</li>
       <li xml:lang="nl">Verschillende manieren om de PIC-logica te definiëren: assembly code, Microbe (eigen hoog niveau programmeertaal) code, C code en visuele FlowCode</li>
       <li xml:lang="pl">Kilka sposobów określania logiki PIC: kod złożenia, kod Microbe (własny wysoko-poziomowy język programowania), kod C oraz graficzny kod przepływu</li>
@@ -302,6 +303,7 @@
       <li xml:lang="gl">Enviando o código ensamblador a PIC usando o programador de soporte físico</li>
       <li xml:lang="id">Mengunggah kode perakitan ke PIC menggunakan pemrogram hardware</li>
       <li xml:lang="it">Caricamento del codice assembly nel PIC con un programmatore hardware</li>
+      <li xml:lang="ka">ასემბლერის კოდის ატვირთვა PIC-ზე აპარატურული პროგრამატორის გამოყენებით</li>
       <li xml:lang="ko">하드웨어 프로그래머로 PIC에 어셈블리 코드 업로드</li>
       <li xml:lang="nl">Uploaden van de assembly code naar PIC met hardware programmeerder</li>
       <li xml:lang="pl">Wysyłanie kodu złożenia na PIC przy użyciu sprzętowego programatora</li>
