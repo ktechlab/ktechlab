@@ -18,6 +18,7 @@
   <name xml:lang="et">KTechlab</name>
   <name xml:lang="fr">KTechLab</name>
   <name xml:lang="gl">KTechlab</name>
+  <name xml:lang="ia">KTechlab</name>
   <name xml:lang="id">KTechlab</name>
   <name xml:lang="it">KTechlab</name>
   <name xml:lang="ka">KTechlab</name>
@@ -43,6 +44,7 @@
   <summary xml:lang="et">Mikrokontrollerite ja elektroonika arenduskeskkond</summary>
   <summary xml:lang="fr">Environnement de Développement Intégré pour les microcontrôleurs et l'électronique</summary>
   <summary xml:lang="gl">IDE para microcontroladores e compoñentes electrónicos</summary>
+  <summary xml:lang="ia">IDE per microcontrollores e electronica</summary>
   <summary xml:lang="id">IDE untuk mikrokontroler dan elektronik</summary>
   <summary xml:lang="it">Un IDE per microcontrollori ed elettronica</summary>
   <summary xml:lang="ka">IDE მიკროელექტრონიკისა და ელექტრონიკისთვის</summary>
@@ -94,6 +96,7 @@
     <p xml:lang="et">Omadused:</p>
     <p xml:lang="fr">Fonctionnalités :</p>
     <p xml:lang="gl">Funcionalidades:</p>
+    <p xml:lang="ia">Characteristicas:</p>
     <p xml:lang="id">Fitur:</p>
     <p xml:lang="it">Caratteristiche:</p>
     <p xml:lang="ka">თვისებები:</p>
