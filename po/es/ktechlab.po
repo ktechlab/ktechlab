@@ -1,16 +1,17 @@
-# translation of ktechlab.pot to Spanish
-# This file is put in the public domain.
+# Spanish translations for ktechlab.po package.
+# Copyright (C) 2005-2025 This file is copyright:
+# This file is distributed under the same license as the ktechlab package.
 #
-# David Rubio Miguélez <deifo@ono.com>, 2005.
-# Elena Martinez <emartinezherranz@hotmail.com>, 2005.
-# A. Bulnes [Urriellu] <yo@urriellu.net>, 2006.
-# SPDX-FileCopyrightText: 2017, 2018, 2020, 2022, 2023, 2024 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2005 David Rubio Miguélez <deifo@ono.com>
+# SPDX-FileCopyrightText: 2005 Elena Martinez <emartinezherranz@hotmail.com>
+# SPDX-FileCopyrightText: 2006 A. Bulnes (Urriellu) <yo@urriellu.net>
+# SPDX-FileCopyrightText: 2017, 2018, 2020, 2022, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
-"Project-Id-Version: es\n"
+"Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-13 00:44+0000\n"
-"PO-Revision-Date: 2024-08-15 19:10+0200\n"
+"PO-Revision-Date: 2025-05-18 14:34+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -2479,7 +2480,7 @@ msgstr "Código hexadecimal"
 #: src/flowcodeview.cpp:32
 #, kde-format
 msgid "Convert to..."
-msgstr "Convertir a..."
+msgstr "Convertir a…"
 
 #. i18n("Convert to"), "fork", 0, 0, 0, ac, "program_convert" );
 #: src/flowcodeview.cpp:39 src/textview.cpp:59 src/textview.cpp:67
@@ -2602,7 +2603,7 @@ msgstr "// Código empotrado:"
 #: src/flowparts/embed.cpp:54
 #, kde-format
 msgid "%1: %2..."
-msgstr "%1: %2..."
+msgstr "%1: %2…"
 
 #: src/flowparts/end.cpp:26 src/flowparts/end.cpp:32 src/flowparts/end.cpp:35
 #, kde-format
@@ -2990,7 +2991,7 @@ msgstr "Directorio de ayudas de contexto"
 #: src/gui/contexthelpwidget.ui:141 src/gui/contexthelpwidget.ui:176
 #, kde-format
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_pSaveButton)
 #: src/gui/contexthelpwidget.ui:183
@@ -3325,7 +3326,7 @@ msgstr "Exportar"
 #: src/gui/itemeditor/componentmodelwidget.cpp:51
 #, kde-format
 msgid "Filter here..."
-msgstr "Filtrar aquí..."
+msgstr "Filtrar aquí…"
 
 #: src/gui/itemeditor/componentmodelwidget.cpp:61
 #, kde-format
@@ -3406,7 +3407,7 @@ msgstr "Deshacer cambios"
 #: src/gui/itemeditor/propertyeditorfile.cpp:36
 #, kde-format
 msgid " ... "
-msgstr " ... "
+msgstr " … "
 
 #: src/gui/itemeditor/propertyeditorfile.cpp:52
 #, kde-format
@@ -3895,7 +3896,7 @@ msgstr "&Añadir al proyecto"
 #: src/gui/picprogrammerconfigwidget.ui:48
 #, kde-format
 msgid "&Add ..."
-msgstr "&Añadir..."
+msgstr "&Añadir…"
 
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
 #: src/gui/picprogrammerconfigwidget.ui:55
@@ -4094,7 +4095,7 @@ msgstr "Subíndice"
 #: src/gui/richtexteditor.cpp:154
 #, kde-format
 msgid "Text Color..."
-msgstr "Color del texto..."
+msgstr "Color del texto…"
 
 #. i18n: ectx: property (title), widget (QGroupBox, xGroupBox)
 #: src/gui/scopescreenwidget.ui:26
@@ -4713,7 +4714,7 @@ msgstr "Borrar"
 #: src/itemview.cpp:75
 #, kde-format
 msgid "Export as Image..."
-msgstr "Exportar como imagen..."
+msgstr "Exportar como imagen…"
 
 #. i18n("Align Horizontally"), 0, 0, itemDocument, SLOT(alignHorizontally()), ac, "align_horizontally" );
 #: src/itemview.cpp:84
@@ -4885,42 +4886,42 @@ msgstr "Código fuente C"
 #: src/ktechlab.cpp:524
 #, kde-format
 msgid "New Project..."
-msgstr "Nuevo proyecto..."
+msgstr "Nuevo proyecto…"
 
 #. i18n("Open Project..."), "project-open",		0, pm, SLOT(slotOpenProject()),			ac, 	"project_open" );
 #: src/ktechlab.cpp:531
 #, kde-format
 msgid "Open Project..."
-msgstr "Abrir proyecto..."
+msgstr "Abrir proyecto…"
 
 #: src/ktechlab.cpp:537
 #, kde-format
 msgid "Open &Recent Project..."
-msgstr "Ab&rir proyecto reciente..."
+msgstr "Ab&rir proyecto reciente…"
 
 #. i18n("Export to Makefile..."), "document-export",	0, pm, SLOT(slotExportToMakefile()),		ac, "project_export_makefile" );
 #: src/ktechlab.cpp:544
 #, kde-format
 msgid "Export to Makefile..."
-msgstr "Exportar a Makefile..."
+msgstr "Exportar a Makefile…"
 
 #. i18n("Create Subproject..."), 0,				0, pm, SLOT(slotCreateSubproject()),		ac, "project_create_subproject" );
 #: src/ktechlab.cpp:551
 #, kde-format
 msgid "Create Subproject..."
-msgstr "Crear subproyecto..."
+msgstr "Crear subproyecto…"
 
 #. i18n("Add Existing File..."), "document-open",		0, pm, SLOT(slotAddFile()),					ac, "project_add_existing_file" );
 #: src/ktechlab.cpp:558
 #, kde-format
 msgid "Add Existing File..."
-msgstr "Añadir archivo existente..."
+msgstr "Añadir archivo existente…"
 
 #. i18n("Add Current File..."), "document-import",		0, pm, SLOT(slotAddCurrentFile()),			ac, "project_add_current_file" );
 #: src/ktechlab.cpp:565
 #, kde-format
 msgid "Add Current File..."
-msgstr "Añadir archivo actual..."
+msgstr "Añadir archivo actual…"
 
 #. i18n("Close Project"), "window-close",			0, pm, SLOT(slotCloseProject()),			ac, "project_close" );
 #: src/ktechlab.cpp:574
@@ -4938,37 +4939,37 @@ msgstr "Eliminar del proyecto"
 #: src/ktechlab.cpp:588
 #, kde-format
 msgid "Insert Existing File..."
-msgstr "Insertar archivo existente..."
+msgstr "Insertar archivo existente…"
 
 #. i18n("Insert Current File..."), "document-import",	0, pm, SLOT(slotSubprojectAddCurrentFile()),ac, "subproject_add_current_file" );
 #: src/ktechlab.cpp:595
 #, kde-format
 msgid "Insert Current File..."
-msgstr "Insertar archivo actual..."
+msgstr "Insertar archivo actual…"
 
 #. i18n("Linker Options..."), "configure",		0, pm, SLOT(slotSubprojectLinkerOptions()),	ac, "project_item_linker_options" );
 #: src/ktechlab.cpp:602
 #, kde-format
 msgid "Linker Options..."
-msgstr "Opciones de enlazado..."
+msgstr "Opciones de enlazado…"
 
 #. i18n("Build..."), "launch",					0, pm, SLOT(slotItemBuild()),				ac, "project_item_build" );
 #: src/ktechlab.cpp:609
 #, kde-format
 msgid "Build..."
-msgstr "Construir..."
+msgstr "Construir…"
 
 #. i18n("Upload..."), "convert_to_pic",			0, pm, SLOT(slotItemUpload()),				ac, "project_item_upload" );
 #: src/ktechlab.cpp:616
 #, kde-format
 msgid "Upload..."
-msgstr "Enviar..."
+msgstr "Enviar…"
 
 #. i18n("Processing Options..."), "configure",	0, pm, SLOT(slotItemProcessingOptions()),	ac, "project_item_processing_options" );
 #: src/ktechlab.cpp:623
 #, kde-format
 msgid "Processing Options..."
-msgstr "Opciones de proceso..."
+msgstr "Opciones de proceso…"
 
 #. i18n("Split View Left/Right"), "view-split-left-right", Qt::CTRL|Qt::SHIFT|Qt::Key_L, this, SLOT(slotViewSplitLeftRight()), ac, "view_split_leftright" );
 #: src/ktechlab.cpp:632
@@ -5131,7 +5132,7 @@ msgstr "Abrir ubicación"
 #: src/ktechlab.cpp:1339
 #, kde-format
 msgid "Exiting..."
-msgstr "Saliendo..."
+msgstr "Saliendo…"
 
 #. i18n: ectx: Menu (tools)
 #: src/ktechlabcircuitui.rc:6 src/ktechlabflowcodeui.rc:5
@@ -5458,7 +5459,7 @@ msgstr "Momento de inercia"
 #: src/picitem.cpp:236
 #, kde-format
 msgid "Advanced..."
-msgstr "Avanzado..."
+msgstr "Avanzado…"
 
 #: src/projectmanager.cpp:411
 #, kde-format
@@ -5607,589 +5608,3 @@ msgstr "(vacío)"
 #, kde-format
 msgid "Open Document"
 msgstr "Abrir documento"
-
-#~ msgid "Failed to create MarkInterface"
-#~ msgstr "La creación de MarkInterface ha fallado"
-
-#~ msgid "Custom..."
-#~ msgstr "Personalizar..."
-
-#~ msgid "Open Recent"
-#~ msgstr "Abrir reciente"
-
-#~ msgid "PNG Image"
-#~ msgstr "Imagen PNG"
-
-#~ msgid "BMP Image"
-#~ msgstr "Imagen BMP"
-
-#~ msgid "SVG Image"
-#~ msgstr "Imagen SVG"
-
-#~ msgid "Unknown extension, please select one from the filter list."
-#~ msgstr ""
-#~ "Extensión desconocida. Por favor, seleccione una de la lista de filtros."
-
-#~ msgid "Discard"
-#~ msgstr "Descartar"
-
-#~ msgid "Link libraries outside project"
-#~ msgstr "Enlazar bibliotecas fuera del proyecto"
-
-#~ msgid "&Help"
-#~ msgstr "Ay&uda"
-
-#~ msgid "Libkatepart not available for constructing editor"
-#~ msgstr "Libkatepart no está disponible para construir el editor"
-
-#~ msgid "Initial Port Settings"
-#~ msgstr "Ajustes iniciales de los puertos"
-
-#~ msgid "Initial Variable Values"
-#~ msgstr "Valores iniciales de variables"
-
-#~ msgid "Pin Map Definitions"
-#~ msgstr "Definiciones del mapa de pines"
-
-#~ msgid "Output Method"
-#~ msgstr "Método de salida"
-
-#~ msgid "Output File Options"
-#~ msgstr "Opciones de salida a archivo"
-
-#~ msgid "Programmer Configuration"
-#~ msgstr "Configuración de programador"
-
-#~ msgid "Commands"
-#~ msgstr "Órdenes"
-
-#~ msgid "Keeping the project up as a maintainer during the time David left"
-#~ msgstr ""
-#~ "Mantener el proyecto actualizado como responsable durante el tiempo que "
-#~ "David lo dejó"
-
-#~ msgid "Some bug-fixes"
-#~ msgstr "Algunas correcciones de errores"
-
-#~ msgid "Asm Formatting"
-#~ msgstr "Formato de Ensamblador"
-
-#~ msgid "Gpasm Settings"
-#~ msgstr "Configuración de Gpasm"
-
-#, fuzzy
-#~| msgid "Gpasm Settings"
-#~ msgid "Gplink Settings"
-#~ msgstr "Configuración de Gpasm"
-
-#~ msgid "PIC Programmer Config"
-#~ msgstr "Configuración de Programador PIC"
-
-#~ msgid "SDCC Options"
-#~ msgstr "Opciones SDCC"
-
-#~ msgid "Doubleclick the Text Item to set the text"
-#~ msgstr "Doble pulsación sobre el elemento de texto para establecer el texto"
-
-#~ msgid "Text Color"
-#~ msgstr "Color de texto"
-
-#~ msgid "Select the line to position the end points"
-#~ msgstr "Seleccione la línea para posicionar los extremos"
-
-#~ msgid "A simple filament signal lamp, with a 100 ohms series resistance."
-#~ msgstr "Bombilla de un filamento con una resistencia de 100 ohmios en serie"
-
-#~ msgid "Double-Pole Double-Throw switch."
-#~ msgstr "Conmutador de doble entrada y doble salida"
-
-#~ msgid "Double-Pole Single-Throw switch."
-#~ msgstr "Conmutador de doble entrada y salida simple"
-
-#~ msgid "Single-Pole Double-Throw switch."
-#~ msgstr "Conmutador de una entrada y salida doble"
-
-#~ msgid "Single-Pole Single-Throw switch."
-#~ msgstr "Conmutador de una entrada y salida simple"
-
-#~ msgid ""
-#~ "Stores electrical charge.<br><br>The voltage across the capacitor and "
-#~ "capacitance are related by <i>Charge = Capacitance x Voltage</i>."
-#~ msgstr ""
-#~ "Almacena carga eléctrica.<br><br>La diferencia de potencial entre el "
-#~ "condensador y la capacitancia están relacionados mediante la fórmula: "
-#~ "<i>Carga = Capacitancia x Voltaje</i>."
-
-#~ msgid ""
-#~ "A seven segment display with a decimal point. This can be configured to "
-#~ "either have a common cathode or a common anode."
-#~ msgstr ""
-#~ "Un \"display\" de siete segmentos con un punto decimal. Puede ser "
-#~ "configurado para tener común el cátodo o el ánodo."
-
-#~ msgid "Place this at the point where frequency is to be measured."
-#~ msgstr "Sitúe este componente en el lugar donde desee medir la frecuencia. "
-
-#~ msgid "Place this in series in the circuit to measure the current flowing."
-#~ msgstr ""
-#~ "Situé este componente en serie con el circuito para medir el flujo de "
-#~ "corriente. "
-
-#~ msgid ""
-#~ "Place this in parallel in the circuit to meaure the voltage between two "
-#~ "points."
-#~ msgstr ""
-#~ "Sitúe este componente en paralelo en el circuito para medir la diferencia "
-#~ "de potencial entre dos puntos."
-
-#~ msgid ""
-#~ "Converts a binary-coded-input to a form displayable by a seven segment "
-#~ "display.<br><br>Normal operation: <i>lt</i> (Lamp Test) and the <i>rb</i> "
-#~ "(Ripple Blanking) are held high, <i>en</i> (Enable) is held low."
-#~ msgstr ""
-#~ "Convierte un número binario proporcionado en la entrada a un formato "
-#~ "representable por un \"display\" de siete segmentos."
-#~ "<br><br>Funcionamiento normal: <i>lt</i> (\"Lamp Test\", prueba de "
-#~ "bombillas) y <i>rb</i> (\"Ripple Blanking\", apagar bombillas) se "
-#~ "mantienen normalmente en nivel alto y se activan con nivel bajo (0 "
-#~ "lógico, usando lógica inversa), <i>en</i> (\"Enable\", activar) se "
-#~ "mantiene normalmente en nivel bajo y se activa con nivel alto (1 lógico)."
-
-#~ msgid "Bidrectional Light Emitting Diode"
-#~ msgstr "Diodo Bidireccional Emisor de Luz"
-
-#~ msgid "Merges several connections into one."
-#~ msgstr "Une varias conexiones."
-
-#~ msgid ""
-#~ "A square-wave generator, outputing logical high/low at repeating time "
-#~ "intervals."
-#~ msgstr ""
-#~ "Un generador de ondas cuadradas, estableciendo la salida en nivel alto/"
-#~ "bajo alternativamente y repitiéndolo cíclicamente."
-
-#, fuzzy
-#~ msgid ""
-#~ "Compares two binary numbers and generates output to indicate which binary "
-#~ "number has the greater magnitude. It has 3 cascading inputs:<ul><li>I: A "
-#~ "&gt; B</li><li>I: A &lt; B</li><li>I: A = B</li></ul>and 3 outputs:"
-#~ "<ul><li>O: A &gt; B</li><li>O: A &lt; B</li><li>O: A = B</li></ul>"
-#~ msgstr ""
-#~ "Compara dos números binarios y establece la salida para indicar cual de "
-#~ "los números binarios es mayor. Tiene 3 entradas en cascada:<ul><li>I: A "
-#~ "&gt; B</li><li>I: A &lt; B</li><li>I: A = B</li></ul>y 3 salidas:"
-#~ "<ul><li>O: A &gt; B</li><li>O: A &lt; B</li><li>O: A = B</li></ul>"
-
-#~ msgid "Light Emitting Diode"
-#~ msgstr "Diodo emisor de luz"
-
-#~ msgid "Limits the flow of current, obeying Ohms Law"
-#~ msgstr "Limita el flujo de corriente, obedeciendo la Ley de Ohm."
-
-#~ msgid ""
-#~ "Provides a numeric array of Push-to-Make switches, with 4 rows and a "
-#~ "configurable number of columns."
-#~ msgstr ""
-#~ "Proporciona una matriz numérica de pulsadores normalmente abiertos, con 4 "
-#~ "filas y una cantidad configurable de columnas"
-
-#, fuzzy
-#~ msgid ""
-#~ "The PIC component allows the simulation of a PIC program.<br><br>The "
-#~ "loadable PIC program must be one of the following formats:"
-#~ "<ul><li>Assembly (.asm)</li><li>FlowCode (.flowcode)</li><li>Symbol file "
-#~ "(.cod)</li><li>Microbe (.microbe, .basic)</li><li>C source (.c)</li></"
-#~ "ul>Doubleclick on the PIC component to open up the program source file."
-#~ "<br><br>If the program source file is of type assembly, then the the "
-#~ "opened text file will automatically be linked to the simulation. You can "
-#~ "control the program from the text document using the debug controls."
-#~ "<br><br>Explanation of buttons:<ul><li>Play - Run the PIC program from "
-#~ "the point at which it was paused, or from the start otherwise.</"
-#~ "li><li>Pause - Pause the simulation at the current execution point.</"
-#~ "li><li>Stop - Reset all parts of the simulation.</li><li>Reload - Reread "
-#~ "the PIC program from disk and restart gpsim.</li></ul>"
-#~ msgstr ""
-#~ "El componente llamado \"PIC\" permite la simulación de un programa para "
-#~ "PIC.<br><br>El programa para el PIC debe estar en uno de los siguientes "
-#~ "formatos:<ul><li>Lenguaje Ensamblador (.asm)</li><li>FlowCode (."
-#~ "flowcode)</li><li>Archivo de símbolos (.cod)</li><li>Microbe (.microbe, ."
-#~ "basic)</li><li>Lenguaje C (.c)</li></ul>Doble click en el componente \"PIC"
-#~ "\" para abrir el código fuente del programa.<br><br>Si el código fuente "
-#~ "está en lenguaje ensamblador el archivo de texto abierto será "
-#~ "automáticamente enlazado a la simulación.Puedes controlar el programa "
-#~ "desde el documento de texto usando los controles de depuración."
-#~ "<br><br>Explicación de los botones:<ul><li>\"Play\" - Ejecuta el programa "
-#~ "del PIC desde el punto en el que fué pausado, o si no desde el inicio.</"
-#~ "li><li>Pausa - Pausa la simulación en el punto de ejecución actual.</"
-#~ "li><li>Stop - Reinicia la simulación.</li><li>Recargar - Relee el "
-#~ "programa del PIC desde el disco y reinicia gpsim.</li></ul>"
-
-#, fuzzy
-#~ msgid ""
-#~ "Interface to a serial port. The pins are:<br><ul><li><b>CD</b> - Carrier "
-#~ "Detect (control; output)</li><li><b>RD</b> - Received Data (data; "
-#~ "output)</li><li><b>TD</b> - Transmitted Data (data; input)</"
-#~ "li><li><b>DTR</b> - Data Terminal Ready (control; input)</li><li><b>GND</"
-#~ "b> - Signal Ground (ground)</li><li><b>DSR</b> - Data Set Ready (control; "
-#~ "input)</li><li><b>RTS</b> - Request to Send (control; input)</"
-#~ "li><li><b>CTS</b> - Clear to Send (control; output)</li><li><b>RI</b> - "
-#~ "Ring Indicator (control; output)</li></ul>"
-#~ msgstr ""
-#~ "Interfaz para el puerto serie. Los pines son:<br><ul><li><b>CD</b> - "
-#~ "Carrier Detect (control; output)</li><li><b>RD</b> - Received Data (data; "
-#~ "output)</li><li><b>TD</b> - Transmitted Data (data; input)</"
-#~ "li><li><b>DTR</b> - Data Terminal Ready (control; input)</li><li><b>GND</"
-#~ "b> - Signal Ground (ground)</li><li><b>DSR</b> - Data Set Ready (control; "
-#~ "input)</li><li><b>RTS</b> - Request to Send (control; input)</"
-#~ "li><li><b>CTS</b> - Clear to Send (control; output)</li><li><b>RI</b> - "
-#~ "Ring Indicator (control; output)</li></ul>"
-
-#~ msgid ""
-#~ "Consists of a resistor connected to the end pins, with a central pin "
-#~ "connected at an adjustable point along the resistor"
-#~ msgstr ""
-#~ "Consiste en una resistencia conectada a las patillas de los extremos, con "
-#~ "una patilla central conectada a un punto ajustable a lo largo de la "
-#~ "resistencia."
-
-#~ msgid "Set of resistors with identical values in a Dual Inline Package."
-#~ msgstr ""
-#~ "Conjunto de resistencias con los mismos valores en un \"DIP\", un "
-#~ "encapsulado rectangular con una columna de patillas en cada uno de los "
-#~ "lados opuestos, generalmente los lados mayores."
-
-#~ msgid "Displays the voltage at the probe point on the oscilloscope."
-#~ msgstr ""
-#~ "Muestra en el osciloscopio el potencial de un punto, la diferencia de "
-#~ "potencial de ese punto respecto a la masa."
-
-#, fuzzy
-#~ msgid "Displays the current at the probe point on the oscilloscope."
-#~ msgstr ""
-#~ "Muestra en el osciloscopio el potencial de un punto, la diferencia de "
-#~ "potencial de ese punto respecto a la masa."
-
-#~ msgid ""
-#~ "Connect this probe the the point in the circuit to measure the logic "
-#~ "value. The output will be displayed in the Oscilloscope view."
-#~ msgstr ""
-#~ "Conecta este medidor al punto del circuito donde quieras medir el valor "
-#~ "lógico. La salida será mostrada en el Osciloscopio."
-
-#~ msgid ""
-#~ "The output state is set from the input state when the clock is pulsed."
-#~ msgstr ""
-#~ "El valor de la salida se establece como el mismo que la entrada cuando se "
-#~ "recibe una señal de reloj."
-
-#~ msgid ""
-#~ "The output state is set according to J and K when the clock is pulsed."
-#~ msgstr ""
-#~ "El valor de la salida se establece de acuerdo a las entradas J y K cuando "
-#~ "se recibe una señal de reloj."
-
-#~ msgid ""
-#~ "The output is made high by holding <i>set</i> high, and low by holding "
-#~ "<i>reset</i> high."
-#~ msgstr ""
-#~ "El valor de la salida se establece en 1 (alto) al recibir un nivel alto "
-#~ "en la entrada S (\"<i>set</i>\") y en 0 (bajo) al recibir un nivel alto "
-#~ "en la entrada R (\"<i>reset</i>\")."
-
-#, fuzzy
-#~ msgid ""
-#~ "This RAM stores data as a collection of words; each of which contains "
-#~ "<i>word size</i> bits of data.<br><br>To read data, set the CS (<i>chip "
-#~ "select</i>) and the OE (<i>output enable</i>) pins high, and select the "
-#~ "word using the address pins <i>A*</i>. The word is outputted on the data-"
-#~ "out pins: <i>DO*</i>.<br><br>To write data, set the CS (<i>chip select</"
-#~ "i>) and the WE (<i>write enable</i>) pins high, and select the address to "
-#~ "write to with the <i>A*</i> pins. Write to the selected word using the "
-#~ "data-in pins: <i>DI*</i>.<br><br>The <i>Address Size</i> is the number of "
-#~ "bits that determine an address; so the total number of words stored will "
-#~ "be 2^<sup><i>Address Size</i></sup>."
-#~ msgstr ""
-#~ "Esta memoria RAM almacena los datos como una colección de palabras, cada "
-#~ "una de las cuales contiene <i>tamaño de palabra</i> bits de información."
-#~ "<br><br>Para leer los datos, establece los pines CS (\"<i>chip select</i>"
-#~ "\") y OE (\"<i>output enable</i>\") a 1, y elige la palabra usando la "
-#~ "dirección de los pines: <i>A*</i>. La palabra es enviada a los pines de "
-#~ "salida de datos: <i>DO*</i>.<br><br>Para escribir datos, establece los "
-#~ "pines CS (\"<i>chip select</i>\") y WE (\"<i>write enable</i>\") a 1, y "
-#~ "elige la dirección a la cual escribir con los pines: <i>A*</i>. Escribe a "
-#~ "la palabra seleccionada usando los pines de entrada de datos: <i>DI*</i>."
-#~ "<br><br>El <i>Tamaño de dirección</i> es el número de bits que determinan "
-#~ "una dirección, así que el número total de palabras almacenadas será de "
-#~ "2^<sup><i>Tamaño de dirección</i></sup>."
-
-#~ msgid ""
-#~ "Point to connect the circuit to an external entity - e.g. a mechanical "
-#~ "component or as part of a subcircuit."
-#~ msgstr ""
-#~ "Punto para conectar el circuito a una entidad externa, como por ejemplo "
-#~ "un componente mecánico o como si fuese una parte de un subcircuito"
-
-#~ msgid "The output is the logical inverse of the logic-input state."
-#~ msgstr "La salida es el valor lógico invertido de la señal de entrada"
-
-#~ msgid ""
-#~ "Provides a user-adjustable logic state.<br><br>Click to pulse high, or "
-#~ "drag the mouse off to keep the output high."
-#~ msgstr ""
-#~ "Proporciona un estado lógico ajustable por el usuario.<br><br>Pulsa para "
-#~ "obtener un pulso lógico alto, o libera el pulsador para mantener el valor "
-#~ "lógico alto."
-
-#~ msgid "Shows the logic-state of the input."
-#~ msgstr "Muestra el valor lógico de la entrada."
-
-#~ msgid "Ideal amplifier"
-#~ msgstr "Amplificador Ideal"
-
-#~ msgid ""
-#~ "Holds an internal count, which changes when the clock input <i>&gt;</i> "
-#~ "pin is pulsed.<br><br>Normal operation: <i>en</i> (Enable) and <i>u/d</i> "
-#~ "(Up/Down) are held high, <i>r</i> (Reset) is low."
-#~ msgstr ""
-#~ "Mantiene un contador interno que cambia cuando se recibe un pulso por la "
-#~ "entrada de reloj en la patilla <i>&gt;</i>.<br><br>Funcionamiento normal: "
-#~ "<i>en</i> (\"Enable\", activar) y <i>u/d</i> (\"Up/Down\", incremento/"
-#~ "decremento) están en nivel alto y <i>r</i> (\"Reset\", reiniciar el "
-#~ "contador) está en nivel bajo."
-
-#, fuzzy
-#~ msgid "Common timer IC"
-#~ msgstr "Circuito Integrado temporizador común"
-
-#, fuzzy
-#~ msgid "Provides a variety of current signals"
-#~ msgstr "Suministra varias señales de corriente"
-
-#~ msgid ""
-#~ "A matrix display of LEDs with a configurable number of columns and rows."
-#~ msgstr "Matriz de LEDs con número configurable de filas y columnas. "
-
-#~ msgid "Ground (0V) point"
-#~ msgstr "Punto de masa (0V)"
-
-#~ msgid "Exclusive NOR gate. Output is low when exactly one input is high."
-#~ msgstr ""
-#~ "Puerta lógica O exclusivo negada. La salida está en reposo (0 lógico, "
-#~ "estado bajo) cuando sólo una entrada está activa (1 lógico, estado alto)"
-
-#~ msgid "Exclusive OR gate. Output is high when exactly one input is high."
-#~ msgstr ""
-#~ "Puerta lógica O exclusivo. La salida está activada (1 lógico, nivel alto) "
-#~ "cuando sólo una entrada está activa."
-
-#~ msgid ""
-#~ "The output is high when at least one of the inputs is high; or low when "
-#~ "all of the inputs are off"
-#~ msgstr ""
-#~ "La salida está activa (1 lógico, nivel alto) cuando al menos una de las "
-#~ "entradas está activa, o en reposo cuando todas las entradas también están "
-#~ "en reposo"
-
-#~ msgid "The output is high when all inputs are low."
-#~ msgstr ""
-#~ "La salida está activa (1 lógico, nivel alto) cuando todas las entradas "
-#~ "están en reposo (0 lógico, nivel bajo)"
-
-#~ msgid "The output is low only when all of the inputs are high."
-#~ msgstr ""
-#~ "La salida está en reposo (0 lógico, nivel bajo) sólo cuando todas las "
-#~ "entradas están activas (1 lógico, nivel alto)"
-
-#~ msgid "The output is high if and only if all of the inputs are high."
-#~ msgstr ""
-#~ "La salida está activa (1 lógico, nivel alto) si y solo si todas las "
-#~ "entradas también están activas"
-
-#~ msgid ""
-#~ "Seperates the input data stream into components. The value of the input "
-#~ "is passed to the \"X\" output selected by the binary number given by the "
-#~ "\"A\" inputs."
-#~ msgstr ""
-#~ "Separa el flujo de datos de la entrada en distintos componentes. El valor "
-#~ "de la entrada es enviado a la salida \"X\" seleccionada por el número "
-#~ "binario dado en las entradas \"A\"."
-
-#~ msgid "Provides a potential-difference."
-#~ msgstr "Suministra una diferencia de potencial. "
-
-#~ msgid ""
-#~ "Allows current to flow in the direction indicated by the arrow when a "
-#~ "certain voltage difference has been reached."
-#~ msgstr ""
-#~ "Permite a la corriente fluir en la dirección indicada por la flecha "
-#~ "cuando cierta diferencia de voltaje ha sido alcanzada"
-
-#~ msgid "Converts an analog signal into a digital output."
-#~ msgstr "Convierte una señal analógica en una salida digital"
-
-#~ msgid "Converts a digital input to an analog output signal."
-#~ msgstr "Convierte una entrada digital en una señal de salida analógica"
-
-#~ msgid "Data"
-#~ msgstr "Datos"
-
-#~ msgid "Defaults"
-#~ msgstr "Valores por Defecto"
-
-#~ msgid "Merge properties"
-#~ msgstr "Mezclar propiedades"
-
-#~ msgid "A circular base with two wheels and a support point."
-#~ msgstr "Una base circular con dos ruedas y un punto de soporte"
-
-#~ msgid ""
-#~ "*.mechanics|Mechanics (*.mechanics)\n"
-#~ "*|All Files"
-#~ msgstr ""
-#~ "*.mechanics|Mecánica (*.mechanics)\n"
-#~ "*|Todos los archivos"
-
-#, fuzzy
-#~ msgid "Delay the program execution for a fixed period of time."
-#~ msgstr ""
-#~ "Retrasa la ejecución de un programa durante un intervalo de tiempo "
-#~ "determinado."
-
-#~ msgid "Output to a Seven Segment display."
-#~ msgstr "Salida a \"display\" de siete segmentos."
-
-#~ msgid ""
-#~ "Call a subroutine. When the subroutine returns, the code will continue "
-#~ "execution from this point."
-#~ msgstr ""
-#~ "Llama a una subrutina. Cuando la subrutina termina de ejecutarse, el "
-#~ "código continuará ejecutándose desde este punto."
-
-#~ msgid "Pulse a pin high/low for a given duration."
-#~ msgstr ""
-#~ "Establece nivel alto o bajo en una patilla durante un tiempo determinado."
-
-#, fuzzy
-#~ msgid ""
-#~ "Defines the starting point of a subroutine. Call this subroutine using "
-#~ "\"Call Sub\""
-#~ msgstr ""
-#~ "Define el punto de inicio de la subrutina. Llama a esa subrutina usando "
-#~ "\"Llamar a Subrutina\""
-
-#, fuzzy
-#~ msgid ""
-#~ "Sets the port's pins state to high/low from the given value. Only pins "
-#~ "that have been configured as output pins will take on the value assigned "
-#~ "to them."
-#~ msgstr ""
-#~ "Establece las patillas de los puertos al nivel bajo o alto a partir del "
-#~ "valor dado. Sólo las patillas que han sido configuradas como salidas "
-#~ "tomarán el valor que se les haya asignado a ellas."
-
-#, fuzzy
-#~ msgid "write to port"
-#~ msgstr "Escribir a un Puerto"
-
-#, fuzzy
-#~ msgid ""
-#~ "End the program execution, putting the IC into sleep. Unlike Start, "
-#~ "however, this FlowPart is not necessary for proper program execution"
-#~ msgstr ""
-#~ "Finaliza la ejecución del programa, pasando el circuito integrado a modo "
-#~ "de espera (\"sleep\"). Este \"FlowPart\" no es necesario para el correcto "
-#~ "funcionamiento del programa"
-
-#~ msgid "Assign the value of a port to a variable."
-#~ msgstr "Asigna el valor de un puerto a una variable."
-
-#, fuzzy
-#~ msgid "read from port to x"
-#~ msgstr "Leer desde Puerto"
-
-#, fuzzy
-#~ msgid ""
-#~ "Count the number of pulses during a fixed interval. To avoid ambiguity, "
-#~ "this increments the counter on either a rising or falling edge, as "
-#~ "opposed to a high or a low."
-#~ msgstr ""
-#~ "Cuenta el número de pulsos durante un intervalo de tiempo. Para evitar "
-#~ "ambigüedades, el contador se incrementa en cualquier tipo de señal, tanto "
-#~ "creciente como decreciente."
-
-#~ msgid "&Insert Into"
-#~ msgstr "&Insertar en"
-
-#~ msgid "&Copy Into"
-#~ msgstr "Copiar a"
-
-#~ msgid "C&ancel"
-#~ msgstr "Cancelar"
-
-#~ msgid "Flip"
-#~ msgstr "Voltear"
-
-#~ msgid ""
-#~ "*.circuit|Circuit(*.circuit)\n"
-#~ "*|All Files"
-#~ msgstr ""
-#~ "*.circuit|Circuito (*.circuit)\n"
-#~ "*|Todos los archivos"
-
-#~ msgid ""
-#~ "*.flowcode|FlowCode (*.flowcode)\n"
-#~ "*|All Files"
-#~ msgstr ""
-#~ "*.flowcode|FlowCode (*.flowcode)\n"
-#~ "*|Todos los archivos"
-
-#~ msgid "Overwrite"
-#~ msgstr "Sobreescribir"
-
-#~ msgid "Cancel the current operation"
-#~ msgstr "Cancelar la operación actual"
-
-#~ msgid "Crop image to program parts"
-#~ msgstr "Recortar imagen hasta las partes del programa"
-
-#~ msgid "Crop image to circuit components"
-#~ msgstr "Recortar imagen hasta los componentes del circuito"
-
-#~ msgid "Alt+A"
-#~ msgstr "Alt+A"
-
-#~ msgid "Alt+M"
-#~ msgstr "Alt+M"
-
-#~ msgid "Form1"
-#~ msgstr "Formulario1"
-
-#~ msgid "Alt+Y"
-#~ msgstr "Alt+Y"
-
-#~ msgid "Alt+B"
-#~ msgstr "Alt+B"
-
-#~ msgid "Alt+X"
-#~ msgstr "Alt+X"
-
-#~ msgid "Alt+Z"
-#~ msgstr "Alt+Z"
-
-#~ msgid "Alt+N"
-#~ msgstr "Alt+N"
-
-#~ msgid "Alt+O"
-#~ msgstr "Alt+O"
-
-#~ msgid "Alt+J"
-#~ msgstr "Alt+J"
-
-#~ msgid "Alt+K"
-#~ msgstr "Alt+K"
-
-#~ msgid "Alt+U"
-#~ msgstr "Alt+U"
-
-#~ msgid "Alt+G"
-#~ msgstr "Alt+G"
