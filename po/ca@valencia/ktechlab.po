@@ -366,8 +366,8 @@ msgstr ""
 "barra d'eines. Es poden editar més propietats avançades utilitzant el "
 "selector d'elements de la dreta.<br><br>Els subcircuits es poden crear "
 "connectant els components amb una «Connexió externa», seleccionant els "
-"components desitjats i fent clic en «Crea un subcircuit» en el menú del clic "
-"dret."
+"components desitjats i clicant damunt «Crea un subcircuit» en el menú del "
+"clic dret."
 
 #: src/circuitview.cpp:132
 #, kde-format
@@ -3431,7 +3431,7 @@ msgstr " … "
 #: src/gui/itemeditor/propertyeditorfile.cpp:52
 #, kde-format
 msgid "Choose File"
-msgstr "Escolliu un fitxer"
+msgstr "Trieu un fitxer"
 
 #: src/gui/itemselector.cpp:62 src/gui/itemselector.cpp:409
 #, kde-format
@@ -3454,10 +3454,10 @@ msgid ""
 msgstr ""
 "Afegiu els components al diagrama de circuits arrossegant-los dins del "
 "circuit.<br><br>Per a afegir més d'un component del mateix tipus, feu doble "
-"clic damunt d'un component i feu clic repetidament en el circuit per a "
+"clic damunt d'un component i cliqueu repetidament en el circuit per a "
 "col·locar el component. Feu clic dret per a parar l'acció d'ubicació."
 "<br><br>Alguns components (com els subcircuits) es poden eliminar fent clic "
-"dret sobre l'element i seleccionant «Elimina»."
+"dret damunt de l'element i seleccionant «Elimina»."
 
 #: src/gui/itemselector.cpp:438
 #, kde-format
@@ -3469,7 +3469,7 @@ msgid ""
 msgstr ""
 "Afegiu la FlowPart al document FlowCode arrossegant-l'hi.<br><br>Per a "
 "afegir més d'una FlowPart del mateix tipus, feu doble clic damunt d'una "
-"FlowPart i feu clic repetidament al FlowChart per a col·locar el component. "
+"FlowPart i cliqueu repetidament a FlowChart per a col·locar el component. "
 "Feu clic dret per a parar l'acció d'ubicació."
 
 #: src/gui/itemselector.cpp:441
@@ -3739,8 +3739,8 @@ msgid ""
 "Tip: Toggle the initial state (high/low) of a pin by clicking its picture.\n"
 "Drag it to set the type (input/output)."
 msgstr ""
-"Consell: canvieu l'estat inicial (alt/baix) d'un PIN fent clic en la seua "
-"imatge.\n"
+"Consell: canvieu l'estat inicial (alt/baix) d'un PIN clicant damunt de la "
+"seua imatge.\n"
 "Arrossegueu-la per a establir el tipus (entrada/eixida)."
 
 #. i18n: ectx: property (text), widget (QPushButton, pinMapRemove)
@@ -4784,7 +4784,7 @@ msgstr ""
 #: src/itemview.cpp:616
 #, kde-format
 msgid "Click and hold to start drawing."
-msgstr "Feu clic i manteniu premut per a començar a dibuixar."
+msgstr "Cliqueu i manteniu premut per a començar a dibuixar."
 
 #: src/itemview.cpp:624
 #, kde-format
@@ -5372,7 +5372,7 @@ msgid ""
 msgstr ""
 "Estos missatges mostren l'eixida de la funcionalitat relativa al llenguatge "
 "com ara la compilació i l'assemblatge.<br><br>Per als missatges d'error, "
-"fent clic en la línia obrirà automàticament el fitxer a la posició de "
+"clicant damunt de la línia obrirà automàticament el fitxer a la posició de "
 "l'error."
 
 #: src/languages/microbe.cpp:28 src/languages/sdcc.cpp:31
@@ -5624,6 +5624,3 @@ msgstr "(buit)"
 #, kde-format
 msgid "Open Document"
 msgstr "Obri el document"
-
-#~ msgid "Failed to create MarkInterface"
-#~ msgstr "No s'ha pogut crear la MarkInterface"
