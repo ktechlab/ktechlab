@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-13 00:44+0000\n"
-"PO-Revision-Date: 2025-05-25 21:15+0300\n"
+"PO-Revision-Date: 2025-05-26 15:07+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -5116,47 +5116,47 @@ msgstr ""
 #: src/languages/gpasm.cpp:27
 #, kde-format
 msgid "*** Assembly successful ***"
-msgstr ""
+msgstr "*** האסמבלי הצליח ***"
 
 #: src/languages/gpasm.cpp:28
 #, kde-format
 msgid "*** Assembly failed ***"
-msgstr ""
+msgstr "*** האסמבלי נכשל ***"
 
 #: src/languages/gpasm.cpp:114
 #, kde-format
 msgid "Assembly failed. Please check you have gputils installed."
-msgstr ""
+msgstr "האסמבלי נכשל. נא לוודא שמותקן אצלך gputils."
 
 #: src/languages/gpdasm.cpp:28
 #, kde-format
 msgid "*** Disassembly successful ***"
-msgstr ""
+msgstr "*** פירוק האסמבלי הצליח ***"
 
 #: src/languages/gpdasm.cpp:29
 #, kde-format
 msgid "*** Disassembly failed ***"
-msgstr ""
+msgstr "*** פירוק האסמבלי נכשל ***"
 
 #: src/languages/gpdasm.cpp:50
 #, kde-format
 msgid "Disassembly failed. Please check you have gputils installed."
-msgstr ""
+msgstr "פירוק האסמבלי נכשל. נא לוודא שמותקן אצלך gputils."
 
 #: src/languages/gplib.cpp:22
 #, kde-format
 msgid "*** Archiving successful ***"
-msgstr ""
+msgstr "*** אריזה בארכיון הצליחה ***"
 
 #: src/languages/gplib.cpp:23
 #, kde-format
 msgid "*** Archiving failed ***"
-msgstr ""
+msgstr "*** אריזה בארכיון נכשלה ***"
 
 #: src/languages/gplib.cpp:46 src/languages/gplink.cpp:157
 #, kde-format
 msgid "Linking failed. Please check you have gputils installed."
-msgstr ""
+msgstr "הקישור נכשל. נא לוודא שמותקן אצלך gputils."
 
 #: src/languages/gplink.cpp:30
 #, kde-format
@@ -5259,7 +5259,7 @@ msgstr ""
 #: src/mechanics/chassiscircular2.cpp:33
 #, kde-format
 msgid "Chassis'"
-msgstr ""
+msgstr "של המארז"
 
 #: src/mechanics/mechanicsitem.cpp:41
 #, kde-format
@@ -5340,7 +5340,7 @@ msgstr "יצירת העורך נכשלה"
 #: src/textdocument.cpp:600
 #, kde-format
 msgid "%1 - %2"
-msgstr ""
+msgstr "%1 - %2"
 
 #: src/textdocument.cpp:740
 #, kde-format
