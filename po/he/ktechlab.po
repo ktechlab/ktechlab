@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-13 00:44+0000\n"
-"PO-Revision-Date: 2025-05-26 15:07+0300\n"
+"PO-Revision-Date: 2025-05-27 11:46+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -4061,7 +4061,7 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:88
 #, kde-format
 msgid "Alt+9"
-msgstr ""
+msgstr "Alt+9"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_use_non_free)
 #: src/gui/sdccoptionswidget.ui:98
@@ -4337,13 +4337,13 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:475
 #, kde-format
 msgid "SDCC install prefix:"
-msgstr ""
+msgstr "קידומת התקנת SDCC:"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, kcfg_SDCC_install_prefix)
 #: src/gui/sdccoptionswidget.ui:482
 #, kde-format
 msgid "Location where SDCC in installed. Empty for system default."
-msgstr ""
+msgstr "המקום בו SDCC מותקן. ריק ישתמש בברירת המחדל של המערכת."
 
 #: src/gui/settingsdlg.cpp:133
 #, kde-format
@@ -4388,37 +4388,37 @@ msgstr ""
 #: src/gui/settingsdlg.cpp:183
 #, kde-format
 msgid "Medium (%1 FPS)"
-msgstr ""
+msgstr "בינוני (%1 תמוניות לשנייה)"
 
 #: src/gui/settingsdlg.cpp:186
 #, kde-format
 msgid "High (%1 FPS)"
-msgstr ""
+msgstr "גבוה (%1 תמוניות לשנייה)"
 
 #: src/gui/settingsdlg.cpp:189
 #, kde-format
 msgid "Highest (%1 FPS)"
-msgstr ""
+msgstr "הגבוה ביותר (%1 תמוניות לשנייה)"
 
 #: src/gui/settingsdlg.cpp:192
 #, kde-format
 msgid "Unknown value"
-msgstr ""
+msgstr "ערך לא ידוע"
 
 #: src/gui/settingsdlg.cpp:213
 #, kde-format
 msgid "<b>%1</b> cannot be found.<br>"
-msgstr ""
+msgstr "<b>%1</b> לא נמצא.<br>"
 
 #: src/gui/settingsdlg.cpp:215
 #, kde-format
 msgid "<b>%1</b> found: %2<br>"
-msgstr ""
+msgstr "<b>%1</b> נמצא: %2<br>"
 
 #: src/gui/settingsdlg.cpp:264
 #, kde-format
 msgid "Remove programmer configuration \"%1\"?"
-msgstr ""
+msgstr "להסיר את הגדרות הצורב „%1”?"
 
 #: src/gui/settingsdlg.cpp:265
 #, kde-format
@@ -4439,29 +4439,29 @@ msgstr ""
 #: src/icnview.cpp:34 src/icnview.cpp:64
 #, kde-format
 msgid "Automatic"
-msgstr ""
+msgstr "אוטומטי"
 
 #. i18n("Manual"), "", 0, this, SLOT(slotSetRoutingManual()), ac, "routing_mode_manual" );
 #: src/icnview.cpp:43 src/icnview.cpp:68
 #, kde-format
 msgid "Manual"
-msgstr ""
+msgstr "ידני"
 
 #. i18n("Connection Routing Mode"), "pencil", 0, 0, 0, ac, "routing_mode" );
 #: src/icnview.cpp:53 src/icnview.cpp:60
 #, kde-format
 msgid "Connection Routing Mode"
-msgstr ""
+msgstr "מצב ניתוב חיבור"
 
 #: src/icnview.cpp:117
 #, kde-format
 msgid "<b>Manual</b> connection routing enabled."
-msgstr ""
+msgstr "ניתוב חיבור <b>ידני</b> מופעל."
 
 #: src/icnview.cpp:117
 #, kde-format
 msgid "<b>Automatic</b> connection routing enabled."
-msgstr ""
+msgstr "ניתוב חיבור <b>אוטומטי</b> מופעל."
 
 #: src/itemdocument.cpp:94
 #, kde-format
@@ -4875,27 +4875,27 @@ msgstr ""
 #: src/ktechlab.cpp:690
 #, kde-format
 msgid "AND"
-msgstr ""
+msgstr "AND"
 
 #: src/ktechlab.cpp:691
 #, kde-format
 msgid "NAND"
-msgstr ""
+msgstr "NAND"
 
 #: src/ktechlab.cpp:692
 #, kde-format
 msgid "NOR"
-msgstr ""
+msgstr "NOR"
 
 #: src/ktechlab.cpp:693
 #, kde-format
 msgid "OR"
-msgstr ""
+msgstr "OR"
 
 #: src/ktechlab.cpp:694
 #, kde-format
 msgid "Decoupler"
-msgstr ""
+msgstr "מבודד אופטי"
 
 #: src/ktechlab.cpp:695
 #, kde-format
@@ -5035,7 +5035,7 @@ msgstr "מנפה שגיאות"
 #: src/ktechlabui.rc:21
 #, kde-format
 msgid "&Project"
-msgstr ""
+msgstr "מי&זם"
 
 #. i18n: ectx: Menu (examples)
 #: src/ktechlabui.rc:45
@@ -5083,7 +5083,7 @@ msgstr ""
 #: src/ktechlabui.rc:65
 #, kde-format
 msgid "Transistors"
-msgstr ""
+msgstr "טרנזיסטורים"
 
 #. i18n: ectx: Menu (examples_opamps)
 #: src/ktechlabui.rc:68
@@ -5254,7 +5254,7 @@ msgstr "ההידור נכשל. נא לבדוק ש־sdcc מותקן."
 #: src/mechanics/chassiscircular2.cpp:33 src/mechanics/chassiscircular2.cpp:39
 #, kde-format
 msgid "Circular 2-Wheel Chassis"
-msgstr ""
+msgstr "מארז עגול עם שני גלגלים"
 
 #: src/mechanics/chassiscircular2.cpp:33
 #, kde-format
