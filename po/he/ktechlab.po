@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-13 00:44+0000\n"
-"PO-Revision-Date: 2025-05-27 11:46+0300\n"
+"PO-Revision-Date: 2025-05-28 10:23+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -113,7 +113,7 @@ msgstr "מצב הפין יכול להיות רק ‚גבוה’ (high) או ‚�
 #: microbe/microbe.cpp:235
 #, kde-format
 msgid "Invalid token '%1'. Port identifier should be followed by '='"
-msgstr ""
+msgstr "האסימון ‚%1’ שגוי. אחרי מזהה הפתחה אמור להיות ‚=’"
 
 #: microbe/microbe.cpp:238
 #, kde-format
@@ -128,22 +128,22 @@ msgstr "כמות לא מאוזנת של סוגריים מרובעים בביטו
 #: microbe/microbe.cpp:244
 #, kde-format
 msgid "Invalid '=' found in expression"
-msgstr ""
+msgstr "נמצא ‚=’ שגוי בביטוי"
 
 #: microbe/microbe.cpp:247
 #, kde-format
 msgid "Reserved keyword '%1' cannot be a variable name."
-msgstr ""
+msgstr "מילת המפתח השמורה ‚%1’ לא יכולה להיות שם משתנה."
 
 #: microbe/microbe.cpp:250
 #, kde-format
 msgid "Nothing between operators"
-msgstr ""
+msgstr "אין שום דבר בין הפעולות"
 
 #: microbe/microbe.cpp:253
 #, kde-format
 msgid "Missing operator or space in operand"
-msgstr ""
+msgstr "חסרה פעולה או רווח באופרנד"
 
 #: microbe/microbe.cpp:257
 #, kde-format
@@ -183,17 +183,17 @@ msgstr "השהיה חייבת להיות ערך חיובי קבוע"
 #: microbe/microbe.cpp:277
 #, kde-format
 msgid "'high' or 'low' expected after pin expression '%1'"
-msgstr ""
+msgstr "אמור להיות ‚high’ (גבוה) או ‚low’ (נמוך) אחרי ביטוי הפין ‚%1’"
 
 #: microbe/microbe.cpp:280
 #, kde-format
 msgid "Comparison operator in '%1' is not recognized"
-msgstr ""
+msgstr "פעולת ההשוואה תחת ‚%1’ לא מזוהה"
 
 #: microbe/microbe.cpp:283
 #, kde-format
 msgid "Subroutine definition before end of program"
-msgstr ""
+msgstr "הגדרת תת־שדרה לפני סוף התוכנית"
 
 #: microbe/microbe.cpp:286
 #, kde-format
@@ -253,12 +253,12 @@ msgstr "גודל רשימת הפינים שגוי"
 #: microbe/microbe.cpp:319
 #, kde-format
 msgid "Variable '%1' is already defined"
-msgstr ""
+msgstr "המשתנה ‚%1’ כבר מוגדר"
 
 #: microbe/microbe.cpp:322
 #, kde-format
 msgid "'%1' is not a valid variable name"
-msgstr ""
+msgstr "‚%1’ אינו שם תקף למשתנה"
 
 #: microbe/microbe.cpp:325
 #, kde-format
@@ -859,7 +859,7 @@ msgstr "סקרנות"
 #: src/core/main.cpp:44
 #, kde-format
 msgid "JK flip-flop, asynchronous preset/reset in the D flip-flop"
-msgstr ""
+msgstr "דלגלג JK, הגדרה מראש/איפוס אסינכרוניים בדלגלג D"
 
 #: src/core/main.cpp:45 src/electronics/components/rotoswitch.cpp:41
 #, kde-format
@@ -970,7 +970,7 @@ msgstr "מקום שמירה"
 #, kde-format
 msgid ""
 "A file named \"%1\" already exists. Are you sure you want to overwrite it?"
-msgstr ""
+msgstr "כבר קיים קובץ בשם „%1”. לשכתב אותו?"
 
 #: src/document.cpp:114 src/itemdocument.cpp:828
 #, kde-format
@@ -983,6 +983,8 @@ msgid ""
 "The document '%1' has been modified.\n"
 "Do you want to save it?"
 msgstr ""
+"המסמך ‚%1’ נערך.\n"
+"לשמור אותו?"
 
 #: src/document.cpp:144
 #, kde-format
@@ -1211,7 +1213,7 @@ msgstr ""
 #: src/electronics/components/bidirled.cpp:35
 #, kde-format
 msgid "Bidirectional LED"
-msgstr ""
+msgstr "נורית דו־כיוונית"
 
 #: src/electronics/components/bidirled.cpp:29
 #: src/electronics/components/ecsevensegment.cpp:30
@@ -1227,7 +1229,7 @@ msgstr ""
 #: src/electronics/components/probe.cpp:207
 #, kde-format
 msgid "Outputs"
-msgstr ""
+msgstr "פלטים"
 
 #: src/electronics/components/bidirled.cpp:52
 #, kde-format
