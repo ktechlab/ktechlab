@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-13 00:44+0000\n"
-"PO-Revision-Date: 2025-05-29 15:42+0300\n"
+"PO-Revision-Date: 2025-05-30 12:02+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -4043,7 +4043,7 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:72
 #, kde-format
 msgid "Alt+8"
-msgstr ""
+msgstr "Alt+8"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_std_c99)
 #: src/gui/sdccoptionswidget.ui:82
@@ -4051,13 +4051,13 @@ msgstr ""
 msgid ""
 "Follow the C99 standard and disable SDCC features that conflict with the "
 "standard (incomplete support)."
-msgstr ""
+msgstr "להיצמד לתקן C99 ולהשבית את יכולות SDCC שסותרות את התקן (תמיכה חלקית)."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_std_c99)
 #: src/gui/sdccoptionswidget.ui:85
 #, kde-format
 msgid "Use C&99 standard only (--std-c99)"
-msgstr ""
+msgstr "להשתמש ב&תקן C99 בלבד (‎--std-c99)"
 
 #. i18n: ectx: property (shortcut), widget (QCheckBox, kcfg_SDCC_std_c99)
 #: src/gui/sdccoptionswidget.ui:88
@@ -4075,7 +4075,7 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:122
 #, kde-format
 msgid "Code Gener&ation"
-msgstr ""
+msgstr "י&צירת קוד"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_stack_auto)
 #: src/gui/sdccoptionswidget.ui:131
@@ -4123,7 +4123,7 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:164
 #, kde-format
 msgid "Leave out the frame pointer (--fommit-frame-pointer)"
-msgstr ""
+msgstr "להשאיר את מצביע המסגרת כמו שהוא (‎--fommit-frame-pointer)"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_no_xinit_opt)
 #: src/gui/sdccoptionswidget.ui:174
@@ -4149,7 +4149,7 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:208
 #, kde-format
 msgid "&Optimization"
-msgstr ""
+msgstr "מי&טוב"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_nooverlay)
 #: src/gui/sdccoptionswidget.ui:214
@@ -4158,6 +4158,8 @@ msgid ""
 "The compiler will not overlay parameters and local variables of any "
 "function, see section Parameters and local variables for more details."
 msgstr ""
+"המהדר לא ידרוס פרמטרים ומשתנים מקומיים של כל פונקציה שהיא, יש לעיין בסעיף "
+"פרמטרים ומשתנים מקומיים לפרטים נוספים."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nooverlay)
 #: src/gui/sdccoptionswidget.ui:217
@@ -4199,13 +4201,13 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:264
 #, kde-format
 msgid "Disable peep-hole optimization."
-msgstr ""
+msgstr "השבתת מיטוב „חור הצצה”."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_no_peep)
 #: src/gui/sdccoptionswidget.ui:267
 #, kde-format
 msgid "Disable peep-hole optimization (--&no-peep)"
-msgstr ""
+msgstr "השבתת מיטוב „&חור הצצה”/peep-hole ‏‎(--no-peep)"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_noloopreverse)
 #: src/gui/sdccoptionswidget.ui:274
