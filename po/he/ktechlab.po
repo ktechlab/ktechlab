@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-13 00:44+0000\n"
-"PO-Revision-Date: 2025-05-30 12:02+0300\n"
+"PO-Revision-Date: 2025-05-31 19:15+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -2917,7 +2917,7 @@ msgstr ""
 #: src/gui/contexthelpwidget.ui:173 src/gui/oscilloscopewidget.ui:120
 #, kde-format
 msgid "Reset"
-msgstr ""
+msgstr "איפוס"
 
 #: src/gui/contexthelp.cpp:334
 #, kde-format
@@ -2927,13 +2927,13 @@ msgstr ""
 #: src/gui/contexthelp.cpp:354
 #, kde-format
 msgid "Cannot save item description."
-msgstr ""
+msgstr "לא ניתן לשמור את תיאור הפריט."
 
 #. i18n: ectx: property (text), widget (QPushButton, m_pEditButton)
 #: src/gui/contexthelpwidget.ui:91
 #, kde-format
 msgid "Edit"
-msgstr ""
+msgstr "עריכה"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, m_pChangeDescriptionsDirectory)
 #: src/gui/contexthelpwidget.ui:138
@@ -3429,7 +3429,7 @@ msgstr ""
 #: src/gui/logicwidget.ui:57
 #, kde-format
 msgid "Input"
-msgstr ""
+msgstr "קלט"
 
 #. i18n: ectx: property (toolTip), widget (QDoubleSpinBox, kcfg_LogicRisingTrigger)
 #. i18n: ectx: property (toolTip), widget (QLabel, textLabel1)
@@ -3477,7 +3477,7 @@ msgstr ""
 #: src/gui/logicwidget.ui:151
 #, kde-format
 msgid "Output High:"
-msgstr ""
+msgstr "פלט גבוה:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, textLabel4)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_LogicOutputHighImpedance)
@@ -3530,22 +3530,22 @@ msgstr ""
 #: src/gui/microselectwidget.cpp:29
 #, kde-format
 msgid "Microprocessor"
-msgstr ""
+msgstr "מיקרומעבד"
 
 #: src/gui/microselectwidget.cpp:37
 #, kde-format
 msgid "Family"
-msgstr ""
+msgstr "משפחה"
 
 #: src/gui/microselectwidget.cpp:47
 #, kde-format
 msgid "Micro"
-msgstr ""
+msgstr "מיקרו"
 
 #: src/gui/microsettingsdlg.cpp:59 src/picitem.cpp:290
 #, kde-format
 msgid "PIC Settings"
-msgstr ""
+msgstr "הגדרות PIC"
 
 #: src/gui/microsettingsdlg.cpp:70
 #, kde-format
@@ -3584,12 +3584,12 @@ msgstr ""
 #: src/gui/microsettingsdlg.cpp:132
 #, kde-format
 msgid "Variable name"
-msgstr ""
+msgstr "שם משתנה"
 
 #: src/gui/microsettingsdlg.cpp:133
 #, kde-format
 msgid "Variable value"
-msgstr ""
+msgstr "ערך משתנה"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: src/gui/microsettingsdlg.cpp:259 src/gui/newpinmappingwidget.ui:48
@@ -3731,7 +3731,7 @@ msgstr ""
 #: src/gui/newprojectwidget.ui:84
 #, kde-format
 msgid "Project Name:"
-msgstr ""
+msgstr "שם מיזם:"
 
 #: src/gui/oscilloscope.cpp:323
 #, kde-format
@@ -3782,43 +3782,43 @@ msgstr ""
 #: src/gui/picprogrammerconfigwidget.ui:48
 #, kde-format
 msgid "&Add ..."
-msgstr ""
+msgstr "הוס&פה…"
 
 #. i18n: ectx: property (text), widget (QPushButton, removeButton)
 #: src/gui/picprogrammerconfigwidget.ui:55
 #, kde-format
 msgid "Re&move"
-msgstr ""
+msgstr "ה&סרה"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_3)
 #: src/gui/picprogrammerconfigwidget.ui:62 src/gui/programmerwidget.ui:29
 #, kde-format
 msgid "Program:"
-msgstr ""
+msgstr "תוכנית:"
 
 #. i18n: ectx: property (text), widget (QLabel, m_pProgrammerDescription)
 #: src/gui/picprogrammerconfigwidget.ui:85
 #, kde-format
 msgid "(Program Description)"
-msgstr ""
+msgstr "(תיאור תוכנית)"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
 #: src/gui/picprogrammerconfigwidget.ui:101
 #, kde-format
 msgid "Initialization:"
-msgstr ""
+msgstr "אתחול:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
 #: src/gui/picprogrammerconfigwidget.ui:123
 #, kde-format
 msgid "Read:"
-msgstr ""
+msgstr "קריאה:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: src/gui/picprogrammerconfigwidget.ui:133
 #, kde-format
 msgid "Write:"
-msgstr ""
+msgstr "כתיבה:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: src/gui/picprogrammerconfigwidget.ui:154
@@ -3836,13 +3836,13 @@ msgstr ""
 #: src/gui/picprogrammerconfigwidget.ui:167
 #, kde-format
 msgid "Erase:"
-msgstr ""
+msgstr "מחיקה:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_3)
 #: src/gui/picprogrammerconfigwidget.ui:177
 #, kde-format
 msgid "Verify:"
-msgstr ""
+msgstr "אימות:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_4)
 #: src/gui/picprogrammerconfigwidget.ui:187
@@ -3854,128 +3854,128 @@ msgstr ""
 #: src/gui/picprogrammerconfigwidget.ui:202
 #, kde-format
 msgid "Default port:"
-msgstr ""
+msgstr "פתחת ברירת מחדל:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/gui/processingoptionswidget.ui:49
 #, kde-format
 msgid "Output File:"
-msgstr ""
+msgstr "קובץ פלט:"
 
 #: src/gui/programmerdlg.cpp:40 src/gui/settingsdlg.cpp:134
 #, kde-format
 msgid "PIC Programmer"
-msgstr ""
+msgstr "מתכנת PIC"
 
 #: src/gui/programmerdlg.cpp:88
 #, kde-format
 msgid "Burn"
-msgstr ""
+msgstr "צריבה"
 
 #: src/gui/projectdlgs.cpp:51
 #, kde-format
 msgid "New Project"
-msgstr ""
+msgstr "מיזם חדש"
 
 #: src/gui/projectdlgs.cpp:129
 #, kde-format
 msgid "Create Subproject"
-msgstr ""
+msgstr "יצירת תת־מיזם"
 
 #: src/gui/projectdlgs.cpp:182
 #, kde-format
 msgid "Linker Options"
-msgstr ""
+msgstr "אפשרויות מקשר"
 
 #: src/gui/projectdlgs.cpp:317
 #, kde-format
 msgid "Processing Options"
-msgstr ""
+msgstr "אפשרויות עיבוד"
 
 #. i18n("Bold"), "format-text-bold", Qt::CTRL + Qt::Key_B, 0, 0, ac, "format_bold" );
 #: src/gui/richtexteditor.cpp:67
 #, kde-format
 msgid "Bold"
-msgstr ""
+msgstr "מודגש"
 
 #. i18n("Italic"), "format-text-italic", Qt::CTRL + Qt::Key_I, 0, 0, ac, "format_italic" );
 #: src/gui/richtexteditor.cpp:76
 #, kde-format
 msgid "Italic"
-msgstr ""
+msgstr "נטוי"
 
 #. i18n("Underline"), "format-text-underline", Qt::CTRL + Qt::Key_U, 0, 0, ac, "format_underline" );
 #: src/gui/richtexteditor.cpp:85
 #, kde-format
 msgid "Underline"
-msgstr ""
+msgstr "קו תחתון"
 
 #. i18n("List"), "unsorted_list", Qt::CTRL + Qt::Key_L, 0, 0, ac, "format_list" );
 #: src/gui/richtexteditor.cpp:94
 #, kde-format
 msgid "List"
-msgstr ""
+msgstr "רשימה"
 
 #. i18n("Text Alignment"), "format-justify-left", 0, 0, 0, ac, "text_alignment" );
 #. i18n("Text Alignment") );
 #: src/gui/richtexteditor.cpp:104 src/gui/richtexteditor.cpp:114
 #, kde-format
 msgid "Text Alignment"
-msgstr ""
+msgstr "יישור טקסט"
 
 #. i18n("Align Left"),		Qt::AlignLeft );
 #: src/gui/richtexteditor.cpp:118
 #, kde-format
 msgid "Align Left"
-msgstr ""
+msgstr "יישור שמאלה"
 
 #. i18n("Align Center"),	Qt::AlignHCenter );
 #: src/gui/richtexteditor.cpp:120
 #, kde-format
 msgid "Align Center"
-msgstr ""
+msgstr "מירכוז"
 
 #. i18n("Align Right"),	Qt::AlignRight );
 #: src/gui/richtexteditor.cpp:122
 #, kde-format
 msgid "Align Right"
-msgstr ""
+msgstr "יישור ימינה"
 
 #. i18n("Align Block"),	Qt::AlignJustify );
 #: src/gui/richtexteditor.cpp:124
 #, kde-format
 msgid "Align Block"
-msgstr ""
+msgstr "יישור לשני הצדדים"
 
 #. i18n("Text Vertical Alignment"), "text", 0, 0, 0, ac, "text_vertical_alignment" );
 #. i18n("Text Vertical Alignment") );
 #: src/gui/richtexteditor.cpp:130 src/gui/richtexteditor.cpp:139
 #, kde-format
 msgid "Text Vertical Alignment"
-msgstr ""
+msgstr "יישור טקסט אנכי"
 
 #: src/gui/richtexteditor.cpp:142
 #, kde-format
 msgid "Superscript"
-msgstr ""
+msgstr "כתב עילי"
 
 #. i18n("Superscript"),	QTextCharFormat::AlignSuperScript );
 #: src/gui/richtexteditor.cpp:144
 #, kde-format
 msgid "Normal"
-msgstr ""
+msgstr "רגיל"
 
 #. i18n("Normal"),			QTextCharFormat::AlignNormal );
 #: src/gui/richtexteditor.cpp:146
 #, kde-format
 msgid "Subscript"
-msgstr ""
+msgstr "כתב תחתי"
 
 #. i18n("Text Color..."), pm, 0, this, SLOT(textColor()), ac, "format_color" );
 #: src/gui/richtexteditor.cpp:154
 #, kde-format
 msgid "Text Color..."
-msgstr ""
+msgstr "צבע טקסט…"
 
 #. i18n: ectx: property (title), widget (QGroupBox, xGroupBox)
 #: src/gui/scopescreenwidget.ui:26
@@ -4005,7 +4005,7 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:36
 #, kde-format
 msgid "Ge&neral"
-msgstr ""
+msgstr "&כללי"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nostdlib)
 #: src/gui/sdccoptionswidget.ui:42
