@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-13 00:44+0000\n"
-"PO-Revision-Date: 2025-05-31 19:15+0300\n"
+"PO-Revision-Date: 2025-06-03 07:02+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -4437,7 +4437,7 @@ msgstr "שם ההגדרה"
 #: src/gui/symbolviewer.cpp:104
 #, kde-format
 msgid "Value radix:"
-msgstr ""
+msgstr "בסיס ערך:"
 
 #. i18n("Automatic"), "", 0, this, SLOT(slotSetRoutingAuto()), ac, "routing_mode_auto" );
 #: src/icnview.cpp:34 src/icnview.cpp:64
@@ -5108,7 +5108,7 @@ msgstr "*** יצירת Microbe נכשלה ***"
 #: src/languages/flowcode.cpp:173
 #, kde-format
 msgid "Warning: Floating connection for %1"
-msgstr ""
+msgstr "אזהרה: חיבורים צפים עבור %1"
 
 #: src/languages/flowcode.cpp:187
 #, kde-format
@@ -5179,6 +5179,8 @@ msgid ""
 "compiling and assembling.<br><br>For error messages, clicking on the line "
 "will automatically open up the file at the position of the error."
 msgstr ""
+"ההודעות האלו מציגות את פלט השימוש תלוי השפה כגון הידור ואיסוף."
+"<br><br>להודעות שגיאה, לחיצה על השורה תפתח את הקובץ בנקודת השגיאה אוטומטית."
 
 #: src/languages/microbe.cpp:28 src/languages/sdcc.cpp:31
 #, kde-format
@@ -5196,6 +5198,7 @@ msgid ""
 "Assembly failed. Please check you have KTechlab installed properly (\"microbe"
 "\" could not be started)."
 msgstr ""
+"האסמבלי נכשל. נא לוודא ש־KTechlab מותקן כראוי (לא ניתן להפעיל את „microbe”)."
 
 #: src/languages/picprogrammer.cpp:62 src/languages/picprogrammer.cpp:73
 #: src/languages/picprogrammer.cpp:84 src/languages/picprogrammer.cpp:94
@@ -5268,12 +5271,12 @@ msgstr "של המארז"
 #: src/mechanics/mechanicsitem.cpp:41
 #, kde-format
 msgid "Mass"
-msgstr ""
+msgstr "מסה"
 
 #: src/mechanics/mechanicsitem.cpp:49
 #, kde-format
 msgid "Moment of Inertia"
-msgstr ""
+msgstr "מומנט ההתמדה"
 
 #: src/picitem.cpp:236
 #, kde-format
