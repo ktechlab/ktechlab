@@ -386,7 +386,7 @@ void ParallelPort::setControlDirection(int pins, Direction dir)
 Port::ProbeResult ParallelPort::probe(const QString &port)
 {
 #ifdef Q_OS_LINUX
-    int file = open(port.toLatin1(), O_RDWR);
+    int file = open(port.toLatin1().constData(), O_RDWR);
     if (file == -1)
         return Port::DoesntExist;
 
@@ -433,7 +433,7 @@ bool ParallelPort::openPort(const QString &port)
         return false;
     }
 
-    m_file = open(port.toLatin1(), O_RDWR);
+    m_file = open(port.toLatin1().constData(), O_RDWR);
 
     if (m_file == -1) {
         qCCritical(KTL_LOG) << "Could not open port \"" << port << "\": errno=" << errno;
