@@ -197,7 +197,7 @@ void Document::setDCOPID(unsigned id)
     if (m_pDocumentIface) {
         QString docID;
         docID.setNum(dcopID());
-        m_pDocumentIface->setObjId("Document#" + docID);
+        m_pDocumentIface->setObjId(QLatin1StringView("Document#") + docID);
     }
 }
 

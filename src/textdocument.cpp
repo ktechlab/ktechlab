@@ -39,6 +39,8 @@
 
 #include <ktechlab_debug.h>
 
+using Qt::StringLiterals::operator""_L1;
+
 bool TextDocument::isUndoAvailable() const
 {
     // return (m_doc->undoCount() != 0);
@@ -230,18 +232,18 @@ void TextDocument::guessScheme(bool allowDisable)
 {
     // And specific file actions depending on the current type of file
     QString fileName = url().fileName();
-    QString extension = fileName.right(fileName.length() - fileName.lastIndexOf('.') - 1);
+    QString extension = fileName.right(fileName.length() - fileName.lastIndexOf(QLatin1Char('.')) - 1);
 
-    if (extension == "asm" || extension == "src" || extension == "inc")
+    if (extension == "asm"_L1 || extension == "src"_L1 || extension == "inc"_L1)
         slotInitLanguage(ct_asm);
 
-    else if (extension == "hex")
+    else if (extension == "hex"_L1)
         slotInitLanguage(ct_hex);
 
-    else if (extension == "basic" || extension == "microbe")
+    else if (extension == "basic"_L1 || extension == "microbe"_L1)
         slotInitLanguage(ct_microbe);
 
-    else if (extension == "c")
+    else if (extension == "c"_L1)
         slotInitLanguage(ct_c);
 
     else if (m_guessedCodeType != TextDocument::ct_unknown)
@@ -598,7 +600,7 @@ void TextDocument::slotUpdateMarksInfo()
         KTextEditor::Mark *mark = itMark.value();
         if (mark->type & KTextEditor::Document::Bookmark) {
             QString actionCaption = i18n("%1 - %2", QString::number(mark->line + 1), m_doc->text(KTextEditor::Range(mark->line, 0, mark->line, 100 /* FIXME arbitrary */)));
-            QString actionName = QString("bookmark_%1").arg(QString::number(mark->line));
+            QString actionName = QLatin1StringView("bookmark_%1").arg(QString::number(mark->line));
             /*
             QAction * a = new QAction( actionCaption,
                                        0, this, SLOT(slotBookmarkRequested()), this,
@@ -611,7 +613,7 @@ void TextDocument::slotUpdateMarksInfo()
         }
     }
 
-    KTechlab::self()->plugActionList("bookmark_actionlist", m_bookmarkActions);
+    KTechlab::self()->plugActionList(QLatin1StringView("bookmark_actionlist"), m_bookmarkActions);
 }
 
 void TextDocument::slotBookmarkRequested()
@@ -621,10 +623,10 @@ void TextDocument::slotBookmarkRequested()
         return;
 
     QString name = s->objectName();
-    if (!name.startsWith("bookmark_"))
+    if (!name.startsWith(QLatin1StringView("bookmark_")))
         return;
 
-    name.remove("bookmark_");
+    name.remove(QLatin1StringView("bookmark_"));
     int line = -1;
     bool ok;
     line = name.toInt(&ok);
