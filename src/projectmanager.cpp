@@ -42,6 +42,8 @@
 #include <ktlconfig.h>
 #include <ktechlab_debug.h>
 
+using Qt::Literals::operator""_L1;
+
 static QString relativeUrl(const QUrl &baseDirUrl, const QUrl &url)
 {
     if (baseDirUrl.scheme() == url.scheme() && baseDirUrl.host() == url.host() && baseDirUrl.port() == url.port() && baseDirUrl.userInfo() == url.userInfo()) {
@@ -69,29 +71,29 @@ LinkerOptions::LinkerOptions()
 
 QDomElement LinkerOptions::toDomElement(QDomDocument &doc, const QUrl &baseDirUrl) const
 {
-    QDomElement node = doc.createElement("linker");
+    QDomElement node = doc.createElement("linker"_L1);
 
-    node.setAttribute("hex-format", hexFormatToString(hexFormat()));
-    node.setAttribute("output-map-file", outputMapFile());
-    node.setAttribute("library-dir", libraryDir());
-    node.setAttribute("linker-script", linkerScript());
-    node.setAttribute("other", linkerOther());
+    node.setAttribute("hex-format"_L1, hexFormatToString(hexFormat()));
+    node.setAttribute("output-map-file"_L1, outputMapFile());
+    node.setAttribute("library-dir"_L1, libraryDir());
+    node.setAttribute("linker-script"_L1, linkerScript());
+    node.setAttribute("other"_L1, linkerOther());
 
     // internal are always local files, like the project base dir
     // so can always get relative path from a QDir
     const QDir baseDir(baseDirUrl.toLocalFile());
     QStringList::const_iterator end = m_linkedInternal.end();
     for (QStringList::const_iterator it = m_linkedInternal.begin(); it != end; ++it) {
-        QDomElement child = doc.createElement("linked-internal");
+        QDomElement child = doc.createElement("linked-internal"_L1);
         node.appendChild(child);
-        child.setAttribute("url", baseDir.relativeFilePath(*it));
+        child.setAttribute("url"_L1, baseDir.relativeFilePath(*it));
     }
 
     end = m_linkedExternal.end();
     for (QStringList::const_iterator it = m_linkedExternal.begin(); it != end; ++it) {
-        QDomElement child = doc.createElement("linked-external");
+        QDomElement child = doc.createElement("linked-external"_L1);
         node.appendChild(child);
-        child.setAttribute("url", *it);
+        child.setAttribute("url"_L1, *it);
     }
 
     return node;
@@ -99,11 +101,11 @@ QDomElement LinkerOptions::toDomElement(QDomDocument &doc, const QUrl &baseDirUr
 
 void LinkerOptions::domElementToLinkerOptions(const QDomElement &element, const QUrl &baseDirUrl)
 {
-    setHexFormat(stringToHexFormat(element.attribute("hex-format", QString())));
-    setOutputMapFile(element.attribute("output-map-file", "0").toInt());
-    setLibraryDir(element.attribute("library-dir", QString()));
-    setLinkerScript(element.attribute("linker-script", QString()));
-    setLinkerOther(element.attribute("other", QString()));
+    setHexFormat(stringToHexFormat(element.attribute("hex-format"_L1, QString())));
+    setOutputMapFile(element.attribute("output-map-file"_L1, "0"_L1).toInt());
+    setLibraryDir(element.attribute("library-dir"_L1, QString()));
+    setLinkerScript(element.attribute("linker-script"_L1, QString()));
+    setLinkerOther(element.attribute("other"_L1, QString()));
 
     m_linkedInternal.clear();
     m_linkedExternal.clear();
@@ -118,10 +120,10 @@ void LinkerOptions::domElementToLinkerOptions(const QDomElement &element, const 
         if (!childElement.isNull()) {
             const QString tagName = childElement.tagName();
 
-            if (tagName == "linked-internal")
-                m_linkedInternal << ::resolvedLocalFile(baseDir, childElement.attribute("url", QString()));
-            else if (tagName == "linked-external")
-                m_linkedExternal << childElement.attribute("url", QString());
+            if (tagName == "linked-internal"_L1)
+                m_linkedInternal << ::resolvedLocalFile(baseDir, childElement.attribute("url"_L1, QString()));
+            else if (tagName == "linked-external"_L1)
+                m_linkedExternal << childElement.attribute("url"_L1, QString());
 
             else
                 qCCritical(KTL_LOG) << "Unrecognised element tag name: " << tagName;
@@ -135,31 +137,31 @@ QString LinkerOptions::hexFormatToString(HexFormat::type hexFormat)
 {
     switch (hexFormat) {
     case HexFormat::inhx32:
-        return "inhx32";
+        return "inhx32"_L1;
 
     case HexFormat::inhx8m:
-        return "inhx8m";
+        return "inhx8m"_L1;
 
     case HexFormat::inhx8s:
-        return "inhx8s";
+        return "inhx8s"_L1;
 
     case HexFormat::inhx16:
-        return "inhx16";
+        return "inhx16"_L1;
     }
 
     // Default hex format is inhx32
-    return "inhx32";
+    return "inhx32"_L1;
 }
 
 LinkerOptions::HexFormat::type LinkerOptions::stringToHexFormat(const QString &hexFormat)
 {
-    if (hexFormat == "inhx8m")
+    if (hexFormat == "inhx8m"_L1)
         return HexFormat::inhx8m;
 
-    if (hexFormat == "inhx8s")
+    if (hexFormat == "inhx8s"_L1)
         return HexFormat::inhx8s;
 
-    if (hexFormat == "inhx16")
+    if (hexFormat == "inhx16"_L1)
         return HexFormat::inhx16;
 
     return HexFormat::inhx32;
@@ -170,7 +172,7 @@ LinkerOptions::HexFormat::type LinkerOptions::stringToHexFormat(const QString &h
 ProcessingOptions::ProcessingOptions()
 {
     m_bUseParentMicroID = false;
-    m_microID = "P16F84";
+    m_microID = "P16F84"_L1;
 }
 
 ProcessingOptions::~ProcessingOptions()
@@ -179,18 +181,18 @@ ProcessingOptions::~ProcessingOptions()
 
 QDomElement ProcessingOptions::toDomElement(QDomDocument &doc, const QUrl &baseDirUrl) const
 {
-    QDomElement node = doc.createElement("processing");
+    QDomElement node = doc.createElement("processing"_L1);
 
-    node.setAttribute("output", ::relativeUrl(baseDirUrl, outputURL()));
-    node.setAttribute("micro", m_microID);
+    node.setAttribute("output"_L1, ::relativeUrl(baseDirUrl, outputURL()));
+    node.setAttribute("micro"_L1, m_microID);
 
     return node;
 }
 
 void ProcessingOptions::domElementToProcessingOptions(const QDomElement &element, const QUrl &baseDirUrl)
 {
-    setOutputURL(baseDirUrl.resolved(QUrl(element.attribute("output", QString()))));
-    setMicroID(element.attribute("micro", QString()));
+    setOutputURL(baseDirUrl.resolved(QUrl(element.attribute("output"_L1, QString()))));
+    setMicroID(element.attribute("micro"_L1, QString()));
 }
 // END class ProcessingOptions
 
@@ -237,14 +239,14 @@ void ProjectItem::updateILVItemPixmap()
 
     case ProgramType: {
         QPixmap pm;
-        pm.load(QStandardPaths::locate(QStandardPaths::AppDataLocation, "icons/project_program.png"));
+        pm.load(QStandardPaths::locate(QStandardPaths::AppDataLocation, "icons/project_program.png"_L1));
         m_pILVItem->setIcon(0, QIcon(pm));
         break;
     }
 
     case LibraryType: {
         QPixmap pm;
-        pm.load(QStandardPaths::locate(QStandardPaths::AppDataLocation, "icons/project_library.png"));
+        pm.load(QStandardPaths::locate(QStandardPaths::AppDataLocation, "icons/project_library.png"_L1));
         m_pILVItem->setIcon(0, QIcon(pm));
         break;
     }
@@ -314,15 +316,15 @@ void ProjectItem::setURL(const QUrl &url)
 
         switch (outputType()) {
         case ProgramOutput:
-            newExtension = ".hex";
+            newExtension = ".hex"_L1;
             break;
 
         case ObjectOutput:
-            newExtension = ".o";
+            newExtension = ".o"_L1;
             break;
 
         case LibraryOutput:
-            newExtension = ".o";
+            newExtension = ".o"_L1;
             break;
 
         case UnknownOutput:
@@ -331,7 +333,7 @@ void ProjectItem::setURL(const QUrl &url)
 
         if (!newExtension.isEmpty()) {
             QString fileName = url.path();
-            fileName.chop(fileName.length() - fileName.lastIndexOf('.'));
+            fileName.chop(fileName.length() - fileName.lastIndexOf(QLatin1Char('.')));
             fileName.append(newExtension);
             QUrl newUrl(url);
             newUrl.setPath(fileName);
@@ -514,7 +516,7 @@ void ProjectItem::upload(ProcessOptionsList *pol)
     build(pol);
 
     ProgrammerDlg *dlg = new ProgrammerDlg(microID(), static_cast<QWidget *>(KTechlab::self()));
-    dlg->setObjectName("Programmer Dlg");
+    dlg->setObjectName("Programmer Dlg"_L1);
 
     const int accepted = dlg->exec();
     if (accepted != QDialog::Accepted) {
@@ -535,11 +537,11 @@ void ProjectItem::upload(ProcessOptionsList *pol)
 
 QDomElement ProjectItem::toDomElement(QDomDocument &doc, const QUrl &baseDirUrl) const
 {
-    QDomElement node = doc.createElement("item");
+    QDomElement node = doc.createElement("item"_L1);
 
-    node.setAttribute("type", typeToString());
-    node.setAttribute("name", m_name);
-    node.setAttribute("url", ::relativeUrl(baseDirUrl, m_url));
+    node.setAttribute("type"_L1, typeToString());
+    node.setAttribute("name"_L1, m_name);
+    node.setAttribute("url"_L1, ::relativeUrl(baseDirUrl, m_url));
 
     node.appendChild(LinkerOptions::toDomElement(doc, baseDirUrl));
     node.appendChild(ProcessingOptions::toDomElement(doc, baseDirUrl));
@@ -651,32 +653,32 @@ QString ProjectItem::typeToString() const
 {
     switch (m_type) {
     case ProjectType:
-        return "Project";
+        return "Project"_L1;
 
     case FileType:
-        return "File";
+        return "File"_L1;
 
     case ProgramType:
-        return "Program";
+        return "Program"_L1;
 
     case LibraryType:
-        return "Library";
+        return "Library"_L1;
     }
     return QString();
 }
 
 ProjectItem::Type ProjectItem::stringToType(const QString &type)
 {
-    if (type == "Project")
+    if (type == "Project"_L1)
         return ProjectType;
 
-    if (type == "File")
+    if (type == "File"_L1)
         return FileType;
 
-    if (type == "Program")
+    if (type == "Program"_L1)
         return ProgramType;
 
-    if (type == "Library")
+    if (type == "Library"_L1)
         return LibraryType;
 
     return FileType;
@@ -684,9 +686,9 @@ ProjectItem::Type ProjectItem::stringToType(const QString &type)
 
 void ProjectItem::domElementToItem(const QDomElement &element, const QUrl &baseDirUrl)
 {
-    Type type = stringToType(element.attribute("type", QString()));
-    QString name = element.attribute("name", QString());
-    QUrl url = baseDirUrl.resolved(QUrl(element.attribute("url", QString())));
+    Type type = stringToType(element.attribute("type"_L1, QString()));
+    QString name = element.attribute("name"_L1, QString());
+    QUrl url = baseDirUrl.resolved(QUrl(element.attribute("url"_L1, QString())));
 
     ProjectItem *createdItem = new ProjectItem(this, type, m_pProjectManager);
     createdItem->setObjectName(name);
@@ -700,13 +702,13 @@ void ProjectItem::domElementToItem(const QDomElement &element, const QUrl &baseD
         if (!childElement.isNull()) {
             const QString tagName = childElement.tagName();
 
-            if (tagName == "linker")
+            if (tagName == "linker"_L1)
                 createdItem->domElementToLinkerOptions(childElement, baseDirUrl);
 
-            else if (tagName == "processing")
+            else if (tagName == "processing"_L1)
                 createdItem->domElementToProcessingOptions(childElement, baseDirUrl);
 
-            else if (tagName == "item")
+            else if (tagName == "item"_L1)
                 createdItem->domElementToItem(childElement, baseDirUrl);
 
             else
@@ -756,9 +758,9 @@ bool ProjectInfo::open(const QUrl &url)
     QString xml;
     QTextStream textStream(file.data());
     while (!textStream.atEnd()) // was: eof()
-        xml += textStream.readLine() + '\n';
+        xml += textStream.readLine() + QLatin1Char('\n');
 
-    QDomDocument doc("KTechlab");
+    QDomDocument doc("KTechlab"_L1);
     QString errorMessage;
     if (!doc.setContent(xml, &errorMessage)) {
         KMessageBox::error(nullptr, i18n("Could not parse XML:\n%1", errorMessage));
@@ -773,13 +775,13 @@ bool ProjectInfo::open(const QUrl &url)
         if (!element.isNull()) {
             const QString tagName = element.tagName();
 
-            if (tagName == "linker")
+            if (tagName == "linker"_L1)
                 domElementToLinkerOptions(element, m_url);
 
-            else if (tagName == "processing")
+            else if (tagName == "processing"_L1)
                 domElementToProcessingOptions(element, m_url);
 
-            else if (tagName == "file" || tagName == "item")
+            else if (tagName == "file"_L1 || tagName == "item"_L1)
                 domElementToItem(element, m_url);
 
             else
@@ -801,9 +803,9 @@ bool ProjectInfo::save()
         return false;
     }
 
-    QDomDocument doc("KTechlab");
+    QDomDocument doc("KTechlab"_L1);
 
-    QDomElement root = doc.createElement("project");
+    QDomElement root = doc.createElement("project"_L1);
     doc.appendChild(root);
 
     m_children.removeAll(static_cast<ProjectItem *>(nullptr));
@@ -817,11 +819,11 @@ bool ProjectInfo::save()
     file.close();
 
     {
-        KRecentFilesAction *rfa = static_cast<KRecentFilesAction *>(KTechlab::self()->actionByName("project_open_recent"));
+        KRecentFilesAction *rfa = static_cast<KRecentFilesAction *>(KTechlab::self()->actionByName("project_open_recent"_L1));
         if (rfa) {
             KSharedConfigPtr config = KSharedConfig::openConfig();
             rfa->addUrl(m_url);
-            rfa->saveEntries(config->group("Recent Projects"));
+            rfa->saveEntries(config->group("Recent Projects"_L1));
             config->sync();
         } else {
             qCWarning(KTL_LOG) << "there is no project_open_recent action in application";
@@ -883,7 +885,8 @@ void ProjectManager::slotNewProject()
     if (accepted == QDialog::Accepted) {
         m_pCurrentProject = new ProjectInfo(this);
         m_pCurrentProject->setObjectName(newProjectDlg->projectName());
-        m_pCurrentProject->setURL(QUrl::fromLocalFile(newProjectDlg->location() + m_pCurrentProject->name().toLower() + ".ktechlab"));
+        m_pCurrentProject->setURL(QUrl::fromLocalFile(
+            newProjectDlg->location() + m_pCurrentProject->name().toLower() + QLatin1StringView(".ktechlab")));
 
         QDir dir;
         if (!dir.mkdir(m_pCurrentProject->directory()))
@@ -905,7 +908,7 @@ void ProjectManager::slotProjectOptions()
 void ProjectManager::slotOpenProject()
 {
     QString filter;
-    filter = QString("*.ktechlab|%1 (*.ktechlab)\n*|%2").arg(i18n("KTechlab Project")).arg(i18n("All Files"));
+    filter = QLatin1StringView("*.ktechlab|%1 (*.ktechlab)\n*|%2").arg(i18n("KTechlab Project")).arg(i18n("All Files"));
 
     QUrl url = QFileDialog::getOpenFileUrl(this, i18n("Open Location"), QUrl(), filter);
 
@@ -931,11 +934,11 @@ void ProjectManager::slotOpenProject(const QUrl &url)
         return;
     }
     {
-        KRecentFilesAction *rfa = static_cast<KRecentFilesAction *>(KTechlab::self()->actionByName("project_open_recent"));
+        KRecentFilesAction *rfa = static_cast<KRecentFilesAction *>(KTechlab::self()->actionByName("project_open_recent"_L1));
         if (rfa) {
             KSharedConfigPtr config = KSharedConfig::openConfig();
             rfa->addUrl(m_pCurrentProject->url());
-            rfa->saveEntries(config->group("Recent Projects"));
+            rfa->saveEntries(config->group("Recent Projects"_L1));
             config->sync();
         } else {
             qCWarning(KTL_LOG) << "there is no project_open_recent action in application";
@@ -1000,14 +1003,14 @@ void ProjectManager::updateActions()
 {
     bool projectIsOpen = m_pCurrentProject;
 
-    KTechlab::self()->actionByName("project_create_subproject")->setEnabled(projectIsOpen);
-    KTechlab::self()->actionByName("project_export_makefile")->setEnabled(projectIsOpen);
-    KTechlab::self()->actionByName("subproject_add_existing_file")->setEnabled(projectIsOpen);
-    KTechlab::self()->actionByName("subproject_add_current_file")->setEnabled(projectIsOpen);
-    // 	KTechlab::self()->actionByName("project_options")->setEnabled( projectIsOpen );
-    KTechlab::self()->actionByName("project_close")->setEnabled(projectIsOpen);
-    KTechlab::self()->actionByName("project_add_existing_file")->setEnabled(projectIsOpen);
-    KTechlab::self()->actionByName("project_add_current_file")->setEnabled(projectIsOpen);
+    KTechlab::self()->actionByName("project_create_subproject"_L1)->setEnabled(projectIsOpen);
+    KTechlab::self()->actionByName("project_export_makefile"_L1)->setEnabled(projectIsOpen);
+    KTechlab::self()->actionByName("subproject_add_existing_file"_L1)->setEnabled(projectIsOpen);
+    KTechlab::self()->actionByName("subproject_add_current_file"_L1)->setEnabled(projectIsOpen);
+    // 	KTechlab::self()->actionByName("project_options"_L1)->setEnabled( projectIsOpen );
+    KTechlab::self()->actionByName("project_close"_L1)->setEnabled(projectIsOpen);
+    KTechlab::self()->actionByName("project_add_existing_file"_L1)->setEnabled(projectIsOpen);
+    KTechlab::self()->actionByName("project_add_current_file"_L1)->setEnabled(projectIsOpen);
 }
 
 void ProjectManager::slotAddFile()
@@ -1134,14 +1137,14 @@ void ProjectManager::slotContextMenuRequested(const QPoint &pos)
     QTreeWidgetItem *item = itemAt(pos);
     QString popupName;
     ILVItem *ilvItem = dynamic_cast<ILVItem *>(item);
-    QAction *linkerOptionsAct = KTechlab::self()->actionByName("project_item_linker_options");
+    QAction *linkerOptionsAct = KTechlab::self()->actionByName("project_item_linker_options"_L1);
     linkerOptionsAct->setEnabled(false);
 
     if (!m_pCurrentProject) {
-        popupName = "project_none_popup";
+        popupName = "project_none_popup"_L1;
 
     } else if (!ilvItem) {
-        popupName = "project_blank_popup";
+        popupName = "project_blank_popup"_L1;
 
     } else {
         ProcessOptions::ProcessPath::MediaType mediaType = ProcessOptions::guessMediaType(ilvItem->projectItem()->url().toLocalFile());
@@ -1149,17 +1152,17 @@ void ProjectManager::slotContextMenuRequested(const QPoint &pos)
         switch (ilvItem->projectItem()->type()) {
         case ProjectItem::FileType:
             if (mediaType == ProcessOptions::ProcessPath::Unknown)
-                popupName = "project_file_other_popup";
+                popupName = "project_file_other_popup"_L1;
             else
-                popupName = "project_file_popup";
+                popupName = "project_file_popup"_L1;
             break;
 
         case ProjectItem::ProgramType:
-            popupName = "project_program_popup";
+            popupName = "project_program_popup"_L1;
             break;
 
         case ProjectItem::LibraryType:
-            popupName = "project_library_popup";
+            popupName = "project_library_popup"_L1;
             break;
 
         case ProjectItem::ProjectType:
@@ -1182,8 +1185,8 @@ void ProjectManager::slotContextMenuRequested(const QPoint &pos)
     }
 
     bool haveFocusedDocument = DocManager::self()->getFocusedDocument();
-    KTechlab::self()->actionByName("subproject_add_current_file")->setEnabled(haveFocusedDocument);
-    KTechlab::self()->actionByName("project_add_current_file")->setEnabled(haveFocusedDocument);
+    KTechlab::self()->actionByName(QLatin1StringView("subproject_add_current_file"))->setEnabled(haveFocusedDocument);
+    KTechlab::self()->actionByName(QLatin1StringView("project_add_current_file"))->setEnabled(haveFocusedDocument);
 
     QMenu *pop = static_cast<QMenu *>(KTechlab::self()->factory()->container(popupName, KTechlab::self()));
     if (pop) {

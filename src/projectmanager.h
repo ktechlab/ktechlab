@@ -352,7 +352,7 @@ public:
 
     static QString toolViewIdentifier()
     {
-        return "ProjectManager";
+        return QLatin1StringView("ProjectManager");
     }
 
     /**
