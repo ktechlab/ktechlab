@@ -85,8 +85,7 @@ add_definitions(
 #     -DQT_STRICT_ITERATORS # TODO
     -DQT_NO_URL_CAST_FROM_STRING
     -DQT_NO_NARROWING_CONVERSIONS_IN_CONNECT
-#    -DQT_NO_FOREACH # needed by KConfig system at least on Ubuntu 18.04
-    -UQT_NO_FOREACH # needed by KConfig system at least on Ubuntu 18.04
+    -DQT_NO_FOREACH
     -DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x060000
     -DKF_DEPRECATED_WARNINGS_SINCE=0x060000 # to enable warnings for API since the disabled limit
 )
