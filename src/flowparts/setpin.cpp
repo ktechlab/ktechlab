@@ -25,11 +25,12 @@ Item *SetPin::construct(ItemDocument *itemDocument, bool newItem, const char *id
 
 LibraryItem *SetPin::libraryItem()
 {
-    return new LibraryItem(QStringList(QString("flow/setpin")), i18n("Set Pin State"), i18n("I\\/O"), "pinwrite.png", LibraryItem::lit_flowpart, SetPin::construct);
+    return new LibraryItem(QStringList(QLatin1StringView("flow/setpin")), i18n("Set Pin State"), i18n("I\\/O"),
+                           QLatin1StringView("pinwrite.png"), LibraryItem::lit_flowpart, SetPin::construct);
 }
 
 SetPin::SetPin(ICNDocument *icnDocument, bool newItem, const char *id)
-    : FlowPart(icnDocument, newItem, id ? id : "setpin")
+    : FlowPart(icnDocument, newItem, id ? QLatin1StringView(id) : QLatin1StringView("setpin"))
 {
     m_name = i18n("Set Pin State");
     initIOSymbol();
