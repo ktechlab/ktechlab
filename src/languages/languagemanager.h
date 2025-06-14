@@ -13,6 +13,7 @@
 
 #include <QList>
 #include <QObject>
+#include <QLatin1StringView>
 
 #include "language.h"
 #include "logview.h"
@@ -43,7 +44,7 @@ public:
     static LanguageManager *self(KateMDI::ToolView *parent = nullptr);
     static QString toolViewIdentifier()
     {
-        return "LanguageManager";
+        return QLatin1StringView("LanguageManager");
     }
     ~LanguageManager() override;
 
