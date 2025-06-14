@@ -266,8 +266,8 @@ void Expression::buildTree( const QString & unstrippedExpression, BTreeBase *tre
 		// ==, !=
 		case 0:
 		{
-		int equpos = findSkipBrackets(expression, "==");
-		int neqpos = findSkipBrackets(expression, "!=");
+		int equpos = findSkipBrackets(expression, QLatin1StringView("=="));
+		int neqpos = findSkipBrackets(expression, QLatin1StringView("!="));
 		if( equpos != -1 )
 		{
 			op = equals;
@@ -287,10 +287,10 @@ void Expression::buildTree( const QString & unstrippedExpression, BTreeBase *tre
 		// <, <=, >=, >
 		case 1:
 		{
-		int ltpos = findSkipBrackets(expression, "<");
-		int lepos = findSkipBrackets(expression, "<=");
-		int gepos = findSkipBrackets(expression, ">=");
-		int gtpos = findSkipBrackets(expression, ">");
+		int ltpos = findSkipBrackets(expression, QLatin1StringView("<"));
+		int lepos = findSkipBrackets(expression, QLatin1StringView("<="));
+		int gepos = findSkipBrackets(expression, QLatin1StringView(">="));
+		int gtpos = findSkipBrackets(expression, QLatin1StringView(">"));
 		// Note: if (for example) "<=" is present, "<" will also be present. This
 		// means that we have to check for "<=" before "<", etc.
 		if( lepos != -1 )
@@ -380,9 +380,9 @@ void Expression::buildTree( const QString & unstrippedExpression, BTreeBase *tre
 		// AND, OR, XOR
 		case 5:
 		{
-		int bwAndPos = findSkipBrackets(expression, " AND ");
-		int bwOrPos = findSkipBrackets(expression, " OR ");
-		int bwXorPos = findSkipBrackets(expression, " XOR ");
+		int bwAndPos = findSkipBrackets(expression, QLatin1StringView(" AND "));
+		int bwOrPos = findSkipBrackets(expression, QLatin1StringView(" OR "));
+		int bwXorPos = findSkipBrackets(expression, QLatin1StringView(" XOR "));
 		if( bwAndPos != -1 )
 		{
 			op = bwand;
@@ -408,7 +408,7 @@ void Expression::buildTree( const QString & unstrippedExpression, BTreeBase *tre
 		// NOT
 		case 6:
 		{
-		int bwNotPos = findSkipBrackets(expression, " NOT ");
+		int bwNotPos = findSkipBrackets(expression, QLatin1StringView(" NOT "));
 		if( bwNotPos != -1 )
 		{
 			op = bwnot;
@@ -445,7 +445,7 @@ void Expression::buildTree( const QString & unstrippedExpression, BTreeBase *tre
 			// hand child blank and put the rest in the right hand node.
 			if( unary && j == 0 )
 			{
-				newNode->setValue("");
+				newNode->setValue(QString());
 				newNode->setType(number);
 			}
 			else buildTree(tokens[j], tree, newNode, 0 );
@@ -498,13 +498,13 @@ void Expression::compileExpression( const QString & expression )
 
 void Expression::compileConditional( const QString & expression, Code * ifCode, Code * elseCode )
 {
-	if( expression.contains(QRegularExpression("=>|=<|=!")) ) // 2024.04.21 - porting to Qt6
+	if( expression.contains(QRegularExpression(QLatin1StringView("=>|=<|=!"))) ) // 2024.04.21 - porting to Qt6
 	// if ( QRegExp("=>|=<|=!").indexIn(expression) == -1 )
 	{
 		mistake( MicrobeApp::InvalidComparison, expression );
 		return;
 	}
-	if( expression.contains(QRegularExpression("[^=><!][=][^=]")))
+	if( expression.contains(QRegularExpression(QLatin1StringView("[^=><!][=][^=]"))))
 	// if (QRegExp("[^=><!][=][^=]").indexIn(expression) == -1 )
 	{
 		mistake( MicrobeApp::InvalidEquals );
@@ -533,7 +533,7 @@ void Expression::compileConditional( const QString & expression, Code * ifCode, 
 		BTreeNode *oneNode = new BTreeNode();
 		oneNode->setChildOp(noop);
 		oneNode->setType(number);
-		oneNode->setValue("1");
+		oneNode->setValue(QLatin1StringView("1"));
 
 		newRoot->setLeft(root);
 		newRoot->setRight(oneNode);
@@ -664,8 +664,8 @@ QString Expression::stripBrackets( QString expression )
 	expression = expression.trimmed();
 	while(stripping)
 	{
-		if( expression.at(i) == '(' ) bracketLevel++;
-		else if( expression.at(i) == ')' )
+		if( expression.at(i) == QLatin1Char('(') ) bracketLevel++;
+		else if( expression.at(i) == QLatin1Char(')') )
 		{
 			if( i == int(expression.length() - 1) && bracketLevel == 1)
 			{
@@ -678,7 +678,7 @@ QString Expression::stripBrackets( QString expression )
 			mistake( MicrobeApp::MismatchedBrackets, expression );
 			// Stray brackets might cause the expressionession parser some problems,
 			// so we just avoid parsing anything altogether
-			expression = "";
+			expression = QLatin1StringView("");
 			stripping = false;
 		}
 		i++;
@@ -712,7 +712,7 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 
 
 	// See if it is a single quoted character, e.g. 'A'
-	if( expr.left(1) == "\'" && expr.right(1) == "\'" )
+	if( expr.left(1) == QLatin1StringView("\'") && expr.right(1) == QLatin1StringView("\'") )
 	{
 		if( expr.length() == 3 ) // fall through to report as unknown variable if not of form 'x'
 		{
@@ -723,17 +723,17 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 	}
 
 	// Check for the most common mistake ever!
-	if(expr.contains("="))
+	if(expr.contains(QLatin1StringView("=")))
 		mistake( MicrobeApp::InvalidEquals );
 	// Check for reserved keywords
-	if(expr=="to"||expr=="step"||expr=="then")
+	if(expr==QLatin1StringView("to") || expr==QLatin1StringView("step") || expr==QLatin1StringView("then"))
 		mistake( MicrobeApp::ReservedKeyword, expr );
 
 	// Check for empty expressions, or expressions containing spaces
 	// both indicating a Mistake.
 	if(expr.isEmpty())
 		mistake( MicrobeApp::ConsecutiveOperators );
-	else if(expr.contains(QRegularExpression("\\s")) && t!= extpin)
+	else if(expr.contains(QRegularExpression(QLatin1StringView("\\s"))) && t!= extpin)
 		mistake( MicrobeApp::MissingOperator );
 
 //***************modified isValidRegister is included ***********************//
@@ -761,11 +761,11 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 	if( t == extpin )
 	{
 		bool NOT;
-		int i = expr.indexOf("is");
+		int i = expr.indexOf(QLatin1StringView("is"));
 		if(i > 0)
 		{
-			NOT = expr.contains("low");
-			if(!expr.contains("high") && !expr.contains("low"))
+			NOT = expr.contains(QLatin1StringView("low"));
+			if(!expr.contains(QLatin1StringView("high")) && !expr.contains(QLatin1StringView("low")))
 				mistake( MicrobeApp::HighLowExpected, expr );
 			expr = expr.left(i-1);
 		}
@@ -807,7 +807,7 @@ ExprType Expression::expressionType( const QString & expression )
 	if ( value != -1 )
 		return number;
 
-	if( expression.contains('.') )
+	if( expression.contains(QLatin1Char('.')) )
 		return extpin;
 
 	if ( mb->variable( expression ).type() == Variable::keypadType )
@@ -842,7 +842,7 @@ QString Expression::processConstant( const QString & expr, bool * isConstant )
 	}
 	else
 	{
-		code = "";
+		code = QLatin1StringView("");
 		*isConstant = false;
 	}
 

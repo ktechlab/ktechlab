@@ -24,7 +24,7 @@ QString binary( uchar val )
 {
 	QString bin = QString::number( val, 2 );
 	QString pad;
-	pad.fill( '0', 8-bin.length() );
+	pad.fill( QLatin1Char('0'), 8-bin.length() );
 	return pad + bin;
 }
 

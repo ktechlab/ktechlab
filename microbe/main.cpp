@@ -42,7 +42,8 @@ int main(int argc, char **argv)
     QCoreApplication app(argc, argv);
     KLocalizedString::setApplicationDomain("ktechlab"); // sharing strings with ktechlab
 
-    KAboutData aboutData("microbe",
+    KAboutData aboutData(
+        QLatin1StringView("microbe"),
         i18n("Microbe"),
         QStringLiteral("0.3"),
         i18n("The Microbe Compiler"),

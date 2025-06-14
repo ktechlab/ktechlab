@@ -33,8 +33,10 @@
 #include <QString>
 
 #include <iostream>
+
 using namespace std;
 
+using Qt::StringLiterals::operator""_L1;
 
 //BEGIN class Parser
 Parser::Parser( MicrobeApp * _mb )
@@ -45,96 +47,96 @@ Parser::Parser( MicrobeApp * _mb )
 	// Set up statement definitions.
 	StatementDefinition definition;
 
-	definition.append( Field(Field::Label, "label") );
-	m_definitionMap["goto"] = definition;
+	definition.append( Field(Field::Label, "label"_L1) );
+	m_definitionMap["goto"_L1] = definition;
 	definition.clear();
 
-	definition.append( Field(Field::Label, "label") );
-	m_definitionMap["call"] = definition;
+	definition.append( Field(Field::Label, "label"_L1) );
+	m_definitionMap["call"_L1] = definition;
 	definition.clear();
 
-	definition.append( Field(Field::Expression, "expression") );
-	definition.append( Field(Field::Code, "code") );
-	m_definitionMap["while"] = definition;
+	definition.append( Field(Field::Expression, "expression"_L1) );
+	definition.append( Field(Field::Code, "code"_L1) );
+	m_definitionMap["while"_L1] = definition;
 	definition.clear();
 
-	m_definitionMap["end"] = definition;
+	m_definitionMap["end"_L1] = definition;
 	definition.clear();
 
-	definition.append( Field(Field::Label, "label") );
-	definition.append( Field(Field::Code, "code") );
+	definition.append( Field(Field::Label, "label"_L1) );
+	definition.append( Field(Field::Code, "code"_L1) );
 	// For backwards compatibility
-	m_definitionMap["sub"] = definition;
-	m_definitionMap["subroutine"] = definition;
+	m_definitionMap["sub"_L1] = definition;
+	m_definitionMap["subroutine"_L1] = definition;
 	definition.clear();
 
-	definition.append( Field(Field::Label, "label") );
-	definition.append( Field(Field::Code, "code") );
-	m_definitionMap["interrupt"] = definition;
+	definition.append( Field(Field::Label, "label"_L1) );
+	definition.append( Field(Field::Code, "code"_L1) );
+	m_definitionMap["interrupt"_L1] = definition;
 	definition.clear();
 
-	definition.append( Field(Field::Label, "alias") );
-	definition.append( Field(Field::Label, "dest") );
-	m_definitionMap["alias"] = definition;
+	definition.append( Field(Field::Label, "alias"_L1) );
+	definition.append( Field(Field::Label, "dest"_L1) );
+	m_definitionMap["alias"_L1] = definition;
 	definition.clear();
 
-	definition.append( Field(Field::Expression, "expression") );
+	definition.append( Field(Field::Expression, "expression"_L1) );
 	definition.append( Field(Field::FixedString, nullptr, "then", true) );
-	definition.append( Field(Field::Code, "ifCode") );
+	definition.append( Field(Field::Code, "ifCode"_L1) );
 	definition.append( Field(Field::Newline) );
 	definition.append( Field(Field::FixedString, nullptr, "else", false) );
-	definition.append( Field(Field::Code, "elseCode") );
-	m_definitionMap["if"] = definition;
+	definition.append( Field(Field::Code, "elseCode"_L1) );
+	m_definitionMap["if"_L1] = definition;
 	definition.clear();
 
-	definition.append( Field(Field::Expression, "initExpression") );
+	definition.append( Field(Field::Expression, "initExpression"_L1) );
 	definition.append( Field(Field::FixedString, nullptr, "to", true) );
-	definition.append( Field(Field::Expression, "toExpression") );
+	definition.append( Field(Field::Expression, "toExpression"_L1) );
 	definition.append( Field(Field::FixedString, nullptr, "step", false) );
-	definition.append( Field(Field::Expression, "stepExpression") );
-	definition.append( Field(Field::Code, "code") );
-	m_definitionMap["for"] = definition;
+	definition.append( Field(Field::Expression, "stepExpression"_L1) );
+	definition.append( Field(Field::Code, "code"_L1) );
+	m_definitionMap["for"_L1] = definition;
 	definition.clear();
 
-	definition.append( Field(Field::Variable, "variable") );
-	m_definitionMap["decrement"] = definition;
+	definition.append( Field(Field::Variable, "variable"_L1) );
+	m_definitionMap["decrement"_L1] = definition;
 	definition.clear();
 
-	definition.append( Field(Field::Variable, "variable") );
-	m_definitionMap["increment"] = definition;
+	definition.append( Field(Field::Variable, "variable"_L1) );
+	m_definitionMap["increment"_L1] = definition;
 	definition.clear();
 
-	definition.append( Field(Field::Variable, "variable") );
-	m_definitionMap["rotateleft"] = definition;
+	definition.append( Field(Field::Variable, "variable"_L1) );
+	m_definitionMap["rotateleft"_L1] = definition;
 	definition.clear();
 
-	definition.append( Field(Field::Variable, "variable") );
-	m_definitionMap["rotateright"] = definition;
+	definition.append( Field(Field::Variable, "variable"_L1) );
+	m_definitionMap["rotateright"_L1] = definition;
 	definition.clear();
 
-	definition.append( Field(Field::Code, "code") );
-	m_definitionMap["asm"] = definition;
+	definition.append( Field(Field::Code, "code"_L1) );
+	m_definitionMap["asm"_L1] = definition;
 	definition.clear();
 
-	definition.append( Field(Field::Expression, "expression") );
-	m_definitionMap["delay"] = definition;
+	definition.append( Field(Field::Expression, "expression"_L1) );
+	m_definitionMap["delay"_L1] = definition;
 	definition.clear();
 
-	definition.append( Field(Field::Code, "code") );
+	definition.append( Field(Field::Code, "code"_L1) );
 	definition.append( Field(Field::Newline) );
 	definition.append( Field(Field::FixedString, nullptr, "until", true) );
-	definition.append( Field(Field::Expression, "expression") );
-	m_definitionMap["repeat"] = definition;
+	definition.append( Field(Field::Expression, "expression"_L1) );
+	m_definitionMap["repeat"_L1] = definition;
 	definition.clear();
 
-	definition.append( Field(Field::Name, "name") );
-	definition.append( Field(Field::PinList, "pinlist") );
-	m_definitionMap["sevenseg"] = definition;
+	definition.append( Field(Field::Name, "name"_L1) );
+	definition.append( Field(Field::PinList, "pinlist"_L1) );
+	m_definitionMap["sevenseg"_L1] = definition;
 	definition.clear();
 
-	definition.append( Field(Field::Name, "name") );
-	definition.append( Field(Field::PinList, "pinlist") );
-	m_definitionMap["keypad"] = definition;
+	definition.append( Field(Field::Name, "name"_L1) );
+	definition.append( Field(Field::PinList, "pinlist"_L1) );
+	m_definitionMap["keypad"_L1] = definition;
 	definition.clear();
 }
 
@@ -184,7 +186,7 @@ Code * Parser::parse( const SourceLineList & lines )
 
 		// Check to see if the line after next is a brace
 		SourceLineList::const_iterator previous = slit;
-		if ( (++slit != end) && (*slit).text() == "{" )
+		if ( (++slit != end) && (*slit).text() == "{"_L1 )
 			s.bracedCode = getBracedCode( & slit, end );
 		else
 			slit = previous;
@@ -203,7 +205,7 @@ Code * Parser::parse( const SourceLineList & lines )
 
 		QString command; // e.g. "delay", "for", "subroutine", "increment", etc
 		{
-			int spacepos = line.indexOf(' ');
+			int spacepos = line.indexOf(QLatin1Char(' '));
 			if ( spacepos >= 0 )
 				command = line.left( spacepos );
 			else
@@ -212,10 +214,11 @@ Code * Parser::parse( const SourceLineList & lines )
 		OutputFieldMap fieldMap;
 
 		if ( (*sit).content.line() >= 0 )
-			m_code->append( new Instr_sourceCode( QString("#MSRC\t%1; %2\t%3").arg( (*sit).content.line() + 1 ).arg( (*sit).content.url() ).arg( (*sit).content.text() ) ));
+			m_code->append( new Instr_sourceCode( QString(QLatin1StringView("#MSRC\t%1; %2\t%3"))
+					.arg( (*sit).content.line() + 1 ).arg( (*sit).content.url() ).arg( (*sit).content.text() ) ));
 		bool showBracesInSource = (*sit).hasBracedCode();
 		if ( showBracesInSource )
-			m_code->append(new Instr_sourceCode("{"));
+			m_code->append(new Instr_sourceCode("{"_L1));
 
 		// Use the first token in the line to look up the statement type
 		DefinitionMap::Iterator dmit = m_definitionMap.find(command);
@@ -303,12 +306,12 @@ Code * Parser::parse( const SourceLineList & lines )
 					{
 						nextField = (*it);
 						if(nextField.type() == Field::FixedString)
-							newPosition = line.indexOf(QRegularExpression("\\b" + nextField.string() + "\\b"));
+							newPosition = line.indexOf(QRegularExpression("\\b"_L1 + nextField.string() + "\\b"_L1));
 						// Although code is not necessarily braced, after an expression it is the only
 						// sensilbe way to have it.
 						else if(nextField.type() == Field::Code)
 						{
-							newPosition = line.indexOf("{");
+							newPosition = line.indexOf("{"_L1);
 							if(newPosition == -1) newPosition = line.length() + 1;
 						}
 						else if(nextField.type() == Field::Newline)
@@ -367,7 +370,7 @@ Code * Parser::parse( const SourceLineList & lines )
 				case (Field::FixedString):
 				{
 					// Is the string found, and is it starting in the right place?
-					int stringPosition  = line.indexOf(QRegularExpression("\\b"+field.string()+"\\b"));
+					int stringPosition  = line.indexOf(QRegularExpression("\\b"+field.string()+"\\b"_L1));
 					if( stringPosition != position || stringPosition == -1 )
 					{
 						if( !field.compulsory() )
@@ -402,7 +405,7 @@ Code * Parser::parse( const SourceLineList & lines )
 					if( nextField.type() == Field::FixedString )
 					{
 						nextStatement = *(++StatementList::Iterator(sit));
-						newPosition = nextStatement.text().indexOf(QRegularExpression("\\b" + nextField.string() + "\\b"));
+						newPosition = nextStatement.text().indexOf(QRegularExpression("\\b"_L1 + nextField.string() + "\\b"_L1));
 						if(newPosition != 0)
 						{
 							// If the next field is optional just carry on as nothing happened,
@@ -451,7 +454,7 @@ Code * Parser::parse( const SourceLineList & lines )
 		processStatement( command, fieldMap );
 
 		if( showBracesInSource )
-			m_code->append(new Instr_sourceCode("}"));
+			m_code->append(new Instr_sourceCode("}"_L1));
 	}
 
 	delete m_pPic;
@@ -476,7 +479,7 @@ bool Parser::processAssignment(const QString &line)
 
 
 	// Look for port variables first.
-	if ( firstToken.contains(".") )
+	if ( firstToken.contains("."_L1) )
 	{
 		PortPin portPin = m_pPic->toPortPin( firstToken );
 
@@ -484,13 +487,13 @@ bool Parser::processAssignment(const QString &line)
 		if ( portPin.pin() == -1 )
 			mistake( MicrobeApp::InvalidPort, firstToken );
 		// more error checking
-		if ( tokens[1] != "=" )
+		if ( tokens[1] != "="_L1 )
 			mistake( MicrobeApp::UnassignedPin );
 
 		QString state = tokens[2];
-		if( state == "high" )
+		if( state == "high"_L1 )
 			m_pPic->Ssetlh( portPin, true );
-		else if( state == "low" )
+		else if( state == "low"_L1 )
 			m_pPic->Ssetlh( portPin, false );
 		else
 			mistake( MicrobeApp::NonHighLowPinState );
@@ -499,24 +502,24 @@ bool Parser::processAssignment(const QString &line)
 	else if( m_pPic->isValidPort( firstToken ) )
 	{
 		// error checking
-		if ( tokens[1] != "=" )
+		if ( tokens[1] != "="_L1 )
 			mistake( MicrobeApp::UnassignedPort, tokens[1] );
 
-		Expression( m_pPic, mb, m_currentSourceLine, false ).compileExpression(line.mid(line.indexOf("=")+1));
+		Expression( m_pPic, mb, m_currentSourceLine, false ).compileExpression(line.mid(line.indexOf("="_L1)+1));
 		m_pPic->saveResultToVar( firstToken );
 	}
 	else if ( m_pPic->isValidTris( firstToken ) )
 	{
-		if( tokens[1] == "=" )
+		if( tokens[1] == "="_L1 )
 		{
-			Expression( m_pPic, mb, m_currentSourceLine, false ).compileExpression(line.mid(line.indexOf("=")+1));
+			Expression( m_pPic, mb, m_currentSourceLine, false ).compileExpression(line.mid(line.indexOf("="_L1)+1));
 			m_pPic->Stristate(firstToken);
 		}
 	}
 	else
 	{
 		// Is there an assignment?
-		if ( tokens[1] != "=" )
+		if ( tokens[1] != "="_L1 )
 			return false;
 
 		if ( !mb->isValidVariableName( firstToken ) )
@@ -529,7 +532,7 @@ bool Parser::processAssignment(const QString &line)
 		// hasn't been defined yet.
 		mb->addVariable( Variable( Variable::charType, firstToken ) );
 
-		Expression( m_pPic, mb, m_currentSourceLine, false ).compileExpression(line.mid(line.indexOf("=")+1));
+		Expression( m_pPic, mb, m_currentSourceLine, false ).compileExpression(line.mid(line.indexOf("="_L1)+1));
 
 		Variable v = mb->variable( firstToken );
 		switch ( v.type() )
@@ -561,7 +564,7 @@ SourceLineList Parser::getBracedCode( SourceLineList::const_iterator * it, Sourc
 	// Note: The sourceline list has the braces on separate lines.
 
 	// This function should only be called when the parser comes across a line that is a brace.
-	assert( (**it).text() == "{" );
+	assert( (**it).text() == "{"_L1 );
 
 	SourceLineList braced;
 
@@ -571,10 +574,10 @@ SourceLineList Parser::getBracedCode( SourceLineList::const_iterator * it, Sourc
 
 	for ( ; *it != end; ++(*it) )
 	{
-		if ( (**it).text() == "{" )
+		if ( (**it).text() == "{"_L1 )
 			level++;
 
-		else if ( (**it).text() == "}" )
+		else if ( (**it).text() == "}"_L1 )
 			level--;
 
 		if ( level == 0 )
@@ -594,25 +597,25 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 	// code has taken care of that. Also fieldMap is guaranteed to contain
 	// all required fields.
 
-	if ( name == "goto" )
-		m_pPic->Sgoto(fieldMap["label"].string());
+	if ( name == "goto"_L1 )
+		m_pPic->Sgoto(fieldMap["label"_L1].string());
 
-	else if ( name == "call" )
-		m_pPic->Scall(fieldMap["label"].string());
+	else if ( name == "call"_L1 )
+		m_pPic->Scall(fieldMap["label"_L1].string());
 
-	else if ( name == "while" )
-		m_pPic->Swhile( parseWithChild(fieldMap["code"].bracedCode() ), fieldMap["expression"].string() );
+	else if ( name == "while"_L1 )
+		m_pPic->Swhile( parseWithChild(fieldMap["code"_L1].bracedCode() ), fieldMap["expression"_L1].string() );
 
-	else if ( name == "repeat" )
-		m_pPic->Srepeat( parseWithChild(fieldMap["code"].bracedCode() ), fieldMap["expression"].string() );
+	else if ( name == "repeat"_L1 )
+		m_pPic->Srepeat( parseWithChild(fieldMap["code"_L1].bracedCode() ), fieldMap["expression"_L1].string() );
 
-	else if ( name == "if" )
+	else if ( name == "if"_L1 )
 		m_pPic->Sif(
-				parseWithChild(fieldMap["ifCode"].bracedCode() ),
-				parseWithChild(fieldMap["elseCode"].bracedCode() ),
-				fieldMap["expression"].string() );
+				parseWithChild(fieldMap["ifCode"_L1].bracedCode() ),
+				parseWithChild(fieldMap["elseCode"_L1].bracedCode() ),
+				fieldMap["expression"_L1].string() );
 
-	else if ( name == "sub" || name == "subroutine" )
+	else if ( name == "sub"_L1 || name == "subroutine"_L1 )
 	{
 		if(!m_bPassedEnd)
 		{
@@ -620,12 +623,12 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 		}
 		else
 		{
-			m_pPic->Ssubroutine( fieldMap["label"].string(), parseWithChild( fieldMap["code"].bracedCode() ) );
+			m_pPic->Ssubroutine( fieldMap["label"_L1].string(), parseWithChild( fieldMap["code"_L1].bracedCode() ) );
 		}
 	}
-	else if( name == "interrupt" )
+	else if( name == "interrupt"_L1 )
 	{
-		QString interrupt = fieldMap["label"].string();
+		QString interrupt = fieldMap["label"_L1].string();
 
 		if(!m_bPassedEnd)
 		{
@@ -642,28 +645,28 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 		else
 		{
 			mb->setInterruptUsed( interrupt );
-			m_pPic->Sinterrupt( interrupt, parseWithChild( fieldMap["code"].bracedCode() ) );
+			m_pPic->Sinterrupt( interrupt, parseWithChild( fieldMap["code"_L1].bracedCode() ) );
 		}
 	}
-	else if( name == "end" )
+	else if( name == "end"_L1 )
 	{
 		///TODO handle end if we are not in the top level
 		m_bPassedEnd = true;
 		m_pPic->Send();
 	}
-	else if( name == "for" )
+	else if( name == "for"_L1 )
 	{
-		QString step = fieldMap["stepExpression"].string();
+		QString step = fieldMap["stepExpression"_L1].string();
 		bool stepPositive;
 
-		if( fieldMap["stepExpression"].found() )
+		if( fieldMap["stepExpression"_L1].found() )
 		{
-			if(step.left(1) == "+")
+			if(step.left(1) == "+"_L1)
 			{
 				stepPositive = true;
 				step = step.mid(1).trimmed();
 			}
-			else if(step.left(1) == "-")
+			else if(step.left(1) == "-"_L1)
 			{
 				stepPositive = false;
 				step = step.mid(1).trimmed();
@@ -676,10 +679,10 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 			stepPositive = true;
 		}
 
-		QString variable = fieldMap["initExpression"].string().mid(0,fieldMap["initExpression"].string().indexOf("=")).trimmed();
-		QString endExpr = variable+ " <= " + fieldMap["toExpression"].string().trimmed();
+		QString variable = fieldMap["initExpression"_L1].string().mid(0,fieldMap["initExpression"_L1].string().indexOf("="_L1)).trimmed();
+		QString endExpr = variable+ " <= "_L1 + fieldMap["toExpression"_L1].string().trimmed();
 
-		if( fieldMap["stepExpression"].found() )
+		if( fieldMap["stepExpression"_L1].found() )
 		{
 			bool isConstant;
 			step = processConstant(step,&isConstant);
@@ -688,18 +691,18 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 		}
 
 		SourceLineList tempList;
-		tempList << SourceLineMicrobe( fieldMap["initExpression"].string(), nullptr, -1 );
+		tempList << SourceLineMicrobe( fieldMap["initExpression"_L1].string(), nullptr, -1 );
 
-		m_pPic->Sfor( parseWithChild( fieldMap["code"].bracedCode() ), parseWithChild( tempList ), endExpr, variable, step, stepPositive );
+		m_pPic->Sfor( parseWithChild( fieldMap["code"_L1].bracedCode() ), parseWithChild( tempList ), endExpr, variable, step, stepPositive );
 	}
-	else if( name == "alias" )
+	else if( name == "alias"_L1 )
 	{
 		// It is important to get this the right way round!
 		// The alias should be the key since two aliases could
 		// point to the same name.
 
-		QString alias = fieldMap["alias"].string().trimmed();
-		QString dest = fieldMap["dest"].string().trimmed();
+		QString alias = fieldMap["alias"_L1].string().trimmed();
+		QString dest = fieldMap["dest"_L1].string().trimmed();
 
 		// Check to see whether or not we've already aliased it...
 // 		if ( mb->alias(alias) != alias )
@@ -707,9 +710,9 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 // 		else
 			mb->addAlias( alias, dest );
 	}
-	else if( name == "increment" )
+	else if( name == "increment"_L1 )
 	{
-		QString variableName = fieldMap["variable"].string();
+		QString variableName = fieldMap["variable"_L1].string();
 
 		if ( !mb->isVariableKnown( variableName ) )
 			mistake( MicrobeApp::UnknownVariable );
@@ -718,9 +721,9 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 		else
 			m_pPic->SincVar( variableName );
 	}
-	else if( name == "decrement" )
+	else if( name == "decrement"_L1 )
 	{
-		QString variableName = fieldMap["variable"].string();
+		QString variableName = fieldMap["variable"_L1].string();
 
 		if ( !mb->isVariableKnown( variableName ) )
 			mistake( MicrobeApp::UnknownVariable );
@@ -729,9 +732,9 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 		else
 			m_pPic->SdecVar( variableName );
 	}
-	else if( name == "rotateleft" )
+	else if( name == "rotateleft"_L1 )
 	{
-		QString variableName = fieldMap["variable"].string();
+		QString variableName = fieldMap["variable"_L1].string();
 
 		if ( !mb->isVariableKnown( variableName ) )
 			mistake( MicrobeApp::UnknownVariable );
@@ -740,9 +743,9 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 		else
 			m_pPic->SrotlVar( variableName );
 	}
-	else if( name == "rotateright" )
+	else if( name == "rotateright"_L1 )
 	{
-		QString variableName = fieldMap["variable"].string();
+		QString variableName = fieldMap["variable"_L1].string();
 
 		if ( !mb->isVariableKnown( variableName ) )
 			mistake( MicrobeApp::UnknownVariable );
@@ -751,34 +754,34 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 		else
 			m_pPic->SrotrVar( variableName );
 	}
-	else if( name == "asm" )
+	else if( name == "asm"_L1 )
 	{
-		m_pPic->Sasm( SourceLineMicrobe::toStringList( fieldMap["code"].bracedCode() ).join("\n") );
+		m_pPic->Sasm( SourceLineMicrobe::toStringList( fieldMap["code"_L1].bracedCode() ).join("\n"_L1) );
 	}
-	else if( name == "delay" )
+	else if( name == "delay"_L1 )
 	{
 		// This is one of the rare occasions that the number will be bigger than a byte,
 		// so suppressNumberTooBig must be used
 		bool isConstant;
-		QString delay = processConstant(fieldMap["expression"].string(),&isConstant,true);
+		QString delay = processConstant(fieldMap["expression"_L1].string(),&isConstant,true);
 		if (!isConstant)
 			mistake( MicrobeApp::NonConstantDelay );
-// 		else m_pPic->Sdelay( fieldMap["expression"].string(), "");
+// 		else m_pPic->Sdelay( fieldMap["expression"_L1].string(), ""_L1);
 		else
 		{
-			// TODO We should use the "delay" string returned by processConstant - not the expression (as, e.g. 2*3 won't be ok)
-			int length_ms = literalToInt( fieldMap["expression"].string() );
+			// TODO We should use the "delay"_L1 string returned by processConstant - not the expression (as, e.g. 2*3 won't be ok)
+			int length_ms = literalToInt( fieldMap["expression"_L1].string() );
 			if ( length_ms >= 0 )
 				m_pPic->Sdelay( length_ms * 1000 ); // Pause the delay length in microseconds
 			else
 				mistake( MicrobeApp::NonConstantDelay );
 		}
 	}
-	else if ( name == "keypad" || name == "sevenseg" )
+	else if ( name == "keypad"_L1 || name == "sevenseg"_L1 )
 	{
-		//QStringList pins = QStringList::split( ' ', fieldMap["pinlist"].string() );
-        QStringList pins = fieldMap["pinlist"].string().split(' ', Qt::SkipEmptyParts);
-		QString variableName = fieldMap["name"].string();
+		//QStringList pins = QStringList::split( ' ', fieldMap["pinlist"_L1].string() );
+        QStringList pins = fieldMap["pinlist"_L1].string().split(' ', Qt::SkipEmptyParts);
+		QString variableName = fieldMap["name"_L1].string();
 
 		if ( mb->isVariableKnown( variableName ) )
 		{
@@ -801,7 +804,7 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 			pinList << portPin;
 		}
 
-		if ( name == "keypad" )
+		if ( name == "keypad"_L1 )
 		{
 			Variable v( Variable::keypadType, variableName );
 			v.setPortPinList( pinList );
@@ -856,14 +859,14 @@ QStringList Statement::tokenise(const QString &line)
 			if( count > 0 ) result.append(current);
 			current = "";
 			count = 0;
-			result.append("=");
+			result.append("="_L1);
 		}
 		else if( nextChar == '{' )
 		{
 			if( count > 0 ) result.append(current);
 			current = "";
 			count = 0;
-			result.append("{");
+			result.append("{"_L1);
 		}
 		else
 		{
@@ -939,14 +942,14 @@ int Parser::literalToInt( const QString &literal, bool * ok )
 	// that literal.mid() is convertible, as toInt returns this in ok anyway.
 
 	// Try binary first, of form b'n...n'
-	if( literal.left(2) == "b'" && literal.right(1) == "'" )
+	if( literal.left(2) == "b'"_L1 && literal.right(1) == "'"_L1 )
 	{
 		value = literal.mid(2,literal.length() - 3).toInt(ok,2);
 		return *ok ? value : -1;
 	}
 
 	// Then try hex of form h'n...n'
-	if( literal.left(2) == "h'" && literal.right(1) == "'" )
+	if( literal.left(2) == "h'"_L1 && literal.right(1) == "'"_L1 )
 	{
 		value = literal.mid(2,literal.length() - 3).toInt(ok,16);
 		return *ok ? value : -1;
@@ -1027,11 +1030,11 @@ OutputField::OutputField( const QString & string/*, int lineNumber*/ )
 #if 0
 // Second pass
 
-		else if( firstToken == "include" )
+		else if( firstToken == "include"_L1 )
 		{
 			// only cope with 'sane' strings a.t.m.
 			// e.g. include "filename.extension"
-			QString filename = (*sit).content.mid( (*sit).content.find("\"") ).trimmed();
+			QString filename = (*sit).content.mid( (*sit).content.find("\""_L1) ).trimmed();
 			// don't strip whitespace from within quotes as you
 			// can have filenames composed entirely of spaces (kind of weird)...
 			// remove quotes.

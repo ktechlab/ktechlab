@@ -28,9 +28,14 @@
 #include "pic14.h"
 #include <QDebug>
 #include <QStringList>
+#include <QLatin1StringView>
 #include <cassert>
 #include <iostream>
+
 using namespace std;
+
+using Qt::StringLiterals::operator""_L1;
+
 //modified new variable pic_type is added
 extern QString pic_type;
 //BEGIN class Register
@@ -42,181 +47,181 @@ Register::Register( Type type )
 	{
 //----------------------------------------------Bank0---------------------------//
 		case TMR0:
-			m_name = "TMR0";
+			m_name = "TMR0"_L1;
 			break;
 		case PCL:
-			m_name = "PCL";
+			m_name = "PCL"_L1;
 			break;
 		case STATUS:
-			m_name = "STATUS";
+			m_name = "STATUS"_L1;
 			break;
 		case FSR:
-			m_name = "FSR";
+			m_name = "FSR"_L1;
 			break;
 		case PORTA:
-			m_name = "PORTA";
+			m_name = "PORTA"_L1;
 			break;
 		case PORTB:
-			m_name = "PORTB";
+			m_name = "PORTB"_L1;
 			break;
 		case PORTC:
-			m_name = "PORTC";
+			m_name = "PORTC"_L1;
 			break;
 		case PORTD:
-			m_name = "PORTD";
+			m_name = "PORTD"_L1;
 			break;
 		case PORTE:
-			m_name = "PORTE";
+			m_name = "PORTE"_L1;
 			break;
 		case PCLATH:
-			m_name = "PCLATH";
+			m_name = "PCLATH"_L1;
 			break;
 		case INTCON:
-			m_name = "INTCON";
+			m_name = "INTCON"_L1;
 			break;
 		case PIR1:
-			m_name = "PIR1";
+			m_name = "PIR1"_L1;
 			break;
 		case PIR2:
-			m_name = "PIR2";
+			m_name = "PIR2"_L1;
 			break;
 		case TMR1L:
-			m_name = "TMR1L";
+			m_name = "TMR1L"_L1;
 			break;
 		case TMR1H:
-			m_name = "TMR1H";
+			m_name = "TMR1H"_L1;
 			break;
 		case T1CON:
-			m_name = "T1CON";
+			m_name = "T1CON"_L1;
 			break;
 		case TMR2:
-			m_name = "TMR2";
+			m_name = "TMR2"_L1;
 			break;
 		case T2CON:
-			m_name = "T2CON";
+			m_name = "T2CON"_L1;
 			break;
 		case SSPBUF:
-			m_name = "SSPBUF";
+			m_name = "SSPBUF"_L1;
 			break;
 		case SSPCON:
-			m_name = "SSPCON";
+			m_name = "SSPCON"_L1;
 			break;
 		case CCPR1L:
-			m_name = "CCPR1L";
+			m_name = "CCPR1L"_L1;
 			break;
 		case CCPR1H:
-			m_name = "CCPR1H";
+			m_name = "CCPR1H"_L1;
 			break;
 		case CCP1CON:
-			m_name = "CCP1CON";
+			m_name = "CCP1CON"_L1;
 			break;
 		case RCSTA:
-			m_name = "RCSTA";
+			m_name = "RCSTA"_L1;
 			break;
 		case TXREG:
-			m_name = "TXREG";
+			m_name = "TXREG"_L1;
 			break;
 		case RCREG:
-			m_name = "RCREG";
+			m_name = "RCREG"_L1;
 			break;
 		case CCPR2L:
-			m_name = "CCPR2L";
+			m_name = "CCPR2L"_L1;
 			break;
 		case CCPR2H:
-			m_name = "CCPR2H";
+			m_name = "CCPR2H"_L1;
 			break;
 		case CCP2CON:
-			m_name = "CCP2CON";
+			m_name = "CCP2CON"_L1;
 			break;
 		case ADRESH:
-			m_name = "ADRESH";
+			m_name = "ADRESH"_L1;
 			break;
 		case ADCON0:
-                        m_name = "ADCON0";
+                        m_name = "ADCON0"_L1;
 			break;
 		case CMCON:
-                        m_name = "CMCON";
+                        m_name = "CMCON"_L1;
 			break;
 //----------------------------------------------Bank1---------------------------//
 
 		case OPTION_REG:
-			m_name = "OPTION_REG";
+			m_name = "OPTION_REG"_L1;
 			break;
 		case TRISA:
-			m_name = "TRISA";
+			m_name = "TRISA"_L1;
 			break;
 		case TRISB:
-			m_name = "TRISB";
+			m_name = "TRISB"_L1;
 			break;
 		case TRISC:
-			m_name = "TRISC";
+			m_name = "TRISC"_L1;
 			break;
 		case TRISD:
-			m_name = "TRISD";
+			m_name = "TRISD"_L1;
 			break;
 		case TRISE:
-			m_name = "TRISE";
+			m_name = "TRISE"_L1;
 			break;
 		case PIE1:
-			m_name = "PIE1";
+			m_name = "PIE1"_L1;
 			break;
 		case PIE2:
-			m_name = "PIE2";
+			m_name = "PIE2"_L1;
 			break;
 		case PCON:
-			m_name = "PCON";
+			m_name = "PCON"_L1;
 			break;
 		case SSPCON2:
-			m_name = "SSPCON2";
+			m_name = "SSPCON2"_L1;
 			break;
 		case PR2:
-			m_name = "PR2";
+			m_name = "PR2"_L1;
 			break;
 		case SSPADD:
-			m_name = "SSPADD";
+			m_name = "SSPADD"_L1;
 			break;
 		case SSPSTAT:
-			m_name = "SSPSTAT";
+			m_name = "SSPSTAT"_L1;
 			break;
 		case TXSTA:
-			m_name = "TXSTA";
+			m_name = "TXSTA"_L1;
 			break;
 		case SPBRG:
-			m_name = "SPBRG";
+			m_name = "SPBRG"_L1;
 			break;
 		case ADRESL:
-			m_name = "ADRESL";
+			m_name = "ADRESL"_L1;
 			break;
 		case ADCON1:
-                        m_name = "ADCON1";
+                        m_name = "ADCON1"_L1;
 			break;
 		case VRCON:
-                        m_name = "VRCON";
+                        m_name = "VRCON"_L1;
 			break;
 //----------------------------------------------Bank2---------------------------//
 		case EEDATA:
-			m_name = "EEDATA";
+			m_name = "EEDATA"_L1;
 			break;
 		case EEADR:
-			m_name = "EEADR";
+			m_name = "EEADR"_L1;
 			break;
 		case EEDATH:
-			m_name = "EEDATH";
+			m_name = "EEDATH"_L1;
 			break;
 		case EEADRH:
-			m_name = "EEADRH";
+			m_name = "EEADRH"_L1;
 			break;
 //----------------------------------------------Bank3---------------------------//
 		case EECON1:
-			m_name = "EECON1";
+			m_name = "EECON1"_L1;
 			break;
 
 		case EECON2:
-			m_name = "EECON2";
+			m_name = "EECON2"_L1;
 			break;
 //---------------------------------------------NoBank---------------------------//
 		case WORKING:
-			m_name = "<working>";
+			m_name = "<working>"_L1;
 			break;
 		case GPR:
 		case none:
@@ -230,120 +235,120 @@ Register::Register( const QString & name )//--to find a name variable or registe
 	m_name = name.trimmed();
 	QString upper = m_name.toUpper();
 //--------------------------------------------Bank0-------------------//
-	if ( upper == "TMR0" )
+	if ( upper == "TMR0"_L1 )
 		m_type = TMR0;
 	else if ( upper == "PCL" )
 		m_type = PCL;
-	else if ( upper == "STATUS")
+	else if ( upper == "STATUS"_L1)
 		m_type = STATUS;
-	else if ( upper == "FSR")
+	else if ( upper == "FSR"_L1)
 		m_type = FSR;
-	else if ( upper == "PORTA")
+	else if ( upper == "PORTA"_L1)
 		m_type = PORTA;
-	else if ( upper == "PORTB")
+	else if ( upper == "PORTB"_L1)
 		m_type = PORTB;
-	else if ( upper == "PORTC")
+	else if ( upper == "PORTC"_L1)
 		m_type = PORTC;
-	else if ( upper == "PORTD")
+	else if ( upper == "PORTD"_L1)
 		m_type = PORTD;
-	else if ( upper == "PORTE")
+	else if ( upper == "PORTE"_L1)
 		m_type = PORTE;
-	else if ( upper == "PCLATH")
+	else if ( upper == "PCLATH"_L1)
 		m_type = PCLATH;
-	else if ( upper == "INTCON")
+	else if ( upper == "INTCON"_L1)
 	 	m_type = INTCON;
-	else if ( upper == "PIR1")
+	else if ( upper == "PIR1"_L1)
 		m_type = PIR1;
-	else if ( upper == "PIR2")
+	else if ( upper == "PIR2"_L1)
 		m_type = PIR2;
-	else if ( upper == "TMR1L")
+	else if ( upper == "TMR1L"_L1)
 		m_type = TMR1L;
-	else if ( upper == "TMR1H")
+	else if ( upper == "TMR1H"_L1)
 		m_type = TMR1H;
-	else if ( upper == "T1CON")
+	else if ( upper == "T1CON"_L1)
 		m_type = T1CON;
-	else if ( upper == "TMR2")
+	else if ( upper == "TMR2"_L1)
 		m_type = TMR2;
-	else if ( upper == "T2CON")
+	else if ( upper == "T2CON"_L1)
 		m_type = T2CON;
-	else if ( upper == "SSPBUF")
+	else if ( upper == "SSPBUF"_L1)
 		m_type = SSPBUF;
-	else if ( upper == "SSPCON")
+	else if ( upper == "SSPCON"_L1)
 		m_type = SSPCON;
-	else if ( upper == "CCPR1L")
+	else if ( upper == "CCPR1L"_L1)
 		m_type = CCPR1L;
-	else if ( upper == "CCPR1H")
+	else if ( upper == "CCPR1H"_L1)
 		m_type = CCPR1H;
-	else if ( upper == "CCP1CON")
+	else if ( upper == "CCP1CON"_L1)
 		m_type = CCP1CON;
-	else if ( upper == "RCSTA")
+	else if ( upper == "RCSTA"_L1)
 		m_type = RCSTA;
-	else if ( upper == "TXREG")
+	else if ( upper == "TXREG"_L1)
 		m_type = TXREG;
-	else if ( upper == "RCREG")
+	else if ( upper == "RCREG"_L1)
 		m_type = RCREG;
-	else if ( upper == "CCPR2L")
+	else if ( upper == "CCPR2L"_L1)
 		m_type = CCPR2L;
-	else if ( upper == "CCPR2H")
+	else if ( upper == "CCPR2H"_L1)
 		m_type = CCPR2H;
-	else if ( upper == "CCP2CON")
+	else if ( upper == "CCP2CON"_L1)
 		m_type = CCP2CON;
-	else if ( upper == "ADRESH")
+	else if ( upper == "ADRESH"_L1)
 		m_type = ADRESH;
-	else if ( upper == "ADCON0")
+	else if ( upper == "ADCON0"_L1)
 		m_type = ADCON0;
-	else if ( upper == "CMCON")
+	else if ( upper == "CMCON"_L1)
 		m_type = CMCON;
 //--------------------------------------------Bank1-------------------//
 	else if ( upper == "OPTION_REG" )
 		m_type = OPTION_REG;
-	else if ( upper == "TRISA")
+	else if ( upper == "TRISA"_L1)
 		m_type = TRISA;
-	else if ( upper == "TRISB")
+	else if ( upper == "TRISB"_L1)
 		m_type = TRISB;
-	else if ( upper == "TRISC")
+	else if ( upper == "TRISC"_L1)
 		m_type = TRISC;
-	else if ( upper == "TRISD")
+	else if ( upper == "TRISD"_L1)
 		m_type = TRISD;
-	else if ( upper == "TRISE")
+	else if ( upper == "TRISE"_L1)
 		m_type = TRISE;
-	else if ( upper == "PIE1")
+	else if ( upper == "PIE1"_L1)
 		m_type = PIE1;
-	else if ( upper == "PIE2")
+	else if ( upper == "PIE2"_L1)
 		m_type = PIE2;
-	else if ( upper == "PCON")
+	else if ( upper == "PCON"_L1)
 		m_type = PCON;
-	else if ( upper == "SSPCON2")
+	else if ( upper == "SSPCON2"_L1)
 		m_type = SSPCON2;
-	else if ( upper == "PR2")
+	else if ( upper == "PR2"_L1)
 		m_type = PR2;
-	else if ( upper == "SSPADD")
+	else if ( upper == "SSPADD"_L1)
 		m_type = SSPADD;
-	else if ( upper == "SSPSTAT")
+	else if ( upper == "SSPSTAT"_L1)
 		m_type = SSPSTAT;
-	else if ( upper == "TXSTA")
+	else if ( upper == "TXSTA"_L1)
 		m_type = TXSTA;
-	else if ( upper == "SPBRG")
+	else if ( upper == "SPBRG"_L1)
 		m_type = SPBRG;
-	else if ( upper == "ADRESL")
+	else if ( upper == "ADRESL"_L1)
 		m_type = ADRESL;
-	else if ( upper == "ADCON1")
+	else if ( upper == "ADCON1"_L1)
 		m_type = ADCON1;
-	else if ( upper == "VRCON")
+	else if ( upper == "VRCON"_L1)
 		m_type = VRCON;
 //--------------------------------------------Bank2-------------------//
-	else if ( upper == "EEDATA")
+	else if ( upper == "EEDATA"_L1)
 		m_type = EEDATA;
-	else if ( upper == "EEADR")
+	else if ( upper == "EEADR"_L1)
 		m_type = EEADR;
-	else if ( upper == "EEDATH")
+	else if ( upper == "EEDATH"_L1)
 		m_type = EEDATH;
-	else if ( upper == "EEADRH")
+	else if ( upper == "EEADRH"_L1)
 	 	m_type = EEADRH;
 //--------------------------------------------Bank3-------------------//
-	else if ( upper == "EECON1")
+	else if ( upper == "EECON1"_L1)
 		m_type = EECON1;
-	else if ( upper == "EECON2")
+	else if ( upper == "EECON2"_L1)
 		m_type = EECON2;
 //---------------------------------------------NoBank----------------//
 	else
@@ -789,10 +794,10 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 				case 6: m_name = "INTEDG"; break;
 				case 7:
 				{
-					if(pic_type=="P16F84")
-						m_name = "RBPU";
-					if(pic_type=="P16F877"||pic_type=="P16C84"||pic_type=="P16F627"||pic_type=="P16F628")
-						m_name = "NOT_RBPU";
+					if(pic_type=="P16F84"_L1)
+						m_name = "RBPU"_L1;
+					if(pic_type=="P16F877"||pic_type=="P16C84"||pic_type=="P16F627"||pic_type=="P16F628"_L1)
+						m_name = "NOT_RBPU"_L1;
 	 				break;
 
 
@@ -1129,25 +1134,25 @@ void RegisterBit::initFromName()
 		m_bitPos = 5;
         return;
 	}
-	if ( m_name == "ADIF" && pic_type=="P16F877")
+	if ( m_name == "ADIF" && pic_type=="P16F877"_L1)
 	{
 		m_registerType = Register::PIR1;
 		m_bitPos = 6;
         return;
 	}
-	if ( m_name == "CMIF" && pic_type=="P16F627")
+	if ( m_name == "CMIF" && pic_type=="P16F627"_L1)
 	{
 		m_registerType = Register::PIR1;
 		m_bitPos = 6;
         return;
 	}
-	if ( m_name == "PSPIF"&& pic_type=="P16F877")
+	if ( m_name == "PSPIF"&& pic_type=="P16F877"_L1)
 	{
 		m_registerType = Register::PIR1;
 		m_bitPos = 7;
         return;
 	}
-	if ( m_name == "EEIF"&& pic_type=="P16F627")
+	if ( m_name == "EEIF"&& pic_type=="P16F627"_L1)
 	{
 		m_registerType = Register::PIR1;
 		m_bitPos = 7;
@@ -1482,49 +1487,49 @@ void RegisterBit::initFromName()
         return;
 	}
 //-------CMCON---------------//pic16f627
-	if ( m_name == "CM0"&& pic_type=="P16F627")
+	if ( m_name == "CM0"&& pic_type=="P16F627"_L1)
 	{
 		m_registerType = Register::CMCON;
 		m_bitPos = 0;
         return;
 	}
-	if ( m_name == "CM1"&& pic_type=="P16F627")
+	if ( m_name == "CM1"&& pic_type=="P16F627"_L1)
 	{
 		m_registerType = Register::CMCON;
 		m_bitPos = 1;
         return;
 	}
-	if ( m_name == "CM2"&& pic_type=="P16F627")
+	if ( m_name == "CM2"&& pic_type=="P16F627"_L1)
 	{
 		m_registerType = Register::CMCON;
 		m_bitPos = 2;
         return;
 	}
-	if ( m_name == "CM3"&& pic_type=="P16F627")
+	if ( m_name == "CM3"&& pic_type=="P16F627"_L1)
 	{
 		m_registerType = Register::CMCON;
 		m_bitPos = 3;
         return;
 	}
-	if ( m_name == "CIS"&& pic_type=="P16F627")
+	if ( m_name == "CIS"&& pic_type=="P16F627"_L1)
 	{
 		m_registerType = Register::CMCON;
 		m_bitPos = 4;
         return;
 	}
-	if ( m_name == "C2INV"&& pic_type=="P16F627")
+	if ( m_name == "C2INV"&& pic_type=="P16F627"_L1)
 	{
 		m_registerType = Register::CMCON;
 		m_bitPos = 5;
         return;
 	}
-	if ( m_name == "C1OUT"&& pic_type=="P16F627")
+	if ( m_name == "C1OUT"&& pic_type=="P16F627"_L1)
 	{
 		m_registerType = Register::CMCON;
 		m_bitPos = 6;
         return;
 	}
-	if ( m_name == "C2OUT"&& pic_type=="P16F627")
+	if ( m_name == "C2OUT"&& pic_type=="P16F627"_L1)
 	{
 		m_registerType = Register::CMCON;
 		m_bitPos = 7;
@@ -1580,7 +1585,7 @@ void RegisterBit::initFromName()
 		m_bitPos = 7;
         return;
 	}
-	if (m_name == "RBPU" && pic_type=="P16C84")
+	if (m_name == "RBPU" && pic_type=="P16C84"_L1)
 	{
 		m_registerType = Register::OPTION_REG;
 		m_bitPos = 7;
@@ -1605,7 +1610,7 @@ void RegisterBit::initFromName()
 		m_bitPos = 2;
         return;
 	}
-	if ( m_name == "SSPIE" && pic_type=="P16F877")
+	if ( m_name == "SSPIE" && pic_type=="P16F877"_L1)
 	{
 		m_registerType = Register::PIE1;
 		m_bitPos = 3;
@@ -1686,37 +1691,37 @@ void RegisterBit::initFromName()
         return;
 	}
 //--------SSPCON2------//
-	if ( m_name =="SEN")
+	if ( m_name =="SEN"_L1)
 	{
 		m_registerType = Register::SSPCON2;
 		m_bitPos = 0;
         return;
 	}
-	if ( m_name =="RSEN")
+	if ( m_name =="RSEN"_L1)
 	{
 		m_registerType = Register::SSPCON2;
 		m_bitPos = 1;
         return;
 	}
-	if ( m_name =="PEN")
+	if ( m_name =="PEN"_L1)
 	{
 		m_registerType = Register::SSPCON2;
 		m_bitPos = 2;
         return;
 	}
-	if ( m_name =="RCEN")
+	if ( m_name =="RCEN"_L1)
 	{
 		m_registerType = Register::SSPCON2;
 		m_bitPos = 3;
         return;
 	}
-	if ( m_name =="ACKEN")
+	if ( m_name =="ACKEN"_L1)
 	{
 		m_registerType = Register::SSPCON2;
 		m_bitPos = 4;
         return;
 	}
-	if ( m_name =="ACKDT")
+	if ( m_name =="ACKDT"_L1)
 	{
 		m_registerType = Register::SSPCON2;
 		m_bitPos = 5;
@@ -1735,37 +1740,37 @@ void RegisterBit::initFromName()
         return;
 	}
 //--------SSPSTAT------//
-	if ( m_name =="BF")
+	if ( m_name =="BF"_L1)
 	{
 		m_registerType = Register::SSPSTAT;
 		m_bitPos = 0;
         return;
 	}
-	if ( m_name == "UA")
+	if ( m_name == "UA"_L1)
 	{
 		m_registerType = Register::SSPSTAT;
 		m_bitPos = 1;
         return;
 	}
-	if ( m_name =="R")
+	if ( m_name =="R"_L1)
 	{
 		m_registerType = Register::SSPSTAT;
 		m_bitPos = 2;
         return;
 	}
-	if ( m_name =="S")
+	if ( m_name =="S"_L1)
 	{
 		m_registerType = Register::SSPSTAT;
 		m_bitPos = 3;
         return;
 	}
-	if ( m_name == "P")
+	if ( m_name == "P"_L1)
 	{
 		m_registerType = Register::SSPSTAT;
 		m_bitPos = 4;
         return;
 	}
-	if ( m_name == "D")
+	if ( m_name == "D"_L1)
 	{
 		m_registerType = Register::SSPSTAT;
 		m_bitPos = 5;
@@ -2432,23 +2437,23 @@ QString Code::generateCode( PIC14 * pic ) const
 	const QStringList variables = findVariables();
 	if ( !variables.isEmpty() )
 	{
-		code += "; Variables\n";
+		code += QLatin1StringView("; Variables\n");
 		uchar reg = pic->gprStart();
 		QStringList::const_iterator end = variables.end();
 		for ( QStringList::const_iterator it = variables.begin(); it != end; ++it )
-			code += QString("%1\tequ\t0x%2\n").arg( *it ).arg( QString::number( reg++, 16 ) );
+			code += QLatin1StringView("%1\tequ\t0x%2\n").arg( *it ).arg( QString::number( reg++, 16 ) );
 
-		code += "\n";
+		code += "\n"_L1;
 	}
 
 	QString picString = pic->minimalTypeString();
-	code += QString("list p=%1\n").arg( picString );
-	code += QString("include \"p%2.inc\"\n\n").arg( picString.toLower() );
+	code += QLatin1StringView("list p=%1\n").arg( picString );
+	code += QLatin1StringView("include \"p%2.inc\"\n\n").arg( picString.toLower() );
 
-	code += "; Config options\n";
-	code += "  __config _WDT_OFF\n\n";
+	code += QLatin1StringView("; Config options\n");
+	code += QLatin1StringView("  __config _WDT_OFF\n\n");
 
-	code += "START\n\n";
+	code += QLatin1StringView("START\n\n");
 
 	for ( unsigned i = 0; i < PositionCount; ++i )
 	{
@@ -2458,15 +2463,15 @@ QString Code::generateCode( PIC14 * pic ) const
 			const QStringList labels = (*it)->labels();
 			if ( !labels.isEmpty() )
 			{
-				code += '\n';
+				code += QLatin1Char('\n');
 				QStringList::const_iterator labelsEnd = labels.end();
 				for ( QStringList::const_iterator labelsIt = labels.begin(); labelsIt != labelsEnd; ++labelsIt )
-					code += *labelsIt + '\n';
+					code += *labelsIt + QLatin1Char('\n');
 			}
 
 			if ( (*it)->type() == Instruction::Assembly )
-				code += '\t';
-			code += (*it)->code() + '\n';
+				code += QLatin1Char('\t');
+			code += (*it)->code() + QLatin1Char('\n');
 		}
 	}
 
@@ -2744,7 +2749,7 @@ void Instruction::makeOutputLinks( Code::iterator current, bool firstOutput, boo
 	++current;
 	if ( !*current )
 	{
-		qWarning() << Q_FUNC_INFO << "current+1 is null";
+		qWarning() << Q_FUNC_INFO << "current+1 is null"_L1;
 		return;
 	}
 	if ( firstOutput )
@@ -2812,7 +2817,7 @@ void Instruction::clearLinks()
 //BEGIN Byte-Oriented File Register Operations
 QString Instr_addwf::code() const
 {
-	return QString("addwf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QLatin1StringView("addwf\t%1,%2").arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_addwf::generateLinksAndStates( Code::iterator current )
@@ -2865,7 +2870,7 @@ ProcessorBehaviour Instr_addwf::behaviour() const
 
 QString Instr_andwf::code() const
 {
-	return QString("andwf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QLatin1StringView("andwf\t%1,%2").arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_andwf::generateLinksAndStates( Code::iterator current )
@@ -2899,7 +2904,7 @@ ProcessorBehaviour Instr_andwf::behaviour() const
 
 QString Instr_clrf::code() const
 {
-	return QString("clrf\t%1").arg( m_file.name() );
+	return QLatin1StringView("clrf\t%1").arg( m_file.name() );
 }
 
 void Instr_clrf::generateLinksAndStates( Code::iterator current )
@@ -2933,7 +2938,7 @@ ProcessorBehaviour Instr_clrf::behaviour() const
 
 QString Instr_decf::code() const
 {
-	return QString("decf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QLatin1StringView("decf\t%1,%2").arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_decf::generateLinksAndStates( Code::iterator current )
@@ -2961,7 +2966,7 @@ ProcessorBehaviour Instr_decf::behaviour() const
 
 QString Instr_decfsz::code() const
 {
-	return QString("decfsz\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QLatin1StringView("decfsz\t%1,%2").arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_decfsz::generateLinksAndStates( Code::iterator current )
@@ -2985,7 +2990,7 @@ ProcessorBehaviour Instr_decfsz::behaviour() const
 
 QString Instr_incf::code() const
 {
-	return QString("incf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QLatin1StringView("incf\t%1,%2").arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_incf::generateLinksAndStates( Code::iterator current )
@@ -3015,7 +3020,7 @@ ProcessorBehaviour Instr_incf::behaviour() const
 
 QString Instr_iorwf::code() const
 {
-	return QString("iorwf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QLatin1StringView("iorwf\t%1,%2").arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_iorwf::generateLinksAndStates( Code::iterator current )
@@ -3044,7 +3049,7 @@ ProcessorBehaviour Instr_iorwf::behaviour() const
 
 QString Instr_movf::code() const
 {
-	return QString("movf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QLatin1StringView("movf\t%1,%2").arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_movf::generateLinksAndStates( Code::iterator current )
@@ -3090,7 +3095,7 @@ ProcessorBehaviour Instr_movf::behaviour() const
 
 QString Instr_movwf::code() const
 {
-	return QString("movwf\t%1").arg( m_file.name() );
+	return QLatin1StringView("movwf\t%1").arg( m_file.name() );
 }
 
 void Instr_movwf::generateLinksAndStates( Code::iterator current )
@@ -3120,7 +3125,7 @@ ProcessorBehaviour Instr_movwf::behaviour() const
 
 QString Instr_rlf::code() const
 {
-	return QString("rlf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QLatin1StringView("rlf\t%1,%2").arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_rlf::generateLinksAndStates( Code::iterator current )
@@ -3151,7 +3156,7 @@ ProcessorBehaviour Instr_rlf::behaviour() const
 
 QString Instr_rrf::code() const
 {
-	return QString("rrf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QLatin1StringView("rrf\t%1,%2").arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_rrf::generateLinksAndStates( Code::iterator current )
@@ -3181,7 +3186,7 @@ ProcessorBehaviour Instr_rrf::behaviour() const
 
 QString Instr_subwf::code() const
 {
-	return QString("subwf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QLatin1StringView("subwf\t%1,%2").arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_subwf::generateLinksAndStates( Code::iterator current )
@@ -3239,7 +3244,7 @@ ProcessorBehaviour Instr_subwf::behaviour() const
 
 QString Instr_swapf::code() const
 {
-	return QString("swapf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QLatin1StringView("swapf\t%1,%2").arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_swapf::generateLinksAndStates( Code::iterator current )
@@ -3266,7 +3271,7 @@ ProcessorBehaviour Instr_swapf::behaviour() const
 
 QString Instr_xorwf::code() const
 {
-	return QString("xorwf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QLatin1StringView("xorwf\t%1,%2").arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_xorwf::generateLinksAndStates( Code::iterator current )
@@ -3298,7 +3303,7 @@ ProcessorBehaviour Instr_xorwf::behaviour() const
 //BEGIN Bit-Oriented File Register Operations
 QString Instr_bcf::code() const
 {
-	return QString("bcf\t\t%1,%2").arg( m_file.name() ).arg( m_bit.name() );
+	return QLatin1StringView("bcf\t\t%1,%2").arg( m_file.name() ).arg( m_bit.name() );
 }
 
 void Instr_bcf::generateLinksAndStates( Code::iterator current )
@@ -3322,7 +3327,7 @@ ProcessorBehaviour Instr_bcf::behaviour() const
 
 QString Instr_bsf::code() const
 {
-	return QString("bsf\t\t%1,%2").arg( m_file.name() ).arg( m_bit.name() );
+	return QLatin1StringView("bsf\t\t%1,%2").arg( m_file.name() ).arg( m_bit.name() );
 }
 
 void Instr_bsf::generateLinksAndStates( Code::iterator current )
@@ -3345,7 +3350,7 @@ ProcessorBehaviour Instr_bsf::behaviour() const
 
 QString Instr_btfsc::code() const
 {
-	return QString("btfsc\t%1,%2").arg( m_file.name() ).arg( m_bit.name() );
+	return QLatin1StringView("btfsc\t%1,%2").arg( m_file.name() ).arg( m_bit.name() );
 }
 
 void Instr_btfsc::generateLinksAndStates( Code::iterator current )
@@ -3372,7 +3377,7 @@ ProcessorBehaviour Instr_btfsc::behaviour() const
 
 QString Instr_btfss::code() const
 {
-	return QString("btfss\t%1,%2").arg( m_file.name() ).arg( m_bit.name() );
+	return QLatin1StringView("btfss\t%1,%2").arg( m_file.name() ).arg( m_bit.name() );
 }
 
 void Instr_btfss::generateLinksAndStates( Code::iterator current )
@@ -3402,7 +3407,7 @@ ProcessorBehaviour Instr_btfss::behaviour() const
 //BEGIN Literal and Control Operations
 QString Instr_addlw::code() const
 {
-	return QString("addlw\t%1").arg( m_literal );
+	return QLatin1StringView("addlw\t%1").arg( m_literal );
 }
 
 void Instr_addlw::generateLinksAndStates( Code::iterator current )
@@ -3429,7 +3434,7 @@ ProcessorBehaviour Instr_addlw::behaviour() const
 
 QString Instr_andlw::code() const
 {
-	return QString("andlw\t%1").arg( m_literal );
+	return QLatin1StringView("andlw\t%1").arg( m_literal );
 }
 
 void Instr_andlw::generateLinksAndStates( Code::iterator current )
@@ -3456,7 +3461,7 @@ ProcessorBehaviour Instr_andlw::behaviour() const
 
 QString Instr_call::code() const
 {
-	return QString("call\t%1").arg( m_label );
+	return QLatin1StringView("call\t%1").arg( m_label );
 }
 
 void Instr_call::generateLinksAndStates( Code::iterator current )
@@ -3529,7 +3534,7 @@ void Instr_call::linkReturns( Instruction * current, Instruction * returnPoint )
 
 QString Instr_goto::code() const
 {
-	return QString("goto\t%1").arg( m_label );
+	return QLatin1StringView("goto\t%1").arg( m_label );
 }
 
 void Instr_goto::generateLinksAndStates( Code::iterator current )
@@ -3550,7 +3555,7 @@ ProcessorBehaviour Instr_goto::behaviour() const
 
 QString Instr_iorlw::code() const
 {
-	return QString("iorlw\t%1").arg( m_literal );
+	return QLatin1StringView("iorlw\t%1").arg( m_literal );
 }
 
 void Instr_iorlw::generateLinksAndStates( Code::iterator current )
@@ -3577,7 +3582,7 @@ ProcessorBehaviour Instr_iorlw::behaviour() const
 
 QString Instr_movlw::code() const
 {
-	return QString("movlw\t%1").arg( m_literal );
+	return QLatin1StringView("movlw\t%1").arg( m_literal );
 }
 
 void Instr_movlw::generateLinksAndStates( Code::iterator current )
@@ -3598,7 +3603,7 @@ ProcessorBehaviour Instr_movlw::behaviour() const
 
 QString Instr_retfie::code() const
 {
-	return "retfie";
+	return QLatin1StringView("retfie");
 }
 
 void Instr_retfie::generateLinksAndStates( Code::iterator current )
@@ -3618,7 +3623,7 @@ ProcessorBehaviour Instr_retfie::behaviour() const
 
 QString Instr_retlw::code() const
 {
-	return QString("retlw\t%1").arg( m_literal );
+	return QLatin1StringView("retlw\t%1").arg( m_literal );
 }
 
 void Instr_retlw::generateLinksAndStates( Code::iterator current )
@@ -3641,7 +3646,7 @@ ProcessorBehaviour Instr_retlw::behaviour() const
 
 QString Instr_return::code() const
 {
-	return "return";
+	return QLatin1StringView("return");
 }
 
 void Instr_return::generateLinksAndStates( Code::iterator current )
@@ -3660,7 +3665,7 @@ ProcessorBehaviour Instr_return::behaviour() const
 
 QString Instr_sleep::code() const
 {
-	return "sleep";
+	return QLatin1StringView("sleep");
 }
 
 void Instr_sleep::generateLinksAndStates( Code::iterator current )
@@ -3684,7 +3689,7 @@ ProcessorBehaviour Instr_sleep::behaviour() const
 
 QString Instr_sublw::code() const
 {
-	return QString("sublw\t%1").arg( m_literal );
+	return QLatin1StringView("sublw\t%1").arg( m_literal );
 }
 
 void Instr_sublw::generateLinksAndStates( Code::iterator current )
@@ -3729,7 +3734,7 @@ ProcessorBehaviour Instr_sublw::behaviour() const
 
 QString Instr_xorlw::code() const
 {
-	return QString("xorlw\t%1").arg( m_literal );
+	return QLatin1StringView("xorlw\t%1").arg( m_literal );
 }
 
 void Instr_xorlw::generateLinksAndStates( Code::iterator current )
@@ -3755,14 +3760,14 @@ ProcessorBehaviour Instr_xorlw::behaviour() const
 //BEGIN MicrobeApp (non-assembly) Operations
 QString Instr_sourceCode::code() const
 {
-	QStringList sourceLines = m_raw.split("\n", Qt::SkipEmptyParts); // QString::split("\n",m_raw);
-	return ";" + sourceLines.join("\n;");
+	QStringList sourceLines = m_raw.split(QLatin1StringView("\n"), Qt::SkipEmptyParts); // QString::split("\n",m_raw);
+	return QLatin1StringView(";") + sourceLines.join(QLatin1StringView("\n;"));
 }
 
 
 QString Instr_asm::code() const
 {
-	return "; asm {\n" + m_raw + "\n; }";
+	return QLatin1StringView("; asm {\n") + m_raw + QLatin1StringView("\n; }");
 }
 
 
