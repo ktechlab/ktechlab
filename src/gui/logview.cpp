@@ -94,7 +94,7 @@ void LogView::slotParaClicked(int para, int /*pos*/)
     // QString t = text(para);
     QString t = document()->findBlockByLineNumber(para).text();
     untidyText(t);
-    /* emit */ paraClicked(t, m_messageInfoMap[para]);
+    Q_EMIT paraClicked(t, m_messageInfoMap[para]);
 }
 
 void LogView::tidyText(QString &t)

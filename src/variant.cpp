@@ -131,7 +131,7 @@ void Variant::setValue(QVariant val)
 
     const QVariant old = m_value;
     m_value = val;
-    /* emit */(valueChanged(val, old));
+    Q_EMIT(valueChanged(val, old));
 
     switch (type()) {
     case Variant::Type::String:
@@ -149,24 +149,24 @@ void Variant::setValue(QVariant val)
     case Variant::Type::RichText: {
         QString dispString = displayString();
         qCDebug(KTL_LOG) << "dispString=" << dispString << " value=" << m_value;
-        /* emit */ valueChanged(dispString);
-        /* emit */ valueChangedStrAndTrue(dispString, true);
+        Q_EMIT valueChanged(dispString);
+        Q_EMIT valueChangedStrAndTrue(dispString, true);
     } break;
 
     case Variant::Type::Int:
-        /* emit */ valueChanged(value().toInt());
+        Q_EMIT valueChanged(value().toInt());
         break;
 
     case Variant::Type::Double:
-        /* emit */ valueChanged(value().toDouble());
+        Q_EMIT valueChanged(value().toDouble());
         break;
 
     case Variant::Type::Color:
-        /* emit */ valueChanged(value().value<QColor>());
+        Q_EMIT valueChanged(value().value<QColor>());
         break;
 
     case Variant::Type::Bool:
-        /* emit */ valueChanged(value().toBool());
+        Q_EMIT valueChanged(value().toBool());
         break;
 
     case Variant::Type::Raw:

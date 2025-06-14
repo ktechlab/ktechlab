@@ -188,7 +188,7 @@ ProbeData *Oscilloscope::registerProbe(Probe *probe)
     m_nextColor = (m_nextColor + 1) % 9;
     //	probeData->setPaused(b_isPaused);
 
-    /* emit */ probeRegistered(id, probeData);
+    Q_EMIT probeRegistered(id, probeData);
     return probeData;
 }
 
@@ -210,7 +210,7 @@ void Oscilloscope::unregisterProbe(int id)
     if (oldestDestroyed)
         getOldestProbe();
 
-    /* emit */ probeUnregistered(id);
+    Q_EMIT probeUnregistered(id);
 }
 
 ProbeData *Oscilloscope::probeData(int id) const

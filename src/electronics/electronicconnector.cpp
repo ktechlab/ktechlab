@@ -84,7 +84,7 @@ void ElectronicConnector::syncWiresWithNodes()
     }
 
     updateConnectorLines();
-    /* emit */ numWiresChanged(newNumWires);
+    Q_EMIT numWiresChanged(newNumWires);
 }
 
 #include "moc_electronicconnector.cpp"

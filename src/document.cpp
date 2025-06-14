@@ -73,7 +73,7 @@ void Document::slotViewDestroyed(QObject *obj)
 
     if (m_pActiveView == static_cast<QPointer<View> >(view)) {
         m_pActiveView = nullptr;
-        /* emit */ viewUnfocused();
+        Q_EMIT viewUnfocused();
     }
 
     if (m_viewList.isEmpty())
@@ -86,7 +86,7 @@ void Document::slotViewFocused(View *view)
         return;
 
     m_pActiveView = view;
-    /* emit */ viewFocused(view);
+    Q_EMIT viewFocused(view);
 }
 
 void Document::setCaption(const QString &caption)
@@ -161,7 +161,7 @@ void Document::setModified(bool modified)
     b_modified = modified;
 
     if (!m_bDeleted)
-        /* emit */ modifiedStateChanged();
+        Q_EMIT modifiedStateChanged();
 }
 
 void Document::setURL(const QUrl &url)
@@ -175,7 +175,7 @@ void Document::setURL(const QUrl &url)
     if (wasEmpty && m_bAddToProjectOnSave && ProjectManager::self()->currentProject())
         ProjectManager::self()->currentProject()->addFile(m_url);
 
-    /* emit */ fileNameChanged(url);
+    Q_EMIT fileNameChanged(url);
 
     if (KTechlab::self()) {
         KTechlab::self()->addRecentFile(url);

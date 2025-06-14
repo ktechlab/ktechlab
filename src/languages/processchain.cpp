@@ -247,8 +247,8 @@ void ProcessChain::slotFinishedCompile(Language *language)
 
     options.setTextOutputtedTo(editor);
 
-    /* emit */ successful(options);
-    /* emit */ successful();
+    Q_EMIT successful(options);
+    Q_EMIT successful();
 }
 
 #define LanguageFunction(a, b, c)                                                                                                                                                                                                              \
@@ -279,7 +279,7 @@ LanguageFunction(FlowCode, flowCode, m_pFlowCode) LanguageFunction(Gpasm, gpasm,
 void ProcessListChain::slotProcessChainSuccessful()
 {
     if (m_processOptionsList.isEmpty()) {
-        /* emit */ successful();
+        Q_EMIT successful();
         return;
     }
 
@@ -295,7 +295,7 @@ void ProcessListChain::slotProcessChainSuccessful()
 
 void ProcessListChain::slotProcessChainFailed()
 {
-    /* emit */ failed();
+    Q_EMIT failed();
 }
 // END class ProcessListChain
 

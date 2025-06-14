@@ -676,14 +676,14 @@ void TextViewEventFilter::hoverTimeout()
 {
     m_pSleepTimer->stop();
     m_hoverStatus = Active;
-    /* emit */ wordHoveredOver(m_lastWord, m_lastLine, m_lastCol);
+    Q_EMIT wordHoveredOver(m_lastWord, m_lastLine, m_lastCol);
 }
 
 void TextViewEventFilter::gotoSleep()
 {
     m_hoverStatus = Sleeping;
     m_lastWord = QString();
-    /* emit */ wordUnhovered();
+    Q_EMIT wordUnhovered();
     m_pHoverTimer->stop();
 }
 
@@ -705,7 +705,7 @@ void TextViewEventFilter::updateHovering(const QString &currentWord, int line, i
         if (m_hoverStatus == Active)
             m_hoverStatus = Hidden;
 
-        /* emit */ wordUnhovered();
+        Q_EMIT wordUnhovered();
         if (!m_pSleepTimer->isActive()) {
             m_pSleepTimer->setSingleShot(true);
             m_pSleepTimer->start(2000 /*, true */);
@@ -714,7 +714,7 @@ void TextViewEventFilter::updateHovering(const QString &currentWord, int line, i
     }
 
     if (m_hoverStatus != Sleeping) {
-        /* emit */ wordHoveredOver(currentWord, line, col);
+        Q_EMIT wordHoveredOver(currentWord, line, col);
     } else {
         m_pHoverTimer->setSingleShot(true);
         m_pHoverTimer->start(700 /*, true */);

@@ -240,7 +240,7 @@ void SymbolViewer::selectRadix(int selectIndex)
 
     m_valueRadix = newRadix;
 
-    /* emit */ valueRadixChanged(m_valueRadix);
+    Q_EMIT valueRadixChanged(m_valueRadix);
 }
 
 QString SymbolViewer::toDisplayString(unsigned value) const

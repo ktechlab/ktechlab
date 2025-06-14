@@ -417,21 +417,21 @@ void ResizeHandle::moveRH(double _x, double _y)
     // BEGIN Move and check
     moveBy(dx, dy);
     if (dx != 0)
-        /* emit */ rhMovedByX(dx);
+        Q_EMIT rhMovedByX(dx);
     if (dy != 0)
-        /* emit */ rhMovedByY(dy);
+        Q_EMIT rhMovedByY(dy);
 
     bool xOk = p_resizeOverlay->isValidXPos(this);
     bool yOk = p_resizeOverlay->isValidYPos(this);
 
     if (!xOk) {
         moveBy(-dx, 0);
-        /* emit */ rhMovedByX(-dx);
+        Q_EMIT rhMovedByX(-dx);
         dx = 0;
     }
     if (!yOk) {
         moveBy(0, -dy);
-        /* emit */ rhMovedByY(-dy);
+        Q_EMIT rhMovedByY(-dy);
         dy = 0;
     }
 
@@ -439,7 +439,7 @@ void ResizeHandle::moveRH(double _x, double _y)
         return;
     // END Move and check
 
-    /* emit */ rhMovedBy(id(), dx, dy);
+    Q_EMIT rhMovedBy(id(), dx, dy);
 }
 
 void ResizeHandle::setDrawType(DrawType drawType)

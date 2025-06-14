@@ -168,7 +168,7 @@ void ToolView::setVisibleToolView(bool vis)
         return;
 
     m_visible = vis;
-    /* emit */ visibleChanged(m_visible);
+    Q_EMIT visibleChanged(m_visible);
 }
 
 bool ToolView::visible() const

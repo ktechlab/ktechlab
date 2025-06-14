@@ -57,7 +57,7 @@ Node::Node(ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint
     setPen(QPen(Qt::black));
     show();
 
-    /* emit */(moved(this));
+    Q_EMIT(moved(this));
 }
 
 Node::~Node()
@@ -129,7 +129,7 @@ void Node::removeNode()
         return;
     b_deleted = true;
 
-    /* emit */ removed(this);
+    Q_EMIT removed(this);
     p_icnDocument->appendDeleteList(this);
 }
 
@@ -143,7 +143,7 @@ void Node::moveBy(double dx, double dy)
     if (dx == 0 && dy == 0)
         return;
     KtlQCanvasPolygon::moveBy(dx, dy);
-    /* emit */ moved(this);
+    Q_EMIT moved(this);
 }
 
 NodeData Node::nodeData() const

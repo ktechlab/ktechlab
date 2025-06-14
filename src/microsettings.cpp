@@ -59,7 +59,7 @@ void PinSettings::setType(PinSettings::pin_type type)
     if (m_type == type)
         return;
     m_type = type;
-    /* emit */ settingsChanged();
+    Q_EMIT settingsChanged();
 }
 
 void PinSettings::setState(PinSettings::pin_state state)
@@ -67,7 +67,7 @@ void PinSettings::setState(PinSettings::pin_state state)
     if (m_state == state)
         return;
     m_state = state;
-    /* emit */ settingsChanged();
+    Q_EMIT settingsChanged();
 }
 // END class PinSettings
 
@@ -298,7 +298,7 @@ PinMapping MicroSettings::pinMapping(const QString &id) const
 void MicroSettings::setPinMappings(const PinMappingMap &pinMappings)
 {
     m_pinMappings = pinMappings;
-    /* emit */ pinMappingsChanged();
+    Q_EMIT pinMappingsChanged();
 }
 
 PinMappingMap MicroSettings::pinMappings() const

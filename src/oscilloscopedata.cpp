@@ -30,7 +30,7 @@ ProbeData::~ProbeData()
 void ProbeData::setColor(QColor color)
 {
     m_color = color;
-    /* emit */ displayAttributeChanged();
+    Q_EMIT displayAttributeChanged();
 }
 // END class ProbeData
 
@@ -158,7 +158,7 @@ void FloatingProbeData::setScaling(Scaling scaling)
         return;
 
     m_scaling = scaling;
-    /* emit */ displayAttributeChanged();
+    Q_EMIT displayAttributeChanged();
 }
 
 void FloatingProbeData::setUpperAbsValue(double upperAbsValue)
@@ -167,7 +167,7 @@ void FloatingProbeData::setUpperAbsValue(double upperAbsValue)
         return;
 
     m_upperAbsValue = upperAbsValue;
-    /* emit */ displayAttributeChanged();
+    Q_EMIT displayAttributeChanged();
 }
 
 void FloatingProbeData::setLowerAbsValue(double lowerAbsValue)
@@ -176,7 +176,7 @@ void FloatingProbeData::setLowerAbsValue(double lowerAbsValue)
         return;
 
     m_lowerAbsValue = lowerAbsValue;
-    /* emit */ displayAttributeChanged();
+    Q_EMIT displayAttributeChanged();
 }
 // END class FloatingProbeData
 

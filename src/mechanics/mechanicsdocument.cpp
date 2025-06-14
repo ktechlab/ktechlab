@@ -120,7 +120,7 @@ void MechanicsDocument::deleteSelection()
 
     // We need to emit this so that property widgets etc...
     // can clear themselves.
-    /* emit */ selectionChanged();
+    Q_EMIT selectionChanged();
     requestStateSave();
 }
 

@@ -357,10 +357,10 @@ bool FlowICNDocument::registerItem(KtlQCanvasItem *qcanvasItem)
     if (!ItemDocument::registerItem(qcanvasItem)) {
         if (FPNode *node = dynamic_cast<FPNode *>(qcanvasItem)) {
             m_flowNodeList[node->id()] = node;
-            /* emit */ nodeAdded(static_cast<Node *>(node));
+            Q_EMIT nodeAdded(static_cast<Node *>(node));
         } else if (Connector *connector = dynamic_cast<Connector *>(qcanvasItem)) {
             m_connectorList.append(connector);
-            /* emit */ connectorAdded(connector);
+            Q_EMIT connectorAdded(connector);
         } else {
             qCCritical(KTL_LOG) << "Unrecognised item";
             return false;

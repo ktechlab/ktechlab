@@ -65,7 +65,7 @@ void Language::finish(bool successful)
         ProcessOptions::ProcessPath::Path newPath = outputPath(m_processOptions.processPath());
 
         if (newPath == ProcessOptions::ProcessPath::None)
-            /* emit */ processSucceeded(this);
+            Q_EMIT processSucceeded(this);
 
         else if (p_processChain) {
             m_processOptions.setInputFiles(QStringList(m_processOptions.intermediaryOutput()));
@@ -78,7 +78,7 @@ void Language::finish(bool successful)
     } else {
         outputError(m_failedMessage + "\n");
         KTechlab::self()->slotChangeStatusbar(m_failedMessage);
-        /* emit */ processFailed(this);
+        Q_EMIT processFailed(this);
         return;
     }
 }
@@ -189,7 +189,7 @@ void ProcessOptions::setTextOutputTarget(TextDocument *target, QObject *receiver
 void ProcessOptions::setTextOutputtedTo(TextDocument *outputtedTo)
 {
     m_pTextOutputTarget = outputtedTo;
-    /* emit */ m_pHelper->textOutputtedTo(m_pTextOutputTarget);
+    Q_EMIT m_pHelper->textOutputtedTo(m_pTextOutputTarget);
 }
 
 void ProcessOptions::setTargetFile(const QString &file)

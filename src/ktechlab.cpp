@@ -971,7 +971,7 @@ void KTechlab::slotOptionsPreferences()
 
 void KTechlab::slotUpdateConfiguration()
 {
-    /* emit */ configurationChanged();
+    Q_EMIT configurationChanged();
 }
 
 void KTechlab::slotChangeStatusbar(const QString &text)
@@ -1166,7 +1166,7 @@ void KTechlab::addRecentFile(const QUrl &url)
     m_recentFiles->addUrl(url);
     m_recentFiles->saveEntries(config->group("Recent Files"));
     config->sync();
-    /* emit */ recentFileAdded(url);
+    Q_EMIT recentFileAdded(url);
 }
 
 QList<QUrl> KTechlab::getFileURLs(bool allowMultiple)
@@ -1269,7 +1269,7 @@ void KTechlab::slotUpdateCaptions()
     // END Set KTechlab caption
 
     // BEGIN Set tab captions
-    /* emit */ needUpdateCaptions();
+    Q_EMIT needUpdateCaptions();
 
     if (document && document->activeView() && document->activeView()->viewContainer()) {
         document->activeView()->viewContainer()->updateCaption();

@@ -103,8 +103,8 @@ void Connector::removeConnector(Node *)
     // Remove 'penalty' points for this connector from the ICNDocument
     updateConnectorPoints(false);
 
-    /* emit */ selected(false);
-    /* emit */ removed(this);
+    Q_EMIT selected(false);
+    Q_EMIT removed(this);
 
     if (startNode())
         startNode()->removeConnector(this);
@@ -485,7 +485,7 @@ void Connector::setSelected(bool yes)
     KtlQCanvasPolygon::setSelected(yes);
     updateConnectorLines();
 
-    /* emit */ selected(yes);
+    Q_EMIT selected(yes);
 }
 
 void Connector::updateConnectorLines(bool forceRedraw)

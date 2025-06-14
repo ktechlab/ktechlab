@@ -82,7 +82,7 @@ void Item::removeItem()
 
     hide();
     setCanvas(nullptr);
-    /* emit */ removed(this);
+    Q_EMIT removed(this);
     p_itemDocument->appendDeleteList(this);
 }
 
@@ -97,7 +97,7 @@ QFont Item::font() const
 void Item::moveBy(double dx, double dy)
 {
     KtlQCanvasPolygon::moveBy(dx, dy);
-    /* emit */ movedBy(dx, dy);
+    Q_EMIT movedBy(dx, dy);
 }
 
 void Item::setChanged()
@@ -140,7 +140,7 @@ void Item::setSize(QRect sizeRect, bool forceItemPoints)
     }
     canvas()->setChanged(areaPoints().boundingRect());
     postResize();
-    /* emit */ resized();
+    Q_EMIT resized();
 }
 
 ItemData Item::itemData() const
@@ -360,7 +360,7 @@ void Item::setSelected(bool yes)
     if (isSelected() == yes)
         return;
     KtlQCanvasPolygon::setSelected(yes);
-    /* emit */ selectionChanged();
+    Q_EMIT selectionChanged();
 }
 
 void Item::setParentItem(Item *newParentItem)

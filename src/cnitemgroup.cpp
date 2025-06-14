@@ -50,7 +50,7 @@ bool CNItemGroup::addItem(Item *item)
     setActiveItem(item);
     item->setSelected(true);
     updateInfo();
-    /* emit */ itemAdded(item);
+    Q_EMIT itemAdded(item);
     return true;
 }
 
@@ -61,7 +61,7 @@ bool CNItemGroup::addNode(Node *node)
     m_nodeList.prepend(node);
     node->setSelected(true);
     updateInfo();
-    /* emit */ nodeAdded(node);
+    Q_EMIT nodeAdded(node);
     return true;
 }
 
@@ -72,7 +72,7 @@ bool CNItemGroup::addConnector(Connector *con)
     m_connectorList.prepend(con);
     con->setSelected(true);
     updateInfo();
-    /* emit */ connectorAdded(con);
+    Q_EMIT connectorAdded(con);
     return true;
 }
 
@@ -166,7 +166,7 @@ void CNItemGroup::removeItem(Item *item)
 
     item->setSelected(false);
     updateInfo();
-    /* emit */ itemRemoved(item);
+    Q_EMIT itemRemoved(item);
 }
 
 void CNItemGroup::removeNode(Node *node)
@@ -176,7 +176,7 @@ void CNItemGroup::removeNode(Node *node)
     m_nodeList.removeAll(node);
     node->setSelected(false);
     updateInfo();
-    /* emit */ nodeRemoved(node);
+    Q_EMIT nodeRemoved(node);
 }
 
 void CNItemGroup::removeConnector(Connector *con)
@@ -186,7 +186,7 @@ void CNItemGroup::removeConnector(Connector *con)
     m_connectorList.removeAll(con);
     con->setSelected(false);
     updateInfo();
-    /* emit */ connectorRemoved(con);
+    Q_EMIT connectorRemoved(con);
 }
 
 void CNItemGroup::removeQCanvasItem(KtlQCanvasItem *qcanvasItem)

@@ -193,7 +193,7 @@ void GpsimProcessor::setRunning(bool run)
         return;
 
     m_bIsRunning = run;
-    /* emit */ runningStatusChanged(run);
+    Q_EMIT runningStatusChanged(run);
 }
 
 void GpsimProcessor::executeNext()
@@ -556,7 +556,7 @@ void GpsimDebugger::emitLineReached()
 
     m_previousAtLineEmit = currentAt;
     m_pGpsim->registerMemory()->update();
-    /* emit */ lineReached(currentAt);
+    Q_EMIT lineReached(currentAt);
 }
 
 void GpsimDebugger::checkForBreak()
@@ -724,7 +724,7 @@ void RegisterInfo::update()
     unsigned newValue = value();
     if (newValue != m_prevEmitValue) {
         m_prevEmitValue = newValue;
-        /* emit */ valueChanged(newValue);
+        Q_EMIT valueChanged(newValue);
     }
 }
 
