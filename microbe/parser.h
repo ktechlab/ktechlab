@@ -73,7 +73,7 @@ class Statement
 		 * @returns whether or not the content looks like a label (ends with a
 		 * colon).
 		 */
-		bool isLabel() const { return content.text().right(1) == ":"; }
+		bool isLabel() const { return content.text().right(1) == QString::fromLatin1(":"); }
 };
 
 typedef QList<Statement> StatementList;
@@ -116,7 +116,7 @@ class Field
 		/**
 		 * Create a Field.
 		 */
-		Field( Type type, const QString & key = nullptr );
+		Field( Type type, const QString & key = QString() );
 		/**
 		 * Create a Field (this constructor should only be used with
 		 * FixedStrings.
@@ -205,7 +205,7 @@ class Parser
 		 * message, only applicable to some errors (such as a use of a reserved
 		 * keyword).
 		 */
-		void mistake( MicrobeApp::MistakeType type, const QString & context = nullptr );
+		void mistake( MicrobeApp::MistakeType type, const QString & context = QString() );
 		/**
 		 * Creates a new instance of the parser class with all state information
 		 * (class members) copied from this instance of the class. Don't forget to

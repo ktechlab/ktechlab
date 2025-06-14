@@ -83,7 +83,7 @@ void BTreeBase::pruneTree(BTreeNode *root, bool /*conditionalRoot*/)
 	// to evaluate at compile time
 	if( (l->type() == number && r->type() == number) ) // && !(t.current()==root&&conditionalRoot) )
 	{
-		if(t.current()->childOp() == Expression::division && r->value() == "0" ) 
+		if(t.current()->childOp() == Expression::division && r->value() == QString::fromLatin1("0") )
 		{
 			t.current()->setChildOp(Expression::divbyzero);
 			return;
@@ -101,13 +101,13 @@ void BTreeBase::pruneTree(BTreeNode *root, bool /*conditionalRoot*/)
 	// See if one of the nodes is 0, and set n to the node that actually has data,
 	// z to the one containing zero.
 	bool zero = false;
-	if( l->value() == "0" )
+	if( l->value() == QString::fromLatin1("0") )
 	{
 		zero = true;
 		n = r;
 		z = l;
 	}
-	else if( r->value() == "0" )
+	else if( r->value() == QString::fromLatin1("0") )
 	{
 		zero = true;
 		n = l;
@@ -133,25 +133,25 @@ void BTreeBase::pruneTree(BTreeNode *root, bool /*conditionalRoot*/)
 	// z to the one containing zero.
 	bool zero = false;
 	bool one = false;
-	if( l->value() == "1" )
+	if( l->value() == QString::fromLatin1("1") )
 	{
 		one = true;
 		n = r;
 		z = l;
 	}
-	else if( r->value() == "1" )
+	else if( r->value() == QString::fromLatin1("1") )
 	{
 		one = true;
 		n = l;
 		z = r;
 	}
-	if( l->value() == "0" )
+	if( l->value() == QString::fromLatin1("0") )
 	{
 		zero = true;
 		n = r;
 		z = l;
 	}
-	else if( r->value() == "0" )
+	else if( r->value() == QString::fromLatin1("0") )
 	{
 		
 		// since we can't call compileError from in this class, we have a special way of handling it:
@@ -181,20 +181,20 @@ void BTreeBase::pruneTree(BTreeNode *root, bool /*conditionalRoot*/)
 		p->deleteChildren();
 		p->setChildOp(Expression::noop);
 		p->setType(number);
-		p->setValue("0");
+		p->setValue( QString::fromLatin1("0") );
 		
 	}
 	}
 	else if( t.current()->childOp() == Expression::bwand || t.current()->childOp() == Expression::bwor || t.current()->childOp() == Expression::bwxor )
 	{
 	bool zero = false;
-	if( l->value() == "0" )
+	if( l->value() == QString::fromLatin1("0") )
 	{
 		zero = true;
 		n = r;
 		z = l;
 	}
-	else if( r->value() == "0" )
+	else if( r->value() == QString::fromLatin1("0") )
 	{
 		zero = true;
 		n = l;
@@ -207,7 +207,7 @@ void BTreeBase::pruneTree(BTreeNode *root, bool /*conditionalRoot*/)
 		QString value;
 		if( p->childOp() == Expression::bwand )
 		{
-			value = "0";
+			value = QString::fromLatin1("0");
 			p->deleteChildren();
 			p->setChildOp(Expression::noop);
 			p->setType(number);

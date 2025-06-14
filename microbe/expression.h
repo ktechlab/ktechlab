@@ -104,7 +104,7 @@ class Expression
 	
 		QString stripBrackets( QString expression );
 	
-		void mistake( MicrobeApp::MistakeType type, const QString & context = nullptr );
+		void mistake( MicrobeApp::MistakeType type, const QString & context = QString() );
 	
 		SourceLineMicrobe m_sourceLine;
 	

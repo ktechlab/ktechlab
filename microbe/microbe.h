@@ -161,7 +161,7 @@ class MicrobeApp
 		/**
 		 * This is for generating unique numbers for computer generated labels.
 		 */
-		QString uniqueLabel() { return QString("__%1").arg(m_uniqueLabel++); }
+		QString uniqueLabel() { return QString::fromLatin1("__%1").arg(m_uniqueLabel++); }
 		/**
 		 * If alias is an alias for something then it returns that something,
 		 * otherwise it just returns alias (which in that case is not an alias!)
