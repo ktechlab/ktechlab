@@ -67,8 +67,11 @@
 #include <KToolBarPopupAction>
 #include <KWindowSystem>
 #include <netwm_def.h>
+
+#if WITH_X11
 #include <KWindowInfo>
 #include <KX11Extras>
+#endif
 #include <KXMLGUIFactory>
 
 #include <ktlconfig.h>
@@ -783,9 +786,11 @@ void KTechlab::savePropertiesInConfig(KConfig *conf)
     grUi.writeEntry("Width", width());
     grUi.writeEntry("Height", height());
     // grUi.writeEntry( "WinState", KWin::windowInfo( winId(), NET::WMState ).state() );
+#if WITH_X11
     if (QGuiApplication::platformName() == "xcb") { // "xbc" == X11
         grUi.writeEntry("WinState", qulonglong(KWindowInfo(winId(), NET::WMState).state()));
     }
+#endif
 
 #ifndef NO_GPSIM
     SymbolViewer::self()->saveProperties(conf);
@@ -892,12 +897,14 @@ void KTechlab::readPropertiesInConfig(KConfig *conf)
     // conf->setGroup("UI");
     KConfigGroup grUi = conf->group("UI");
     resize(grUi.readEntry("Width", 800), grUi.readEntry("Height", 500));
+#if WITH_X11
     const quint32 winStateDef = quint32(NET::Max);
     const quint32 winState = grUi.readEntry("WinState", winStateDef /* NET::Max */);
     //KWindowSystem::setState(winId(), NET::States(winState));
     if (QGuiApplication::platformName() == "xcb") { // "xbc" == X11
         KX11Extras::setState(winId(), NET::States(winState));
     }
+#endif
     // grUi.readEntry( "WinState", (quint32) NET::Max ) );
 }
 

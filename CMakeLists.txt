@@ -126,6 +126,10 @@ if (NOT GPSim_FOUND)
     set(NO_GPSIM TRUE)
 endif ()
 
+if (UNIX AND NOT APPLE)
+    set(WITH_X11 TRUE)
+endif ()
+
 include_directories(
     # for config.h file
     ${CMAKE_CURRENT_BINARY_DIR}
