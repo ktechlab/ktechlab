@@ -28,19 +28,23 @@ int main(int argc, char **argv)
     KLocalizedString::setApplicationDomain("ktechlab");
 
     KAboutData about(
-        "ktechlab", i18n("KTechLab"), KTECHLAB_VERSION_STRING, i18n("An IDE for microcontrollers and electronics"), KAboutLicense::GPL_V2, i18n("(C) 2003-2017, The KTechLab developers"), "", "https://userbase.kde.org/KTechlab", "ktechlab-devel@kde.org");
-    about.addAuthor(i18n("Alan Grimes"), i18n("Developer, Simulation"), "");
-    about.addAuthor(i18n("Zoltan Padrah"), i18n("Developer"), "zoltan_padrah@users.sourceforge.net");
-    about.addAuthor(i18n("Julian Bäume"), i18n("Developer, KDE4 Port, GUI"), "julian@svg4all.de");
-    about.addAuthor(i18n("Juan De Vincenzo"), i18n("KDE4 Port"), "");
-    about.addCredit(i18n("Lawrence Shafer"), i18n("Website, wiki and forum"), "");
-    about.addCredit(i18n("Jason Lucas"), i18n("Keeping up the project during lack of developers"), "");
-    about.addCredit(i18n("David Saxton"), i18n("Former developer, project founder, former maintainer"), "david@bluehaze.org");
-    about.addCredit(i18n("Daniel Clarke"), i18n("Former developer"), "daniel.jc@gmail.com");
-    about.addCredit(i18n("Couriousous"), i18n("JK flip-flop, asynchronous preset/reset in the D flip-flop"), "");
-    about.addCredit(i18n("John Myers"), i18n("Rotary Switch"), "");
-    about.addCredit(i18n("Ali Akcaagac"), i18n("Glib friendliness"), "");
-    about.addCredit(i18n("David Leggett"), i18n("Former website hosting and feedback during early development"), "");
+        QLatin1StringView("ktechlab"), i18n("KTechLab"), QLatin1StringView(KTECHLAB_VERSION_STRING),
+                     i18n("An IDE for microcontrollers and electronics"), KAboutLicense::GPL_V2,
+                     i18n("(C) 2003-2017, The KTechLab developers"), QLatin1StringView(""),
+                     QLatin1StringView("https://userbase.kde.org/KTechlab"),
+                     QLatin1StringView("ktechlab-devel@kde.org"));
+    about.addAuthor(i18n("Alan Grimes"), i18n("Developer, Simulation"), QLatin1StringView(""));
+    about.addAuthor(i18n("Zoltan Padrah"), i18n("Developer"), QLatin1StringView("zoltan_padrah@users.sourceforge.net"));
+    about.addAuthor(i18n("Julian Bäume"), i18n("Developer, KDE4 Port, GUI"), QLatin1StringView("julian@svg4all.de"));
+    about.addAuthor(i18n("Juan De Vincenzo"), i18n("KDE4 Port"), QLatin1StringView(""));
+    about.addCredit(i18n("Lawrence Shafer"), i18n("Website, wiki and forum"), QLatin1StringView(""));
+    about.addCredit(i18n("Jason Lucas"), i18n("Keeping up the project during lack of developers"), QLatin1StringView(""));
+    about.addCredit(i18n("David Saxton"), i18n("Former developer, project founder, former maintainer"), QLatin1StringView("david@bluehaze.org"));
+    about.addCredit(i18n("Daniel Clarke"), i18n("Former developer"), QLatin1StringView("daniel.jc@gmail.com"));
+    about.addCredit(i18n("Couriousous"), i18n("JK flip-flop, asynchronous preset/reset in the D flip-flop"), QLatin1StringView(""));
+    about.addCredit(i18n("John Myers"), i18n("Rotary Switch"), QLatin1StringView(""));
+    about.addCredit(i18n("Ali Akcaagac"), i18n("Glib friendliness"), QLatin1StringView(""));
+    about.addCredit(i18n("David Leggett"), i18n("Former website hosting and feedback during early development"), QLatin1StringView(""));
     KAboutData::setApplicationData(about);
     QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("ktechlab")));
 
@@ -55,8 +59,10 @@ int main(int argc, char **argv)
     about.processCommandLine(&parser);
 
     // Add our custom icons to the search path
-    const QStringList iconDirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "ktechlab/icons", QStandardPaths::LocateDirectory);
-    const QStringList picsDirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "ktechlab/pics", QStandardPaths::LocateDirectory);
+    const QStringList iconDirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation,
+                                                           QLatin1StringView("ktechlab/icons"), QStandardPaths::LocateDirectory);
+    const QStringList picsDirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation,
+                                                           QLatin1StringView("ktechlab/pics"), QStandardPaths::LocateDirectory);
     QIcon::setThemeSearchPaths(QIcon::themeSearchPaths() << iconDirs);
     QIcon::setFallbackSearchPaths(QIcon::fallbackSearchPaths() << iconDirs << picsDirs);
 
