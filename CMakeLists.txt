@@ -75,8 +75,7 @@ add_definitions(
     -DQT_DISABLE_DEPRECATED_BEFORE=0x060000 # TODO target some reasonable version
     -DQT_DEPRECATED_WARNINGS_SINCE=0x060000 # to enable warnings for API since the disabled limit
     -DQT_USE_QSTRINGBUILDER
-#     -DQT_NO_CAST_TO_ASCII # TODO
-     -UQT_NO_CAST_TO_ASCII # TODO
+    -DQT_NO_CAST_TO_ASCII
 #     -DQT_NO_CAST_FROM_ASCII # TODO
      -UQT_NO_CAST_FROM_ASCII # TODO
      -DQT_NO_CAST_FROM_BYTEARRAY
