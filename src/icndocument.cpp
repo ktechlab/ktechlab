@@ -505,7 +505,7 @@ bool ICNDocument::registerItem(KtlQCanvasItem *qcanvasItem)
 
         } else if (Connector *connector = dynamic_cast<Connector *>(qcanvasItem)) {
             m_connectorList.append(connector);
-            emit connectorAdded(connector);
+            /* emit */ connectorAdded(connector);
         } else {
             qCCritical(KTL_LOG) << "Unrecognised item";
             return false;
@@ -752,7 +752,7 @@ void ICNDocument::deleteSelection()
 
     // We need to emit this so that property widgets etc...
     // can clear themselves.
-    emit selectionChanged();
+    /* emit */ selectionChanged();
 
     requestRerouteInvalidatedConnectors();
     requestStateSave();

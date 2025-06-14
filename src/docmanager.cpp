@@ -410,7 +410,7 @@ CircuitDocument *DocManager::openCircuitFile(const QUrl &url, ViewArea *viewArea
     }
 
     handleNewDocument(document, viewArea);
-    emit fileOpened(url);
+    /* emit */ fileOpened(url);
     return document;
 }
 
@@ -425,7 +425,7 @@ FlowCodeDocument *DocManager::openFlowCodeFile(const QUrl &url, ViewArea *viewAr
     }
 
     handleNewDocument(document, viewArea);
-    emit fileOpened(url);
+    /* emit */ fileOpened(url);
     return document;
 }
 
@@ -440,7 +440,7 @@ MechanicsDocument *DocManager::openMechanicsFile(const QUrl &url, ViewArea *view
     }
 
     handleNewDocument(document, viewArea);
-    emit fileOpened(url);
+    /* emit */ fileOpened(url);
     return document;
 }
 
@@ -458,7 +458,7 @@ TextDocument *DocManager::openTextFile(const QUrl &url, ViewArea *viewArea)
     }
 
     handleNewDocument(document, viewArea);
-    emit fileOpened(url);
+    /* emit */ fileOpened(url);
     return document;
 }
 

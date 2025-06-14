@@ -94,7 +94,7 @@ void Component::removeElements(bool setPinsInterIndependent)
     for (ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
         Element *e = (*it).e;
         if (e) {
-            emit elementDestroyed(e);
+            /* emit */ elementDestroyed(e);
             e->componentDeleted();
         }
     }
@@ -106,7 +106,7 @@ void Component::removeElements(bool setPinsInterIndependent)
         if (!sw)
             continue;
 
-        emit switchDestroyed(sw);
+        /* emit */ switchDestroyed(sw);
         delete sw;
     }
     m_switchList.clear();
@@ -120,7 +120,7 @@ void Component::removeElement(Element *element, bool setPinsInterIndependent)
     if (!element)
         return;
 
-    emit elementDestroyed(element);
+    /* emit */ elementDestroyed(element);
     element->componentDeleted();
 
     const ElementMapList::iterator end = m_elementMapList.end();
@@ -143,7 +143,7 @@ void Component::removeSwitch(Switch *sw)
     if (!sw)
         return;
 
-    emit switchDestroyed(sw);
+    /* emit */ switchDestroyed(sw);
     delete sw;
     m_switchList.removeAll(sw);
     m_pCircuitDocument->requestAssignCircuits();
@@ -202,7 +202,7 @@ void Component::setAngleDegrees(int degrees)
     updateAttachedPositioning();
     p_icnDocument->requestRerouteInvalidatedConnectors();
 
-    emit orientationChanged();
+    /* emit */ orientationChanged();
 }
 
 void Component::setFlipped(bool flipped)
@@ -219,7 +219,7 @@ void Component::setFlipped(bool flipped)
     updateAttachedPositioning();
     p_icnDocument->requestRerouteInvalidatedConnectors();
 
-    emit orientationChanged();
+    /* emit */ orientationChanged();
 }
 
 void Component::itemPointsChanged()
@@ -881,7 +881,7 @@ Switch *Component::createSwitch(Pin *n0, Pin *n1, bool open)
     m_switchList.append(e);
     n0->addSwitch(e);
     n1->addSwitch(e);
-    emit switchCreated(e);
+    /* emit */ switchCreated(e);
     return e;
 }
 
@@ -970,7 +970,7 @@ ElementMapList::iterator Component::handleElement(Element *e, const QList<Pin *>
     // ElementMapList::iterator it = m_elementMapList.append(em);
     ElementMapList::iterator it = m_elementMapList.insert(m_elementMapList.end(), em);
 
-    emit elementCreated(e);
+    /* emit */ elementCreated(e);
     return it;
 }
 

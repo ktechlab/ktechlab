@@ -138,7 +138,7 @@ bool View::eventFilter(QObject *watched, QEvent *e)
         }
 
         // 			qCDebug(KTL_LOG) << "Focused In";
-        emit focused(this);
+        /* emit */ focused(this);
         break;
     }
 
@@ -168,7 +168,7 @@ bool View::eventFilter(QObject *watched, QEvent *e)
             break;
         }
 
-        emit unfocused();
+        /* emit */ unfocused();
         break;
     }
 

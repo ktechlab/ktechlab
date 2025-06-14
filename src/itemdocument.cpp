@@ -178,9 +178,9 @@ void ItemDocument::fileSaveAs()
         return;
     writeFile();
 
-    // Our modified state may not have changed, but we emit this to force the
+    // Our modified state may not have changed, but we /* emit */ this to force the
     // main window to update our caption.
-    emit modifiedStateChanged();
+    /* emit */ modifiedStateChanged();
 }
 
 void ItemDocument::writeFile()
@@ -221,7 +221,7 @@ bool ItemDocument::openURL(const QUrl &url)
 
     if (FlowCodeDocument *fcd = dynamic_cast<FlowCodeDocument *>(this)) {
         // We need to tell all pic-depedent components about what pic type is in use
-        emit fcd->picTypeChanged();
+        /* emit */ fcd->picTypeChanged();
     }
 
     requestEvent(ItemDocument::ItemDocumentEvent::ResizeCanvasToItems);
@@ -332,7 +332,7 @@ void ItemDocument::requestStateSave(int actionTicket)
 
     setModified(m_savedState != m_currentState);
 
-    emit undoRedoStateChanged();
+    /* emit */ undoRedoStateChanged();
 
     // FIXME To resize undo queue, have to pop and push everything
     // In Qt4 QStack is used and QStack inherits QVector, that should
@@ -395,7 +395,7 @@ void ItemDocument::undo()
     m_currentState = idd;
 
     setModified(m_savedState != m_currentState);
-    emit undoRedoStateChanged();
+    /* emit */ undoRedoStateChanged();
 }
 
 void ItemDocument::redo()
@@ -414,7 +414,7 @@ void ItemDocument::redo()
     m_currentState = idd;
 
     setModified(m_savedState != m_currentState);
-    emit undoRedoStateChanged();
+    /* emit */ undoRedoStateChanged();
 }
 
 void ItemDocument::cut()
@@ -1224,7 +1224,7 @@ void Canvas::resize(const QRect &size)
         return;
     QRect oldSize = rect();
     KtlQCanvas::resize(size);
-    emit resized(oldSize, size);
+    /* emit */ resized(oldSize, size);
 }
 
 void Canvas::setMessage(const QString &message)

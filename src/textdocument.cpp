@@ -223,7 +223,7 @@ void TextDocument::setModified(bool modified)
     m_doc->setModified(modified);
     b_modified = modified;
 
-    emit modifiedStateChanged();
+    /* emit */ modifiedStateChanged();
 }
 
 void TextDocument::guessScheme(bool allowDisable)
@@ -322,7 +322,7 @@ void TextDocument::fileSaveAs()
 
     // Our modified state may not have changed, but we emit this to force the
     // main window to update our caption.
-    emit modifiedStateChanged();
+    /* emit */ modifiedStateChanged();
 }
 
 void TextDocument::saveDone()
@@ -330,7 +330,7 @@ void TextDocument::saveDone()
     setURL(m_doc->url());
     guessScheme(false);
     setModified(false);
-    emit modifiedStateChanged();
+    /* emit */ modifiedStateChanged();
 }
 
 bool TextDocument::openURL(const QUrl &url)

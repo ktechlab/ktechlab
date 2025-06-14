@@ -42,7 +42,7 @@ bool MechanicsGroup::addItem(Item *item)
     item->setSelected(true);
     if (MechanicsItem *mechanicsItem = dynamic_cast<MechanicsItem *>(item))
         mechanicsItem->setRaised(b_isRaised);
-    emit itemAdded(item);
+    /* emit */ itemAdded(item);
     return true;
 }
 
@@ -57,7 +57,7 @@ bool MechanicsGroup::removeItem(Item *item)
     MechanicsItem *mechanicsItem = dynamic_cast<MechanicsItem *>(item);
     if (mechanicsItem)
         mechanicsItem->setRaised(false);
-    emit itemRemoved(item);
+    /* emit */ itemRemoved(item);
     return true;
 }
 

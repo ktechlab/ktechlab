@@ -283,7 +283,7 @@ void ItemSelector::slotRemoveSelectedItem()
         return;
     }
 
-    emit itemRemoved(item->data(0, ILVItem::DataRole_ID).toString() /*key( 0, 0 ) */);
+    /* emit */ itemRemoved(item->data(0, ILVItem::DataRole_ID).toString() /*key( 0, 0 ) */);
     ILVItem *parent = dynamic_cast<ILVItem *>(item->QTreeWidgetItem::parent());
     delete item;
     // Get rid of the category as well if it has no children
@@ -306,7 +306,7 @@ void ItemSelector::slotItemSelected()
         return;
     }
 
-    emit itemSelected(item->data(0, ILVItem::DataRole_ID).toString() /* item->key( 0, 0 ) */);
+    /* emit */ itemSelected(item->data(0, ILVItem::DataRole_ID).toString() /* item->key( 0, 0 ) */);
 }
 
 void ItemSelector::slotItemClicked(QTreeWidgetItem *item, int)
@@ -319,7 +319,7 @@ void ItemSelector::slotItemClicked(QTreeWidgetItem *item, int)
 
     const QString &itemIdString = item->data(0, ILVItem::DataRole_ID).toString();
 
-    emit itemClicked(itemIdString /* item->key( 0, 0 ) */);
+    /* emit */ itemClicked(itemIdString /* item->key( 0, 0 ) */);
 }
 
 void ItemSelector::slotItemDoubleClicked(QTreeWidgetItem *item, int)
@@ -341,7 +341,7 @@ void ItemSelector::slotItemDoubleClicked(QTreeWidgetItem *item, int)
             (static_cast<MechanicsDocument *>(doc))->slotSetRepeatedItemId(id);
     }
 
-    emit itemDoubleClicked(id);
+    /* emit */ itemDoubleClicked(id);
 }
 
 #if 0 // 2018.08.12 - needed?

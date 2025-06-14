@@ -366,7 +366,7 @@ void KtlQCanvas::resize(const QRect &newSize)
 
     setAllChanged();
 
-    emit resized();
+    /* emit */ resized();
 }
 
 void KtlQCanvas::retune(int chunksze, int mxclusters)

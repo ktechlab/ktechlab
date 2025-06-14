@@ -48,7 +48,7 @@ ECSubcircuit::~ECSubcircuit()
 
 void ECSubcircuit::removeItem()
 {
-    emit subcircuitDeleted();
+    /* emit */ subcircuitDeleted();
     Component::removeItem();
 }
 
@@ -84,7 +84,7 @@ void ECSubcircuit::dataChanged()
     if (subcircuitId == -1) {
         return;
     }
-    emit subcircuitDeleted();
+    /* emit */ subcircuitDeleted();
     Subcircuits::initECSubcircuit(subcircuitId, this);
 }
 

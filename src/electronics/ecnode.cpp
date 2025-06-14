@@ -64,7 +64,7 @@ void ECNode::setNumPins(unsigned num)
         m_pins.resize(num);
     }
 
-    emit numPinsChanged(num);
+    /* emit */ numPinsChanged(num);
 }
 
 Pin *ECNode::pin(unsigned num) const

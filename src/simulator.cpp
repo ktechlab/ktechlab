@@ -268,7 +268,7 @@ void Simulator::slotSetSimulating(bool simulate)
     }
 
     m_bIsSimulating = simulate;
-    emit simulatingStateChanged(simulate);
+    /* emit */ simulatingStateChanged(simulate);
 }
 
 void Simulator::createLogicChain(LogicOut *logicOut, const LogicInList &logicInList, const PinList &pinList)

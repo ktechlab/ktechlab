@@ -196,7 +196,7 @@ void MicroSettingsDlg::accept()
 void MicroSettingsDlg::slotApplyClicked()
 {
     slotSaveStuff();
-    emit applyClicked();
+    /* emit */ applyClicked();
 }
 
 void MicroSettingsDlg::slotSaveStuff()

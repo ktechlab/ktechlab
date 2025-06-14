@@ -142,7 +142,7 @@ void MechanicsItem::parentMoved()
     PositionInfo absPos = absolutePosition();
     Item::moveBy(absPos.x() - x(), absPos.y() - y());
     updateCanvasPoints();
-    emit moved();
+    /* emit */ moved();
 }
 
 void MechanicsItem::updateCanvasPoints()
@@ -169,14 +169,14 @@ void MechanicsItem::rotateBy(double dtheta)
     m_relativePosition.rotate(dtheta);
     updateCanvasPoints();
     updateMechanicsInfoCombined();
-    emit moved();
+    /* emit */ moved();
 }
 
 void MechanicsItem::moveBy(double dx, double dy)
 {
     m_relativePosition.translate(dx, dy);
     Item::moveBy(m_relativePosition.x() - x(), m_relativePosition.y() - y());
-    emit moved();
+    /* emit */ moved();
 }
 
 void MechanicsItem::updateMechanicsInfoCombined()

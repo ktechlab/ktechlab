@@ -357,7 +357,7 @@ void SettingsDlg::updateSettings()
         else
             grWorkArea.deleteEntry("RefreshRate");
 
-        emit settingsChanged(objectName());
+        /* emit */ settingsChanged(objectName());
     }
 
     QTimer::singleShot(0, this, SLOT(slotUpdateSettings()));
@@ -383,7 +383,7 @@ void SettingsDlg::slotUpdateSettings()
         else
             grPicProg.deleteEntry("PicProgrammerProgram");
 
-        emit settingsChanged(objectName());
+        /* emit */ settingsChanged(objectName());
     }
 
     m_pPicProgrammerSettings->save(config.data());

@@ -653,13 +653,13 @@ KtlQ3ScrollView::~KtlQ3ScrollView()
 void KtlQ3ScrollView::hbarIsPressed()
 {
     d->hbarPressed = true;
-    emit(horizontalSliderPressed());
+    /* emit */(horizontalSliderPressed());
 }
 
 void KtlQ3ScrollView::hbarIsReleased()
 {
     d->hbarPressed = false;
-    emit(horizontalSliderReleased());
+    /* emit */(horizontalSliderReleased());
 }
 
 /*!
@@ -673,13 +673,13 @@ bool KtlQ3ScrollView::isHorizontalSliderPressed()
 void KtlQ3ScrollView::vbarIsPressed()
 {
     d->vbarPressed = true;
-    emit(verticalSliderPressed());
+    /* emit */(verticalSliderPressed());
 }
 
 void KtlQ3ScrollView::vbarIsReleased()
 {
     d->vbarPressed = false;
-    emit(verticalSliderReleased());
+    /* emit */(verticalSliderReleased());
 }
 
 /*!
@@ -2096,7 +2096,7 @@ void KtlQ3ScrollView::moveContents(int x, int y)
     if (!dx && !dy)
         return; // Nothing to do
 
-    emit contentsMoving(-x, -y);
+    /* emit */ contentsMoving(-x, -y);
 
     d->vx = x;
     d->vy = y;

@@ -892,7 +892,7 @@ void ProjectManager::slotNewProject()
         m_pCurrentProject->save();
         updateActions();
 
-        emit projectCreated();
+        /* emit */ projectCreated();
     }
 
     delete newProjectDlg;
@@ -946,7 +946,7 @@ void ProjectManager::slotOpenProject(const QUrl &url)
         KTechlab::self()->showToolView(KTechlab::self()->toolView(toolViewIdentifier()));
 
     updateActions();
-    emit projectOpened();
+    /* emit */ projectOpened();
 }
 
 bool ProjectManager::slotCloseProject()
@@ -960,7 +960,7 @@ bool ProjectManager::slotCloseProject()
     m_pCurrentProject->deleteLater();
     m_pCurrentProject = nullptr;
     updateActions();
-    emit projectClosed();
+    /* emit */ projectClosed();
     return true;
 }
 
@@ -990,7 +990,7 @@ void ProjectManager::slotCreateSubproject()
         currentProject()->addChild(subproject);
         currentProject()->save();
 
-        emit subprojectCreated();
+        /* emit */ subprojectCreated();
     }
 
     delete dlg;
@@ -1016,7 +1016,7 @@ void ProjectManager::slotAddFile()
         return;
 
     currentProject()->addFiles();
-    emit filesAdded();
+    /* emit */ filesAdded();
 }
 
 void ProjectManager::slotAddCurrentFile()
@@ -1024,7 +1024,7 @@ void ProjectManager::slotAddCurrentFile()
     if (!currentProject())
         return;
     currentProject()->addCurrentFile();
-    emit filesAdded();
+    /* emit */ filesAdded();
 }
 
 void ProjectManager::slotSubprojectAddExistingFile()
@@ -1034,7 +1034,7 @@ void ProjectManager::slotSubprojectAddExistingFile()
         return;
 
     currentItem->projectItem()->addFiles();
-    emit filesAdded();
+    /* emit */ filesAdded();
 }
 
 void ProjectManager::slotSubprojectAddCurrentFile()
@@ -1044,7 +1044,7 @@ void ProjectManager::slotSubprojectAddCurrentFile()
         return;
 
     currentItem->projectItem()->addCurrentFile();
-    emit filesAdded();
+    /* emit */ filesAdded();
 }
 
 void ProjectManager::slotItemBuild()
@@ -1081,7 +1081,7 @@ void ProjectManager::slotRemoveSelected()
         return;
 
     currentItem->projectItem()->deleteLater();
-    emit filesRemoved();
+    /* emit */ filesRemoved();
 }
 
 void ProjectManager::slotExportToMakefile()

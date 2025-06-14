@@ -96,7 +96,7 @@ void FlowCodeDocument::setPicType(const QString &id)
     m_picItem = new PicItem(this, true, "picItem", m_microSettings);
     m_picItem->show();
 
-    emit picTypeChanged();
+    /* emit */ picTypeChanged();
 }
 
 bool FlowCodeDocument::isValidItem(const QString &itemId)

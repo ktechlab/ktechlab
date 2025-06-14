@@ -312,7 +312,7 @@ void CMManager::setCMState(CMState type, bool state)
     state ? (m_cmState |= type) : (m_cmState &= (~type));
 
     if (type == CMManager::cms_manual_route)
-        emit manualRoutingChanged(state);
+        /* emit */ manualRoutingChanged(state);
 }
 
 void CMManager::setRepeatedAddId(const QString &repeatedId)
