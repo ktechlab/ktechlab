@@ -106,8 +106,8 @@ ContextHelp::ContextHelp(KateMDI::ToolView *parent)
 
     connect(m_pLanguageSelect, qOverload<int>(&QComboBox::activated), this, &ContextHelp::setCurrentLanguage);
 
-    m_pResetButton->setIcon(QIcon::fromTheme("dialog-cancel"));
-    m_pChangeDescriptionsDirectory->setIcon(QIcon::fromTheme("folder"));
+    m_pResetButton->setIcon(QIcon::fromTheme(QLatin1StringView("dialog-cancel")));
+    m_pChangeDescriptionsDirectory->setIcon(QIcon::fromTheme(QLatin1StringView("folder")));
 
     connect(ComponentSelector::self(), &ComponentSelector::itemSelected, this, &ContextHelp::setBrowserItem);
 
@@ -133,7 +133,7 @@ bool ContextHelp::eventFilter(QObject *watched, QEvent *e)
     switch (e->type()) {
     case QEvent::DragEnter: {
         QDragEnterEvent *dragEnter = static_cast<QDragEnterEvent *>(e);
-        if (!dragEnter->mimeData()->text().startsWith("ktechlab/"))
+        if (!dragEnter->mimeData()->text().startsWith(QLatin1StringView("ktechlab/")))
             break;
 
         // dragEnter->acceptAction(); // 2018.12.07
@@ -145,7 +145,7 @@ bool ContextHelp::eventFilter(QObject *watched, QEvent *e)
         QDropEvent *dropEvent = static_cast<QDropEvent *>(e);
         const QMimeData *mimeData = dropEvent->mimeData();
 
-        if (!mimeData->text().startsWith("ktechlab/"))
+        if (!mimeData->text().startsWith(QLatin1StringView("ktechlab/")))
             break;
 
         dropEvent->accept();
@@ -158,7 +158,7 @@ bool ContextHelp::eventFilter(QObject *watched, QEvent *e)
         if (!li)
             return true;
 
-        m_pEditor->insertURL("ktechlab-help:///" + type, li->name());
+        m_pEditor->insertURL(QLatin1StringView("ktechlab-help:///") + type, li->name());
         return true;
     }
 
@@ -246,7 +246,7 @@ void ContextHelp::setBrowserItem(const QString &type)
 
 void ContextHelp::slotClear()
 {
-    setContextHelp(i18n("No Item Selected"), nullptr);
+    setContextHelp(i18n("No Item Selected"), QString());
     m_pEditButton->setEnabled(false);
 
     // Can we go hide the edit widget?
@@ -256,7 +256,7 @@ void ContextHelp::slotClear()
 
 void ContextHelp::slotMultipleSelected()
 {
-    setContextHelp(i18n("Multiple Items"), nullptr);
+    setContextHelp(i18n("Multiple Items"), QString());
 }
 
 void ContextHelp::setContextHelp(QString name, QString help)
@@ -271,7 +271,7 @@ void ContextHelp::setContextHelp(QString name, QString help)
     m_pNameLabel->setText(name);
     m_pBrowserView->setSearchPaths({itemLibrary()->itemDescriptionsDirectory()});
     m_pBrowserView->clear();
-    if (help.startsWith("<html>")) {
+    if (help.startsWith(QLatin1StringView("<html>"))) {
         m_pBrowserView->insertHtml(help);
     } else {
         m_pBrowserView->insertPlainText(help);
@@ -280,8 +280,8 @@ void ContextHelp::setContextHelp(QString name, QString help)
 
 void ContextHelp::parseInfo(QString &info)
 {
-    info.replace("<example>", "<br><br><b>Example:</b><blockquote>");
-    info.replace("</example>", "</blockquote>");
+    info.replace(QLatin1StringView("<example>"), QLatin1StringView("<br><br><b>Example:</b><blockquote>"));
+    info.replace(QLatin1StringView("</example>"), QLatin1StringView("</blockquote>"));
 }
 
 void ContextHelp::slotEdit()
@@ -291,7 +291,8 @@ void ContextHelp::slotEdit()
 
     QStringList resourcePaths;
     QString currentResourcePath = itemLibrary()->itemDescriptionsDirectory();
-    QString defaultResourcePath = QStandardPaths::locate(QStandardPaths::AppDataLocation, "contexthelp/", QStandardPaths::LocateDirectory);
+    QString defaultResourcePath = QStandardPaths::locate(QStandardPaths::AppDataLocation,
+                                                         QLatin1StringView("contexthelp/"), QStandardPaths::LocateDirectory);
 
     resourcePaths << currentResourcePath;
     if (currentResourcePath != defaultResourcePath)
@@ -361,7 +362,7 @@ bool ContextHelp::saveDescription(const QString &language)
 // static function
 void ContextHelp::addLinkTypeAppearances(QString *html)
 {
-    QRegularExpression rx("<a href=\"([^\"]*)\">([^<]*)</a>");
+    QRegularExpression rx(QLatin1StringView("<a href=\"([^\"]*)\">([^<]*)</a>"));
 
     //int pos = 0;
     //
@@ -403,7 +404,7 @@ void ContextHelp::addLinkTypeAppearances(QString *html)
         }
 
         case ExternalLink: {
-            imageURL = QStandardPaths::locate(QStandardPaths::AppDataLocation, "icons/external_link.png");
+            imageURL = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1StringView("icons/external_link.png"));
             break;
         }
         }
@@ -411,10 +412,10 @@ void ContextHelp::addLinkTypeAppearances(QString *html)
         QString newAnchorText;
 
         if (color.isValid()) {
-            newAnchorText = QString("<a href=\"%1\" style=\"color: %2;\">%3</a>").arg(urlString, color.name(), text);
+            newAnchorText = QLatin1StringView("<a href=\"%1\" style=\"color: %2;\">%3</a>").arg(urlString, color.name(), text);
         } else if (!imageURL.isEmpty()) {
             newAnchorText = anchorText;
-            newAnchorText += QString(" <img src=\"%1\"/>").arg(imageURL);
+            newAnchorText += QLatin1StringView(" <img src=\"%1\"/>").arg(imageURL);
         }
 
         if (!newAnchorText.isEmpty())
@@ -429,14 +430,14 @@ ContextHelp::LinkType ContextHelp::extractLinkType(const QUrl &url)
 {
     QString path = url.path();
 
-    if (url.scheme() == "ktechlab-help") {
+    if (url.scheme() == QLatin1StringView("ktechlab-help")) {
         if (itemLibrary()->haveDescription(path, QLocale().name()))
             return HelpLink;
         else
             return NewHelpLink;
     }
 
-    if (url.scheme() == "ktechlab-example")
+    if (url.scheme() == QLatin1StringView("ktechlab-example"))
         return ExampleLink;
 
     return ExternalLink;
@@ -446,12 +447,12 @@ ContextHelp::LinkType ContextHelp::extractLinkType(const QUrl &url)
 QString ContextHelp::examplePathToFullPath(QString path)
 {
     // quick security check
-    path.remove("..");
+    path.remove(QLatin1StringView(".."));
 
-    if (path.startsWith("/"))
+    if (path.startsWith(QLatin1StringView("/")))
         path.remove(0, 1);
 
-    return QStandardPaths::locate(QStandardPaths::AppDataLocation, "examples/" + path);
+    return QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1StringView("examples/") + path);
 }
 
 void ContextHelp::openURL(const QUrl &url /*, const KParts::OpenUrlArguments & */)

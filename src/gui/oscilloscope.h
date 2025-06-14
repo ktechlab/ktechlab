@@ -81,7 +81,7 @@ public:
     static Oscilloscope *self(KateMDI::ToolView *parent = nullptr);
     static QString toolViewIdentifier()
     {
-        return "Oscilloscope";
+        return QLatin1StringView("Oscilloscope");
     }
     ~Oscilloscope() override;
 

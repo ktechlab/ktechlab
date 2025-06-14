@@ -52,7 +52,7 @@ OscilloscopeView::OscilloscopeView(QWidget *parent)
     , m_halfOutputHeight(0.0)
 {
     auto config = KSharedConfig::openConfig();
-    KConfigGroup grOscill(config, "Oscilloscope");
+    KConfigGroup grOscill(config, QLatin1StringView("Oscilloscope"));
     m_fps = grOscill.readEntry("FPS", 25);
 
     setBackgroundRole(QPalette::NoRole);
@@ -165,7 +165,7 @@ void OscilloscopeView::slotSetFrameRate(QAction *action)
 {
     int fps = action->data().toInt();
     m_fps = fps;
-    KConfigGroup grOscill(KSharedConfig::openConfig(), "Oscilloscope");
+    KConfigGroup grOscill(KSharedConfig::openConfig(), QLatin1StringView("Oscilloscope"));
     grOscill.writeEntry("FPS", m_fps);
 }
 

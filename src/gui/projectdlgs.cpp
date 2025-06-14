@@ -89,11 +89,11 @@ void NewProjectDlg::locationChanged(const QString &)
     qCDebug(KTL_LOG) << "location changed to: " << m_location;
     QDir subDir(m_location);
 
-    if (!m_location.endsWith("/"))
-        m_location.append("/");
+    if (!m_location.endsWith(QLatin1StringView("/")))
+        m_location.append(QLatin1StringView("/"));
 
     if (!m_pWidget->projectNameEdit->text().isEmpty())
-        m_location.append(m_pWidget->projectNameEdit->text().toLower() + "/");
+        m_location.append(m_pWidget->projectNameEdit->text().toLower() + QLatin1StringView("/"));
 
     m_pWidget->locationLabel->setText(m_location);
 

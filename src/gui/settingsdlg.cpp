@@ -108,7 +108,7 @@ public:
 const int defaultRefreshRate = 50;
 
 SettingsDlg::SettingsDlg(QWidget *parent, const char *name, KCoreConfigSkeleton *config)
-    : KConfigDialog(parent, name, config)
+    : KConfigDialog(parent, QLatin1StringView(name), config)
 {
     m_generalOptionsWidget = new GeneralOptionsWidget(this);
     m_generalOptionsWidget->setObjectName("generalOptionsWidget");
@@ -127,16 +127,16 @@ SettingsDlg::SettingsDlg(QWidget *parent, const char *name, KCoreConfigSkeleton 
 
     m_pPicProgrammerSettings = new PicProgrammerSettings;
 
-    m_logicWidget->kcfg_LogicOutputHighImpedance->setSuffix(QString(" ") + QChar(0x3a9));
-    m_logicWidget->kcfg_LogicOutputLowImpedance->setSuffix(QString(" ") + QChar(0x3a9));
+    m_logicWidget->kcfg_LogicOutputHighImpedance->setSuffix(QLatin1StringView(" ") + QChar(0x3a9));
+    m_logicWidget->kcfg_LogicOutputLowImpedance->setSuffix(QLatin1StringView(" ") + QChar(0x3a9));
 
-    addPage(m_generalOptionsWidget, i18n("General"), "ktechlab", i18n("General Options"));
-    addPage(m_picProgrammerConfigWidget, i18n("Programmer"), "network-connect", i18n("PIC Programmer"));
-    addPage(m_asmFormattingWidget, i18n("Formatter"), "indent_asm", i18n("Assembly Formatter"));
-    addPage(m_logicWidget, i18n("Logic"), "logic_or", i18n("Electronic Logic Values"));
-    addPage(m_gpasmSettingsWidget, "Gpasm", "convert_to_hex", "gpasm");
-    addPage(m_gplinkSettingsWidget, "Gplink", "merge", "gplink");
-    addPage(m_sdccOptionsWidget, "SDCC", "text-x-csrc", "SDCC");
+    addPage(m_generalOptionsWidget, i18n("General"), QLatin1StringView("ktechlab"), i18n("General Options"));
+    addPage(m_picProgrammerConfigWidget, i18n("Programmer"), QLatin1StringView("network-connect"), i18n("PIC Programmer"));
+    addPage(m_asmFormattingWidget, i18n("Formatter"), QLatin1StringView("indent_asm"), i18n("Assembly Formatter"));
+    addPage(m_logicWidget, i18n("Logic"), QLatin1StringView("logic_or"), i18n("Electronic Logic Values"));
+    addPage(m_gpasmSettingsWidget, QLatin1StringView("Gpasm"), QLatin1StringView("convert_to_hex"), QLatin1StringView("gpasm"));
+    addPage(m_gplinkSettingsWidget, QLatin1StringView("Gplink"), QLatin1StringView("merge"), QLatin1StringView("gplink"));
+    addPage(m_sdccOptionsWidget, QLatin1StringView("SDCC"), QLatin1StringView("text-x-csrc"), QLatin1StringView("SDCC"));
 
     connect(m_generalOptionsWidget->refreshRateSlider, &QSlider::valueChanged, this, &SettingsDlg::slotUpdateRefreshRateLabel);
     connect(m_picProgrammerConfigWidget->kcfg_PicProgrammerProgram, qOverload<const QString &>(&KComboBox::textActivated), this, &SettingsDlg::slotUpdatePicProgrammerDescription);
@@ -343,7 +343,8 @@ void SettingsDlg::updateSettings()
     // KConfig * config = kapp->config();
     KSharedConfigPtr config = KSharedConfig::openConfig();
 
-    KConfigSkeleton::ItemInt *item = dynamic_cast<KConfigSkeleton::ItemInt *>(KTLConfig::self()->findItem("RefreshRate"));
+    KConfigSkeleton::ItemInt *item = dynamic_cast<KConfigSkeleton::ItemInt *>(
+        KTLConfig::self()->findItem(QLatin1StringView("RefreshRate")));
     if (!item)
         return;
 
@@ -351,7 +352,7 @@ void SettingsDlg::updateSettings()
 
     if (newRefreshRate != KTLConfig::refreshRate()) {
         item->setValue(newRefreshRate);
-        KConfigGroup grWorkArea = config->group("WorkArea");
+        KConfigGroup grWorkArea = config->group(QLatin1StringView("WorkArea"));
         if (newRefreshRate != defaultRefreshRate)
             grWorkArea.writeEntry("RefreshRate", newRefreshRate);
         else
@@ -368,7 +369,8 @@ void SettingsDlg::slotUpdateSettings()
     // KConfig * config = kapp->config();
     KSharedConfigPtr config = KSharedConfig::openConfig();
 
-    KConfigSkeleton::ItemString *item = dynamic_cast<KConfigSkeleton::ItemString *>(KTLConfig::self()->findItem("PicProgrammerProgram"));
+    KConfigSkeleton::ItemString *item = dynamic_cast<KConfigSkeleton::ItemString *>(
+        KTLConfig::self()->findItem(QLatin1StringView("PicProgrammerProgram")));
     if (!item)
         return;
 
@@ -377,8 +379,8 @@ void SettingsDlg::slotUpdateSettings()
 
     if (newProgram != KTLConfig::picProgrammerProgram()) {
         item->setValue(newProgram);
-        KConfigGroup grPicProg = config->group("PicProgramming");
-        if (newProgram != "picp")
+        KConfigGroup grPicProg = config->group(QLatin1StringView("PicProgramming"));
+        if (newProgram != QLatin1StringView("picp"))
             grPicProg.writeEntry("PicProgrammerProgram", newProgram);
         else
             grPicProg.deleteEntry("PicProgrammerProgram");

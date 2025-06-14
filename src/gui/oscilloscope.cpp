@@ -72,7 +72,7 @@ Oscilloscope::Oscilloscope(KateMDI::ToolView *parent)
     horizontalScroll->setSingleStep(32);
     horizontalScroll->setPageStep(oscilloscopeView->width());
 
-    zoomDial->setStyle(QStyleFactory::create("Fusion"));
+    zoomDial->setStyle(QStyleFactory::create(QLatin1StringView("Fusion")));
     zoomDial->setNotchesVisible(true);
 
     connect(resetBtn, &QPushButton::clicked, this, &Oscilloscope::reset);
@@ -86,7 +86,7 @@ Oscilloscope::Oscilloscope(KateMDI::ToolView *parent)
     updateScrollTmr->start(20);
 
     // KGlobal::config()->setGroup("Oscilloscope");
-    KConfigGroup grOscill(KSharedConfig::openConfig(), "Oscilloscope");
+    KConfigGroup grOscill(KSharedConfig::openConfig(), QLatin1StringView("Oscilloscope"));
     setZoomLevel(grOscill.readEntry("ZoomLevel", 0.5));
 
     connect(this, SIGNAL(probeRegistered(int, ProbeData *)), probePositioner, SLOT(slotProbeDataRegistered(int, ProbeData *)));
@@ -132,7 +132,7 @@ void Oscilloscope::setZoomLevel(double zoomLevel)
         zoomLevel = 1.0;
 
     // KGlobal::config()->setGroup("Oscilloscope");
-    KConfigGroup grOscill = KSharedConfig::openConfig()->group("Oscilloscope");
+    KConfigGroup grOscill = KSharedConfig::openConfig()->group(QLatin1StringView("Oscilloscope"));
     // KGlobal::config()->writeEntry( "ZoomLevel", zoomLevel);
     grOscill.writeEntry("ZoomLevel", zoomLevel);
 
@@ -320,7 +320,8 @@ double Oscilloscope::pixelsPerSecond() const
 void addOscilloscopeAsToolView(KTechlab *ktechlab)
 {
     KateMDI::ToolView *tv;
-    tv = ktechlab->createToolView(Oscilloscope::toolViewIdentifier(), KMultiTabBar::Bottom, QIcon::fromTheme("oscilloscope"), i18n("Oscilloscope"));
+    tv = ktechlab->createToolView(Oscilloscope::toolViewIdentifier(), KMultiTabBar::Bottom,
+                                  QIcon::fromTheme(QLatin1StringView("oscilloscope")), i18n("Oscilloscope"));
 
     Oscilloscope::self(tv);
 }

@@ -55,7 +55,7 @@ MicroSelectWidget::MicroSelectWidget(QWidget *parent, Qt::WindowFlags)
     layout()->addWidget(m_pMicro);
 
     updateFromAllowed();
-    setMicro("P16F84");
+    setMicro(QLatin1StringView("P16F84"));
     connect(m_pMicroFamily, qOverload<const QString &>(&KComboBox::textActivated), this, &MicroSelectWidget::microFamilyChanged);
 }
 

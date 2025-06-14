@@ -68,22 +68,25 @@ NewFileDlg::NewFileDlg(QWidget *parent)
     QList<QListWidgetItem *> items;
 
     // BEGIN insert icons
-    QString text = QString("%1 (.asm)").arg(i18n("Assembly Code"));
-    items << new QListWidgetItem(QIcon::fromTheme("source"), text, m_pNewFileWidget->typeIconView);
+    QString text = QLatin1StringView("%1 (.asm)").arg(i18n("Assembly Code"));
+    items << new QListWidgetItem(QIcon::fromTheme(QLatin1StringView("source")), text, m_pNewFileWidget->typeIconView);
 
-    text = "C (.c)";
-    items << new QListWidgetItem(QIcon::fromTheme("text-x-csrc"), text, m_pNewFileWidget->typeIconView);
+    text = QLatin1StringView("C (.c)");
+    items << new QListWidgetItem(QIcon::fromTheme(QLatin1StringView("text-x-csrc")), text, m_pNewFileWidget->typeIconView);
 
-    text = QString("%1 (.circuit)").arg(i18n("Circuit"));
-    items << new QListWidgetItem(QIcon::fromTheme("application-x-circuit"), text, m_pNewFileWidget->typeIconView);
+    text = QLatin1StringView("%1 (.circuit)").arg(i18n("Circuit"));
+    items << new QListWidgetItem(QIcon::fromTheme(QLatin1StringView("application-x-circuit")), text, m_pNewFileWidget->typeIconView);
 
-    items << new QListWidgetItem(QIcon::fromTheme("application-x-flowcode"), "FlowCode (.flowcode)", m_pNewFileWidget->typeIconView);
+    items << new QListWidgetItem(QIcon::fromTheme(QLatin1StringView("application-x-flowcode")),
+                                 QLatin1StringView("FlowCode (.flowcode)"), m_pNewFileWidget->typeIconView);
 
 #ifdef MECHANICS
-    items << new QListWidgetItem(QIcon::fromTheme(QIcon::fromTheme("exec")), "Mechanics (.mechanics)", m_pNewFileWidget->typeIconView);
+    items << new QListWidgetItem(QIcon::fromTheme(QIcon::fromTheme(QLatin1StringView("exec"))),
+                                 QLatin1StringView("Mechanics (.mechanics)"), m_pNewFileWidget->typeIconView);
 #endif
 
-    items << new QListWidgetItem(QIcon::fromTheme("application-x-microbe"), "Microbe (.microbe)", m_pNewFileWidget->typeIconView);
+    items << new QListWidgetItem(QIcon::fromTheme(QLatin1StringView("application-x-microbe")),
+                                 QLatin1StringView("Microbe (.microbe)"), m_pNewFileWidget->typeIconView);
     // END insert icons
 
     int minWidth = 20 + m_pNewFileWidget->typeIconView->spacing() * items.size();
@@ -140,26 +143,26 @@ void NewFileDlg::accept()
 
     const QString fileText = m_pNewFileWidget->typeIconView->currentItem()->text();
 
-    if (fileText.contains(".flowcode"))
+    if (fileText.contains(QLatin1StringView(".flowcode")))
         m_fileType = Document::dt_flowcode;
 
-    else if (fileText.contains(".circuit"))
+    else if (fileText.contains(QLatin1StringView(".circuit")))
         m_fileType = Document::dt_circuit;
 
-    else if (fileText.contains(".mechanics"))
+    else if (fileText.contains(QLatin1StringView(".mechanics")))
         m_fileType = Document::dt_mechanics;
 
-    else if (fileText.contains(".asm")) {
+    else if (fileText.contains(QLatin1StringView(".asm"))) {
         m_fileType = Document::dt_text;
         m_codeType = TextDocument::ct_asm;
     }
 
-    else if (fileText.contains(".basic") || fileText.contains(".microbe")) {
+    else if (fileText.contains(QLatin1StringView(".basic")) || fileText.contains(QLatin1StringView(".microbe"))) {
         m_fileType = Document::dt_text;
         m_codeType = TextDocument::ct_microbe;
     }
 
-    else if (fileText.contains(".c")) {
+    else if (fileText.contains(QLatin1StringView(".c"))) {
         m_fileType = Document::dt_text;
         m_codeType = TextDocument::ct_c;
     }
@@ -176,7 +179,7 @@ void NewFileDlg::fileTypeChanged()
 {
     bool doEnableMicros = false;
     if (!m_pNewFileWidget->typeIconView->selectedItems().isEmpty()) {
-        doEnableMicros = m_pNewFileWidget->typeIconView->selectedItems().first()->text().contains(".flowcode");
+        doEnableMicros = m_pNewFileWidget->typeIconView->selectedItems().first()->text().contains(QLatin1StringView(".flowcode"));
     }
     m_pNewFileWidget->m_pMicroSelect->setEnabled(doEnableMicros);
 }

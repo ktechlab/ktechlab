@@ -49,7 +49,7 @@ public:
     static ContextHelp *self(KateMDI::ToolView *parent = nullptr);
     static QString toolViewIdentifier()
     {
-        return "ContextHelp";
+        return QLatin1StringView("ContextHelp");
     }
 
     ~ContextHelp() override;

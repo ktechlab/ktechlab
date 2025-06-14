@@ -88,9 +88,9 @@ MicroSettingsDlg::MicroSettingsDlg(MicroSettings *microSettings, QWidget *parent
         QString portState = QString::number(microSettings->portState(*it), 2);
 
         QString fill;
-        fill.fill('0', 8 - portType.length());
+        fill.fill(QLatin1Char('0'), 8 - portType.length());
         portType.prepend(fill);
-        fill.fill('0', 8 - portState.length());
+        fill.fill(QLatin1Char('0'), 8 - portState.length());
         portState.prepend(fill);
         // END Get current Type / State text
 
@@ -219,13 +219,13 @@ void MicroSettingsDlg::reject()
 
 QValidator::State MicroSettingsDlg::validatePinMapName(QString &name) const
 {
-    name.replace(' ', '_');
+    name.replace(QLatin1Char(' '), QLatin1Char('_'));
 
     if (name.isEmpty())
         return QValidator::Intermediate;
 
     for (int i = 0; i < name.length(); ++i) {
-        if (!name[i].isLetterOrNumber() && name[i] != '_')
+        if (!name[i].isLetterOrNumber() && name[i] != QLatin1Char('_'))
             return QValidator::Invalid;
     }
 
@@ -274,7 +274,7 @@ void MicroSettingsDlg::slotCreatePinMap()
     m_pNewPinMappingWidget->nameEdit->setValidator(validator);
 
     connect(m_pNewPinMappingWidget->nameEdit, &KLineEdit::textChanged, this, &MicroSettingsDlg::slotCheckNewPinMappingName);
-    slotCheckNewPinMappingName(nullptr);
+    slotCheckNewPinMappingName(QString());
 
     int accepted = m_pNewPinMappingDlg->exec();
     unsigned selectedType = m_pNewPinMappingWidget->typeCombo->currentIndex();
@@ -393,9 +393,9 @@ void MicroSettingsDlg::savePort(int row)
 
     QString typeText = m_portTypeEdit[row]->text();
     bool typeOk = true;
-    if (typeText.startsWith("0x", Qt::CaseInsensitive))
+    if (typeText.startsWith(QLatin1StringView("0x"), Qt::CaseInsensitive))
         type = typeText.remove(0, 2).toInt(&typeOk, 16);
-    else if (typeText.contains(QRegularExpression("[^01]")))
+    else if (typeText.contains(QRegularExpression(QLatin1StringView("[^01]"))))
         type = typeText.toInt(&typeOk, 10);
     else
         type = typeText.toInt(&typeOk, 2);
@@ -407,9 +407,9 @@ void MicroSettingsDlg::savePort(int row)
 
     QString stateText = m_portStateEdit[row]->text();
     bool stateOk = true;
-    if (stateText.startsWith("0x", Qt::CaseInsensitive))
+    if (stateText.startsWith(QLatin1StringView("0x"), Qt::CaseInsensitive))
         state = stateText.remove(0, 2).toInt(&stateOk, 16);
-    else if (stateText.contains(QRegularExpression("[^01]")))
+    else if (stateText.contains(QRegularExpression(QLatin1StringView("[^01]"))))
         state = stateText.toInt(&stateOk, 10);
     else
         state = stateText.toInt(&stateOk, 2);
@@ -440,7 +440,7 @@ void MicroSettingsDlg::saveVariable(int row)
     }
     int value;
     bool ok = true;
-    if (valueText.startsWith("0x", Qt::CaseInsensitive))
+    if (valueText.startsWith(QLatin1StringView("0x"), Qt::CaseInsensitive))
         value = valueText.remove(0, 2).toInt(&ok, 16);
     else
         value = valueText.toInt(&ok, 10);

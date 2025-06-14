@@ -34,7 +34,7 @@ public:
     static ScopeScreen *self(KateMDI::ToolView *parent = nullptr);
     static QString toolViewIdentifier()
     {
-        return "ScopeScreen";
+        return QLatin1StringView("ScopeScreen");
     }
     ~ScopeScreen() override;
 };

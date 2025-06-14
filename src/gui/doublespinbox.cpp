@@ -134,7 +134,7 @@ QValidator::State DoubleSpinBox::validate(QString &text, int &pos) const
 
 void DoubleSpinBox::updateSuffix(double value)
 {
-    QString nextSuffix = " " + CNItem::getNumberMag(value) + m_unit;
+    QString nextSuffix = QLatin1StringView(" ") + CNItem::getNumberMag(value) + m_unit;
     setSuffix(nextSuffix);
     // 	m_queuedSuffix = " " + CNItem::getNumberMag( value ) + m_unit;
     //
@@ -310,7 +310,7 @@ double DoubleSpinBox::valueFromText(const QString &text) const
     // This does NOT properly escape
     // const QString exclude = QString(locale.decimalPoint()) + locale.groupSeparator() + locale.positiveSign() + locale.negativeSign();
     QString textToStrip(text);
-    QString numberToRead = textToStrip.remove(QRegularExpression("[^\\.+\\-\\d]"));
+    QString numberToRead = textToStrip.remove(QRegularExpression(QLatin1StringView("[^\\.+\\-\\d]")));
 
     bool ok;
     double value = locale.toDouble(numberToRead, &ok);
@@ -345,7 +345,7 @@ double DoubleSpinBox::valueFromText(const QString &text) const
         if (textForSuffix.length() > 0) {
             siExp = textForSuffix[textForSuffix.length() - 1];
         } else {
-            siExp = '1';
+            siExp = QLatin1Char('1');
         }
 
         qCDebug(KTL_DOUBLESPINBOX_LOG) << "  SI exp = " << siExp;
@@ -401,7 +401,7 @@ QString DoubleSpinBox::textFromValue(double value) const
 
     QString magStr = Item::getNumberMag(value);
 
-    QString toRet = numberStr + " " + magStr + m_unit;
+    QString toRet = numberStr + QLatin1StringView(" ") + magStr + m_unit;
 
     qCDebug(KTL_DOUBLESPINBOX_LOG) << "  text = " << toRet;
     return toRet;

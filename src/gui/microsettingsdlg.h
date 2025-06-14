@@ -114,7 +114,7 @@ public:
      * Create a validator. If oldName is not empty, then the input is
      * allowed to be oldName.
      */
-    PinMappingNameValidator(MicroSettingsDlg *dlg, const QString &oldName = nullptr)
+    PinMappingNameValidator(MicroSettingsDlg *dlg, const QString &oldName = QString())
         : QValidator(nullptr)
     {
         m_pDlg = dlg;

@@ -67,7 +67,7 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     m_pTextBold = new KToggleAction(i18n("Bold"), ac);
     m_pTextBold->setObjectName("text_bold");
     m_pTextBold->setShortcut(Qt::CTRL | Qt::Key_B);
-    m_pTextBold->setIcon(QIcon::fromTheme("format-text-bold"));
+    m_pTextBold->setIcon(QIcon::fromTheme(QLatin1StringView("format-text-bold")));
     connect(m_pTextBold, &KToggleAction::toggled, this, &RichTextEditor::slotSetBold);
     // m_pTextBold->plug( tools );
     tools->addAction(m_pTextBold);
@@ -76,7 +76,7 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     m_pTextItalic = new KToggleAction(i18n("Italic"), ac);
     m_pTextItalic->setObjectName("text_italic");
     m_pTextItalic->setShortcut(Qt::CTRL | Qt::Key_I);
-    m_pTextItalic->setIcon(QIcon::fromTheme("format-text-italic"));
+    m_pTextItalic->setIcon(QIcon::fromTheme(QLatin1StringView("format-text-italic")));
     connect(m_pTextItalic, &KToggleAction::toggled, this, &RichTextEditor::slotSetItalic);
     // m_pTextItalic->plug( tools );
     tools->addAction(m_pTextItalic);
@@ -85,7 +85,7 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     m_pTextUnderline = new KToggleAction(i18n("Underline"), ac);
     m_pTextUnderline->setObjectName("text_under");
     m_pTextUnderline->setShortcut(Qt::CTRL | Qt::Key_U);
-    m_pTextItalic->setIcon(QIcon::fromTheme("format-text-underline"));
+    m_pTextItalic->setIcon(QIcon::fromTheme(QLatin1StringView("format-text-underline")));
     connect(m_pTextUnderline, &KToggleAction::toggled, this, &RichTextEditor::slotSetUnderline);
     // m_pTextUnderline->plug( tools );
     tools->addAction(m_pTextUnderline);
@@ -94,14 +94,14 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     m_pTextList = new KToggleAction(i18n("List"), ac);
     m_pTextList->setObjectName("unsorted_list");
     m_pTextList->setShortcut(Qt::CTRL | Qt::Key_L);
-    m_pTextItalic->setIcon(QIcon::fromTheme("format-list-unordered"));
+    m_pTextItalic->setIcon(QIcon::fromTheme(QLatin1StringView("format-list-unordered")));
     connect(m_pTextList, &KToggleAction::toggled, this, &RichTextEditor::slotSetList);
     // m_pTextList->plug( tools );
     tools->addAction(m_pTextList);
 
     // BEGIN Text horizontal-alignment actions
     // m_pTextAlignment = new KToolBarPopupAction( i18n("Text Alignment"), "format-justify-left", 0, 0, 0, ac, "text_alignment" );
-    m_pTextAlignment = new KToolBarPopupAction(QIcon::fromTheme("format-justify-left"), i18n("Text Alignment"), ac);
+    m_pTextAlignment = new KToolBarPopupAction(QIcon::fromTheme(QLatin1StringView("format-justify-left")), i18n("Text Alignment"), ac);
     m_pTextAlignment->setObjectName("text_left");
     // m_pTextAlignment->plug( tools );
     tools->addAction(m_pTextAlignment);
@@ -115,19 +115,19 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     // m->setCheckable( true ); // 2018.12.07
 
     // m->insertItem( QIcon::fromTheme( "format-justify-left" ), i18n("Align Left"),		Qt::AlignLeft );
-    m->addAction(QIcon::fromTheme("format-justify-left"), i18n("Align Left"))->setData(Qt::AlignLeft);
+    m->addAction(QIcon::fromTheme(QLatin1StringView("format-justify-left")), i18n("Align Left"))->setData(Qt::AlignLeft);
     // m->insertItem( QIcon::fromTheme( "format-justify-center"), i18n("Align Center"),	Qt::AlignHCenter );
-    m->addAction(QIcon::fromTheme("format-justify-center"), i18n("Align Center"))->setData(Qt::AlignHCenter);
+    m->addAction(QIcon::fromTheme(QLatin1StringView("format-justify-center")), i18n("Align Center"))->setData(Qt::AlignHCenter);
     // m->insertItem( QIcon::fromTheme( "format-justify-right" ), i18n("Align Right"),	Qt::AlignRight );
-    m->addAction(QIcon::fromTheme("format-justify-right"), i18n("Align Right"))->setData(Qt::AlignRight);
+    m->addAction(QIcon::fromTheme(QLatin1StringView("format-justify-right")), i18n("Align Right"))->setData(Qt::AlignRight);
     // m->insertItem( QIcon::fromTheme( "format-justify-fill" ), i18n("Align Block"),	Qt::AlignJustify );
-    m->addAction(QIcon::fromTheme("format-justify-fill"), i18n("Align Block"))->setData(Qt::AlignJustify);
+    m->addAction(QIcon::fromTheme(QLatin1StringView("format-justify-fill")), i18n("Align Block"))->setData(Qt::AlignJustify);
     connect(m, &QMenu::triggered, this, &RichTextEditor::slotSetAlignment);
     // END Text horizontal-alignment actions
 
     // BEGIN Text vertical-alignment actions
     // m_pTextVerticalAlignment = new KToolBarPopupAction( i18n("Text Vertical Alignment"), "text", 0, 0, 0, ac, "text_vertical_alignment" );
-    m_pTextVerticalAlignment = new KToolBarPopupAction(QIcon::fromTheme(QString("text_vertical_alignment")), i18n("Text Vertical Alignment"), ac);
+    m_pTextVerticalAlignment = new KToolBarPopupAction(QIcon::fromTheme(QLatin1StringView("text_vertical_alignment")), i18n("Text Vertical Alignment"), ac);
     m_pTextVerticalAlignment->setObjectName("text");
     // m_pTextVerticalAlignment->plug( tools );
     tools->addAction(m_pTextVerticalAlignment);
@@ -139,11 +139,11 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     m->setTitle(i18n("Text Vertical Alignment"));
     // m->setCheckable( true ); // 2018.12.07
 
-    m->addAction(QIcon::fromTheme("format-text-superscript"), i18n("Superscript"))->setData(QTextCharFormat::AlignSuperScript);
+    m->addAction(QIcon::fromTheme(QLatin1StringView("format-text-superscript")), i18n("Superscript"))->setData(QTextCharFormat::AlignSuperScript);
     // m->insertItem( QIcon::fromTheme( "format-text-superscript" ), i18n("Superscript"),	QTextCharFormat::AlignSuperScript );
     m->addAction(i18n("Normal"))->setData(QTextCharFormat::AlignNormal);
     // m->insertItem(						i18n("Normal"),			QTextCharFormat::AlignNormal );
-    m->addAction(QIcon::fromTheme("format-text-subscript"), i18n("Subscript"))->setData(QTextCharFormat::AlignSubScript);
+    m->addAction(QIcon::fromTheme(QLatin1StringView("format-text-subscript")), i18n("Subscript"))->setData(QTextCharFormat::AlignSubScript);
     // m->insertItem( QIcon::fromTheme( "format-text-subscript" ), i18n("Subscript"),		QTextCharFormat::AlignSubScript );
     connect(m, &QMenu::triggered, this, &RichTextEditor::slotSetVerticalAlignment);
     // END Text vertical-alignment actions
@@ -156,7 +156,7 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     m_pTextColor->setObjectName("format_color");
     connect(m_pTextColor, &QAction::triggered, this, &RichTextEditor::textColor);
     // m_pTextColor->plug( tools );
-    ac->addAction("format_color", m_pTextColor);
+    ac->addAction(QLatin1StringView("format_color"), m_pTextColor);
     tools->addAction(m_pTextColor);
 }
 
@@ -170,17 +170,17 @@ void RichTextEditor::makeUseStandardFont(QString *html)
         return;
 
     QFont f;
-    QString bodyString = QString("<body style=\"font-size:%1pt;font-family:%2\">").arg(f.pointSize()).arg(f.family());
+    QString bodyString = QString::fromLatin1("<body style=\"font-size:%1pt;font-family:%2\">").arg(f.pointSize()).arg(f.family());
 
-    if (html->contains("<body>")) {
+    if (html->contains(QLatin1StringView("<body>"))) {
         // Set the correct font size
         QFont f;
-        html->replace("<body>", bodyString);
+        html->replace(QLatin1StringView("<body>"), bodyString);
     }
 
-    else if (!html->startsWith("<html>")) {
-        html->prepend("<html>" + bodyString);
-        html->append("</body></html>");
+    else if (!html->startsWith(QLatin1StringView("<html>"))) {
+        html->prepend(QLatin1StringView("<html>") + bodyString);
+        html->append(QLatin1StringView("</body></html>"));
     }
 }
 
@@ -193,7 +193,7 @@ void RichTextEditor::setText(QString text)
 {
     if (!Qt::mightBeRichText(text)) {
         // Format the text to be HTML
-        text.replace('\n', "<br>");
+        text.replace(QLatin1Char('\n'), QLatin1StringView("<br>"));
     }
 
     m_pEditor->setText(text);
@@ -204,7 +204,7 @@ QString RichTextEditor::text() const
     QString text = m_pEditor->toHtml().trimmed();
 
     // Remove the style info (e.g. style="font-size:8pt;font-family:DejaVu Sans") inserted into the body tag.
-    text.replace(QRegularExpression("<body style=\"[^\"]*\">"), "<body>");
+    text.replace(QRegularExpression(QLatin1StringView("<body style=\"[^\"]*\">")), QLatin1StringView("<body>"));
 
     // Replace all non-latin1 characters with HTML codes to represent them
     QString nonAsciiChars;
@@ -217,7 +217,7 @@ QString RichTextEditor::text() const
         }
     }
     for (int i = 0; i < nonAsciiChars.length(); ++i) {
-        text.replace(nonAsciiChars[i], QString("&#%1;").arg(nonAsciiChars[i].unicode()));
+        text.replace(nonAsciiChars[i], QLatin1StringView("&#%1;").arg(nonAsciiChars[i].unicode()));
     }
 
     return text;
@@ -225,7 +225,7 @@ QString RichTextEditor::text() const
 
 void RichTextEditor::insertURL(const QString &url, const QString &text)
 {
-    insertHTML(QString("<a href=\"%1\">%2</a>").arg(url).arg(text));
+    insertHTML(QLatin1StringView("<a href=\"%1\">%2</a>").arg(url).arg(text));
 }
 
 void RichTextEditor::insertHTML(const QString &html)
@@ -350,13 +350,13 @@ void RichTextEditor::colorChanged(const QColor &c)
 void RichTextEditor::alignmentChanged(int a)
 {
     if (/*( a == Qt::AlignAuto ) || */ (a & Qt::AlignLeft))
-        m_pTextAlignment->setIcon(QIcon::fromTheme("format-justify-left"));
+        m_pTextAlignment->setIcon(QIcon::fromTheme(QLatin1StringView("format-justify-left")));
     else if ((a & Qt::AlignHCenter))
-        m_pTextAlignment->setIcon(QIcon::fromTheme("format-justify-center"));
+        m_pTextAlignment->setIcon(QIcon::fromTheme(QLatin1StringView("format-justify-center")));
     else if ((a & Qt::AlignRight))
-        m_pTextAlignment->setIcon(QIcon::fromTheme("format-justify-right"));
+        m_pTextAlignment->setIcon(QIcon::fromTheme(QLatin1StringView("format-justify-right")));
     else if ((a & Qt::AlignJustify))
-        m_pTextAlignment->setIcon(QIcon::fromTheme("format-justify-fill"));
+        m_pTextAlignment->setIcon(QIcon::fromTheme(QLatin1StringView("format-justify-fill")));
 }
 
 void RichTextEditor::verticalAlignmentChanged()
@@ -379,14 +379,14 @@ void RichTextEditor::setResourcePaths(const QStringList &paths)
         QDir dir(dirName);
         dir.setFilter(QDir::Files);
         QStringList l;
-        l << "*.png";
+        l << QLatin1StringView("*.png");
         dir.setNameFilters(l);
         QFileInfoList fileInfoList = dir.entryInfoList();
         qCDebug(KTL_LOG) << " list size " << fileInfoList.size();
         for (QFileInfoList::iterator itFile = fileInfoList.begin(); itFile != fileInfoList.end(); ++itFile) {
             QFileInfo &fi = *itFile;
 
-            QString fullPath = fi.path() + "/" + fi.fileName();
+            QString fullPath = fi.path() + QLatin1StringView("/") + fi.fileName();
             QPixmap img(fullPath);
             if (img.isNull()) {
                 qCWarning(KTL_LOG) << " img is null " << fullPath;

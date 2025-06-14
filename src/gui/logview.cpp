@@ -58,23 +58,23 @@ void LogView::addOutput(QString text, OutputType outputType, MessageInfo message
     tidyText(text);
     switch (outputType) {
     case LogView::ot_important:
-        append(QString("<font color=\"#000000\"><b>%1</b></font>").arg(text));
+        append(QLatin1StringView("<font color=\"#000000\"><b>%1</b></font>").arg(text));
         break;
 
     case LogView::ot_info:
-        append(QString("<font color=\"#000000\"><i>%1</i></font>").arg(text));
+        append(QLatin1StringView("<font color=\"#000000\"><i>%1</i></font>").arg(text));
         break;
 
     case LogView::ot_message:
-        append(QString("<font color=\"#000000\">%1</font>").arg(text));
+        append(QLatin1StringView("<font color=\"#000000\">%1</font>").arg(text));
         break;
 
     case LogView::ot_warning:
-        append(QString("<font color=\"#666666\">%1</font>").arg(text));
+        append(QLatin1StringView("<font color=\"#666666\">%1</font>").arg(text));
         break;
 
     case LogView::ot_error:
-        append(QString("<font color=\"#800000\">%1</font>").arg(text));
+        append(QLatin1StringView("<font color=\"#800000\">%1</font>").arg(text));
         break;
     }
 
@@ -99,16 +99,16 @@ void LogView::slotParaClicked(int para, int /*pos*/)
 
 void LogView::tidyText(QString &t)
 {
-    t.replace("&", "&amp;");
-    t.replace("<", "&lt;");
-    t.replace(">", "&gt;");
+    t.replace(QLatin1StringView("&"), QLatin1StringView("&amp;"));
+    t.replace(QLatin1StringView("<"), QLatin1StringView("&lt;"));
+    t.replace(QLatin1StringView(">"), QLatin1StringView("&gt;"));
 }
 
 void LogView::untidyText(QString &t)
 {
-    t.replace("&lt;", "<");
-    t.replace("&gt;", ">");
-    t.replace("&amp;", "&");
+    t.replace(QLatin1StringView("&lt;"), QLatin1StringView("<"));
+    t.replace(QLatin1StringView("&gt;"), QLatin1StringView(">"));
+    t.replace(QLatin1StringView("&amp;"), QLatin1StringView("&"));
 }
 
 QMenu *LogView::createPopupMenu(const QPoint &pos)

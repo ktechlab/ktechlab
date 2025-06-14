@@ -254,7 +254,7 @@ void ScopeScreenView::drawBackground(QPainter &p)
 
     ///\todo REMOVE THIS NOTICE
 
-    p.drawText(cr.left(), cr.top(), "NOT YET IMPLEMENTED");
+    p.drawText(cr.left(), cr.top(), QLatin1StringView("NOT YET IMPLEMENTED"));
 }
 
 void ScopeScreenView::drawMidLine(QPainter &p, ProbeData *probe)

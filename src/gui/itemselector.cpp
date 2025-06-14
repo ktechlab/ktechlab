@@ -114,29 +114,29 @@ void ItemSelector::addItem(const QString &caption, const QString &id, const QStr
     ILVItem *parentItem = nullptr;
 
     QString category = _category;
-    if (!category.startsWith("/")) {
-        category.prepend('/');
+    if (!category.startsWith(QLatin1StringView("/"))) {
+        category.prepend(QLatin1Char('/'));
     }
 
     do {
         category.remove(0, 1);
         QString cat;
-        category.replace("\\/", "|");
-        int pos = category.indexOf('/');
+        category.replace(QLatin1StringView("\\/"), QLatin1StringView("|"));
+        int pos = category.indexOf(QLatin1Char('/'));
         if (pos == -1)
             cat = category;
         else
             cat = category.left(pos);
 
-        cat.replace("|", "/");
+        cat.replace(QLatin1StringView("|"), QLatin1StringView("/"));
 
         if (m_categories.indexOf(cat) == -1) {
             m_categories.append(cat);
 
             if (parentItem) {
-                parentItem = new ILVItem(parentItem, "");
+                parentItem = new ILVItem(parentItem, QLatin1StringView(""));
             } else {
-                parentItem = new ILVItem(this, "");
+                parentItem = new ILVItem(this, QLatin1StringView(""));
             }
             // parentItem->setExpandable(true); // 2018.08.12 - is it needed?
 
@@ -152,7 +152,7 @@ void ItemSelector::addItem(const QString &caption, const QString &id, const QStr
         }
 
         category.remove(0, pos);
-    } while (category.contains('/'));
+    } while (category.contains(QLatin1Char('/')));
 
     if (!parentItem) {
         qCCritical(KTL_LOG) << "Unexpected error in finding parent item for category list";
@@ -183,7 +183,7 @@ void ItemSelector::writeOpenStates()
         }
         QTreeWidgetItem *item = itemsFound.first() /* findItem( *it, 0 ) */;
         if (item) {
-            configGroup.writeEntry(*it + "IsOpen", item->isExpanded() /* isOpen() */);
+            configGroup.writeEntry(*it + QLatin1StringView("IsOpen"), item->isExpanded() /* isOpen() */);
         }
     }
 }
@@ -195,7 +195,7 @@ bool ItemSelector::readOpenState(const QString &id)
     // config->setGroup( name() );
     KConfigGroup configGroup = configPtr->group(objectName());
 
-    return configGroup.readEntry<bool>(id + "IsOpen", true);
+    return configGroup.readEntry<bool>(id + QLatin1StringView("IsOpen"), true);
 }
 
 QTreeWidgetItem *ItemSelector::selectedItem() const
@@ -233,14 +233,14 @@ QMimeData *ItemSelector::mimeData(const QList<QTreeWidgetItem *> & items) const
     QDataStream stream(&data, QIODevice::WriteOnly);
     stream << id;
 
-    if (id.startsWith("flow/")) {
-        mime->setData("ktechlab/flowpart", data);
-    } else if (id.startsWith("ec/")) {
-        mime->setData("ktechlab/component", data);
-    } else if (id.startsWith("sc/")) {
-        mime->setData("ktechlab/subcircuit", data);
-    } else if (id.startsWith("mech/")) {
-        mime->setData("ktechlab/mechanical", data);
+    if (id.startsWith(QLatin1StringView("flow/"))) {
+        mime->setData(QLatin1StringView("ktechlab/flowpart"), data);
+    } else if (id.startsWith(QLatin1StringView("ec/"))) {
+        mime->setData(QLatin1StringView("ktechlab/component"), data);
+    } else if (id.startsWith(QLatin1StringView("sc/"))) {
+        mime->setData(QLatin1StringView("ktechlab/subcircuit"), data);
+    } else if (id.startsWith(QLatin1StringView("mech/"))) {
+        mime->setData(QLatin1StringView("ktechlab/mechanical"), data);
     } else {
         qCWarning(KTL_LOG) << "returning unset mime; unknown id '" << id << "'";
     }
@@ -331,13 +331,13 @@ void ItemSelector::slotItemDoubleClicked(QTreeWidgetItem *item, int)
     const QString &id = item->data(0, ILVItem::DataRole_ID).toString();
 
     if (Document *doc = DocManager::self()->getFocusedDocument()) {
-        if (doc->type() == Document::dt_flowcode && id.startsWith("flow/"))
+        if (doc->type() == Document::dt_flowcode && id.startsWith(QLatin1StringView("flow/")))
             (static_cast<FlowCodeDocument *>(doc))->slotSetRepeatedItemId(id);
 
-        else if (doc->type() == Document::dt_circuit && (id.startsWith("ec/") || id.startsWith("sc/")))
+        else if (doc->type() == Document::dt_circuit && (id.startsWith(QLatin1StringView("ec/")) || id.startsWith(QLatin1StringView("sc/"))))
             (static_cast<CircuitDocument *>(doc))->slotSetRepeatedItemId(id);
 
-        else if (doc->type() == Document::dt_mechanics && id.startsWith("mech/"))
+        else if (doc->type() == Document::dt_mechanics && id.startsWith(QLatin1StringView("mech/")))
             (static_cast<MechanicsDocument *>(doc))->slotSetRepeatedItemId(id);
     }
 

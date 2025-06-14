@@ -156,7 +156,7 @@ public:
     static ComponentSelector *self(KateMDI::ToolView *parent = nullptr);
     static QString toolViewIdentifier()
     {
-        return "ComponentSelector";
+        return QLatin1StringView("ComponentSelector");
     }
 
 private:
@@ -175,7 +175,7 @@ public:
     static FlowPartSelector *self(KateMDI::ToolView *parent = nullptr);
     static QString toolViewIdentifier()
     {
-        return "FlowPartSelector";
+        return QLatin1StringView("FlowPartSelector");
     }
 
 private:
@@ -193,7 +193,7 @@ public:
     static MechanicsSelector *self(KateMDI::ToolView *parent = nullptr);
     static QString toolViewIdentifier()
     {
-        return "MechanicsSelector";
+        return QLatin1StringView("MechanicsSelector");
     }
 
 private:
