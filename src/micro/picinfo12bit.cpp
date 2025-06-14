@@ -15,6 +15,7 @@
 //#include <k3staticdeleter.h>
 
 #include <QGlobalStatic>
+#include <QLatin1StringView>
 
 // PicAsm12bit *PicAsm12bit::m_self = 0;
 // static K3StaticDeleter<PicAsm12bit> picAsm12BitStaticDeleter;
@@ -87,7 +88,7 @@ PicAsm12bit::PicAsm12bit()
 PicInfo16C54::PicInfo16C54()
     : PicInfo12bit()
 {
-    m_id = "P16C54";
+    m_id = QLatin1StringView("P16C54");
 
     delete m_package;
     m_package = new MicroPackage(18);
@@ -121,7 +122,7 @@ PicInfo16C54::~PicInfo16C54()
 PicInfo16C55::PicInfo16C55()
     : PicInfo12bit()
 {
-    m_id = "P16C55";
+    m_id = QLatin1StringView("P16C55");
 }
 
 PicInfo16C55::~PicInfo16C55()
@@ -131,7 +132,7 @@ PicInfo16C55::~PicInfo16C55()
 PicInfo12C508::PicInfo12C508()
     : PicInfo12bit()
 {
-    m_id = "P12C508";
+    m_id = QLatin1StringView("P12C508");
 
     delete m_package;
     m_package = new MicroPackage(8);
@@ -154,7 +155,7 @@ PicInfo12C508::~PicInfo12C508()
 PicInfo12C509::PicInfo12C509()
     : PicInfo12C508()
 {
-    m_id = "P12C509";
+    m_id = QLatin1StringView("P12C509");
 }
 
 PicInfo12C509::~PicInfo12C509()
@@ -164,7 +165,7 @@ PicInfo12C509::~PicInfo12C509()
 PicInfo12C671::PicInfo12C671()
     : PicInfo12C508()
 {
-    m_id = "P12C671";
+    m_id = QLatin1StringView("P12C671");
 }
 
 PicInfo12C671::~PicInfo12C671()
@@ -174,7 +175,7 @@ PicInfo12C671::~PicInfo12C671()
 PicInfo12C672::PicInfo12C672()
     : PicInfo12C508()
 {
-    m_id = "P12C672";
+    m_id = QLatin1StringView("P12C672");
 }
 
 PicInfo12C672::~PicInfo12C672()

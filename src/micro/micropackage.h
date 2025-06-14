@@ -33,7 +33,7 @@ public:
     };
 
     PicPin();
-    PicPin(const QString &_pinID, PicPin::pin_type _type, const QString &_portName = "", int _portPosition = -1);
+    PicPin(const QString &_pinID, PicPin::pin_type _type, const QString &_portName = QString(), int _portPosition = -1);
 
     PicPin::pin_type type;
 
@@ -59,7 +59,7 @@ public:
     /**
      * Assigns a pin to a position in the package.
      */
-    void assignPin(int pinPosition, PicPin::pin_type type, const QString &pinID, const QString &portName = "", int portPosition = -1);
+    void assignPin(int pinPosition, PicPin::pin_type type, const QString &pinID, const QString &portName = QString(), int portPosition = -1);
     void assignPin(int pinPosition, PicPin::pin_type type, const char *pinID, const char *portName = "", int portPosition = -1)
     {
         assignPin(pinPosition, type, QString::fromLatin1(pinID), QString::fromLatin1(portName), portPosition);
@@ -71,19 +71,19 @@ public:
      * e.g. pins( PicPin::type_input | PicPin::type_bidir, "PORTA" ) will return all bidirectional or
      * input pins belonging to PORTA. If pinType is 0, then this will return all pins
      */
-    PicPinMap pins(uint pinType = 0, const QString &portName = "");
+    PicPinMap pins(uint pinType = 0, const QString &portName = QString() );
     /**
      * Returns just a QStringList of the pin ids.
      * @see pins( uint pinType, const QString& portName )
      */
-    QStringList pinIDs(uint pinType = 0, const QString &portName = "");
+    QStringList pinIDs(uint pinType = 0, const QString &portName = QString());
     /**
      * Returns the number of pins of the given type(s) (which can be OR'ed together), with the given
      * port name if specified, while avoiding the construction of a new PicPinMap. if pinType is 0,
      * then all pin types are considered
      * @see pins
      */
-    int pinCount(uint pinType = 0, const QString &portName = "");
+    int pinCount(uint pinType = 0, const QString &portName = QString());
     /**
      * Returns a list of port names, eg 'PORTA', 'PORTB' for the package
      */

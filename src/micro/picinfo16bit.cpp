@@ -15,6 +15,9 @@
 // #include <k3staticdeleter.h>
 
 #include <QGlobalStatic>
+#include <QLatin1StringView>
+
+using Qt::Literals::operator""_L1;
 
 // PicAsm16bit *PicAsm16bit::m_self = 0;
 // static K3StaticDeleter<PicAsm16bit> picAsm16BitStaticDeleter;
@@ -88,7 +91,7 @@ PicAsm16bit::PicAsm16bit()
 PicInfo17C7xx::PicInfo17C7xx()
     : PicInfo16bit()
 {
-    m_id = "P17C7xx";
+    m_id = "P17C7xx"_L1;
 }
 
 PicInfo17C7xx::~PicInfo17C7xx()
@@ -98,7 +101,7 @@ PicInfo17C7xx::~PicInfo17C7xx()
 PicInfo17C75x::PicInfo17C75x()
     : PicInfo17C7xx()
 {
-    m_id = "P17C75x";
+    m_id = "P17C75x"_L1;
 }
 
 PicInfo17C75x::~PicInfo17C75x()
@@ -108,7 +111,7 @@ PicInfo17C75x::~PicInfo17C75x()
 PicInfo17C752::PicInfo17C752()
     : PicInfo17C75x()
 {
-    m_id = "P17C752";
+    m_id = "P17C752"_L1;
 }
 
 PicInfo17C752::~PicInfo17C752()
@@ -118,7 +121,7 @@ PicInfo17C752::~PicInfo17C752()
 PicInfo17C756::PicInfo17C756()
     : PicInfo17C75x()
 {
-    m_id = "P17C756";
+    m_id = "P17C756"_L1;
 }
 
 PicInfo17C756::~PicInfo17C756()
@@ -128,7 +131,7 @@ PicInfo17C756::~PicInfo17C756()
 PicInfo17C756A::PicInfo17C756A()
     : PicInfo17C75x()
 {
-    m_id = "P17C756A";
+    m_id = "P17C756A"_L1;
 }
 
 PicInfo17C756A::~PicInfo17C756A()
@@ -138,7 +141,7 @@ PicInfo17C756A::~PicInfo17C756A()
 PicInfo17C762::PicInfo17C762()
     : PicInfo17C75x()
 {
-    m_id = "P17C762";
+    m_id = "P17C762"_L1;
 }
 
 PicInfo17C762::~PicInfo17C762()
@@ -148,7 +151,7 @@ PicInfo17C762::~PicInfo17C762()
 PicInfo17C766::PicInfo17C766()
     : PicInfo17C75x()
 {
-    m_id = "P17C766";
+    m_id = "P17C766"_L1;
 }
 
 PicInfo17C766::~PicInfo17C766()
@@ -158,7 +161,7 @@ PicInfo17C766::~PicInfo17C766()
 PicInfo18Cxx2::PicInfo18Cxx2()
     : PicInfo16bit()
 {
-    m_id = "P18Cxx2";
+    m_id = "P18Cxx2"_L1;
 }
 
 PicInfo18Cxx2::~PicInfo18Cxx2()
@@ -168,7 +171,7 @@ PicInfo18Cxx2::~PicInfo18Cxx2()
 PicInfo18C2x2::PicInfo18C2x2()
     : PicInfo16bit()
 {
-    m_id = "P18C2x2";
+    m_id = "P18C2x2"_L1;
 }
 
 PicInfo18C2x2::~PicInfo18C2x2()
@@ -178,7 +181,7 @@ PicInfo18C2x2::~PicInfo18C2x2()
 PicInfo18C242::PicInfo18C242()
     : PicInfo18C2x2()
 {
-    m_id = "P18C242";
+    m_id = "P18C242"_L1;
 }
 
 PicInfo18C242::~PicInfo18C242()
@@ -188,7 +191,7 @@ PicInfo18C242::~PicInfo18C242()
 PicInfo18C252::PicInfo18C252()
     : PicInfo18C242()
 {
-    m_id = "P18C252";
+    m_id = "P18C252"_L1;
 }
 
 PicInfo18C252::~PicInfo18C252()

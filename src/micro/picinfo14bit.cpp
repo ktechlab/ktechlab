@@ -15,6 +15,9 @@
 // #include <k3staticdeleter.h>
 
 #include <QGlobalStatic>
+#include <QLatin1StringView>
+
+using Qt::Literals::operator""_L1;
 
 // PicAsm14bit *PicAsm14bit::m_self = 0;
 // static K3StaticDeleter<PicAsm14bit> picAsm14BitStaticDeleter;
@@ -118,7 +121,7 @@ PicInfo16C8x::~PicInfo16C8x()
 PicInfo16C84::PicInfo16C84()
     : PicInfo16C8x()
 {
-    m_id = "P16C84";
+    m_id = "P16C84"_L1;
 }
 
 PicInfo16C84::~PicInfo16C84()
@@ -128,7 +131,7 @@ PicInfo16C84::~PicInfo16C84()
 PicInfo16F84::PicInfo16F84()
     : PicInfo16C8x()
 {
-    m_id = "P16F84";
+    m_id = "P16F84"_L1;
 }
 
 PicInfo16F84::~PicInfo16F84()
@@ -138,7 +141,7 @@ PicInfo16F84::~PicInfo16F84()
 PicInfo16CR84::PicInfo16CR84()
     : PicInfo16F84()
 {
-    m_id = "P16CR84";
+    m_id = "P16CR84"_L1;
 }
 
 PicInfo16CR84::~PicInfo16CR84()
@@ -148,7 +151,7 @@ PicInfo16CR84::~PicInfo16CR84()
 PicInfo16F83::PicInfo16F83()
     : PicInfo16C8x()
 {
-    m_id = "P16F83";
+    m_id = "P16F83"_L1;
 }
 
 PicInfo16F83::~PicInfo16F83()
@@ -158,7 +161,7 @@ PicInfo16F83::~PicInfo16F83()
 PicInfo16CR83::PicInfo16CR83()
     : PicInfo16F83()
 {
-    m_id = "P16CR83";
+    m_id = "P16CR83"_L1;
 }
 PicInfo16CR83::~PicInfo16CR83()
 {
@@ -167,7 +170,7 @@ PicInfo16CR83::~PicInfo16CR83()
 PicInfo16C61::PicInfo16C61()
     : PicInfo16C8x()
 {
-    m_id = "P16C61";
+    m_id = "P16C61"_L1;
 }
 
 PicInfo16C61::~PicInfo16C61()
@@ -177,7 +180,7 @@ PicInfo16C61::~PicInfo16C61()
 PicInfo16X6X::PicInfo16X6X()
     : PicInfo14bit()
 {
-    m_id = "P16X6X";
+    m_id = "P16X6X"_L1;
 }
 
 PicInfo16X6X::~PicInfo16X6X()
@@ -187,7 +190,7 @@ PicInfo16X6X::~PicInfo16X6X()
 PicInfo16C62::PicInfo16C62()
     : PicInfo16X6X()
 {
-    m_id = "P16C62";
+    m_id = "P16C62"_L1;
 
     delete m_package;
     m_package = new MicroPackage(28);
@@ -232,7 +235,7 @@ PicInfo16C62::~PicInfo16C62()
 PicInfo16C63::PicInfo16C63()
     : PicInfo16C62()
 {
-    m_id = "P16C63";
+    m_id = "P16C63"_L1;
 }
 
 PicInfo16C63::~PicInfo16C63()
@@ -242,7 +245,7 @@ PicInfo16C63::~PicInfo16C63()
 PicInfo16C64::PicInfo16C64()
     : PicInfo16X6X()
 {
-    m_id = "P16C64";
+    m_id = "P16C64"_L1;
 
     delete m_package;
     m_package = new MicroPackage(40);
@@ -301,7 +304,7 @@ PicInfo16C64::~PicInfo16C64()
 PicInfo16C65::PicInfo16C65()
     : PicInfo16C64()
 {
-    m_id = "P16C65";
+    m_id = "P16C65"_L1;
 }
 
 PicInfo16C65::~PicInfo16C65()
@@ -311,7 +314,7 @@ PicInfo16C65::~PicInfo16C65()
 PicInfo16F62x::PicInfo16F62x()
     : PicInfo16X6X()
 {
-    m_id = "P16F62x";
+    m_id = "P16F62x"_L1;
 
     delete m_package;
     m_package = new MicroPackage(18);
@@ -347,7 +350,7 @@ PicInfo16F62x::~PicInfo16F62x()
 PicInfo16F627::PicInfo16F627()
     : PicInfo16F62x()
 {
-    m_id = "P16F627";
+    m_id = "P16F627"_L1;
 }
 
 PicInfo16F627::~PicInfo16F627()
@@ -357,7 +360,7 @@ PicInfo16F627::~PicInfo16F627()
 PicInfo16F628::PicInfo16F628()
     : PicInfo16F627()
 {
-    m_id = "P16F628";
+    m_id = "P16F628"_L1;
 }
 
 PicInfo16F628::~PicInfo16F628()
@@ -367,7 +370,7 @@ PicInfo16F628::~PicInfo16F628()
 PicInfo16F648::PicInfo16F648()
     : PicInfo16F628()
 {
-    m_id = "P16F648";
+    m_id = "P16F648"_L1;
 }
 
 PicInfo16F648::~PicInfo16F648()
@@ -377,7 +380,7 @@ PicInfo16F648::~PicInfo16F648()
 PicInfo16C71::PicInfo16C71()
     : PicInfo16C61()
 {
-    m_id = "P16C71";
+    m_id = "P16C71"_L1;
 }
 
 PicInfo16C71::~PicInfo16C71()
@@ -387,7 +390,7 @@ PicInfo16C71::~PicInfo16C71()
 PicInfo16C712::PicInfo16C712()
     : PicInfo16C62()
 {
-    m_id = "P16C712";
+    m_id = "P16C712"_L1;
 }
 
 PicInfo16C712::~PicInfo16C712()
@@ -397,7 +400,7 @@ PicInfo16C712::~PicInfo16C712()
 PicInfo16C716::PicInfo16C716()
     : PicInfo16C712()
 {
-    m_id = "P16C716";
+    m_id = "P16C716"_L1;
 }
 
 PicInfo16C716::~PicInfo16C716()
@@ -407,7 +410,7 @@ PicInfo16C716::~PicInfo16C716()
 PicInfo16C72::PicInfo16C72()
     : PicInfo16C62()
 {
-    m_id = "P16C72";
+    m_id = "P16C72"_L1;
 }
 
 PicInfo16C72::~PicInfo16C72()
@@ -417,7 +420,7 @@ PicInfo16C72::~PicInfo16C72()
 PicInfo16C73::PicInfo16C73()
     : PicInfo16C63()
 {
-    m_id = "P16C73";
+    m_id = "P16C73"_L1;
 }
 
 PicInfo16C73::~PicInfo16C73()
@@ -427,7 +430,7 @@ PicInfo16C73::~PicInfo16C73()
 PicInfo16C74::PicInfo16C74()
     : PicInfo16C65()
 {
-    m_id = "P16C74";
+    m_id = "P16C74"_L1;
 }
 
 PicInfo16C74::~PicInfo16C74()
@@ -437,7 +440,7 @@ PicInfo16C74::~PicInfo16C74()
 PicInfo16F873::PicInfo16F873()
     : PicInfo16C73()
 {
-    m_id = "P16F873";
+    m_id = "P16F873"_L1;
 }
 
 PicInfo16F873::~PicInfo16F873()
@@ -447,7 +450,7 @@ PicInfo16F873::~PicInfo16F873()
 PicInfo16F874::PicInfo16F874()
     : PicInfo16C74()
 {
-    m_id = "P16F874";
+    m_id = "P16F874"_L1;
 }
 
 PicInfo16F874::~PicInfo16F874()
@@ -457,7 +460,7 @@ PicInfo16F874::~PicInfo16F874()
 PicInfo16F877::PicInfo16F877()
     : PicInfo16F874()
 {
-    m_id = "P16F877";
+    m_id = "P16F877"_L1;
 }
 
 PicInfo16F877::~PicInfo16F877()
