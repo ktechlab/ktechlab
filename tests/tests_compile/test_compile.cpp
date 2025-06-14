@@ -46,4 +46,6 @@ int main(int argc, char *argv[]) {
 
     KTechlab *ktechlab = new KTechlab();
     qCInfo(KTL_LOG) << "ktechlab instance:" << ktechlab;
+
+    return 0;
 }
