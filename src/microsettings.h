@@ -82,7 +82,7 @@ public:
     void setType(PinSettings::pin_type type);
     void setState(PinSettings::pin_state state);
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when either the type or the state is changed.
      */
@@ -197,7 +197,7 @@ public:
      */
     PinMappingMap pinMappings() const;
 
-signals:
+Q_SIGNALS:
     void pinMappingsChanged();
 
 private:

@@ -68,7 +68,7 @@ public:
      */
     QString toDisplayString(unsigned value) const;
 
-signals:
+Q_SIGNALS:
     void valueRadixChanged(SymbolViewer::Radix newRadix);
 
 public slots:

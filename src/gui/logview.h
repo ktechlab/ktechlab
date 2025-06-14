@@ -63,7 +63,7 @@ public:
         ot_error      // Red
     };
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when the user clicks on a paragraph in the log view
      */

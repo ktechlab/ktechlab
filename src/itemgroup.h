@@ -123,7 +123,7 @@ public slots:
      */
     void slotDistributeVertically();
 
-signals:
+Q_SIGNALS:
     void itemAdded(Item *item);
     void itemRemoved(Item *item);
 

@@ -138,7 +138,7 @@ public:
      */
     int probeNumber(int id) const;
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when a probe is registered
      */

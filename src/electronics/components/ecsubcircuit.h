@@ -45,7 +45,7 @@ public:
 public slots:
     void removeItem() override;
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when the current subcircuit is deleted
      */

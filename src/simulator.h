@@ -197,7 +197,7 @@ public:
         return m_bIsSimulating;
     }
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when the simulating state changes.
      * @see slotSetSimulating

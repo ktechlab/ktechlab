@@ -127,7 +127,7 @@ public:
     virtual void updateNodeLevels();
     void drawShape(QPainter &p) override;
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when the angle or flipped'ness changes. Note that CNItem doesn't
      * actually emit this signal - instead, Component and FlowPart classes do.

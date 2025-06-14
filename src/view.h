@@ -140,7 +140,7 @@ protected slots:
      */
     virtual void slotUpdateConfiguration() {};
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when the view receives focus. @p view is a pointer to this class.
      */

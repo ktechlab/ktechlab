@@ -115,7 +115,7 @@ public slots:
      */
     MechanicsDocument *createMechanicsDocument();
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when a file is successfully opened
      */

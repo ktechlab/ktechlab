@@ -72,7 +72,7 @@ protected:
      */
     virtual void outputtedError(const QString & /*message*/) {};
     /**
-     * Called when the process exits (called before any signals are emitted,
+     * Called when the process exits (called before any Q_SIGNALS are emitted,
      * etc). If you reinherit this function, you should return whether
      * everything is OK.
      */

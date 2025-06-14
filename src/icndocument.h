@@ -238,7 +238,7 @@ public slots:
      */
     void slotRequestAssignNG();
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when a Connector is added
      */

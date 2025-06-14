@@ -104,7 +104,7 @@ public:
      */
     void update();
 
-signals:
+Q_SIGNALS:
     void valueChanged(unsigned newValue);
 
 protected:
@@ -223,7 +223,7 @@ public:
      */
     void stepOut();
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when a line is reached. By default, this is the line of the
      * input assembly file; however, the line associated with an address in
@@ -380,7 +380,7 @@ public:
     static void compileMicrobe(const QString &filename, QObject *receiver, const char *successMember, const char *failMember = nullptr);
     // END convenience functions for PIC files
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when the running status of gpsim changes.
      */

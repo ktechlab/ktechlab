@@ -12,7 +12,7 @@
 #define ELEMENTSIGNAL_H
 
 /**
-@short Provides different signals
+@short Provides different Q_SIGNALS
 @author David Saxton
 */
 class ElementSignal

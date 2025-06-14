@@ -104,7 +104,7 @@ public:
      */
     ~ToolView() override;
 
-signals:
+Q_SIGNALS:
     /**
      * toolview hidden or shown
      * @param visible is this toolview made visible?

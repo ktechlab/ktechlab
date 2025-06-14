@@ -88,7 +88,7 @@ public slots:
         moveBy(0, dy);
     }
 
-signals:
+Q_SIGNALS:
     void rhMovedBy(int id, double dx, double dy);
     void rhMovedByX(double dx);
     void rhMovedByY(double dy);

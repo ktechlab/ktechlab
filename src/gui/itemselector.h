@@ -102,7 +102,7 @@ public slots:
     virtual void clear();
     void slotRemoveSelectedItem();
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when a user selects an item and removes it
      */

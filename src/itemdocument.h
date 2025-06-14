@@ -329,7 +329,7 @@ public slots:
      */
     void processItemDocumentEvents();
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when the selection changes.
      */
@@ -431,7 +431,7 @@ public:
     void update() override;
     void resize(const QRect &size) override;
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when the canvas rectangle-size changes.
      */

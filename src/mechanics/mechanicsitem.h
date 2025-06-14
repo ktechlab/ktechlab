@@ -216,7 +216,7 @@ public slots:
     void rotateBy(double dtheta);
     void parentMoved();
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when this item moves (translates or rotates)
      */

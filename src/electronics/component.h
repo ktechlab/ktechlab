@@ -249,7 +249,7 @@ public:
         return m_switchList;
     }
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when an element is created.
      */

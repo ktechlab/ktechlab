@@ -429,7 +429,7 @@ QImage ItemLibrary::componentImage(Component *component, const uint maxSize)
         const bool sel = component->isSelected();
 
         if (sel) {
-            // We block the signals as we end up in an infinite loop with component emitting a selected signal
+            // We block the Q_SIGNALS as we end up in an infinite loop with component emitting a selected signal
             component->blockSignals(true);
             component->setSelected(false);
             component->blockSignals(false);

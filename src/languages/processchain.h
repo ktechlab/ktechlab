@@ -58,7 +58,7 @@ public slots:
      */
     void compile();
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when compiling has successfully gone all the way through to the
      * specified 'typeTo'
@@ -106,7 +106,7 @@ class ProcessListChain : public QObject
 public:
     ProcessListChain(ProcessOptionsList pol);
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted if successful
      */

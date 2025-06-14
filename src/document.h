@@ -223,7 +223,7 @@ protected slots:
     virtual void slotUpdateConfiguration() {};
 
 #define protected public
-signals:
+Q_SIGNALS:
     /**
      * Emitted when an operation has been performed that
      * has caused the stack of available undo/redo operations to
@@ -232,7 +232,7 @@ signals:
     void undoRedoStateChanged();
 #undef protected
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when the Document goes from modified to unmodified,
      * or vice-versa

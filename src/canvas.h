@@ -137,7 +137,7 @@ public:
     virtual void setUpdatePeriod(int ms);
     int toChunkScaling(int x) const;
 
-signals:
+Q_SIGNALS:
     void resized();
 
 public slots:

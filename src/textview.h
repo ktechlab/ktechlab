@@ -123,7 +123,7 @@ public:
 
     // from TextHintInterface
     QString textHint(KTextEditor::View *view, const KTextEditor::Cursor &position) override;
-signals:
+Q_SIGNALS:
     /**
      * When the user hovers the mouse for more than 700 milliseconds over a
      * word, "hover mode" is entered. When the user presses a key, clicks
@@ -173,7 +173,7 @@ protected:
     };
 
     /**
-     * Starts / stops timers, emits signals, etc. See other functions for an
+     * Starts / stops timers, emits Q_SIGNALS, etc. See other functions for an
      * idea of what this does.
      */
     void updateHovering(const QString &currentWord, int line, int col);

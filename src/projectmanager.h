@@ -365,7 +365,7 @@ public:
 
     void updateActions();
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when an existing project is opened.
      */

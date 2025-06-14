@@ -126,7 +126,7 @@ public:
      */
     virtual uint64_t findPos(uint64_t time) const = 0;
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when an attribute that affects how the probe is drawn in the
      * oscilloscope is changed.

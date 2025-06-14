@@ -81,7 +81,7 @@ public slots:
      */
     // 		void setValue( double value );
 
-signals:
+Q_SIGNALS:
     /**
      * This value is emitted whenever the value of the spinbox changes.
      */

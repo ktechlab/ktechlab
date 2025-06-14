@@ -54,7 +54,7 @@ class ProcessOptionsHelper : public QObject
 {
     Q_OBJECT
 #define protected public
-signals:
+Q_SIGNALS:
 #undef protected
     void textOutputtedTo(TextDocument *outputtedTo);
 };
@@ -255,7 +255,7 @@ public:
      */
     virtual ProcessOptions::ProcessPath::Path outputPath(ProcessOptions::ProcessPath::Path inputPath) const = 0;
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when the processing was successful.
      * @param language Pointer to this class

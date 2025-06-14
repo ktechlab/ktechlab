@@ -284,7 +284,7 @@ public slots:
      */
     void removeChild(Item *child);
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when the CNItem is removed. Normally, this signal is caught by associated
      * nodes, who will remove themselves as well.

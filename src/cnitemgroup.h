@@ -220,7 +220,7 @@ public slots:
      */
     void flipHorizontally();
 
-signals:
+Q_SIGNALS:
     void connectorAdded(Connector *con);
     void connectorRemoved(Connector *con);
     void nodeAdded(Node *node);

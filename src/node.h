@@ -190,7 +190,7 @@ public slots:
     void removeNode();
     void setNodeSelected(bool yes);
 
-signals:
+Q_SIGNALS:
     void moved(Node *node);
     /**
      * Emitted when the CNItem is removed. Normally, this signal is caught by associated

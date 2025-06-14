@@ -50,7 +50,7 @@ public:
 
     QWidget *editorViewport() const;
 
-signals:
+Q_SIGNALS:
     void textChanged();
 
 public slots:

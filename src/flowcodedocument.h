@@ -59,11 +59,11 @@ public:
 
     // TODO clean up this preprocessor jewel :P
 #define protected public
-signals:
+Q_SIGNALS:
     void picTypeChanged();
 #undef protected
 
-signals:
+Q_SIGNALS:
     void pinMappingsChangedFlowCode();
 
 public slots:

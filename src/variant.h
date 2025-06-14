@@ -236,7 +236,7 @@ public:
     }
     void setValue(QVariant val);
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when the value changes.
      * NOTE: The order of data given is the new value, and then the old value

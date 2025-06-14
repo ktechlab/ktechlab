@@ -83,7 +83,7 @@ public slots:
      */
     void slotSaveStuff();
 
-signals:
+Q_SIGNALS:
     void applyClicked();
 
 protected slots:

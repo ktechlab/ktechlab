@@ -34,7 +34,7 @@ public slots:
     void slotUpdate(CNItemGroup *itemGroup);
     void slotClear();
 
-signals:
+Q_SIGNALS:
     void orientationSelected(uint orientation);
 
 protected slots:

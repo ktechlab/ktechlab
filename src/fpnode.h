@@ -143,7 +143,7 @@ protected:
      * diverge; this point is returned. */
     QPoint findConnectorDivergePoint(bool *found) override;
 
-    /** (please document this) registers some signals for the node and the new connector (?)
+    /** (please document this) registers some Q_SIGNALS for the node and the new connector (?)
      * @return true of the operation was successful or false otherwise
      */
     bool handleNewConnector(Connector *newConnector);

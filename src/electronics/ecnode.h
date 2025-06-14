@@ -153,7 +153,7 @@ public:
      */
     Connector *getAConnector() const override;
 
-signals:
+Q_SIGNALS:
     void numPinsChanged(unsigned newNum);
 
 public slots:
@@ -183,7 +183,7 @@ protected:
     /** The attached connectors to this electronic node. No directionality here */
     ConnectorList m_connectorList;
 
-    /** (please document this) registers some signals for the node and the new connector (?) */
+    /** (please document this) registers some Q_SIGNALS for the node and the new connector (?) */
     bool handleNewConnector(Connector *newConnector);
 };
 

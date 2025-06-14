@@ -127,7 +127,7 @@ public:
 public slots:
     void slotSetManualRoute(bool manualRoute);
 
-signals:
+Q_SIGNALS:
     void manualRoutingChanged(bool manualRouting);
 
 protected:

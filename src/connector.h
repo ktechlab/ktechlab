@@ -215,7 +215,7 @@ public:
      */
     void incrementCurrentAnimation(double deltaTime);
 
-signals:
+Q_SIGNALS:
     void removed(Connector *connector);
     void selected(bool yes);
     void numWiresChanged(unsigned newNum);

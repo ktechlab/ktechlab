@@ -124,7 +124,7 @@ public:
 
     virtual void show();
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted when the user changes the configuration settings in the config dialog
      */
