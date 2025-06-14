@@ -21,15 +21,18 @@ static void addIcon(QGridLayout *mainLayout, const char *iconName);
 
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
-    KAboutData about("ktechlab", i18n("KTechLab Icon Tester"),
-                KTECHLAB_VERSION_STRING, i18n("An IDE for microcontrollers and electronics"),
+    KAboutData about(
+                QLatin1StringView("ktechlab"), i18n("KTechLab Icon Tester"),
+                QLatin1StringView(KTECHLAB_VERSION_STRING), i18n("An IDE for microcontrollers and electronics"),
                 KAboutLicense::GPL_V2, i18n("(C) 2003-2009, The KTechLab developers"),
                 QString(),
                 QStringLiteral("https://userbase.kde.org/KTechlab"));
 
     // Add our custom icons to the search path
-    const QStringList iconDirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "ktechlab/icons", QStandardPaths::LocateDirectory);
-    const QStringList picsDirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "ktechlab/pics", QStandardPaths::LocateDirectory);
+    const QStringList iconDirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QLatin1StringView("ktechlab/icons"),
+                                                           QStandardPaths::LocateDirectory);
+    const QStringList picsDirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QLatin1StringView("ktechlab/pics"),
+                                                           QStandardPaths::LocateDirectory);
     QIcon::setThemeSearchPaths(QIcon::themeSearchPaths() << iconDirs);
     QIcon::setFallbackSearchPaths(QIcon::fallbackSearchPaths() << iconDirs << picsDirs);
 
@@ -56,12 +59,12 @@ int main(int argc, char **argv) {
 static void addIcon(QGridLayout *mainLayout, const char *iconName) {
     const int atRow = mainLayout->rowCount() + 1;
     {
-        QIcon testIconConstr = QIcon::fromTheme(iconName);
+        QIcon testIconConstr = QIcon::fromTheme(QLatin1StringView(iconName));
         if (testIconConstr.isNull()) {
             qWarning() << "QIcon " << iconName << " is nullptr";
         }
     }
-    QIcon testIcon = QIcon::fromTheme(iconName);
+    QIcon testIcon = QIcon::fromTheme(QLatin1StringView(iconName));
     QPixmap testPixmap = testIcon.pixmap(64, 64);
     QLabel *ql = new QLabel;
     ql->setPixmap(testPixmap);
@@ -69,7 +72,7 @@ static void addIcon(QGridLayout *mainLayout, const char *iconName) {
     mainLayout->addWidget(ql, atRow, 1);
 
     QLabel *qt = new QLabel;
-    qt->setText(iconName);
+    qt->setText(QLatin1StringView(iconName));
     qt->setMinimumSize(300, 70);
     mainLayout->addWidget(qt, atRow, 2);
     mainLayout->setRowMinimumHeight(atRow, 70);
