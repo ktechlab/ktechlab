@@ -134,7 +134,7 @@ Q_SIGNALS:
      */
     void orientationChanged();
 
-public slots:
+public Q_SLOTS:
     /**
      * Moves item - use this instead of moveBy() so that associated Nodes also get moved
      */

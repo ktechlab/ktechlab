@@ -62,7 +62,7 @@ public:
      */
     bool eventFilter(QObject *watched, QEvent *e) override;
 
-public slots:
+public Q_SLOTS:
     void slotClear();
     void slotMultipleSelected();
     void slotUpdate(Item *item);
@@ -73,7 +73,7 @@ public slots:
     void setBrowserItem(const QString &type);
     void openURL(const QUrl &url /*, const KParts::OpenUrlArguments& */);
 
-protected slots:
+protected Q_SLOTS:
     /**
      * Called when the user clicks the "Edit" button.
      */
@@ -132,7 +132,7 @@ protected:
     QTextBrowser *m_pBrowserView;
     RichTextEditor *m_pEditor;
 
-private slots:
+private Q_SLOTS:
     /**
      * This has to be called after itemlibrary has constructed itself
      * and a list of languages (i.e. a little bit after the constructor).

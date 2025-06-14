@@ -53,7 +53,7 @@ public:
 Q_SIGNALS:
     void textChanged();
 
-public slots:
+public Q_SLOTS:
     /**
      * Inserts a url in the editor at the current cursor position with the
      * given location and text.
@@ -66,7 +66,7 @@ public slots:
      */
     void insertHTML(const QString &html);
 
-protected slots:
+protected Q_SLOTS:
     void slotSetBold(bool);
     void slotSetItalic(bool);
     void slotSetUnderline(bool);

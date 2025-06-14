@@ -81,7 +81,7 @@ public:
      */
     virtual QWidget *configWidget();
 
-public slots:
+public Q_SLOTS:
     /**
      * If cnItemsAreSameType() returns true, then set the
      * data with the given id for all the CNItems in the group.
@@ -123,7 +123,7 @@ protected:
     QPointer<KToolBar> m_pActiveItemEditorToolBar;
     int m_toolBarWidgetID;
 
-protected slots:
+protected Q_SLOTS:
     void slotGetActionTicket();
 
 private:

@@ -267,7 +267,7 @@ Q_SIGNALS:
      */
     void switchDestroyed(Switch *sw);
 
-public slots:
+public Q_SLOTS:
     virtual void slotUpdateConfiguration();
     void removeItem() override;
 

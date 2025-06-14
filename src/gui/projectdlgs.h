@@ -53,7 +53,7 @@ public:
         return m_location;
     }
 
-public slots:
+public Q_SLOTS:
     /**
      * Called when the projectName or projectLocation edit boxes are edited.
      * Checks whether the resultant location combination is a valid path -

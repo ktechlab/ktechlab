@@ -37,7 +37,7 @@ public:
         ;
     }
 
-protected slots:
+protected Q_SLOTS:
     void slotTextChanged(const QString &text);
 
 protected:
@@ -73,7 +73,7 @@ public:
         ;
     }
 
-protected slots:
+protected Q_SLOTS:
     void valueChange(int);
 
 protected:
@@ -109,7 +109,7 @@ public:
         ;
     }
 
-protected slots:
+protected Q_SLOTS:
     void valueChange(double value);
 
 protected:
@@ -129,7 +129,7 @@ public:
 
     bool eventFilter(QObject *watched, QEvent *e) override;
 
-protected slots:
+protected Q_SLOTS:
     void setState(bool state);
 
 protected:

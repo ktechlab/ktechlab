@@ -148,7 +148,7 @@ Q_SIGNALS:
      */
     void probeUnregistered(int id);
 
-public slots:
+public Q_SLOTS:
     /**
      * Resets all recorded data
      */
@@ -180,7 +180,7 @@ protected:
 
     Simulator *m_pSimulator;
 
-protected slots:
+protected Q_SLOTS:
     void updateScrollbars();
 
 private:

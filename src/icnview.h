@@ -25,7 +25,7 @@ public:
     ICNView(ICNDocument *icnDocument, ViewContainer *viewContainer, uint viewAreaId);
     ~ICNView() override;
 
-protected slots:
+protected Q_SLOTS:
     void slotSetRoutingMode(QAction *action); // 0 = auto, 1 = manual
     void slotSetRoutingAuto();
     void slotSetRoutingManual();

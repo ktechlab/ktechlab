@@ -48,7 +48,7 @@ public:
     }
     MicroSelectWidget *microSelectWidget() const;
 
-public slots:
+public Q_SLOTS:
     void fileTypeChanged();
 
 protected:

@@ -91,7 +91,7 @@ public:
      */
     void setVisible(bool visible);
 
-public slots:
+public Q_SLOTS:
     /**
      * Called when an internal or external node is deleted
      */

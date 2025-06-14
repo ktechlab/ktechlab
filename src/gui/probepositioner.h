@@ -53,10 +53,10 @@ public:
      */
     ProbeData *probeAtPosition(const QPoint &pos);
 
-public slots:
+public Q_SLOTS:
     void forceRepaint();
 
-protected slots:
+protected Q_SLOTS:
     void slotProbeDataRegistered(int id, ProbeData *probe);
     void slotProbeDataUnregistered(int id);
 

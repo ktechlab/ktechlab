@@ -99,7 +99,7 @@ protected:
     bool b_pointsAdded;
     QRect m_originalRect;
 
-private slots:
+private Q_SLOTS:
     void slotMoveBy(double dx, double dy);
 };
 
@@ -296,7 +296,7 @@ public:
 protected:
     void posChanged() override;
 
-private slots:
+private Q_SLOTS:
     void slotStateChanged();
 
 private:
@@ -375,7 +375,7 @@ public:
 protected:
     void posChanged() override;
 
-private slots:
+private Q_SLOTS:
     void slotValueChanged(int value);
 
 private:

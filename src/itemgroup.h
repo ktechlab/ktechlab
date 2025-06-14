@@ -101,7 +101,7 @@ public:
         return b_itemsAreSameType;
     }
 
-public slots:
+public Q_SLOTS:
     /**
      * Align the selected items horizontally so that their positions have the
      * same y coordinate.
@@ -146,7 +146,7 @@ protected:
     MechanicsDocument *p_mechanicsDocument;
     Item *m_activeItem;
 
-private slots:
+private Q_SLOTS:
     void getViewPtrs();
 };
 

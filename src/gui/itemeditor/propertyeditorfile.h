@@ -34,7 +34,7 @@ public:
     void resizeEvent(QResizeEvent *ev) override;
     bool eventFilter(QObject *watched, QEvent *e) override;
 
-protected slots:
+protected Q_SLOTS:
     void selectFile();
 
 protected:

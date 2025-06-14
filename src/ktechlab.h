@@ -138,7 +138,7 @@ Q_SIGNALS:
      */
     void needUpdateCaptions();
 
-public slots:
+public Q_SLOTS:
     /**
      * The user right clicked on a tab item.
      */
@@ -206,7 +206,7 @@ protected:
      */
     bool queryClose() override;
 
-protected slots:
+protected Q_SLOTS:
     void slotViewContainerActivated(int index);
     void slotUpdateTabWidget();
     /**
@@ -215,7 +215,7 @@ protected slots:
      */
     void slotUpdateCaptions();
 
-private slots:
+private Q_SLOTS:
     /**
      * Called from a QTimer timeout (which should be after the toolbars have
      * finished constructing themselves).

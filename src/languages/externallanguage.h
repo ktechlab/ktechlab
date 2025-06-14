@@ -31,7 +31,7 @@ public:
     ExternalLanguage(ProcessChain *processChain, const QString &name);
     ~ExternalLanguage() override;
 
-protected slots:
+protected Q_SLOTS:
     void processStdout();
     void processStderr();
     void processExited(int, QProcess::ExitStatus);

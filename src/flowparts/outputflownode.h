@@ -39,7 +39,7 @@ public:
      */
     void addInputConnector(Connector *const connector) override;
 
-public slots:
+public Q_SLOTS:
 
     /**
      * Draw shape. Note that this has to remain public.

@@ -220,7 +220,7 @@ Q_SIGNALS:
     void selected(bool yes);
     void numWiresChanged(unsigned newNum);
 
-public slots:
+public Q_SLOTS:
     void removeConnectorNoArg();
     void removeConnectorNodeArg(Node *);
     void removeConnector(Node *);

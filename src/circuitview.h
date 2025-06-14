@@ -25,7 +25,7 @@ public:
     CircuitView(CircuitDocument *circuitDocument, ViewContainer *viewContainer, uint viewAreaId);
     ~CircuitView() override;
 
-public slots:
+public Q_SLOTS:
     virtual void slotUpdateRunningStatus(bool isRunning);
 
 protected:

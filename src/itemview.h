@@ -68,14 +68,14 @@ public:
      */
     QPoint mousePosToCanvasPos(const QPoint &contentsClick) const;
 
-public slots:
+public Q_SLOTS:
     void actualSize() override;
     void zoomIn();
     void zoomOut();
     void scrollToMouse(const QPoint &pos);
     virtual void updateStatus();
 
-protected slots:
+protected Q_SLOTS:
     /**
      * Called when the user changes the configuration.
      */
@@ -145,7 +145,7 @@ public:
      */
     void updateWorldMatrix();
 
-protected slots:
+protected Q_SLOTS:
     void canvasResized(const QRect &oldSize, const QRect &newSize);
 
 protected:

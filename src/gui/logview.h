@@ -69,7 +69,7 @@ Q_SIGNALS:
      */
     void paraClicked(const QString &text, MessageInfo messageInfo);
 
-public slots:
+public Q_SLOTS:
     virtual void clear();
     void addOutput(QString text, OutputType outputType, MessageInfo messageInfo = MessageInfo());
 
@@ -88,7 +88,7 @@ protected:
 
     void mouseDoubleClickEvent(QMouseEvent *e) override;
 
-private slots:
+private Q_SLOTS:
     void slotParaClicked(int para, int pos);
 };
 

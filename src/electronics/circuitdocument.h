@@ -88,7 +88,7 @@ public:
 
     void update() override;
 
-public slots:
+public Q_SLOTS:
     /**
      * Creates a subcircuit from the currently selected components
      */
@@ -121,7 +121,7 @@ protected:
 
     KActionMenu *m_pOrientationAction;
 
-private slots:
+private Q_SLOTS:
     void assignCircuits();
 
 private:

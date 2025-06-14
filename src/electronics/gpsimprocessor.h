@@ -231,7 +231,7 @@ Q_SIGNALS:
      */
     void lineReached(const SourceLine &sourceLine);
 
-protected slots:
+protected Q_SLOTS:
     void gpsimRunningStatusChanged(bool isRunning);
 
 protected:

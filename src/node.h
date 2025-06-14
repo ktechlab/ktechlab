@@ -181,7 +181,7 @@ public:
 
     void setICNDocument(ICNDocument *documentPtr);
 
-public slots:
+public Q_SLOTS:
     void moveBy(double dx, double dy) override;
     void removeNode(Item *)
     {

@@ -39,14 +39,14 @@ public:
 
     virtual void show();
 
-public slots:
+public Q_SLOTS:
     void slotUpdateRefreshRateLabel(int sliderValue);
     void slotUpdatePicProgrammerDescription();
     void slotAddProgrammerConfig();
     void slotRemoveProgrammerConfig();
     void slotSaveCurrentProgrammerConfig();
 
-protected slots:
+protected Q_SLOTS:
     void slotUpdateSettings();
     void slotUpdateWidgets();
 

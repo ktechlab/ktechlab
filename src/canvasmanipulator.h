@@ -124,7 +124,7 @@ public:
         return m_drawAction;
     }
 
-public slots:
+public Q_SLOTS:
     void slotSetManualRoute(bool manualRoute);
 
 Q_SIGNALS:
@@ -150,7 +150,7 @@ protected:
     bool b_allowItemScroll;       // See above.
     int m_drawAction;
 
-private slots:
+private Q_SLOTS:
     void slotAllowItemScroll()
     {
         b_allowItemScroll = true;
@@ -208,7 +208,7 @@ public:
      */
     static QPoint snapPoint(QPoint point);
 
-protected slots:
+protected Q_SLOTS:
     /**
      * Called when the working canvas emits a resized signal.
      */

@@ -233,7 +233,7 @@ public:
         return m_nextActionTicket++;
     }
 
-public slots:
+public Q_SLOTS:
     void undo() override;
     void redo() override;
     void cut() override;
@@ -262,7 +262,7 @@ public slots:
 
 protected:
     void exportToImageDraw(const QRect &saveArea, QPaintDevice &pDev);
-public slots:
+public Q_SLOTS:
     /**
      * Deletes whatever is selected.
      */
@@ -335,7 +335,7 @@ Q_SIGNALS:
      */
     void selectionChanged();
 
-protected slots:
+protected Q_SLOTS:
     /**
      * Called after the canvas is resized to set the scrollbars of the
      * ItemViews to either always show or always hidden.
@@ -437,7 +437,7 @@ Q_SIGNALS:
      */
     void resized(const QRect &oldSize, const QRect &newSize);
 
-public slots:
+public Q_SLOTS:
     void slotSetAllChanged()
     {
         setAllChanged();

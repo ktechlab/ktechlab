@@ -41,7 +41,7 @@ public:
     EmptyViewArea(ViewArea *parent);
     ~EmptyViewArea() override;
 
-protected slots:
+protected Q_SLOTS:
     void openDocument();
 
 protected:
@@ -107,7 +107,7 @@ public:
         return p_view;
     }
 
-protected slots:
+protected Q_SLOTS:
     void viewAreaDestroyed(QObject *obj);
     void viewDestroyed();
 
@@ -228,13 +228,13 @@ public:
      */
     bool canSaveUsefulStateInfo() const;
 
-public slots:
+public Q_SLOTS:
     /**
      * Sets the tab caption et al from the contents of this ViewContainer
      */
     void updateCaption();
 
-protected slots:
+protected Q_SLOTS:
     void baseViewAreaDestroyed(QObject *obj);
 
 protected:

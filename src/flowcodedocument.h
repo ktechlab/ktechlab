@@ -66,7 +66,7 @@ Q_SIGNALS:
 Q_SIGNALS:
     void pinMappingsChangedFlowCode();
 
-public slots:
+public Q_SLOTS:
     /**
      * @param target as ConvertToTarget
      */
@@ -84,7 +84,7 @@ protected:
     bool isValidItem(Item *item) override;
     bool isValidItem(const QString &itemId) override;
 
-private slots:
+private Q_SLOTS:
     void setLastTextOutputTarget(TextDocument *target);
 
 private:

@@ -75,7 +75,7 @@ public:
     bool saveAs();
     void print();
 
-public slots:
+public Q_SLOTS:
     /**
      * Called when change line / toggle marks
      */
@@ -88,7 +88,7 @@ public slots:
      */
     void slotInitDebugActions();
 
-protected slots:
+protected Q_SLOTS:
     void slotWordHoveredOver(const QString &word, int line, int col);
     void slotWordUnhovered();
     void gotFocus();
@@ -136,7 +136,7 @@ Q_SIGNALS:
      */
     void wordUnhovered();
 
-protected slots:
+protected Q_SLOTS:
     void slotNeedTextHint(const KTextEditor::Cursor &position, QString &text);
     /**
      * Called when we are not in hover mode, but the user has had his mouse

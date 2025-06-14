@@ -110,7 +110,7 @@ public:
     /**
      * Create a view that will display the document data. In all reimplemented
      * functions, you must call handleNewView after creating the view, so that
-     * the appropriate slots, pointers, etc can all be initialised.
+     * the appropriate Q_SLOTS, pointers, etc can all be initialised.
      */
     virtual View *createView(ViewContainer *viewContainer, uint viewAreaId) = 0;
     /**
@@ -216,7 +216,7 @@ public:
         return m_bDeleted;
     }
 
-protected slots:
+protected Q_SLOTS:
     /**
      * Called when the user changes the configuration.
      */
@@ -247,7 +247,7 @@ Q_SIGNALS:
     void viewFocused(View *view);
     void viewUnfocused();
 
-private slots:
+private Q_SLOTS:
     void slotViewDestroyed(QObject *obj);
     void slotViewFocused(View *view);
 

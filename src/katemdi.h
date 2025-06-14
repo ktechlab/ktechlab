@@ -68,7 +68,7 @@ public:
 
     void registerToolView(ToolView *tv);
 
-private slots:
+private Q_SLOTS:
     void clientAdded(KXMLGUIClient *client);
     void updateActions();
 
@@ -216,13 +216,13 @@ public:
      */
     void saveSession(KConfigGroup *config);
 
-private slots:
+private Q_SLOTS:
     void tabClicked(int);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
 
-private slots:
+private Q_SLOTS:
     void buttonPopupActivate(QAction *action);
 
 private:

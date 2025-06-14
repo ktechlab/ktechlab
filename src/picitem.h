@@ -41,7 +41,7 @@ public:
 
     void moveBy(double dx, double dy) override;
 
-public slots:
+public Q_SLOTS:
     void updateDrawing();
 
 private:
@@ -86,7 +86,7 @@ public:
     bool mouseReleaseEvent(const EventInfo &info) override;
     bool mouseMoveEvent(const EventInfo &info) override;
 
-protected slots:
+protected Q_SLOTS:
     void slotMicroSettingsDlgAccepted();
 
 protected:

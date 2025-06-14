@@ -42,7 +42,7 @@ public:
 public:
     void setStatusText(const QString &statusText);
 
-public slots:
+public Q_SLOTS:
     void slotModifiedStateChanged();
     void slotFileNameChanged(const QUrl &url);
     void slotViewFocused(View *);
@@ -134,7 +134,7 @@ public:
     virtual void toggleBreakpoint() {};
     bool eventFilter(QObject *watched, QEvent *e) override;
 
-protected slots:
+protected Q_SLOTS:
     /**
      * Called when the user changes the configuration.
      */

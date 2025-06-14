@@ -46,7 +46,7 @@ public:
         return "ItemEditor";
     }
 
-public slots:
+public Q_SLOTS:
     /**
      * Update the Properties Editor
      */

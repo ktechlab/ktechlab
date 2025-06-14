@@ -42,7 +42,7 @@ public:
      */
     void doneSCInit();
 
-public slots:
+public Q_SLOTS:
     void removeItem() override;
 
 Q_SIGNALS:

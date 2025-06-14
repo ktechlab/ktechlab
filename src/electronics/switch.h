@@ -61,7 +61,7 @@ public:
      */
     bool calculateCurrent();
 
-protected slots:
+protected Q_SLOTS:
     /**
      * Called from a QTimer timeout - our bouncing period has come to an
      * end. This will then fully disconnect or connect the pins depending

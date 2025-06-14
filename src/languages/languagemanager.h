@@ -67,7 +67,7 @@ public:
      */
     void reset();
 
-public slots:
+public Q_SLOTS:
     /**
      * Called when the user clicks on any text in the LogView
      */

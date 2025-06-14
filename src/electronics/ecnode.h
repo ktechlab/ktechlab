@@ -156,11 +156,11 @@ public:
 Q_SIGNALS:
     void numPinsChanged(unsigned newNum);
 
-public slots:
+public Q_SLOTS:
     // -- from node.h --
     void checkForRemoval(Connector *connector);
 
-protected slots:
+protected Q_SLOTS:
     void removeElement(Element *e);
     void removeSwitch(Switch *sw);
 

@@ -30,14 +30,14 @@ public:
     OrientationWidget(QWidget *parent = nullptr);
     ~OrientationWidget() override;
 
-public slots:
+public Q_SLOTS:
     void slotUpdate(CNItemGroup *itemGroup);
     void slotClear();
 
 Q_SIGNALS:
     void orientationSelected(uint orientation);
 
-protected slots:
+protected Q_SLOTS:
     void slotButtonClicked();
     /**
      * Updates which button is indented depending on the current orientation

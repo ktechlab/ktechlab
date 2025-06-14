@@ -44,7 +44,7 @@ public:
         m_processOptions = options;
     }
 
-public slots:
+public Q_SLOTS:
     /**
      * Adds the output file to project if requested in the options, and opens
      * the file in a code editor. Called to signal that a language in the last
@@ -116,7 +116,7 @@ Q_SIGNALS:
      */
     void failed();
 
-protected slots:
+protected Q_SLOTS:
     void slotProcessChainSuccessful();
     void slotProcessChainFailed();
 

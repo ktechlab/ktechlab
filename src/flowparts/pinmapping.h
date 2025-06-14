@@ -74,7 +74,7 @@ class PinMapEditor : public QDialog
 public:
     PinMapEditor(PinMapping *PinMapping, MicroInfo *Info, QWidget *parent);
 
-protected slots:
+protected Q_SLOTS:
     void slotApply();
     void slotOk();
 

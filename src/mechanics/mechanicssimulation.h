@@ -68,7 +68,7 @@ public:
         return p_mechanicsDocument;
     }
 
-protected slots:
+protected Q_SLOTS:
     void slotAdvance();
 
 protected:

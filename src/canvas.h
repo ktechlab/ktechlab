@@ -140,7 +140,7 @@ public:
 Q_SIGNALS:
     void resized();
 
-public slots:
+public Q_SLOTS:
     virtual void advance();
     virtual void update();
 
@@ -222,7 +222,7 @@ private:
     KtlQCanvasView(const KtlQCanvasView &);
     KtlQCanvasView &operator=(const KtlQCanvasView &);
 
-private slots:
+private Q_SLOTS:
     void cMoving(int, int);
     void updateContentsSize();
 };

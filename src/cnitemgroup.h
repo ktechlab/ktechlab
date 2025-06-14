@@ -174,7 +174,7 @@ public:
      */
     bool haveSameOrientation() const;
 
-public slots:
+public Q_SLOTS:
     /**
      * Sets the orientation of all selected items to 0 degrees.
      */

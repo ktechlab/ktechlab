@@ -30,14 +30,14 @@ public:
     OscilloscopeView(QWidget *parent);
     ~OscilloscopeView() override;
 
-public slots:
+public Q_SLOTS:
     /**
      * Sets the needRedraw flag to true, and then class repaint
      */
     void updateView();
     void slotSetFrameRate(QAction *);
 
-protected slots:
+protected Q_SLOTS:
     void updateViewTimeout();
 
 protected:

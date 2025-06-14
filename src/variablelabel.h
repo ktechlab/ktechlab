@@ -41,7 +41,7 @@ public:
      */
     void setValue(unsigned value);
 
-protected slots:
+protected Q_SLOTS:
     /**
      * Updates what is displayed from m_pRegisterInfo.
      */

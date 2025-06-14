@@ -72,7 +72,7 @@ public:
 
     QValidator::State validate(QString &text, int &pos) const override;
 
-public slots:
+public Q_SLOTS:
     // 		virtual void stepUp(); // QDoubleSpinBox has these
     // 		virtual void stepDown();
     /**
@@ -87,7 +87,7 @@ Q_SIGNALS:
      */
     // 		void valueChanged( double value ); // exists in QDoubleSpinBox
 
-protected slots:
+protected Q_SLOTS:
     /**
      * Checks if the value has changed - and if so, emits a valueChanged
      * signal.

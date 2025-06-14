@@ -240,7 +240,7 @@ Q_SIGNALS:
     /**
      * Emitted when the value changes.
      * NOTE: The order of data given is the new value, and then the old value
-     * This is done so that slots that don't care about the old value don't
+     * This is done so that Q_SLOTS that don't care about the old value don't
      * have to accept it
      */
     void valueChanged(QVariant newValue, QVariant oldValue);

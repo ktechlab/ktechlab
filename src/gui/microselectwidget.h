@@ -53,7 +53,7 @@ public:
      */
     void setAllowedMicrobeSupport(unsigned allowed);
 
-protected slots:
+protected Q_SLOTS:
     void microFamilyChanged(const QString &family);
 
 protected:

@@ -97,7 +97,7 @@ public:
      */
     void addItem(const QString &caption, const QString &id, const QString &category, const QIcon &icon = QIcon(), bool removable = false);
 
-public slots:
+public Q_SLOTS:
     virtual void slotContextMenuRequested(const QPoint &pos);
     virtual void clear();
     void slotRemoveSelectedItem();
@@ -131,7 +131,7 @@ protected:
 
     QMimeData *mimeData(const QList<QTreeWidgetItem *> & items) const override;
 
-private slots:
+private Q_SLOTS:
     void slotItemSelected();
     void slotItemClicked(QTreeWidgetItem *item, int);
     void slotItemDoubleClicked(QTreeWidgetItem *, int);

@@ -82,7 +82,7 @@ public:
 
     // 		virtual void paintFocus ( QPainter * p, const QColorGroup & cg, const QRect & r );
 
-protected slots:
+protected Q_SLOTS:
     virtual void propertyValueChanged();
 
 protected:

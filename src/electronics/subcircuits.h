@@ -57,7 +57,7 @@ public:
      */
     static void updateComponentSelector(int id, const QString &name);
 
-protected slots:
+protected Q_SLOTS:
     void slotItemRemoved(const QString &id);
 
 private:

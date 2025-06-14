@@ -71,7 +71,7 @@ public:
 Q_SIGNALS:
     void valueRadixChanged(SymbolViewer::Radix newRadix);
 
-public slots:
+public Q_SLOTS:
     void selectRadix(int selectIndex);
 
 protected:
@@ -92,7 +92,7 @@ class SymbolViewerItem : public QObject, public QTableWidgetItem
 public:
     SymbolViewerItem(SymbolViewer *symbolViewer, const RegisterInfo *registerInfo, int intendedColumn);
 
-public slots:
+public Q_SLOTS:
     void valueChanged(unsigned newValue);
     void radixChanged();
 

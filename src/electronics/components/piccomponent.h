@@ -59,11 +59,11 @@ public:
      */
     void initPackage(MicroInfo *info);
 
-public slots:
+public Q_SLOTS:
     void slotUpdateFileList();
     void slotUpdateBtns();
 
-protected slots:
+protected Q_SLOTS:
     void slotCODCreationSucceeded();
     void slotCODCreationFailed();
 

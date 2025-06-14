@@ -30,7 +30,7 @@ public:
 
     bool eventFilter(QObject *watched, QEvent *e) override;
 
-protected slots:
+protected Q_SLOTS:
     void valueChanged(const QColor &color);
 
 protected:

@@ -94,7 +94,7 @@ public:
     void removeDocumentAssociations(Document *document);
     void disableContextActions();
 
-public slots:
+public Q_SLOTS:
     /**
      * Creates an empty text document (with an open view)
      */
@@ -121,7 +121,7 @@ Q_SIGNALS:
      */
     void fileOpened(const QUrl &url);
 
-protected slots:
+protected Q_SLOTS:
     /**
      * Does the appropriate enabling / disabling of actions, connections, etc
      */

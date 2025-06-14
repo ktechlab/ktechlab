@@ -76,7 +76,7 @@ public:
 protected:
     void postResize() override;
 
-protected slots:
+protected Q_SLOTS:
     /**
      * Called from a timeout event after resizing to see if the image
      * resizing thread has done anything useful yet.

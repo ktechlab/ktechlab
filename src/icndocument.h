@@ -216,7 +216,7 @@ public:
 
     void unregisterUID(const QString &uid) override;
 
-public slots:
+public Q_SLOTS:
     /**
      * Deletes all items in the selected item list, along with associated
      * connectors, etc, and adds the operation to the undo list

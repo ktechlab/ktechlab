@@ -204,14 +204,14 @@ Q_SIGNALS:
      */
     void simulatingStateChanged(bool isSimulating);
 
-public slots:
+public Q_SLOTS:
     /**
      * Set whether or not to simulate at the moment.
      * @see isSimulating
      */
     void slotSetSimulating(bool simulate);
 
-private slots:
+private Q_SLOTS:
     void step();
     void printTimingStatistics();
 

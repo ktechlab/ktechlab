@@ -78,7 +78,7 @@ public:
 
     QPolygon areaPoints() const override;
 
-public slots:
+public Q_SLOTS:
     void slotMoveByX(double dx)
     {
         moveBy(dx, 0);
@@ -147,10 +147,10 @@ public:
         return true;
     }
 
-public slots:
+public Q_SLOTS:
     void slotMoveAllResizeHandles(double dx, double dy);
 
-protected slots:
+protected Q_SLOTS:
     virtual void slotResizeHandleMoved(int id, double dx, double dy) = 0;
 
 protected:
@@ -198,10 +198,10 @@ public:
     MechanicsItemOverlay(MechanicsItem *parent);
     ~MechanicsItemOverlay() override;
 
-public slots:
+public Q_SLOTS:
     void slotUpdateResizeHandles();
 
-protected slots:
+protected Q_SLOTS:
     void slotResizeHandleMoved(int id, double dx, double dy) override;
 
 protected:
@@ -238,10 +238,10 @@ public:
     bool isValidXPos(ResizeHandle *rh) override;
     bool isValidYPos(ResizeHandle *rh) override;
 
-public slots:
+public Q_SLOTS:
     void slotUpdateResizeHandles();
 
-protected slots:
+protected Q_SLOTS:
     void slotResizeHandleMoved(int id, double dx, double dy) override;
 
 protected:
@@ -266,10 +266,10 @@ public:
     QPoint startPoint() const;
     QPoint endPoint() const;
 
-public slots:
+public Q_SLOTS:
     void slotUpdateResizeHandles();
 
-protected slots:
+protected Q_SLOTS:
     void slotResizeHandleMoved(int id, double dx, double dy) override;
 
 protected:

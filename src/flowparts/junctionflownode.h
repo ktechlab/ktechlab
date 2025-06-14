@@ -32,7 +32,7 @@ public:
      * on the node type and number of input / output connections.
      */
     bool acceptOutput() const override;
-public slots:
+public Q_SLOTS:
     /**
      * what is this?
      */

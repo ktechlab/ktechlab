@@ -209,7 +209,7 @@ public:
     void enterEvent(QEvent *) override;
     void leaveEvent(QEvent *) override;
 
-public slots:
+public Q_SLOTS:
     /**
      * Rotate the item by the given amount (in radians)
      */
@@ -222,7 +222,7 @@ Q_SIGNALS:
      */
     void moved();
 
-protected slots:
+protected Q_SLOTS:
     /**
      * Recalculate the combined mechanics info (e.g. when mass is changed, or child added)
      */

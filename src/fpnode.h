@@ -125,7 +125,7 @@ public:
      */
     Connector *getAConnector() const override;
 
-public slots:
+public Q_SLOTS:
 
     /**
      * what is this? (verifies if the node can be removed; if it can, removes itself (?) )

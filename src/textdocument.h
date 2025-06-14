@@ -188,7 +188,7 @@ public:
         return m_doc;
     }
 
-public slots:
+public Q_SLOTS:
     /**
      * @param target as ConvertToTarget
      */
@@ -239,7 +239,7 @@ protected:
     KTextEditor::Document *m_doc;
     QPointer<TextDocument> m_pLastTextOutputTarget;
 
-private slots:
+private Q_SLOTS:
     void setLastTextOutputTarget(TextDocument *target);
     void slotSyncModifiedStates();
     void slotCODCreationSucceeded();

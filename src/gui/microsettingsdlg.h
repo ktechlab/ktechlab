@@ -47,7 +47,7 @@ public:
      */
     QValidator::State validatePinMapName(QString &pinMapName) const;
 
-public slots:
+public Q_SLOTS:
     /**
      * Saves the port details in the given row to the MicroSettings class.
      * Usually called when the value is changed, or on 'Apply' of the
@@ -86,7 +86,7 @@ public slots:
 Q_SIGNALS:
     void applyClicked();
 
-protected slots:
+protected Q_SLOTS:
     void slotCheckNewPinMappingName(const QString &name);
     void slotApplyClicked();
 

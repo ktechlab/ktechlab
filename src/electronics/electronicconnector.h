@@ -46,7 +46,7 @@ public:
         return m_endEcNode;
     }
 
-public slots:
+public Q_SLOTS:
     /**
      * Takes the minimum pin count of the start and end nodes, and creates a
      * connector for each pin up to that minimum.

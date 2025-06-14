@@ -113,7 +113,7 @@ public:
     void orientationPixmap(uint orientation, QPixmap &pm) const;
     Variant *createProperty(const QString &id, Variant::Type::Value type) override;
 
-public slots:
+public Q_SLOTS:
     /**
      * Called when variable name data for MicroSettings changes, and so our
      * data needs updating

@@ -35,7 +35,7 @@ public:
 
     bool eventFilter(QObject *o, QEvent *e) override;
 
-public slots:
+public Q_SLOTS:
     void hideList();
 
 protected:
@@ -55,7 +55,7 @@ public:
 
     void setList(QStringList l);
 
-protected slots:
+protected Q_SLOTS:
     void valueChanged(const QString &text);
 
 protected:

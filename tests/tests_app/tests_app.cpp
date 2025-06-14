@@ -44,7 +44,7 @@ public:
     QApplication *app;
     KTechlab *ktechlab;
 
-private slots:
+private Q_SLOTS:
     void initTestCase() {
         int argc = 1;
         char argv0[] = "tests_app";

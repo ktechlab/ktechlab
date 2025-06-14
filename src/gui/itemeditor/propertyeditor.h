@@ -60,7 +60,7 @@ public:
      */
     void updateDefaultsButton();
 
-public slots:
+public Q_SLOTS:
     /**
      * On focus:
      * \li previously focused editor is activated
@@ -68,7 +68,7 @@ public slots:
      */
     virtual void setFocus();
 
-protected slots:
+protected Q_SLOTS:
     /**
      * This slot resets the value of an item, using Property::oldValue().
      * It is called when pressing the "Revert to defaults" button

@@ -33,7 +33,7 @@ public:
      */
     void init(Component *component);
 
-public slots:
+public Q_SLOTS:
     /**
      * The filter is applied against the list of component model names.
      */

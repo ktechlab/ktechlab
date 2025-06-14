@@ -391,7 +391,7 @@ Q_SIGNALS:
      */
     void filesRemoved();
 
-public slots:
+public Q_SLOTS:
     void slotNewProject();
     void slotOpenProject();
     void slotOpenProject(const QUrl &url);
@@ -412,7 +412,7 @@ public slots:
      */
     void slotProjectOptions();
 
-private slots:
+private Q_SLOTS:
     void slotContextMenuRequested(const QPoint &pos) override;
     /**
      * Called when a user clicks on any item in the project view

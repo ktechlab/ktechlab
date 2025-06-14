@@ -58,7 +58,7 @@ public:
         return 0;
     }
 
-public slots:
+public Q_SLOTS:
     void setIntervalsX(int value);
     void setTicksPerIntervalX(int value);
     void setOffsetX(int value);

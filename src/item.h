@@ -273,7 +273,7 @@ public:
     virtual ItemData itemData() const;
     virtual void restoreFromItemData(const ItemData &itemData);
 
-public slots:
+public Q_SLOTS:
     virtual void removeItem();
     /**
      * Moves item - use this instead of moveBy() so that associated Nodes also get moved
@@ -303,7 +303,7 @@ Q_SIGNALS:
      */
     void movedBy(double dx, double dy);
 
-protected slots:
+protected Q_SLOTS:
     virtual void propertyChangedInitial();
     virtual void dataChanged() {};
 
