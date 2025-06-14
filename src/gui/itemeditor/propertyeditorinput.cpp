@@ -187,10 +187,10 @@ bool PropertyEditorBool::eventFilter(QObject *watched, QEvent *e)
 void PropertyEditorBool::setState(bool state)
 {
     if (state) {
-        m_toggle->setIcon(QIcon::fromTheme("dialog-ok"));
+        m_toggle->setIcon(QIcon::fromTheme(QLatin1StringView("dialog-ok")));
         m_toggle->setToolTip(i18n("Yes"));
     } else {
-        m_toggle->setIcon(QIcon::fromTheme("dialog-cancel"));
+        m_toggle->setIcon(QIcon::fromTheme(QLatin1StringView("dialog-cancel")));
         m_toggle->setToolTip(i18n("No"));
     }
 

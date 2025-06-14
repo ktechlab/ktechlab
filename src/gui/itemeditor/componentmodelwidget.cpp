@@ -99,9 +99,9 @@ void ComponentModelWidget::init(Component *component)
         return;
 
     QStringList types;
-    if (component->type() == "ec/npnbjt") {
+    if (component->type() == QLatin1StringView("ec/npnbjt")) {
         //		types = ComponentModelLibrary::self()->modelIDs( ComponentModelLibrary::NPN );
-    } else if (component->type() == "ec/pnpbjt") {
+    } else if (component->type() == QLatin1StringView("ec/pnpbjt")) {
         //		types = ComponentModelLibrary::self()->modelIDs( ComponentModelLibrary::PNP );
     } else
         return;

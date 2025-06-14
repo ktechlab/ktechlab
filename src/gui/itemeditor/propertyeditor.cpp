@@ -169,12 +169,12 @@ struct PropertyEditorStyledItemColValue : public QStyledItemDelegate {
         case Variant::Type::Bool: {
             painter->fillRect(left, top, width, height, QBrush(bgColor));
             if (property->value().toBool()) {
-                QIcon dialogOkIcon = QIcon::fromTheme("dialog-ok");
+                QIcon dialogOkIcon = QIcon::fromTheme(QLatin1StringView("dialog-ok"));
                 QPixmap okPixmap = dialogOkIcon.pixmap(KIconLoader::SizeSmall);
                 painter->drawPixmap(left + margin, top + height / 2 - 8, okPixmap);
                 painter->drawText(QRect(left + margin + 20, top, width, height - 1), Qt::AlignVCenter, i18n("Yes"));
             } else {
-                QIcon dialogCancelIcon = QIcon::fromTheme("dialog-cancel");
+                QIcon dialogCancelIcon = QIcon::fromTheme(QLatin1StringView("dialog-cancel"));
                 QPixmap cancelPixmap = dialogCancelIcon.pixmap(KIconLoader::SizeSmall);
                 painter->drawPixmap(left + margin, top + height / 2 - 8, cancelPixmap);
                 painter->drawText(QRect(left + margin + 20, top, width, height - 1), Qt::AlignVCenter, i18n("No"));
@@ -283,7 +283,7 @@ PropertyEditor::PropertyEditor(QWidget *parent)
     m_defaults = new QPushButton(viewport());
     m_defaults->setFocusPolicy(Qt::NoFocus);
     setFocusPolicy(Qt::ClickFocus);
-    m_defaults->setIcon(QIcon::fromTheme("edit-undo"));
+    m_defaults->setIcon(QIcon::fromTheme(QLatin1StringView("edit-undo")));
     m_defaults->setToolTip(i18n("Undo changes"));
     m_defaults->hide();
     connect(m_defaults, &QPushButton::clicked, this, &PropertyEditor::resetItem);
@@ -546,7 +546,8 @@ void PropertyEditor::reset()
 
 QSize PropertyEditor::sizeHint() const
 {
-    return QSize(QFontMetrics(font()).horizontalAdvance(horizontalHeaderItem(0)->text() + horizontalHeaderItem(1)->text() + "   "), QTableWidget::sizeHint().height());
+    return QSize(QFontMetrics(font()).horizontalAdvance(horizontalHeaderItem(0)->text() + horizontalHeaderItem(1)->text() + QLatin1StringView("   ")),
+                 QTableWidget::sizeHint().height());
 }
 
 void PropertyEditor::create(ItemGroup *b)
@@ -586,7 +587,7 @@ void PropertyEditor::fill()
     }
 
     if (!m_topItem) {
-        m_topItem = new PropertyEditorItem(this, "Top Item");
+        m_topItem = new PropertyEditorItem(this, QLatin1StringView("Top Item"));
     }
 
     // m_items.clear();  // 2018.08.13 - unused

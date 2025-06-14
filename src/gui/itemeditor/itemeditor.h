@@ -43,7 +43,7 @@ public:
     ~ItemEditor() override;
     static QString toolViewIdentifier()
     {
-        return "ItemEditor";
+        return QLatin1StringView("ItemEditor");
     }
 
 public Q_SLOTS:

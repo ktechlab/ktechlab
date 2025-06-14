@@ -55,7 +55,7 @@ ItemEditor::ItemEditor(KateMDI::ToolView *parent)
     vlayout->setSpacing(6);
 
     // BEGIN Create Name Label
-    m_pNameLabel = new QLabel(/* this, */ "");
+    m_pNameLabel = new QLabel(/* this, */ QLatin1StringView(""));
     m_pNameLabel->setBuddy(this);
     m_pNameLabel->setTextFormat(Qt::RichText);
 
