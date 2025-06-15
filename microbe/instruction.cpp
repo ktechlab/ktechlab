@@ -3407,7 +3407,7 @@ ProcessorBehaviour Instr_btfss::behaviour() const
 //BEGIN Literal and Control Operations
 QString Instr_addlw::code() const
 {
-	return QLatin1StringView("addlw\t%1").arg( m_literal );
+	return QString(QLatin1StringView("addlw\t%1")).arg( m_literal );
 }
 
 void Instr_addlw::generateLinksAndStates( Code::iterator current )
