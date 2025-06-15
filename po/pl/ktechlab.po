@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-13 00:44+0000\n"
+"POT-Creation-Date: 2025-06-15 00:45+0000\n"
 "PO-Revision-Date: 2024-08-17 09:40+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -27,59 +27,59 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "lukasz.wojnilowicz@gmail.com"
 
-#: microbe/main.cpp:46 src/electronics/components/piccomponent.cpp:90
-#: src/flowcodedocument.cpp:172 src/flowcodeview.cpp:40 src/ktechlab.cpp:507
+#: microbe/main.cpp:47 src/electronics/components/piccomponent.cpp:90
+#: src/flowcodedocument.cpp:172 src/flowcodeview.cpp:40 src/ktechlab.cpp:510
 #: src/textview.cpp:68
 #, kde-format
 msgid "Microbe"
 msgstr "Microbe"
 
-#: microbe/main.cpp:48
+#: microbe/main.cpp:49
 #, kde-format
 msgid "The Microbe Compiler"
 msgstr "Kompilator Microbe"
 
-#: microbe/main.cpp:50
+#: microbe/main.cpp:51
 #, kde-format
 msgid "(C) 2004-2005, The KTechlab developers"
 msgstr "(C) 2004-2005, Programiści KTechlab"
 
-#: microbe/main.cpp:53 src/core/main.cpp:43
+#: microbe/main.cpp:54 src/core/main.cpp:43
 #, kde-format
 msgid "Daniel Clarke"
 msgstr "Daniel Clarke"
 
-#: microbe/main.cpp:54 src/core/main.cpp:42
+#: microbe/main.cpp:55 src/core/main.cpp:42
 #, kde-format
 msgid "David Saxton"
 msgstr "David Saxton"
 
-#: microbe/main.cpp:55
+#: microbe/main.cpp:56
 #, kde-format
 msgid "George John"
 msgstr "George John"
 
-#: microbe/main.cpp:55
+#: microbe/main.cpp:56
 #, kde-format
 msgid "Added pic 16f877,16f627 and 16f628"
 msgstr "Dodano zdjęcie 16f877,16f627 oraz 16f628"
 
-#: microbe/main.cpp:62
+#: microbe/main.cpp:63
 #, kde-format
 msgid "Show source code lines in assembly output"
 msgstr "Pokaż wiersze kodu źródłowego w wyniku Przestrzegaj tylko standardu"
 
-#: microbe/main.cpp:64
+#: microbe/main.cpp:65
 #, kde-format
 msgid "Do not attempt optimization of generated instructions."
 msgstr "Nie próbuj optymalizować utworzonych instrukcji."
 
-#: microbe/main.cpp:66
+#: microbe/main.cpp:67
 #, kde-format
 msgid "Input filename"
 msgstr "Nazwa pliku wejściowego"
 
-#: microbe/main.cpp:67
+#: microbe/main.cpp:68
 #, kde-format
 msgid "Output filename"
 msgstr "Nazwa pliku wyjściowego"
@@ -783,17 +783,17 @@ msgstr ""
 "Sprawdź to, jeśli SDCC używa współdzielonych bibliotek do kompilowania "
 "(nowsze SDCC tak robi)"
 
-#: src/core/main.cpp:35
+#: src/core/main.cpp:31
 #, kde-format
 msgid "KTechLab"
 msgstr "KTechLab"
 
-#: src/core/main.cpp:35
+#: src/core/main.cpp:32
 #, kde-format
 msgid "An IDE for microcontrollers and electronics"
 msgstr "IDE dla mikrokontrolerów i elektroniki"
 
-#: src/core/main.cpp:35
+#: src/core/main.cpp:33
 #, kde-format
 msgid "(C) 2003-2017, The KTechLab developers"
 msgstr "(C) 2003-2017, Programiści KTechlab"
@@ -1156,16 +1156,16 @@ msgstr "Kierunek"
 #: src/electronics/circuitdocument.cpp:47
 #: src/electronics/components/piccomponent.cpp:92 src/flowcodedocument.cpp:50
 #: src/flowcodedocument.cpp:173 src/flowcodedocument.cpp:197
-#: src/flowcodedocument.cpp:221 src/ktechlab.cpp:1179
-#: src/mechanics/mechanicsdocument.cpp:28 src/projectmanager.cpp:908
-#: src/textdocument.cpp:434 src/textdocument.cpp:472
+#: src/flowcodedocument.cpp:221 src/ktechlab.cpp:1190
+#: src/mechanics/mechanicsdocument.cpp:28 src/projectmanager.cpp:911
+#: src/textdocument.cpp:436 src/textdocument.cpp:474
 #, kde-format
 msgid "All Files"
 msgstr "Wszystkie pliki"
 
 #. i18n("Circuit"), "application-x-circuit", 0, this, SLOT(slotFileNewCircuit()), ac, "newfile_circuit" ))->plug( p->menu() );
 #: src/electronics/circuitdocument.cpp:47 src/gui/newfiledlg.cpp:77
-#: src/ktechlab.cpp:481 src/ktechlab.cpp:1182
+#: src/ktechlab.cpp:484 src/ktechlab.cpp:1193
 #, kde-format
 msgid "Circuit"
 msgstr "Obwód"
@@ -1331,7 +1331,7 @@ msgid "Passive"
 msgstr "Elementy bierne"
 
 #: src/electronics/components/capacitor.cpp:26
-#: src/electronics/components/capacitor.cpp:32 src/ktechlab.cpp:682
+#: src/electronics/components/capacitor.cpp:32 src/ktechlab.cpp:685
 #, kde-format
 msgid "Capacitor"
 msgstr "Kondensator"
@@ -1431,8 +1431,8 @@ msgid "Logic"
 msgstr "Elementy logiczne"
 
 #: src/electronics/components/discretelogic.cpp:32
-#: src/electronics/components/discretelogic.cpp:43 src/ktechlab.cpp:689
-#: src/ktechlab.cpp:699
+#: src/electronics/components/discretelogic.cpp:43 src/ktechlab.cpp:692
+#: src/ktechlab.cpp:702
 #, kde-format
 msgid "Inverter"
 msgstr "Odwracacz"
@@ -1961,7 +1961,7 @@ msgid "Column Cathode"
 msgstr "Katoda kolumny"
 
 #: src/electronics/components/matrixdisplaydriver.cpp:298
-#: src/electronics/components/matrixdisplaydriver.cpp:304 src/ktechlab.cpp:702
+#: src/electronics/components/matrixdisplaydriver.cpp:304 src/ktechlab.cpp:705
 #, kde-format
 msgid "Matrix Display Driver"
 msgstr "Sterownik wyświetlacza macierzowego"
@@ -2061,7 +2061,7 @@ msgstr "Port równoległy"
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/electronics/components/parallelportcomponent.cpp:143
 #: src/electronics/components/serialportcomponent.cpp:119
-#: src/flowparts/readport.cpp:39 src/flowparts/writeport.cpp:44
+#: src/flowparts/readport.cpp:44 src/flowparts/writeport.cpp:44
 #: src/gui/programmerwidget.ui:62
 #, kde-format
 msgid "Port"
@@ -2096,7 +2096,7 @@ msgid "All Supported Files"
 msgstr "Wszystkie obsługiwane pliki"
 
 #. i18n("FlowCode"), "application-x-flowcode", 0, this, SLOT(slotFileNewFlowCode()), ac, "newfile_flowcode" ))->plug( p->menu() );
-#: src/electronics/components/piccomponent.cpp:87 src/ktechlab.cpp:489
+#: src/electronics/components/piccomponent.cpp:87 src/ktechlab.cpp:492
 #: src/languages/flowcode.cpp:28
 #, kde-format
 msgid "FlowCode"
@@ -2108,7 +2108,7 @@ msgid "Symbol File"
 msgstr "Plik symboli"
 
 #: src/electronics/components/piccomponent.cpp:89 src/flowcodedocument.cpp:196
-#: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1180 src/textdocument.cpp:433
+#: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1191 src/textdocument.cpp:435
 #, kde-format
 msgid "Assembly Code"
 msgstr "Kod assemblera"
@@ -2424,7 +2424,7 @@ msgstr "Błąd"
 msgid "Generic"
 msgstr "Ogólne"
 
-#: src/electronics/gpsimprocessor.cpp:738 src/projectmanager.cpp:865
+#: src/electronics/gpsimprocessor.cpp:738 src/projectmanager.cpp:867
 #, kde-format
 msgid "File"
 msgstr "Plik"
@@ -2434,7 +2434,7 @@ msgstr "Plik"
 msgid "SFR"
 msgstr "SFR"
 
-#: src/electronics/gpsimprocessor.cpp:744 src/textdocument.cpp:95
+#: src/electronics/gpsimprocessor.cpp:744 src/textdocument.cpp:97
 #, kde-format
 msgid "Breakpoint"
 msgstr "Pułapka"
@@ -2459,17 +2459,17 @@ msgstr "Podobwody"
 msgid "Microbe Code Output"
 msgstr "Kod wynikowy Microbe"
 
-#: src/flowcodedocument.cpp:193 src/textdocument.cpp:426
+#: src/flowcodedocument.cpp:193 src/textdocument.cpp:428
 #, kde-format
 msgid "Assembly Code Output"
 msgstr "Kod wynikowy assemblera"
 
-#: src/flowcodedocument.cpp:217 src/textdocument.cpp:468
+#: src/flowcodedocument.cpp:217 src/textdocument.cpp:470
 #, kde-format
 msgid "Hex Code Output"
 msgstr "Wyjście w kodzie szesnastkowym"
 
-#: src/flowcodedocument.cpp:220 src/textdocument.cpp:471
+#: src/flowcodedocument.cpp:220 src/textdocument.cpp:473
 #, kde-format
 msgid "Hex Code"
 msgstr "Kod szesnastkowy"
@@ -2487,7 +2487,7 @@ msgid "Convert To"
 msgstr "Przekształć do"
 
 #. i18n("Assembly"), "source", 0, this, SLOT(slotFileNewAssembly()), ac, "newfile_asm" ))->plug( p->menu() );
-#: src/flowcodeview.cpp:41 src/ktechlab.cpp:465 src/textview.cpp:70
+#: src/flowcodeview.cpp:41 src/ktechlab.cpp:468 src/textview.cpp:70
 #, kde-format
 msgid "Assembly"
 msgstr "Złożenie"
@@ -2624,7 +2624,7 @@ msgid "For Loop"
 msgstr "Pętla For"
 
 #: src/flowparts/forloop.cpp:39 src/flowparts/keypad.cpp:39
-#: src/flowparts/readport.cpp:44 src/flowparts/repeat.cpp:38
+#: src/flowparts/readport.cpp:49 src/flowparts/repeat.cpp:38
 #: src/flowparts/sevenseg.cpp:39 src/flowparts/unary.cpp:39
 #: src/flowparts/varassignment.cpp:38 src/flowparts/varcomparison.cpp:39
 #: src/flowparts/while.cpp:38 src/flowparts/writeport.cpp:39
@@ -2660,7 +2660,7 @@ msgid "InputButton"
 msgstr "Przycisk wejściowy"
 
 #: src/flowparts/inputbutton.cpp:42 src/flowparts/pulse.cpp:52
-#: src/flowparts/setpin.cpp:45 src/flowparts/testpin.cpp:39
+#: src/flowparts/setpin.cpp:46 src/flowparts/testpin.cpp:39
 #, kde-format
 msgid "Pin"
 msgstr "Pin"
@@ -2687,7 +2687,7 @@ msgstr "Przerwij %1"
 msgid "Pin map"
 msgstr "Mapa pinów"
 
-#: src/flowparts/keypad.cpp:51 src/flowparts/readport.cpp:54
+#: src/flowparts/keypad.cpp:51 src/flowparts/readport.cpp:59
 #, kde-format
 msgid "Read %1 to %2"
 msgstr "Odczytaj z %1 do %2"
@@ -2712,23 +2712,23 @@ msgstr "Czas trwania"
 msgid "Pulse %1 for %2 sec"
 msgstr "Puls %1 przez %2 sekund"
 
-#: src/flowparts/readport.cpp:26 src/flowparts/setpin.cpp:28
+#: src/flowparts/readport.cpp:30 src/flowparts/setpin.cpp:28
 #: src/flowparts/testpin.cpp:26 src/flowparts/writeport.cpp:26
 #, kde-format
 msgid "I\\/O"
 msgstr "I\\/O"
 
-#: src/flowparts/readport.cpp:26 src/flowparts/readport.cpp:32
+#: src/flowparts/readport.cpp:30 src/flowparts/readport.cpp:37
 #, kde-format
 msgid "Read from Port"
 msgstr "Odczyt z portu"
 
-#: src/flowparts/readport.cpp:38
+#: src/flowparts/readport.cpp:43
 #, kde-format
 msgid "Read"
 msgstr "Przeczytaj"
 
-#: src/flowparts/readport.cpp:43
+#: src/flowparts/readport.cpp:48
 #, kde-format
 msgctxt "read from port to x"
 msgid "to"
@@ -2759,17 +2759,17 @@ msgstr "Wartość"
 msgid "repeat until %1 %2 %3"
 msgstr "powtarzaj do %1 %2 %3"
 
-#: src/flowparts/setpin.cpp:28 src/flowparts/setpin.cpp:34
+#: src/flowparts/setpin.cpp:28 src/flowparts/setpin.cpp:35
 #, kde-format
 msgid "Set Pin State"
 msgstr "Ustawienie stanu pinu"
 
-#: src/flowparts/setpin.cpp:40
+#: src/flowparts/setpin.cpp:41
 #, kde-format
 msgid "State"
 msgstr "Stan"
 
-#: src/flowparts/setpin.cpp:55
+#: src/flowparts/setpin.cpp:56
 #, kde-format
 msgid "Set %1 %2"
 msgstr "Ustaw %1 %2"
@@ -2954,18 +2954,18 @@ msgstr "Wiele elementów"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, m_pResetButton)
 #. i18n: ectx: property (text), widget (QPushButton, resetBtn)
-#: src/gui/contexthelp.cpp:333 src/gui/contexthelp.cpp:334
+#: src/gui/contexthelp.cpp:334 src/gui/contexthelp.cpp:335
 #: src/gui/contexthelpwidget.ui:173 src/gui/oscilloscopewidget.ui:120
 #, kde-format
 msgid "Reset"
 msgstr "Wyzeruj"
 
-#: src/gui/contexthelp.cpp:334
+#: src/gui/contexthelp.cpp:335
 #, kde-format
 msgid "Reset item help to last saved changes?"
 msgstr "Wyzerować pomoc elementu do ostatnio zapisanych zmian?"
 
-#: src/gui/contexthelp.cpp:354
+#: src/gui/contexthelp.cpp:355
 #, kde-format
 msgid "Cannot save item description."
 msgstr "Nie można zapisać opisu elementu."
@@ -3715,7 +3715,7 @@ msgstr ""
 "Przeciągnij go, aby ustawić rodzaj (wejście/wyjście)."
 
 #. i18n: ectx: property (text), widget (QPushButton, pinMapRemove)
-#: src/gui/microsettingswidget.ui:109 src/projectmanager.cpp:1078
+#: src/gui/microsettingswidget.ui:109 src/projectmanager.cpp:1081
 #, kde-format
 msgid "Remove"
 msgstr "Usuń"
@@ -3732,7 +3732,7 @@ msgstr "&Zmień"
 msgid "Rename"
 msgstr "Przemianuj"
 
-#: src/gui/newfiledlg.cpp:56 src/ktechlab.cpp:462
+#: src/gui/newfiledlg.cpp:56 src/ktechlab.cpp:465
 #, kde-format
 msgid "New File"
 msgstr "Nowy plik"
@@ -3837,7 +3837,7 @@ msgstr "Szczegóły nowego projektu"
 msgid "Project Name:"
 msgstr "Nazwa projektu:"
 
-#: src/gui/oscilloscope.cpp:323
+#: src/gui/oscilloscope.cpp:324
 #, kde-format
 msgid "Oscilloscope"
 msgstr "Oscyloskop"
@@ -4634,12 +4634,12 @@ msgstr "Niepowodzenie eksportu"
 msgid "Image Export"
 msgstr "Eksport obrazu"
 
-#: src/itemdocumentdata.cpp:112 src/projectmanager.cpp:748
+#: src/itemdocumentdata.cpp:112 src/projectmanager.cpp:750
 #, kde-format
 msgid "Could not open %1 for reading"
 msgstr "Nie można otworzyć %1 do odczytu"
 
-#: src/itemdocumentdata.cpp:133 src/projectmanager.cpp:764
+#: src/itemdocumentdata.cpp:133 src/projectmanager.cpp:766
 #, kde-format
 msgid ""
 "Could not parse XML:\n"
@@ -4676,7 +4676,7 @@ msgstr "Nie można otworzyć pliku opisów elementów \"%1\" do zapisu."
 
 #. i18n("Cancel"), i18n("Cancel the current operation"), Qt::Key_Escape, itemDocument, SLOT(cancelCurrentOperation()) );
 #. pAccel->readSettings(); // TODO what does this do?
-#: src/itemview.cpp:59 src/projectmanager.cpp:1078 src/viewcontainer.cpp:527
+#: src/itemview.cpp:59 src/projectmanager.cpp:1081 src/viewcontainer.cpp:527
 #, kde-format
 msgid "Cancel"
 msgstr "Anuluj"
@@ -4796,317 +4796,317 @@ msgstr "Górny pasek boczny"
 msgid "Bottom Sidebar"
 msgstr "Dolny pasek boczny"
 
-#: src/ktechlab.cpp:189
+#: src/ktechlab.cpp:192
 #, kde-format
 msgid "Project"
 msgstr "Projekt"
 
-#: src/ktechlab.cpp:193
+#: src/ktechlab.cpp:196
 #, kde-format
 msgid "Components"
 msgstr "Części składowe"
 
-#: src/ktechlab.cpp:201
+#: src/ktechlab.cpp:204
 #, kde-format
 msgid "Flow Parts"
 msgstr "Części przepływu"
 
 #. i18n("Mechanics"), "ktechlab_mechanics", 0, this, SLOT(slotFileNewMechanics()), ac, "newfile_mechanics" ))->plug( p->menu() );
 #. "ktechlab_mechanics" -- for the future
-#: src/ktechlab.cpp:206 src/ktechlab.cpp:498
+#: src/ktechlab.cpp:209 src/ktechlab.cpp:501
 #: src/mechanics/mechanicsdocument.cpp:28
 #, kde-format
 msgid "Mechanics"
 msgstr "Mechanika"
 
 #. i18n: ectx: ToolBar (itemEditorTB)
-#: src/ktechlab.cpp:211 src/ktechlabcircuitui.rc:34
+#: src/ktechlab.cpp:214 src/ktechlabcircuitui.rc:34
 #: src/ktechlabflowcodeui.rc:28 src/ktechlabmechanicsui.rc:8
 #, kde-format
 msgid "Item Editor"
 msgstr "Edytor elementów"
 
-#: src/ktechlab.cpp:215
+#: src/ktechlab.cpp:218
 #, kde-format
 msgid "Context Help"
 msgstr "Pomoc podręczna"
 
-#: src/ktechlab.cpp:219
+#: src/ktechlab.cpp:222
 #, kde-format
 msgid "Messages"
 msgstr "Wiadomości"
 
-#: src/ktechlab.cpp:224
+#: src/ktechlab.cpp:227
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "Przeglądarka symboli"
 
-#: src/ktechlab.cpp:231
+#: src/ktechlab.cpp:234
 #, kde-format
 msgid "Scope Screen (Very Rough)"
 msgstr "Oscyloskop (bardzo zgrubny)"
 
 #. i18n("&New"), "document-new",
 #. KStandardShortcut::shortcut(KStandardShortcut::New), this, SLOT(slotFileNew()), ac, "newfile_popup" );
-#: src/ktechlab.cpp:456
+#: src/ktechlab.cpp:459
 #, kde-format
 msgid "&New"
 msgstr "&Nowy"
 
 #. i18n("C source"), "text-x-csrc", 0, this, SLOT(slotFileNewC()), ac, "newfile_c" ))->plug( p->menu() );
-#: src/ktechlab.cpp:473
+#: src/ktechlab.cpp:476
 #, kde-format
 msgid "C source"
 msgstr "Źródło C"
 
 #. i18n("New Project..."), "window-new",			0, pm, SLOT(slotNewProject()),			ac, 	"project_new" );
-#: src/ktechlab.cpp:524
+#: src/ktechlab.cpp:527
 #, kde-format
 msgid "New Project..."
 msgstr "Nowy projekt..."
 
 #. i18n("Open Project..."), "project-open",		0, pm, SLOT(slotOpenProject()),			ac, 	"project_open" );
-#: src/ktechlab.cpp:531
+#: src/ktechlab.cpp:534
 #, kde-format
 msgid "Open Project..."
 msgstr "Otwórz projekt..."
 
-#: src/ktechlab.cpp:537
+#: src/ktechlab.cpp:540
 #, kde-format
 msgid "Open &Recent Project..."
 msgstr "Otwórz ostatni p&rojekt..."
 
 #. i18n("Export to Makefile..."), "document-export",	0, pm, SLOT(slotExportToMakefile()),		ac, "project_export_makefile" );
-#: src/ktechlab.cpp:544
+#: src/ktechlab.cpp:547
 #, kde-format
 msgid "Export to Makefile..."
 msgstr "Wyeksportuj do Makefile..."
 
 #. i18n("Create Subproject..."), 0,				0, pm, SLOT(slotCreateSubproject()),		ac, "project_create_subproject" );
-#: src/ktechlab.cpp:551
+#: src/ktechlab.cpp:554
 #, kde-format
 msgid "Create Subproject..."
 msgstr "Utwórz podprojekt..."
 
 #. i18n("Add Existing File..."), "document-open",		0, pm, SLOT(slotAddFile()),					ac, "project_add_existing_file" );
-#: src/ktechlab.cpp:558
+#: src/ktechlab.cpp:561
 #, kde-format
 msgid "Add Existing File..."
 msgstr "Dodaj istniejący plik..."
 
 #. i18n("Add Current File..."), "document-import",		0, pm, SLOT(slotAddCurrentFile()),			ac, "project_add_current_file" );
-#: src/ktechlab.cpp:565
+#: src/ktechlab.cpp:568
 #, kde-format
 msgid "Add Current File..."
 msgstr "Dodaj bieżący plik..."
 
 #. i18n("Close Project"), "window-close",			0, pm, SLOT(slotCloseProject()),			ac, "project_close" );
-#: src/ktechlab.cpp:574
+#: src/ktechlab.cpp:577
 #, kde-format
 msgid "Close Project"
 msgstr "Zamknij projekt"
 
 #. i18n("Remove from Project"), "edit-delete",		0, pm, SLOT(slotRemoveSelected()),			ac, "project_remove_selected" );
-#: src/ktechlab.cpp:581
+#: src/ktechlab.cpp:584
 #, kde-format
 msgid "Remove from Project"
 msgstr "Usuń z projektu"
 
 #. i18n("Insert Existing File..."), "document-open",	0, pm, SLOT(slotSubprojectAddExistingFile()),	ac, "subproject_add_existing_file" );
-#: src/ktechlab.cpp:588
+#: src/ktechlab.cpp:591
 #, kde-format
 msgid "Insert Existing File..."
 msgstr "Wstaw istniejący plik..."
 
 #. i18n("Insert Current File..."), "document-import",	0, pm, SLOT(slotSubprojectAddCurrentFile()),ac, "subproject_add_current_file" );
-#: src/ktechlab.cpp:595
+#: src/ktechlab.cpp:598
 #, kde-format
 msgid "Insert Current File..."
 msgstr "Wstaw bieżący plik..."
 
 #. i18n("Linker Options..."), "configure",		0, pm, SLOT(slotSubprojectLinkerOptions()),	ac, "project_item_linker_options" );
-#: src/ktechlab.cpp:602
+#: src/ktechlab.cpp:605
 #, kde-format
 msgid "Linker Options..."
 msgstr "Opcje dowiązywania..."
 
 #. i18n("Build..."), "launch",					0, pm, SLOT(slotItemBuild()),				ac, "project_item_build" );
-#: src/ktechlab.cpp:609
+#: src/ktechlab.cpp:612
 #, kde-format
 msgid "Build..."
 msgstr "Buduj..."
 
 #. i18n("Upload..."), "convert_to_pic",			0, pm, SLOT(slotItemUpload()),				ac, "project_item_upload" );
-#: src/ktechlab.cpp:616
+#: src/ktechlab.cpp:619
 #, kde-format
 msgid "Upload..."
 msgstr "Wyślij..."
 
 #. i18n("Processing Options..."), "configure",	0, pm, SLOT(slotItemProcessingOptions()),	ac, "project_item_processing_options" );
-#: src/ktechlab.cpp:623
+#: src/ktechlab.cpp:626
 #, kde-format
 msgid "Processing Options..."
 msgstr "Przetwarzanie opcji..."
 
 #. i18n("Split View Left/Right"), "view-split-left-right", Qt::CTRL|Qt::SHIFT|Qt::Key_L, this, SLOT(slotViewSplitLeftRight()), ac, "view_split_leftright" );
-#: src/ktechlab.cpp:632
+#: src/ktechlab.cpp:635
 #, kde-format
 msgid "Split View Left/Right"
 msgstr "Podziel widok na lewy/prawy"
 
 #. i18n("Split View Top/Bottom"), "view-split-top-bottom", Qt::CTRL|Qt::SHIFT|Qt::Key_T, this, SLOT(slotViewSplitTopBottom()), ac, "view_split_topbottom" );
-#: src/ktechlab.cpp:639
+#: src/ktechlab.cpp:642
 #, kde-format
 msgid "Split View Top/Bottom"
 msgstr "Podziel widok na górny/dolny"
 
 #. i18n("Run Simulation"), "media-playback-start", Qt::Key_F10, 0, 0, ac, "simulation_run" );
-#: src/ktechlab.cpp:646
+#: src/ktechlab.cpp:649
 #, kde-format
 msgid "Run Simulation"
 msgstr "Przeprowadź symulację"
 
-#: src/ktechlab.cpp:651
+#: src/ktechlab.cpp:654
 #, kde-format
 msgid "Pause Simulation"
 msgstr "Symulacja przerwy"
 
-#: src/ktechlab.cpp:678
+#: src/ktechlab.cpp:681
 #, kde-format
 msgid "Internals"
 msgstr "Wewnętrzne"
 
-#: src/ktechlab.cpp:679
+#: src/ktechlab.cpp:682
 #, kde-format
 msgid "Square Wave"
 msgstr "Fala prostokątna"
 
-#: src/ktechlab.cpp:680
+#: src/ktechlab.cpp:683
 #, kde-format
 msgid "2-Way Switch"
 msgstr "Dwudrożny przełącznik"
 
-#: src/ktechlab.cpp:681
+#: src/ktechlab.cpp:684
 #, kde-format
 msgid "3-Way Switch"
 msgstr "Trójdrożny przełącznik"
 
-#: src/ktechlab.cpp:683
+#: src/ktechlab.cpp:686
 #, kde-format
 msgid "LRC"
 msgstr "LRC"
 
-#: src/ktechlab.cpp:684
+#: src/ktechlab.cpp:687
 #, kde-format
 msgid "Resistors in Parallel"
 msgstr "Oporniki równolegle"
 
-#: src/ktechlab.cpp:685
+#: src/ktechlab.cpp:688
 #, kde-format
 msgid "Resistors in Series"
 msgstr "Oporniki szeregowo"
 
-#: src/ktechlab.cpp:686
+#: src/ktechlab.cpp:689
 #, kde-format
 msgid "Voltage Divider"
 msgstr "Podzielnik napięcia"
 
-#: src/ktechlab.cpp:687
+#: src/ktechlab.cpp:690
 #, kde-format
 msgid "Full Wave Rectifier"
 msgstr "Prostownik dwu-połówkowy"
 
-#: src/ktechlab.cpp:688
+#: src/ktechlab.cpp:691
 #, kde-format
 msgid "Half Wave Rectifier"
 msgstr "Prostownik jedno-połówkowy"
 
-#: src/ktechlab.cpp:690
+#: src/ktechlab.cpp:693
 #, kde-format
 msgid "AND"
 msgstr "ORAZ"
 
-#: src/ktechlab.cpp:691
+#: src/ktechlab.cpp:694
 #, kde-format
 msgid "NAND"
 msgstr "NAND"
 
-#: src/ktechlab.cpp:692
+#: src/ktechlab.cpp:695
 #, kde-format
 msgid "NOR"
 msgstr "NOR"
 
-#: src/ktechlab.cpp:693
+#: src/ktechlab.cpp:696
 #, kde-format
 msgid "OR"
 msgstr "LUB"
 
-#: src/ktechlab.cpp:694
+#: src/ktechlab.cpp:697
 #, kde-format
 msgid "Decoupler"
 msgstr "Rozłączacz"
 
-#: src/ktechlab.cpp:695
+#: src/ktechlab.cpp:698
 #, kde-format
 msgid "Inverting Amplifier"
 msgstr "Wzmacniacz odwracający"
 
-#: src/ktechlab.cpp:696
+#: src/ktechlab.cpp:699
 #, kde-format
 msgid "Noninverting Amplifier"
 msgstr "Wzmacniacz nieodwracający"
 
-#: src/ktechlab.cpp:697
+#: src/ktechlab.cpp:700
 #, kde-format
 msgid "Instrumentation Amplifier"
 msgstr "Wzmacniacz instrumentacyjny"
 
-#: src/ktechlab.cpp:698
+#: src/ktechlab.cpp:701
 #, kde-format
 msgid "Astable Multivibrator"
 msgstr "Astabilny multiwibrator"
 
-#: src/ktechlab.cpp:700
+#: src/ktechlab.cpp:703
 #, kde-format
 msgid "Schmitt Trigger"
 msgstr "Wyzwalacz Schmitta"
 
-#: src/ktechlab.cpp:701
+#: src/ktechlab.cpp:704
 #, kde-format
 msgid "Switch"
 msgstr "Przełącz"
 
-#: src/ktechlab.cpp:1008
+#: src/ktechlab.cpp:1019
 #, kde-format
 msgid "Close"
 msgstr "Zamknij"
 
-#: src/ktechlab.cpp:1013
+#: src/ktechlab.cpp:1024
 #, kde-format
 msgid "Save"
 msgstr "Zapis"
 
-#: src/ktechlab.cpp:1016
+#: src/ktechlab.cpp:1027
 #, kde-format
 msgid "Reload"
 msgstr "Wczytaj ponownie"
 
-#: src/ktechlab.cpp:1019
+#: src/ktechlab.cpp:1030
 #, kde-format
 msgid "Close All Others"
 msgstr "Zamknij wszystkie inne"
 
-#: src/ktechlab.cpp:1181
+#: src/ktechlab.cpp:1192
 #, kde-format
 msgid "Intel Hex"
 msgstr "Intel Hex"
 
-#: src/ktechlab.cpp:1185 src/ktechlab.cpp:1188 src/projectmanager.cpp:910
+#: src/ktechlab.cpp:1196 src/ktechlab.cpp:1199 src/projectmanager.cpp:913
 #, kde-format
 msgid "Open Location"
 msgstr "Otwórz miejsce"
 
-#: src/ktechlab.cpp:1339
+#: src/ktechlab.cpp:1350
 #, kde-format
 msgid "Exiting..."
 msgstr "Kończenie..."
@@ -5432,32 +5432,32 @@ msgstr "Moment bezwładności"
 msgid "Advanced..."
 msgstr "Rozszerzone..."
 
-#: src/projectmanager.cpp:411
+#: src/projectmanager.cpp:413
 #, kde-format
 msgid "Do not know how to build \"%1\" (output URL is empty)."
 msgstr "Nie wiadomo jak zbudować \"%1\" (wyjściowy adres URL jest pusty)."
 
-#: src/projectmanager.cpp:420
+#: src/projectmanager.cpp:422
 #, kde-format
 msgid "Do not know how to build \"%1\" (library does not exist in project)."
 msgstr "Nie wiadomo jak zbudować \"%1\" (biblioteka nie istnieje w projekcie)."
 
-#: src/projectmanager.cpp:446
+#: src/projectmanager.cpp:448
 #, kde-format
 msgid "Do not know how to build \"%1\" (unknown output type)."
 msgstr "Nie wiadomo jak zbudować \"%1\" (nieznany rodzaj wyjścia)."
 
-#: src/projectmanager.cpp:800
+#: src/projectmanager.cpp:802
 #, kde-format
 msgid "Project could not be saved to \"%1\""
 msgstr "Nie można zapisać projektu do \"%1\""
 
-#: src/projectmanager.cpp:800
+#: src/projectmanager.cpp:802
 #, kde-format
 msgid "Saving Project"
 msgstr "Zapisywanie projektu"
 
-#: src/projectmanager.cpp:863
+#: src/projectmanager.cpp:865
 #, kde-format
 msgid ""
 "Displays the list of files in the project.\n"
@@ -5468,47 +5468,47 @@ msgstr ""
 "Aby otworzyć lub zamknąć projekt, użyj menu \"Projekt\". Kliknij prawym na "
 "pliku, aby usunąć go z projektu"
 
-#: src/projectmanager.cpp:866
+#: src/projectmanager.cpp:868
 #, kde-format
 msgid "Project Manager"
 msgstr "Zarządzanie projektami"
 
-#: src/projectmanager.cpp:908
+#: src/projectmanager.cpp:911
 #, kde-format
 msgid "KTechlab Project"
 msgstr "Projekt KTechlab"
 
-#: src/projectmanager.cpp:1078
+#: src/projectmanager.cpp:1081
 #, kde-format
 msgid "Do you really want to remove \"%1\"?"
 msgstr "Czy na pewno usunąć \"%1\"?"
 
-#: src/projectmanager.cpp:1078
+#: src/projectmanager.cpp:1081
 #, kde-format
 msgid "Remove Project File?"
 msgstr "Czy usunąć plik projektu?"
 
-#: src/textdocument.cpp:84
+#: src/textdocument.cpp:86
 #, kde-format
 msgid "Failed to create editor"
 msgstr "Nie udało się utworzyć edytora"
 
-#: src/textdocument.cpp:600
+#: src/textdocument.cpp:602
 #, kde-format
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: src/textdocument.cpp:740
+#: src/textdocument.cpp:742
 #, kde-format
 msgid "Unknown code type."
 msgstr "Nieznany rodzaj kodu."
 
-#: src/textdocument.cpp:740 src/textdocument.cpp:744
+#: src/textdocument.cpp:742 src/textdocument.cpp:746
 #, kde-format
 msgid "Cannot debug"
 msgstr "Nie można zdiagnozować"
 
-#: src/textdocument.cpp:744
+#: src/textdocument.cpp:746
 #, kde-format
 msgid "Cannot debug hex."
 msgstr "Nie można zdiagnozować dziesiętnych"
