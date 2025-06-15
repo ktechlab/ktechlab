@@ -2817,7 +2817,7 @@ void Instruction::clearLinks()
 //BEGIN Byte-Oriented File Register Operations
 QString Instr_addwf::code() const
 {
-	return QLatin1StringView("addwf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QString(QLatin1StringView("addwf\t%1,%2")).arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_addwf::generateLinksAndStates( Code::iterator current )
@@ -2870,7 +2870,7 @@ ProcessorBehaviour Instr_addwf::behaviour() const
 
 QString Instr_andwf::code() const
 {
-	return QLatin1StringView("andwf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QString(QLatin1StringView("andwf\t%1,%2")).arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_andwf::generateLinksAndStates( Code::iterator current )
@@ -2938,7 +2938,7 @@ ProcessorBehaviour Instr_clrf::behaviour() const
 
 QString Instr_decf::code() const
 {
-	return QLatin1StringView("decf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QString(QLatin1StringView("decf\t%1,%2")).arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_decf::generateLinksAndStates( Code::iterator current )
@@ -2966,7 +2966,7 @@ ProcessorBehaviour Instr_decf::behaviour() const
 
 QString Instr_decfsz::code() const
 {
-	return QLatin1StringView("decfsz\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QString(QLatin1StringView("decfsz\t%1,%2")).arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_decfsz::generateLinksAndStates( Code::iterator current )
@@ -2990,7 +2990,7 @@ ProcessorBehaviour Instr_decfsz::behaviour() const
 
 QString Instr_incf::code() const
 {
-	return QLatin1StringView("incf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QString(QLatin1StringView("incf\t%1,%2")).arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_incf::generateLinksAndStates( Code::iterator current )
@@ -3020,7 +3020,7 @@ ProcessorBehaviour Instr_incf::behaviour() const
 
 QString Instr_iorwf::code() const
 {
-	return QLatin1StringView("iorwf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QString(QLatin1StringView("iorwf\t%1,%2")).arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_iorwf::generateLinksAndStates( Code::iterator current )
@@ -3049,7 +3049,7 @@ ProcessorBehaviour Instr_iorwf::behaviour() const
 
 QString Instr_movf::code() const
 {
-	return QLatin1StringView("movf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QString(QLatin1StringView("movf\t%1,%2")).arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_movf::generateLinksAndStates( Code::iterator current )
@@ -3125,7 +3125,7 @@ ProcessorBehaviour Instr_movwf::behaviour() const
 
 QString Instr_rlf::code() const
 {
-	return QLatin1StringView("rlf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QString(QLatin1StringView("rlf\t%1,%2")).arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_rlf::generateLinksAndStates( Code::iterator current )
@@ -3156,7 +3156,7 @@ ProcessorBehaviour Instr_rlf::behaviour() const
 
 QString Instr_rrf::code() const
 {
-	return QLatin1StringView("rrf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QString(QLatin1StringView("rrf\t%1,%2")).arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_rrf::generateLinksAndStates( Code::iterator current )
@@ -3186,7 +3186,7 @@ ProcessorBehaviour Instr_rrf::behaviour() const
 
 QString Instr_subwf::code() const
 {
-	return QLatin1StringView("subwf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QString(QLatin1StringView("subwf\t%1,%2")).arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_subwf::generateLinksAndStates( Code::iterator current )
@@ -3244,7 +3244,7 @@ ProcessorBehaviour Instr_subwf::behaviour() const
 
 QString Instr_swapf::code() const
 {
-	return QLatin1StringView("swapf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QString(QLatin1StringView("swapf\t%1,%2")).arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_swapf::generateLinksAndStates( Code::iterator current )
@@ -3271,7 +3271,7 @@ ProcessorBehaviour Instr_swapf::behaviour() const
 
 QString Instr_xorwf::code() const
 {
-	return QLatin1StringView("xorwf\t%1,%2").arg( m_file.name() ).arg( m_dest );
+	return QString(QLatin1StringView("xorwf\t%1,%2")).arg( m_file.name() ).arg( m_dest );
 }
 
 void Instr_xorwf::generateLinksAndStates( Code::iterator current )
@@ -3434,7 +3434,7 @@ ProcessorBehaviour Instr_addlw::behaviour() const
 
 QString Instr_andlw::code() const
 {
-	return QLatin1StringView("andlw\t%1").arg( m_literal );
+	return QString(QLatin1StringView("andlw\t%1")).arg( m_literal );
 }
 
 void Instr_andlw::generateLinksAndStates( Code::iterator current )
@@ -3555,7 +3555,7 @@ ProcessorBehaviour Instr_goto::behaviour() const
 
 QString Instr_iorlw::code() const
 {
-	return QLatin1StringView("iorlw\t%1").arg( m_literal );
+	return QString(QLatin1StringView("iorlw\t%1")).arg( m_literal );
 }
 
 void Instr_iorlw::generateLinksAndStates( Code::iterator current )
@@ -3582,7 +3582,7 @@ ProcessorBehaviour Instr_iorlw::behaviour() const
 
 QString Instr_movlw::code() const
 {
-	return QLatin1StringView("movlw\t%1").arg( m_literal );
+	return QString(QLatin1StringView("movlw\t%1")).arg( m_literal );
 }
 
 void Instr_movlw::generateLinksAndStates( Code::iterator current )
@@ -3623,7 +3623,7 @@ ProcessorBehaviour Instr_retfie::behaviour() const
 
 QString Instr_retlw::code() const
 {
-	return QLatin1StringView("retlw\t%1").arg( m_literal );
+	return QString(QLatin1StringView("retlw\t%1")).arg( m_literal );
 }
 
 void Instr_retlw::generateLinksAndStates( Code::iterator current )
@@ -3689,7 +3689,7 @@ ProcessorBehaviour Instr_sleep::behaviour() const
 
 QString Instr_sublw::code() const
 {
-	return QLatin1StringView("sublw\t%1").arg( m_literal );
+	return QString(QLatin1StringView("sublw\t%1")).arg( m_literal );
 }
 
 void Instr_sublw::generateLinksAndStates( Code::iterator current )
@@ -3734,7 +3734,7 @@ ProcessorBehaviour Instr_sublw::behaviour() const
 
 QString Instr_xorlw::code() const
 {
-	return QLatin1StringView("xorlw\t%1").arg( m_literal );
+	return QString(QLatin1StringView("xorlw\t%1")).arg( m_literal );
 }
 
 void Instr_xorlw::generateLinksAndStates( Code::iterator current )
