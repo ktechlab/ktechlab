@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-15 00:45+0000\n"
-"PO-Revision-Date: 2025-06-10 05:06+0300\n"
+"PO-Revision-Date: 2025-06-20 22:40+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -3625,24 +3625,24 @@ msgstr ""
 #: src/gui/microsettingswidget.ui:109 src/projectmanager.cpp:1081
 #, kde-format
 msgid "Remove"
-msgstr ""
+msgstr "הסרה"
 
 #. i18n: ectx: property (text), widget (QPushButton, pinMapModify)
 #: src/gui/microsettingswidget.ui:139
 #, kde-format
 msgid "Modif&y"
-msgstr ""
+msgstr "&שינוי"
 
 #. i18n: ectx: property (text), widget (QPushButton, pinMapRename)
 #: src/gui/microsettingswidget.ui:146
 #, kde-format
 msgid "Rename"
-msgstr ""
+msgstr "שינוי שם"
 
 #: src/gui/newfiledlg.cpp:56 src/ktechlab.cpp:465
 #, kde-format
 msgid "New File"
-msgstr ""
+msgstr "קובץ חדש"
 
 #. i18n: ectx: property (whatsThis), widget (QWidget, NewFileWidget)
 #: src/gui/newfilewidget.ui:20
@@ -3663,13 +3663,13 @@ msgstr ""
 #: src/gui/newfilewidget.ui:72
 #, kde-format
 msgid "New File Details"
-msgstr ""
+msgstr "פרטי קובץ חדש"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2_2)
 #: src/gui/newfilewidget.ui:82
 #, kde-format
 msgid "File Type:"
-msgstr ""
+msgstr "סוג קובץ:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, addToProjectCheck)
 #: src/gui/newfilewidget.ui:129
@@ -3681,7 +3681,7 @@ msgstr ""
 #: src/gui/newpinmappingwidget.ui:33
 #, kde-format
 msgid "Name:"
-msgstr ""
+msgstr "שם:"
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, nameEdit)
 #: src/gui/newpinmappingwidget.ui:91
@@ -3707,25 +3707,25 @@ msgstr ""
 #: src/gui/newprojectwidget.ui:23
 #, kde-format
 msgid "Final location:"
-msgstr ""
+msgstr "מקום סופי:"
 
 #. i18n: ectx: property (text), widget (QLabel, locationLabel)
 #: src/gui/newprojectwidget.ui:33
 #, kde-format
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
 #: src/gui/newprojectwidget.ui:59
 #, kde-format
 msgid "Location:"
-msgstr ""
+msgstr "מקום:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/gui/newprojectwidget.ui:74
 #, kde-format
 msgid "New Project Details"
-msgstr ""
+msgstr "פרטי מיזם חדש"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel10)
 #: src/gui/newprojectwidget.ui:84
@@ -3741,12 +3741,12 @@ msgstr ""
 #: src/gui/oscilloscopeview.cpp:108
 #, kde-format
 msgid "Framerate"
-msgstr ""
+msgstr "קצב תמוניות"
 
 #: src/gui/oscilloscopeview.cpp:119
 #, kde-format
 msgid "%1 fps"
-msgstr ""
+msgstr "%1 תמוניות לשנייה"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/gui/oscilloscopewidget.ui:91
@@ -3764,19 +3764,19 @@ msgstr ""
 #: src/gui/outputmethodwidget.ui:54
 #, kde-format
 msgid "Sa&ve to file"
-msgstr ""
+msgstr "שמירה ל&קובץ"
 
 #. i18n: ectx: property (text), widget (QCheckBox, loadFileCheck)
 #: src/gui/outputmethodwidget.ui:73
 #, kde-format
 msgid "Load File in &New View"
-msgstr ""
+msgstr "טעינת קובץ בתצוגה &חדשה"
 
 #. i18n: ectx: property (text), widget (QCheckBox, addToProjectCheck)
 #: src/gui/outputmethodwidget.ui:80
 #, kde-format
 msgid "&Add to Project"
-msgstr ""
+msgstr "הוספה &למיזם"
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
 #: src/gui/picprogrammerconfigwidget.ui:48
@@ -4227,13 +4227,13 @@ msgstr ""
 msgid ""
 "The compiler will optimize code generation towards compact code, possibly at "
 "the expense of code speed."
-msgstr ""
+msgstr "המהדר ימטב את יצירת הקוד לטובת קוד חסכוני, כנראה על חשבון מהירות הקוד."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_opt_code_size)
 #: src/gui/sdccoptionswidget.ui:290
 #, kde-format
 msgid "Opti&mize for compact code (--opt-code-size)"
-msgstr ""
+msgstr "מיטוב לקוד &חסכוני (‎--opt-code-size)"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_opt_code_speed)
 #: src/gui/sdccoptionswidget.ui:297
@@ -4241,13 +4241,13 @@ msgstr ""
 msgid ""
 "The compiler will optimize code generation towards fast code, possibly at "
 "the expense of code size."
-msgstr ""
+msgstr "המהדר ימטב את יצירת הקוד לטובת קוד מהיר, כנראה על חשבון גודל הקוד."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_opt_code_speed)
 #: src/gui/sdccoptionswidget.ui:300
 #, kde-format
 msgid "&Optimize for fast code (--opt-code-speed)"
-msgstr ""
+msgstr "מיטוב ל&קוד מהיר (‎--opt-code-speed)"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_peep_asm)
 #: src/gui/sdccoptionswidget.ui:307
@@ -4281,7 +4281,7 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:347
 #, kde-format
 msgid "Do not use default libraries (--nodefaultlibs)"
-msgstr ""
+msgstr "לא להשתמש בספריות ברירת המחדל (‎--nodefaultlibs)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_pno_banksel)
 #: src/gui/sdccoptionswidget.ui:357
