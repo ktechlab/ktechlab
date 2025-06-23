@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-15 00:45+0000\n"
-"PO-Revision-Date: 2025-06-20 22:40+0300\n"
+"PO-Revision-Date: 2025-06-22 21:42+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -4017,13 +4017,13 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:49
 #, kde-format
 msgid "Do not search in the standard include directory (--nostdinc)"
-msgstr ""
+msgstr "לא לחפש בתיקיית ההכללה/include הרגילה (‎--nostdinc)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_less_pedantic)
 #: src/gui/sdccoptionswidget.ui:59
 #, kde-format
 msgid "Disa&ble pedantic warnings (--less-pedantic)"
-msgstr ""
+msgstr "השבתת אזהרות &קטנוניות (‎--less-pedantic)"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_std_c89)
 #: src/gui/sdccoptionswidget.ui:66
@@ -4031,13 +4031,13 @@ msgstr ""
 msgid ""
 "Follow the C89 standard and disable SDCC features that conflict with the "
 "standard."
-msgstr ""
+msgstr "להיצמד לתקן C89 ולהשבית את יכולות SDCC שסותרות את התקן."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_std_c89)
 #: src/gui/sdccoptionswidget.ui:69
 #, kde-format
 msgid "Use C&89 standard only (--std-c89)"
-msgstr ""
+msgstr "להשתמש בת&קן C89 בלבד (‎--std-c89)"
 
 #. i18n: ectx: property (shortcut), widget (QCheckBox, kcfg_SDCC_std_c89)
 #: src/gui/sdccoptionswidget.ui:72
@@ -4069,7 +4069,7 @@ msgstr "Alt+9"
 #: src/gui/sdccoptionswidget.ui:98
 #, kde-format
 msgid "Use non-free licensed libraries and header files (--use-non-free)"
-msgstr ""
+msgstr "להשתמש בספריות ובקובצי כותרת ברישיון לא חופשי (‎--use-non-free)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, code_generation)
 #: src/gui/sdccoptionswidget.ui:122
@@ -4091,7 +4091,7 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:134
 #, kde-format
 msgid "Stack auto&matic variables (--stack-auto)"
-msgstr ""
+msgstr "&ערימת משתנים אוטומטית (‎--stack-auto)"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_int_long_reent)
 #: src/gui/sdccoptionswidget.ui:144
@@ -4171,7 +4171,7 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:224
 #, kde-format
 msgid "Disable the GCSE optimization (--nogcse)"
-msgstr ""
+msgstr "השבתת מיטובי GCSE‏ (‎--nogcse)"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_nolabelopt)
 #: src/gui/sdccoptionswidget.ui:234
@@ -4183,7 +4183,7 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:237
 #, kde-format
 msgid "Disable label optimi&zation (--nolabelopt)"
-msgstr ""
+msgstr "השבתת מי&טוב תוויות (‎--nolabelopt)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_noinvariant)
 #: src/gui/sdccoptionswidget.ui:244
@@ -4213,13 +4213,13 @@ msgstr "השבתת מיטוב „&חור הצצה”/peep-hole ‏‎(--no-peep)
 #: src/gui/sdccoptionswidget.ui:274
 #, kde-format
 msgid "Will not do loop reversal optimization."
-msgstr ""
+msgstr "לא יבצע מיטוב היפוך לולאה."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_noloopreverse)
 #: src/gui/sdccoptionswidget.ui:277
 #, kde-format
 msgid "Disable loop reverse optimization (--noloopreverse)"
-msgstr ""
+msgstr "השבתת מיטוב היפוך לולאה (‎--noloopreverse)"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_opt_code_size)
 #: src/gui/sdccoptionswidget.ui:287
@@ -4275,7 +4275,7 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:341
 #, kde-format
 msgid "PIC&16 Specific"
-msgstr ""
+msgstr "יי&עודי ל־PIC16"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nodefaultlibs)
 #: src/gui/sdccoptionswidget.ui:347
@@ -4287,7 +4287,7 @@ msgstr "לא להשתמש בספריות ברירת המחדל (‎--nodefaultli
 #: src/gui/sdccoptionswidget.ui:357
 #, kde-format
 msgid "Do not generate BANKSEL directives (--pno-banksel)"
-msgstr ""
+msgstr "לא לייצר הנחיות BANKSEL ‏(‎--pno-banksel)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_pstack_model_large)
 #: src/gui/sdccoptionswidget.ui:367
