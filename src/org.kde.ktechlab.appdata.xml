@@ -16,6 +16,7 @@
   <name xml:lang="eo">KTechlab</name>
   <name xml:lang="es">KTechlab</name>
   <name xml:lang="et">KTechlab</name>
+  <name xml:lang="eu">KTechlab</name>
   <name xml:lang="fr">KTechLab</name>
   <name xml:lang="gl">KTechlab</name>
   <name xml:lang="he">KTechlab</name>
@@ -43,6 +44,7 @@
   <summary xml:lang="eo">IDE por mikroregiloj kaj elektroniko</summary>
   <summary xml:lang="es">IDE para microcontroladores y sistemas electrónicos</summary>
   <summary xml:lang="et">Mikrokontrollerite ja elektroonika arenduskeskkond</summary>
+  <summary xml:lang="eu">Mikrokontrolagailuetarako eta elektronikarako IDEa</summary>
   <summary xml:lang="fr">Environnement de Développement Intégré pour les microcontrôleurs et l'électronique</summary>
   <summary xml:lang="gl">IDE para microcontroladores e compoñentes electrónicos</summary>
   <summary xml:lang="he">סביבת פיתוח משולבת לבקרים מזעריים ואלקטרוניקה</summary>
