@@ -304,6 +304,10 @@ ViewArea::~ViewArea()
     if (p_viewArea2) {
         disconnect(p_viewArea2, &ViewArea::destroyed, this, &ViewArea::viewAreaDestroyed);
     }
+    if (p_view) {
+        View *view = p_view.data();
+        disconnect(view, &View::destroyed, this, &ViewArea::viewDestroyed);
+    }
 }
 
 ViewArea *ViewArea::createViewArea(Position position, uint id, bool showOpenButton)
