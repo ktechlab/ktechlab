@@ -297,6 +297,13 @@ ViewArea::~ViewArea()
 {
     if (m_id >= 0)
         p_viewContainer->setViewAreaRemoved(uint(m_id));
+
+    if (p_viewArea1) {
+        disconnect(p_viewArea1, &ViewArea::destroyed, this, &ViewArea::viewAreaDestroyed);
+    }
+    if (p_viewArea2) {
+        disconnect(p_viewArea2, &ViewArea::destroyed, this, &ViewArea::viewAreaDestroyed);
+    }
 }
 
 ViewArea *ViewArea::createViewArea(Position position, uint id, bool showOpenButton)
