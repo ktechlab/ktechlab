@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-15 00:45+0000\n"
+"POT-Creation-Date: 2025-06-30 00:44+0000\n"
 "PO-Revision-Date: 2024-08-15 06:48+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -4674,7 +4674,7 @@ msgstr "Za pisanje ni bilo mogoče odpreti datoteke z opisi elementa »%1«."
 
 #. i18n("Cancel"), i18n("Cancel the current operation"), Qt::Key_Escape, itemDocument, SLOT(cancelCurrentOperation()) );
 #. pAccel->readSettings(); // TODO what does this do?
-#: src/itemview.cpp:59 src/projectmanager.cpp:1081 src/viewcontainer.cpp:527
+#: src/itemview.cpp:59 src/projectmanager.cpp:1081 src/viewcontainer.cpp:540
 #, kde-format
 msgid "Cancel"
 msgstr "Prekliči"
@@ -5570,12 +5570,12 @@ msgstr "Resnično"
 msgid "False"
 msgstr "Ne velja"
 
-#: src/viewcontainer.cpp:259
+#: src/viewcontainer.cpp:261
 #, kde-format
 msgid "(empty)"
 msgstr "(prazno)"
 
-#: src/viewcontainer.cpp:523
+#: src/viewcontainer.cpp:536
 #, kde-format
 msgid "Open Document"
 msgstr "Odpri dokument"

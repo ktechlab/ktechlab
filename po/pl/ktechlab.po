@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-15 00:45+0000\n"
+"POT-Creation-Date: 2025-06-30 00:44+0000\n"
 "PO-Revision-Date: 2024-08-17 09:40+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -4676,7 +4676,7 @@ msgstr "Nie można otworzyć pliku opisów elementów \"%1\" do zapisu."
 
 #. i18n("Cancel"), i18n("Cancel the current operation"), Qt::Key_Escape, itemDocument, SLOT(cancelCurrentOperation()) );
 #. pAccel->readSettings(); // TODO what does this do?
-#: src/itemview.cpp:59 src/projectmanager.cpp:1081 src/viewcontainer.cpp:527
+#: src/itemview.cpp:59 src/projectmanager.cpp:1081 src/viewcontainer.cpp:540
 #, kde-format
 msgid "Cancel"
 msgstr "Anuluj"
@@ -5569,12 +5569,12 @@ msgstr "Prawda"
 msgid "False"
 msgstr "Fałsz"
 
-#: src/viewcontainer.cpp:259
+#: src/viewcontainer.cpp:261
 #, kde-format
 msgid "(empty)"
 msgstr "(pusty)"
 
-#: src/viewcontainer.cpp:523
+#: src/viewcontainer.cpp:536
 #, kde-format
 msgid "Open Document"
 msgstr "Otwórz dokument"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-15 00:45+0000\n"
+"POT-Creation-Date: 2025-06-30 00:44+0000\n"
 "PO-Revision-Date: 2025-05-14 14:36+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -4527,7 +4527,7 @@ msgstr ""
 
 #. i18n("Cancel"), i18n("Cancel the current operation"), Qt::Key_Escape, itemDocument, SLOT(cancelCurrentOperation()) );
 #. pAccel->readSettings(); // TODO what does this do?
-#: src/itemview.cpp:59 src/projectmanager.cpp:1081 src/viewcontainer.cpp:527
+#: src/itemview.cpp:59 src/projectmanager.cpp:1081 src/viewcontainer.cpp:540
 #, kde-format
 msgid "Cancel"
 msgstr "Cancella"
@@ -5409,12 +5409,12 @@ msgstr "Ver"
 msgid "False"
 msgstr "False"
 
-#: src/viewcontainer.cpp:259
+#: src/viewcontainer.cpp:261
 #, kde-format
 msgid "(empty)"
 msgstr "(Vacue)"
 
-#: src/viewcontainer.cpp:523
+#: src/viewcontainer.cpp:536
 #, kde-format
 msgid "Open Document"
 msgstr "Aperi documento "

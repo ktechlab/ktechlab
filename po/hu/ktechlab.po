@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab 0.3.7\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-15 00:45+0000\n"
+"POT-Creation-Date: 2025-06-30 00:44+0000\n"
 "PO-Revision-Date: 2013-05-19 18:42+0200\n"
 "Last-Translator: Peter Bojtos <ptr@ulx.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -4823,7 +4823,7 @@ msgstr " \"%1\" elem leíró fájl nem nyitható meg írásra."
 
 #. i18n("Cancel"), i18n("Cancel the current operation"), Qt::Key_Escape, itemDocument, SLOT(cancelCurrentOperation()) );
 #. pAccel->readSettings(); // TODO what does this do?
-#: src/itemview.cpp:59 src/projectmanager.cpp:1081 src/viewcontainer.cpp:527
+#: src/itemview.cpp:59 src/projectmanager.cpp:1081 src/viewcontainer.cpp:540
 #, fuzzy, kde-format
 #| msgid "&Cancel"
 msgid "Cancel"
@@ -5734,12 +5734,12 @@ msgstr "Igaz"
 msgid "False"
 msgstr "Hamis"
 
-#: src/viewcontainer.cpp:259
+#: src/viewcontainer.cpp:261
 #, kde-format
 msgid "(empty)"
 msgstr "(üres)"
 
-#: src/viewcontainer.cpp:523
+#: src/viewcontainer.cpp:536
 #, kde-format
 msgid "Open Document"
 msgstr "Dokumentum megnyitása"
