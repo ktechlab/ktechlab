@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-06-22 21:42+0300\n"
+"PO-Revision-Date: 2025-07-04 17:24+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.04.1\n"
+"X-Generator: Lokalize 25.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3574,12 +3574,12 @@ msgstr ""
 #: src/gui/microsettingsdlg.cpp:109
 #, kde-format
 msgid "Type (TRIS register):"
-msgstr ""
+msgstr "סוג (אוגר TRIS):"
 
 #: src/gui/microsettingsdlg.cpp:110
 #, kde-format
 msgid "State (PORT register):"
-msgstr ""
+msgstr "מצב (אוגר PORT):"
 
 #: src/gui/microsettingsdlg.cpp:132
 #, kde-format
@@ -3595,23 +3595,23 @@ msgstr "ערך משתנה"
 #: src/gui/microsettingsdlg.cpp:259 src/gui/newpinmappingwidget.ui:48
 #, kde-format
 msgid "New Pin Mapping"
-msgstr ""
+msgstr "מיפוי פינים חדש"
 
 #. i18n: ectx: property (text), widget (QPushButton, pinMapAdd)
 #: src/gui/microsettingsdlg.cpp:266 src/gui/microsettingswidget.ui:132
 #, kde-format
 msgid "Create"
-msgstr ""
+msgstr "יצירה"
 
 #: src/gui/microsettingsdlg.cpp:331
 #, kde-format
 msgid "New Pin Map Name"
-msgstr ""
+msgstr "שם חדש למיפוי פינים"
 
 #: src/gui/microsettingsdlg.cpp:449
 #, kde-format
 msgid "Invalid variable value: %1"
-msgstr ""
+msgstr "ערך המשתנה שגוי: %1"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/gui/microsettingswidget.ui:45
@@ -3675,7 +3675,7 @@ msgstr "סוג קובץ:"
 #: src/gui/newfilewidget.ui:129
 #, kde-format
 msgid "&Add to project"
-msgstr ""
+msgstr "הוס&פה למיזם"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/gui/newpinmappingwidget.ui:33
@@ -3695,13 +3695,13 @@ msgstr ""
 #: src/gui/newpinmappingwidget.ui:110
 #, kde-format
 msgid "Keypad (4x3)"
-msgstr ""
+msgstr "לוח מקשים (‎4×3)"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, typeCombo)
 #: src/gui/newpinmappingwidget.ui:115
 #, kde-format
 msgid "Keypad (4x4)"
-msgstr ""
+msgstr "לוח מקשים (‎4×4)"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel8)
 #: src/gui/newprojectwidget.ui:23
@@ -3736,7 +3736,7 @@ msgstr "שם מיזם:"
 #: src/gui/oscilloscope.cpp:324
 #, kde-format
 msgid "Oscilloscope"
-msgstr ""
+msgstr "משקף תנודות"
 
 #: src/gui/oscilloscopeview.cpp:108
 #, kde-format
@@ -3758,7 +3758,7 @@ msgstr ""
 #: src/gui/outputmethodwidget.ui:44
 #, kde-format
 msgid "Displa&y directly"
-msgstr ""
+msgstr "הצגה י&שירות"
 
 #. i18n: ectx: property (text), widget (QRadioButton, saveFileCheck)
 #: src/gui/outputmethodwidget.ui:54
@@ -3848,7 +3848,7 @@ msgstr "אימות:"
 #: src/gui/picprogrammerconfigwidget.ui:187
 #, kde-format
 msgid "Blank Check:"
-msgstr ""
+msgstr "בדיקת ריקים:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/gui/picprogrammerconfigwidget.ui:202
@@ -3987,19 +3987,19 @@ msgstr ""
 #: src/gui/scopescreenwidget.ui:36
 #, kde-format
 msgid "Intervals"
-msgstr ""
+msgstr "מרווחים"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: src/gui/scopescreenwidget.ui:88
 #, kde-format
 msgid "Ticks per Interval"
-msgstr ""
+msgstr "שנתות למרווח זמן"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
 #: src/gui/scopescreenwidget.ui:134
 #, kde-format
 msgid "Offset (ticks)"
-msgstr ""
+msgstr "היסט (שנתות)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, general)
 #: src/gui/sdccoptionswidget.ui:36
