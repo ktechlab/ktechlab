@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-07-04 17:24+0300\n"
+"PO-Revision-Date: 2025-07-06 10:52+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -2657,7 +2657,7 @@ msgstr "קריאת %1 אל %2"
 #: src/flowparts/pinmapping.cpp:55
 #, kde-format
 msgid "Pin Map Editor"
-msgstr ""
+msgstr "עורך מפת פינים"
 
 #: src/flowparts/pulse.cpp:25 src/flowparts/pulse.cpp:31
 #, kde-format
@@ -2667,7 +2667,7 @@ msgstr ""
 #: src/flowparts/pulse.cpp:37
 #, kde-format
 msgid "Duration"
-msgstr ""
+msgstr "משך"
 
 #: src/flowparts/pulse.cpp:63
 #, kde-format
@@ -2683,29 +2683,29 @@ msgstr ""
 #: src/flowparts/readport.cpp:30 src/flowparts/readport.cpp:37
 #, kde-format
 msgid "Read from Port"
-msgstr ""
+msgstr "קריאה מפתחה"
 
 #: src/flowparts/readport.cpp:43
 #, kde-format
 msgid "Read"
-msgstr ""
+msgstr "קריאה"
 
 #: src/flowparts/readport.cpp:48
 #, kde-format
 msgctxt "read from port to x"
 msgid "to"
-msgstr ""
+msgstr "אל"
 
 #: src/flowparts/repeat.cpp:26 src/flowparts/repeat.cpp:32
 #, kde-format
 msgid "Repeat"
-msgstr ""
+msgstr "חזרה"
 
 #: src/flowparts/repeat.cpp:43 src/flowparts/unary.cpp:42
 #: src/flowparts/varcomparison.cpp:50 src/flowparts/while.cpp:43
 #, kde-format
 msgid "Operation"
-msgstr ""
+msgstr "פעולה"
 
 #: src/flowparts/repeat.cpp:53 src/flowparts/varassignment.cpp:43
 #: src/flowparts/varcomparison.cpp:54 src/flowparts/while.cpp:53
@@ -2714,32 +2714,32 @@ msgstr ""
 #: src/gui/symbolviewer.cpp:194
 #, kde-format
 msgid "Value"
-msgstr ""
+msgstr "ערך"
 
 #: src/flowparts/repeat.cpp:63
 #, kde-format
 msgid "repeat until %1 %2 %3"
-msgstr ""
+msgstr "חזרה עד %1 %2 %3"
 
 #: src/flowparts/setpin.cpp:28 src/flowparts/setpin.cpp:35
 #, kde-format
 msgid "Set Pin State"
-msgstr ""
+msgstr "הגדרת מצב פין"
 
 #: src/flowparts/setpin.cpp:41
 #, kde-format
 msgid "State"
-msgstr ""
+msgstr "מצב"
 
 #: src/flowparts/setpin.cpp:56
 #, kde-format
 msgid "Set %1 %2"
-msgstr ""
+msgstr "הגדרת %1 %2"
 
 #: src/flowparts/sevenseg.cpp:32
 #, kde-format
 msgid "SevenSeg"
-msgstr ""
+msgstr "שבעה מקטעים"
 
 #: src/flowparts/sevenseg.cpp:51
 #, kde-format
@@ -2750,7 +2750,7 @@ msgstr ""
 #: src/flowparts/start.cpp:35
 #, kde-format
 msgid "Start"
-msgstr ""
+msgstr "התחלה"
 
 #: src/flowparts/sub.cpp:32
 #, kde-format
@@ -2760,13 +2760,13 @@ msgstr ""
 #: src/flowparts/testpin.cpp:26 src/flowparts/testpin.cpp:32
 #, kde-format
 msgid "Test Pin State"
-msgstr ""
+msgstr "בדיקת מצב פין"
 
 #: src/flowparts/unary.cpp:26 src/flowparts/varassignment.cpp:26
 #: src/flowparts/varcomparison.cpp:26
 #, kde-format
 msgid "Variables"
-msgstr ""
+msgstr "משתנים"
 
 #: src/flowparts/unary.cpp:26 src/flowparts/unary.cpp:32
 #, kde-format
@@ -2796,22 +2796,22 @@ msgstr ""
 #: src/flowparts/varassignment.cpp:26
 #, kde-format
 msgid "Assignment"
-msgstr ""
+msgstr "הקצאה"
 
 #: src/flowparts/varassignment.cpp:32
 #, kde-format
 msgid "Variable Assignment"
-msgstr ""
+msgstr "הקצאת משתנים"
 
 #: src/flowparts/varcomparison.cpp:26
 #, kde-format
 msgid "Comparison"
-msgstr ""
+msgstr "השוואה"
 
 #: src/flowparts/varcomparison.cpp:32
 #, kde-format
 msgid "Variable Comparison"
-msgstr ""
+msgstr "השוואת משתנים"
 
 #: src/flowparts/while.cpp:26 src/flowparts/while.cpp:32
 #, kde-format
@@ -2826,23 +2826,23 @@ msgstr ""
 #: src/flowparts/writeport.cpp:26 src/flowparts/writeport.cpp:32
 #, kde-format
 msgid "Write to Port"
-msgstr ""
+msgstr "כתיבה לפתחה"
 
 #: src/flowparts/writeport.cpp:38
 #, kde-format
 msgid "Write"
-msgstr ""
+msgstr "כתיבה"
 
 #: src/flowparts/writeport.cpp:43
 #, kde-format
 msgctxt "write to port"
 msgid "to"
-msgstr ""
+msgstr "אל"
 
 #: src/flowparts/writeport.cpp:54
 #, kde-format
 msgid "Write %1 to %2"
-msgstr ""
+msgstr "כתיבת %1 אל %2"
 
 #. i18n: ectx: property (whatsThis), widget (QWidget, AsmFormattingWidget)
 #: src/gui/asmformattingwidget.ui:14
@@ -2868,13 +2868,13 @@ msgstr ""
 #: src/gui/asmformattingwidget.ui:48
 #, kde-format
 msgid "Instruction Data"
-msgstr ""
+msgstr "נתוני הנחיות"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel9)
 #: src/gui/asmformattingwidget.ui:58
 #, kde-format
 msgid "Comment"
-msgstr ""
+msgstr "הערה"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel10)
 #: src/gui/asmformattingwidget.ui:68
@@ -2904,12 +2904,12 @@ msgstr ""
 #: src/gui/contexthelp.cpp:249 src/gui/itemeditor/itemeditor.cpp:141
 #, kde-format
 msgid "No Item Selected"
-msgstr ""
+msgstr "לא נבחרו פריטים"
 
 #: src/gui/contexthelp.cpp:259 src/gui/itemeditor/itemeditor.cpp:108
 #, kde-format
 msgid "Multiple Items"
-msgstr ""
+msgstr "ריבוי פריטים"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, m_pResetButton)
 #. i18n: ectx: property (text), widget (QPushButton, resetBtn)
@@ -2922,7 +2922,7 @@ msgstr "איפוס"
 #: src/gui/contexthelp.cpp:335
 #, kde-format
 msgid "Reset item help to last saved changes?"
-msgstr ""
+msgstr "לאפס את עזרת הפריט לשינויים האחרונים שנשמרו?"
 
 #: src/gui/contexthelp.cpp:355
 #, kde-format
@@ -2939,69 +2939,69 @@ msgstr "עריכה"
 #: src/gui/contexthelpwidget.ui:138
 #, kde-format
 msgid "Context Help Directory"
-msgstr ""
+msgstr "ספריית עזרה לפי הקשר"
 
 #. i18n: ectx: property (text), widget (QToolButton, m_pChangeDescriptionsDirectory)
 #. i18n: ectx: property (text), widget (QToolButton, m_pResetButton)
 #: src/gui/contexthelpwidget.ui:141 src/gui/contexthelpwidget.ui:176
 #, kde-format
 msgid "..."
-msgstr ""
+msgstr "…"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_pSaveButton)
 #: src/gui/contexthelpwidget.ui:183
 #, kde-format
 msgid "S&ave"
-msgstr ""
+msgstr "&שמירה"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/gui/createsubprojectwidget.ui:28
 #, kde-format
 msgid "Subproject Details"
-msgstr ""
+msgstr "פרטי תת־מיזם"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: src/gui/createsubprojectwidget.ui:38
 #, kde-format
 msgid "Target File:"
-msgstr ""
+msgstr "קובץ יעד:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
 #: src/gui/createsubprojectwidget.ui:48 src/gui/newpinmappingwidget.ui:23
 #, kde-format
 msgid "Type:"
-msgstr ""
+msgstr "סוג:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, m_typeCombo)
 #: src/gui/createsubprojectwidget.ui:64
 #, kde-format
 msgid "Library"
-msgstr ""
+msgstr "ספרייה"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ReuseSameViewForOutput)
 #: src/gui/generaloptionswidget.ui:29
 #, kde-format
 msgid "Reuse the same output view for code generation"
-msgstr ""
+msgstr "להשתמש שוב באותה תצוגת הפלט ליצירת קוד"
 
 #. i18n: ectx: property (toolTip), widget (KColorButton, kcfg_GridColor)
 #: src/gui/generaloptionswidget.ui:52
 #, kde-format
 msgid "The grid color in the work area."
-msgstr ""
+msgstr "צבע הרשת באזור העבודה."
 
 #. i18n: ectx: property (text), widget (KColorButton, kcfg_GridColor)
 #: src/gui/generaloptionswidget.ui:55
 #, kde-format
 msgid "Grid Colour"
-msgstr ""
+msgstr "צבע רשת"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowGrid)
 #: src/gui/generaloptionswidget.ui:62
 #, kde-format
 msgid "Show &grid:"
-msgstr ""
+msgstr "הצגת &רשת:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, textLabel1)
 #: src/gui/generaloptionswidget.ui:85
@@ -3125,6 +3125,9 @@ msgid ""
 "programmers required a DOS formatted file. This option will cause gpasm to "
 "generate a DOS formatted hex file. "
 msgstr ""
+"כברירת מחדל, gpasm מייצר קבצים הקסדצימליים בתבנית ISO. למרות זאת, חלק מצורבי "
+"ההתקנים דורשים קובץ בתבנית DOS. האפשרות הזאת תגרום ל־gpasm לייצר קובץ "
+"הקסדצימלי בתבנית DOS."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DosFormat)
 #: src/gui/gpasmsettingswidget.ui:75
@@ -3831,6 +3834,12 @@ msgid ""
 "<li><b>%file</b> - File to read from or write to</li>\n"
 "</ul>"
 msgstr ""
+"המחרוזות הבאות תוחלפנה בעת הרצת הפקודה:\n"
+"<ul>\n"
+"<li><b>‎%port</b> - פתחה שאליה מחובר הצורב</li>\n"
+"<li><b>‎%device</b> - התקן PIC</li>\n"
+"<li><b>‎%file</b> - קובץ לקרוא ממנו או לכתוב אליו</li>\n"
+"</ul>"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel5)
 #: src/gui/picprogrammerconfigwidget.ui:167
