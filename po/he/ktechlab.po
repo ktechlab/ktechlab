@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-07-06 10:52+0300\n"
+"PO-Revision-Date: 2025-07-09 22:53+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.04.2\n"
+"X-Generator: Lokalize 25.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3210,26 +3210,26 @@ msgstr ""
 #: src/gui/gpasmsettingswidget.ui:171
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "הכול"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_GpasmWarningLevel)
 #: src/gui/gpasmsettingswidget.ui:176
 #, kde-format
 msgid "Warnings"
-msgstr ""
+msgstr "אזהרות"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_GpasmWarningLevel)
 #: src/gui/gpasmsettingswidget.ui:181
 #, kde-format
 msgid "Errors"
-msgstr ""
+msgstr "שגיאות"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: src/gui/gpasmsettingswidget.ui:237 src/gui/sdccoptionswidget.ui:449
 #, kde-format
 msgid "Other options:"
-msgstr ""
+msgstr "אפשרויות אחרות:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_gplink_link_shared)
 #: src/gui/gplinksettingswidget.ui:26
@@ -3241,37 +3241,37 @@ msgstr ""
 #: src/itemdocument.cpp:856
 #, kde-format
 msgid "Export As Image"
-msgstr ""
+msgstr "ייצוא כתמונה"
 
 #: src/gui/imageexportdlg.cpp:45
 #, kde-format
 msgid "Format:"
-msgstr ""
+msgstr "תבנית:"
 
 #: src/gui/imageexportdlg.cpp:51
 #, kde-format
 msgid "File name:"
-msgstr ""
+msgstr "שם קובץ:"
 
 #: src/gui/imageexportdlg.cpp:57
 #, kde-format
 msgid "Crop image:"
-msgstr ""
+msgstr "חיתוך תמונה:"
 
 #: src/gui/imageexportdlg.cpp:64
 #, kde-format
 msgid "Export"
-msgstr ""
+msgstr "ייצוא"
 
 #: src/gui/itemeditor/componentmodelwidget.cpp:51
 #, kde-format
 msgid "Filter here..."
-msgstr ""
+msgstr "סינון מכאן…"
 
 #: src/gui/itemeditor/componentmodelwidget.cpp:61
 #, kde-format
 msgid "Clear filter"
-msgstr ""
+msgstr "פינוי מסנן"
 
 #: src/gui/itemeditor/componentmodelwidget.cpp:62
 #, kde-format
@@ -3312,44 +3312,44 @@ msgstr ""
 #: src/gui/itemeditor/propertyeditoritem.cpp:106
 #, kde-format
 msgid "Yes"
-msgstr ""
+msgstr "כן"
 
 #: src/gui/itemeditor/propertyeditor.cpp:180
 #: src/gui/itemeditor/propertyeditorinput.cpp:194
 #: src/gui/itemeditor/propertyeditoritem.cpp:111
 #, kde-format
 msgid "No"
-msgstr ""
+msgstr "לא"
 
 #: src/gui/itemeditor/propertyeditor.cpp:256
 #, kde-format
 msgid "Property"
-msgstr ""
+msgstr "מאפיין"
 
 #: src/gui/itemeditor/propertyeditor.cpp:287
 #, kde-format
 msgid "Undo changes"
-msgstr ""
+msgstr "הסגת השינויים"
 
 #: src/gui/itemeditor/propertyeditorfile.cpp:36
 #, kde-format
 msgid " ... "
-msgstr ""
+msgstr " … "
 
 #: src/gui/itemeditor/propertyeditorfile.cpp:52
 #, kde-format
 msgid "Choose File"
-msgstr ""
+msgstr "בחירת קובץ"
 
 #: src/gui/itemselector.cpp:62 src/gui/itemselector.cpp:409
 #, kde-format
 msgid "Component"
-msgstr ""
+msgstr "רכיב"
 
 #: src/gui/itemselector.cpp:266
 #, kde-format
 msgid "Remove %1"
-msgstr ""
+msgstr "הסרת %1"
 
 #: src/gui/itemselector.cpp:403
 #, kde-format
@@ -3378,7 +3378,7 @@ msgstr ""
 #: src/gui/itemselector.cpp:468
 #, kde-format
 msgid "Add mechanical parts to the mechanics work area by dragging them there."
-msgstr ""
+msgstr "אפשר להוסיף חלקים מכניים לאזור העבודה המכנית על ידי גרירתם לכאן."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: src/gui/linkeroptionswidget.ui:56
@@ -3390,25 +3390,25 @@ msgstr ""
 #: src/gui/linkeroptionswidget.ui:79
 #, kde-format
 msgid "&Output a map file (-m)"
-msgstr ""
+msgstr "&פלט קובץ מפה (‎-m)"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel8)
 #: src/gui/linkeroptionswidget.ui:86
 #, kde-format
 msgid "Linker Script (-s):"
-msgstr ""
+msgstr "סקריפט מקשר (‎-s):"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
 #: src/gui/linkeroptionswidget.ui:102
 #, kde-format
 msgid "Other:"
-msgstr ""
+msgstr "אחר:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
 #: src/gui/linkeroptionswidget.ui:116
 #, kde-format
 msgid "Link libraries inside project"
-msgstr ""
+msgstr "קישור ספריות בתוך מיזם"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_3)
 #: src/gui/logicwidget.ui:31
@@ -3448,7 +3448,7 @@ msgstr ""
 #: src/gui/logicwidget.ui:170
 #, kde-format
 msgid " V"
-msgstr ""
+msgstr " וולט"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, textLabel2_2)
 #. i18n: ectx: property (toolTip), widget (QDoubleSpinBox, kcfg_LogicFallingTrigger)
