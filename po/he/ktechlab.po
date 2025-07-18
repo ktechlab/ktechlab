@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-07-09 22:53+0300\n"
+"PO-Revision-Date: 2025-07-17 10:54+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -2856,7 +2856,7 @@ msgstr ""
 #: src/gui/asmformattingwidget.ui:32
 #, kde-format
 msgid "Output Code Indentation"
-msgstr ""
+msgstr "הזחת קוד הפלט"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel11)
 #: src/gui/asmformattingwidget.ui:38
@@ -2886,7 +2886,7 @@ msgstr ""
 #: src/gui/asmformattingwidget.ui:78
 #, kde-format
 msgid "Instruction Name"
-msgstr ""
+msgstr "שם הנחיה"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoFormatMBOutput)
 #: src/gui/asmformattingwidget.ui:162
@@ -3015,43 +3015,43 @@ msgstr ""
 #: src/gui/generaloptionswidget.ui:88
 #, kde-format
 msgid "Maximum undo steps for work area:"
-msgstr ""
+msgstr "צעדי הסגה מרביים לאזור העבודה:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowVoltageBars)
 #: src/gui/generaloptionswidget.ui:98
 #, kde-format
 msgid "Show voltage bars &on electronic components"
-msgstr ""
+msgstr "להציג עמודות מתח על &רכיבים אלקטרוניים"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowVoltageColor)
 #: src/gui/generaloptionswidget.ui:105
 #, kde-format
 msgid "Color the wires to match the voltage"
-msgstr ""
+msgstr "לצבוע את החוטים כדי להתאים למתח"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateWires)
 #: src/gui/generaloptionswidget.ui:115
 #, kde-format
 msgid "Animate wires to show the current or power flow"
-msgstr ""
+msgstr "הנפשת החוטים כדי להציג את הזרם או זרימת החשמל"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox21)
 #: src/gui/generaloptionswidget.ui:125
 #, kde-format
 msgid "Display Refresh Rate"
-msgstr ""
+msgstr "קצב ריענון תצוגה"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3_2)
 #: src/gui/generaloptionswidget.ui:152
 #, kde-format
 msgid "Refresh rate:"
-msgstr ""
+msgstr "קצב ריענון:"
 
 #. i18n: ectx: property (text), widget (QLabel, refreshRateLabel)
 #: src/gui/generaloptionswidget.ui:162
 #, kde-format
 msgid "Medium (50 FPS)"
-msgstr ""
+msgstr "בינוני (50 תמוניות לשנייה)"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel9_2)
 #: src/gui/generaloptionswidget.ui:180
@@ -3060,18 +3060,20 @@ msgid ""
 "This is the number of times per second that the work area view is updated; a "
 "compromise between CPU usage and smoothness of display."
 msgstr ""
+"זה מספר הפעמים בשנייה שאזור העבודה מתעדכן, פשרה בין עומס על המעבד וחלקלקות "
+"התצוגה."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
 #: src/gui/generaloptionswidget.ui:202
 #, kde-format
 msgid "Convenience"
-msgstr ""
+msgstr "נוחות"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RestoreDocumentsOnStartup)
 #: src/gui/generaloptionswidget.ui:208
 #, kde-format
 msgid "Restore opened doc&uments on startup"
-msgstr ""
+msgstr "שחזור מסמכים &פתוחים עם ההפעלה"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RaiseItemSelectors)
 #: src/gui/generaloptionswidget.ui:215
