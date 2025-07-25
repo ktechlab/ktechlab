@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-07-17 10:54+0300\n"
+"PO-Revision-Date: 2025-07-24 11:32+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -3757,7 +3757,7 @@ msgstr "%1 תמוניות לשנייה"
 #: src/gui/oscilloscopewidget.ui:91
 #, kde-format
 msgid "Time Zoom"
-msgstr ""
+msgstr "תקריב זמן"
 
 #. i18n: ectx: property (text), widget (QRadioButton, displayDirectCheck)
 #: src/gui/outputmethodwidget.ui:44
