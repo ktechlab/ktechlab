@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-07-24 11:32+0300\n"
+"PO-Revision-Date: 2025-07-26 09:42+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -4310,13 +4310,13 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:374
 #, kde-format
 msgid "Show more debug info in assembl&y output (--debug-xtra)"
-msgstr ""
+msgstr "הצגת פרטי ניפוי &שגיאות נוספים בפלט האסמבלי (‎--debug-xtra)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_denable_peeps)
 #: src/gui/sdccoptionswidget.ui:381
 #, kde-format
 msgid "E&xplicit enable of peepholes (--denable-peeps)"
-msgstr ""
+msgstr "הפעלה מפורשת של &חורי הצצה (‎--denable-peeps)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_calltree)
 #: src/gui/sdccoptionswidget.ui:388
@@ -4328,7 +4328,7 @@ msgstr "להטיל את עץ הקריאות לקובץ ‎.calltree‏ (‎--cal
 #: src/gui/sdccoptionswidget.ui:395
 #, kde-format
 msgid "Ena&ble stack optimizations (--fstack)"
-msgstr ""
+msgstr "הפעלת מיטובי &ערימה (‎--fstack)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_optimize_goto)
 #: src/gui/sdccoptionswidget.ui:402
@@ -4388,7 +4388,7 @@ msgstr "מעצב אסמבלי"
 #: src/gui/settingsdlg.cpp:136
 #, kde-format
 msgid "Electronic Logic Values"
-msgstr ""
+msgstr "רכיבים לוגיים אלקטרוניים"
 
 #: src/gui/settingsdlg.cpp:177
 #, kde-format
