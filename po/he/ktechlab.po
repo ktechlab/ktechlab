@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-07-26 09:42+0300\n"
+"PO-Revision-Date: 2025-07-28 09:20+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -3663,6 +3663,15 @@ msgid ""
 "Creates a new circuit, with drag and drop editor. Real time simulation of "
 "the circuit occurs automatically."
 msgstr ""
+"נא לבחור את סוג הקובץ ליצירה.<br>\n"
+"<p>\n"
+"<b>תוכנית Pic</b><br>\n"
+"יצירת תוכנית PIC חדשה עם עורך תרשים זרימה. נא לבחור את התקן היעד לתוכנית שלך "
+"להלן.\n"
+"<p>\n"
+"<b>מעגל</b><br>\n"
+"יצירת מעגל חדש, עם עורך עצמים בגרירה. הדמיה של המעגל בזמן אמת מתרחשת "
+"אוטומטית."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/gui/newfilewidget.ui:72
@@ -5127,6 +5136,8 @@ msgid ""
 "KTechlab was unable to find the \"Start\" part.\n"
 "This must be included as the starting point for your program."
 msgstr ""
+"KTechlab לא הצליח למצוא את החלק „Start”.\n"
+"יש לכלול אותו בנקודת ההתחלה של התוכנית שלך."
 
 #: src/languages/gpasm.cpp:27
 #, kde-format
