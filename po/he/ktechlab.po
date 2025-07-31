@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-07-28 09:20+0300\n"
+"PO-Revision-Date: 2025-07-30 09:17+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -2117,6 +2117,9 @@ msgid ""
 "program\n"
 "loaded)"
 msgstr ""
+"(לא\n"
+"נטענה\n"
+"תוכנית)"
 
 #: src/electronics/components/probe.cpp:59
 #, kde-format
@@ -2126,34 +2129,34 @@ msgstr ""
 #: src/electronics/components/probe.cpp:61
 #, kde-format
 msgid "Linear"
-msgstr ""
+msgstr "קווי"
 
 #: src/electronics/components/probe.cpp:62
 #, kde-format
 msgid "Logarithmic"
-msgstr ""
+msgstr "לוגריתמי"
 
 #: src/electronics/components/probe.cpp:68
 #, kde-format
 msgid "Upper Absolute Value"
-msgstr ""
+msgstr "ערך מוחלט עליון"
 
 #: src/electronics/components/probe.cpp:75
 #, kde-format
 msgid "Lower Absolute Value"
-msgstr ""
+msgstr "ערך מוחלט תחתון"
 
 #: src/electronics/components/probe.cpp:135
 #: src/electronics/components/probe.cpp:141
 #, kde-format
 msgid "Voltage Probe"
-msgstr ""
+msgstr "חיישן מתח"
 
 #: src/electronics/components/probe.cpp:167
 #: src/electronics/components/probe.cpp:173
 #, kde-format
 msgid "Current Probe"
-msgstr ""
+msgstr "חיישן זרם"
 
 #: src/electronics/components/probe.cpp:207
 #: src/electronics/components/probe.cpp:213
@@ -2179,7 +2182,7 @@ msgstr ""
 #: src/electronics/components/toggleswitch.cpp:304
 #, kde-format
 msgid "Button Text"
-msgstr ""
+msgstr "טקסט כפתור"
 
 #: src/electronics/components/pushswitch.cpp:45
 #, kde-format
@@ -2744,7 +2747,7 @@ msgstr "שבעה מקטעים"
 #: src/flowparts/sevenseg.cpp:51
 #, kde-format
 msgid "Display %1 on %2"
-msgstr ""
+msgstr "תצוגת %1 על %2"
 
 #: src/flowparts/start.cpp:26 src/flowparts/start.cpp:32
 #: src/flowparts/start.cpp:35
@@ -2776,22 +2779,22 @@ msgstr ""
 #: src/flowparts/unary.cpp:44
 #, kde-format
 msgid "Rotate Left"
-msgstr ""
+msgstr "סיבוב שמאלה"
 
 #: src/flowparts/unary.cpp:45
 #, kde-format
 msgid "Rotate Right"
-msgstr ""
+msgstr "סיבוב ימינה"
 
 #: src/flowparts/unary.cpp:46
 #, kde-format
 msgid "Increment"
-msgstr ""
+msgstr "הגדלה"
 
 #: src/flowparts/unary.cpp:47
 #, kde-format
 msgid "Decrement"
-msgstr ""
+msgstr "הקטנה"
 
 #: src/flowparts/varassignment.cpp:26
 #, kde-format
@@ -2816,12 +2819,12 @@ msgstr "השוואת משתנים"
 #: src/flowparts/while.cpp:26 src/flowparts/while.cpp:32
 #, kde-format
 msgid "While"
-msgstr ""
+msgstr "כל-עוד"
 
 #: src/flowparts/while.cpp:63
 #, kde-format
 msgid "while %1 %2 %3"
-msgstr ""
+msgstr "כל-עוד %1 %2 %3"
 
 #: src/flowparts/writeport.cpp:26 src/flowparts/writeport.cpp:32
 #, kde-format
@@ -2899,7 +2902,7 @@ msgstr ""
 msgid ""
 "Provides context-sensitive help relevant to the current editing being "
 "performed."
-msgstr ""
+msgstr "אספקת עזרה תלוית הקשר לעריכה שמתבצעת באותו הרגע."
 
 #: src/gui/contexthelp.cpp:249 src/gui/itemeditor/itemeditor.cpp:141
 #, kde-format
@@ -3091,19 +3094,19 @@ msgstr ""
 #: src/gui/gpasmsettingswidget.ui:32
 #, kde-format
 msgid "Radix (-r):"
-msgstr ""
+msgstr "בסיס (‎-r):"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel3)
 #: src/gui/gpasmsettingswidget.ui:42
 #, kde-format
 msgid "Warning level (-w):"
-msgstr ""
+msgstr "רמת אזהרה (‎-w):"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/gui/gpasmsettingswidget.ui:52 src/gui/linkeroptionswidget.ui:69
 #, kde-format
 msgid "Hex Format (-a):"
-msgstr ""
+msgstr "תבנית הקסדצימלית (‎-a):"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_IgnoreCase)
 #: src/gui/gpasmsettingswidget.ui:62
@@ -3117,7 +3120,7 @@ msgstr ""
 #: src/gui/gpasmsettingswidget.ui:65
 #, kde-format
 msgid "Ign&ore case (-i)"
-msgstr ""
+msgstr "התעלמות מ&רישיות (‎-i)"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_DosFormat)
 #: src/gui/gpasmsettingswidget.ui:72
@@ -3135,7 +3138,7 @@ msgstr ""
 #: src/gui/gpasmsettingswidget.ui:75
 #, kde-format
 msgid "Generate DOS-formatted hex file (-&n)"
-msgstr ""
+msgstr "יצירת קובץ &הקסדצימלי בתבנית DOS‏ (‎-n)"
 
 #. i18n: ectx: property (toolTip), widget (QComboBox, kcfg_HexFormat)
 #. i18n: ectx: property (toolTip), widget (KComboBox, m_pHexFormat)
@@ -3151,52 +3154,52 @@ msgstr ""
 #: src/gui/gpasmsettingswidget.ui:108 src/gui/linkeroptionswidget.ui:33
 #, kde-format
 msgid "inhx32"
-msgstr ""
+msgstr "inhx32"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_HexFormat)
 #. i18n: ectx: property (text), item, widget (KComboBox, m_pHexFormat)
 #: src/gui/gpasmsettingswidget.ui:113 src/gui/linkeroptionswidget.ui:38
 #, kde-format
 msgid "inhx8m"
-msgstr ""
+msgstr "inhx8m"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_HexFormat)
 #. i18n: ectx: property (text), item, widget (KComboBox, m_pHexFormat)
 #: src/gui/gpasmsettingswidget.ui:118 src/gui/linkeroptionswidget.ui:43
 #, kde-format
 msgid "inhx8s"
-msgstr ""
+msgstr "inhx8s"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_HexFormat)
 #. i18n: ectx: property (text), item, widget (KComboBox, m_pHexFormat)
 #: src/gui/gpasmsettingswidget.ui:123 src/gui/linkeroptionswidget.ui:48
 #, kde-format
 msgid "inhx16"
-msgstr ""
+msgstr "inhx16"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_Radix)
 #: src/gui/gpasmsettingswidget.ui:138 src/gui/symbolviewer.cpp:110
 #, kde-format
 msgid "Decimal"
-msgstr ""
+msgstr "עשרוני"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_Radix)
 #: src/gui/gpasmsettingswidget.ui:143 src/gui/symbolviewer.cpp:108
 #, kde-format
 msgid "Binary"
-msgstr ""
+msgstr "בינרי"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_Radix)
 #: src/gui/gpasmsettingswidget.ui:148 src/gui/symbolviewer.cpp:109
 #, kde-format
 msgid "Octal"
-msgstr ""
+msgstr "אוקטלי"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_Radix)
 #: src/gui/gpasmsettingswidget.ui:153 src/gui/symbolviewer.cpp:111
 #, kde-format
 msgid "Hexadecimal"
-msgstr ""
+msgstr "הקסדצימלי"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, kcfg_GpasmWarningLevel)
 #: src/gui/gpasmsettingswidget.ui:167
