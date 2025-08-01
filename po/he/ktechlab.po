@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-07-30 09:17+0300\n"
+"PO-Revision-Date: 2025-07-31 14:15+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -3511,7 +3511,7 @@ msgstr ""
 #: src/gui/logicwidget.ui:202
 #, kde-format
 msgid "Low Output Impedance:"
-msgstr ""
+msgstr "עכבה חשמלית של פלט חלש:"
 
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_LogicOutputLowImpedance)
 #: src/gui/logicwidget.ui:240
@@ -3528,12 +3528,16 @@ msgid ""
 "These values will apply to all components, apart from the PIC, whose pins' "
 "impedances depend on the pin in use."
 msgstr ""
+"כאן אפשר להגדיר את התנהגות הרכיבים הלוגיים.\n"
+"\n"
+"הערכים האלו חלים על כל הרכיבים, למעט ה־PIC שהעכבה החשמלית של הפינים שלו "
+"תלויה בשימוש בפינים."
 
 #. i18n("Clear All"), this, SLOT(clear()) ); // 2018.12.07
 #: src/gui/logview.cpp:121
 #, kde-format
 msgid "Clear All"
-msgstr ""
+msgstr "פינוי של הכול"
 
 #: src/gui/microselectwidget.cpp:29
 #, kde-format
@@ -3558,7 +3562,7 @@ msgstr "הגדרות PIC"
 #: src/gui/microsettingsdlg.cpp:70
 #, kde-format
 msgid "This dialog allows editing of the initial properties of the PIC"
-msgstr ""
+msgstr "החלונית הזאת מאפשרת לערוך את המאפיינים הראשוניים של ה־PIC"
 
 #: src/gui/microsettingsdlg.cpp:72
 #, kde-format
@@ -4292,7 +4296,7 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:317
 #, kde-format
 msgid "Do not generate boundary check for &jump tables (--nojtbound)"
-msgstr ""
+msgstr "לא לייצר בדיקת גבולות לטבלאות &קפיצה (‎--nojtbound)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, pic16_specific)
 #: src/gui/sdccoptionswidget.ui:341
@@ -4316,7 +4320,7 @@ msgstr "לא לייצר הנחיות BANKSEL ‏(‎--pno-banksel)"
 #: src/gui/sdccoptionswidget.ui:367
 #, kde-format
 msgid "Use large stac&k model (--pstack-model=large)"
-msgstr ""
+msgstr "להשתמש בדגם &ערימה גדול (‎--pstack-model=large)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_debug_xtra)
 #: src/gui/sdccoptionswidget.ui:374
