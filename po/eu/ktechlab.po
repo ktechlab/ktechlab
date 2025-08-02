@@ -1,7 +1,7 @@
 # Translation for ktechlab.po to Euskara/Basque (eu).
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the ktechlab package.
-# KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>.
+# SPDX-FileCopyrightText: 2025 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
 #
 # Translators:
 # SPDX-FileCopyrightText: 2025 Iñigo Salvador Azurmendi <xalba@ni.eus>
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-06-27 00:15+0200\n"
+"PO-Revision-Date: 2025-08-01 17:06+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.04.2\n"
+"X-Generator: Lokalize 25.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -35,12 +35,12 @@ msgstr "xalba@ni.eus"
 #: src/textview.cpp:68
 #, kde-format
 msgid "Microbe"
-msgstr ""
+msgstr "Microbe"
 
 #: microbe/main.cpp:49
 #, kde-format
 msgid "The Microbe Compiler"
-msgstr ""
+msgstr "Microbe konpilatzailea"
 
 #: microbe/main.cpp:51
 #, kde-format
@@ -65,17 +65,17 @@ msgstr "George John"
 #: microbe/main.cpp:56
 #, kde-format
 msgid "Added pic 16f877,16f627 and 16f628"
-msgstr ""
+msgstr "16f877,16f627 eta 16f628 PIC gehitu dira"
 
 #: microbe/main.cpp:63
 #, kde-format
 msgid "Show source code lines in assembly output"
-msgstr ""
+msgstr "Erakutsi sorburu-kodearen lerroak mihiztadura-irteeran"
 
 #: microbe/main.cpp:65
 #, kde-format
 msgid "Do not attempt optimization of generated instructions."
-msgstr ""
+msgstr "Ez saiatu sortutako aginduen optimizazioa egiten."
 
 #: microbe/main.cpp:67
 #, kde-format
@@ -90,12 +90,12 @@ msgstr "Irteerako fitxategi-izena"
 #: microbe/microbe.cpp:93
 #, kde-format
 msgid "Could not open file '%1'\n"
-msgstr ""
+msgstr "Ezin izan du '%1' fitxategia ireki\n"
 
 #: microbe/microbe.cpp:223
 #, kde-format
 msgid "Unknown statement"
-msgstr ""
+msgstr "Adierazpen ezezaguna"
 
 #: microbe/microbe.cpp:226
 #, kde-format
@@ -105,7 +105,7 @@ msgstr ""
 #: microbe/microbe.cpp:229
 #, kde-format
 msgid "Pin identifier was not followed by '='"
-msgstr ""
+msgstr "Pin identifikatzaileri ez dio  '=' ikurrak jarraitzen"
 
 #: microbe/microbe.cpp:232
 #, kde-format
@@ -130,7 +130,7 @@ msgstr ""
 #: microbe/microbe.cpp:244
 #, kde-format
 msgid "Invalid '=' found in expression"
-msgstr ""
+msgstr "Adierazpenean '=' baliogabea aurkitu da"
 
 #: microbe/microbe.cpp:247
 #, kde-format
@@ -140,7 +140,7 @@ msgstr ""
 #: microbe/microbe.cpp:250
 #, kde-format
 msgid "Nothing between operators"
-msgstr ""
+msgstr "Eragileen artean ez dago ezer"
 
 #: microbe/microbe.cpp:253
 #, kde-format
@@ -150,12 +150,12 @@ msgstr ""
 #: microbe/microbe.cpp:257
 #, kde-format
 msgid "Unknown variable"
-msgstr ""
+msgstr "Aldagai ezezaguna"
 
 #: microbe/microbe.cpp:259
 #, kde-format
 msgid "Unknown variable '%1'"
-msgstr ""
+msgstr "'%1' aldagai ezezaguna"
 
 #: microbe/microbe.cpp:262
 #, kde-format
@@ -163,24 +163,24 @@ msgid "Could not open include file '%1'"
 msgstr ""
 
 #: microbe/microbe.cpp:265
-#, fuzzy, kde-format
+#, kde-format
 msgid "Division by zero"
 msgstr "Zerogatiko zatiketa"
 
 #: microbe/microbe.cpp:268
 #, kde-format
 msgid "Number too big"
-msgstr ""
+msgstr "Zenbaki handiegia"
 
 #: microbe/microbe.cpp:271
 #, kde-format
 msgid "Step can only be a constant expression"
-msgstr ""
+msgstr "Urratsa adierazpen konstante bat baino ezin da izan"
 
 #: microbe/microbe.cpp:274
 #, kde-format
 msgid "Delay must be a positive constant value"
-msgstr ""
+msgstr "Atzerapena balio positibo konstante bat izan behar da"
 
 #: microbe/microbe.cpp:277
 #, kde-format
@@ -190,7 +190,7 @@ msgstr ""
 #: microbe/microbe.cpp:280
 #, kde-format
 msgid "Comparison operator in '%1' is not recognized"
-msgstr ""
+msgstr "'%1'(e)ko konparaketa-eragilea ez da ezagutzen"
 
 #: microbe/microbe.cpp:283
 #, kde-format
@@ -205,7 +205,7 @@ msgstr ""
 #: microbe/microbe.cpp:289
 #, kde-format
 msgid "Label expected"
-msgstr ""
+msgstr "Etiketa espero zen"
 
 #: microbe/microbe.cpp:292
 #, kde-format
@@ -215,12 +215,12 @@ msgstr ""
 #: microbe/microbe.cpp:295
 #, kde-format
 msgid "Expected '%1'"
-msgstr ""
+msgstr "'%1' espero zen"
 
 #: microbe/microbe.cpp:298
 #, kde-format
 msgid "Pin list expected"
-msgstr ""
+msgstr "Pin-zerrenda espero zen"
 
 #: microbe/microbe.cpp:301
 #, kde-format
@@ -250,7 +250,7 @@ msgstr ""
 #: microbe/microbe.cpp:316
 #, kde-format
 msgid "Invalid pin list size"
-msgstr ""
+msgstr "Pin-zerrendaren neurri baliogabea"
 
 #: microbe/microbe.cpp:319
 #, kde-format
@@ -416,7 +416,7 @@ msgstr ""
 #: src/core/ktechlab.kcfg:38
 #, fuzzy, kde-format
 msgid "Refresh Rate"
-msgstr "Freskatze-tasa: "
+msgstr "Freskatze-tasa:"
 
 #. i18n: ectx: label, entry (GridColor), group (General)
 #: src/core/ktechlab.kcfg:42
@@ -774,9 +774,9 @@ msgid "KTechLab"
 msgstr "KTechlab"
 
 #: src/core/main.cpp:32
-#, kde-format
+#, fuzzy, kde-format
 msgid "An IDE for microcontrollers and electronics"
-msgstr ""
+msgstr "Mikrokontrolagailu eta elektronikarako IDE bat"
 
 #: src/core/main.cpp:33
 #, fuzzy, kde-format
@@ -901,7 +901,7 @@ msgstr "Ireki beharreko dokumentua."
 #: src/docmanager.cpp:96
 #, fuzzy, kde-format
 msgid "Could not open '%1'"
-msgstr "Ezin izan da \"%1\" ireki."
+msgstr "Ezin izan da '%1' (%2) ireki"
 
 #: src/docmanager.cpp:164
 #, kde-format
@@ -2057,52 +2057,52 @@ msgstr ""
 #: src/electronics/components/piccomponent.cpp:60
 #, kde-format
 msgid "PIC Micro"
-msgstr ""
+msgstr "PIC Mikro"
 
 #: src/electronics/components/piccomponent.cpp:63
 #, kde-format
 msgid "<Enter location of PIC Program>"
-msgstr ""
+msgstr "<Sartu PIC programaren kokalekua>"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, m_typeCombo)
 #: src/electronics/components/piccomponent.cpp:84
 #: src/gui/createsubprojectwidget.ui:59
-#, fuzzy, kde-format
+#, kde-format
 msgid "Program"
 msgstr "Programa"
 
 #: src/electronics/components/piccomponent.cpp:86
-#, fuzzy, kde-format
+#, kde-format
 msgid "All Supported Files"
-msgstr "Onartutako fitxategi guztiak"
+msgstr "Onartutako fitxategi denak"
 
 #. i18n("FlowCode"), "application-x-flowcode", 0, this, SLOT(slotFileNewFlowCode()), ac, "newfile_flowcode" ))->plug( p->menu() );
 #: src/electronics/components/piccomponent.cpp:87 src/ktechlab.cpp:492
 #: src/languages/flowcode.cpp:28
 #, kde-format
 msgid "FlowCode"
-msgstr ""
+msgstr "FlowCode"
 
 #: src/electronics/components/piccomponent.cpp:88
 #, kde-format
 msgid "Symbol File"
-msgstr ""
+msgstr "Ikur-fitxategia"
 
 #: src/electronics/components/piccomponent.cpp:89 src/flowcodedocument.cpp:196
 #: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1191 src/textdocument.cpp:435
 #, kde-format
 msgid "Assembly Code"
-msgstr ""
+msgstr "Mihiztadura kodea"
 
 #: src/electronics/components/piccomponent.cpp:91
 #, kde-format
 msgid "C Code"
-msgstr ""
+msgstr "C kodea"
 
 #: src/electronics/components/piccomponent.cpp:157
-#, fuzzy, kde-format
+#, kde-format
 msgid "The file \"%1\" does not exist."
-msgstr "'%1' fitxategia ez da existitzen."
+msgstr "\"%1\" fitxategia ez da existitzen."
 
 #: src/electronics/components/piccomponent.cpp:165
 #, kde-format
@@ -2120,19 +2120,22 @@ msgid ""
 "program\n"
 "loaded)"
 msgstr ""
+"(Ez\n"
+"da programarik\n"
+"zamatu)"
 
 #: src/electronics/components/probe.cpp:59
-#, fuzzy, kde-format
+#, kde-format
 msgid "Scaling"
 msgstr "Eskalatzea"
 
 #: src/electronics/components/probe.cpp:61
-#, fuzzy, kde-format
+#, kde-format
 msgid "Linear"
 msgstr "Lineala"
 
 #: src/electronics/components/probe.cpp:62
-#, fuzzy, kde-format
+#, kde-format
 msgid "Logarithmic"
 msgstr "Logaritmikoa"
 
@@ -2180,19 +2183,19 @@ msgstr ""
 #: src/electronics/components/toggleswitch.cpp:135
 #: src/electronics/components/toggleswitch.cpp:220
 #: src/electronics/components/toggleswitch.cpp:304
-#, fuzzy, kde-format
+#, kde-format
 msgid "Button Text"
 msgstr "Botoiaren testua"
 
 #: src/electronics/components/pushswitch.cpp:45
-#, fuzzy, kde-format
+#, kde-format
 msgid "Bounce"
 msgstr "Punpa"
 
 #: src/electronics/components/pushswitch.cpp:50
 #, kde-format
 msgid "Bounce Period"
-msgstr ""
+msgstr "Punpa aldia"
 
 #: src/electronics/components/pushswitch.cpp:113
 #, kde-format
@@ -2205,31 +2208,31 @@ msgid "Push to Make"
 msgstr ""
 
 #: src/electronics/components/ram.cpp:31 src/electronics/components/ram.cpp:37
-#, fuzzy, kde-format
+#, kde-format
 msgid "RAM"
-msgstr "aharia"
+msgstr "RAM"
 
 #: src/electronics/components/ram.cpp:47
 #, kde-format
 msgid "Word Size"
-msgstr ""
+msgstr "Hitzaren tamaina"
 
 #: src/electronics/components/resistor.cpp:26
 #: src/electronics/components/resistor.cpp:32
 #: src/electronics/components/variableresistor.cpp:35
-#, fuzzy, kde-format
+#, kde-format
 msgid "Resistor"
-msgstr "Erresistorea"
+msgstr "Erresistentzia"
 
 #: src/electronics/components/resistordip.cpp:26
 #: src/electronics/components/resistordip.cpp:32
 #, kde-format
 msgid "Resistor DIP"
-msgstr ""
+msgstr "DIP erresistentzia"
 
 #: src/electronics/components/resistordip.cpp:45 src/flowparts/count.cpp:26
 #: src/flowparts/count.cpp:32
-#, fuzzy, kde-format
+#, kde-format
 msgid "Count"
 msgstr "Kopurua"
 
@@ -2245,14 +2248,14 @@ msgstr ""
 
 #: src/electronics/components/serialportcomponent.cpp:44
 #: src/electronics/components/serialportcomponent.cpp:50
-#, fuzzy, kde-format
+#, kde-format
 msgid "Serial Port"
 msgstr "Serieko ataka"
 
 #: src/electronics/components/toggleswitch.cpp:29
 #, kde-format
 msgid "DPDT"
-msgstr ""
+msgstr "DPDT"
 
 #: src/electronics/components/toggleswitch.cpp:35
 #, kde-format
@@ -2262,7 +2265,7 @@ msgstr ""
 #: src/electronics/components/toggleswitch.cpp:123
 #, kde-format
 msgid "DPST"
-msgstr ""
+msgstr "DPST"
 
 #: src/electronics/components/toggleswitch.cpp:129
 #, kde-format
@@ -2272,7 +2275,7 @@ msgstr ""
 #: src/electronics/components/toggleswitch.cpp:208
 #, kde-format
 msgid "SPDT"
-msgstr ""
+msgstr "SPDT"
 
 #: src/electronics/components/toggleswitch.cpp:214
 #, kde-format
@@ -2282,7 +2285,7 @@ msgstr ""
 #: src/electronics/components/toggleswitch.cpp:291
 #, kde-format
 msgid "SPST"
-msgstr ""
+msgstr "SPST"
 
 #: src/electronics/components/toggleswitch.cpp:297
 #, kde-format
@@ -2297,13 +2300,13 @@ msgstr ""
 
 #: src/electronics/components/variablecapacitor.cpp:69
 #: src/electronics/components/variableresistor.cpp:66
-#, fuzzy, kde-format
+#, kde-format
 msgid "Max"
 msgstr "Max"
 
 #: src/electronics/components/variablecapacitor.cpp:76
 #: src/electronics/components/variableresistor.cpp:60
-#, fuzzy, kde-format
+#, kde-format
 msgid "Min"
 msgstr "Min"
 
@@ -2325,137 +2328,137 @@ msgstr ""
 #: src/electronics/gpsimprocessor.cpp:139
 #, kde-format
 msgid "The cod file \"%1\" was not found."
-msgstr ""
+msgstr "Ez da aurkitu \"%1\" cod-fitxategia."
 
 #: src/electronics/gpsimprocessor.cpp:139
-#, fuzzy, kde-format
+#, kde-format
 msgid "File Not Found"
 msgstr "Fitxategia ez da aurkitu"
 
 #: src/electronics/gpsimprocessor.cpp:142
 #, kde-format
 msgid "The processor for cod file \"%1\" is unrecognized."
-msgstr ""
+msgstr "\"%1\" cod-fitxategiaren prozesatzailea ezezaguna da."
 
 #: src/electronics/gpsimprocessor.cpp:142
 #, kde-format
 msgid "Unrecognized Processor"
-msgstr ""
+msgstr "Prozesatzaile ezezaguna"
 
 #: src/electronics/gpsimprocessor.cpp:145
 #, kde-format
 msgid "The file name \"%1\" is too long."
-msgstr ""
+msgstr "\"%1\" fitxategi-izena luzeegia da."
 
 #: src/electronics/gpsimprocessor.cpp:145
-#, fuzzy, kde-format
+#, kde-format
 msgid "Filename Too Long"
 msgstr "Fitxategi-izen luzeegia"
 
 #: src/electronics/gpsimprocessor.cpp:148
 #, kde-format
 msgid "The lst file associated with the cod file \"%1\" was not found."
-msgstr ""
+msgstr "Ez da aurkitu \"%1\" cod-fitxategiarekin lotutako LST fitxategia."
 
 #: src/electronics/gpsimprocessor.cpp:148
 #, kde-format
 msgid "LST File Not Found"
-msgstr ""
+msgstr "Ez da aurkitu LST fitxategia"
 
 #: src/electronics/gpsimprocessor.cpp:151
 #, kde-format
 msgid "The cod file \"%1\" is bad."
-msgstr ""
+msgstr "\"%1\" cod-fitxategia baliogabea da."
 
 #: src/electronics/gpsimprocessor.cpp:151
 #, kde-format
 msgid "Bad File"
-msgstr ""
+msgstr "Fitxategi baliogabea"
 
 #: src/electronics/gpsimprocessor.cpp:154
 #, kde-format
 msgid "The cod file \"%1\" could not be read from."
-msgstr ""
+msgstr "Ezin \"%1\" da cod-fitxategitik irakurri."
 
 #: src/electronics/gpsimprocessor.cpp:154
 #, kde-format
 msgid "Unreadable File"
-msgstr ""
+msgstr "Fitxategi irakurgaitza"
 
 #: src/electronics/gpsimprocessor.cpp:158
 #, kde-format
 msgid "An error occurred with the cod file \"%1\"."
-msgstr ""
+msgstr "\"%1\" cod-fitxategiarekin errore bat gertatu da."
 
 #: src/electronics/gpsimprocessor.cpp:158
-#, fuzzy, kde-format
+#, kde-format
 msgid "Error"
 msgstr "Errorea"
 
 #: src/electronics/gpsimprocessor.cpp:735
-#, fuzzy, kde-format
+#, kde-format
 msgid "Generic"
-msgstr "Orokorra"
+msgstr "Generikoa"
 
 #: src/electronics/gpsimprocessor.cpp:738 src/projectmanager.cpp:867
-#, fuzzy, kde-format
+#, kde-format
 msgid "File"
 msgstr "Fitxategia"
 
 #: src/electronics/gpsimprocessor.cpp:741
 #, kde-format
 msgid "SFR"
-msgstr ""
+msgstr "SFR"
 
 #: src/electronics/gpsimprocessor.cpp:744 src/textdocument.cpp:97
-#, fuzzy, kde-format
+#, kde-format
 msgid "Breakpoint"
 msgstr "Eten-puntua"
 
 #: src/electronics/gpsimprocessor.cpp:747
-#, fuzzy, kde-format
+#, kde-format
 msgid "Invalid"
 msgstr "Baliogabea"
 
 #: src/electronics/gpsimprocessor.cpp:750
-#, fuzzy, kde-format
+#, kde-format
 msgid "Unknown"
 msgstr "Ezezaguna"
 
 #: src/electronics/subcircuits.cpp:110
 #, kde-format
 msgid "Subcircuits"
-msgstr ""
+msgstr "Azpi-zirkuituak"
 
 #: src/flowcodedocument.cpp:169
-#, kde-format
+#, fuzzy, kde-format
 msgid "Microbe Code Output"
-msgstr ""
+msgstr "Mocrobe kodearen irteera"
 
 #: src/flowcodedocument.cpp:193 src/textdocument.cpp:428
-#, kde-format
+#, fuzzy, kde-format
 msgid "Assembly Code Output"
-msgstr ""
+msgstr "Mihistadura kodearen irteera"
 
 #: src/flowcodedocument.cpp:217 src/textdocument.cpp:470
-#, kde-format
+#, fuzzy, kde-format
 msgid "Hex Code Output"
-msgstr ""
+msgstr "Kodearen irteera hamaseitarra"
 
 #: src/flowcodedocument.cpp:220 src/textdocument.cpp:473
-#, fuzzy, kde-format
+#, kde-format
 msgid "Hex Code"
 msgstr "Kode hamas."
 
 #. i18n("Convert to..."), "fork", 0, 0, 0, ac, "program_convert" );
 #: src/flowcodeview.cpp:32
-#, fuzzy, kde-format
+#, kde-format
 msgid "Convert to..."
-msgstr "Bihurtu"
+msgstr "Bihurtu..."
 
 #. i18n("Convert to"), "fork", 0, 0, 0, ac, "program_convert" );
 #: src/flowcodeview.cpp:39 src/textview.cpp:59 src/textview.cpp:67
-#, fuzzy, kde-format
+#, kde-format
 msgid "Convert To"
 msgstr "Bihurtu"
 
@@ -2463,10 +2466,10 @@ msgstr "Bihurtu"
 #: src/flowcodeview.cpp:41 src/ktechlab.cpp:468 src/textview.cpp:70
 #, kde-format
 msgid "Assembly"
-msgstr ""
+msgstr "Mihiztadura"
 
 #: src/flowcodeview.cpp:42 src/textview.cpp:71
-#, fuzzy, kde-format
+#, kde-format
 msgid "Hex"
 msgstr "Hamas."
 
@@ -2490,7 +2493,7 @@ msgstr ""
 #: src/flowparts/callsub.cpp:26 src/flowparts/embed.cpp:26
 #: src/flowparts/end.cpp:26 src/flowparts/interrupt.cpp:26
 #: src/flowparts/start.cpp:26 src/flowparts/sub.cpp:26
-#, fuzzy, kde-format
+#, kde-format
 msgid "Common"
 msgstr "Arrunta"
 
@@ -2513,12 +2516,12 @@ msgstr "Deitu"
 #: src/flowparts/count.cpp:26 src/flowparts/delay.cpp:26
 #: src/flowparts/inputbutton.cpp:25 src/flowparts/keypad.cpp:26
 #: src/flowparts/pulse.cpp:25 src/flowparts/sevenseg.cpp:26
-#, fuzzy, kde-format
+#, kde-format
 msgid "Functions"
 msgstr "Funtzioak"
 
 #: src/flowparts/count.cpp:40 src/flowparts/inputbutton.cpp:37
-#, fuzzy, kde-format
+#, kde-format
 msgid "Trigger"
 msgstr "Kliskagailua"
 
@@ -2528,7 +2531,7 @@ msgid "Count %1 for %2 sec"
 msgstr ""
 
 #: src/flowparts/delay.cpp:26 src/flowparts/delay.cpp:32
-#, fuzzy, kde-format
+#, kde-format
 msgid "Delay"
 msgstr "Atzerapena"
 
@@ -2548,27 +2551,27 @@ msgid "Embed"
 msgstr "Txertatuta"
 
 #: src/flowparts/embed.cpp:40
-#, fuzzy, kde-format
+#, kde-format
 msgid "Type"
 msgstr "Mota"
 
 #: src/flowparts/embed.cpp:43
-#, fuzzy, kde-format
+#, kde-format
 msgid "Code"
 msgstr "Kodea"
 
 #: src/flowparts/embed.cpp:44
-#, fuzzy, kde-format
+#, kde-format
 msgid "// Embedded code:"
-msgstr "Kapsulatutako kodea"
+msgstr "// Kapsulatutako kodea:"
 
 #: src/flowparts/embed.cpp:54
 #, kde-format
 msgid "%1: %2..."
-msgstr ""
+msgstr "%1: %2..."
 
 #: src/flowparts/end.cpp:26 src/flowparts/end.cpp:32 src/flowparts/end.cpp:35
-#, fuzzy, kde-format
+#, kde-format
 msgid "End"
 msgstr "Bukaera"
 
@@ -2576,31 +2579,31 @@ msgstr "Bukaera"
 #: src/flowparts/while.cpp:26
 #, kde-format
 msgid "Loops"
-msgstr ""
+msgstr "Begiztak"
 
 #: src/flowparts/forloop.cpp:26
-#, fuzzy, kde-format
+#, kde-format
 msgid "For"
-msgstr " "
+msgstr "For"
 
 #: src/flowparts/forloop.cpp:32
 #, kde-format
 msgid "For Loop"
-msgstr ""
+msgstr "For begizta"
 
 #: src/flowparts/forloop.cpp:39 src/flowparts/keypad.cpp:39
 #: src/flowparts/readport.cpp:49 src/flowparts/repeat.cpp:38
 #: src/flowparts/sevenseg.cpp:39 src/flowparts/unary.cpp:39
 #: src/flowparts/varassignment.cpp:38 src/flowparts/varcomparison.cpp:39
 #: src/flowparts/while.cpp:38 src/flowparts/writeport.cpp:39
-#, fuzzy, kde-format
+#, kde-format
 msgid "Variable"
 msgstr "Aldagaia"
 
 #: src/flowparts/forloop.cpp:44
-#, fuzzy, kde-format
+#, kde-format
 msgid "Initial Value"
-msgstr "Hasierako balioa:"
+msgstr "Hasierako balioa"
 
 #: src/flowparts/forloop.cpp:48
 #, fuzzy, kde-format
@@ -2609,13 +2612,13 @@ msgid "to"
 msgstr "Nori:"
 
 #: src/flowparts/forloop.cpp:49
-#, fuzzy, kde-format
+#, kde-format
 msgid "End Value"
-msgstr "Azken balioa:"
+msgstr "Bukaerako balioa"
 
 #. i18n("Step"), "debug-step-instruction", Qt::CTRL|Qt::ALT|Qt::Key_Right, textDocument, SLOT(debugStep()), ac, "debug_step" );
 #: src/flowparts/forloop.cpp:54 src/textview.cpp:121
-#, fuzzy, kde-format
+#, kde-format
 msgid "Step"
 msgstr "Urratsa"
 
@@ -2626,9 +2629,9 @@ msgstr ""
 
 #: src/flowparts/inputbutton.cpp:42 src/flowparts/pulse.cpp:52
 #: src/flowparts/setpin.cpp:46 src/flowparts/testpin.cpp:39
-#, fuzzy, kde-format
+#, kde-format
 msgid "Pin"
-msgstr "Iltzatu"
+msgstr "Pin"
 
 #: src/flowparts/inputbutton.cpp:52
 #, kde-format
@@ -2650,7 +2653,7 @@ msgstr "Eten"
 #: src/flowparts/keypad.cpp:42 src/flowparts/sevenseg.cpp:42
 #, kde-format
 msgid "Pin map"
-msgstr ""
+msgstr "Pin-mapa"
 
 #: src/flowparts/keypad.cpp:51 src/flowparts/readport.cpp:59
 #, kde-format
@@ -2660,7 +2663,7 @@ msgstr ""
 #: src/flowparts/pinmapping.cpp:55
 #, kde-format
 msgid "Pin Map Editor"
-msgstr ""
+msgstr "Pim-mapa editorea"
 
 #: src/flowparts/pulse.cpp:25 src/flowparts/pulse.cpp:31
 #, kde-format
@@ -2668,7 +2671,7 @@ msgid "Pulse"
 msgstr ""
 
 #: src/flowparts/pulse.cpp:37
-#, fuzzy, kde-format
+#, kde-format
 msgid "Duration"
 msgstr "Iraupena"
 
@@ -2681,15 +2684,15 @@ msgstr ""
 #: src/flowparts/testpin.cpp:26 src/flowparts/writeport.cpp:26
 #, kde-format
 msgid "I\\/O"
-msgstr ""
+msgstr "S\\/I"
 
 #: src/flowparts/readport.cpp:30 src/flowparts/readport.cpp:37
 #, kde-format
 msgid "Read from Port"
-msgstr ""
+msgstr "Irakurri atakatik"
 
 #: src/flowparts/readport.cpp:43
-#, fuzzy, kde-format
+#, kde-format
 msgid "Read"
 msgstr "Irakurri"
 
@@ -2700,13 +2703,13 @@ msgid "to"
 msgstr "Nori:"
 
 #: src/flowparts/repeat.cpp:26 src/flowparts/repeat.cpp:32
-#, fuzzy, kde-format
+#, kde-format
 msgid "Repeat"
 msgstr "Errepikatu"
 
 #: src/flowparts/repeat.cpp:43 src/flowparts/unary.cpp:42
 #: src/flowparts/varcomparison.cpp:50 src/flowparts/while.cpp:43
-#, fuzzy, kde-format
+#, kde-format
 msgid "Operation"
 msgstr "Eragiketa"
 
@@ -2715,29 +2718,29 @@ msgstr "Eragiketa"
 #: src/gui/itemeditor/propertyeditor.cpp:257 src/gui/symbolviewer.cpp:125
 #: src/gui/symbolviewer.cpp:127 src/gui/symbolviewer.cpp:192
 #: src/gui/symbolviewer.cpp:194
-#, fuzzy, kde-format
+#, kde-format
 msgid "Value"
 msgstr "Balioa"
 
 #: src/flowparts/repeat.cpp:63
 #, kde-format
 msgid "repeat until %1 %2 %3"
-msgstr ""
+msgstr "errepikatu %1 %2 %3 arte"
 
 #: src/flowparts/setpin.cpp:28 src/flowparts/setpin.cpp:35
 #, kde-format
 msgid "Set Pin State"
-msgstr ""
+msgstr "Ezarri pinaren egoera"
 
 #: src/flowparts/setpin.cpp:41
-#, fuzzy, kde-format
+#, kde-format
 msgid "State"
 msgstr "Egoera"
 
 #: src/flowparts/setpin.cpp:56
-#, fuzzy, kde-format
+#, kde-format
 msgid "Set %1 %2"
-msgstr "Ezarri"
+msgstr "Ezarri %1 %2"
 
 #: src/flowparts/sevenseg.cpp:32
 #, kde-format
@@ -2751,7 +2754,7 @@ msgstr ""
 
 #: src/flowparts/start.cpp:26 src/flowparts/start.cpp:32
 #: src/flowparts/start.cpp:35
-#, fuzzy, kde-format
+#, kde-format
 msgid "Start"
 msgstr "Hasi"
 
@@ -2763,11 +2766,11 @@ msgstr ""
 #: src/flowparts/testpin.cpp:26 src/flowparts/testpin.cpp:32
 #, kde-format
 msgid "Test Pin State"
-msgstr ""
+msgstr "Probatu pinaren egoera"
 
 #: src/flowparts/unary.cpp:26 src/flowparts/varassignment.cpp:26
 #: src/flowparts/varcomparison.cpp:26
-#, fuzzy, kde-format
+#, kde-format
 msgid "Variables"
 msgstr "Aldagaiak"
 
@@ -2777,17 +2780,17 @@ msgid "Unary"
 msgstr ""
 
 #: src/flowparts/unary.cpp:44
-#, fuzzy, kde-format
+#, kde-format
 msgid "Rotate Left"
 msgstr "Biratu ezkerrera"
 
 #: src/flowparts/unary.cpp:45
-#, fuzzy, kde-format
+#, kde-format
 msgid "Rotate Right"
 msgstr "Biratu eskuinera"
 
 #: src/flowparts/unary.cpp:46
-#, fuzzy, kde-format
+#, kde-format
 msgid "Increment"
 msgstr "Gehikuntza"
 
@@ -2797,42 +2800,42 @@ msgid "Decrement"
 msgstr ""
 
 #: src/flowparts/varassignment.cpp:26
-#, fuzzy, kde-format
+#, kde-format
 msgid "Assignment"
-msgstr "esleipena"
+msgstr "Esleipena"
 
 #: src/flowparts/varassignment.cpp:32
 #, kde-format
 msgid "Variable Assignment"
-msgstr ""
+msgstr "Aldagaien esleipena"
 
 #: src/flowparts/varcomparison.cpp:26
-#, fuzzy, kde-format
+#, kde-format
 msgid "Comparison"
 msgstr "Konparaketa"
 
 #: src/flowparts/varcomparison.cpp:32
 #, kde-format
 msgid "Variable Comparison"
-msgstr ""
+msgstr "Aldagaien konparaketa"
 
 #: src/flowparts/while.cpp:26 src/flowparts/while.cpp:32
-#, fuzzy, kde-format
+#, kde-format
 msgid "While"
 msgstr "betebitartean"
 
 #: src/flowparts/while.cpp:63
-#, fuzzy, kde-format
+#, kde-format
 msgid "while %1 %2 %3"
-msgstr "betebitartean"
+msgstr "%1 %2 %3 betebitartean"
 
 #: src/flowparts/writeport.cpp:26 src/flowparts/writeport.cpp:32
 #, kde-format
 msgid "Write to Port"
-msgstr ""
+msgstr "Idatzi atakan"
 
 #: src/flowparts/writeport.cpp:38
-#, fuzzy, kde-format
+#, kde-format
 msgid "Write"
 msgstr "Idatzi"
 
@@ -2859,13 +2862,13 @@ msgstr ""
 #: src/gui/asmformattingwidget.ui:32
 #, kde-format
 msgid "Output Code Indentation"
-msgstr ""
+msgstr "Irteera kodearen koska"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel11)
 #: src/gui/asmformattingwidget.ui:38
 #, kde-format
 msgid "'equ' Value"
-msgstr ""
+msgstr "'equ' balioa"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel8)
 #: src/gui/asmformattingwidget.ui:48
@@ -2883,13 +2886,13 @@ msgstr "Iruzkina"
 #: src/gui/asmformattingwidget.ui:68
 #, kde-format
 msgid "'equ'"
-msgstr ""
+msgstr "'equ'"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel7)
 #: src/gui/asmformattingwidget.ui:78
 #, kde-format
 msgid "Instruction Name"
-msgstr ""
+msgstr "Aginduaren izena"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoFormatMBOutput)
 #: src/gui/asmformattingwidget.ui:162
@@ -3052,9 +3055,9 @@ msgstr "Freskatze-tasa:"
 
 #. i18n: ectx: property (text), widget (QLabel, refreshRateLabel)
 #: src/gui/generaloptionswidget.ui:162
-#, kde-format
+#, fuzzy, kde-format
 msgid "Medium (50 FPS)"
-msgstr ""
+msgstr "Ertaina (%1 FPS)"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel9_2)
 #: src/gui/generaloptionswidget.ui:180
@@ -3598,7 +3601,7 @@ msgstr "Aldagaiaren balioa"
 #: src/gui/microsettingsdlg.cpp:259 src/gui/newpinmappingwidget.ui:48
 #, kde-format
 msgid "New Pin Mapping"
-msgstr ""
+msgstr "Pin-mapa berria"
 
 #. i18n: ectx: property (text), widget (QPushButton, pinMapAdd)
 #: src/gui/microsettingsdlg.cpp:266 src/gui/microsettingswidget.ui:132
@@ -3609,7 +3612,7 @@ msgstr "Sortu"
 #: src/gui/microsettingsdlg.cpp:331
 #, kde-format
 msgid "New Pin Map Name"
-msgstr ""
+msgstr "Pin-maparen izen berria"
 
 #: src/gui/microsettingsdlg.cpp:449
 #, kde-format
@@ -3698,13 +3701,13 @@ msgstr ""
 #: src/gui/newpinmappingwidget.ui:110
 #, kde-format
 msgid "Keypad (4x3)"
-msgstr ""
+msgstr "Zenbakizko teklatua (4x3)"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, typeCombo)
 #: src/gui/newpinmappingwidget.ui:115
 #, kde-format
 msgid "Keypad (4x4)"
-msgstr ""
+msgstr "Zenbakizko teklatua (4x4)"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel8)
 #: src/gui/newprojectwidget.ui:23
@@ -4796,9 +4799,9 @@ msgstr "Zama-igo..."
 
 #. i18n("Processing Options..."), "configure",	0, pm, SLOT(slotItemProcessingOptions()),	ac, "project_item_processing_options" );
 #: src/ktechlab.cpp:626
-#, kde-format
+#, fuzzy, kde-format
 msgid "Processing Options..."
-msgstr ""
+msgstr "Prozesatzeko aukerak"
 
 #. i18n("Split View Left/Right"), "view-split-left-right", Qt::CTRL|Qt::SHIFT|Qt::Key_L, this, SLOT(slotViewSplitLeftRight()), ac, "view_split_leftright" );
 #: src/ktechlab.cpp:635
@@ -5046,9 +5049,9 @@ msgstr "Adibideak"
 
 #. i18n: ectx: Menu (examples_555)
 #: src/ktechlabui.rc:47
-#, kde-format
+#, fuzzy, kde-format
 msgid "555s"
-msgstr ""
+msgstr "S"
 
 #. i18n: ectx: Menu (examples_basic)
 #: src/ktechlabui.rc:50
@@ -5238,9 +5241,9 @@ msgid "*** Programming failed ***"
 msgstr "*** Programatzea huts egin du ***"
 
 #: src/languages/processchain.cpp:61
-#, fuzzy, kde-format
+#, kde-format
 msgid "Building: %1"
-msgstr "Eraikina"
+msgstr "Eraikitzen: %1"
 
 #: src/languages/sdcc.cpp:44
 #, kde-format
@@ -5326,7 +5329,7 @@ msgstr "KTechlab proiektua"
 #: src/projectmanager.cpp:1081
 #, kde-format
 msgid "Do you really want to remove \"%1\"?"
-msgstr ""
+msgstr "\"%1\" benetan ezabatu nahi duzu?"
 
 #: src/projectmanager.cpp:1081
 #, kde-format
@@ -5336,7 +5339,7 @@ msgstr "Proiektu-fitxategia kendu?"
 #: src/textdocument.cpp:86
 #, kde-format
 msgid "Failed to create editor"
-msgstr ""
+msgstr "Editorea sortzea huts egin du"
 
 #: src/textdocument.cpp:602
 #, kde-format
