@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-07-31 14:15+0300\n"
+"PO-Revision-Date: 2025-08-02 23:37+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -3444,7 +3444,7 @@ msgstr "קלט"
 #: src/gui/logicwidget.ui:63 src/gui/logicwidget.ui:126
 #, kde-format
 msgid "Required voltage level before the input will be considered high."
-msgstr ""
+msgstr "רמת המתח הנדרשת לפני שהקלט ייחשב גבוה."
 
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_LogicRisingTrigger)
 #. i18n: ectx: property (suffix), widget (QDoubleSpinBox, kcfg_LogicFallingTrigger)
@@ -3460,7 +3460,7 @@ msgstr " וולט"
 #: src/gui/logicwidget.ui:88 src/gui/logicwidget.ui:101
 #, kde-format
 msgid "Required voltage level before an input will be considered low."
-msgstr ""
+msgstr "רמת המתח הנדרשת לפני שקלט ייחשב נמוך."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_2)
 #: src/gui/logicwidget.ui:91
@@ -3479,7 +3479,7 @@ msgstr ""
 #: src/gui/logicwidget.ui:148 src/gui/logicwidget.ui:161
 #, kde-format
 msgid "Voltage level for high on logic components."
-msgstr ""
+msgstr "רמת מתח לגבוה ברכיבים לוגיים."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: src/gui/logicwidget.ui:151
@@ -4038,7 +4038,7 @@ msgstr "&כללי"
 #: src/gui/sdccoptionswidget.ui:42
 #, kde-format
 msgid "Do not search in the standard librar&y directory (--nostdlib)"
-msgstr ""
+msgstr "לא לחפש בתיקיית ה&ספרייה התקנית (‎--nostdlib)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nostdinc)
 #: src/gui/sdccoptionswidget.ui:49
@@ -4113,6 +4113,10 @@ msgid ""
 "option is used all source files in the project should be compiled with this "
 "option. It automatically implies --int-long-reent and --float-reent."
 msgstr ""
+"כל הפונקציות בקובץ המקור תהודרנה כרבות־כניסה, כלומר שכל הפרמטרים והמשתנים "
+"המקומיים יוקצו בערימה. אם האפשרות הזאת בשימוש יש להדר את כל קובצי המקור "
+"במיזם הזה עם האפשרות הזאת. היא גורמת להסקה אוטומטי של ‎--int-long-reent ושל ‎--"
+"float-reent."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_stack_auto)
 #: src/gui/sdccoptionswidget.ui:134
