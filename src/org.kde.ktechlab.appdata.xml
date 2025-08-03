@@ -44,7 +44,7 @@
   <summary xml:lang="eo">IDE por mikroregiloj kaj elektroniko</summary>
   <summary xml:lang="es">IDE para microcontroladores y sistemas electrónicos</summary>
   <summary xml:lang="et">Mikrokontrollerite ja elektroonika arenduskeskkond</summary>
-  <summary xml:lang="eu">Mikrokontrolagailuetarako eta elektronikarako IDEa</summary>
+  <summary xml:lang="eu">Mikrokontrolagailu eta elektronikarako IDE</summary>
   <summary xml:lang="fr">Environnement de Développement Intégré pour les microcontrôleurs et l'électronique</summary>
   <summary xml:lang="gl">IDE para microcontroladores e compoñentes electrónicos</summary>
   <summary xml:lang="he">סביבת פיתוח משולבת לבקרים מזעריים ואלקטרוניקה</summary>
@@ -73,6 +73,7 @@
     <p xml:lang="eo">KTechlab estas IDE por mikroregiloj kaj elektroniko desegnita por esti kiel eble plej facile uzebla kaj netrudema.</p>
     <p xml:lang="es">KTechlab es un entorno de desarrollo integrado para microcontroladores y electrónica diseñado para que sea fácil de usar y lo menos intrusivo posible.</p>
     <p xml:lang="et">KTechlab on mikrokontrollerite ja elektroonika arenduskeskkond, mille sihiks on olla võimalikult hõlpsasti kasutatav ja võimalikult vähe kasutaja tegemistesse sekkuv.</p>
+    <p xml:lang="eu">KTechlab mikrokontrolagailu eta elektronikarako IDE bat da, erabiltzeko ahalik errazena eta intrusiorik gabekoa izateko diseinatua.</p>
     <p xml:lang="fr">Un Environnement de Développement Intégré pour les microcontrôleurs et l'électronique conçu pour être facile à utiliser et aussi peu intrusif que possible.</p>
     <p xml:lang="gl">KTechlab é un IDE para microcontroladores e compoñentes electrónicos deseñado para ser todo o fácil de usar e non intrusivo posíbel.</p>
     <p xml:lang="he">KTechlab היא סביבת פיתוח משולבת לבקרים מזעריים ואלקטרוניקה שתוכננה להיות פשוטה לשימוש ולא מעצבנת עד כמה שניתן.</p>
@@ -99,6 +100,7 @@
     <p xml:lang="eo">Trajtoj:</p>
     <p xml:lang="es">Funciones:</p>
     <p xml:lang="et">Omadused:</p>
+    <p xml:lang="eu">Ezaugarriak:</p>
     <p xml:lang="fr">Fonctionnalités :</p>
     <p xml:lang="gl">Funcionalidades:</p>
     <p xml:lang="he">יכולות:</p>
@@ -126,6 +128,7 @@
       <li xml:lang="eo">Vasta gamo de komponantoj kun redakteblaj trajtoj</li>
       <li xml:lang="es">Amplio abanico de componentes con características editables</li>
       <li xml:lang="et">Ulatuslik muudetavate tunnustega komponentide valik</li>
+      <li xml:lang="eu">Osagai sorta zabala ezaugarri editagarriekin</li>
       <li xml:lang="fr">Gamme large de composants avec des caractéristiques éditables</li>
       <li xml:lang="gl">Unha gran variedade de compoñentes con características editábeis</li>
       <li xml:lang="he">מגוון רכב של רכיבים עם מאפיינים שניתן לערוך</li>
@@ -151,6 +154,7 @@
       <li xml:lang="eo">Vida redaktilo por cirkvitoj</li>
       <li xml:lang="es">Editor de circuitos visual</li>
       <li xml:lang="et">Vooluringide visuaalne redaktor</li>
+      <li xml:lang="eu">Zirkuituetarako ikusizko editorea</li>
       <li xml:lang="fr">Éditeur visuel de circuits</li>
       <li xml:lang="gl">Editor visual de circuítos</li>
       <li xml:lang="he">עורך חזותי למעגלים</li>
@@ -176,6 +180,7 @@
       <li xml:lang="eo">Kunteksta helpo por la komponantoj</li>
       <li xml:lang="es">Ayuda de contexto para los componentes</li>
       <li xml:lang="et">Komponentide kontekstiabi</li>
+      <li xml:lang="eu">Osagaien testuingu-laguntza</li>
       <li xml:lang="fr">Aide contextuelle pour les composants</li>
       <li xml:lang="gl">Axuda contextual para os compoñentes</li>
       <li xml:lang="he">עזרה לפי הקשר עבור הרכיבים</li>
@@ -199,6 +204,7 @@
       <li xml:lang="en-GB">Two modes of connector routing: automatic and manual</li>
       <li xml:lang="eo">Du reĝimoj de konektilo-vojigo: aŭtomata kaj mana</li>
       <li xml:lang="es">Dos modos de rutas de conectores: automático y manual</li>
+      <li xml:lang="eu">Konektorea bideratzeko bi modu: automatikoa eta eskuzkoa</li>
       <li xml:lang="fr">Deux modes de routage de connecteurs : automatique et manuel</li>
       <li xml:lang="gl">Dous modos de planificación de ruta de conector: automática e manual</li>
       <li xml:lang="he">שני מצבים לניתוב מחברים: אוטומטי וידני</li>
@@ -222,6 +228,7 @@
       <li xml:lang="en-GB">Several ways to define the PIC logic: assembly code, Microbe (own high level programming language) code, C code, and visual FlowCode</li>
       <li xml:lang="eo">Pluraj manieroj difini la PIC-logikon: kunigkodo, Microbe (propra altnivela programlingvo) kodo, C-kodo, kaj vida FlowCode</li>
       <li xml:lang="es">Diversos modos de definir la lógica del PIC: código ensamblador, código Microbe (lenguaje de programación propio de alto nivel), código C y FlowCode visual</li>
+      <li xml:lang="eu">PIC logikoa definitzeko hainbat modu: mihiztadura-kodea, Microbe (goi mailako programazio-lengoaia propioa) kodea, C kodea, eta FlowCode bisuala</li>
       <li xml:lang="fr">Plusieurs façons de définir la logiques « PIC » : code assembleur, code Microbe (langage de programmation de haut niveau autonome), code « C » et code visuel « FlowCode »</li>
       <li xml:lang="gl">Varias formas de definir a lóxica de PIC: código de ensamblador, código de Microbe (linguaxe de programación propia de alto nivel), código de C e FlowCode visual</li>
       <li xml:lang="he">מגוון דרכים להגדיר את הלוגיקה של ה־PIC (מחשב מתוכנת חכם): קוד אסמלי, קוד ב־Microbe (שפת פיתוח עילית עצמאית), קוד ב־C, ו־FlowCode חזותי</li>
@@ -246,6 +253,7 @@
       <li xml:lang="eo">Interkonverto de la programa kodo inter subtenataj lingvoj</li>
       <li xml:lang="es">Conversión interna del código de programación entre los lenguajes permitidos</li>
       <li xml:lang="et">Programmikoodi vaba teisendamine toetatud programmeerimiskeelte vahel</li>
+      <li xml:lang="eu">Programazio-kodea onartutako lengoaien artean bihurtzea</li>
       <li xml:lang="fr">Transcodage de code de programmation entre langages pris en charge</li>
       <li xml:lang="gl">Conversión do código de programación entre as linguaxes permitidas</li>
       <li xml:lang="he">המרה צולבת של הקוד בין השפות הנתמכות</li>
@@ -270,6 +278,7 @@
       <li xml:lang="eo">Enkonstruita erarserĉilo</li>
       <li xml:lang="es">Depurador integrado</li>
       <li xml:lang="et">Sisseehitatud silur</li>
+      <li xml:lang="eu">Araztaile barneratua</li>
       <li xml:lang="fr">Débogueur intégré</li>
       <li xml:lang="gl">Depurador integrado</li>
       <li xml:lang="he">מנפה שגיאות מובנה</li>
@@ -293,6 +302,7 @@
       <li xml:lang="en-GB">Simulation with oscilloscope and probes</li>
       <li xml:lang="eo">Simulado per osciloskopo kaj sondiloj</li>
       <li xml:lang="es">Simulación con osciloscopio y sondas</li>
+      <li xml:lang="eu">Osziloskopioekin eta zundekin simulazioa</li>
       <li xml:lang="fr">Simulation avec oscilloscope et sondes</li>
       <li xml:lang="gl">Simulación de osciloscopios e sondas</li>
       <li xml:lang="he">הדמיה עם אוסצילוסקופ (סקופ) ופרובים (בחונים)</li>
@@ -316,6 +326,7 @@
       <li xml:lang="en-GB">Uploading the assembly code to PIC using hardware programmer</li>
       <li xml:lang="eo">Alŝutante la kunigkodon al PIC per aparatara programilo</li>
       <li xml:lang="es">Envío del código ensamblador al PIC usando el programador hardware</li>
+      <li xml:lang="eu">Hardware programatzailea erabiliz mihiztadura-kodea PICera zama-igotzea</li>
       <li xml:lang="fr">Chargement du code assembleur vers le « PIC » en utilisant le programmateur matériel</li>
       <li xml:lang="gl">Enviando o código ensamblador a PIC usando o programador de soporte físico</li>
       <li xml:lang="he">העלאת קוד האסמבלי ל־PIC (מחשב מתוכנת חכם) באמצעות מתכנת חומרה</li>
