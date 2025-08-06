@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-08-02 23:37+0300\n"
+"PO-Revision-Date: 2025-08-05 11:40+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -396,19 +396,19 @@ msgstr ""
 #: src/core/ktechlab.kcfg:26
 #, kde-format
 msgid "Show Voltage Bars"
-msgstr ""
+msgstr "הצגת עמודות מתח"
 
 #. i18n: ectx: label, entry (ShowVoltageColor), group (General)
 #: src/core/ktechlab.kcfg:30
 #, kde-format
 msgid "Show Voltage as Color"
-msgstr ""
+msgstr "הצגת מתח כצבע"
 
 #. i18n: ectx: label, entry (AnimateWires), group (General)
 #: src/core/ktechlab.kcfg:34
 #, kde-format
 msgid "Animate Wires (current or power)"
-msgstr ""
+msgstr "הנפשת חוטים (זרם או חשמל)"
 
 #. i18n: ectx: label, entry (RefreshRate), group (General)
 #: src/core/ktechlab.kcfg:38
@@ -432,49 +432,49 @@ msgstr "האם להציג רשת."
 #: src/core/ktechlab.kcfg:50
 #, kde-format
 msgid "Whether the same output should be use for generation of code, etc"
-msgstr ""
+msgstr "האם אותו הפלט אמור לשמש ליצירת קוד וכו׳"
 
 #. i18n: ectx: label, entry (IndentAsmName), group (AsmFormatter)
 #: src/core/ktechlab.kcfg:57
 #, kde-format
 msgid "Indentation of Instruction Names"
-msgstr ""
+msgstr "הזחה של שמות הנחיות"
 
 #. i18n: ectx: label, entry (IndentAsmData), group (AsmFormatter)
 #: src/core/ktechlab.kcfg:61
 #, kde-format
 msgid "Indentation of Instruction Data"
-msgstr ""
+msgstr "הזחה של נתוני הנחיות"
 
 #. i18n: ectx: label, entry (IndentComment), group (AsmFormatter)
 #: src/core/ktechlab.kcfg:65
 #, kde-format
 msgid "Indentation of Comments"
-msgstr ""
+msgstr "הזחה של הערות"
 
 #. i18n: ectx: label, entry (IndentEqu), group (AsmFormatter)
 #: src/core/ktechlab.kcfg:69
 #, kde-format
 msgid "Indentation of 'equ'"
-msgstr ""
+msgstr "הזחה של ‚equ’"
 
 #. i18n: ectx: label, entry (IndentEquValue), group (AsmFormatter)
 #: src/core/ktechlab.kcfg:73
 #, kde-format
 msgid "Indentation of 'equ' Value"
-msgstr ""
+msgstr "הזחה של ערך ‚equ’"
 
 #. i18n: ectx: label, entry (AutoFormatMBOutput), group (AsmFormatter)
 #: src/core/ktechlab.kcfg:77
 #, kde-format
 msgid "Automatically format Microbe output"
-msgstr ""
+msgstr "עיצוב פלט Microbe אוטומטית"
 
 #. i18n: ectx: label, entry (LogicSymbolShapes), group (Logic)
 #: src/core/ktechlab.kcfg:84
 #, kde-format
 msgid "Logic Symbol Shapes"
-msgstr ""
+msgstr "צורות סימנים לוגיים"
 
 #. i18n: ectx: label, entry (LogicRisingTrigger), group (Logic)
 #: src/core/ktechlab.kcfg:92
@@ -516,62 +516,62 @@ msgstr ""
 #: src/core/ktechlab.kcfg:125
 #, kde-format
 msgid "Radix"
-msgstr ""
+msgstr "בסיס"
 
 #. i18n: ectx: label, entry (GpasmWarningLevel), group (Gpasm)
 #: src/core/ktechlab.kcfg:135
 #, kde-format
 msgid "GpasmWarning Level"
-msgstr ""
+msgstr "רמת GpasmWarning"
 
 #. i18n: ectx: label, entry (IgnoreCase), group (Gpasm)
 #: src/core/ktechlab.kcfg:144
 #, kde-format
 msgid "Ignore Case"
-msgstr ""
+msgstr "התעלמות מרישיות"
 
 #. i18n: ectx: label, entry (DosFormat), group (Gpasm)
 #: src/core/ktechlab.kcfg:148
 #, kde-format
 msgid "Dos Formatting"
-msgstr ""
+msgstr "תבנית Dos"
 
 #. i18n: ectx: label, entry (MiscGpasmOptions), group (Gpasm)
 #. i18n: ectx: label, entry (MiscSDCCOptions), group (SDCC)
 #: src/core/ktechlab.kcfg:152 src/core/ktechlab.kcfg:299
 #, kde-format
 msgid "Other Options"
-msgstr ""
+msgstr "אפשרויות אחרות"
 
 #. i18n: ectx: label, entry (SDCC_nostdlib), group (SDCC)
 #: src/core/ktechlab.kcfg:159
 #, kde-format
 msgid "Do not search in the standard library directory"
-msgstr ""
+msgstr "לא לחפש בתיקיית הספרייה התקנית"
 
 #. i18n: ectx: label, entry (SDCC_nostdinc), group (SDCC)
 #: src/core/ktechlab.kcfg:163
 #, kde-format
 msgid "Do not search in the standard include directory"
-msgstr ""
+msgstr "לא לחפש בתיקיית ההכללה/include התקנית"
 
 #. i18n: ectx: label, entry (SDCC_less_pedantic), group (SDCC)
 #: src/core/ktechlab.kcfg:167
 #, kde-format
 msgid "Disable pedantic warnings"
-msgstr ""
+msgstr "השבתת אזהרות קטנוניות"
 
 #. i18n: ectx: label, entry (SDCC_std_c89), group (SDCC)
 #: src/core/ktechlab.kcfg:171
 #, kde-format
 msgid "Strictly follow the C89 standard"
-msgstr ""
+msgstr "להיצמד לתקן C89 באדיקות"
 
 #. i18n: ectx: label, entry (SDCC_std_c99), group (SDCC)
 #: src/core/ktechlab.kcfg:175
 #, kde-format
 msgid "Strictly follow the C99 standard"
-msgstr ""
+msgstr "להיצמד לתקן C99 באדיקות"
 
 #. i18n: ectx: label, entry (SDCC_stack_auto), group (SDCC)
 #: src/core/ktechlab.kcfg:180
