@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-08-05 11:40+0300\n"
+"PO-Revision-Date: 2025-08-06 08:20+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -273,7 +273,7 @@ msgstr "אמור להיות שם"
 #: microbe/optimizer.cpp:71
 #, kde-format
 msgid "Internal issue: Optimization has not finished in %1 iterations."
-msgstr ""
+msgstr "תקלה פנימית: המיטוב לא סיים תוך %1 חזרות."
 
 #: src/circuitview.cpp:35
 #, kde-format
@@ -607,7 +607,7 @@ msgstr ""
 #: src/core/ktechlab.kcfg:200
 #, kde-format
 msgid "Callee will always save registers used"
-msgstr ""
+msgstr "הקורא תמיד ישמור את האוגרים שהיו בשימוש"
 
 #. i18n: ectx: label, entry (SDCC_nooverlay), group (SDCC)
 #: src/core/ktechlab.kcfg:205

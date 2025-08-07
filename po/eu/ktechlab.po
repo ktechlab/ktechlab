@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-08-01 17:06+0200\n"
+"PO-Revision-Date: 2025-08-06 18:48+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -100,7 +100,7 @@ msgstr "Adierazpen ezezaguna"
 #: microbe/microbe.cpp:226
 #, kde-format
 msgid "Port '%1' is not supported by target PIC"
-msgstr ""
+msgstr "Helburu PICak ez du '%1' ataka onartzen"
 
 #: microbe/microbe.cpp:229
 #, kde-format
@@ -110,22 +110,24 @@ msgstr "Pin identifikatzaileri ez dio  '=' ikurrak jarraitzen"
 #: microbe/microbe.cpp:232
 #, kde-format
 msgid "Pin state can only be 'high' or 'low'"
-msgstr ""
+msgstr "Pinaren egoera soilik 'altua' edo 'baxua' izan daiteke"
 
 #: microbe/microbe.cpp:235
 #, kde-format
 msgid "Invalid token '%1'. Port identifier should be followed by '='"
 msgstr ""
+"'%1' token baliogabea. Ataka-identifikatzailearen jarraian '=' agertu behar "
+"da"
 
 #: microbe/microbe.cpp:238
 #, kde-format
 msgid "Unexpected statement before '{'"
-msgstr ""
+msgstr "Ezusteko adierazpena '{' baino lehen"
 
 #: microbe/microbe.cpp:241
 #, kde-format
 msgid "Mismatched brackets in expression '%1'"
-msgstr ""
+msgstr "'%1' adierazpenean parentesiak desorekatuta daude"
 
 #: microbe/microbe.cpp:244
 #, kde-format
@@ -135,7 +137,7 @@ msgstr "Adierazpenean '=' baliogabea aurkitu da"
 #: microbe/microbe.cpp:247
 #, kde-format
 msgid "Reserved keyword '%1' cannot be a variable name."
-msgstr ""
+msgstr "Erreserbatutako '%1' gako-hitza ezin da aldagai-izena izan."
 
 #: microbe/microbe.cpp:250
 #, kde-format
@@ -145,7 +147,7 @@ msgstr "Eragileen artean ez dago ezer"
 #: microbe/microbe.cpp:253
 #, kde-format
 msgid "Missing operator or space in operand"
-msgstr ""
+msgstr "Eragingaian eragile bat edo zuriune bat falta da"
 
 #: microbe/microbe.cpp:257
 #, kde-format
@@ -160,7 +162,7 @@ msgstr "'%1' aldagai ezezaguna"
 #: microbe/microbe.cpp:262
 #, kde-format
 msgid "Could not open include file '%1'"
-msgstr ""
+msgstr "Ezin izan da '%1' barne-fitxategia ireki"
 
 #: microbe/microbe.cpp:265
 #, kde-format
@@ -185,7 +187,7 @@ msgstr "Atzerapena balio positibo konstante bat izan behar da"
 #: microbe/microbe.cpp:277
 #, kde-format
 msgid "'high' or 'low' expected after pin expression '%1'"
-msgstr ""
+msgstr "'%1' pin adierazpenaren ondoren 'altua' edo 'baxua' espero zen"
 
 #: microbe/microbe.cpp:280
 #, kde-format
@@ -195,12 +197,12 @@ msgstr "'%1'(e)ko konparaketa-eragilea ez da ezagutzen"
 #: microbe/microbe.cpp:283
 #, kde-format
 msgid "Subroutine definition before end of program"
-msgstr ""
+msgstr "Azpirrutinaren definizioa programa bukatu aurretik"
 
 #: microbe/microbe.cpp:286
 #, kde-format
 msgid "Interrupt routine definition before end of program"
-msgstr ""
+msgstr "Errutina eteteko definizioa programa bukatu aurretik"
 
 #: microbe/microbe.cpp:289
 #, kde-format
@@ -210,7 +212,7 @@ msgstr "Etiketa espero zen"
 #: microbe/microbe.cpp:292
 #, kde-format
 msgid "Extra tokens at end of line"
-msgstr ""
+msgstr "Lerro-bukaeran token gehigarriak"
 
 #: microbe/microbe.cpp:295
 #, kde-format
@@ -240,12 +242,12 @@ msgstr ""
 #: microbe/microbe.cpp:310
 #, kde-format
 msgid "Variable '%1' is read only"
-msgstr ""
+msgstr "'%1' aldagaia irakurtzeko bakarrik da"
 
 #: microbe/microbe.cpp:313
 #, kde-format
 msgid "Variable '%1' is write only"
-msgstr ""
+msgstr "'%1' aldagaia idazteko bakarrik da"
 
 #: microbe/microbe.cpp:316
 #, kde-format
@@ -255,27 +257,27 @@ msgstr "Pin-zerrendaren neurri baliogabea"
 #: microbe/microbe.cpp:319
 #, kde-format
 msgid "Variable '%1' is already defined"
-msgstr ""
+msgstr "'%1' aldagaia jada definituta dago"
 
 #: microbe/microbe.cpp:322
 #, kde-format
 msgid "'%1' is not a valid variable name"
-msgstr ""
+msgstr "'%1' ez da aldagai-izen balioduna"
 
 #: microbe/microbe.cpp:325
 #, kde-format
 msgid "Variable expected"
-msgstr ""
+msgstr "Aldagaia espero da"
 
 #: microbe/microbe.cpp:328
 #, kde-format
 msgid "Name expected"
-msgstr ""
+msgstr "Izena espero da"
 
 #: microbe/optimizer.cpp:71
 #, kde-format
 msgid "Internal issue: Optimization has not finished in %1 iterations."
-msgstr ""
+msgstr "Barneko arazoa: Optimizazioa ez da %1 iteraziotan bukatu."
 
 #: src/circuitview.cpp:35
 #, kde-format
@@ -285,28 +287,28 @@ msgstr ""
 #. i18n("0 Degrees"), "", 0, circuitDocument, SLOT(setOrientation0()), ac, "edit_orientation_0" );
 #. ra->setExclusiveGroup("orientation"); // TODO test
 #: src/circuitview.cpp:47
-#, fuzzy, kde-format
+#, kde-format
 msgid "0 Degrees"
 msgstr "0 gradu"
 
 #. i18n("90 Degrees"), "", 0, circuitDocument, SLOT(setOrientation90()), ac, "edit_orientation_90" );
 #. ra->setExclusiveGroup("orientation"); // TODO test
 #: src/circuitview.cpp:56
-#, fuzzy, kde-format
+#, kde-format
 msgid "90 Degrees"
 msgstr "90 gradu"
 
 #. i18n("180 Degrees"), "", 0, circuitDocument, SLOT(setOrientation180()), ac, "edit_orientation_180" );
 #. ra->setExclusiveGroup("orientation"); // TODO test
 #: src/circuitview.cpp:64
-#, fuzzy, kde-format
+#, kde-format
 msgid "180 Degrees"
 msgstr "180 gradu"
 
 #. i18n("270 Degrees"), "", 0, circuitDocument, SLOT(setOrientation270()), ac, "edit_orientation_270" );
 #. ra->setExclusiveGroup("orientation"); // TODO test
 #: src/circuitview.cpp:72
-#, fuzzy, kde-format
+#, kde-format
 msgid "270 Degrees"
 msgstr "270 gradu"
 
@@ -314,29 +316,29 @@ msgstr "270 gradu"
 #: src/circuitview.cpp:80
 #, kde-format
 msgid "Create Subcircuit"
-msgstr ""
+msgstr "Sortu azpi-zirkuitua"
 
 #. i18n("Rotate Clockwise"), "object-rotate-right", "]", circuitDocument, SLOT(rotateClockwise()), ac, "edit_rotate_cw" );
 #: src/circuitview.cpp:87
-#, fuzzy, kde-format
+#, kde-format
 msgid "Rotate Clockwise"
 msgstr "Biratu erloju-orratzen noranzkoan"
 
 #. i18n("Rotate Counter-Clockwise"), "object-rotate-left", "[", circuitDocument, SLOT(rotateCounterClockwise()), ac, "edit_rotate_ccw" );
 #: src/circuitview.cpp:94
-#, fuzzy, kde-format
+#, kde-format
 msgid "Rotate Counter-Clockwise"
 msgstr "Biratu erloju-orratzen aurkako noranzkoan"
 
 #. i18n("Flip Horizontally"), "", 0, circuitDocument, SLOT(flipHorizontally()), ac, "edit_flip_horizontally" );
 #: src/circuitview.cpp:101
-#, fuzzy, kde-format
+#, kde-format
 msgid "Flip Horizontally"
 msgstr "Irauli horizontalki"
 
 #. i18n("Flip Vertically"), "", 0, circuitDocument, SLOT(flipVertically()), ac, "edit_flip_vertically" );
 #: src/circuitview.cpp:108
-#, fuzzy, kde-format
+#, kde-format
 msgid "Flip Vertically"
 msgstr "Irauli bertikalki"
 
@@ -358,29 +360,29 @@ msgstr ""
 #: src/circuitview.cpp:132
 #, kde-format
 msgid "Simulation Initializing"
-msgstr ""
+msgstr "Simulazioa hasieratzen ari da"
 
 #: src/circuitview.cpp:144
 #, kde-format
 msgid "Simulation Running"
-msgstr ""
+msgstr "Simulazioa exekutatzen ari da"
 
 #: src/circuitview.cpp:144
 #, kde-format
 msgid "Simulation Paused"
-msgstr ""
+msgstr "Simulazioa etenaldian"
 
 #. i18n: ectx: label, entry (MaxUndo), group (General)
 #: src/core/ktechlab.kcfg:10
 #, kde-format
 msgid "Maximum number of undo steps"
-msgstr ""
+msgstr "Desegite-urratsen gehienezko kopurua"
 
 #. i18n: ectx: label, entry (RestoreDocumentsOnStartup), group (General)
 #: src/core/ktechlab.kcfg:14
 #, kde-format
 msgid "Restore Documents on Startup"
-msgstr ""
+msgstr "Abioan dokumentuak leheneratu"
 
 #. i18n: ectx: label, entry (RaiseItemSelectors), group (General)
 #: src/core/ktechlab.kcfg:18
@@ -414,9 +416,9 @@ msgstr ""
 
 #. i18n: ectx: label, entry (RefreshRate), group (General)
 #: src/core/ktechlab.kcfg:38
-#, fuzzy, kde-format
+#, kde-format
 msgid "Refresh Rate"
-msgstr "Freskatze-tasa:"
+msgstr "Freskatze-tasa"
 
 #. i18n: ectx: label, entry (GridColor), group (General)
 #: src/core/ktechlab.kcfg:42
@@ -528,52 +530,52 @@ msgstr ""
 
 #. i18n: ectx: label, entry (IgnoreCase), group (Gpasm)
 #: src/core/ktechlab.kcfg:144
-#, fuzzy, kde-format
+#, kde-format
 msgid "Ignore Case"
-msgstr "Ez bereizi maiuskulak eta minuskulak"
+msgstr "Ez bereizi maius./minus."
 
 #. i18n: ectx: label, entry (DosFormat), group (Gpasm)
 #: src/core/ktechlab.kcfg:148
 #, kde-format
 msgid "Dos Formatting"
-msgstr ""
+msgstr "DOS formatua"
 
 #. i18n: ectx: label, entry (MiscGpasmOptions), group (Gpasm)
 #. i18n: ectx: label, entry (MiscSDCCOptions), group (SDCC)
 #: src/core/ktechlab.kcfg:152 src/core/ktechlab.kcfg:299
-#, fuzzy, kde-format
+#, kde-format
 msgid "Other Options"
-msgstr "Beste aukerak"
+msgstr "Beste aukera batzuk"
 
 #. i18n: ectx: label, entry (SDCC_nostdlib), group (SDCC)
 #: src/core/ktechlab.kcfg:159
 #, kde-format
 msgid "Do not search in the standard library directory"
-msgstr ""
+msgstr "Ez bilatu barne-fitxategi direktorio estandarrean"
 
 #. i18n: ectx: label, entry (SDCC_nostdinc), group (SDCC)
 #: src/core/ktechlab.kcfg:163
 #, kde-format
 msgid "Do not search in the standard include directory"
-msgstr ""
+msgstr "Ez bilatu barne-fitxategi direktorio estandarrean"
 
 #. i18n: ectx: label, entry (SDCC_less_pedantic), group (SDCC)
 #: src/core/ktechlab.kcfg:167
 #, kde-format
 msgid "Disable pedantic warnings"
-msgstr ""
+msgstr "Ezgaitu abisu pedanteak"
 
 #. i18n: ectx: label, entry (SDCC_std_c89), group (SDCC)
 #: src/core/ktechlab.kcfg:171
 #, kde-format
 msgid "Strictly follow the C89 standard"
-msgstr ""
+msgstr "Zorrotz jarraitu C89 estandarra"
 
 #. i18n: ectx: label, entry (SDCC_std_c99), group (SDCC)
 #: src/core/ktechlab.kcfg:175
 #, kde-format
 msgid "Strictly follow the C99 standard"
-msgstr ""
+msgstr "Zorrotz jarraitu C99 estandarra"
 
 #. i18n: ectx: label, entry (SDCC_stack_auto), group (SDCC)
 #: src/core/ktechlab.kcfg:180
@@ -743,6 +745,8 @@ msgstr ""
 #, kde-format
 msgid "Search / include non-free licensed libraries and header files"
 msgstr ""
+"Bilatu/barneratu lizentzia askerik gabeko liburutegiak eta goiburu-"
+"fitxategiak"
 
 #. i18n: ectx: label, entry (SDCC_install_prefix), group (SDCC)
 #: src/core/ktechlab.kcfg:294
@@ -769,89 +773,89 @@ msgid "Check this if SDCC uses shared libs for compiling (newer SDCC does so)"
 msgstr ""
 
 #: src/core/main.cpp:31
-#, fuzzy, kde-format
+#, kde-format
 msgid "KTechLab"
 msgstr "KTechlab"
 
 #: src/core/main.cpp:32
-#, fuzzy, kde-format
+#, kde-format
 msgid "An IDE for microcontrollers and electronics"
 msgstr "Mikrokontrolagailu eta elektronikarako IDE bat"
 
 #: src/core/main.cpp:33
-#, fuzzy, kde-format
+#, kde-format
 msgid "(C) 2003-2017, The KTechLab developers"
-msgstr "(C) 2004-2005, KTechlab garatzaileak"
+msgstr "(C) 2003-2017, KTechlab garatzaileak"
 
 #: src/core/main.cpp:36
 #, kde-format
 msgid "Alan Grimes"
-msgstr ""
+msgstr "Alan Grimes"
 
 #: src/core/main.cpp:36
 #, kde-format
 msgid "Developer, Simulation"
-msgstr ""
+msgstr "Garatzailea, simulazioa"
 
 #: src/core/main.cpp:37
 #, kde-format
 msgid "Zoltan Padrah"
-msgstr ""
+msgstr "Zoltan Padrah"
 
 #: src/core/main.cpp:37
-#, fuzzy, kde-format
+#, kde-format
 msgid "Developer"
 msgstr "Garatzailea"
 
 #: src/core/main.cpp:38
 #, kde-format
 msgid "Julian Bäume"
-msgstr ""
+msgstr "Julian Bäume"
 
 #: src/core/main.cpp:38
 #, kde-format
 msgid "Developer, KDE4 Port, GUI"
-msgstr ""
+msgstr "Garatzailea, KDE4 egokitzapena, GUI"
 
 #: src/core/main.cpp:39
 #, kde-format
 msgid "Juan De Vincenzo"
-msgstr ""
+msgstr "Juan De Vincenzo"
 
 #: src/core/main.cpp:39
-#, fuzzy, kde-format
+#, kde-format
 msgid "KDE4 Port"
-msgstr "KDErako eratorpena"
+msgstr "KDE4 egokitzapena"
 
 #: src/core/main.cpp:40
 #, kde-format
 msgid "Lawrence Shafer"
-msgstr ""
+msgstr "Lawrence Shafer"
 
 #: src/core/main.cpp:40
 #, kde-format
 msgid "Website, wiki and forum"
-msgstr ""
+msgstr "Webgunea, wikia eta foroa"
 
 #: src/core/main.cpp:41
 #, kde-format
 msgid "Jason Lucas"
-msgstr ""
+msgstr "Jason Lucas"
 
 #: src/core/main.cpp:41
 #, kde-format
 msgid "Keeping up the project during lack of developers"
-msgstr ""
+msgstr "Garatzailerik ez zegoen bitartean proiektua mantentzea"
 
 #: src/core/main.cpp:42
 #, kde-format
 msgid "Former developer, project founder, former maintainer"
-msgstr ""
+msgstr "Garatzaile ohia, proiektuaren fundatzailea, mantentzaile ohia"
 
 #: src/core/main.cpp:43
-#, fuzzy, kde-format
+#, kde-format
 msgid "Former developer"
-msgstr "Hasierako garatzailea"
+msgstr "Garatzaile ohia"
 
 #: src/core/main.cpp:44
 #, kde-format
@@ -871,12 +875,12 @@ msgstr ""
 #: src/core/main.cpp:45
 #, kde-format
 msgid "John Myers"
-msgstr ""
+msgstr "John Myers"
 
 #: src/core/main.cpp:46
 #, kde-format
 msgid "Ali Akcaagac"
-msgstr ""
+msgstr "Ali Akcaagac"
 
 #: src/core/main.cpp:46
 #, kde-format
@@ -886,7 +890,7 @@ msgstr ""
 #: src/core/main.cpp:47
 #, kde-format
 msgid "David Leggett"
-msgstr ""
+msgstr "David Leggett"
 
 #: src/core/main.cpp:47
 #, kde-format
@@ -894,105 +898,106 @@ msgid "Former website hosting and feedback during early development"
 msgstr ""
 
 #: src/core/main.cpp:56
-#, fuzzy, kde-format
+#, kde-format
 msgid "Document to open."
 msgstr "Ireki beharreko dokumentua."
 
 #: src/docmanager.cpp:96
-#, fuzzy, kde-format
+#, kde-format
 msgid "Could not open '%1'"
-msgstr "Ezin izan da '%1' (%2) ireki"
+msgstr "Ezin izan da '%1' ireki"
 
 #: src/docmanager.cpp:164
 #, kde-format
 msgid "Untitled (Circuit %1)"
-msgstr ""
+msgstr "Izengabea (%1 zirkuitua)"
 
 #: src/docmanager.cpp:166
 #, kde-format
 msgid "Untitled (Circuit)"
-msgstr ""
+msgstr "Izengabea (Zirkuitua)"
 
 #: src/docmanager.cpp:172
 #, kde-format
 msgid "Untitled (FlowCode %1)"
-msgstr ""
+msgstr "Izengabea (FlowCode %1)"
 
 #: src/docmanager.cpp:174
 #, kde-format
 msgid "Untitled (FlowCode)"
-msgstr ""
+msgstr "Izengabea (FlowCode)"
 
 #: src/docmanager.cpp:180
 #, kde-format
 msgid "Untitled (Mechanics %1)"
-msgstr ""
+msgstr "Izengabea (%1 mekanika)"
 
 #: src/docmanager.cpp:182
 #, kde-format
 msgid "Untitled (Mechanics)"
-msgstr ""
+msgstr "Izengabea (Mekanika)"
 
 #: src/docmanager.cpp:188
-#, fuzzy, kde-format
+#, kde-format
 msgid "Untitled (%1)"
-msgstr "Izengabea"
+msgstr "Izengabea (%1)"
 
 #: src/docmanager.cpp:190 src/view.cpp:242
-#, fuzzy, kde-format
+#, kde-format
 msgid "Untitled"
 msgstr "Izengabea"
 
 #: src/docmanager.cpp:407
 #, kde-format
 msgid "Could not open Circuit file \"%1\""
-msgstr ""
+msgstr "Ezin izan du \"%1\" zirkuitu-fitxategia ireki"
 
 #: src/docmanager.cpp:422
 #, kde-format
 msgid "Could not open FlowCode file \"%1\""
-msgstr ""
+msgstr "Ezin izan du \"%1\" FlowCode-fitxategia ireki"
 
 #: src/docmanager.cpp:437
 #, kde-format
 msgid "Could not open Mechanics file \"%1\""
-msgstr ""
+msgstr "Ezin izan du %1 mekanika-fitxategia ireki"
 
 #: src/docmanager.cpp:455
 #, kde-format
 msgid "Could not open text file \"%1\""
-msgstr ""
+msgstr "Ezin izan du \"%1\" testu-fitxategia ireki"
 
 #: src/document.cpp:102
-#, fuzzy, kde-format
+#, kde-format
 msgid "Save Location"
-msgstr "Gordetzeko kokalekua:"
+msgstr "Gordetzeko kokalekua"
 
 #: src/document.cpp:113 src/itemdocument.cpp:825
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "A file named \"%1\" already exists. Are you sure you want to overwrite it?"
 msgstr ""
-"«%1» izeneko fitxategi bat existitzen da. Ziur zaude gainidatzi nahi duzula?"
+"Lehendik ere badago \"%1\" izeneko fitxategi bat. Ziur zaude gainidatzi nahi "
+"duzula?"
 
 #: src/document.cpp:114 src/itemdocument.cpp:828
-#, fuzzy, kde-format
+#, kde-format
 msgid "Overwrite File?"
 msgstr "Fitxategia gainidatzi?"
 
 #: src/document.cpp:144
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "The document '%1' has been modified.\n"
 "Do you want to save it?"
 msgstr ""
-"\"%1\" dokumentua aldatu da.\n"
+"\"%1\" dokumentua aldatu egin da.\n"
 "Gorde nahi duzu?"
 
 #: src/document.cpp:144
-#, fuzzy, kde-format
+#, kde-format
 msgid "Save Document?"
-msgstr "Gorde dokumentua"
+msgstr "Dokumentua gorde?"
 
 #: src/drawparts/dpimage.cpp:129 src/drawparts/dpline.cpp:29
 #: src/drawparts/dpline.cpp:142 src/drawparts/dptext.cpp:36
@@ -1003,135 +1008,135 @@ msgstr "Bestelakoak"
 
 #: src/drawparts/dpimage.cpp:129 src/drawparts/dpimage.cpp:145
 #: src/itemview.cpp:128
-#, fuzzy, kde-format
+#, kde-format
 msgid "Image"
 msgstr "Irudia"
 
 #: src/drawparts/dpimage.cpp:148
-#, fuzzy, kde-format
+#, kde-format
 msgid "Image File"
-msgstr "Irudi fitxategia:"
+msgstr "Irudi-fitxategia"
 
 #: src/drawparts/dpline.cpp:29 src/drawparts/dpline.cpp:36 src/itemview.cpp:124
-#, fuzzy, kde-format
+#, kde-format
 msgid "Line"
-msgstr "Lerroa"
+msgstr "Marra"
 
 #: src/drawparts/dpline.cpp:39 src/drawparts/solidshape.cpp:50
-#, fuzzy, kde-format
+#, kde-format
 msgid "Line Color"
-msgstr "Lerroaren kolorea"
+msgstr "Marraren kolorea"
 
 #: src/drawparts/dpline.cpp:43 src/drawparts/solidshape.cpp:54
-#, fuzzy, kde-format
+#, kde-format
 msgid "Line Width"
-msgstr "Lerroaren zabalera:"
+msgstr "Marraren zabalera"
 
 #: src/drawparts/dpline.cpp:49 src/drawparts/solidshape.cpp:62
-#, fuzzy, kde-format
+#, kde-format
 msgid "Line Style"
-msgstr "Lerroaren estiloa"
+msgstr "Marraren estiloa"
 
 #: src/drawparts/dpline.cpp:54
 #, kde-format
 msgid "Cap Style"
-msgstr ""
+msgstr "Muturraren estiloa"
 
 #: src/drawparts/dpline.cpp:142 src/drawparts/dpline.cpp:148
 #: src/itemview.cpp:125
-#, fuzzy, kde-format
+#, kde-format
 msgid "Arrow"
 msgstr "Gezia"
 
 #: src/drawparts/dpline.cpp:158
 #, kde-format
 msgid "Head angle"
-msgstr ""
+msgstr "Buruaren angelua"
 
 #: src/drawparts/dptext.cpp:36
 #, kde-format
 msgid "Canvas Text"
-msgstr ""
+msgstr "Mihiseko testua"
 
 #: src/drawparts/dptext.cpp:43 src/drawparts/dptext.cpp:46 src/itemview.cpp:123
-#, fuzzy, kde-format
+#, kde-format
 msgid "Text"
 msgstr "Testua"
 
 #: src/drawparts/dptext.cpp:50 src/drawparts/solidshape.cpp:40
-#, fuzzy, kde-format
+#, kde-format
 msgid "Display Background"
-msgstr "Erakutsi Atzeko planoa:"
+msgstr "Erakutsi atzeko planoa"
 
 #: src/drawparts/dptext.cpp:55 src/drawparts/solidshape.cpp:45
-#, fuzzy, kde-format
+#, kde-format
 msgid "Background Color"
 msgstr "Atzeko planoaren kolorea"
 
 #: src/drawparts/dptext.cpp:60
-#, fuzzy, kde-format
+#, kde-format
 msgid "Frame Color"
-msgstr "Markoaren kolorea:"
+msgstr "Markoaren kolorea"
 
 #: src/drawparts/drawpart.cpp:189
-#, fuzzy, kde-format
+#, kde-format
 msgid "Solid"
 msgstr "Solidoa"
 
 #: src/drawparts/drawpart.cpp:191 src/drawparts/drawpart.cpp:207
-#, fuzzy, kde-format
+#, kde-format
 msgid "None"
 msgstr "Bat ere ez"
 
 #: src/drawparts/drawpart.cpp:193 src/drawparts/drawpart.cpp:209
-#, fuzzy, kde-format
+#, kde-format
 msgid "Dash"
-msgstr "Marra"
+msgstr "Marratxoa"
 
 #: src/drawparts/drawpart.cpp:195 src/drawparts/drawpart.cpp:211
-#, fuzzy, kde-format
+#, kde-format
 msgid "Dot"
-msgstr "Puntu"
+msgstr "Puntua"
 
 #: src/drawparts/drawpart.cpp:197 src/drawparts/drawpart.cpp:213
-#, fuzzy, kde-format
+#, kde-format
 msgid "Dash Dot"
-msgstr "Marra puntua"
+msgstr "Marratxoa puntua"
 
 #: src/drawparts/drawpart.cpp:199 src/drawparts/drawpart.cpp:215
-#, fuzzy, kde-format
+#, kde-format
 msgid "Dash Dot Dot"
-msgstr "Marra puntua puntua"
+msgstr "Marratxoa puntua puntua"
 
 #: src/drawparts/drawpart.cpp:223
-#, fuzzy, kde-format
+#, kde-format
 msgid "Flat"
 msgstr "Laua"
 
 #: src/drawparts/drawpart.cpp:225 src/drawparts/drawpart.cpp:235
-#, fuzzy, kde-format
+#, kde-format
 msgid "Square"
 msgstr "Karratua"
 
 #: src/drawparts/drawpart.cpp:227 src/drawparts/drawpart.cpp:237
-#, fuzzy, kde-format
+#, kde-format
 msgid "Round"
 msgstr "Biribila"
 
 #: src/drawparts/solidshape.cpp:29 src/drawparts/solidshape.cpp:36
 #: src/itemview.cpp:127
-#, fuzzy, kde-format
+#, kde-format
 msgid "Rectangle"
 msgstr "Laukizuzena"
 
 #: src/drawparts/solidshape.cpp:135 src/drawparts/solidshape.cpp:141
 #: src/itemview.cpp:126
-#, fuzzy, kde-format
+#, kde-format
 msgid "Ellipse"
 msgstr "Elipsea"
 
 #: src/electronics/circuitdocument.cpp:43
-#, fuzzy, kde-format
+#, kde-format
 msgid "Orientation"
 msgstr "Orientazioa"
 
@@ -1141,26 +1146,26 @@ msgstr "Orientazioa"
 #: src/flowcodedocument.cpp:221 src/ktechlab.cpp:1190
 #: src/mechanics/mechanicsdocument.cpp:28 src/projectmanager.cpp:911
 #: src/textdocument.cpp:436 src/textdocument.cpp:474
-#, fuzzy, kde-format
+#, kde-format
 msgid "All Files"
 msgstr "Fitxategi guztiak"
 
 #. i18n("Circuit"), "application-x-circuit", 0, this, SLOT(slotFileNewCircuit()), ac, "newfile_circuit" ))->plug( p->menu() );
 #: src/electronics/circuitdocument.cpp:47 src/gui/newfiledlg.cpp:77
 #: src/ktechlab.cpp:484 src/ktechlab.cpp:1193
-#, fuzzy, kde-format
+#, kde-format
 msgid "Circuit"
 msgstr "Zirkuitua"
 
 #: src/electronics/circuitdocument.cpp:741
 #, kde-format
 msgid "No components were found in the selection."
-msgstr ""
+msgstr "Hautapenean ez da osagairik aurkitu."
 
 #: src/electronics/circuitdocument.cpp:748
 #, kde-format
 msgid "No External Connection components were found in the selection."
-msgstr ""
+msgstr "Hautapenean ez da kanpoko konexio osagairik aurkitu."
 
 #: src/electronics/components/addac.cpp:33
 #: src/electronics/components/addac.cpp:38
@@ -1180,7 +1185,7 @@ msgstr ""
 #: src/electronics/components/ram.cpp:31
 #, kde-format
 msgid "Integrated Circuits"
-msgstr ""
+msgstr "Zirkuitu integratuak"
 
 #: src/electronics/components/addac.cpp:33
 #, kde-format
@@ -2504,9 +2509,9 @@ msgstr ""
 
 #: src/flowparts/callsub.cpp:38 src/flowparts/sub.cpp:26
 #: src/flowparts/sub.cpp:35
-#, fuzzy, kde-format
+#, kde-format
 msgid "Subroutine"
-msgstr "azpierrutina"
+msgstr "Azpirrutina"
 
 #: src/flowparts/callsub.cpp:48
 #, fuzzy, kde-format
@@ -4023,7 +4028,7 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:49
 #, kde-format
 msgid "Do not search in the standard include directory (--nostdinc)"
-msgstr ""
+msgstr "Ez bilatu barne-fitxategi direktorio estandarrean (--nostdinc)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_less_pedantic)
 #: src/gui/sdccoptionswidget.ui:59
@@ -5116,6 +5121,8 @@ msgid ""
 "KTechlab was unable to find the \"Start\" part.\n"
 "This must be included as the starting point for your program."
 msgstr ""
+"KTechlab-ek ezin izan du \"Hasi\" atala aurkitu.\n"
+"Hau zure programaren abiapuntu gisa txertatu behar da."
 
 #: src/languages/gpasm.cpp:27
 #, kde-format
