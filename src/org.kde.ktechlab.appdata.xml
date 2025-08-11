@@ -7,6 +7,7 @@
     <name translate="no">KDE</name>
     <url>https://kde.org</url>
   </developer>
+  <launchable type="desktop-id">org.kde.ktechlab.desktop</launchable>
   <name>KTechlab</name>
   <name xml:lang="ca">KTechlab</name>
   <name xml:lang="ca-valencia">KTechlab</name>
