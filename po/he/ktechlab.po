@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-08-06 08:20+0300\n"
+"PO-Revision-Date: 2025-08-15 15:48+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -2681,7 +2681,7 @@ msgstr ""
 #: src/flowparts/testpin.cpp:26 src/flowparts/writeport.cpp:26
 #, kde-format
 msgid "I\\/O"
-msgstr ""
+msgstr "קלט-פלט"
 
 #: src/flowparts/readport.cpp:30 src/flowparts/readport.cpp:37
 #, kde-format
@@ -2853,7 +2853,7 @@ msgstr "כתיבת %1 אל %2"
 msgid ""
 "The values control the indentation from the left margin of the various types "
 "of assembly code."
-msgstr ""
+msgstr "הערכים שולטים בהזחה מהשול השמאלי של הסוגים השונים של קוד אסמבלי."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox64)
 #: src/gui/asmformattingwidget.ui:32
@@ -2895,7 +2895,7 @@ msgstr "שם הנחיה"
 #: src/gui/asmformattingwidget.ui:162
 #, kde-format
 msgid "&Automatically format Microbe output"
-msgstr ""
+msgstr "לעצב את פלט ה־Microbe &אוטומטית"
 
 #: src/gui/contexthelp.cpp:69
 #, kde-format
@@ -3013,6 +3013,8 @@ msgid ""
 "Maximum undo steps for work area. This does not apply to text documents - "
 "that is configurable separately under Configure Editor."
 msgstr ""
+"צעדי הסגה מרביים לאזור העבודה. לא חל על מסמכי טקסט - אפשר להגדיר את זה בנפרד "
+"תחת עורך ההגדרות."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/gui/generaloptionswidget.ui:88
