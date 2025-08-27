@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-08-17 11:00+0300\n"
+"PO-Revision-Date: 2025-08-26 15:09+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.04.3\n"
+"X-Generator: Lokalize 25.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -384,13 +384,13 @@ msgstr "שחזור מסמכים עם ההפעלה"
 #: src/core/ktechlab.kcfg:18
 #, kde-format
 msgid "Raise appropriate Item Selector on document creation"
-msgstr ""
+msgstr "הרמת בורר פריטים מתאים "
 
 #. i18n: ectx: label, entry (RaiseMessagesLog), group (General)
 #: src/core/ktechlab.kcfg:22
 #, kde-format
 msgid "Raise Messages Log on Compiling"
-msgstr ""
+msgstr "הרמת יומן הודעות בעת הידור"
 
 #. i18n: ectx: label, entry (ShowVoltageBars), group (General)
 #: src/core/ktechlab.kcfg:26
@@ -510,7 +510,7 @@ msgstr ""
 #: src/core/ktechlab.kcfg:115
 #, kde-format
 msgid "Hex Format"
-msgstr ""
+msgstr "תבנית הקסדצימלית"
 
 #. i18n: ectx: label, entry (Radix), group (Gpasm)
 #: src/core/ktechlab.kcfg:125
@@ -595,7 +595,7 @@ msgstr ""
 #: src/core/ktechlab.kcfg:192
 #, kde-format
 msgid "Leave out the frame pointer"
-msgstr ""
+msgstr "להשאיר את מצביע המסגרת כמו שהוא"
 
 #. i18n: ectx: label, entry (SDCC_no_xinit_opt), group (SDCC)
 #: src/core/ktechlab.kcfg:196
@@ -619,13 +619,13 @@ msgstr ""
 #: src/core/ktechlab.kcfg:209
 #, kde-format
 msgid "Disable the GCSE optimization"
-msgstr ""
+msgstr "השבתת מיטובי GCSE‏"
 
 #. i18n: ectx: label, entry (SDCC_nolabelopt), group (SDCC)
 #: src/core/ktechlab.kcfg:213
 #, kde-format
 msgid "Do not optimize labels"
-msgstr ""
+msgstr "לא למטב תוויות"
 
 #. i18n: ectx: label, entry (SDCC_noinvariant), group (SDCC)
 #: src/core/ktechlab.kcfg:217
@@ -637,13 +637,13 @@ msgstr ""
 #: src/core/ktechlab.kcfg:221
 #, kde-format
 msgid "Disable loop variable induction"
-msgstr ""
+msgstr "השבתת הסקה של משתני לולאה"
 
 #. i18n: ectx: label, entry (SDCC_no_peep), group (SDCC)
 #: src/core/ktechlab.kcfg:225
 #, kde-format
 msgid "Disable peep-hole optimization"
-msgstr ""
+msgstr "השבתת מיטוב „חור הצצה”"
 
 #. i18n: ectx: label, entry (SDCC_noloopreverse), group (SDCC)
 #: src/core/ktechlab.kcfg:229
@@ -655,13 +655,13 @@ msgstr ""
 #: src/core/ktechlab.kcfg:233
 #, kde-format
 msgid "Optimize for compact code"
-msgstr ""
+msgstr "מיטוב לקוד חסכוני"
 
 #. i18n: ectx: label, entry (SDCC_opt_code_speed), group (SDCC)
 #: src/core/ktechlab.kcfg:237
 #, kde-format
 msgid "Optimize for fast code"
-msgstr ""
+msgstr "מיטוב לקוד מהיר"
 
 #. i18n: ectx: label, entry (SDCC_peep_asm), group (SDCC)
 #: src/core/ktechlab.kcfg:241
@@ -3421,7 +3421,7 @@ msgstr "קישור ספריות בתוך מיזם"
 #: src/gui/logicwidget.ui:31
 #, kde-format
 msgid "Logic Symbol Shapes:"
-msgstr ""
+msgstr "צורות סימנים לוגיים:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LogicSymbolShapes)
 #: src/gui/logicwidget.ui:42
@@ -3519,7 +3519,7 @@ msgstr "עכבה חשמלית של פלט חלש:"
 #: src/gui/logicwidget.ui:240
 #, kde-format
 msgid "Floating"
-msgstr ""
+msgstr "צף"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2_3)
 #: src/gui/logicwidget.ui:264
@@ -3634,6 +3634,8 @@ msgid ""
 "Tip: Toggle the initial state (high/low) of a pin by clicking its picture.\n"
 "Drag it to set the type (input/output)."
 msgstr ""
+"עצה: אפשר לשנות את המצב ההתחלתי של פין (גבוה/נמוך) בלחיצה על התמונה שלו.\n"
+"יש לגרור אותו כדי להגדיר את הסוג (קלט/פלט)."
 
 #. i18n: ectx: property (text), widget (QPushButton, pinMapRemove)
 #: src/gui/microsettingswidget.ui:109 src/projectmanager.cpp:1081
@@ -4176,7 +4178,7 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:184
 #, kde-format
 msgid "Callee will &always save registers used (--all-callee-saves)"
-msgstr ""
+msgstr "הקורא &תמיד ישמור את האוגרים שהיו בשימוש (‎--all-callee-saves)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, optimization)
 #: src/gui/sdccoptionswidget.ui:208
@@ -4210,7 +4212,7 @@ msgstr "השבתת מיטובי GCSE‏ (‎--nogcse)"
 #: src/gui/sdccoptionswidget.ui:234
 #, kde-format
 msgid "Will not optimize labels (makes the dumpfiles more readable)."
-msgstr ""
+msgstr "התוויות לא תמוטבנה (הפיכת קובצי ההיטל לקריאים יותר)."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nolabelopt)
 #: src/gui/sdccoptionswidget.ui:237
