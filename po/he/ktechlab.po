@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-08-26 15:09+0300\n"
+"PO-Revision-Date: 2025-08-27 10:09+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -278,7 +278,7 @@ msgstr "תקלה פנימית: המיטוב לא סיים תוך %1 חזרות."
 #: src/circuitview.cpp:35
 #, kde-format
 msgid "Dump linear equations"
-msgstr ""
+msgstr "היטל משוואות לינאריות"
 
 #. i18n("0 Degrees"), "", 0, circuitDocument, SLOT(setOrientation0()), ac, "edit_orientation_0" );
 #. ra->setExclusiveGroup("orientation"); // TODO test
@@ -631,7 +631,7 @@ msgstr "לא למטב תוויות"
 #: src/core/ktechlab.kcfg:217
 #, kde-format
 msgid "Disable optimization of invariants"
-msgstr ""
+msgstr "השבתת מיטוב משתמרים/אינווריאנטים"
 
 #. i18n: ectx: label, entry (SDCC_noinduction), group (SDCC)
 #: src/core/ktechlab.kcfg:221
@@ -649,7 +649,7 @@ msgstr "השבתת מיטוב „חור הצצה”"
 #: src/core/ktechlab.kcfg:229
 #, kde-format
 msgid "Do not do loop reversal optimization"
-msgstr ""
+msgstr "לא לבצע מיטוב היפוך לולאה"
 
 #. i18n: ectx: label, entry (SDCC_opt_code_size), group (SDCC)
 #: src/core/ktechlab.kcfg:233
@@ -673,67 +673,67 @@ msgstr ""
 #: src/core/ktechlab.kcfg:245
 #, kde-format
 msgid "Do not generate boundary check for jump tables"
-msgstr ""
+msgstr "לא לייצר בדיקת גבולות לטבלאות קפיצה"
 
 #. i18n: ectx: label, entry (SDCC_nodefaultlibs), group (SDCC)
 #: src/core/ktechlab.kcfg:250
 #, kde-format
 msgid "Do not use default libraries"
-msgstr ""
+msgstr "לא להשתמש בספריות ברירת המחדל"
 
 #. i18n: ectx: label, entry (SDCC_pno_banksel), group (SDCC)
 #: src/core/ktechlab.kcfg:254
 #, kde-format
 msgid "Do not generate BANKSEL directives"
-msgstr ""
+msgstr "לא לייצר הנחיות BANKSEL"
 
 #. i18n: ectx: label, entry (SDCC_pstack_model_large), group (SDCC)
 #: src/core/ktechlab.kcfg:258
 #, kde-format
 msgid "Use large stack model"
-msgstr ""
+msgstr "להשתמש בדגם ערימה גדולה"
 
 #. i18n: ectx: label, entry (SDCC_debug_xtra), group (SDCC)
 #: src/core/ktechlab.kcfg:262
 #, kde-format
 msgid "Show more debug info in assembly output"
-msgstr ""
+msgstr "הצגת פרטי ניפוי שגיאות נוספים בפלט אסמבלי"
 
 #. i18n: ectx: label, entry (SDCC_denable_peeps), group (SDCC)
 #: src/core/ktechlab.kcfg:266
 #, kde-format
 msgid "Explicit enable of peepholes"
-msgstr ""
+msgstr "הפעלה מפורשת של חורי הצצה"
 
 #. i18n: ectx: label, entry (SDCC_calltree), group (SDCC)
 #: src/core/ktechlab.kcfg:270
 #, kde-format
 msgid "Dump call tree in .calltree file"
-msgstr ""
+msgstr "להטיל את עץ הקריאות לקובץ ‎.calltree"
 
 #. i18n: ectx: label, entry (SDCC_fstack), group (SDCC)
 #: src/core/ktechlab.kcfg:274
 #, kde-format
 msgid "Enable stack optimizations"
-msgstr ""
+msgstr "הפעלת מיטובי ערימה"
 
 #. i18n: ectx: label, entry (SDCC_optimize_goto), group (SDCC)
 #: src/core/ktechlab.kcfg:278
 #, kde-format
 msgid "Try to use conditional BRA instead of GOTO"
-msgstr ""
+msgstr "כדאי לנסות להשתמש ב־BRA מותנה במקום ב־GOTO"
 
 #. i18n: ectx: label, entry (SDCC_optimize_cmp), group (SDCC)
 #: src/core/ktechlab.kcfg:282
 #, kde-format
 msgid "Try to optimize some compares"
-msgstr ""
+msgstr "לנסות למטב חלק מההשוואות"
 
 #. i18n: ectx: label, entry (SDCC_optimize_df), group (SDCC)
 #: src/core/ktechlab.kcfg:286
 #, kde-format
 msgid "Thorough data flow analysis"
-msgstr ""
+msgstr "אבחון תזרים נתונים יסודי"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_use_non_free)
 #. i18n: ectx: label, entry (SDCC_use_non_free), group (SDCC)
@@ -741,18 +741,20 @@ msgstr ""
 #, kde-format
 msgid "Search / include non-free licensed libraries and header files"
 msgstr ""
+"לחפש / לכלול (include) ספריות וקובצי כותרות (header) שכפופים לרישיונות לא "
+"חופשיים"
 
 #. i18n: ectx: label, entry (SDCC_install_prefix), group (SDCC)
 #: src/core/ktechlab.kcfg:294
 #, kde-format
 msgid "Location where SDCC in installed"
-msgstr ""
+msgstr "המקום בו מותקן ה־SDCC"
 
 #. i18n: ectx: label, entry (PicProgrammerProgram), group (PicProgramming)
 #: src/core/ktechlab.kcfg:306
 #, kde-format
 msgid "The application to use to program the PIC."
-msgstr ""
+msgstr "היישום לשימוש לתכנות ה־PIC."
 
 #. i18n: ectx: label, entry (PicProgrammerPort), group (PicProgramming)
 #: src/core/ktechlab.kcfg:310
@@ -814,7 +816,7 @@ msgstr "מפתח, הסבה ל־KDE4, ממשק משתמש"
 #: src/core/main.cpp:39
 #, kde-format
 msgid "Juan De Vincenzo"
-msgstr ""
+msgstr "חואן דה וינצ׳נזו"
 
 #: src/core/main.cpp:39
 #, kde-format
@@ -1318,13 +1320,13 @@ msgstr "קבל"
 #: src/electronics/components/variablecapacitor.cpp:62
 #, kde-format
 msgid "Capacitance"
-msgstr ""
+msgstr "קיבול"
 
 #: src/electronics/components/demultiplexer.cpp:27
 #: src/electronics/components/demultiplexer.cpp:38
 #, kde-format
 msgid "Demultiplexer"
-msgstr ""
+msgstr "נוטל ריבוב"
 
 #: src/electronics/components/demultiplexer.cpp:43
 #: src/electronics/components/multiplexer.cpp:43
@@ -1336,7 +1338,7 @@ msgstr "גודל כתובת"
 #: src/electronics/components/dependentsource.cpp:37
 #, kde-format
 msgid "Gain"
-msgstr ""
+msgstr "שבח"
 
 #: src/electronics/components/dependentsource.cpp:129
 #: src/electronics/components/dependentsource.cpp:172
@@ -1406,20 +1408,20 @@ msgstr ""
 #: src/gui/settingsdlg.cpp:136
 #, kde-format
 msgid "Logic"
-msgstr ""
+msgstr "לוגי"
 
 #: src/electronics/components/discretelogic.cpp:32
 #: src/electronics/components/discretelogic.cpp:43 src/ktechlab.cpp:692
 #: src/ktechlab.cpp:702
 #, kde-format
 msgid "Inverter"
-msgstr ""
+msgstr "מהפך"
 
 #: src/electronics/components/discretelogic.cpp:90
 #: src/electronics/components/discretelogic.cpp:101
 #, kde-format
 msgid "Buffer"
-msgstr ""
+msgstr "חוצץ"
 
 #: src/electronics/components/discretelogic.cpp:147
 #: src/electronics/components/discretelogic.cpp:153
@@ -1430,13 +1432,13 @@ msgstr "קלט לוגי"
 #: src/electronics/components/discretelogic.cpp:160
 #, kde-format
 msgid "Use Toggle"
-msgstr ""
+msgstr "להשתמש במתג"
 
 #: src/electronics/components/discretelogic.cpp:203
 #: src/electronics/components/discretelogic.cpp:214
 #, kde-format
 msgid "Logic Output"
-msgstr ""
+msgstr "פלט לוגי"
 
 #: src/electronics/components/ec555.cpp:28
 #: src/electronics/components/ec555.cpp:34
@@ -1526,12 +1528,12 @@ msgstr "קלט שעון"
 #: src/electronics/components/ecclockinput.cpp:69 src/flowparts/pulse.cpp:47
 #, kde-format
 msgid "Low Time"
-msgstr ""
+msgstr "זמן נמוך"
 
 #: src/electronics/components/ecclockinput.cpp:75 src/flowparts/pulse.cpp:42
 #, kde-format
 msgid "High Time"
-msgstr ""
+msgstr "זמן גבוה"
 
 #: src/electronics/components/eccurrentsignal.cpp:28
 #: src/electronics/components/eccurrentsignal.cpp:34
@@ -2865,7 +2867,7 @@ msgstr "הזחת קוד הפלט"
 #: src/gui/asmformattingwidget.ui:38
 #, kde-format
 msgid "'equ' Value"
-msgstr ""
+msgstr "ערך ‚equ’"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel8)
 #: src/gui/asmformattingwidget.ui:48
@@ -2883,7 +2885,7 @@ msgstr "הערה"
 #: src/gui/asmformattingwidget.ui:68
 #, kde-format
 msgid "'equ'"
-msgstr ""
+msgstr "‚equ’"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel7)
 #: src/gui/asmformattingwidget.ui:78
@@ -3312,7 +3314,7 @@ msgstr ""
 msgid ""
 "Change the orientation of the selected item by selecting the appropriate "
 "button"
-msgstr ""
+msgstr "שינוי כיוון הפריט הנבחר על ידי בחירת הכפתור המתאים"
 
 #: src/gui/itemeditor/propertyeditor.cpp:175
 #: src/gui/itemeditor/propertyeditorinput.cpp:191
@@ -3500,7 +3502,7 @@ msgstr ""
 #: src/gui/logicwidget.ui:189
 #, kde-format
 msgid "High Output Impedance:"
-msgstr ""
+msgstr "עכבה חשמלית של פלט חזק:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, textLabel1_2)
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_LogicOutputLowImpedance)
@@ -3583,6 +3585,8 @@ msgid ""
 "the variable can only be in the range 0->255. These variables will be "
 "initialized before any other code is executed."
 msgstr ""
+"עריכת הערך ההתחלתי של המשתנה כאן.<br><br>נא לשים שם שערך המשתנה יכול להיות "
+"אך ורק בטווח 0->255. המשתנים האלו יאותחלו לפני שכל קוד שהוא יופעל."
 
 #. i18n( "the type", "Type (TRIS register):" );
 #: src/gui/microsettingsdlg.cpp:109
@@ -3714,7 +3718,7 @@ msgstr "שם:"
 msgid ""
 "The variable name of the pin mapping - this must be a valid Microbe variable "
 "name."
-msgstr ""
+msgstr "שם המשתנה של מיפוי הפינים - חייב להיות שם משתנה תקף של Microbe."
 
 #. i18n: ectx: property (text), item, widget (QComboBox, typeCombo)
 #: src/gui/newpinmappingwidget.ui:110
@@ -4146,13 +4150,13 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:154
 #, kde-format
 msgid "Floating point library is compiled as reentrant."
-msgstr ""
+msgstr "ספריית הנקודה הצפה הודרה בתור רב־כניסה."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_float_reent)
 #: src/gui/sdccoptionswidget.ui:157
 #, kde-format
 msgid "Floating point librar&y was compiled as reentrant (--float-reent)"
-msgstr ""
+msgstr "ספריית הנקודה ה&צפה הודרה בתור רב־כניסה (‎--float-reent)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_fommit_frame_pointer)
 #: src/gui/sdccoptionswidget.ui:164
@@ -4224,7 +4228,7 @@ msgstr "השבתת מי&טוב תוויות (‎--nolabelopt)"
 #: src/gui/sdccoptionswidget.ui:244
 #, kde-format
 msgid "Disable optimization of invariants (--noinvariant)"
-msgstr ""
+msgstr "השבתת מיטוב משתמרים/אינווריאנטים (‎--noinvariant)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_noinduction)
 #: src/gui/sdccoptionswidget.ui:254
