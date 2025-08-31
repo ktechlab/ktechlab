@@ -26,7 +26,6 @@
 #include "textview.h"
 #include "filefilters.h"
 
-// #include <kate/katedocument.h>
 #include <QAction>
 #include <QDir>
 #include <QTemporaryFile>
@@ -688,11 +687,7 @@ IntList TextDocument::breakpointList() const
 #ifndef NO_GPSIM
     // typedef QPtrList<KTextEditor::Mark> MarkList;
     typedef QHash<int, KTextEditor::Mark *> MarkList;
-    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(m_doc);
-    if (!iface)
-        return IntList();
-    // MarkList markList = m_doc->marks();
-    MarkList markList = iface->marks(); // note: this will copy
+    MarkList markList = m_doc->marks(); // note: this will copy
 
     // Find out what marks need adding to our internal lists
     // for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
@@ -709,16 +704,12 @@ IntList TextDocument::breakpointList() const
 void TextDocument::setBreakpoint(uint line, bool isBreakpoint)
 {
 #ifndef NO_GPSIM
-    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(m_doc);
-    if (!iface)
-        return;
-
     if (isBreakpoint) {
-        iface->addMark(line, Breakpoint);
+        m_doc->addMark(line, Breakpoint);
         if (m_pDebugger)
             m_pDebugger->setBreakpoint(m_debugFile, line, true);
     } else {
-        iface->removeMark(line, Breakpoint);
+        m_doc->removeMark(line, Breakpoint);
         if (m_pDebugger)
             m_pDebugger->setBreakpoint(m_debugFile, line, false);
     }
@@ -823,18 +814,13 @@ void TextDocument::debugStepOut()
 void TextDocument::slotDebugSetCurrentLine(const SourceLine &line)
 {
 #ifndef NO_GPSIM
-
-    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(m_doc);
-    if (!iface)
-        return;
-
     int textLine = line.line();
 
     if (DocManager::self()->findDocument(QUrl::fromLocalFile(line.fileName())) != this)
         textLine = -1;
 
-    iface->removeMark(m_lastDebugLineAt, KTextEditor::MarkInterface::Execution);
-    iface->addMark(textLine, KTextEditor::MarkInterface::Execution);
+    m_doc->removeMark(m_lastDebugLineAt, KTextEditor::Document::Execution);
+    m_doc->addMark(textLine, KTextEditor::Document::Execution);
 
     if (activeView())
         textView()->setCursorPosition(textLine, 0);
@@ -897,18 +883,14 @@ void TextDocument::clearBreakpoints()
     // QPtrList<KTextEditor::Mark> markList = m_doc->marks();
     // typedef QPtrList<KTextEditor::Mark> MarkList;
     typedef QHash<int, KTextEditor::Mark *> MarkList;
-    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(m_doc);
-    if (!iface)
-        return;
-    // MarkList markList = m_doc->marks();
-    MarkList markList = iface->marks(); // note: this will copy
+    MarkList markList = m_doc->marks(); // note: this will copy
 
     // Find out what marks need adding to our internal lists
     // for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
     for (MarkList::iterator itMark = markList.begin(); itMark != markList.end(); ++itMark) {
         KTextEditor::Mark *mark = itMark.value();
-        if (mark->type & KTextEditor::MarkInterface::Bookmark)
-            iface->removeMark(mark->line, Breakpoint);
+        if (mark->type & KTextEditor::Document::Bookmark)
+            m_doc->removeMark(mark->line, Breakpoint);
     }
 
     slotUpdateMarksInfo();
@@ -928,11 +910,7 @@ void TextDocument::syncBreakpoints()
     // QPtrList<KTextEditor::Mark> markList = m_doc->marks();
     // typedef QPtrList<KTextEditor::Mark> MarkList;
     typedef QHash<int, KTextEditor::Mark *> MarkList;
-    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface *>(m_doc);
-    if (!iface)
-        return;
-    // MarkList markList = m_doc->marks();
-    MarkList markList = iface->marks(); // note: this will copy
+    MarkList markList = m_doc->marks(); // note: this will copy
 
     IntList bpList;
 
@@ -945,7 +923,7 @@ void TextDocument::syncBreakpoints()
         if (mark->type & Breakpoint)
             bpList.append(line);
 
-        if (mark->type == KTextEditor::MarkInterface::Execution)
+        if (mark->type == KTextEditor::Document::Execution)
             m_lastDebugLineAt = line;
     }
 
