@@ -507,7 +507,8 @@ void TextView::slotUpdateMarksInfo()
     l = curs.line();
     //c = curs.column();
 
-    if (m_view->mark(l) & TextDocument::Breakpoint)
+    KTextEditor::Document *kfDoc = m_view->document();
+    if (kfDoc->mark(l) & TextDocument::Breakpoint)
         actionByName("debug_toggle_breakpoint")->setText(i18n("Clear &Breakpoint"));
     else
         actionByName("debug_toggle_breakpoint")->setText(i18n("Set &Breakpoint"));
@@ -539,7 +540,8 @@ void TextView::toggleBreakpoint()
     l = curs.line();
     //c = curs.column();
     // const bool isBreakpoint = m_view->getDoc()->mark(l) & TextDocument::Breakpoint;
-    const bool isBreakpoint = m_view->mark(l) & TextDocument::Breakpoint;
+    KTextEditor::Document *kfDoc = m_view->document();
+    const bool isBreakpoint = kfDoc->mark(l) & TextDocument::Breakpoint;
     // textDocument()->setBreakpoint( l, !(m_view->getDoc()->mark(l) & TextDocument::Breakpoint) );
     textDocument()->setBreakpoint(l, !isBreakpoint);
 #endif // !NO_GPSIM

@@ -482,7 +482,7 @@ void GpsimDebugger::initAddressToLineMap()
             int asmFromLine = it.key().line();
             SourceLine sourceLine = it.value();
 
-            std::string stdAsmFile(asmFile.toLatin1());
+            std::string stdAsmFile(asmFile.toLatin1().constData());
             int fileID = m_pGpsim->picProcessor()->files.Find(stdAsmFile);
             if (fileID == -1) {
                 qCWarning(KTL_LOG) << "Could not find FileContext (asmFile=\"" << asmFile << "\")";
