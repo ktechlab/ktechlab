@@ -36,11 +36,7 @@ public:
 
 public:
     QString toQtStyleString() const;
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 108, 0)
     QStringList toQtStyleStringList() const;
-#else
-    QString toKDEStyleString() const;
-#endif
 };
 
 

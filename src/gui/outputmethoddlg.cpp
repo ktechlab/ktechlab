@@ -128,11 +128,7 @@ void OutputMethodDlg::setOutputExtension(const QString &extension)
 
 void OutputMethodDlg::setFileFilters(const FileFilters &filters)
 {
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 108, 0)
     m_widget->outputFileURL->setNameFilters(filters.toQtStyleStringList());
-#else
-    m_widget->outputFileURL->setFilter(filters.toKDEStyleString());
-#endif
 }
 
 void OutputMethodDlg::setMethod(OutputMethodInfo::Method::Type m)

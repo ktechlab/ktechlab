@@ -10,8 +10,6 @@
 
 #include "filefilters.h"
 
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 108, 0)
-
 QString FileFilters::toQtStyleString() const
 {
     return toQtStyleStringList().join(QLatin1String(";;"));
@@ -25,25 +23,3 @@ QStringList FileFilters::toQtStyleStringList() const
     }
     return filters;
 }
-
-#else
-
-QString FileFilters::toQtStyleString() const
-{
-    QStringList filters;
-    for (const FileFilter &filter : *this) {
-        filters.append(filter.name + QLatin1String(" (") + filter.patterns + QLatin1Char(')'));
-    }
-    return filters.join(QLatin1String(";;"));
-}
-
-QString FileFilters::toKDEStyleString() const
-{
-    QStringList filters;
-    for (const FileFilter &filter : *this) {
-        filters.append(filter.patterns + QLatin1Char('|') + filter.name);
-    }
-    return filters.join(QLatin1Char('\n'));
-}
-
-#endif

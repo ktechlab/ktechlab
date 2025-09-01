@@ -88,15 +88,7 @@ KColorCombo *createColorCombo(ColorScheme colorScheme, QWidget *parent)
         return nullptr;
 
     ColorCombo *combo = new ColorCombo(parent);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     combo->setColors(QList<QColor>(palette, palette + palette_len));
-#else
-    QList<QColor> colorList;
-    for (size_t colorNr = 0; colorNr < palette_len; ++colorNr) {
-        colorList.push_back(palette[colorNr]);
-    }
-    combo->setColors(colorList);
-#endif
     return combo;
 }
 
