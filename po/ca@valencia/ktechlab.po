@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-30 00:44+0000\n"
+"POT-Creation-Date: 2025-09-02 00:46+0000\n"
 "PO-Revision-Date: 2024-11-17 21:06+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -358,16 +358,16 @@ msgid ""
 msgstr ""
 "Construïu un circuit arrossegant els components des del Selector de "
 "components de l'esquerra. Creeu connexions arrossegant un cable des dels "
-"connectors de components.<br><br>La simulació s'executa per defecte, però es "
-"pot fer una pausa i restablir des del menú Eines.<br><br>Per a suprimir un "
-"cable, seleccioneu-lo amb una casella de selecció, i premeu «Suprimix»."
-"<br><br>Per a editar els atributs d'un component, seleccioneu-lo (assegureu-"
-"vos que no seleccioneu també components d'un altre tipus) i editeu-los en la "
-"barra d'eines. Es poden editar més propietats avançades utilitzant el "
-"selector d'elements de la dreta.<br><br>Els subcircuits es poden crear "
-"connectant els components amb una «Connexió externa», seleccionant els "
-"components desitjats i clicant damunt «Crea un subcircuit» en el menú del "
-"clic dret."
+"connectors de components.<br><br>La simulació s'executa de manera "
+"predeterminada, però es pot fer una pausa i restablir des del menú Eines."
+"<br><br>Per a suprimir un cable, trieu-lo amb una casella de selecció, i "
+"premeu «Suprimix».<br><br>Per a editar els atributs d'un component, trieu-lo "
+"(assegureu-vos que no seleccioneu també components d'un altre tipus) i "
+"editeu-los en la barra d'eines. Es poden editar més propietats avançades "
+"utilitzant el selector d'elements de la dreta.<br><br>Els subcircuits es "
+"poden crear connectant els components amb una «Connexió externa», "
+"seleccionant els components desitjats i clicant damunt «Crea un subcircuit» "
+"en el menú del clic dret."
 
 #: src/circuitview.cpp:132
 #, kde-format
@@ -443,7 +443,7 @@ msgstr "Color de les línies de la graella"
 #: src/core/ktechlab.kcfg:46
 #, kde-format
 msgid "Whether the grid should be shown."
-msgstr "Si s'ha de mostrar la graella."
+msgstr "Si s'ha de mostrar la quadrícula."
 
 # skip-rule: punctuation-period-no
 #. i18n: ectx: label, entry (ReuseSameViewForOutput), group (General)
@@ -1166,7 +1166,7 @@ msgstr "Orientació"
 #: src/flowcodedocument.cpp:173 src/flowcodedocument.cpp:197
 #: src/flowcodedocument.cpp:221 src/ktechlab.cpp:1190
 #: src/mechanics/mechanicsdocument.cpp:28 src/projectmanager.cpp:911
-#: src/textdocument.cpp:436 src/textdocument.cpp:474
+#: src/textdocument.cpp:431 src/textdocument.cpp:469
 #, kde-format
 msgid "All Files"
 msgstr "Tots els fitxers"
@@ -2125,7 +2125,7 @@ msgid "Symbol File"
 msgstr "Fitxer de símbols"
 
 #: src/electronics/components/piccomponent.cpp:89 src/flowcodedocument.cpp:196
-#: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1191 src/textdocument.cpp:435
+#: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1191 src/textdocument.cpp:430
 #, kde-format
 msgid "Assembly Code"
 msgstr "Codi en assemblador"
@@ -2454,7 +2454,7 @@ msgstr "Fitxer"
 msgid "SFR"
 msgstr "SFR"
 
-#: src/electronics/gpsimprocessor.cpp:744 src/textdocument.cpp:97
+#: src/electronics/gpsimprocessor.cpp:744 src/textdocument.cpp:96
 #, kde-format
 msgid "Breakpoint"
 msgstr "Punt d'interrupció"
@@ -2479,17 +2479,17 @@ msgstr "Subcircuits"
 msgid "Microbe Code Output"
 msgstr "Eixida del codi de Microbe"
 
-#: src/flowcodedocument.cpp:193 src/textdocument.cpp:428
+#: src/flowcodedocument.cpp:193 src/textdocument.cpp:423
 #, kde-format
 msgid "Assembly Code Output"
 msgstr "Eixida del codi en assemblador"
 
-#: src/flowcodedocument.cpp:217 src/textdocument.cpp:470
+#: src/flowcodedocument.cpp:217 src/textdocument.cpp:465
 #, kde-format
 msgid "Hex Code Output"
 msgstr "Eixida del codi en hexadecimal"
 
-#: src/flowcodedocument.cpp:220 src/textdocument.cpp:473
+#: src/flowcodedocument.cpp:220 src/textdocument.cpp:468
 #, kde-format
 msgid "Hex Code"
 msgstr "Codi hexadecimal"
@@ -3052,19 +3052,19 @@ msgstr "Torna a emprar la mateixa vista d'eixida per a la generació del codi"
 #: src/gui/generaloptionswidget.ui:52
 #, kde-format
 msgid "The grid color in the work area."
-msgstr "El color de la graella a l'àrea de treball."
+msgstr "El color de la quadrícula en l'àrea de treball."
 
 #. i18n: ectx: property (text), widget (KColorButton, kcfg_GridColor)
 #: src/gui/generaloptionswidget.ui:55
 #, kde-format
 msgid "Grid Colour"
-msgstr "Color de la graella"
+msgstr "Color de la quadrícula"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ShowGrid)
 #: src/gui/generaloptionswidget.ui:62
 #, kde-format
 msgid "Show &grid:"
-msgstr "Mostra la &graella:"
+msgstr "Mostra la quad&rícula:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, textLabel1)
 #: src/gui/generaloptionswidget.ui:85
@@ -3362,8 +3362,7 @@ msgstr ""
 #: src/gui/itemeditor/componentmodelwidget.cpp:76
 #, kde-format
 msgid "Select a predefined component configuration from this list."
-msgstr ""
-"Seleccioneu la configuració predefinida d'un component des d'esta llista."
+msgstr "Trieu la configuració predefinida d'un component des d'esta llista."
 
 #: src/gui/itemeditor/itemeditor.cpp:44
 #, kde-format
@@ -3384,11 +3383,10 @@ msgid ""
 "properties to their default values"
 msgstr ""
 "<p>Mostra les propietats associades amb els elements actualment seleccionats."
-"<br/>Seleccioneu una propietat per a canviar el seu valor. Si se seleccionen "
+"<br/>Trieu una propietat per a canviar el seu valor. Si se seleccionen "
 "múltiples elements amb valors diferents, llavors la propietat apareixerà en "
-"gris, utilitzeu «Fusiona les propietats» per a tornar-les iguals.<br/"
-">Seleccioneu «Predeterminat» per a deixar-les amb els seus valors "
-"predeterminats"
+"gris, utilitzeu «Fusiona les propietats» per a tornar-les iguals.<br/>Trieu "
+"«Predeterminat» per a deixar-les amb els seus valors predeterminats"
 
 #: src/gui/itemeditor/itemeditor.cpp:87
 #, kde-format
@@ -3780,7 +3778,7 @@ msgid ""
 "Creates a new circuit, with drag and drop editor. Real time simulation of "
 "the circuit occurs automatically."
 msgstr ""
-"Seleccioneu el tipus de fitxer que voleu crear.<br>\n"
+"Trieu el tipus de fitxer que voleu crear.<br>\n"
 "<p>\n"
 "<b>Programa PIC</b><br>\n"
 "Crea un programa PIC nou, amb l'editor dels diagrames de flux. A continuació "
@@ -5534,27 +5532,27 @@ msgstr "Segur que voleu eliminar «%1»?"
 msgid "Remove Project File?"
 msgstr "Voleu eliminar el fitxer de projecte?"
 
-#: src/textdocument.cpp:86
+#: src/textdocument.cpp:85
 #, kde-format
 msgid "Failed to create editor"
 msgstr "No s'ha pogut crear l'editor"
 
-#: src/textdocument.cpp:602
+#: src/textdocument.cpp:597
 #, kde-format
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: src/textdocument.cpp:742
+#: src/textdocument.cpp:729
 #, kde-format
 msgid "Unknown code type."
 msgstr "Tipus de codi desconegut."
 
-#: src/textdocument.cpp:742 src/textdocument.cpp:746
+#: src/textdocument.cpp:729 src/textdocument.cpp:733
 #, kde-format
 msgid "Cannot debug"
 msgstr "No s'ha pogut depurar"
 
-#: src/textdocument.cpp:746
+#: src/textdocument.cpp:733
 #, kde-format
 msgid "Cannot debug hex."
 msgstr "No s'ha pogut depurar l'hexadecimal."
@@ -5566,7 +5564,7 @@ msgid "Format Assembly Code"
 msgstr "Format del codi en assemblador"
 
 #. i18n("Set &Breakpoint"), 0, 0, this, SLOT(toggleBreakpoint()), ac, "debug_toggle_breakpoint" );
-#: src/textview.cpp:93 src/textview.cpp:515
+#: src/textview.cpp:93 src/textview.cpp:514
 #, kde-format
 msgid "Set &Breakpoint"
 msgstr "Establix un punt d'&interrupció"
@@ -5600,7 +5598,7 @@ msgstr "Pas cap a fora"
 msgid " Line: %1 Col: %2 "
 msgstr " Línia: %1 Col: %2 "
 
-#: src/textview.cpp:513
+#: src/textview.cpp:512
 #, kde-format
 msgid "Clear &Breakpoint"
 msgstr "Neteja el &punt d'interrupció"

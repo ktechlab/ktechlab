@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-30 00:44+0000\n"
+"POT-Creation-Date: 2025-09-02 00:46+0000\n"
 "PO-Revision-Date: 2023-07-03 00:56+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -1191,7 +1191,7 @@ msgstr "Orientação"
 #: src/flowcodedocument.cpp:173 src/flowcodedocument.cpp:197
 #: src/flowcodedocument.cpp:221 src/ktechlab.cpp:1190
 #: src/mechanics/mechanicsdocument.cpp:28 src/projectmanager.cpp:911
-#: src/textdocument.cpp:436 src/textdocument.cpp:474
+#: src/textdocument.cpp:431 src/textdocument.cpp:469
 #, kde-format
 msgid "All Files"
 msgstr "Todos os Ficheiros"
@@ -2140,7 +2140,7 @@ msgid "Symbol File"
 msgstr "Ficheiro de Símbolos"
 
 #: src/electronics/components/piccomponent.cpp:89 src/flowcodedocument.cpp:196
-#: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1191 src/textdocument.cpp:435
+#: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1191 src/textdocument.cpp:430
 #, kde-format
 msgid "Assembly Code"
 msgstr "Código Assembly"
@@ -2466,7 +2466,7 @@ msgstr "Ficheiro"
 msgid "SFR"
 msgstr "SFR"
 
-#: src/electronics/gpsimprocessor.cpp:744 src/textdocument.cpp:97
+#: src/electronics/gpsimprocessor.cpp:744 src/textdocument.cpp:96
 #, kde-format
 msgid "Breakpoint"
 msgstr "Ponto de paragem"
@@ -2491,17 +2491,17 @@ msgstr "Sub-circuitos"
 msgid "Microbe Code Output"
 msgstr "Resultado do Código Microbe"
 
-#: src/flowcodedocument.cpp:193 src/textdocument.cpp:428
+#: src/flowcodedocument.cpp:193 src/textdocument.cpp:423
 #, kde-format
 msgid "Assembly Code Output"
 msgstr "Resultado do Código Assembly"
 
-#: src/flowcodedocument.cpp:217 src/textdocument.cpp:470
+#: src/flowcodedocument.cpp:217 src/textdocument.cpp:465
 #, kde-format
 msgid "Hex Code Output"
 msgstr "Resultado do Código em Hexadecimal"
 
-#: src/flowcodedocument.cpp:220 src/textdocument.cpp:473
+#: src/flowcodedocument.cpp:220 src/textdocument.cpp:468
 #, kde-format
 msgid "Hex Code"
 msgstr "Código em Hexadecimal"
@@ -5552,27 +5552,27 @@ msgstr "Deseja mesmo remover o \"%1\"?"
 msgid "Remove Project File?"
 msgstr "Remover o Ficheiro do Projecto?"
 
-#: src/textdocument.cpp:86
+#: src/textdocument.cpp:85
 #, kde-format
 msgid "Failed to create editor"
 msgstr "Não foi possível criar o editor"
 
-#: src/textdocument.cpp:602
+#: src/textdocument.cpp:597
 #, kde-format
 msgid "%1 - %2"
 msgstr "%1 - %2"
 
-#: src/textdocument.cpp:742
+#: src/textdocument.cpp:729
 #, kde-format
 msgid "Unknown code type."
 msgstr "O tipo de código é desconhecido."
 
-#: src/textdocument.cpp:742 src/textdocument.cpp:746
+#: src/textdocument.cpp:729 src/textdocument.cpp:733
 #, kde-format
 msgid "Cannot debug"
 msgstr "Não é possível depurar"
 
-#: src/textdocument.cpp:746
+#: src/textdocument.cpp:733
 #, kde-format
 msgid "Cannot debug hex."
 msgstr "Não é possível depurar o ficheiro hexadecimal."
@@ -5584,7 +5584,7 @@ msgid "Format Assembly Code"
 msgstr "Formatar o Código Assembly"
 
 #. i18n("Set &Breakpoint"), 0, 0, this, SLOT(toggleBreakpoint()), ac, "debug_toggle_breakpoint" );
-#: src/textview.cpp:93 src/textview.cpp:515
+#: src/textview.cpp:93 src/textview.cpp:514
 #, kde-format
 msgid "Set &Breakpoint"
 msgstr "Activar um &Ponto de Paragem"
@@ -5618,7 +5618,7 @@ msgstr "Sair"
 msgid " Line: %1 Col: %2 "
 msgstr " Linha: %1 Coluna: %2 "
 
-#: src/textview.cpp:513
+#: src/textview.cpp:512
 #, kde-format
 msgid "Clear &Breakpoint"
 msgstr "Limpar o &Ponto de Paragem"

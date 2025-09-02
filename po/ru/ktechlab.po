@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-30 00:44+0000\n"
+"POT-Creation-Date: 2025-09-02 00:46+0000\n"
 "PO-Revision-Date: 2023-01-12 11:13+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -1168,7 +1168,7 @@ msgstr "Ориентация"
 #: src/flowcodedocument.cpp:173 src/flowcodedocument.cpp:197
 #: src/flowcodedocument.cpp:221 src/ktechlab.cpp:1190
 #: src/mechanics/mechanicsdocument.cpp:28 src/projectmanager.cpp:911
-#: src/textdocument.cpp:436 src/textdocument.cpp:474
+#: src/textdocument.cpp:431 src/textdocument.cpp:469
 #, kde-format
 msgid "All Files"
 msgstr "Все файлы"
@@ -2117,7 +2117,7 @@ msgid "Symbol File"
 msgstr "Файл символа"
 
 #: src/electronics/components/piccomponent.cpp:89 src/flowcodedocument.cpp:196
-#: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1191 src/textdocument.cpp:435
+#: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1191 src/textdocument.cpp:430
 #, kde-format
 msgid "Assembly Code"
 msgstr "Код ассемблера"
@@ -2443,7 +2443,7 @@ msgstr "Файл"
 msgid "SFR"
 msgstr "SFR"
 
-#: src/electronics/gpsimprocessor.cpp:744 src/textdocument.cpp:97
+#: src/electronics/gpsimprocessor.cpp:744 src/textdocument.cpp:96
 #, kde-format
 msgid "Breakpoint"
 msgstr "Точка останова"
@@ -2468,17 +2468,17 @@ msgstr "Подсхемы"
 msgid "Microbe Code Output"
 msgstr "Вывод кода Microbe"
 
-#: src/flowcodedocument.cpp:193 src/textdocument.cpp:428
+#: src/flowcodedocument.cpp:193 src/textdocument.cpp:423
 #, kde-format
 msgid "Assembly Code Output"
 msgstr "Вывод кода ассемблера"
 
-#: src/flowcodedocument.cpp:217 src/textdocument.cpp:470
+#: src/flowcodedocument.cpp:217 src/textdocument.cpp:465
 #, kde-format
 msgid "Hex Code Output"
 msgstr "Вывод шестнадцатеричного кода"
 
-#: src/flowcodedocument.cpp:220 src/textdocument.cpp:473
+#: src/flowcodedocument.cpp:220 src/textdocument.cpp:468
 #, fuzzy, kde-format
 #| msgid "Hex Code Output"
 msgid "Hex Code"
@@ -5509,27 +5509,27 @@ msgstr "Удалить «%1»?"
 msgid "Remove Project File?"
 msgstr "Удалить файл проекта?"
 
-#: src/textdocument.cpp:86
+#: src/textdocument.cpp:85
 #, kde-format
 msgid "Failed to create editor"
 msgstr "Не удалось создать редактор"
 
-#: src/textdocument.cpp:602
+#: src/textdocument.cpp:597
 #, kde-format
 msgid "%1 - %2"
 msgstr "%1 — %2"
 
-#: src/textdocument.cpp:742
+#: src/textdocument.cpp:729
 #, kde-format
 msgid "Unknown code type."
 msgstr "Неизвестный тип кода."
 
-#: src/textdocument.cpp:742 src/textdocument.cpp:746
+#: src/textdocument.cpp:729 src/textdocument.cpp:733
 #, kde-format
 msgid "Cannot debug"
 msgstr "Невозможно произвести отладку"
 
-#: src/textdocument.cpp:746
+#: src/textdocument.cpp:733
 #, kde-format
 msgid "Cannot debug hex."
 msgstr "Невозможно произвести отладку для шестнадцатеричного кода."
@@ -5541,7 +5541,7 @@ msgid "Format Assembly Code"
 msgstr "Форматировать код ассемблера"
 
 #. i18n("Set &Breakpoint"), 0, 0, this, SLOT(toggleBreakpoint()), ac, "debug_toggle_breakpoint" );
-#: src/textview.cpp:93 src/textview.cpp:515
+#: src/textview.cpp:93 src/textview.cpp:514
 #, kde-format
 msgid "Set &Breakpoint"
 msgstr "Указать &точку останова"
@@ -5575,7 +5575,7 @@ msgstr "Выйти"
 msgid " Line: %1 Col: %2 "
 msgstr " Строка: %1 Столбец: %2 "
 
-#: src/textview.cpp:513
+#: src/textview.cpp:512
 #, kde-format
 msgid "Clear &Breakpoint"
 msgstr "Удалить &точку останова"
