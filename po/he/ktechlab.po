@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-02 00:46+0000\n"
-"PO-Revision-Date: 2025-08-27 10:09+0300\n"
+"PO-Revision-Date: 2025-09-21 11:21+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -193,12 +193,12 @@ msgstr "פעולת ההשוואה תחת ‚%1’ לא מזוהה"
 #: microbe/microbe.cpp:283
 #, kde-format
 msgid "Subroutine definition before end of program"
-msgstr "הגדרת תת־שדרה לפני סוף התוכנית"
+msgstr "הגדרת תת־שגרה לפני סוף התוכנית"
 
 #: microbe/microbe.cpp:286
 #, kde-format
 msgid "Interrupt routine definition before end of program"
-msgstr ""
+msgstr "הגדרת שגרת פסיקה לפני סוף התוכנית"
 
 #: microbe/microbe.cpp:289
 #, kde-format
@@ -577,19 +577,19 @@ msgstr "להיצמד לתקן C99 באדיקות"
 #: src/core/ktechlab.kcfg:180
 #, kde-format
 msgid "Stack automatic variables"
-msgstr ""
+msgstr "עריכת משתנים אוטומטית"
 
 #. i18n: ectx: label, entry (SDCC_int_long_reent), group (SDCC)
 #: src/core/ktechlab.kcfg:184
 #, kde-format
 msgid "Integer libraries have been compiled as reentrant"
-msgstr ""
+msgstr "ספריות מספרים שלמים וחיוביים הודרו בתור רב־כניסה"
 
 #. i18n: ectx: label, entry (SDCC_float_reent), group (SDCC)
 #: src/core/ktechlab.kcfg:188
 #, kde-format
 msgid "Floating point library has been compiled as reentrant"
-msgstr ""
+msgstr "ספריית הנקודה הצפה הודרה בתור רב־כניסה"
 
 #. i18n: ectx: label, entry (SDCC_fommit_frame_pointer), group (SDCC)
 #: src/core/ktechlab.kcfg:192
@@ -613,7 +613,7 @@ msgstr "הקורא תמיד ישמור את האוגרים שהיו בשימוש
 #: src/core/ktechlab.kcfg:205
 #, kde-format
 msgid "Do not overlay parameters and local variables"
-msgstr ""
+msgstr "לא לדרוס פרמטרים ומשתנים מקומיים"
 
 #. i18n: ectx: label, entry (SDCC_nogcse), group (SDCC)
 #: src/core/ktechlab.kcfg:209
@@ -760,7 +760,7 @@ msgstr "היישום לשימוש לתכנות ה־PIC."
 #: src/core/ktechlab.kcfg:310
 #, kde-format
 msgid "The device (serial, parallel, etc...) used to program the PIC."
-msgstr ""
+msgstr "ההתקן (טורי, מקבילי, וכו׳) שמשמש לתכנות ה־PIC."
 
 #. i18n: ectx: label, entry (gplink_link_shared), group (Gplink)
 #: src/core/ktechlab.kcfg:317
@@ -1633,12 +1633,12 @@ msgstr "מתח סף"
 #: src/electronics/components/ecjfet.cpp:73
 #, kde-format
 msgid "Transcondutance"
-msgstr ""
+msgstr "מוליכות העברה"
 
 #: src/electronics/components/ecjfet.cpp:81
 #, kde-format
 msgid "Saturation current"
-msgstr ""
+msgstr "זרם רוויה"
 
 #: src/electronics/components/ecjfet.cpp:89
 #, kde-format
@@ -1672,7 +1672,7 @@ msgstr "מתגים"
 #: src/electronics/components/eckeypad.cpp:37
 #, kde-format
 msgid "Use Toggles"
-msgstr ""
+msgstr "להשתמש במתגים"
 
 #: src/electronics/components/eckeypad.cpp:41
 #: src/electronics/components/matrixdisplay.cpp:61
@@ -3244,7 +3244,7 @@ msgstr "אפשרויות אחרות:"
 #: src/gui/gplinksettingswidget.ui:26
 #, kde-format
 msgid "Link with shared libraries (&use this with new SDCC)"
-msgstr ""
+msgstr "קישור עם ספריות משותפות (לה&שתמש בזה עם SDCC חדש)"
 
 #: src/gui/imageexportdlg.cpp:32 src/itemdocument.cpp:850
 #: src/itemdocument.cpp:856
@@ -3285,12 +3285,12 @@ msgstr "פינוי מסנן"
 #: src/gui/itemeditor/componentmodelwidget.cpp:62
 #, kde-format
 msgid "Enter space-separated terms to filter the component library."
-msgstr ""
+msgstr "נא למלא ביטויים עם רווחים ביניהם כדי לסנן את ספריית הרכיבים."
 
 #: src/gui/itemeditor/componentmodelwidget.cpp:76
 #, kde-format
 msgid "Select a predefined component configuration from this list."
-msgstr ""
+msgstr "נא לבחור הגדרות רכיב שנקבעו מראש מהרשימה הזאת."
 
 #: src/gui/itemeditor/itemeditor.cpp:44
 #, kde-format
@@ -3298,6 +3298,8 @@ msgid ""
 "This allows editing of advanced properties of the selected item(s). Right "
 "click on the picture of the item to set the orientation."
 msgstr ""
+"מאפשר עריכת מאפיינים מתקדמים של הפריטים הנבחרים. יש ללחוץ על התמונה של הפריט "
+"עם הלחצן הימני כדי להגדיר את הכיוון."
 
 #: src/gui/itemeditor/itemeditor.cpp:71
 #, kde-format
@@ -3369,6 +3371,11 @@ msgid ""
 "click to stop placement.<br><br>Some components (such as subcircuits) can be "
 "removed by right clicking on the item and selecting \"Remove\"."
 msgstr ""
+"אפשר להוסיף רכיבים לתרשים המעגל החשמלי על ידי גרירתם למעגל החשמלי."
+"<br><br>כדי להוסיף יותר מרכיב אחד מאותו הסוג, יש ללחוץ לחיצה כפולה על הרכיב, "
+"וללחוץ שוב במעגל כדי להציב את הרכיב. לחיצה ימנית עוצרת את ההצבה. <br><br>חלק "
+"מהרכיבים (כגון תת־מעגלים) אפשר להסיר על ידי לחיצה ימנית על הפריט ובחירה "
+"ב„הסרה”."
 
 #: src/gui/itemselector.cpp:438
 #, kde-format
