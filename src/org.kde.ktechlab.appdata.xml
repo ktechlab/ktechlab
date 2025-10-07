@@ -9,6 +9,7 @@
   </developer>
   <launchable type="desktop-id">org.kde.ktechlab.desktop</launchable>
   <name>KTechlab</name>
+  <name xml:lang="ar">معمل الدوائر</name>
   <name xml:lang="ca">KTechlab</name>
   <name xml:lang="ca-valencia">KTechlab</name>
   <name xml:lang="cs">KTechlab</name>
@@ -37,6 +38,7 @@
   <name xml:lang="tr">KTechlab</name>
   <name xml:lang="uk">KTechlab</name>
   <summary>IDE for microcontrollers and electronics</summary>
+  <summary xml:lang="ar">نظام تطوير متكامل للمتحكمات الدقيقة والإلكترونيات</summary>
   <summary xml:lang="ca">IDE per a microcontroladors i electrònica</summary>
   <summary xml:lang="ca-valencia">IDE per a microcontroladors i electrònica</summary>
   <summary xml:lang="de">Entwicklungsumgebung für Mikrocontroller und Elektronik</summary>
@@ -66,6 +68,7 @@
     <p>
       KTechlab is an IDE for microcontrollers and electronics designed to be as easy to use and unintrusive as possible.
     </p>
+    <p xml:lang="ar">معمل الدوائر هو نظام تطوير متكامل (IDE) للمتحكمات الدقيقة والإلكترونيات، مصمم ليكون سهل الاستخدام وغير تدخلي قدر الإمكان.</p>
     <p xml:lang="ca">El KTechlab és un IDE per a microcontroladors i electrònica dissenyat per a ser tan fàcil d'usar i discret com sigui possible.</p>
     <p xml:lang="ca-valencia">KTechlab és un IDE per a microcontroladors i electrònica dissenyat per a ser tan fàcil d'utilitzar i discret com siga possible.</p>
     <p xml:lang="en-GB">KTechlab is an IDE for microcontrollers and electronics designed to be as easy to use and nonintrusive as possible.</p>
@@ -90,6 +93,7 @@
     <p xml:lang="tr">KTechlab, mikro denetçiler ve elektronikler için kullanımı kolay ve zahmetsiz olması için tasarlanmış bir tümleşik geliştirme ortamıdır.</p>
     <p xml:lang="uk">KTechlab — це комплексне середовище розробки для мікроконтролерів та електроніки, створене якомога простішим у користуванні і ненав’язливим.</p>
     <p>Features:</p>
+    <p xml:lang="ar">الميزات:</p>
     <p xml:lang="ca">Característiques:</p>
     <p xml:lang="ca-valencia">Característiques:</p>
     <p xml:lang="cs">Vlastnosti:</p>
@@ -119,6 +123,7 @@
     <p xml:lang="uk">Можливості:</p>
     <ul>
       <li>Wide range of components with editable characteristics</li>
+      <li xml:lang="ar">مجموعة واسعة من المكونات ذات الخصائص القابلة للتعديل</li>
       <li xml:lang="ca">Gran varietat de components amb característiques modificables</li>
       <li xml:lang="ca-valencia">Gran varietat de components amb característiques modificables</li>
       <li xml:lang="en-GB">Wide range of components with editable characteristics</li>
@@ -143,6 +148,7 @@
       <li xml:lang="tr">Düzenlenebilir karakteristiklerle geniş bir bileşen erimi</li>
       <li xml:lang="uk">Широкий діапазон компонентів із придатними до редагування властивостями.</li>
       <li>Visual editor for circuits</li>
+      <li xml:lang="ar">محرر مرئي للدوائر</li>
       <li xml:lang="ca">Editor visual per als circuits</li>
       <li xml:lang="ca-valencia">Editor visual per als circuits</li>
       <li xml:lang="de">Grafischer Editor für Schaltkreise</li>
@@ -168,6 +174,7 @@
       <li xml:lang="tr">Devreler için görsel düzenleyici</li>
       <li xml:lang="uk">Візуальний редактор для схем.</li>
       <li>Context help for the components</li>
+      <li xml:lang="ar">مساعدة سياقية للمكونات</li>
       <li xml:lang="ca">Ajuda contextual per als components</li>
       <li xml:lang="ca-valencia">Ajuda contextual per als components</li>
       <li xml:lang="de">Kontexthilfe für die Komponenten</li>
@@ -193,6 +200,7 @@
       <li xml:lang="tr">Bileşenler için bağlam yardımı</li>
       <li xml:lang="uk">Контекстна довідка до компонентів.</li>
       <li>Two modes of connector routing: automatic and manual</li>
+      <li xml:lang="ar">وضعان لتوجيه الموصلات: تلقائي ويدوي</li>
       <li xml:lang="ca">Dos modes d'encaminament per al connector: automàtic i manual</li>
       <li xml:lang="ca-valencia">Dos modes d'encaminament per al connector: automàtic i manual</li>
       <li xml:lang="en-GB">Two modes of connector routing: automatic and manual</li>
@@ -216,6 +224,7 @@
       <li xml:lang="tr">Bağlayıcı yönlendirme için iki kip: Kendiliğinden ve elle</li>
       <li xml:lang="uk">Два режими маршрутизації з’єднань: автоматичний і ручний.</li>
       <li>Several ways to define the PIC logic: assembly code, Microbe (own high level programming language) code, C code, and visual FlowCode</li>
+      <li xml:lang="ar">عدة طرق لتعريف منطق المتحكم PIC: شيفرة التجميع (assembly code)، شيفرة Microbe (لغة البرمجة عالية المستوى الخاصة به)، شيفرة C، وشيفرة FlowCode المرئية</li>
       <li xml:lang="ca">Diverses maneres de definir el PIC lògic: codi en assemblador, codi en Microbe (llenguatge de programació propi d'alt nivell), codi en C i FlowCode visual</li>
       <li xml:lang="ca-valencia">Diverses maneres de definir el PIC lògic: codi en assemblador, codi en Microbe (llenguatge de programació propi d'alt nivell), codi en C i FlowCode visual</li>
       <li xml:lang="en-GB">Several ways to define the PIC logic: assembly code, Microbe (own high level programming language) code, C code, and visual FlowCode</li>
@@ -239,6 +248,7 @@
       <li xml:lang="tr">PIC mantığını tanımlamak için birkaç yol: Assembly kodu, Microbe (kendi yüksek düzey programlama dili), C kodu ve görsel FlowCode</li>
       <li xml:lang="uk">Декілька способів визначення логіки PIC: асемблерний код, Microbe (власна високорівнева мова програмування), код C та візуальний FlowCode.</li>
       <li>Interconversion of the programming code between supported languages</li>
+      <li xml:lang="ar">التحويل البيني لشيفرة البرمجة بين اللغات المدعومة</li>
       <li xml:lang="ca">Interconversió del codi de programació entre els llenguatges admesos</li>
       <li xml:lang="ca-valencia">Interconversió del codi de programació entre els llenguatges admesos</li>
       <li xml:lang="en-GB">Interconversion of the programming code between supported languages</li>
@@ -263,6 +273,7 @@
       <li xml:lang="tr">Desteklenen diller arasında programlama kodu dönüştürme özelliği</li>
       <li xml:lang="uk">Взаємне перетворення програмного коду між підтримуваними мовами.</li>
       <li>Inbuilt debugger</li>
+      <li xml:lang="ar">مصَحِّح أخطاء مدمج</li>
       <li xml:lang="ca">Depurador incorporat</li>
       <li xml:lang="ca-valencia">Depurador incorporat</li>
       <li xml:lang="en-GB">Inbuilt debugger</li>
@@ -287,6 +298,7 @@
       <li xml:lang="tr">Yerleşik hata ayıklayıcısı</li>
       <li xml:lang="uk">Вбудований засіб діагностики.</li>
       <li>Simulation with oscilloscope and probes</li>
+      <li xml:lang="ar">محاكاة مع راسم الذبذبات (oscilloscope) والمجسات (probes)</li>
       <li xml:lang="ca">Simulació amb oscil·loscopi i sondes</li>
       <li xml:lang="ca-valencia">Simulació amb oscil·loscopi i sondes</li>
       <li xml:lang="en-GB">Simulation with oscilloscope and probes</li>
@@ -310,6 +322,7 @@
       <li xml:lang="tr">Salınımölçer ve sondalarla benzetim</li>
       <li xml:lang="uk">Імітація за допомогою осцилоскопа і зондів.</li>
       <li>Uploading the assembly code to PIC using hardware programmer</li>
+      <li xml:lang="ar">رفع شيفرة التجميع (assembly code) إلى المتحكم PIC باستخدام مبرمج عتادي</li>
       <li xml:lang="ca">Puja el codi en assemblador al PIC emprant el programador de maquinari</li>
       <li xml:lang="ca-valencia">Puja el codi en assemblador al PIC emprant el programador de maquinari</li>
       <li xml:lang="en-GB">Uploading the assembly code to PIC using hardware programmer</li>

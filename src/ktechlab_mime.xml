@@ -2,6 +2,7 @@
 <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
   <mime-type type="application/x-circuit">
     <comment>KTechlab Circuit</comment>
+    <comment xml:lang="ar">دائرة معمل الدوائر</comment>
     <comment xml:lang="ca">Circuit del KTechlab</comment>
     <comment xml:lang="ca@valencia">Circuit de KTechlab</comment>
     <comment xml:lang="cs">Obvod KTechlab</comment>
@@ -34,6 +35,7 @@
   </mime-type>
   <mime-type type="application/x-flowcode">
     <comment>KTechlab FlowCode</comment>
+    <comment xml:lang="ar">شفرة تدفق معمل الدوائر</comment>
     <comment xml:lang="ca">FlowCode del KTechlab</comment>
     <comment xml:lang="ca@valencia">FlowCode de KTechlab</comment>
     <comment xml:lang="cs">FlowCode KTechlab</comment>
@@ -65,6 +67,7 @@
   </mime-type>
   <mime-type type="application/x-ktechlab">
     <comment>KTechlab project</comment>
+    <comment xml:lang="ar">مشروع معمل دوائر</comment>
     <comment xml:lang="ca">Projecte del KTechlab</comment>
     <comment xml:lang="ca@valencia">Projecte de KTechlab</comment>
     <comment xml:lang="cs">Projekt KTechlab</comment>
@@ -97,6 +100,7 @@
   </mime-type>
   <mime-type type="application/x-microbe">
     <comment>KTechlab Microbe</comment>
+    <comment xml:lang="ar">مكروب معمل الدوائر</comment>
     <comment xml:lang="ca">Microbe del KTechlab</comment>
     <comment xml:lang="ca@valencia">Microbe de KTechlab</comment>
     <comment xml:lang="cs">Mikrob KTechlab</comment>
