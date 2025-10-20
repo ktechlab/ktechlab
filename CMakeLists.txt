@@ -9,10 +9,6 @@ set( VERSION 0.51.0 )
 
 find_package(ECM 6.0.0 CONFIG REQUIRED)
 
-# At least C++14 is required for qOverload MACRO
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules )
 
 include(KDEInstallDirs)
@@ -62,10 +58,6 @@ find_package(KF6 REQUIRED COMPONENTS
     XmlGui
     )
 
-# Edit FindGPSim and replace
-#    include(MacroPushRequiredVars) -> include(CMakePushCheckState)
-#    macro_push_required_vars() -> cmake_push_check_state()
-#    macro_pop_required_vars() -> cmake_pop_check_state()
 find_package(GPSim)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
@@ -99,21 +91,9 @@ if (KTECHLAB_DEVELOPER_BUILD)
 
     #add_definitions( -Wold-style-cast ) # warn on old style casts. as these could introduce bugs
 
-endif (KTECHLAB_DEVELOPER_BUILD)
+endif ()
 
 add_definitions( -fno-inline )  # do not inline any method calls; this is useful for crash debugging
-add_definitions(
-    ${Qt6Core_EXECUTABLE_COMPILE_FLAGS}
-    ${GLIB2_DEFINITIONS}
-)
-
-message("Qt6Core_EXECUTABLE_COMPILE_FLAGS=>>>${Qt6Core_EXECUTABLE_COMPILE_FLAGS}<<<" )
-
-
-# KDE disables STL compatibility by default; re-enabling it is supported
-# see http://kde.6490.n7.nabble.com/QT-NO-STL-in-KDE4-td1123882i20.html
-# and http://www.cmake.org/Wiki/HowToBuildKDE4Software#Some_useful_functions
-remove_definitions(-DQT_NO_STL)
 
 # TODO switch to NO_GPSIM to HAVE_GPSIM
 if (NOT GPSim_FOUND)
