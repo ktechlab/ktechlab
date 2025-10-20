@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-02 00:46+0000\n"
-"PO-Revision-Date: 2025-10-05 12:53+0300\n"
+"PO-Revision-Date: 2025-10-19 08:25+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -667,7 +667,7 @@ msgstr "מיטוב לקוד מהיר"
 #: src/core/ktechlab.kcfg:241
 #, kde-format
 msgid "Pass inline assembler code through peep hole optimizer"
-msgstr ""
+msgstr "העברת קוד אסמבלי משולב דרך ממטב חור הצצה"
 
 #. i18n: ectx: label, entry (SDCC_nojtbound), group (SDCC)
 #: src/core/ktechlab.kcfg:245
@@ -1357,42 +1357,42 @@ msgstr "מקורות"
 #: src/electronics/components/dependentsource.cpp:129
 #, kde-format
 msgid "CCCS"
-msgstr ""
+msgstr "CCCS"
 
 #: src/electronics/components/dependentsource.cpp:135
 #, kde-format
 msgid "Current Controlled Current Source"
-msgstr ""
+msgstr "מקור זרם מבוקר זרם"
 
 #: src/electronics/components/dependentsource.cpp:172
 #, kde-format
 msgid "CCVS"
-msgstr ""
+msgstr "CCVS"
 
 #: src/electronics/components/dependentsource.cpp:178
 #, kde-format
 msgid "Current Controlled Voltage Source"
-msgstr ""
+msgstr "מקור מתח מבוקר זרם"
 
 #: src/electronics/components/dependentsource.cpp:214
 #, kde-format
 msgid "VCCS"
-msgstr ""
+msgstr "VCCS"
 
 #: src/electronics/components/dependentsource.cpp:220
 #, kde-format
 msgid "Voltage Controlled Current Source"
-msgstr ""
+msgstr "מקור זרם מבוקר מתח"
 
 #: src/electronics/components/dependentsource.cpp:256
 #, kde-format
 msgid "VCVS"
-msgstr ""
+msgstr "VCVS"
 
 #: src/electronics/components/dependentsource.cpp:262
 #, kde-format
 msgid "Voltage Controlled Voltage Source"
-msgstr ""
+msgstr "מקור מתח מבוקר מתח"
 
 #: src/electronics/components/discretelogic.cpp:32
 #: src/electronics/components/discretelogic.cpp:90
