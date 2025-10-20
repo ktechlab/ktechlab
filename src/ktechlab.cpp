@@ -223,7 +223,7 @@ void KTechlab::setupToolDocks()
     tv->setObjectName("LanguageManager-ToolView");
     LanguageManager::self(tv);
 
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     tv = createToolView(SymbolViewer::toolViewIdentifier(), KMultiTabBar::Right, QIcon::fromTheme("blockdevice"), i18n("Symbol Viewer"));
     tv->setObjectName("SymbolViewer-ToolView");
     SymbolViewer::self(tv);
@@ -792,7 +792,7 @@ void KTechlab::savePropertiesInConfig(KConfig *conf)
     }
 #endif
 
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     SymbolViewer::self()->saveProperties(conf);
 #endif
 
@@ -887,7 +887,7 @@ void KTechlab::readPropertiesInConfig(KConfig *conf)
         ProjectManager::self()->slotOpenProject(QUrl::fromUserInput(openValue));
     }
 
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     SymbolViewer::self()->readProperties(conf);
 #endif
 

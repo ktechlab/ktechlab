@@ -12,7 +12,7 @@
 #define PICCOMPONENTPIN_H
 
 #include "config.h"
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
 
 #include "gpsim/stimuli.h"
 #include "logic.h"

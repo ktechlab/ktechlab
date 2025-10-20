@@ -96,7 +96,7 @@ protected Q_SLOTS:
 
 protected:
     KTextEditor::View *m_view;
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     VariableLabel *m_pTextViewLabel; ///< Pops up when the user hovers his mouse over a word
 #endif
 

@@ -168,7 +168,7 @@ void Simulator::step()
             delete m_pStartStepCallback[m_llNumber];
             m_pStartStepCallback[m_llNumber] = nullptr;
 
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
             // Update the gpsim processors
             {
                 list<GpsimProcessor *>::iterator processors_end = m_gpsimProcessors->end();

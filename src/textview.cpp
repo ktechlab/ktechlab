@@ -86,7 +86,7 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
         ac->addAction(action->objectName(), action);
     }
 
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     // BEGIN Debug Actions
     {
         // new QAction( i18n("Set &Breakpoint"), 0, 0, this, SLOT(toggleBreakpoint()), ac, "debug_toggle_breakpoint" );
@@ -206,7 +206,7 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
     slotInitDebugActions();
     initCodeActions();
 
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     m_pTextViewLabel = new VariableLabel(this);
     m_pTextViewLabel->hide();
 
@@ -340,7 +340,7 @@ void TextView::disableActions()
     // tb->setItemEnabled( TextDocument::PICOutput, false );
     actionByName("format_asm")->setEnabled(false);
 
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     actionByName("debug_toggle_breakpoint")->setEnabled(false);
 #endif
 }
@@ -370,7 +370,7 @@ void TextView::print()
 
 void TextView::gotFocus()
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     GpsimDebugger *debugger = textDocument()->debugger();
     if (!debugger || !debugger->gpsim())
         return;
@@ -418,7 +418,7 @@ void TextView::initCodeActions()
         actHexOut->setEnabled(true);
         actPicOut->setEnabled(true);
         actionByName("format_asm")->setEnabled(true);
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
         actionByName("debug_toggle_breakpoint")->setEnabled(true);
         slotInitDebugActions();
 #endif
@@ -500,7 +500,7 @@ void TextView::slotCursorPositionChanged()
 
 void TextView::slotUpdateMarksInfo()
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     uint l;
     //int c;
     KTextEditor::Cursor curs = m_view->cursorPosition(); // &l, &c );
@@ -517,7 +517,7 @@ void TextView::slotUpdateMarksInfo()
 
 void TextView::slotInitDebugActions()
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     bool isRunning = textDocument()->debuggerIsRunning();
     bool isStepping = textDocument()->debuggerIsStepping();
     bool ownDebugger = textDocument()->ownDebugger();
@@ -528,12 +528,12 @@ void TextView::slotInitDebugActions()
     actionByName("debug_step")->setEnabled(isRunning && isStepping);
     actionByName("debug_step_over")->setEnabled(isRunning && isStepping);
     actionByName("debug_step_out")->setEnabled(isRunning && isStepping);
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
 }
 
 void TextView::toggleBreakpoint()
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     uint l;
     //int c;
     KTextEditor::Cursor curs = m_view->cursorPosition(); // &l, &c );
@@ -544,12 +544,12 @@ void TextView::toggleBreakpoint()
     const bool isBreakpoint = kfDoc->mark(l) & TextDocument::Breakpoint;
     // textDocument()->setBreakpoint( l, !(m_view->getDoc()->mark(l) & TextDocument::Breakpoint) );
     textDocument()->setBreakpoint(l, !isBreakpoint);
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
 }
 
 void TextView::slotWordHoveredOver(const QString &word, int line, int /*col*/)
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     // We're only interested in popping something up if we currently have a debugger running
     GpsimProcessor *gpsim = textDocument()->debugger() ? textDocument()->debugger()->gpsim() : nullptr;
     if (!gpsim) {
@@ -590,14 +590,14 @@ void TextView::slotWordHoveredOver(const QString &word, int line, int /*col*/)
 #else
     Q_UNUSED(word);
     Q_UNUSED(line);
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
 }
 
 void TextView::slotWordUnhovered()
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     m_pTextViewLabel->hide();
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
 }
 // END class TextView
 

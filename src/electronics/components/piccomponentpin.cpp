@@ -9,7 +9,7 @@
  ***************************************************************************/
 
 #include "config.h"
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
 
 #include "micropackage.h"
 #include "piccomponent.h"

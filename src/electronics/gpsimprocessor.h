@@ -9,7 +9,7 @@
  ***************************************************************************/
 
 #include "config.h"
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
 
 #ifndef GPSIMPROCESSOR_H
 #define GPSIMPROCESSOR_H
@@ -413,4 +413,4 @@ private:
 
 #endif
 
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM

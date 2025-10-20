@@ -88,7 +88,7 @@ public:
      */
     IntList breakpointList() const;
 
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     /**
      * Attach ourselves to the given debugger.
      * @param ownDebugger whether we have permission to delete it.
@@ -221,7 +221,7 @@ protected:
      */
     QString outputFilePath(const QString &ext);
     void saveDone();
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     /**
      * Looks at the list of marks returned by Kate, and syncs them with the
      * marks that we know about
@@ -250,7 +250,7 @@ private:
     CodeType m_guessedCodeType;
     QList<QAction *> m_bookmarkActions;
 
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     bool b_lockSyncBreakpoints; // Used to avoid calling syncMarks() when we are currently doing so
     bool m_bOwnDebugger;
     QPointer<GpsimDebugger> m_pDebugger;

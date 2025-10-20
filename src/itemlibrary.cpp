@@ -204,7 +204,7 @@ void ItemLibrary::addComponents()
     addLibraryItem(ECDFlipFlop::libraryItem());
     addLibraryItem(ECSRFlipFlop::libraryItem());
     addLibraryItem(ECJKFlipFlop::libraryItem());
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     addLibraryItem(PICComponent::libraryItem());
 #endif
 

@@ -10,7 +10,7 @@
  ***************************************************************************/
 
 #include "config.h"
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
 
 #ifndef VARIABLELABEL_H
 #define VARIABLELABEL_H
@@ -57,4 +57,4 @@ protected:
 
 #endif
 
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM

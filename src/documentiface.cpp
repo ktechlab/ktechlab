@@ -386,7 +386,7 @@ void TextDocumentIface::debugRun()
 
 bool TextDocumentIface::isDebugging()
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     return m_pTextDocument->debuggerIsRunning();
 #else
     return false;

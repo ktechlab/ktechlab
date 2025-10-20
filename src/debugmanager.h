@@ -9,7 +9,7 @@
  ***************************************************************************/
 
 #include "config.h"
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
 
 #ifndef DEBUGMANAGER_H
 #define DEBUGMANAGER_H

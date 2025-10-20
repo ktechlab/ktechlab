@@ -12,7 +12,7 @@
 #define PICCOMPONENT_H
 
 #include "config.h"
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
 
 #include "component.h"
 

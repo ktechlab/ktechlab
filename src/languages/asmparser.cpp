@@ -75,7 +75,7 @@ bool AsmParser::parse(GpsimDebugger *debugger)
                     m_picID.prepend("P");
             }
         }
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
         if (debugger && line.startsWith(";#CSRC\t")) {
             // Assembly file produced (by sdcc) from C, line is in format:
             // ;#CSRC\t[file-name] [file-line]
@@ -138,7 +138,7 @@ bool AsmParser::parse(GpsimDebugger *debugger)
         }
 #else
         Q_UNUSED(debugger);
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
         inputAtLine++;
     }
 

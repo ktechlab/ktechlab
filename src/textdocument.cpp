@@ -66,7 +66,7 @@ TextDocument::TextDocument(const QString &caption)
 {
     m_constructorSuccessful = false;
 
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     m_bOwnDebugger = false;
     b_lockSyncBreakpoints = false;
     m_lastDebugLineAt = -1;
@@ -338,7 +338,7 @@ bool TextDocument::openURL(const QUrl &url)
     fileMetaInfo()->initializeFromMetaInfo(url, this);
     guessScheme();
 
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     DebugManager::self()->urlOpened(this);
 #endif
 
@@ -576,7 +576,7 @@ void TextDocument::slotUpdateMarksInfo()
     if (activeView())
         textView()->slotUpdateMarksInfo();
 
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     syncBreakpoints();
 #endif
 
@@ -666,21 +666,21 @@ void TextDocument::setBookmark(uint line, bool isBookmark)
 
 void TextDocument::setBreakpoints(const IntList &lines)
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     clearBreakpoints();
     const IntList::const_iterator end = lines.end();
     for (IntList::const_iterator it = lines.begin(); it != end; ++it)
         setBreakpoint(*it, true);
 #else
     Q_UNUSED(lines);
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
 }
 
 IntList TextDocument::breakpointList() const
 {
     IntList breakpointList;
 
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     // typedef QPtrList<KTextEditor::Mark> MarkList;
     typedef QHash<int, KTextEditor::Mark *> MarkList;
     MarkList markList = m_doc->marks(); // note: this will copy
@@ -692,14 +692,14 @@ IntList TextDocument::breakpointList() const
         if (mark->type & Breakpoint)
             breakpointList += mark->line;
     }
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
 
     return breakpointList;
 }
 
 void TextDocument::setBreakpoint(uint line, bool isBreakpoint)
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     if (isBreakpoint) {
         m_doc->addMark(line, Breakpoint);
         if (m_pDebugger)
@@ -712,12 +712,12 @@ void TextDocument::setBreakpoint(uint line, bool isBreakpoint)
 #else
     Q_UNUSED(line);
     Q_UNUSED(isBreakpoint);
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
 }
 
 void TextDocument::debugRun()
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     if (m_pDebugger) {
         m_pDebugger->gpsim()->setRunning(true);
         slotInitDebugActions();
@@ -750,23 +750,23 @@ void TextDocument::debugRun()
     }
 
     m_symbolFile = GpsimProcessor::generateSymbolFile(m_debugFile, this, SLOT(slotCODCreationSucceeded()), SLOT(slotCODCreationFailed()));
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
 }
 
 void TextDocument::debugInterrupt()
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     if (!m_pDebugger)
         return;
 
     m_pDebugger->gpsim()->setRunning(false);
     slotInitDebugActions();
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
 }
 
 void TextDocument::debugStop()
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     if (!m_pDebugger || !m_bOwnDebugger)
         return;
 
@@ -774,42 +774,42 @@ void TextDocument::debugStop()
     m_pDebugger = nullptr;
     slotDebugSetCurrentLine(SourceLine());
     slotInitDebugActions();
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
 }
 
 void TextDocument::debugStep()
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     if (!m_pDebugger)
         return;
 
     m_pDebugger->stepInto();
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
 }
 
 void TextDocument::debugStepOver()
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     if (!m_pDebugger)
         return;
 
     m_pDebugger->stepOver();
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
 }
 
 void TextDocument::debugStepOut()
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     if (!m_pDebugger)
         return;
 
     m_pDebugger->stepOut();
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
 }
 
 void TextDocument::slotDebugSetCurrentLine(const SourceLine &line)
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     int textLine = line.line();
 
     if (DocManager::self()->findDocument(QUrl::fromLocalFile(line.fileName())) != this)
@@ -824,12 +824,12 @@ void TextDocument::slotDebugSetCurrentLine(const SourceLine &line)
     m_lastDebugLineAt = textLine;
 #else
     Q_UNUSED(line);
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
 }
 
 void TextDocument::slotInitDebugActions()
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     if (m_pDebugger) {
         if (m_pDebugger->gpsim()->isRunning())
             slotDebugSetCurrentLine(SourceLine());
@@ -839,12 +839,12 @@ void TextDocument::slotInitDebugActions()
 
     if (activeView())
         textView()->slotInitDebugActions();
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
 }
 
 void TextDocument::slotCODCreationSucceeded()
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     GpsimProcessor *gpsim = new GpsimProcessor(m_symbolFile, this);
 
     if (m_bLoadDebuggerAsHLL)
@@ -853,27 +853,27 @@ void TextDocument::slotCODCreationSucceeded()
         gpsim->setDebugMode(GpsimDebugger::AsmDebugger);
 
     setDebugger(gpsim->currentDebugger(), true);
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
 }
 void TextDocument::slotCODCreationFailed()
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     m_debugFile = QString();
     m_symbolFile = QString();
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
 }
 
 void TextDocument::slotDebuggerDestroyed()
 {
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
     slotDebugSetCurrentLine(SourceLine());
     m_pDebugger = nullptr;
     m_debugFile = QString();
     slotInitDebugActions();
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
 }
 
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
 void TextDocument::clearBreakpoints()
 {
     // QPtrList<KTextEditor::Mark> markList = m_doc->marks();
@@ -976,7 +976,7 @@ void TextDocument::setDebugger(GpsimDebugger *debugger, bool ownDebugger)
     if (this == dynamic_cast<TextDocument *>(DocManager::self()->getFocusedDocument()))
         SymbolViewer::self()->setContext(m_pDebugger->gpsim());
 }
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
 
 const QPixmap *TextDocument::inactiveBreakpointPixmap()
 {

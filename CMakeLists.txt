@@ -95,9 +95,8 @@ endif ()
 
 add_definitions( -fno-inline )  # do not inline any method calls; this is useful for crash debugging
 
-# TODO switch to NO_GPSIM to HAVE_GPSIM
-if (NOT GPSim_FOUND)
-    set(NO_GPSIM TRUE)
+if (GPSim_FOUND)
+    set(HAVE_GPSIM TRUE)
 endif ()
 
 if (UNIX AND NOT APPLE)

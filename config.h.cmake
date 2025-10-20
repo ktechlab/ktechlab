@@ -1,4 +1,4 @@
-#cmakedefine NO_GPSIM
+#cmakedefine01 HAVE_GPSIM
 
 #cmakedefine01 WITH_X11
 

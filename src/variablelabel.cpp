@@ -9,7 +9,7 @@
  ***************************************************************************/
 
 #include "config.h"
-#ifndef NO_GPSIM
+#if HAVE_GPSIM
 
 #include "gpsimprocessor.h"
 #include "symbolviewer.h"
@@ -85,4 +85,4 @@ void VariableLabel::updateText()
 
 #include "moc_variablelabel.cpp"
 
-#endif // !NO_GPSIM
+#endif // HAVE_GPSIM
