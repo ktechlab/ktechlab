@@ -1,6 +1,4 @@
-# cmake CXX_STANDARD needs min cmake 3.1
-# https://stackoverflow.com/questions/10984442/how-to-detect-c11-support-of-a-compiler-with-cmake/20165220#20165220
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16)
 
 #set( KTECHLAB_DEVELOPER_BUILD "true" )
 
