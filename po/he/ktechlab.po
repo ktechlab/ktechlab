@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-02 00:46+0000\n"
-"PO-Revision-Date: 2025-10-19 08:25+0300\n"
+"PO-Revision-Date: 2025-10-25 16:11+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -4153,7 +4153,7 @@ msgstr ""
 #: src/gui/sdccoptionswidget.ui:147
 #, kde-format
 msgid "Integer li&braries were compiled as reentrant (--int-long-reent)"
-msgstr ""
+msgstr "&ספריות מספרים שלמים וחיוביים הודרו בתור רב־כניסה (‎--int-long-reent)"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_float_reent)
 #: src/gui/sdccoptionswidget.ui:154
@@ -4180,12 +4180,14 @@ msgid ""
 "Will not memcpy initialized data from code space into xdata space. This "
 "saves a few bytes in code space if you do not have initialized data."
 msgstr ""
+"לא יבוצע memcpy (העתקת זיכרון) ממרחב הקוד (code) למרחב xdata. שומר כמה בתים "
+"במרחב הקוד אם אין לך מידע מאותחל."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_no_xinit_opt)
 #: src/gui/sdccoptionswidget.ui:177
 #, kde-format
 msgid "Do not memcpy initialized &xram from code (--no-xinit-opt)"
-msgstr ""
+msgstr "לא לבצע memcpy של xram מ&אותחל מהקוד (‎--no-xinit-opt)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_all_callee_saves)
 #: src/gui/sdccoptionswidget.ui:184
