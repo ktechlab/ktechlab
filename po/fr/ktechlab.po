@@ -372,7 +372,7 @@ msgstr ""
 "gauche. Créer des connexions en glissant un fil depuis le connecteur du "
 "composant. <br><br>La simulation est lancée par défaut. Elle peut être "
 "arrêtée depuis le menu « Outils ». <br><br>Pour supprimer un fil, le "
-"sélectionner avec une boîte de sélection, puis cliquer sur « Supprimer ». "
+"sélectionner avec une boite de sélection, puis cliquer sur « Supprimer ». "
 "<br><br>Pour modifier les attributs d'un composant, le sélectionner (un seul "
 "à la fois), puis utiliser le bouton « Modifier » de la barre d'outils. "
 "D'autres propriétés avancées peuvent être modifiées en utilisant l'éditeur "
@@ -413,14 +413,14 @@ msgstr "Restaurer les documents au démarrage"
 #, kde-format
 msgid "Raise appropriate Item Selector on document creation"
 msgstr ""
-"Faire apparaître le sélecteur approprié d'éléments lors de la création d'un "
+"Faire apparaitre le sélecteur approprié d'éléments lors de la création d'un "
 "document"
 
 #. i18n: ectx: label, entry (RaiseMessagesLog), group (General)
 #: src/core/ktechlab.kcfg:22
 #, kde-format
 msgid "Raise Messages Log on Compiling"
-msgstr "Faire apparaître le journal des messages lors de la compilation"
+msgstr "Faire apparaitre le journal des messages lors de la compilation"
 
 #. i18n: ectx: label, entry (ShowVoltageBars), group (General)
 #: src/core/ktechlab.kcfg:26
@@ -3153,14 +3153,14 @@ msgstr "Restaurer les doc&uments ouverts au démarrage"
 #, kde-format
 msgid "Raise the &appropriate item selector on creating a new document"
 msgstr ""
-"Faire apparaître le sélecteur approprié d'éléments lors de la création d'un "
+"Faire apparaitre le sélecteur approprié d'éléments lors de la création d'un "
 "document."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RaiseMessagesLog)
 #: src/gui/generaloptionswidget.ui:222
 #, kde-format
 msgid "Raise the &Messages log when compiling"
-msgstr "Faire apparaître le journal des &messages lors de la compilation"
+msgstr "Faire apparaitre le journal des &messages lors de la compilation"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: src/gui/gpasmsettingswidget.ui:32
@@ -3398,7 +3398,7 @@ msgstr ""
 "<p>Affiche les propriétés associées au(x) composant(s) actuellement "
 "sélectionné(s).<br/><p>Sélectionnez une propriété pour modifier sa valeur. "
 "Si plusieurs composants sont sélectionnés avec différentes valeurs, alors, "
-"la propriété apparaîtra grisée. Utilisez alors « Fusionner les propriétés » "
+"la propriété apparaitra grisée. Utilisez alors « Fusionner les propriétés » "
 "pour les regrouper.<br/>Sélectionner « Par défaut » pour ré-initialiser "
 "toutes les propriétés à leurs valeurs par défaut."
 
@@ -3984,7 +3984,7 @@ msgid ""
 "<li><b>%file</b> - File to read from or write to</li>\n"
 "</ul>"
 msgstr ""
-"Les chaînes suivantes seront remplacées lors de l'exécution de la "
+"Les chaines suivantes seront remplacées lors de l'exécution de la "
 "commande :\n"
 "<ul>\n"
 "<li><b>%port</b> - Port sur lequel est connecté le programmateur</li>\n"
