@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-02 00:46+0000\n"
-"PO-Revision-Date: 2025-10-25 16:11+0300\n"
+"PO-Revision-Date: 2025-11-13 14:35+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.08.1\n"
+"X-Generator: Lokalize 25.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1444,7 +1444,7 @@ msgstr "פלט לוגי"
 #: src/electronics/components/ec555.cpp:34
 #, kde-format
 msgid "555"
-msgstr ""
+msgstr "555"
 
 #: src/electronics/components/ecbcdto7segment.cpp:43
 #, kde-format
@@ -1482,18 +1482,18 @@ msgstr ""
 #: src/electronics/components/ecbjt.cpp:44
 #, kde-format
 msgid "NPN Transistor"
-msgstr ""
+msgstr "טרנזיסטור NPN"
 
 #: src/electronics/components/ecbjt.cpp:46
 #, kde-format
 msgid "PNP Transistor"
-msgstr ""
+msgstr "טרנזיסטור PNP"
 
 #: src/electronics/components/ecbjt.cpp:54
 #: src/electronics/components/ecmosfet.cpp:128
 #, kde-format
 msgid "Saturation Current"
-msgstr ""
+msgstr "זרם רוויה"
 
 #: src/electronics/components/ecbjt.cpp:62
 #: src/electronics/components/ecmosfet.cpp:136
@@ -1684,23 +1684,23 @@ msgstr "עמודות"
 #: src/electronics/components/ecmosfet.cpp:43
 #, kde-format
 msgid "n-MOSFET"
-msgstr ""
+msgstr "טרנזיסטור MOSFET תעלת n"
 
 #. i18n("p-e MOSFET"),
 #: src/electronics/components/ecmosfet.cpp:54
 #, kde-format
 msgid "p-MOSFET"
-msgstr ""
+msgstr "טרנזיסטור MOSFET תעלת p"
 
 #: src/electronics/components/ecmosfet.cpp:66
 #, kde-format
 msgid "n-d MOSFET"
-msgstr ""
+msgstr "טרנזיסטור MOSFET תעלת n-d"
 
 #: src/electronics/components/ecmosfet.cpp:78
 #, kde-format
 msgid "p-d MOSFET"
-msgstr ""
+msgstr "טרנזיסטור MOSFET תעלת p-d"
 
 #: src/electronics/components/ecmosfet.cpp:92
 #, kde-format
@@ -1736,7 +1736,7 @@ msgstr ""
 #: src/electronics/components/ecopamp.cpp:32
 #, kde-format
 msgid "Operational Amplifier"
-msgstr ""
+msgstr "מגבר שרת"
 
 #: src/electronics/components/ecpotentiometer.cpp:28
 #: src/electronics/components/ecpotentiometer.cpp:34
@@ -4919,12 +4919,12 @@ msgstr "מחלק מתח"
 #: src/ktechlab.cpp:690
 #, kde-format
 msgid "Full Wave Rectifier"
-msgstr ""
+msgstr "מיישר גל מלא"
 
 #: src/ktechlab.cpp:691
 #, kde-format
 msgid "Half Wave Rectifier"
-msgstr ""
+msgstr "מיישר חצי גל"
 
 #: src/ktechlab.cpp:693
 #, kde-format
@@ -4954,27 +4954,27 @@ msgstr "מבודד אופטי"
 #: src/ktechlab.cpp:698
 #, kde-format
 msgid "Inverting Amplifier"
-msgstr ""
+msgstr "מגבר הופך"
 
 #: src/ktechlab.cpp:699
 #, kde-format
 msgid "Noninverting Amplifier"
-msgstr ""
+msgstr "מגבר לא הופך"
 
 #: src/ktechlab.cpp:700
 #, kde-format
 msgid "Instrumentation Amplifier"
-msgstr ""
+msgstr "מגבר מכשור"
 
 #: src/ktechlab.cpp:701
 #, kde-format
 msgid "Astable Multivibrator"
-msgstr ""
+msgstr "רב־רטט אל־יציב"
 
 #: src/ktechlab.cpp:703
 #, kde-format
 msgid "Schmitt Trigger"
-msgstr ""
+msgstr "מעגל שמיט"
 
 #: src/ktechlab.cpp:704
 #, kde-format
