@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-02 00:46+0000\n"
-"PO-Revision-Date: 2025-11-13 14:35+0200\n"
+"PO-Revision-Date: 2025-11-16 15:25+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -601,7 +601,7 @@ msgstr "להשאיר את מצביע המסגרת כמו שהוא"
 #: src/core/ktechlab.kcfg:196
 #, kde-format
 msgid "Do not memcpy initialized data from code space to xdata space"
-msgstr ""
+msgstr "לא לבצע העתקת זיכרון של נתונים מאותחלים ממרחב קוד (code) למרחב xdata"
 
 #. i18n: ectx: label, entry (SDCC_all_callee_saves), group (SDCC)
 #: src/core/ktechlab.kcfg:200
@@ -767,6 +767,8 @@ msgstr "ההתקן (טורי, מקבילי, וכו׳) שמשמש לתכנות ה
 #, kde-format
 msgid "Check this if SDCC uses shared libs for compiling (newer SDCC does so)"
 msgstr ""
+"יש לסמן את זה אם SDCC משתמש בספריות משותפות להידור (גרסאות חדשות יותר של "
+"SDCC עושות את זה)"
 
 #: src/core/main.cpp:31
 #, kde-format
@@ -1459,7 +1461,7 @@ msgstr "BCD לשבעה מקטעים"
 #: src/electronics/components/ecbjt.cpp:31
 #, kde-format
 msgid "NPN"
-msgstr ""
+msgstr "NPN"
 
 #: src/electronics/components/ecbjt.cpp:31
 #: src/electronics/components/ecbjt.cpp:36
@@ -1477,7 +1479,7 @@ msgstr ""
 #: src/electronics/components/ecbjt.cpp:36
 #, kde-format
 msgid "PNP"
-msgstr ""
+msgstr "PNP"
 
 #: src/electronics/components/ecbjt.cpp:44
 #, kde-format
@@ -1573,13 +1575,13 @@ msgstr "דיודה"
 #: src/electronics/components/ledbargraphdisplay.cpp:122
 #, kde-format
 msgid "Emission Coefficient"
-msgstr ""
+msgstr "מקדם פליטה"
 
 #: src/electronics/components/ecdiode.cpp:59
 #: src/electronics/components/ledbargraphdisplay.cpp:129
 #, kde-format
 msgid "Breakdown Voltage"
-msgstr ""
+msgstr "מתח פריצה"
 
 #: src/electronics/components/ecfixedvoltage.cpp:26
 #: src/electronics/components/ecfixedvoltage.cpp:32
@@ -3092,7 +3094,7 @@ msgstr ""
 #: src/gui/generaloptionswidget.ui:222
 #, kde-format
 msgid "Raise the &Messages log when compiling"
-msgstr ""
+msgstr "הקפצת יומן ההודעות ב&זמן הידור"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: src/gui/gpasmsettingswidget.ui:32
@@ -3444,7 +3446,7 @@ msgstr ""
 #: src/gui/logicwidget.ui:47
 #, kde-format
 msgid "Rectangular"
-msgstr ""
+msgstr "מרובע"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox3)
 #: src/gui/logicwidget.ui:57
@@ -3505,7 +3507,7 @@ msgstr "פלט גבוה:"
 #: src/gui/logicwidget.ui:186 src/gui/logicwidget.ui:212
 #, kde-format
 msgid "This is the output impedance when the output is high."
-msgstr ""
+msgstr "זוהי התנגדות המוצא כאשר המוצא נמצא במצב גבוה."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel4)
 #: src/gui/logicwidget.ui:189
@@ -3518,7 +3520,7 @@ msgstr "עכבה חשמלית של פלט חזק:"
 #: src/gui/logicwidget.ui:199 src/gui/logicwidget.ui:234
 #, kde-format
 msgid "This is the output impedance when the output is low."
-msgstr ""
+msgstr "זוהי התנגדות המוצא כאשר המוצא נמצא במצב נמוך."
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1_2)
 #: src/gui/logicwidget.ui:202
@@ -4025,7 +4027,7 @@ msgstr "צבע טקסט…"
 #: src/gui/scopescreenwidget.ui:26
 #, kde-format
 msgid "X"
-msgstr ""
+msgstr "X"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel2)
 #: src/gui/scopescreenwidget.ui:36
