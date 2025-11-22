@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:54+0000\n"
-"PO-Revision-Date: 2025-11-16 15:25+0200\n"
+"PO-Revision-Date: 2025-11-21 13:46+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1645,12 +1645,12 @@ msgstr "זרם רוויה"
 #: src/electronics/components/ecjfet.cpp:89
 #, kde-format
 msgid "PN emission coefficient"
-msgstr ""
+msgstr "מקדם פליטה PN"
 
 #: src/electronics/components/ecjfet.cpp:97
 #, kde-format
 msgid "Isr emission coefficient"
-msgstr ""
+msgstr "מקדם פליטה Isr"
 
 #: src/electronics/components/eckeypad.cpp:26
 #: src/electronics/components/eckeypad.cpp:34 src/flowparts/keypad.cpp:26
@@ -3440,7 +3440,7 @@ msgstr "צורות סימנים לוגיים:"
 #: src/gui/logicwidget.ui:42
 #, kde-format
 msgid "Distinctive"
-msgstr ""
+msgstr "ייחודי"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_LogicSymbolShapes)
 #: src/gui/logicwidget.ui:47
@@ -3588,6 +3588,10 @@ msgid ""
 "and 0 an output.<br><br>The \"State (PORT)\" edit shows the initial high/low "
 "state of the ports; 1 represents a high, and 0 a low."
 msgstr ""
+"כאן ניתן לערוך את ערך הפתחות הראשוני. לכל מספר בינאי, הסדר מימין לשמאל הוא "
+"פינים 0 עד 7.<br><br>עריכת „סוג (TRIS)” מציגה את מצב הקלט/פלט ההתחלתי של "
+"הפתחות: 1 מייצג קלט, ו־0 פלט.<br><br>עריכת „מצב (פתחה)” מציגה את מצב "
+"הגבוה/נמוך הראשוני של הפתחות: 1 מייצג גבוה ו־0 נמוך."
 
 #: src/gui/microsettingsdlg.cpp:75
 #, kde-format
@@ -4150,6 +4154,8 @@ msgid ""
 "Integer (16 bit) and long (32 bit) libraries have been compiled as "
 "reentrant. Note by default these libraries are compiled as non-reentrant."
 msgstr ""
+"ספריות מספר שלם (16 סיביות) וארוך (32 סיביות) הוגדר בתור רב־כניסה. נא לשים "
+"לב שהספריות האלו מהודרות כלא רבות־כניסה."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_int_long_reent)
 #: src/gui/sdccoptionswidget.ui:147
@@ -4247,7 +4253,7 @@ msgstr "השבתת מיטוב משתמרים/אינווריאנטים (‎--noin
 #: src/gui/sdccoptionswidget.ui:254
 #, kde-format
 msgid "Disable loop variable induction (--noinduction)"
-msgstr ""
+msgstr "השבתת הסקה של משתני לולאה (‎--noinduction)"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_SDCC_no_peep)
 #: src/gui/sdccoptionswidget.ui:264
