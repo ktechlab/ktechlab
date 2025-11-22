@@ -6,6 +6,9 @@ set -x
 
 #SCRIPTDIR=$(dirname $(readlink -f "$0"))
 
+# a safe default
+CPU_COUNT_TO_USE_MAKE_PARAM=-j2
+
 case "$(uname -s)" in
 
    Darwin)
@@ -18,6 +21,7 @@ case "$(uname -s)" in
    Linux|*BSD)
      echo 'Linux'
      SCRIPTDIR=$(dirname $(readlink -f "$0"))
+     CPU_COUNT_TO_USE_MAKE_PARAM="-j$( nproc --ignore=2 )"
      ;;
 
    CYGWIN*|MINGW32*|MSYS*)
@@ -54,5 +58,5 @@ log_cmd echo "== starting build at $( date ) == "
         log_cmd cmake -DCMAKE_INSTALL_PREFIX="$SCRIPTDIR/inst-simple/" "$SCRIPTDIR"
     fi
 
-    log_cmd make install -j2
+    log_cmd make install "$CPU_COUNT_TO_USE_MAKE_PARAM"
 )
