@@ -362,6 +362,7 @@
         <p xml:lang="ar">يجب تجميع هذا الإصدار وتشغيله على الأنظمة التي لا تتوفر فيها مكتبات KDELibs4Support.</p>
         <p xml:lang="ca">Aquest llançament hauria de compilar i executar-se en sistemes on les biblioteques KDELibs4Support no estan disponibles.</p>
         <p xml:lang="ca-valencia">Este llançament hauria de compilar i executar-se en sistemes on les biblioteques KDELibs4Support no estan disponibles.</p>
+        <p xml:lang="es">Esta versión debe poderse compilar y ejecutar en sistemas donde no están disponibles las bibliotecas KDELibs4Support.</p>
         <p xml:lang="ka">ეს ვერსია უნდა დაკომპილდეს და გაეშვას სისტემებზე, სადაც ბიბლიოთეკები KDELibs4Support ხელმისაწვდომი არაა.</p>
         <p xml:lang="nl">Deze uitgave zou moeten compileren en draaien op systemen waar de KDELibs4Support-bibliotheken niet beschikbaar zijn.</p>
         <p xml:lang="pt-BR">Esta versão deve compilar e executar em sistemas onde as bibliotecas KDELibs4Support não estão disponíveis.</p>
