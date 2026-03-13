@@ -1,13 +1,13 @@
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the ktechlab package.
 #
-# SPDX-FileCopyrightText: 2025 Yaron Shahrabani <sh.yaron@gmail.com>
+# SPDX-FileCopyrightText: 2025, 2026 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:54+0000\n"
-"PO-Revision-Date: 2025-12-30 10:14+0200\n"
+"PO-Revision-Date: 2026-03-12 15:04+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Lokalize 25.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3322,6 +3322,10 @@ msgid ""
 "Properties\" to make them the same.<br/>Select \"Defaults\" to set all "
 "properties to their default values"
 msgstr ""
+"<p>הצגת מאפיינים שמשויכים לפריטים הנבחרים.<br/>יש לבחור מאפיין כדי לשנות את "
+"הערך שלו. אם נבחרו מספר פריטים עם ערכים שונים אז המאפיין יופיע באפור ונעול, "
+"יש להשתמש ב„מיזוג מאפיינים” כדי שיהיו אותו דבר.<br/>יש לבחור ב„ברירות מחדל” "
+"כדי להגדיר את כל המאפיינים לערכי ברירת המחדל שלהם"
 
 #: src/gui/itemeditor/itemeditor.cpp:87
 #, kde-format
