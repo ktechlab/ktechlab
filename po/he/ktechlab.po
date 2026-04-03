@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:54+0000\n"
-"PO-Revision-Date: 2026-03-12 15:04+0200\n"
+"PO-Revision-Date: 2026-04-02 10:32+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.12.2\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1617,7 +1617,7 @@ msgstr "הארקה"
 #: src/electronics/components/ecjfet.cpp:32
 #, kde-format
 msgid "n-JFET"
-msgstr ""
+msgstr "n-JFET"
 
 #. i18n("p JFET"),
 #: src/electronics/components/ecjfet.cpp:43
@@ -2677,7 +2677,7 @@ msgstr "עורך מפת פינים"
 #: src/flowparts/pulse.cpp:25 src/flowparts/pulse.cpp:31
 #, kde-format
 msgid "Pulse"
-msgstr ""
+msgstr "מתקף"
 
 #: src/flowparts/pulse.cpp:37
 #, kde-format
@@ -2687,7 +2687,7 @@ msgstr "משך"
 #: src/flowparts/pulse.cpp:63
 #, kde-format
 msgid "Pulse %1 for %2 sec"
-msgstr ""
+msgstr "מתקף %1 למשך %2 שניות"
 
 #: src/flowparts/readport.cpp:30 src/flowparts/setpin.cpp:28
 #: src/flowparts/testpin.cpp:26 src/flowparts/writeport.cpp:26
@@ -3096,7 +3096,7 @@ msgstr "שחזור מסמכים &פתוחים עם ההפעלה"
 #: src/gui/generaloptionswidget.ui:215
 #, kde-format
 msgid "Raise the &appropriate item selector on creating a new document"
-msgstr ""
+msgstr "להגביה את בורר ה&פריטים המתאים בעת יצירת מסמך חדש"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_RaiseMessagesLog)
 #: src/gui/generaloptionswidget.ui:222
