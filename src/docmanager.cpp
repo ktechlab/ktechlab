@@ -265,6 +265,9 @@ View *DocManager::createNewView(Document *document, ViewArea *viewArea)
 
     else {
         ViewContainer *viewContainer = new ViewContainer(document->caption());
+        QString viewContName = QString("ViewContainer-Doc%1").arg(document->dcopID());
+        viewContainer->setObjectName(viewContName);
+
         view = document->createView(viewContainer, 0);
         KTechlab::self()->addWindow(viewContainer);
     }

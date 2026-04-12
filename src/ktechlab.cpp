@@ -380,6 +380,7 @@ void KTechlab::removeGUIClients()
 void KTechlab::setupTabWidget()
 {
     m_pViewContainerTabWidget = new QTabWidget(centralWidget());
+    m_pViewContainerTabWidget->setObjectName("Main-Central-TabWidget");
     if (centralWidget()->layout()) {
         centralWidget()->layout()->addWidget(m_pViewContainerTabWidget);
     } else {
