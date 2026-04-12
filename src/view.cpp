@@ -123,6 +123,8 @@ bool View::eventFilter(QObject *watched, QEvent *e)
 
     switch (e->type()) {
     case QEvent::FocusIn: {
+        qCDebug(KTL_LOG) << "View Focused In, viewAreaId=" << viewAreaId();
+
         p_viewContainer->setActiveViewArea(viewAreaId());
 
         if (KTechlab *ktl = KTechlab::self()) {
@@ -137,13 +139,13 @@ bool View::eventFilter(QObject *watched, QEvent *e)
             ItemInterface::self()->updateItemActions();
         }
 
-        // 			qCDebug(KTL_LOG) << "Focused In";
         Q_EMIT focused(this);
         break;
     }
 
     case QEvent::FocusOut: {
-        // 			qCDebug(KTL_LOG) << "Focused Out.";
+        qCDebug(KTL_LOG) << "View Focused Out, viewAreaId=" << viewAreaId();
+
         QFocusEvent *fe = static_cast<QFocusEvent *>(e);
 
         if (QWidget *fw = qApp->focusWidget()) {
