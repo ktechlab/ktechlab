@@ -53,7 +53,9 @@ ViewContainer::ViewContainer(const QString &caption, QWidget *parent)
 
 ViewContainer::~ViewContainer()
 {
-    disconnect(m_baseViewArea, &ViewArea::destroyed, this, &ViewContainer::baseViewAreaDestroyed);
+    if (!b_deleted) {
+        disconnect(m_baseViewArea, &ViewArea::destroyed, this, &ViewContainer::baseViewAreaDestroyed);
+    }
 
     b_deleted = true;
 }
