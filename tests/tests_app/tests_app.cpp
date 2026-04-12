@@ -105,7 +105,11 @@ private Q_SLOTS:
         img = img.copy();
         QTemporaryFile imgFile("testDocumentOpen_output_XXXXXX.png");
         imgFile.setAutoRemove(false);
-        imgFile.open();
+        const bool openIsSuccess = imgFile.open();
+        if (!openIsSuccess) {
+            QCOMPARE(openIsSuccess, true);
+            return; // note: this will leak outputImage; test fails anyway
+        }
         qDebug() << "imgFile.fileName() = " << imgFile.fileName();
         bool saveResult = img.save(imgFile.fileName());
         QCOMPARE( saveResult, true );
