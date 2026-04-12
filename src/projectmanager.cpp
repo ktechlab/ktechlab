@@ -736,7 +736,12 @@ bool ProjectInfo::open(const QUrl &url)
     QScopedPointer<QFile> file;
     if (!url.isLocalFile()) {
         QScopedPointer<QTemporaryFile> downloadedFile(new QTemporaryFile());
-        downloadedFile->open();
+        const bool openIsSuccess = downloadedFile->open();
+        if (!openIsSuccess) {
+            KMessageBox::error(nullptr, i18n("Could not open temporary file for writing: %1",
+                                             downloadedFile->errorString()));
+            return false;
+        }
         KIO::FileCopyJob *job = KIO::file_copy(url, QUrl::fromLocalFile(downloadedFile->fileName()));
         KJobWidgets::setWindow(job, nullptr);
         if (!job->exec()) {
