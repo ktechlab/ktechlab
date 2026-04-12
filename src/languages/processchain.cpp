@@ -86,6 +86,7 @@ void ProcessChain::compile()
                 m_processOptions.m_picID = projectItem->microID();
         }
     }
+    bool isTmpFileOpenSucces = true;
 
     switch (m_processOptions.processPath()) {
 #define DIRECT_PROCESS(path, processor)                                                                                                                                                                                                        \
@@ -93,37 +94,40 @@ void ProcessChain::compile()
         processor()->processInput(m_processOptions);                                                                                                                                                                                           \
         break;                                                                                                                                                                                                                                 \
     }
-#define INDIRECT_PROCESS(path, processor, extension)                                                                                                                                                                                           \
+#define INDIRECT_PROCESS(path, processor, extension, isTmpFileOpenSuccessOut)                                                                                                                                                                                           \
     case ProcessOptions::ProcessPath::path: {                                                                                                                                                                                                  \
         QTemporaryFile *f = new QTemporaryFile(QDir::tempPath() + QLatin1String("/ktechlab_XXXXXX") + QLatin1String(extension), processor());                                                                                                  \
-        f->open();                                                                                                                                                                                                                             \
+        isTmpFileOpenSuccessOut = f->open();                        \
+        if (!isTmpFileOpenSuccessOut) {                             \
+            break;                                                  \
+        }                                                           \
         f->close();                                                                                                                                                                                                                            \
         m_processOptions.setIntermediaryOutput(f->fileName());                                                                                                                                                                                 \
         processor()->processInput(m_processOptions);                                                                                                                                                                                           \
         break;                                                                                                                                                                                                                                 \
     }
 
-        INDIRECT_PROCESS(AssemblyAbsolute_PIC, gpasm, ".hex")
+        INDIRECT_PROCESS(AssemblyAbsolute_PIC, gpasm, ".hex", isTmpFileOpenSucces)
         DIRECT_PROCESS(AssemblyAbsolute_Program, gpasm)
-        INDIRECT_PROCESS(AssemblyRelocatable_Library, gpasm, ".o")
+        INDIRECT_PROCESS(AssemblyRelocatable_Library, gpasm, ".o", isTmpFileOpenSucces)
         DIRECT_PROCESS(AssemblyRelocatable_Object, gpasm)
-        INDIRECT_PROCESS(AssemblyRelocatable_PIC, gpasm, ".o")
-        INDIRECT_PROCESS(AssemblyRelocatable_Program, gpasm, ".o")
+        INDIRECT_PROCESS(AssemblyRelocatable_PIC, gpasm, ".o", isTmpFileOpenSucces)
+        INDIRECT_PROCESS(AssemblyRelocatable_Program, gpasm, ".o", isTmpFileOpenSucces)
         DIRECT_PROCESS(C_AssemblyRelocatable, sdcc)
-        INDIRECT_PROCESS(C_Library, sdcc, ".asm")
-        INDIRECT_PROCESS(C_Object, sdcc, ".asm")
-        INDIRECT_PROCESS(C_PIC, sdcc, ".asm")
-        INDIRECT_PROCESS(C_Program, sdcc, ".asm")
-        INDIRECT_PROCESS(FlowCode_AssemblyAbsolute, flowCode, ".microbe")
+        INDIRECT_PROCESS(C_Library, sdcc, ".asm", isTmpFileOpenSucces)
+        INDIRECT_PROCESS(C_Object, sdcc, ".asm", isTmpFileOpenSucces)
+        INDIRECT_PROCESS(C_PIC, sdcc, ".asm", isTmpFileOpenSucces)
+        INDIRECT_PROCESS(C_Program, sdcc, ".asm", isTmpFileOpenSucces)
+        INDIRECT_PROCESS(FlowCode_AssemblyAbsolute, flowCode, ".microbe", isTmpFileOpenSucces)
         DIRECT_PROCESS(FlowCode_Microbe, flowCode)
-        INDIRECT_PROCESS(FlowCode_PIC, flowCode, ".microbe")
-        INDIRECT_PROCESS(FlowCode_Program, flowCode, ".microbe")
+        INDIRECT_PROCESS(FlowCode_PIC, flowCode, ".microbe", isTmpFileOpenSucces)
+        INDIRECT_PROCESS(FlowCode_Program, flowCode, ".microbe", isTmpFileOpenSucces)
         DIRECT_PROCESS(Microbe_AssemblyAbsolute, microbe)
-        INDIRECT_PROCESS(Microbe_PIC, microbe, ".asm")
-        INDIRECT_PROCESS(Microbe_Program, microbe, ".asm")
+        INDIRECT_PROCESS(Microbe_PIC, microbe, ".asm", isTmpFileOpenSucces)
+        INDIRECT_PROCESS(Microbe_Program, microbe, ".asm", isTmpFileOpenSucces)
         DIRECT_PROCESS(Object_Disassembly, gpdasm)
         DIRECT_PROCESS(Object_Library, gplib)
-        INDIRECT_PROCESS(Object_PIC, gplink, ".lib")
+        INDIRECT_PROCESS(Object_PIC, gplink, ".lib", isTmpFileOpenSucces)
         DIRECT_PROCESS(Object_Program, gplink)
         DIRECT_PROCESS(PIC_AssemblyAbsolute, picProgrammer)
         DIRECT_PROCESS(Program_Disassembly, gpdasm)
@@ -138,6 +142,9 @@ void ProcessChain::compile()
     case ProcessOptions::ProcessPath::None:
         qCWarning(KTL_LOG) << "Nothing to do";
         break;
+    }
+    if (!isTmpFileOpenSucces) {
+        qCWarning(KTL_LOG) << "Failed to open tmp file for process chain";
     }
 }
 
