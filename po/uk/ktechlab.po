@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:54+0000\n"
+"POT-Creation-Date: 2026-04-13 00:46+0000\n"
 "PO-Revision-Date: 2024-08-15 09:01+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -31,7 +31,7 @@ msgid "Your emails"
 msgstr "yurchor@ukr.net"
 
 #: microbe/main.cpp:47 src/electronics/components/piccomponent.cpp:90
-#: src/flowcodedocument.cpp:172 src/flowcodeview.cpp:40 src/ktechlab.cpp:510
+#: src/flowcodedocument.cpp:172 src/flowcodeview.cpp:40 src/ktechlab.cpp:511
 #: src/textview.cpp:68
 #, kde-format
 msgid "Microbe"
@@ -967,27 +967,27 @@ msgstr "Без назви (Mechanics)"
 msgid "Untitled (%1)"
 msgstr "Без назви (%1)"
 
-#: src/docmanager.cpp:190 src/view.cpp:242
+#: src/docmanager.cpp:190 src/view.cpp:244
 #, kde-format
 msgid "Untitled"
 msgstr "Без назви"
 
-#: src/docmanager.cpp:407
+#: src/docmanager.cpp:410
 #, kde-format
 msgid "Could not open Circuit file \"%1\""
 msgstr "Не вдалося відкрити файл схеми «%1»"
 
-#: src/docmanager.cpp:422
+#: src/docmanager.cpp:425
 #, kde-format
 msgid "Could not open FlowCode file \"%1\""
 msgstr "Не вдалося відкрити файл FlowCode «%1»"
 
-#: src/docmanager.cpp:437
+#: src/docmanager.cpp:440
 #, kde-format
 msgid "Could not open Mechanics file \"%1\""
 msgstr "Не вдалося відкрити файл Mechanics «%1»"
 
-#: src/docmanager.cpp:455
+#: src/docmanager.cpp:458
 #, kde-format
 msgid "Could not open text file \"%1\""
 msgstr "Не вдалося відкрити текстовий файл «%1»"
@@ -1166,8 +1166,8 @@ msgstr "Орієнтація"
 #: src/electronics/circuitdocument.cpp:47
 #: src/electronics/components/piccomponent.cpp:92 src/flowcodedocument.cpp:50
 #: src/flowcodedocument.cpp:173 src/flowcodedocument.cpp:197
-#: src/flowcodedocument.cpp:221 src/ktechlab.cpp:1190
-#: src/mechanics/mechanicsdocument.cpp:28 src/projectmanager.cpp:911
+#: src/flowcodedocument.cpp:221 src/ktechlab.cpp:1191
+#: src/mechanics/mechanicsdocument.cpp:28 src/projectmanager.cpp:916
 #: src/textdocument.cpp:431 src/textdocument.cpp:469
 #, kde-format
 msgid "All Files"
@@ -1175,7 +1175,7 @@ msgstr "Всі файли"
 
 #. i18n("Circuit"), "application-x-circuit", 0, this, SLOT(slotFileNewCircuit()), ac, "newfile_circuit" ))->plug( p->menu() );
 #: src/electronics/circuitdocument.cpp:47 src/gui/newfiledlg.cpp:77
-#: src/ktechlab.cpp:484 src/ktechlab.cpp:1193
+#: src/ktechlab.cpp:485 src/ktechlab.cpp:1194
 #, kde-format
 msgid "Circuit"
 msgstr "Схема"
@@ -1340,7 +1340,7 @@ msgid "Passive"
 msgstr "Пасивні"
 
 #: src/electronics/components/capacitor.cpp:26
-#: src/electronics/components/capacitor.cpp:32 src/ktechlab.cpp:685
+#: src/electronics/components/capacitor.cpp:32 src/ktechlab.cpp:686
 #, kde-format
 msgid "Capacitor"
 msgstr "Конденсатор"
@@ -1440,8 +1440,8 @@ msgid "Logic"
 msgstr "Логіка"
 
 #: src/electronics/components/discretelogic.cpp:32
-#: src/electronics/components/discretelogic.cpp:43 src/ktechlab.cpp:692
-#: src/ktechlab.cpp:702
+#: src/electronics/components/discretelogic.cpp:43 src/ktechlab.cpp:693
+#: src/ktechlab.cpp:703
 #, kde-format
 msgid "Inverter"
 msgstr "Інвертор"
@@ -1970,7 +1970,7 @@ msgid "Column Cathode"
 msgstr "Катод стовпчиків"
 
 #: src/electronics/components/matrixdisplaydriver.cpp:298
-#: src/electronics/components/matrixdisplaydriver.cpp:304 src/ktechlab.cpp:705
+#: src/electronics/components/matrixdisplaydriver.cpp:304 src/ktechlab.cpp:706
 #, kde-format
 msgid "Matrix Display Driver"
 msgstr "Драйвер матричного дисплея"
@@ -2105,7 +2105,7 @@ msgid "All Supported Files"
 msgstr "усі файли, що підтримуються"
 
 #. i18n("FlowCode"), "application-x-flowcode", 0, this, SLOT(slotFileNewFlowCode()), ac, "newfile_flowcode" ))->plug( p->menu() );
-#: src/electronics/components/piccomponent.cpp:87 src/ktechlab.cpp:492
+#: src/electronics/components/piccomponent.cpp:87 src/ktechlab.cpp:493
 #: src/languages/flowcode.cpp:28
 #, kde-format
 msgid "FlowCode"
@@ -2117,7 +2117,7 @@ msgid "Symbol File"
 msgstr "Файл позначок"
 
 #: src/electronics/components/piccomponent.cpp:89 src/flowcodedocument.cpp:196
-#: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1191 src/textdocument.cpp:430
+#: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1192 src/textdocument.cpp:430
 #, kde-format
 msgid "Assembly Code"
 msgstr "Код асемблера"
@@ -2432,7 +2432,7 @@ msgstr "Помилка"
 msgid "Generic"
 msgstr "Загальний"
 
-#: src/electronics/gpsimprocessor.cpp:738 src/projectmanager.cpp:867
+#: src/electronics/gpsimprocessor.cpp:738 src/projectmanager.cpp:872
 #, kde-format
 msgid "File"
 msgstr "Файл"
@@ -2495,7 +2495,7 @@ msgid "Convert To"
 msgstr "Перетворити на"
 
 #. i18n("Assembly"), "source", 0, this, SLOT(slotFileNewAssembly()), ac, "newfile_asm" ))->plug( p->menu() );
-#: src/flowcodeview.cpp:41 src/ktechlab.cpp:468 src/textview.cpp:70
+#: src/flowcodeview.cpp:41 src/ktechlab.cpp:469 src/textview.cpp:70
 #, kde-format
 msgid "Assembly"
 msgstr "Асемблер"
@@ -3730,7 +3730,7 @@ msgstr ""
 "Перетягніть його, щоб встановити тип (вхід/вихід)."
 
 #. i18n: ectx: property (text), widget (QPushButton, pinMapRemove)
-#: src/gui/microsettingswidget.ui:109 src/projectmanager.cpp:1081
+#: src/gui/microsettingswidget.ui:109 src/projectmanager.cpp:1086
 #, kde-format
 msgid "Remove"
 msgstr "Вилучити"
@@ -3747,7 +3747,7 @@ msgstr "З&мінити"
 msgid "Rename"
 msgstr "Перейменувати"
 
-#: src/gui/newfiledlg.cpp:56 src/ktechlab.cpp:465
+#: src/gui/newfiledlg.cpp:56 src/ktechlab.cpp:466
 #, kde-format
 msgid "New File"
 msgstr "Новий файл"
@@ -4655,12 +4655,18 @@ msgstr "Не вдалося експортувати"
 msgid "Image Export"
 msgstr "Експорт зображення"
 
-#: src/itemdocumentdata.cpp:112 src/projectmanager.cpp:750
+#: src/itemdocumentdata.cpp:103 src/projectmanager.cpp:741
+#, fuzzy, kde-format
+#| msgid "Could not open item descriptions file \"%1\" for writing."
+msgid "Could not open temporary file for writing: %1"
+msgstr "Не вдалося відкрити файл опису елементів «%1» для запису."
+
+#: src/itemdocumentdata.cpp:117 src/projectmanager.cpp:755
 #, kde-format
 msgid "Could not open %1 for reading"
 msgstr "Не вдалося відкрити %1 для читання"
 
-#: src/itemdocumentdata.cpp:133 src/projectmanager.cpp:766
+#: src/itemdocumentdata.cpp:138 src/projectmanager.cpp:771
 #, kde-format
 msgid ""
 "Could not parse XML:\n"
@@ -4669,14 +4675,14 @@ msgstr ""
 "Не вдалося обробити XML:\n"
 "%1"
 
-#: src/itemdocumentdata.cpp:175
+#: src/itemdocumentdata.cpp:180
 #, kde-format
 msgid "Could not open '%1' for writing. Check that you have write permissions"
 msgstr ""
 "Не вдалося відкрити «%1» для запису. Перевірте, чи є у вас права для запису "
 "даних до нього."
 
-#: src/itemdocumentdata.cpp:175
+#: src/itemdocumentdata.cpp:180
 #, kde-format
 msgid "Saving File"
 msgstr "Збереження файла"
@@ -4697,7 +4703,7 @@ msgstr "Не вдалося відкрити файл опису елемент�
 
 #. i18n("Cancel"), i18n("Cancel the current operation"), Qt::Key_Escape, itemDocument, SLOT(cancelCurrentOperation()) );
 #. pAccel->readSettings(); // TODO what does this do?
-#: src/itemview.cpp:59 src/projectmanager.cpp:1081 src/viewcontainer.cpp:540
+#: src/itemview.cpp:59 src/projectmanager.cpp:1086 src/viewcontainer.cpp:542
 #, kde-format
 msgid "Cancel"
 msgstr "Скасувати"
@@ -4835,7 +4841,7 @@ msgstr "Частині діаграми"
 
 #. i18n("Mechanics"), "ktechlab_mechanics", 0, this, SLOT(slotFileNewMechanics()), ac, "newfile_mechanics" ))->plug( p->menu() );
 #. "ktechlab_mechanics" -- for the future
-#: src/ktechlab.cpp:209 src/ktechlab.cpp:501
+#: src/ktechlab.cpp:209 src/ktechlab.cpp:502
 #: src/mechanics/mechanicsdocument.cpp:28
 #, kde-format
 msgid "Mechanics"
@@ -4870,265 +4876,265 @@ msgstr "Загальний перегляд (дуже грубо)"
 
 #. i18n("&New"), "document-new",
 #. KStandardShortcut::shortcut(KStandardShortcut::New), this, SLOT(slotFileNew()), ac, "newfile_popup" );
-#: src/ktechlab.cpp:459
+#: src/ktechlab.cpp:460
 #, kde-format
 msgid "&New"
 msgstr "С&творити"
 
 #. i18n("C source"), "text-x-csrc", 0, this, SLOT(slotFileNewC()), ac, "newfile_c" ))->plug( p->menu() );
-#: src/ktechlab.cpp:476
+#: src/ktechlab.cpp:477
 #, kde-format
 msgid "C source"
 msgstr "Початковий код C"
 
 #. i18n("New Project..."), "window-new",			0, pm, SLOT(slotNewProject()),			ac, 	"project_new" );
-#: src/ktechlab.cpp:527
+#: src/ktechlab.cpp:528
 #, kde-format
 msgid "New Project..."
 msgstr "Створити проєкт…"
 
 #. i18n("Open Project..."), "project-open",		0, pm, SLOT(slotOpenProject()),			ac, 	"project_open" );
-#: src/ktechlab.cpp:534
+#: src/ktechlab.cpp:535
 #, kde-format
 msgid "Open Project..."
 msgstr "Відкрити проєкт…"
 
-#: src/ktechlab.cpp:540
+#: src/ktechlab.cpp:541
 #, kde-format
 msgid "Open &Recent Project..."
 msgstr "Відкрити &недавній проєкт…"
 
 #. i18n("Export to Makefile..."), "document-export",	0, pm, SLOT(slotExportToMakefile()),		ac, "project_export_makefile" );
-#: src/ktechlab.cpp:547
+#: src/ktechlab.cpp:548
 #, kde-format
 msgid "Export to Makefile..."
 msgstr "Експортувати до Makefile…"
 
 #. i18n("Create Subproject..."), 0,				0, pm, SLOT(slotCreateSubproject()),		ac, "project_create_subproject" );
-#: src/ktechlab.cpp:554
+#: src/ktechlab.cpp:555
 #, kde-format
 msgid "Create Subproject..."
 msgstr "Створити підпроєкт…"
 
 #. i18n("Add Existing File..."), "document-open",		0, pm, SLOT(slotAddFile()),					ac, "project_add_existing_file" );
-#: src/ktechlab.cpp:561
+#: src/ktechlab.cpp:562
 #, kde-format
 msgid "Add Existing File..."
 msgstr "Додати наявний файл…"
 
 #. i18n("Add Current File..."), "document-import",		0, pm, SLOT(slotAddCurrentFile()),			ac, "project_add_current_file" );
-#: src/ktechlab.cpp:568
+#: src/ktechlab.cpp:569
 #, kde-format
 msgid "Add Current File..."
 msgstr "Додати поточний файл…"
 
 #. i18n("Close Project"), "window-close",			0, pm, SLOT(slotCloseProject()),			ac, "project_close" );
-#: src/ktechlab.cpp:577
+#: src/ktechlab.cpp:578
 #, kde-format
 msgid "Close Project"
 msgstr "Закрити проєкт"
 
 #. i18n("Remove from Project"), "edit-delete",		0, pm, SLOT(slotRemoveSelected()),			ac, "project_remove_selected" );
-#: src/ktechlab.cpp:584
+#: src/ktechlab.cpp:585
 #, kde-format
 msgid "Remove from Project"
 msgstr "Вилучити з проєкту"
 
 #. i18n("Insert Existing File..."), "document-open",	0, pm, SLOT(slotSubprojectAddExistingFile()),	ac, "subproject_add_existing_file" );
-#: src/ktechlab.cpp:591
+#: src/ktechlab.cpp:592
 #, kde-format
 msgid "Insert Existing File..."
 msgstr "Вставити наявний файл…"
 
 #. i18n("Insert Current File..."), "document-import",	0, pm, SLOT(slotSubprojectAddCurrentFile()),ac, "subproject_add_current_file" );
-#: src/ktechlab.cpp:598
+#: src/ktechlab.cpp:599
 #, kde-format
 msgid "Insert Current File..."
 msgstr "Вставити поточний файл…"
 
 #. i18n("Linker Options..."), "configure",		0, pm, SLOT(slotSubprojectLinkerOptions()),	ac, "project_item_linker_options" );
-#: src/ktechlab.cpp:605
+#: src/ktechlab.cpp:606
 #, kde-format
 msgid "Linker Options..."
 msgstr "Параметри компонувальника…"
 
 #. i18n("Build..."), "launch",					0, pm, SLOT(slotItemBuild()),				ac, "project_item_build" );
-#: src/ktechlab.cpp:612
+#: src/ktechlab.cpp:613
 #, kde-format
 msgid "Build..."
 msgstr "Зібрати…"
 
 #. i18n("Upload..."), "convert_to_pic",			0, pm, SLOT(slotItemUpload()),				ac, "project_item_upload" );
-#: src/ktechlab.cpp:619
+#: src/ktechlab.cpp:620
 #, kde-format
 msgid "Upload..."
 msgstr "Вивантажити…"
 
 #. i18n("Processing Options..."), "configure",	0, pm, SLOT(slotItemProcessingOptions()),	ac, "project_item_processing_options" );
-#: src/ktechlab.cpp:626
+#: src/ktechlab.cpp:627
 #, kde-format
 msgid "Processing Options..."
 msgstr "Параметри обробки…"
 
 #. i18n("Split View Left/Right"), "view-split-left-right", Qt::CTRL|Qt::SHIFT|Qt::Key_L, this, SLOT(slotViewSplitLeftRight()), ac, "view_split_leftright" );
-#: src/ktechlab.cpp:635
+#: src/ktechlab.cpp:636
 #, kde-format
 msgid "Split View Left/Right"
 msgstr "Розділений перегляд: ліворуч/праворуч"
 
 #. i18n("Split View Top/Bottom"), "view-split-top-bottom", Qt::CTRL|Qt::SHIFT|Qt::Key_T, this, SLOT(slotViewSplitTopBottom()), ac, "view_split_topbottom" );
-#: src/ktechlab.cpp:642
+#: src/ktechlab.cpp:643
 #, kde-format
 msgid "Split View Top/Bottom"
 msgstr "Розділений перегляд: вгорі/внизу"
 
 #. i18n("Run Simulation"), "media-playback-start", Qt::Key_F10, 0, 0, ac, "simulation_run" );
-#: src/ktechlab.cpp:649
+#: src/ktechlab.cpp:650
 #, kde-format
 msgid "Run Simulation"
 msgstr "Почати імітацію"
 
-#: src/ktechlab.cpp:654
+#: src/ktechlab.cpp:655
 #, kde-format
 msgid "Pause Simulation"
 msgstr "Призупинити імітацію"
 
-#: src/ktechlab.cpp:681
+#: src/ktechlab.cpp:682
 #, kde-format
 msgid "Internals"
 msgstr "Внутрішня частина роботи програми"
 
-#: src/ktechlab.cpp:682
+#: src/ktechlab.cpp:683
 #, kde-format
 msgid "Square Wave"
 msgstr "Квадратний сигнал"
 
-#: src/ktechlab.cpp:683
+#: src/ktechlab.cpp:684
 #, kde-format
 msgid "2-Way Switch"
 msgstr "2-позиційний перемикач"
 
-#: src/ktechlab.cpp:684
+#: src/ktechlab.cpp:685
 #, kde-format
 msgid "3-Way Switch"
 msgstr "3-позиційний перемикач"
 
-#: src/ktechlab.cpp:686
+#: src/ktechlab.cpp:687
 #, kde-format
 msgid "LRC"
 msgstr "LRC"
 
-#: src/ktechlab.cpp:687
+#: src/ktechlab.cpp:688
 #, kde-format
 msgid "Resistors in Parallel"
 msgstr "З’єднані паралельно резистори"
 
-#: src/ktechlab.cpp:688
+#: src/ktechlab.cpp:689
 #, kde-format
 msgid "Resistors in Series"
 msgstr "З’єднані послідовно резистори"
 
-#: src/ktechlab.cpp:689
+#: src/ktechlab.cpp:690
 #, kde-format
 msgid "Voltage Divider"
 msgstr "Дільник напруги"
 
-#: src/ktechlab.cpp:690
+#: src/ktechlab.cpp:691
 #, kde-format
 msgid "Full Wave Rectifier"
 msgstr "Повний міст"
 
-#: src/ktechlab.cpp:691
+#: src/ktechlab.cpp:692
 #, kde-format
 msgid "Half Wave Rectifier"
 msgstr "Напівміст"
 
-#: src/ktechlab.cpp:693
+#: src/ktechlab.cpp:694
 #, kde-format
 msgid "AND"
 msgstr "І"
 
-#: src/ktechlab.cpp:694
+#: src/ktechlab.cpp:695
 #, kde-format
 msgid "NAND"
 msgstr "NAND"
 
-#: src/ktechlab.cpp:695
+#: src/ktechlab.cpp:696
 #, kde-format
 msgid "NOR"
 msgstr "NOR"
 
-#: src/ktechlab.cpp:696
+#: src/ktechlab.cpp:697
 #, kde-format
 msgid "OR"
 msgstr "АБО"
 
-#: src/ktechlab.cpp:697
+#: src/ktechlab.cpp:698
 #, kde-format
 msgid "Decoupler"
 msgstr "Розв’язувальний пристрій"
 
-#: src/ktechlab.cpp:698
+#: src/ktechlab.cpp:699
 #, kde-format
 msgid "Inverting Amplifier"
 msgstr "Підсилювач-інвертор"
 
-#: src/ktechlab.cpp:699
+#: src/ktechlab.cpp:700
 #, kde-format
 msgid "Noninverting Amplifier"
 msgstr "Синфазний підсилювач"
 
-#: src/ktechlab.cpp:700
+#: src/ktechlab.cpp:701
 #, kde-format
 msgid "Instrumentation Amplifier"
 msgstr "Вимірювальний підсилювач"
 
-#: src/ktechlab.cpp:701
+#: src/ktechlab.cpp:702
 #, kde-format
 msgid "Astable Multivibrator"
 msgstr "Астабільний мультивібратор"
 
-#: src/ktechlab.cpp:703
+#: src/ktechlab.cpp:704
 #, kde-format
 msgid "Schmitt Trigger"
 msgstr "Перемикач Шмітта"
 
-#: src/ktechlab.cpp:704
+#: src/ktechlab.cpp:705
 #, kde-format
 msgid "Switch"
 msgstr "Перемкнути"
 
-#: src/ktechlab.cpp:1019
+#: src/ktechlab.cpp:1020
 #, kde-format
 msgid "Close"
 msgstr "Закрити"
 
-#: src/ktechlab.cpp:1024
+#: src/ktechlab.cpp:1025
 #, kde-format
 msgid "Save"
 msgstr "Зберегти"
 
-#: src/ktechlab.cpp:1027
+#: src/ktechlab.cpp:1028
 #, kde-format
 msgid "Reload"
 msgstr "Перезавантажити"
 
-#: src/ktechlab.cpp:1030
+#: src/ktechlab.cpp:1031
 #, kde-format
 msgid "Close All Others"
 msgstr "Закрити всі інші"
 
-#: src/ktechlab.cpp:1192
+#: src/ktechlab.cpp:1193
 #, kde-format
 msgid "Intel Hex"
 msgstr "Intel Hex"
 
-#: src/ktechlab.cpp:1196 src/ktechlab.cpp:1199 src/projectmanager.cpp:913
+#: src/ktechlab.cpp:1197 src/ktechlab.cpp:1200 src/projectmanager.cpp:918
 #, kde-format
 msgid "Open Location"
 msgstr "Відкрити адресу"
 
-#: src/ktechlab.cpp:1350
+#: src/ktechlab.cpp:1351
 #, kde-format
 msgid "Exiting..."
 msgstr "Вихід…"
@@ -5477,17 +5483,17 @@ msgstr "Невідомий спосіб збирання «%1» (у проєкт
 msgid "Do not know how to build \"%1\" (unknown output type)."
 msgstr "Невідомий спосіб збирання «%1» (невідомий тип виведення)."
 
-#: src/projectmanager.cpp:802
+#: src/projectmanager.cpp:807
 #, kde-format
 msgid "Project could not be saved to \"%1\""
 msgstr "Не вдалося зберегти проєкт до «%1»"
 
-#: src/projectmanager.cpp:802
+#: src/projectmanager.cpp:807
 #, kde-format
 msgid "Saving Project"
 msgstr "Збереження проєкту"
 
-#: src/projectmanager.cpp:865
+#: src/projectmanager.cpp:870
 #, kde-format
 msgid ""
 "Displays the list of files in the project.\n"
@@ -5498,22 +5504,22 @@ msgstr ""
 "Щоб відкрити або закрити проєкт, скористайтеся меню «Проєкт». Клацніть "
 "правою кнопкою миші на пункті файла, щоб вилучити його з проєкту."
 
-#: src/projectmanager.cpp:868
+#: src/projectmanager.cpp:873
 #, kde-format
 msgid "Project Manager"
 msgstr "Керування проєктами"
 
-#: src/projectmanager.cpp:911
+#: src/projectmanager.cpp:916
 #, kde-format
 msgid "KTechlab Project"
 msgstr "Проєкт KTechlab"
 
-#: src/projectmanager.cpp:1081
+#: src/projectmanager.cpp:1086
 #, kde-format
 msgid "Do you really want to remove \"%1\"?"
 msgstr "Ви справді хочете вилучити «%1»?"
 
-#: src/projectmanager.cpp:1081
+#: src/projectmanager.cpp:1086
 #, kde-format
 msgid "Remove Project File?"
 msgstr "Вилучити файл проєкту?"
@@ -5599,12 +5605,12 @@ msgstr "Так"
 msgid "False"
 msgstr "Ні"
 
-#: src/viewcontainer.cpp:261
+#: src/viewcontainer.cpp:263
 #, kde-format
 msgid "(empty)"
 msgstr "(порожній)"
 
-#: src/viewcontainer.cpp:536
+#: src/viewcontainer.cpp:538
 #, kde-format
 msgid "Open Document"
 msgstr "Відкрити документ"
