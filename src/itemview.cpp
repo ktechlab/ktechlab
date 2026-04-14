@@ -58,7 +58,8 @@ ItemView::ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uin
     // pAccel->readSettings(); // TODO what does this do?
     QAction *pAccel = new QAction(QIcon::fromTheme("process-stop"), i18n("Cancel"), ac);
     pAccel->setObjectName("cancelCurrentOperation");
-    pAccel->setShortcut(Qt::Key_Escape);
+    // pAccel->setShortcut(Qt::Key_Escape);
+    KActionCollection::setDefaultShortcut(pAccel, Qt::Key_Escape);
     connect(pAccel, &QAction::triggered, itemDocument, &ItemDocument::cancelCurrentOperation);
     ac->addAction("cancelCurrentOperation", pAccel);
 
@@ -66,7 +67,8 @@ ItemView::ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uin
         // new KAction( i18n("Delete"), "edit-delete", Qt::Key_Delete, itemDocument, SLOT(deleteSelection()), ac, "edit_delete" );
         QAction *action = new QAction(QIcon::fromTheme("edit-delete"), i18n("Delete"), ac);
         action->setObjectName("edit_delete");
-        action->setShortcut(Qt::Key_Delete);
+        // action->setShortcut(Qt::Key_Delete);
+        KActionCollection::setDefaultShortcut(action, Qt::Key_Delete);
         connect(action, &QAction::triggered, itemDocument, &ItemDocument::deleteSelection);
         ac->addAction("edit_delete", action);
     }
@@ -134,7 +136,8 @@ ItemView::ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uin
         // new KAction( i18n("Raise Selection"), "object-order-raise", Qt::Key_PageUp,   itemDocument, SLOT(raiseZ()), ac, "edit_raise" );
         QAction *action = new QAction(QIcon::fromTheme("object-order-raise"), i18n("Raise Selection"), ac);
         action->setObjectName("edit_raise");
-        action->setShortcut(Qt::Key_PageUp);
+        // action->setShortcut(Qt::Key_PageUp);
+        KActionCollection::setDefaultShortcut(action, Qt::Key_PageUp);
         connect(action, &QAction::triggered, itemDocument, qOverload<>(&ItemDocument::raiseZ));
         ac->addAction("edit_raise", action);
     }
@@ -142,7 +145,8 @@ ItemView::ItemView(ItemDocument *itemDocument, ViewContainer *viewContainer, uin
         // new KAction( i18n("Lower Selection"), "object-order-lower", Qt::Key_PageDown, itemDocument, SLOT(lowerZ()), ac, "edit_lower" );
         QAction *action = new QAction(QIcon::fromTheme("object-order-lower"), i18n("Lower Selection"), ac);
         action->setObjectName("edit_lower");
-        action->setShortcut(Qt::Key_PageDown);
+        // action->setShortcut(Qt::Key_PageDown);
+        KActionCollection::setDefaultShortcut(action, Qt::Key_PageDown);
         connect(action, &QAction::triggered, itemDocument, qOverload<>(&ItemDocument::lowerZ));
         ac->addAction("edit_lower", action);
     }
