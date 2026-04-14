@@ -241,7 +241,7 @@ TextView::~TextView()
         // 2017.01.09: do not crash on document close. factory has its clients removed in TextDocument::~TextDocument()
         // if ( KXMLGUIFactory * f = m_view->factory() )
         //	f->removeClient( m_view );
-        KTechlab::self()->addNoRemoveGUIClient(m_view);
+        // KTechlab::self()->addNoRemoveGUIClient(m_view);
     }
 
     delete m_pViewIface;
