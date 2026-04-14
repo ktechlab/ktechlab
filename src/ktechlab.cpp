@@ -125,6 +125,8 @@ KTechlab::~KTechlab()
         disconnect(vc, &ViewContainer::destroyed, this, &KTechlab::slotViewContainerDestroyed);
     }
 
+    removeGUIClients();
+
     delete fileMetaInfo();
     delete itemLibrary(); // This better be the last time the item library is used!
     delete subcircuits();
