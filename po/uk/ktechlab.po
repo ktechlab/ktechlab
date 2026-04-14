@@ -3,13 +3,13 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2016, 2017, 2018, 2020, 2022, 2023, 2024.
+# Yuri Chornoivan <yurchor@ukr.net>, 2016, 2017, 2018, 2020, 2022, 2023, 2024, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-13 00:46+0000\n"
-"PO-Revision-Date: 2024-08-15 09:01+0300\n"
+"PO-Revision-Date: 2026-04-13 08:39+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -4656,10 +4656,9 @@ msgid "Image Export"
 msgstr "Експорт зображення"
 
 #: src/itemdocumentdata.cpp:103 src/projectmanager.cpp:741
-#, fuzzy, kde-format
-#| msgid "Could not open item descriptions file \"%1\" for writing."
+#, kde-format
 msgid "Could not open temporary file for writing: %1"
-msgstr "Не вдалося відкрити файл опису елементів «%1» для запису."
+msgstr "Не вдалося відкрити тимчасовий файл для записування: %1"
 
 #: src/itemdocumentdata.cpp:117 src/projectmanager.cpp:755
 #, kde-format

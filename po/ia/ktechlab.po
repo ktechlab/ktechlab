@@ -1,13 +1,13 @@
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the ktechlab package.
 #
-# SPDX-FileCopyrightText: 2025 giovanni <g.sora@tiscali.it>
+# SPDX-FileCopyrightText: 2025, 2026 giovanni <g.sora@tiscali.it>
 msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-13 00:46+0000\n"
-"PO-Revision-Date: 2025-05-14 14:36+0200\n"
+"PO-Revision-Date: 2026-04-13 11:12+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -527,7 +527,7 @@ msgstr ""
 #: src/core/ktechlab.kcfg:144
 #, kde-format
 msgid "Ignore Case"
-msgstr ""
+msgstr "Ignora Caso"
 
 #. i18n: ectx: label, entry (DosFormat), group (Gpasm)
 #: src/core/ktechlab.kcfg:148
@@ -3239,7 +3239,7 @@ msgstr ""
 #: src/itemdocument.cpp:856
 #, kde-format
 msgid "Export As Image"
-msgstr ""
+msgstr "Exporta como Imagine"
 
 #: src/gui/imageexportdlg.cpp:45
 #, kde-format
@@ -4492,10 +4492,9 @@ msgid "Image Export"
 msgstr ""
 
 #: src/itemdocumentdata.cpp:103 src/projectmanager.cpp:741
-#, fuzzy, kde-format
-#| msgid "Could not open %1 for reading"
+#, kde-format
 msgid "Could not open temporary file for writing: %1"
-msgstr "Il non pote aperir  %1 in lectura."
+msgstr "Il non pote aperir filre temporanee in scriptura : %1"
 
 #: src/itemdocumentdata.cpp:117 src/projectmanager.cpp:755
 #, kde-format
@@ -4548,7 +4547,7 @@ msgstr "Dele"
 #: src/itemview.cpp:75
 #, kde-format
 msgid "Export as Image..."
-msgstr ""
+msgstr "Exporta como Imagine..."
 
 #. i18n("Align Horizontally"), 0, 0, itemDocument, SLOT(alignHorizontally()), ac, "align_horizontally" );
 #: src/itemview.cpp:84
@@ -5342,7 +5341,7 @@ msgstr ""
 #: src/textdocument.cpp:597
 #, kde-format
 msgid "%1 - %2"
-msgstr ""
+msgstr "%1 - %2"
 
 #: src/textdocument.cpp:729
 #, kde-format

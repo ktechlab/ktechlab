@@ -1,16 +1,16 @@
 # Translation of ktechlab.po to Catalan (Valencian)
-# Copyright (C) 2017-2024 This_file_is_part_of_KDE
+# Copyright (C) 2017-2026 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# SPDX-FileCopyrightText: 2017, 2018, 2020, 2021, 2022, 2023, 2024 Josep M. Ferrer <txemaq@gmail.com>
+# SPDX-FileCopyrightText: 2017, 2018, 2020, 2021, 2022, 2023, 2024, 2026 Josep M. Ferrer <txemaq@gmail.com>
 # SPDX-FileCopyrightText: 2017, 2020, 2022 Antoni Bella Pérez <antonibella5@yahoo.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-13 00:46+0000\n"
-"PO-Revision-Date: 2024-11-17 21:06+0100\n"
+"PO-Revision-Date: 2026-04-13 08:54+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 25.04.0\n"
 "X-Accelerator-Marker: &\n"
 
 #, kde-format
@@ -3964,9 +3964,9 @@ msgid ""
 msgstr ""
 "Les següents cadenes seran substituïdes quan s'execute l'ordre:\n"
 "<ul>\n"
-"<li><b>%port</b> - Port al qual està connectat el programador</li>\n"
-"<li><b>%device</b> - Dispositiu PIC</li>\n"
-"<li><b>%file</b> - Fitxer per a llegir o escriure</li>\n"
+"<li><b>%port</b> – Port al qual està connectat el programador</li>\n"
+"<li><b>%device</b> – Dispositiu PIC</li>\n"
+"<li><b>%file</b> – Fitxer per a llegir o escriure</li>\n"
 "</ul>"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel5)
@@ -4671,12 +4671,9 @@ msgid "Image Export"
 msgstr "Exporta la imatge"
 
 #: src/itemdocumentdata.cpp:103 src/projectmanager.cpp:741
-#, fuzzy, kde-format
-#| msgid "Could not open item descriptions file \"%1\" for writing."
+#, kde-format
 msgid "Could not open temporary file for writing: %1"
-msgstr ""
-"No s'ha pogut obrir el fitxer «%1» de descripcions de l'element per a "
-"escriptura."
+msgstr "No s'ha pogut obrir el fitxer temporal per a escriptura: %1"
 
 #: src/itemdocumentdata.cpp:117 src/projectmanager.cpp:755
 #, kde-format
@@ -5548,7 +5545,7 @@ msgstr "Ha fallat mentre es creava l'editor"
 #: src/textdocument.cpp:597
 #, kde-format
 msgid "%1 - %2"
-msgstr "%1 - %2"
+msgstr "%1 – %2"
 
 #: src/textdocument.cpp:729
 #, kde-format

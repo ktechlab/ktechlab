@@ -1,24 +1,24 @@
 # Spanish translations for ktechlab.po package.
-# Copyright (C) 2005-2025 This file is copyright:
+# Copyright (C) 2005-2026 This file is copyright:
 # This file is distributed under the same license as the ktechlab package.
 #
 # SPDX-FileCopyrightText: 2005 David Rubio Miguélez <deifo@ono.com>
 # SPDX-FileCopyrightText: 2005 Elena Martinez <emartinezherranz@hotmail.com>
 # SPDX-FileCopyrightText: 2006 A. Bulnes (Urriellu) <yo@urriellu.net>
-# SPDX-FileCopyrightText: 2017, 2018, 2020, 2022, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2017, 2018, 2020, 2022, 2023, 2024, 2025, 2026 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-13 00:46+0000\n"
-"PO-Revision-Date: 2025-05-18 14:34+0100\n"
+"PO-Revision-Date: 2026-04-14 01:44+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 25.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -4656,12 +4656,9 @@ msgid "Image Export"
 msgstr "Exportación de imagen"
 
 #: src/itemdocumentdata.cpp:103 src/projectmanager.cpp:741
-#, fuzzy, kde-format
-#| msgid "Could not open item descriptions file \"%1\" for writing."
+#, kde-format
 msgid "Could not open temporary file for writing: %1"
-msgstr ""
-"No se ha podido abrir el archivo de descripciones de elementos «%1» para "
-"escritura."
+msgstr "No se ha podido abrir el archivo temporal para escritura: %1"
 
 #: src/itemdocumentdata.cpp:117 src/projectmanager.cpp:755
 #, kde-format
