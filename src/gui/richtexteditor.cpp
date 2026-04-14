@@ -66,7 +66,8 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     // m_pTextBold = new KToggleAction( i18n("Bold"), "format-text-bold", Qt::CTRL + Qt::Key_B, 0, 0, ac, "format_bold" );
     m_pTextBold = new KToggleAction(i18n("Bold"), ac);
     m_pTextBold->setObjectName("text_bold");
-    m_pTextBold->setShortcut(Qt::CTRL | Qt::Key_B);
+    // m_pTextBold->setShortcut(Qt::CTRL | Qt::Key_B);
+    KActionCollection::setDefaultShortcut(m_pTextBold, Qt::CTRL | Qt::Key_B);
     m_pTextBold->setIcon(QIcon::fromTheme(QLatin1StringView("format-text-bold")));
     connect(m_pTextBold, &KToggleAction::toggled, this, &RichTextEditor::slotSetBold);
     // m_pTextBold->plug( tools );
@@ -75,7 +76,8 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     // m_pTextItalic = new KToggleAction( i18n("Italic"), "format-text-italic", Qt::CTRL + Qt::Key_I, 0, 0, ac, "format_italic" );
     m_pTextItalic = new KToggleAction(i18n("Italic"), ac);
     m_pTextItalic->setObjectName("text_italic");
-    m_pTextItalic->setShortcut(Qt::CTRL | Qt::Key_I);
+    // m_pTextItalic->setShortcut(Qt::CTRL | Qt::Key_I);
+    KActionCollection::setDefaultShortcut(m_pTextItalic, Qt::CTRL | Qt::Key_I);
     m_pTextItalic->setIcon(QIcon::fromTheme(QLatin1StringView("format-text-italic")));
     connect(m_pTextItalic, &KToggleAction::toggled, this, &RichTextEditor::slotSetItalic);
     // m_pTextItalic->plug( tools );
@@ -84,7 +86,8 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     // m_pTextUnderline = new KToggleAction( i18n("Underline"), "format-text-underline", Qt::CTRL + Qt::Key_U, 0, 0, ac, "format_underline" );
     m_pTextUnderline = new KToggleAction(i18n("Underline"), ac);
     m_pTextUnderline->setObjectName("text_under");
-    m_pTextUnderline->setShortcut(Qt::CTRL | Qt::Key_U);
+    // m_pTextUnderline->setShortcut(Qt::CTRL | Qt::Key_U);
+    KActionCollection::setDefaultShortcut(m_pTextUnderline, Qt::CTRL | Qt::Key_U);
     m_pTextItalic->setIcon(QIcon::fromTheme(QLatin1StringView("format-text-underline")));
     connect(m_pTextUnderline, &KToggleAction::toggled, this, &RichTextEditor::slotSetUnderline);
     // m_pTextUnderline->plug( tools );
@@ -94,6 +97,7 @@ RichTextEditor::RichTextEditor(QWidget *parent)
     m_pTextList = new KToggleAction(i18n("List"), ac);
     m_pTextList->setObjectName("unsorted_list");
     m_pTextList->setShortcut(Qt::CTRL | Qt::Key_L);
+    KActionCollection::setDefaultShortcut(m_pTextList, Qt::CTRL | Qt::Key_L);
     m_pTextItalic->setIcon(QIcon::fromTheme(QLatin1StringView("format-list-unordered")));
     connect(m_pTextList, &KToggleAction::toggled, this, &RichTextEditor::slotSetList);
     // m_pTextList->plug( tools );
