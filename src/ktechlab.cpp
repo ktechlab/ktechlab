@@ -459,7 +459,7 @@ void KTechlab::setupActions()
     //          KStandardShortcut::shortcut(KStandardShortcut::New), this, SLOT(slotFileNew()), ac, "newfile_popup" );
     KToolBarPopupAction *p = new KToolBarPopupAction(QIcon::fromTheme("document-new"), i18n("&New"), ac);
     p->setObjectName("file_new");
-    p->setShortcuts(KStandardShortcut::shortcut(KStandardShortcut::New));
+    KActionCollection::setDefaultShortcuts(p, KStandardShortcut::shortcut(KStandardShortcut::New));
     connect(p, &KToolBarPopupAction::triggered, this, &KTechlab::slotFileNew);
     ac->addAction(p->objectName(), p);
     QMenu *popupM = p->popupMenu();
