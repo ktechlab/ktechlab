@@ -19,6 +19,7 @@
 #include "node.h"
 #include "viewcontainer.h"
 
+#include <KActionCollection>
 #include <KLocalizedString>
 #include <KStandardShortcut>
 
@@ -63,25 +64,29 @@ PinMapEditor::PinMapEditor(PinMapping *pinMapping, MicroInfo *picInfo, QWidget *
 
     {
         QAction *actionDelSel = new QAction(this);
-        actionDelSel->setShortcut(Qt::Key_Delete);
+        // actionDelSel->setShortcut(Qt::Key_Delete);
+        KActionCollection::setDefaultShortcut(actionDelSel, Qt::Key_Delete);
         connect(actionDelSel, &QAction::triggered, m_pPinMapDocument, &PinMapDocument::deleteSelection);
         addAction(actionDelSel);
     }
     {
         QAction *actionSelAll = new QAction(this);
-        actionSelAll->setShortcut(KStandardShortcut::selectAll().first());
+        // actionSelAll->setShortcut(KStandardShortcut::selectAll().first());
+        KActionCollection::setDefaultShortcuts(actionSelAll, KStandardShortcut::selectAll());
         connect(actionSelAll, &QAction::triggered, m_pPinMapDocument, &PinMapDocument::selectAll);
         addAction(actionSelAll);
     }
     {
         QAction *actionUndo = new QAction(this);
-        actionUndo->setShortcut(KStandardShortcut::undo().first());
+        // actionUndo->setShortcut(KStandardShortcut::undo().first());
+        KActionCollection::setDefaultShortcuts(actionUndo, KStandardShortcut::undo());
         connect(actionUndo, &QAction::triggered, m_pPinMapDocument, &PinMapDocument::undo);
         addAction(actionUndo);
     }
     {
         QAction *actionRedo = new QAction(this);
-        actionRedo->setShortcut(KStandardShortcut::redo().first());
+        // actionRedo->setShortcut(KStandardShortcut::redo().first());
+        KActionCollection::setDefaultShortcuts(actionRedo, KStandardShortcut::redo());
         connect(actionRedo, &QAction::triggered, m_pPinMapDocument, &PinMapDocument::redo);
         addAction(actionRedo);
     }
