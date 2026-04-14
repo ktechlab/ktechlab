@@ -118,6 +118,18 @@ ItemDocument::~ItemDocument()
     delete m_cmManager;
     delete m_currentState;
     delete m_canvasTip;
+
+    if (KTechlab::self()) {
+        ViewList::iterator end = m_viewList.end();
+        for (ViewList::iterator it = m_viewList.begin(); it != end; ++it) {
+            qCDebug(KTL_LOG) << "test item view " << it->get();
+            qCDebug(KTL_LOG) << "  view ptr = " << static_cast<View *>(*it);
+            if (ItemView *iv = dynamic_cast<ItemView *>(static_cast<View *>(*it))) {
+                qCDebug(KTL_LOG) << "remove item view " << iv;
+                KTechlab::self()->factory()->removeClient(iv);
+            }
+        }
+    }
 }
 
 void ItemDocument::handleNewView(View *view)
