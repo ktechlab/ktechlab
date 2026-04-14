@@ -81,7 +81,8 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
         // new QAction( i18n("Format Assembly Code"), "", Qt::Key_F12, textDocument, SLOT(formatAssembly()), ac, "format_asm" );
         QAction *action = new QAction(i18n("Format Assembly Code"), ac);
         action->setObjectName("format_asm");
-        action->setShortcut(Qt::Key_F12);
+        // action->setShortcut(Qt::Key_F12);
+        KActionCollection::setDefaultShortcut(action, Qt::Key_F12);
         connect(action, &QAction::triggered, textDocument, &TextDocument::formatAssembly);
         ac->addAction(action->objectName(), action);
     }
@@ -120,7 +121,8 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
         // new QAction( i18n("Step"), "debug-step-instruction", Qt::CTRL|Qt::ALT|Qt::Key_Right, textDocument, SLOT(debugStep()), ac, "debug_step" );
         QAction *action = new QAction(QIcon::fromTheme("debug-step-instruction"), i18n("Step"), ac);
         action->setObjectName("debug_step");
-        action->setShortcut(Qt::CTRL | Qt::ALT | Qt::Key_Right);
+        // action->setShortcut(Qt::CTRL | Qt::ALT | Qt::Key_Right);
+        KActionCollection::setDefaultShortcut(action, Qt::CTRL | Qt::ALT | Qt::Key_Right);
         connect(action, &QAction::triggered, textDocument, &TextDocument::debugStep);
         ac->addAction(action->objectName(), action);
     }
