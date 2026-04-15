@@ -134,6 +134,7 @@ bool View::eventFilter(QObject *watched, QEvent *e)
 
         p_viewContainer->setActiveViewArea(viewAreaId());
 
+        Q_EMIT focused(this);
         if (KTechlab *ktl = KTechlab::self()) {
             ktl->actionByName("file_save")->setEnabled(true);
             ktl->actionByName("file_save_as")->setEnabled(true);
@@ -146,7 +147,7 @@ bool View::eventFilter(QObject *watched, QEvent *e)
             ItemInterface::self()->updateItemActions();
         }
 
-        Q_EMIT focused(this);
+        // Q_EMIT focused(this);
         break;
     }
 
