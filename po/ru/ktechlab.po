@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-13 00:46+0000\n"
+"POT-Creation-Date: 2026-04-15 00:49+0000\n"
 "PO-Revision-Date: 2025-12-23 19:19+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -31,7 +31,7 @@ msgid "Your emails"
 msgstr "translation-team@basealt.ru"
 
 #: microbe/main.cpp:47 src/electronics/components/piccomponent.cpp:90
-#: src/flowcodedocument.cpp:172 src/flowcodeview.cpp:40 src/ktechlab.cpp:511
+#: src/flowcodedocument.cpp:172 src/flowcodeview.cpp:40 src/ktechlab.cpp:513
 #: src/textview.cpp:68
 #, kde-format
 msgid "Microbe"
@@ -997,13 +997,13 @@ msgstr "Не удалось открыть текстовый файл «%1»"
 msgid "Save Location"
 msgstr "Путь для сохранения"
 
-#: src/document.cpp:113 src/itemdocument.cpp:825
+#: src/document.cpp:113 src/itemdocument.cpp:837
 #, kde-format
 msgid ""
 "A file named \"%1\" already exists. Are you sure you want to overwrite it?"
 msgstr "Файл с именем «%1» уже существует. Заменить его?"
 
-#: src/document.cpp:114 src/itemdocument.cpp:828
+#: src/document.cpp:114 src/itemdocument.cpp:840
 #, kde-format
 msgid "Overwrite File?"
 msgstr "Заменить файл?"
@@ -1030,7 +1030,7 @@ msgid "Other"
 msgstr "Другое"
 
 #: src/drawparts/dpimage.cpp:129 src/drawparts/dpimage.cpp:145
-#: src/itemview.cpp:128
+#: src/itemview.cpp:130
 #, kde-format
 msgid "Image"
 msgstr "Изображение"
@@ -1040,7 +1040,7 @@ msgstr "Изображение"
 msgid "Image File"
 msgstr "Файл изображения"
 
-#: src/drawparts/dpline.cpp:29 src/drawparts/dpline.cpp:36 src/itemview.cpp:124
+#: src/drawparts/dpline.cpp:29 src/drawparts/dpline.cpp:36 src/itemview.cpp:126
 #, kde-format
 msgid "Line"
 msgstr "Линия"
@@ -1066,7 +1066,7 @@ msgid "Cap Style"
 msgstr "Стиль конца линии"
 
 #: src/drawparts/dpline.cpp:142 src/drawparts/dpline.cpp:148
-#: src/itemview.cpp:125
+#: src/itemview.cpp:127
 #, kde-format
 msgid "Arrow"
 msgstr "Стрелка"
@@ -1081,7 +1081,7 @@ msgstr "Направляющий угол"
 msgid "Canvas Text"
 msgstr "Текст на холсте"
 
-#: src/drawparts/dptext.cpp:43 src/drawparts/dptext.cpp:46 src/itemview.cpp:123
+#: src/drawparts/dptext.cpp:43 src/drawparts/dptext.cpp:46 src/itemview.cpp:125
 #, kde-format
 msgid "Text"
 msgstr "Текст"
@@ -1147,13 +1147,13 @@ msgid "Round"
 msgstr "Круг"
 
 #: src/drawparts/solidshape.cpp:29 src/drawparts/solidshape.cpp:36
-#: src/itemview.cpp:127
+#: src/itemview.cpp:129
 #, kde-format
 msgid "Rectangle"
 msgstr "Прямоугольник"
 
 #: src/drawparts/solidshape.cpp:135 src/drawparts/solidshape.cpp:141
-#: src/itemview.cpp:126
+#: src/itemview.cpp:128
 #, kde-format
 msgid "Ellipse"
 msgstr "Эллипс"
@@ -1166,7 +1166,7 @@ msgstr "Ориентация"
 #: src/electronics/circuitdocument.cpp:47
 #: src/electronics/components/piccomponent.cpp:92 src/flowcodedocument.cpp:50
 #: src/flowcodedocument.cpp:173 src/flowcodedocument.cpp:197
-#: src/flowcodedocument.cpp:221 src/ktechlab.cpp:1191
+#: src/flowcodedocument.cpp:221 src/ktechlab.cpp:1193
 #: src/mechanics/mechanicsdocument.cpp:28 src/projectmanager.cpp:916
 #: src/textdocument.cpp:431 src/textdocument.cpp:469
 #, kde-format
@@ -1175,7 +1175,7 @@ msgstr "Все файлы"
 
 #. i18n("Circuit"), "application-x-circuit", 0, this, SLOT(slotFileNewCircuit()), ac, "newfile_circuit" ))->plug( p->menu() );
 #: src/electronics/circuitdocument.cpp:47 src/gui/newfiledlg.cpp:77
-#: src/ktechlab.cpp:485 src/ktechlab.cpp:1194
+#: src/ktechlab.cpp:487 src/ktechlab.cpp:1196
 #, kde-format
 msgid "Circuit"
 msgstr "Схема"
@@ -1340,7 +1340,7 @@ msgid "Passive"
 msgstr "Пассивный"
 
 #: src/electronics/components/capacitor.cpp:26
-#: src/electronics/components/capacitor.cpp:32 src/ktechlab.cpp:686
+#: src/electronics/components/capacitor.cpp:32 src/ktechlab.cpp:688
 #, kde-format
 msgid "Capacitor"
 msgstr "Конденсатор"
@@ -1440,8 +1440,8 @@ msgid "Logic"
 msgstr "Логика"
 
 #: src/electronics/components/discretelogic.cpp:32
-#: src/electronics/components/discretelogic.cpp:43 src/ktechlab.cpp:693
-#: src/ktechlab.cpp:703
+#: src/electronics/components/discretelogic.cpp:43 src/ktechlab.cpp:695
+#: src/ktechlab.cpp:705
 #, kde-format
 msgid "Inverter"
 msgstr "Инвертор"
@@ -1970,7 +1970,7 @@ msgid "Column Cathode"
 msgstr "Катод столбцов"
 
 #: src/electronics/components/matrixdisplaydriver.cpp:298
-#: src/electronics/components/matrixdisplaydriver.cpp:304 src/ktechlab.cpp:706
+#: src/electronics/components/matrixdisplaydriver.cpp:304 src/ktechlab.cpp:708
 #, kde-format
 msgid "Matrix Display Driver"
 msgstr "Драйвер матричного дисплея"
@@ -2105,7 +2105,7 @@ msgid "All Supported Files"
 msgstr "Все поддерживаемые файлы"
 
 #. i18n("FlowCode"), "application-x-flowcode", 0, this, SLOT(slotFileNewFlowCode()), ac, "newfile_flowcode" ))->plug( p->menu() );
-#: src/electronics/components/piccomponent.cpp:87 src/ktechlab.cpp:493
+#: src/electronics/components/piccomponent.cpp:87 src/ktechlab.cpp:495
 #: src/languages/flowcode.cpp:28
 #, kde-format
 msgid "FlowCode"
@@ -2117,7 +2117,7 @@ msgid "Symbol File"
 msgstr "Файл символа"
 
 #: src/electronics/components/piccomponent.cpp:89 src/flowcodedocument.cpp:196
-#: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1192 src/textdocument.cpp:430
+#: src/gui/newfiledlg.cpp:71 src/ktechlab.cpp:1194 src/textdocument.cpp:430
 #, kde-format
 msgid "Assembly Code"
 msgstr "Код ассемблера"
@@ -2495,7 +2495,7 @@ msgid "Convert To"
 msgstr "Преобразовать в"
 
 #. i18n("Assembly"), "source", 0, this, SLOT(slotFileNewAssembly()), ac, "newfile_asm" ))->plug( p->menu() );
-#: src/flowcodeview.cpp:41 src/ktechlab.cpp:469 src/textview.cpp:70
+#: src/flowcodeview.cpp:41 src/ktechlab.cpp:471 src/textview.cpp:70
 #, kde-format
 msgid "Assembly"
 msgstr "Ассемблер"
@@ -2658,7 +2658,7 @@ msgid "End Value"
 msgstr "Конечное значение"
 
 #. i18n("Step"), "debug-step-instruction", Qt::CTRL|Qt::ALT|Qt::Key_Right, textDocument, SLOT(debugStep()), ac, "debug_step" );
-#: src/flowparts/forloop.cpp:54 src/textview.cpp:121
+#: src/flowparts/forloop.cpp:54 src/textview.cpp:122
 #, kde-format
 msgid "Step"
 msgstr "Шаг"
@@ -2681,7 +2681,7 @@ msgstr "Продолжить на %1 %2"
 
 #. i18n("Interrupt"), "media-playback-pause", 0, textDocument, SLOT(debugInterrupt()), ac, "debug_interrupt" );
 #: src/flowparts/interrupt.cpp:26 src/flowparts/interrupt.cpp:32
-#: src/flowparts/interrupt.cpp:42 src/textview.cpp:107
+#: src/flowparts/interrupt.cpp:42 src/textview.cpp:108
 #, kde-format
 msgid "Interrupt"
 msgstr "Прервать"
@@ -2701,7 +2701,7 @@ msgstr "Карта контактов"
 msgid "Read %1 to %2"
 msgstr "Прочитать %1 до %2"
 
-#: src/flowparts/pinmapping.cpp:55
+#: src/flowparts/pinmapping.cpp:56
 #, kde-format
 msgid "Pin Map Editor"
 msgstr "Редактор карты контактов"
@@ -3305,8 +3305,8 @@ msgstr "Другие параметры:"
 msgid "Link with shared libraries (&use this with new SDCC)"
 msgstr "Связать с общими библиотеками (&используйте с новым SDCC)"
 
-#: src/gui/imageexportdlg.cpp:32 src/itemdocument.cpp:850
-#: src/itemdocument.cpp:856
+#: src/gui/imageexportdlg.cpp:32 src/itemdocument.cpp:862
+#: src/itemdocument.cpp:868
 #, kde-format
 msgid "Export As Image"
 msgstr "Экспорт в изображение"
@@ -3746,7 +3746,7 @@ msgstr "&Изменить"
 msgid "Rename"
 msgstr "Переименовать"
 
-#: src/gui/newfiledlg.cpp:56 src/ktechlab.cpp:466
+#: src/gui/newfiledlg.cpp:56 src/ktechlab.cpp:468
 #, kde-format
 msgid "New File"
 msgstr "Создать файл"
@@ -4023,80 +4023,80 @@ msgid "Bold"
 msgstr "Полужирный"
 
 #. i18n("Italic"), "format-text-italic", Qt::CTRL + Qt::Key_I, 0, 0, ac, "format_italic" );
-#: src/gui/richtexteditor.cpp:76
+#: src/gui/richtexteditor.cpp:77
 #, kde-format
 msgid "Italic"
 msgstr "Курсив"
 
 #. i18n("Underline"), "format-text-underline", Qt::CTRL + Qt::Key_U, 0, 0, ac, "format_underline" );
-#: src/gui/richtexteditor.cpp:85
+#: src/gui/richtexteditor.cpp:87
 #, kde-format
 msgid "Underline"
 msgstr "Подчёркнутый"
 
 #. i18n("List"), "unsorted_list", Qt::CTRL + Qt::Key_L, 0, 0, ac, "format_list" );
-#: src/gui/richtexteditor.cpp:94
+#: src/gui/richtexteditor.cpp:97
 #, kde-format
 msgid "List"
 msgstr "Список"
 
 #. i18n("Text Alignment"), "format-justify-left", 0, 0, 0, ac, "text_alignment" );
 #. i18n("Text Alignment") );
-#: src/gui/richtexteditor.cpp:104 src/gui/richtexteditor.cpp:114
+#: src/gui/richtexteditor.cpp:108 src/gui/richtexteditor.cpp:118
 #, kde-format
 msgid "Text Alignment"
 msgstr "Выравнивание текста"
 
 #. i18n("Align Left"),		Qt::AlignLeft );
-#: src/gui/richtexteditor.cpp:118
+#: src/gui/richtexteditor.cpp:122
 #, kde-format
 msgid "Align Left"
 msgstr "Выровнять по левому краю"
 
 #. i18n("Align Center"),	Qt::AlignHCenter );
-#: src/gui/richtexteditor.cpp:120
+#: src/gui/richtexteditor.cpp:124
 #, kde-format
 msgid "Align Center"
 msgstr "Выровнять по центру"
 
 #. i18n("Align Right"),	Qt::AlignRight );
-#: src/gui/richtexteditor.cpp:122
+#: src/gui/richtexteditor.cpp:126
 #, kde-format
 msgid "Align Right"
 msgstr "Выровнять по правому краю"
 
 #. i18n("Align Block"),	Qt::AlignJustify );
-#: src/gui/richtexteditor.cpp:124
+#: src/gui/richtexteditor.cpp:128
 #, kde-format
 msgid "Align Block"
 msgstr "Выровнять по ширине"
 
 #. i18n("Text Vertical Alignment"), "text", 0, 0, 0, ac, "text_vertical_alignment" );
 #. i18n("Text Vertical Alignment") );
-#: src/gui/richtexteditor.cpp:130 src/gui/richtexteditor.cpp:139
+#: src/gui/richtexteditor.cpp:134 src/gui/richtexteditor.cpp:143
 #, kde-format
 msgid "Text Vertical Alignment"
 msgstr "Вертикальное выравнивание текста"
 
-#: src/gui/richtexteditor.cpp:142
+#: src/gui/richtexteditor.cpp:146
 #, kde-format
 msgid "Superscript"
 msgstr "Верхний индекс"
 
 #. i18n("Superscript"),	QTextCharFormat::AlignSuperScript );
-#: src/gui/richtexteditor.cpp:144
+#: src/gui/richtexteditor.cpp:148
 #, kde-format
 msgid "Normal"
 msgstr "Обычный"
 
 #. i18n("Normal"),			QTextCharFormat::AlignNormal );
-#: src/gui/richtexteditor.cpp:146
+#: src/gui/richtexteditor.cpp:150
 #, kde-format
 msgid "Subscript"
 msgstr "Нижний индекс"
 
 #. i18n("Text Color..."), pm, 0, this, SLOT(textColor()), ac, "format_color" );
-#: src/gui/richtexteditor.cpp:154
+#: src/gui/richtexteditor.cpp:158
 #, kde-format
 msgid "Text Color..."
 msgstr "Цвет текста..."
@@ -4632,22 +4632,22 @@ msgstr "Включена <b>автоматическая</b> маршрутиз�
 msgid "Alignment"
 msgstr "Выравнивание"
 
-#: src/itemdocument.cpp:850
+#: src/itemdocument.cpp:862
 #, kde-format
 msgid "SVG export is sub-functional"
 msgstr "Экспорт SVG не является полноценным"
 
-#: src/itemdocument.cpp:856
+#: src/itemdocument.cpp:868
 #, kde-format
 msgid "There is nothing to crop"
 msgstr "Нечего обрезать"
 
-#: src/itemdocument.cpp:925
+#: src/itemdocument.cpp:937
 #, kde-format
 msgid "Export failed"
 msgstr "Не удалось выполнить экспорт"
 
-#: src/itemdocument.cpp:925
+#: src/itemdocument.cpp:937
 #, kde-format
 msgid "Image Export"
 msgstr "Экспорт изображения"
@@ -4704,72 +4704,72 @@ msgid "Cancel"
 msgstr "Отмена"
 
 #. i18n("Delete"), "edit-delete", Qt::Key_Delete, itemDocument, SLOT(deleteSelection()), ac, "edit_delete" );
-#: src/itemview.cpp:67
+#: src/itemview.cpp:68
 #, kde-format
 msgid "Delete"
 msgstr "Удалить"
 
 #. i18n("Export as Image..."), 0, 0, itemDocument, SLOT(exportToImage()), ac, "file_export_image");
-#: src/itemview.cpp:75
+#: src/itemview.cpp:77
 #, kde-format
 msgid "Export as Image..."
 msgstr "Экспорт в изображение..."
 
 #. i18n("Align Horizontally"), 0, 0, itemDocument, SLOT(alignHorizontally()), ac, "align_horizontally" );
-#: src/itemview.cpp:84
+#: src/itemview.cpp:86
 #, kde-format
 msgid "Align Horizontally"
 msgstr "Выровнять по горизонтали"
 
 #. i18n("Align Vertically"), 0, 0, itemDocument, SLOT(alignVertically()), ac, "align_vertically" );
-#: src/itemview.cpp:91
+#: src/itemview.cpp:93
 #, kde-format
 msgid "Align Vertically"
 msgstr "Выровнять по вертикали"
 
 #. i18n("Distribute Horizontally"), 0, 0, itemDocument, SLOT(distributeHorizontally()), ac, "distribute_horizontally" );
-#: src/itemview.cpp:98
+#: src/itemview.cpp:100
 #, kde-format
 msgid "Distribute Horizontally"
 msgstr "Распределить горизонтально"
 
 #. i18n("Distribute Vertically"), 0, 0, itemDocument, SLOT(distributeVertically()), ac, "distribute_vertically" );
-#: src/itemview.cpp:105
+#: src/itemview.cpp:107
 #, kde-format
 msgid "Distribute Vertically"
 msgstr "Распределить вертикально"
 
 #. i18n("Draw"), "paintbrush", 0, 0, 0, ac, "edit_draw" );
-#: src/itemview.cpp:114 src/itemview.cpp:121
+#: src/itemview.cpp:116 src/itemview.cpp:123
 #, kde-format
 msgid "Draw"
 msgstr "Рисование"
 
 #. i18n("Raise Selection"), "object-order-raise", Qt::Key_PageUp,   itemDocument, SLOT(raiseZ()), ac, "edit_raise" );
-#: src/itemview.cpp:135
+#: src/itemview.cpp:137
 #, kde-format
 msgid "Raise Selection"
 msgstr "Поднять выделение"
 
 #. i18n("Lower Selection"), "object-order-lower", Qt::Key_PageDown, itemDocument, SLOT(lowerZ()), ac, "edit_lower" );
-#: src/itemview.cpp:143
+#: src/itemview.cpp:146
 #, kde-format
 msgid "Lower Selection"
 msgstr "Опустить выделение"
 
-#: src/itemview.cpp:613 src/itemview.cpp:621
+#: src/itemview.cpp:617 src/itemview.cpp:625
 #, kde-format
 msgid "Left click to add. Right click to resume normal editing"
 msgstr ""
 "Щёлкните левой кнопкой мыши, чтобы добавить. Щёлкните правой кнопкой мыши, "
 "чтобы продолжить обычное редактирование"
 
-#: src/itemview.cpp:616
+#: src/itemview.cpp:620
 #, kde-format
 msgid "Click and hold to start drawing."
 msgstr "Нажмите и удерживайте левую кнопку мыши, чтобы начать рисование."
 
-#: src/itemview.cpp:624
+#: src/itemview.cpp:628
 #, kde-format
 msgid "Right click to cancel the connector"
 msgstr "Щёлкните правой кнопкой мыши, чтобы удалить соединение"
@@ -4819,317 +4819,317 @@ msgstr "Верхняя боковая панель"
 msgid "Bottom Sidebar"
 msgstr "Нижняя боковая панель"
 
-#: src/ktechlab.cpp:192
+#: src/ktechlab.cpp:194
 #, kde-format
 msgid "Project"
 msgstr "Проект"
 
-#: src/ktechlab.cpp:196
+#: src/ktechlab.cpp:198
 #, kde-format
 msgid "Components"
 msgstr "Компоненты"
 
-#: src/ktechlab.cpp:204
+#: src/ktechlab.cpp:206
 #, kde-format
 msgid "Flow Parts"
 msgstr "Части диаграмм"
 
 #. i18n("Mechanics"), "ktechlab_mechanics", 0, this, SLOT(slotFileNewMechanics()), ac, "newfile_mechanics" ))->plug( p->menu() );
 #. "ktechlab_mechanics" -- for the future
-#: src/ktechlab.cpp:209 src/ktechlab.cpp:502
+#: src/ktechlab.cpp:211 src/ktechlab.cpp:504
 #: src/mechanics/mechanicsdocument.cpp:28
 #, kde-format
 msgid "Mechanics"
 msgstr "Mechanics"
 
 #. i18n: ectx: ToolBar (itemEditorTB)
-#: src/ktechlab.cpp:214 src/ktechlabcircuitui.rc:34
+#: src/ktechlab.cpp:216 src/ktechlabcircuitui.rc:34
 #: src/ktechlabflowcodeui.rc:28 src/ktechlabmechanicsui.rc:8
 #, kde-format
 msgid "Item Editor"
 msgstr "Редактор элементов"
 
-#: src/ktechlab.cpp:218
+#: src/ktechlab.cpp:220
 #, kde-format
 msgid "Context Help"
 msgstr "Контекстная справка"
 
-#: src/ktechlab.cpp:222
+#: src/ktechlab.cpp:224
 #, kde-format
 msgid "Messages"
 msgstr "Уведомления"
 
-#: src/ktechlab.cpp:227
+#: src/ktechlab.cpp:229
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "Просмотр идентификаторов"
 
-#: src/ktechlab.cpp:234
+#: src/ktechlab.cpp:236
 #, kde-format
 msgid "Scope Screen (Very Rough)"
 msgstr "Общий экран (очень грубый)"
 
 #. i18n("&New"), "document-new",
 #. KStandardShortcut::shortcut(KStandardShortcut::New), this, SLOT(slotFileNew()), ac, "newfile_popup" );
-#: src/ktechlab.cpp:460
+#: src/ktechlab.cpp:462
 #, kde-format
 msgid "&New"
 msgstr "&Создать"
 
 #. i18n("C source"), "text-x-csrc", 0, this, SLOT(slotFileNewC()), ac, "newfile_c" ))->plug( p->menu() );
-#: src/ktechlab.cpp:477
+#: src/ktechlab.cpp:479
 #, kde-format
 msgid "C source"
 msgstr "Источник C"
 
 #. i18n("New Project..."), "window-new",			0, pm, SLOT(slotNewProject()),			ac, 	"project_new" );
-#: src/ktechlab.cpp:528
+#: src/ktechlab.cpp:530
 #, kde-format
 msgid "New Project..."
 msgstr "Создать проект..."
 
 #. i18n("Open Project..."), "project-open",		0, pm, SLOT(slotOpenProject()),			ac, 	"project_open" );
-#: src/ktechlab.cpp:535
+#: src/ktechlab.cpp:537
 #, kde-format
 msgid "Open Project..."
 msgstr "Открыть проект..."
 
-#: src/ktechlab.cpp:541
+#: src/ktechlab.cpp:543
 #, kde-format
 msgid "Open &Recent Project..."
 msgstr "По&следние проекты..."
 
 #. i18n("Export to Makefile..."), "document-export",	0, pm, SLOT(slotExportToMakefile()),		ac, "project_export_makefile" );
-#: src/ktechlab.cpp:548
+#: src/ktechlab.cpp:550
 #, kde-format
 msgid "Export to Makefile..."
 msgstr "Экспорт в Makefile..."
 
 #. i18n("Create Subproject..."), 0,				0, pm, SLOT(slotCreateSubproject()),		ac, "project_create_subproject" );
-#: src/ktechlab.cpp:555
+#: src/ktechlab.cpp:557
 #, kde-format
 msgid "Create Subproject..."
 msgstr "Создать вложенный проект..."
 
 #. i18n("Add Existing File..."), "document-open",		0, pm, SLOT(slotAddFile()),					ac, "project_add_existing_file" );
-#: src/ktechlab.cpp:562
+#: src/ktechlab.cpp:564
 #, kde-format
 msgid "Add Existing File..."
 msgstr "Добавить существующий файл..."
 
 #. i18n("Add Current File..."), "document-import",		0, pm, SLOT(slotAddCurrentFile()),			ac, "project_add_current_file" );
-#: src/ktechlab.cpp:569
+#: src/ktechlab.cpp:571
 #, kde-format
 msgid "Add Current File..."
 msgstr "Добавить текущий файл..."
 
 #. i18n("Close Project"), "window-close",			0, pm, SLOT(slotCloseProject()),			ac, "project_close" );
-#: src/ktechlab.cpp:578
+#: src/ktechlab.cpp:580
 #, kde-format
 msgid "Close Project"
 msgstr "Закрыть проект"
 
 #. i18n("Remove from Project"), "edit-delete",		0, pm, SLOT(slotRemoveSelected()),			ac, "project_remove_selected" );
-#: src/ktechlab.cpp:585
+#: src/ktechlab.cpp:587
 #, kde-format
 msgid "Remove from Project"
 msgstr "Удалить из проекта"
 
 #. i18n("Insert Existing File..."), "document-open",	0, pm, SLOT(slotSubprojectAddExistingFile()),	ac, "subproject_add_existing_file" );
-#: src/ktechlab.cpp:592
+#: src/ktechlab.cpp:594
 #, kde-format
 msgid "Insert Existing File..."
 msgstr "Вставить существующий файл..."
 
 #. i18n("Insert Current File..."), "document-import",	0, pm, SLOT(slotSubprojectAddCurrentFile()),ac, "subproject_add_current_file" );
-#: src/ktechlab.cpp:599
+#: src/ktechlab.cpp:601
 #, kde-format
 msgid "Insert Current File..."
 msgstr "Вставить текущий файл..."
 
 #. i18n("Linker Options..."), "configure",		0, pm, SLOT(slotSubprojectLinkerOptions()),	ac, "project_item_linker_options" );
-#: src/ktechlab.cpp:606
+#: src/ktechlab.cpp:608
 #, kde-format
 msgid "Linker Options..."
 msgstr "Параметры компоновщика..."
 
 #. i18n("Build..."), "launch",					0, pm, SLOT(slotItemBuild()),				ac, "project_item_build" );
-#: src/ktechlab.cpp:613
+#: src/ktechlab.cpp:615
 #, kde-format
 msgid "Build..."
 msgstr "Собрать..."
 
 #. i18n("Upload..."), "convert_to_pic",			0, pm, SLOT(slotItemUpload()),				ac, "project_item_upload" );
-#: src/ktechlab.cpp:620
+#: src/ktechlab.cpp:622
 #, kde-format
 msgid "Upload..."
 msgstr "Загрузить..."
 
 #. i18n("Processing Options..."), "configure",	0, pm, SLOT(slotItemProcessingOptions()),	ac, "project_item_processing_options" );
-#: src/ktechlab.cpp:627
+#: src/ktechlab.cpp:629
 #, kde-format
 msgid "Processing Options..."
 msgstr "Параметры обработки..."
 
 #. i18n("Split View Left/Right"), "view-split-left-right", Qt::CTRL|Qt::SHIFT|Qt::Key_L, this, SLOT(slotViewSplitLeftRight()), ac, "view_split_leftright" );
-#: src/ktechlab.cpp:636
+#: src/ktechlab.cpp:638
 #, kde-format
 msgid "Split View Left/Right"
 msgstr "Разделить окно по вертикали"
 
 #. i18n("Split View Top/Bottom"), "view-split-top-bottom", Qt::CTRL|Qt::SHIFT|Qt::Key_T, this, SLOT(slotViewSplitTopBottom()), ac, "view_split_topbottom" );
-#: src/ktechlab.cpp:643
+#: src/ktechlab.cpp:645
 #, kde-format
 msgid "Split View Top/Bottom"
 msgstr "Разделить окно по горизонтали"
 
 #. i18n("Run Simulation"), "media-playback-start", Qt::Key_F10, 0, 0, ac, "simulation_run" );
-#: src/ktechlab.cpp:650
+#: src/ktechlab.cpp:652
 #, kde-format
 msgid "Run Simulation"
 msgstr "Запустить симуляцию"
 
-#: src/ktechlab.cpp:655
+#: src/ktechlab.cpp:657
 #, kde-format
 msgid "Pause Simulation"
 msgstr "Приостановить симуляцию"
 
-#: src/ktechlab.cpp:682
+#: src/ktechlab.cpp:684
 #, kde-format
 msgid "Internals"
 msgstr "Внутренние особенности"
 
-#: src/ktechlab.cpp:683
+#: src/ktechlab.cpp:685
 #, kde-format
 msgid "Square Wave"
 msgstr "Квадратная волна"
 
-#: src/ktechlab.cpp:684
+#: src/ktechlab.cpp:686
 #, kde-format
 msgid "2-Way Switch"
 msgstr "2-позиционный переключатель"
 
-#: src/ktechlab.cpp:685
+#: src/ktechlab.cpp:687
 #, kde-format
 msgid "3-Way Switch"
 msgstr "3-позиционный переключатель"
 
-#: src/ktechlab.cpp:687
+#: src/ktechlab.cpp:689
 #, kde-format
 msgid "LRC"
 msgstr "LRC"
 
-#: src/ktechlab.cpp:688
+#: src/ktechlab.cpp:690
 #, kde-format
 msgid "Resistors in Parallel"
 msgstr "Соединённые параллельно резисторы"
 
-#: src/ktechlab.cpp:689
+#: src/ktechlab.cpp:691
 #, kde-format
 msgid "Resistors in Series"
 msgstr "Соединённые последовательно резисторы"
 
-#: src/ktechlab.cpp:690
+#: src/ktechlab.cpp:692
 #, kde-format
 msgid "Voltage Divider"
 msgstr "Делитель напряжения"
 
-#: src/ktechlab.cpp:691
+#: src/ktechlab.cpp:693
 #, kde-format
 msgid "Full Wave Rectifier"
 msgstr "Выпрямитель полной волны"
 
-#: src/ktechlab.cpp:692
+#: src/ktechlab.cpp:694
 #, kde-format
 msgid "Half Wave Rectifier"
 msgstr "Выпрямитель полуволны"
 
-#: src/ktechlab.cpp:694
+#: src/ktechlab.cpp:696
 #, kde-format
 msgid "AND"
 msgstr "AND"
 
-#: src/ktechlab.cpp:695
+#: src/ktechlab.cpp:697
 #, kde-format
 msgid "NAND"
 msgstr "NAND"
 
-#: src/ktechlab.cpp:696
+#: src/ktechlab.cpp:698
 #, kde-format
 msgid "NOR"
 msgstr "NOR"
 
-#: src/ktechlab.cpp:697
+#: src/ktechlab.cpp:699
 #, kde-format
 msgid "OR"
 msgstr "OR"
 
-#: src/ktechlab.cpp:698
+#: src/ktechlab.cpp:700
 #, kde-format
 msgid "Decoupler"
 msgstr "Развязывающее устройство"
 
-#: src/ktechlab.cpp:699
+#: src/ktechlab.cpp:701
 #, kde-format
 msgid "Inverting Amplifier"
 msgstr "Инвертирующий усилитель"
 
-#: src/ktechlab.cpp:700
+#: src/ktechlab.cpp:702
 #, kde-format
 msgid "Noninverting Amplifier"
 msgstr "Синфазный усилитель"
 
-#: src/ktechlab.cpp:701
+#: src/ktechlab.cpp:703
 #, kde-format
 msgid "Instrumentation Amplifier"
 msgstr "Измерительный усилитель"
 
-#: src/ktechlab.cpp:702
+#: src/ktechlab.cpp:704
 #, kde-format
 msgid "Astable Multivibrator"
 msgstr "Нестабильный мультивибратор"
 
-#: src/ktechlab.cpp:704
+#: src/ktechlab.cpp:706
 #, kde-format
 msgid "Schmitt Trigger"
 msgstr "Переключатель Шмитта"
 
-#: src/ktechlab.cpp:705
+#: src/ktechlab.cpp:707
 #, kde-format
 msgid "Switch"
 msgstr "Переключить"
 
-#: src/ktechlab.cpp:1020
+#: src/ktechlab.cpp:1022
 #, kde-format
 msgid "Close"
 msgstr "Закрыть"
 
-#: src/ktechlab.cpp:1025
+#: src/ktechlab.cpp:1027
 #, kde-format
 msgid "Save"
 msgstr "Сохранить"
 
-#: src/ktechlab.cpp:1028
+#: src/ktechlab.cpp:1030
 #, kde-format
 msgid "Reload"
 msgstr "Обновить"
 
-#: src/ktechlab.cpp:1031
+#: src/ktechlab.cpp:1033
 #, kde-format
 msgid "Close All Others"
 msgstr "Закрыть все другие"
 
-#: src/ktechlab.cpp:1193
+#: src/ktechlab.cpp:1195
 #, kde-format
 msgid "Intel Hex"
 msgstr "Intel Hex"
 
-#: src/ktechlab.cpp:1197 src/ktechlab.cpp:1200 src/projectmanager.cpp:918
+#: src/ktechlab.cpp:1199 src/ktechlab.cpp:1202 src/projectmanager.cpp:918
 #, kde-format
 msgid "Open Location"
 msgstr "Открыть расположение"
 
-#: src/ktechlab.cpp:1351
+#: src/ktechlab.cpp:1353
 #, kde-format
 msgid "Exiting..."
 msgstr "Выход..."
@@ -5544,41 +5544,41 @@ msgid "Format Assembly Code"
 msgstr "Форматировать код ассемблера"
 
 #. i18n("Set &Breakpoint"), 0, 0, this, SLOT(toggleBreakpoint()), ac, "debug_toggle_breakpoint" );
-#: src/textview.cpp:93 src/textview.cpp:514
+#: src/textview.cpp:94 src/textview.cpp:516
 #, kde-format
 msgid "Set &Breakpoint"
 msgstr "Указать &точку останова"
 
 #. i18n("Run"), "debug-run", 0, textDocument, SLOT(debugRun()), ac, "debug_run" );
-#: src/textview.cpp:100
+#: src/textview.cpp:101
 #, kde-format
 msgid "Run"
 msgstr "Запустить"
 
 #. i18n("Stop"), "process-stop", 0, textDocument, SLOT(debugStop()), ac, "debug_stop" );
-#: src/textview.cpp:114
+#: src/textview.cpp:115
 #, kde-format
 msgid "Stop"
 msgstr "Остановить"
 
 #. i18n("Step Over"), "debug-step-over", 0, textDocument, SLOT(debugStepOver()), ac, "debug_step_over" );
-#: src/textview.cpp:129
+#: src/textview.cpp:131
 #, kde-format
 msgid "Step Over"
 msgstr "Перейти"
 
 #. i18n("Step Out"), "debug-step-out", 0, textDocument, SLOT(debugStepOut()), ac, "debug_step_out" );
-#: src/textview.cpp:136
+#: src/textview.cpp:138
 #, kde-format
 msgid "Step Out"
 msgstr "Выйти"
 
-#: src/textview.cpp:496
+#: src/textview.cpp:498
 #, kde-format
 msgid " Line: %1 Col: %2 "
 msgstr " Строка: %1 Столбец: %2 "
 
-#: src/textview.cpp:512
+#: src/textview.cpp:514
 #, kde-format
 msgid "Clear &Breakpoint"
 msgstr "Удалить &точку останова"
