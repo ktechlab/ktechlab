@@ -200,7 +200,7 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
     connect(m_view, &KTextEditor::View::selectionChanged, this, &TextView::slotSelectionmChanged);
 
     // setFocusWidget(internalView);
-    connect(this, &TextView::focused, this, &TextView::gotFocus);
+    connect(m_view, &KTextEditor::View::focusIn, this, &TextView::gotFocus);
 
     m_layout->insertWidget(0, m_view);
 
@@ -372,6 +372,21 @@ void TextView::print()
 
 void TextView::gotFocus()
 {
+    qCDebug(KTL_LOG) << "got focus";
+    Q_EMIT focused(this);
+
+    if (KTechlab *ktl = KTechlab::self()) {
+        qCDebug(KTL_LOG) << "TextView Focused In" << "enabling actions";
+
+        ktl->actionByName("file_save")->setEnabled(true);
+        ktl->actionByName("file_save_as")->setEnabled(true);
+        ktl->actionByName("file_close")->setEnabled(true);
+        ktl->actionByName("file_print")->setEnabled(true);
+        ktl->actionByName("edit_paste")->setEnabled(true);
+        ktl->actionByName("view_split_leftright")->setEnabled(true);
+        ktl->actionByName("view_split_topbottom")->setEnabled(true);
+    }
+
 #if HAVE_GPSIM
     GpsimDebugger *debugger = textDocument()->debugger();
     if (!debugger || !debugger->gpsim())
