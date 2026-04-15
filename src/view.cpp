@@ -123,7 +123,14 @@ bool View::eventFilter(QObject *watched, QEvent *e)
 
     switch (e->type()) {
     case QEvent::FocusIn: {
-        qCDebug(KTL_LOG) << "View Focused In, viewAreaId=" << viewAreaId();
+        {
+            unsigned docDcopId = 0xFFFFFFFF;
+            if (m_pDocument) {
+                docDcopId = m_pDocument->dcopID();
+            }
+            qCDebug(KTL_LOG) << "View Focused In, viewAreaId=" << viewAreaId()
+                << " docId=" << docDcopId;
+        }
 
         p_viewContainer->setActiveViewArea(viewAreaId());
 
@@ -144,7 +151,14 @@ bool View::eventFilter(QObject *watched, QEvent *e)
     }
 
     case QEvent::FocusOut: {
-        qCDebug(KTL_LOG) << "View Focused Out, viewAreaId=" << viewAreaId();
+        {
+            unsigned docDcopId = 0xFFFFFFFF;
+            if (m_pDocument) {
+                docDcopId = m_pDocument->dcopID();
+            }
+            qCDebug(KTL_LOG) << "View Focused Out, viewAreaId=" << viewAreaId()
+                << " docId=" << docDcopId;
+        }
 
         QFocusEvent *fe = static_cast<QFocusEvent *>(e);
 
