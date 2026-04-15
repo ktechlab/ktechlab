@@ -31,6 +31,7 @@
 #include <cassert>
 
 #include <ktlconfig.h>
+#include <ktechlab_debug.h>
 
 DocManager *DocManager::m_pSelf = nullptr;
 
@@ -354,6 +355,8 @@ void DocManager::disableContextActions()
     KTechlab *ktl = KTechlab::self();
     if (!ktl)
         return;
+
+    qCDebug(KTL_LOG) << "disableContextActions";
 
     ktl->actionByName("file_save")->setEnabled(false);
     ktl->actionByName("file_save_as")->setEnabled(false);
