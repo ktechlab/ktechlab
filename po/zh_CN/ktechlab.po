@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-15 00:49+0000\n"
+"POT-Creation-Date: 2026-04-16 00:46+0000\n"
 "PO-Revision-Date: 2024-04-22 16:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -895,67 +895,67 @@ msgstr ""
 msgid "Document to open."
 msgstr ""
 
-#: src/docmanager.cpp:96
+#: src/docmanager.cpp:97
 #, kde-format
 msgid "Could not open '%1'"
 msgstr ""
 
-#: src/docmanager.cpp:164
+#: src/docmanager.cpp:165
 #, kde-format
 msgid "Untitled (Circuit %1)"
 msgstr ""
 
-#: src/docmanager.cpp:166
+#: src/docmanager.cpp:167
 #, kde-format
 msgid "Untitled (Circuit)"
 msgstr ""
 
-#: src/docmanager.cpp:172
+#: src/docmanager.cpp:173
 #, kde-format
 msgid "Untitled (FlowCode %1)"
 msgstr ""
 
-#: src/docmanager.cpp:174
+#: src/docmanager.cpp:175
 #, kde-format
 msgid "Untitled (FlowCode)"
 msgstr ""
 
-#: src/docmanager.cpp:180
+#: src/docmanager.cpp:181
 #, kde-format
 msgid "Untitled (Mechanics %1)"
 msgstr ""
 
-#: src/docmanager.cpp:182
+#: src/docmanager.cpp:183
 #, kde-format
 msgid "Untitled (Mechanics)"
 msgstr ""
 
-#: src/docmanager.cpp:188
+#: src/docmanager.cpp:189
 #, kde-format
 msgid "Untitled (%1)"
 msgstr ""
 
-#: src/docmanager.cpp:190 src/view.cpp:244
+#: src/docmanager.cpp:191 src/view.cpp:259
 #, kde-format
 msgid "Untitled"
 msgstr ""
 
-#: src/docmanager.cpp:410
+#: src/docmanager.cpp:413
 #, kde-format
 msgid "Could not open Circuit file \"%1\""
 msgstr ""
 
-#: src/docmanager.cpp:425
+#: src/docmanager.cpp:428
 #, kde-format
 msgid "Could not open FlowCode file \"%1\""
 msgstr ""
 
-#: src/docmanager.cpp:440
+#: src/docmanager.cpp:443
 #, kde-format
 msgid "Could not open Mechanics file \"%1\""
 msgstr ""
 
-#: src/docmanager.cpp:458
+#: src/docmanager.cpp:461
 #, kde-format
 msgid "Could not open text file \"%1\""
 msgstr ""
@@ -5361,7 +5361,7 @@ msgid "Format Assembly Code"
 msgstr ""
 
 #. i18n("Set &Breakpoint"), 0, 0, this, SLOT(toggleBreakpoint()), ac, "debug_toggle_breakpoint" );
-#: src/textview.cpp:94 src/textview.cpp:516
+#: src/textview.cpp:94 src/textview.cpp:531
 #, kde-format
 msgid "Set &Breakpoint"
 msgstr ""
@@ -5390,12 +5390,12 @@ msgstr ""
 msgid "Step Out"
 msgstr ""
 
-#: src/textview.cpp:498
+#: src/textview.cpp:513
 #, kde-format
 msgid " Line: %1 Col: %2 "
 msgstr ""
 
-#: src/textview.cpp:514
+#: src/textview.cpp:529
 #, kde-format
 msgid "Clear &Breakpoint"
 msgstr ""

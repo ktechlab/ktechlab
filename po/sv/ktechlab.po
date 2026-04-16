@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-15 00:49+0000\n"
+"POT-Creation-Date: 2026-04-16 00:46+0000\n"
 "PO-Revision-Date: 2024-08-15 08:16+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -909,67 +909,67 @@ msgstr "Tidigare värd för webbplatsen och återkoppling under tidig utveckling
 msgid "Document to open."
 msgstr "Dokument att öppna."
 
-#: src/docmanager.cpp:96
+#: src/docmanager.cpp:97
 #, kde-format
 msgid "Could not open '%1'"
 msgstr "Kunde inte öppna '%1'"
 
-#: src/docmanager.cpp:164
+#: src/docmanager.cpp:165
 #, kde-format
 msgid "Untitled (Circuit %1)"
 msgstr "Namnlös (krets %1)"
 
-#: src/docmanager.cpp:166
+#: src/docmanager.cpp:167
 #, kde-format
 msgid "Untitled (Circuit)"
 msgstr "Namnlös (krets)"
 
-#: src/docmanager.cpp:172
+#: src/docmanager.cpp:173
 #, kde-format
 msgid "Untitled (FlowCode %1)"
 msgstr "Namnlös (FlowCode %1)"
 
-#: src/docmanager.cpp:174
+#: src/docmanager.cpp:175
 #, kde-format
 msgid "Untitled (FlowCode)"
 msgstr "Namnlös (FlowCode)"
 
-#: src/docmanager.cpp:180
+#: src/docmanager.cpp:181
 #, kde-format
 msgid "Untitled (Mechanics %1)"
 msgstr "Namnlös (mekanik %1)"
 
-#: src/docmanager.cpp:182
+#: src/docmanager.cpp:183
 #, kde-format
 msgid "Untitled (Mechanics)"
 msgstr "Namnlös (mekanik)"
 
-#: src/docmanager.cpp:188
+#: src/docmanager.cpp:189
 #, kde-format
 msgid "Untitled (%1)"
 msgstr "Namnlös (%1)"
 
-#: src/docmanager.cpp:190 src/view.cpp:244
+#: src/docmanager.cpp:191 src/view.cpp:259
 #, kde-format
 msgid "Untitled"
 msgstr "Namnlös"
 
-#: src/docmanager.cpp:410
+#: src/docmanager.cpp:413
 #, kde-format
 msgid "Could not open Circuit file \"%1\""
 msgstr "Kunde inte öppna kretsfilen '\"%1\""
 
-#: src/docmanager.cpp:425
+#: src/docmanager.cpp:428
 #, kde-format
 msgid "Could not open FlowCode file \"%1\""
 msgstr "Kunde inte öppna FlowCode-filen '\"%1\""
 
-#: src/docmanager.cpp:440
+#: src/docmanager.cpp:443
 #, kde-format
 msgid "Could not open Mechanics file \"%1\""
 msgstr "Kunde inte öppna mekanikfilen '\"%1\""
 
-#: src/docmanager.cpp:458
+#: src/docmanager.cpp:461
 #, kde-format
 msgid "Could not open text file \"%1\""
 msgstr "Kunde inte öppna textfilen '\"%1\""
@@ -5517,7 +5517,7 @@ msgid "Format Assembly Code"
 msgstr "Formatera assemblerkod"
 
 #. i18n("Set &Breakpoint"), 0, 0, this, SLOT(toggleBreakpoint()), ac, "debug_toggle_breakpoint" );
-#: src/textview.cpp:94 src/textview.cpp:516
+#: src/textview.cpp:94 src/textview.cpp:531
 #, kde-format
 msgid "Set &Breakpoint"
 msgstr "Lägg till &brytpunkt"
@@ -5546,12 +5546,12 @@ msgstr "Stega över"
 msgid "Step Out"
 msgstr "Stega ut ur"
 
-#: src/textview.cpp:498
+#: src/textview.cpp:513
 #, kde-format
 msgid " Line: %1 Col: %2 "
 msgstr " Rad: %1 Kol: %2 "
 
-#: src/textview.cpp:514
+#: src/textview.cpp:529
 #, kde-format
 msgid "Clear &Breakpoint"
 msgstr "Ta bort &brytpunkt"

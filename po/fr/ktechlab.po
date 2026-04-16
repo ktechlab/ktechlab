@@ -8,21 +8,21 @@
 # Marc Lavallée <marc@hacklava.net>, 2005, 2006.
 # Alain PORTAL <aportal@univ-montp2.fr>, 2007.
 # Simon Depiets <sdepiets@gmail.com>, 2018.
-# SPDX-FileCopyrightText: 2020, 2022, 2023, 2024, 2025 Xavier Besnard <xavier.besnard@kde.org>
+# SPDX-FileCopyrightText: 2020, 2022, 2023, 2024, 2025, 2026 Xavier Besnard <xavier.besnard@kde.org>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-15 00:49+0000\n"
-"PO-Revision-Date: 2025-04-21 18:01+0200\n"
+"POT-Creation-Date: 2026-04-16 00:46+0000\n"
+"PO-Revision-Date: 2026-04-14 07:15+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
-"Language-Team: French <French <kde-francophone@kde.org>>\n"
+"Language-Team: fr\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.12.3\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -941,67 +941,67 @@ msgstr ""
 msgid "Document to open."
 msgstr "Document à ouvrir."
 
-#: src/docmanager.cpp:96
+#: src/docmanager.cpp:97
 #, kde-format
 msgid "Could not open '%1'"
 msgstr "Impossible d'ouvrir « %1 »"
 
-#: src/docmanager.cpp:164
+#: src/docmanager.cpp:165
 #, kde-format
 msgid "Untitled (Circuit %1)"
 msgstr "Sans nom (Circuit %1)"
 
-#: src/docmanager.cpp:166
+#: src/docmanager.cpp:167
 #, kde-format
 msgid "Untitled (Circuit)"
 msgstr "Sans nom (circuit)"
 
-#: src/docmanager.cpp:172
+#: src/docmanager.cpp:173
 #, kde-format
 msgid "Untitled (FlowCode %1)"
 msgstr "Sans nom (FlowCode %1)"
 
-#: src/docmanager.cpp:174
+#: src/docmanager.cpp:175
 #, kde-format
 msgid "Untitled (FlowCode)"
 msgstr "Sans nom (FlowCode)"
 
-#: src/docmanager.cpp:180
+#: src/docmanager.cpp:181
 #, kde-format
 msgid "Untitled (Mechanics %1)"
 msgstr "Sans nom (Mécanique %1)"
 
-#: src/docmanager.cpp:182
+#: src/docmanager.cpp:183
 #, kde-format
 msgid "Untitled (Mechanics)"
 msgstr "Sans nom (Mécanique)"
 
-#: src/docmanager.cpp:188
+#: src/docmanager.cpp:189
 #, kde-format
 msgid "Untitled (%1)"
 msgstr "Sans nom (%1)"
 
-#: src/docmanager.cpp:190 src/view.cpp:244
+#: src/docmanager.cpp:191 src/view.cpp:259
 #, kde-format
 msgid "Untitled"
 msgstr "Sans nom"
 
-#: src/docmanager.cpp:410
+#: src/docmanager.cpp:413
 #, kde-format
 msgid "Could not open Circuit file \"%1\""
 msgstr "Impossible d'ouvrir le fichier de circuit « %1 »"
 
-#: src/docmanager.cpp:425
+#: src/docmanager.cpp:428
 #, kde-format
 msgid "Could not open FlowCode file \"%1\""
 msgstr "Impossible d'ouvrir le fichier « FlowCode » « %1 »"
 
-#: src/docmanager.cpp:440
+#: src/docmanager.cpp:443
 #, kde-format
 msgid "Could not open Mechanics file \"%1\""
 msgstr "Impossible d'ouvrir le fichier « Mécanique » « %1 »"
 
-#: src/docmanager.cpp:458
+#: src/docmanager.cpp:461
 #, kde-format
 msgid "Could not open text file \"%1\""
 msgstr "Impossible d'ouvrir le fichier de texte « %1 »"
@@ -4701,12 +4701,9 @@ msgid "Image Export"
 msgstr "Exporter une image"
 
 #: src/itemdocumentdata.cpp:103 src/projectmanager.cpp:741
-#, fuzzy, kde-format
-#| msgid "Could not open item descriptions file \"%1\" for writing."
+#, kde-format
 msgid "Could not open temporary file for writing: %1"
-msgstr ""
-"Impossible d'ouvrir le fichier de description des éléments « %1 » en "
-"écriture."
+msgstr "Impossible d'ouvrir le fichier temporaire en en écriture : %1"
 
 #: src/itemdocumentdata.cpp:117 src/projectmanager.cpp:755
 #, kde-format
@@ -5607,7 +5604,7 @@ msgid "Format Assembly Code"
 msgstr "Formater le code assembleur"
 
 #. i18n("Set &Breakpoint"), 0, 0, this, SLOT(toggleBreakpoint()), ac, "debug_toggle_breakpoint" );
-#: src/textview.cpp:94 src/textview.cpp:516
+#: src/textview.cpp:94 src/textview.cpp:531
 #, kde-format
 msgid "Set &Breakpoint"
 msgstr "&Placer un point d'arrêt"
@@ -5636,12 +5633,12 @@ msgstr "Avancer d'un pas à travers"
 msgid "Step Out"
 msgstr "Avancer d'un pas en dehors"
 
-#: src/textview.cpp:498
+#: src/textview.cpp:513
 #, kde-format
 msgid " Line: %1 Col: %2 "
 msgstr "Ligne : %1 Col : %2"
 
-#: src/textview.cpp:514
+#: src/textview.cpp:529
 #, kde-format
 msgid "Clear &Breakpoint"
 msgstr "&Effacer les points d'arrêt"

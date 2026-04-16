@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-15 00:49+0000\n"
+"POT-Creation-Date: 2026-04-16 00:46+0000\n"
 "PO-Revision-Date: 2026-04-13 08:39+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -927,67 +927,67 @@ msgstr "Колишній утримувач сайта та дорадник н�
 msgid "Document to open."
 msgstr "Документ, який слід відкрити."
 
-#: src/docmanager.cpp:96
+#: src/docmanager.cpp:97
 #, kde-format
 msgid "Could not open '%1'"
 msgstr "Не вдалося відкрити «%1»"
 
-#: src/docmanager.cpp:164
+#: src/docmanager.cpp:165
 #, kde-format
 msgid "Untitled (Circuit %1)"
 msgstr "Без назви (схема %1)"
 
-#: src/docmanager.cpp:166
+#: src/docmanager.cpp:167
 #, kde-format
 msgid "Untitled (Circuit)"
 msgstr "Без назви (схема)"
 
-#: src/docmanager.cpp:172
+#: src/docmanager.cpp:173
 #, kde-format
 msgid "Untitled (FlowCode %1)"
 msgstr "Без назви (FlowCode %1)"
 
-#: src/docmanager.cpp:174
+#: src/docmanager.cpp:175
 #, kde-format
 msgid "Untitled (FlowCode)"
 msgstr "Без назви (FlowCode)"
 
-#: src/docmanager.cpp:180
+#: src/docmanager.cpp:181
 #, kde-format
 msgid "Untitled (Mechanics %1)"
 msgstr "Без назви (Mechanics %1)"
 
-#: src/docmanager.cpp:182
+#: src/docmanager.cpp:183
 #, kde-format
 msgid "Untitled (Mechanics)"
 msgstr "Без назви (Mechanics)"
 
-#: src/docmanager.cpp:188
+#: src/docmanager.cpp:189
 #, kde-format
 msgid "Untitled (%1)"
 msgstr "Без назви (%1)"
 
-#: src/docmanager.cpp:190 src/view.cpp:244
+#: src/docmanager.cpp:191 src/view.cpp:259
 #, kde-format
 msgid "Untitled"
 msgstr "Без назви"
 
-#: src/docmanager.cpp:410
+#: src/docmanager.cpp:413
 #, kde-format
 msgid "Could not open Circuit file \"%1\""
 msgstr "Не вдалося відкрити файл схеми «%1»"
 
-#: src/docmanager.cpp:425
+#: src/docmanager.cpp:428
 #, kde-format
 msgid "Could not open FlowCode file \"%1\""
 msgstr "Не вдалося відкрити файл FlowCode «%1»"
 
-#: src/docmanager.cpp:440
+#: src/docmanager.cpp:443
 #, kde-format
 msgid "Could not open Mechanics file \"%1\""
 msgstr "Не вдалося відкрити файл Mechanics «%1»"
 
-#: src/docmanager.cpp:458
+#: src/docmanager.cpp:461
 #, kde-format
 msgid "Could not open text file \"%1\""
 msgstr "Не вдалося відкрити текстовий файл «%1»"
@@ -5555,7 +5555,7 @@ msgid "Format Assembly Code"
 msgstr "Форматувати код асемблера"
 
 #. i18n("Set &Breakpoint"), 0, 0, this, SLOT(toggleBreakpoint()), ac, "debug_toggle_breakpoint" );
-#: src/textview.cpp:94 src/textview.cpp:516
+#: src/textview.cpp:94 src/textview.cpp:531
 #, kde-format
 msgid "Set &Breakpoint"
 msgstr "Встановити &точку зупинки"
@@ -5584,12 +5584,12 @@ msgstr "Переступити"
 msgid "Step Out"
 msgstr "Вийти"
 
-#: src/textview.cpp:498
+#: src/textview.cpp:513
 #, kde-format
 msgid " Line: %1 Col: %2 "
 msgstr " Рядок: %1 Поз: %2 "
 
-#: src/textview.cpp:514
+#: src/textview.cpp:529
 #, kde-format
 msgid "Clear &Breakpoint"
 msgstr "Вилучити &точку зупинки"
