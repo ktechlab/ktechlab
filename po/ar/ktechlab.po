@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-16 00:46+0000\n"
-"PO-Revision-Date: 2026-03-24 11:06+0400\n"
+"PO-Revision-Date: 2026-04-16 09:22+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -4588,10 +4588,9 @@ msgid "Image Export"
 msgstr "تصدير الصورة"
 
 #: src/itemdocumentdata.cpp:103 src/projectmanager.cpp:741
-#, fuzzy, kde-format
-#| msgid "Could not open item descriptions file \"%1\" for writing."
+#, kde-format
 msgid "Could not open temporary file for writing: %1"
-msgstr "لا يمكن فتح ملف أوصاف العنصر \"%1\" للكتابة."
+msgstr "لا أستطيع فتح الملف المؤقت للكتابة: %1"
 
 #: src/itemdocumentdata.cpp:117 src/projectmanager.cpp:755
 #, kde-format
