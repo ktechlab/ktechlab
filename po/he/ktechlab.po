@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-16 00:46+0000\n"
-"PO-Revision-Date: 2026-04-02 10:32+0300\n"
+"PO-Revision-Date: 2026-04-18 15:48+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -4328,12 +4328,15 @@ msgid ""
 "peephole optimizer rules defined in the source file tree '<target>/peeph."
 "def' before using this option."
 msgstr ""
+"העברת קוד האסמבלי הפנימי דרך ממטב חור הצצה. עלול לגרום לשינויים בלתי צפויים "
+"בקוד האסמבלי הפנימי, נא לעבור על כללי ממטב חור ההצצה בעץ קובץ המקור תחת "
+"‚<target>/peeph.def’ בטרם השימוש באפשרות הזאת."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_peep_asm)
 #: src/gui/sdccoptionswidget.ui:310
 #, kde-format
 msgid "Ena&ble inline assembly peephole optimization (--peep-asm)"
-msgstr ""
+msgstr "ה&פעלת מיטוב חור הצצה לאסמבלי פנימי (‎--peep-asm)"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_SDCC_nojtbound)
 #: src/gui/sdccoptionswidget.ui:317
@@ -4563,10 +4566,9 @@ msgid "Image Export"
 msgstr "ייצוא תמונה"
 
 #: src/itemdocumentdata.cpp:103 src/projectmanager.cpp:741
-#, fuzzy, kde-format
-#| msgid "Could not open item descriptions file \"%1\" for writing."
+#, kde-format
 msgid "Could not open temporary file for writing: %1"
-msgstr "לא ניתן לפתוח את קובץ תיאור הפריטים „%1” לכתיבה."
+msgstr "לא ניתן לפתוח קובץ זמני לכתיבה: %1"
 
 #: src/itemdocumentdata.cpp:117 src/projectmanager.cpp:755
 #, kde-format
