@@ -42,13 +42,56 @@ using Qt::StringLiterals::operator""_L1;
 
 bool TextDocument::isUndoAvailable() const
 {
-    // return (m_doc->undoCount() != 0);
-    return true; // TODO FIXME fix undo/redo
+    ViewList views = viewList();
+    if (views.size() == 0) {
+        qCWarning(KTL_LOG) << "doc has no views";
+        return true; // fallback
+    }
+    QPointer<View> firstView = views.first();
+    if (!firstView) {
+        qCWarning(KTL_LOG) << "first view is null";
+        return true; // fallback
+    }
+    TextView *firstTextView = dynamic_cast<TextView*> ( firstView.get() );
+    if (!firstTextView) {
+        qCWarning(KTL_LOG) << "first view is not text view";
+        return true; // fallback
+    }
+
+    QAction *undoAction = firstTextView->kateView()->action("edit_undo");
+    if (undoAction) {
+        return undoAction->isEnabled();
+    } else {
+        qCWarning(KTL_LOG) << "edit_undo action not found in internal view";
+    }
+    return true; // fallback
 }
+
 bool TextDocument::isRedoAvailable() const
 {
-    // return (m_doc->redoCount() != 0);
-    return true; // TODO FIXME fix undo/redo
+    ViewList views = viewList();
+    if (views.size() == 0) {
+        qCWarning(KTL_LOG) << "doc has no views";
+        return true; // fallback
+    }
+    QPointer<View> firstView = views.first();
+    if (!firstView) {
+        qCWarning(KTL_LOG) << "first view is null";
+        return true; // fallback
+    }
+    TextView *firstTextView = dynamic_cast<TextView*> ( firstView.get() );
+    if (!firstTextView) {
+        qCWarning(KTL_LOG) << "first view is not text view";
+        return true; // fallback
+    }
+
+    QAction *redoAction = firstTextView->kateView()->action("edit_redo");
+    if (redoAction) {
+        return redoAction->isEnabled();
+    } else {
+        qCWarning(KTL_LOG) << "edit_redo action not found in doc";
+    }
+    return true; // fallback
 }
 
 TextDocument *TextDocument::constructTextDocument(const QString &caption)
@@ -87,8 +130,6 @@ TextDocument::TextDocument(const QString &caption)
     }
     guessScheme();
 
-    connect(m_doc, SIGNAL(undoChanged()), this, SIGNAL(undoRedoStateChanged()));
-    connect(m_doc, SIGNAL(undoChanged()), this, SLOT(slotSyncModifiedStates()));
     connect(m_doc, SIGNAL(textChanged(KTextEditor::Document *)), this, SLOT(slotSyncModifiedStates()));
     // 	connect( m_doc,	SIGNAL(selectionChanged()),	this, SLOT(slotSelectionmChanged()) ); // 2016.09.08 - moved to TextView
     connect(m_doc, SIGNAL(marksChanged(KTextEditor::Document *)), this, SLOT(slotUpdateMarksInfo()));

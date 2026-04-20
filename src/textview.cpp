@@ -223,6 +223,23 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
     // internalView->installEventFilter(eventFilter);
 #endif
 
+    {
+        QAction *undoAction = m_view->action("edit_undo");
+        if (undoAction) {
+            connect(undoAction, &QAction::enabledChanged, textDocument, &TextDocument::undoRedoStateChanged);
+        } else {
+            qCWarning(KTL_LOG) << "edit_undo action not found in doc";
+        }
+    }
+    {
+        QAction *redoAction = m_view->action("edit_redo");
+        if (redoAction) {
+            connect(redoAction, &QAction::enabledChanged, textDocument, &TextDocument::undoRedoStateChanged);
+        } else {
+            qCWarning(KTL_LOG) << "edit_redo action not found in doc";
+        }
+    }
+
     // TODO HACK disable some actions which collide with ktechlab's actions.
     //  the proper solution would be to move the actions from KTechLab object level to document level for
     //  all types of documents
