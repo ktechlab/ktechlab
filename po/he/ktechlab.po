@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-16 00:46+0000\n"
-"PO-Revision-Date: 2026-04-18 15:48+0300\n"
+"PO-Revision-Date: 2026-04-19 09:24+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -2209,12 +2209,12 @@ msgstr "הפרש בין ניתורים"
 #: src/electronics/components/pushswitch.cpp:113
 #, kde-format
 msgid "Push-to-Make"
-msgstr ""
+msgstr "מתג כפתור"
 
 #: src/electronics/components/pushswitch.cpp:119
 #, kde-format
 msgid "Push to Make"
-msgstr ""
+msgstr "מתג כפתור"
 
 #: src/electronics/components/ram.cpp:31 src/electronics/components/ram.cpp:37
 #, kde-format
@@ -3129,6 +3129,8 @@ msgid ""
 "All user defined symbols and macros are case sensitive. This option makes "
 "them case insensitive."
 msgstr ""
+"כל הסמלים שהוגדרו על ידי המשתמש תלויי רישיות. האפשרות הזאת הופכת אותם שלא "
+"יהיו כאלה (אין חשיבות לאותיות גדולות/קטנות באנגלית)."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_IgnoreCase)
 #: src/gui/gpasmsettingswidget.ui:65
@@ -3226,6 +3228,9 @@ msgid ""
 "\" will suppress messages. <li>\"Errors\" will suppress both messages and "
 "warnings.</ul>"
 msgstr ""
+"מגדיר את סף ההודעות שמוצגות בתצוגת היומן.<ul><li>„הכול” יציג את כל הפלט - "
+"מידע, אזהרות ושגיאות.<li>„אזהרות” ינפה הודעות. <li>„”שגיאות ינפה הודעות "
+"ואזהרות.</ul>"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_GpasmWarningLevel)
 #: src/gui/gpasmsettingswidget.ui:171
@@ -3401,6 +3406,9 @@ msgid ""
 "click repeatedly in the FlowChart to place the component. Right click to "
 "stop placement."
 msgstr ""
+"אפשר להוסיף חלקי זרימה למסמך קוד הזרימה על ידי גרירתם לשם.<br><br>כדי להוסיף "
+"יותר מחלק זרימה אחד מאותו הסוג, יש ללחוץ פעמיים על חלק זרימה וללחוץ שוב ושוב "
+"בתרשים הזרימה כדי להציב את הרכיב. לחיצה ימנית תעצור את ההצבה."
 
 #: src/gui/itemselector.cpp:441
 #, kde-format
@@ -3493,13 +3501,13 @@ msgstr "רמת המתח הנדרשת לפני שקלט ייחשב נמוך."
 #: src/gui/logicwidget.ui:91
 #, kde-format
 msgid "Falling Trigger Threshold:"
-msgstr ""
+msgstr "סף הפעלה בירידה:"
 
 #. i18n: ectx: property (text), widget (QLabel, textLabel1)
 #: src/gui/logicwidget.ui:129
 #, kde-format
 msgid "Rising Trigger Threshold:"
-msgstr ""
+msgstr "סף הפעלה בעלייה:"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, textLabel2)
 #. i18n: ectx: property (toolTip), widget (QDoubleSpinBox, kcfg_LogicOutputHigh)
@@ -4455,12 +4463,12 @@ msgstr "רכיבים לוגיים אלקטרוניים"
 #: src/gui/settingsdlg.cpp:177
 #, kde-format
 msgid "Lowest (%1 FPS)"
-msgstr ""
+msgstr "הכי נמוך (%1 תמוניות לשנייה)"
 
 #: src/gui/settingsdlg.cpp:180
 #, kde-format
 msgid "Low (%1 FPS)"
-msgstr ""
+msgstr "נמוך (%1 תמוניות לשנייה)"
 
 #: src/gui/settingsdlg.cpp:183
 #, kde-format
@@ -5147,7 +5155,7 @@ msgstr "דיודות"
 #: src/ktechlabui.rc:56
 #, kde-format
 msgid "JFETs"
-msgstr ""
+msgstr "JFETים"
 
 #. i18n: ectx: Menu (examples_matrix_disp_driver)
 #: src/ktechlabui.rc:59
@@ -5159,7 +5167,7 @@ msgstr "מנהלי תצוגות מטריצה"
 #: src/ktechlabui.rc:62
 #, kde-format
 msgid "MOSFETs"
-msgstr ""
+msgstr "MOSFETים"
 
 #. i18n: ectx: Menu (examples_transistors)
 #: src/ktechlabui.rc:65
