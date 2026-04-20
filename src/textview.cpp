@@ -245,9 +245,11 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
     //  all types of documents
     for (QAction *act : actionCollection()->actions()) {
         qCDebug(KTL_LOG) << "act: " << act->text() << " shortcut " << act->shortcut() << ":" << act;
+        if (((act->objectName()) == QLatin1String("file_save")) || ((act->objectName()) == QLatin1String("file_save_as"))
+            || ((act->objectName()) == QLatin1String("file_print")) || ((act->objectName()) == QLatin1String("edit_undo")) ||
+            ((act->objectName()) == QLatin1String("edit_redo")) || ((act->objectName()) == QLatin1String("edit_cut"))
+            || ((act->objectName()) == QLatin1String("edit_copy")) || ((act->objectName()) == QLatin1String("edit_paste"))) {
 
-        if (((act->objectName()) == QLatin1String("file_save")) || ((act->objectName()) == QLatin1String("file_save_as")) || ((act->objectName()) == QLatin1String("file_print")) || ((act->objectName()) == QLatin1String("edit_undo")) ||
-            ((act->objectName()) == QLatin1String("edit_redo")) || ((act->objectName()) == QLatin1String("edit_cut")) || ((act->objectName()) == QLatin1String("edit_copy")) || ((act->objectName()) == QLatin1String("edit_paste"))) {
             act->setShortcutContext(Qt::WidgetWithChildrenShortcut);
             // act->setShortcutConfigurable(true);
             act->setShortcut(Qt::Key_unknown);
