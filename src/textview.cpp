@@ -279,8 +279,7 @@ void TextView::undo()
 {
     qCDebug(KTL_LOG);
     // note: quite a hack, but could not find any more decent way of getting to undo/redo interface
-    // note: quite a hack, but could not find any more decent way of getting to undo/redo interface
-    QAction *action = actionByName("edit_undo");
+    QAction *action =  m_view->action("edit_undo");
     if (action) {
         action->trigger();
         return;
@@ -291,7 +290,7 @@ void TextView::redo()
 {
     qCDebug(KTL_LOG);
     // note: quite a hack, but could not find any more decent way of getting to undo/redo interface
-    QAction *action = actionByName("edit_redo");
+    QAction *action = m_view->action("edit_redo");
     if (action) {
         action->trigger();
         return;
