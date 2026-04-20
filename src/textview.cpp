@@ -199,7 +199,11 @@ TextView::TextView(TextDocument *textDocument, ViewContainer *viewContainer, uin
     connect(m_view, &KTextEditor::View::cursorPositionChanged, this, &TextView::slotCursorPositionChanged);
     connect(m_view, &KTextEditor::View::selectionChanged, this, &TextView::slotSelectionmChanged);
 
-    // setFocusWidget(internalView);
+    // TODO figure out clean handling of focus widget (Qt: focus proxy) for KTechLab's MDI interface
+    //      and KTextEditor views, without messing with internals of KTextEditor.
+    //      Without the line below, newly created text documents will not have focus,
+    //      and weird things tend to happen
+    setFocusWidget(m_view);
     connect(m_view, &KTextEditor::View::focusIn, this, &TextView::gotFocus);
 
     m_layout->insertWidget(0, m_view);
