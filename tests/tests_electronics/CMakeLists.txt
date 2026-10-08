@@ -28,9 +28,6 @@ target_link_libraries( test_electronics
     test_ktechlab
     Qt6::Test
 )
-if(GPSim_FOUND)
-    target_link_libraries(test_electronics PRIVATE ${GPSim_LIBRARIES})
-endif()
 
 # Needed for CI to find and run the test
 add_test(NAME test_electronics COMMAND test_electronics)

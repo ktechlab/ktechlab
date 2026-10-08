@@ -32,13 +32,12 @@ public:
     {
         return m_voltage;
     }
-
+    void add_initial_dc() override;
 protected:
     void updateCurrents() override;
-    void add_initial_dc() override;
 
 private:
-    double m_voltage; // Conductance
+    double m_voltage;
 };
 
 #endif

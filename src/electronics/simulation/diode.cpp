@@ -16,27 +16,13 @@
 
 #include <cmath>
 
-// BEGIN class Diode Settings
-DiodeSettings::DiodeSettings()
-{
-    reset();
-}
-
-void DiodeSettings::reset()
-{
-    I_S = 1e-15;
-    N = 1.0;
-    V_B = 4.7;
-    // 	R = 0.001;
-}
-// END class Diode Settings
-
 // BEGIN class Diode
-Diode::Diode()
+Diode::Diode(const DiodeSettings& settings)
     : NonLinear()
 {
     m_numCNodes = 2;
     g_new = g_old = I_new = I_old = V_prev = 0.0;
+    m_diodeSettings = settings;
     updateLim();
 }
 

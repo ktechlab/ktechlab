@@ -25,7 +25,7 @@ public:
         m_euler, // Backward Euler
         m_trap   // Trapezoidal (currently unimplemented)
     };
-    Inductance(double capacitance, double delta);
+    Inductance(double inductance, double delta);
     ~Inductance() override;
 
     Type type() const override
@@ -41,6 +41,10 @@ public:
     void time_step() override;
     void add_initial_dc() override;
     void setInductance(double i);
+    double inductance() const
+    {
+        return m_inductance;
+    }
 
 protected:
     void updateCurrents() override;

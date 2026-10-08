@@ -14,7 +14,7 @@
 VoltagePoint::VoltagePoint(const double voltage)
     : Element::Element()
 {
-    m_voltage = -voltage;
+    m_voltage = voltage;
     m_numCBranches = 1;
     m_numCNodes = 1;
 }
@@ -25,13 +25,13 @@ VoltagePoint::~VoltagePoint()
 
 void VoltagePoint::setVoltage(const double v)
 {
-    if (-v == m_voltage)
+    if (v == m_voltage)
         return;
 
     if (p_eSet)
         p_eSet->setCacheInvalidated();
 
-    m_voltage = -v;
+    m_voltage = v;
     add_initial_dc();
 }
 
@@ -43,7 +43,7 @@ void VoltagePoint::add_initial_dc()
     A_b(0, 0) = -1;
     A_c(0, 0) = -1;
 
-    b_v(0) = m_voltage;
+    b_v(0) = -m_voltage;
 }
 
 void VoltagePoint::updateCurrents()

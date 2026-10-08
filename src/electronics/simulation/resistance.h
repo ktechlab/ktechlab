@@ -39,10 +39,9 @@ public:
     {
         return m_g;
     }
-
+    void add_initial_dc() override;
 protected:
     void updateCurrents() override;
-    void add_initial_dc() override;
 
 private:
     double m_g; // Conductance

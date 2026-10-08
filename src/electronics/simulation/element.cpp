@@ -36,6 +36,12 @@ Element::Element()
 
 Element::~Element()
 {
+    if (p_eSet) {
+        // If an element is deleted before the element set.
+        // Remove the element to avoid a dangling pointer.
+        // This should only occur in tests.
+        p_eSet->removeElement(this);
+    }
 }
 
 void Element::resetCurrents()

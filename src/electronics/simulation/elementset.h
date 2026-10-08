@@ -62,6 +62,7 @@ public:
         return m_pCircuit;
     }
     void addElement(Element *e);
+    void removeElement(Element *e);
     void setCacheInvalidated();
     /**
      * Returns the matrix in use. This is created once on the creation of the ElementSet

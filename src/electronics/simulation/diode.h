@@ -16,12 +16,9 @@
 class DiodeSettings
 {
 public:
-    DiodeSettings();
-    void reset();
-
-    double I_S; ///< Diode saturation current
-    double N;   ///< Emission coefficient
-    double V_B; ///< Reverse breakdown
+    double I_S = 1e-15; ///< Diode saturation current
+    double N = 1.0;   ///< Emission coefficient
+    double V_B = 4.7; ///< Reverse breakdown
     // 		double R;	///< Series resistance
 };
 
@@ -41,7 +38,7 @@ This simulates a diode. The simulated diode characteristics are:
 class Diode : public NonLinear
 {
 public:
-    Diode();
+    Diode(const DiodeSettings& settings = DiodeSettings());
     ~Diode() override;
 
     void update_dc() override;
@@ -50,7 +47,7 @@ public:
     {
         return Element_Diode;
     }
-    DiodeSettings settings() const
+    const DiodeSettings& settings() const
     {
         return m_diodeSettings;
     }

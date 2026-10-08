@@ -40,6 +40,10 @@ public:
     void time_step() override;
     void add_initial_dc() override;
     void setCapacitance(const double c);
+    double capacitance() const
+    {
+        return m_cap;
+    }
 
 protected:
     void updateCurrents() override;

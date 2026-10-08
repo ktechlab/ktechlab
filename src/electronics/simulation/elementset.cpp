@@ -100,6 +100,19 @@ void ElementSet::addElement(Element *e)
     }
 }
 
+void ElementSet::removeElement(Element *e)
+{
+    m_elementList.removeAll(e);
+    if (e->isNonLinear()) {
+        m_cnonLinearList.removeAll(static_cast<NonLinear *>(e));
+        b_containsNonLinear = m_cnonLinearList.size() > 0;
+    }
+    if (LogicIn* it = dynamic_cast<LogicIn *>(e)) {
+        // TODO: Cleanup if LogicIn
+        // m_logicIn.removeAll(it);
+    }
+}
+
 void ElementSet::createMatrixMap()
 {
     // mapping nolonger done, overly ambitious optimization...

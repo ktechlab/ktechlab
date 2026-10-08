@@ -414,6 +414,10 @@ if(BUILD_TESTING)
         Qt6::Core5Compat
     )
 
+    if(GPSim_FOUND)
+        target_link_libraries(test_ktechlab ${GPSim_LIBRARIES})
+    endif()
+
 endif()
 
 ########### install files ###############
