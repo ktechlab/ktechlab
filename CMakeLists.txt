@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-#set( KTECHLAB_DEVELOPER_BUILD "true" )
+option( KTECHLAB_DEVELOPER_BUILD OFF )
 
 project( ktechlab )
 set( VERSION 0.51.0 )
