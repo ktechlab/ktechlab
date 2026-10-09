@@ -50,7 +50,6 @@ endif ()
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(GPSim
-    FOUND_VAR GPSim_FOUND
     REQUIRED_VARS GPSim_LIBRARY GPSim_INCLUDE_DIR GLIB_LIBRARIES GLIB_INCLUDE_DIRS
 )
 
