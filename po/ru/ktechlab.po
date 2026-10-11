@@ -1856,15 +1856,14 @@ msgid "Voltage Signal"
 msgstr "Сигнал напряжения"
 
 #: src/electronics/components/ecvoltagesignal.cpp:49
-#, fuzzy, kde-format
-#| msgid "Signal Lamp"
+#, kde-format
 msgid "Signal Type"
-msgstr "Индикаторная лампочка"
+msgstr "Тип сигнала"
 
 #: src/electronics/components/ecvoltagesignal.cpp:61
 #, kde-format
 msgid "Phase"
-msgstr ""
+msgstr "Фаза"
 
 #: src/electronics/components/ecvoltagesignal.cpp:68
 #, kde-format
@@ -1872,10 +1871,9 @@ msgid "Voltage Range"
 msgstr "Диапазон напряжения"
 
 #: src/electronics/components/ecvoltagesignal.cpp:75
-#, fuzzy, kde-format
-#| msgid "Voltage Out"
+#, kde-format
 msgid "Voltage Offset"
-msgstr "Выходное напряжение"
+msgstr "Смещение напряжения"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
 #: src/electronics/components/ecvoltagesignal.cpp:85 src/gui/logicwidget.ui:142
@@ -2501,24 +2499,22 @@ msgstr "Неизвестно"
 #: src/electronics/simulation/elementsignal.cpp:22
 #, kde-format
 msgid "Sinusoidal"
-msgstr ""
+msgstr "Синусоидальный"
 
 #: src/electronics/simulation/elementsignal.cpp:24
 #, kde-format
 msgid "Sawtooth"
-msgstr ""
+msgstr "Пилообразный"
 
 #: src/electronics/simulation/elementsignal.cpp:25
-#, fuzzy, kde-format
-#| msgid "Reverse Beta"
+#, kde-format
 msgid "Reverse Sawtooth"
-msgstr "Обратная бета"
+msgstr "Обратный пилообразный"
 
 #: src/electronics/simulation/elementsignal.cpp:26
-#, fuzzy, kde-format
-#| msgid "Rectangular"
+#, kde-format
 msgid "Triangular"
-msgstr "Прямоугольная"
+msgstr "Треугольный"
 
 #: src/electronics/subcircuits.cpp:110
 #, kde-format
@@ -3945,14 +3941,12 @@ msgid "Project Name:"
 msgstr "Имя проекта:"
 
 #: src/gui/oscilloscope.cpp:180
-#, fuzzy, kde-format
-#| msgid "Pause Simulation"
+#, kde-format
 msgid "Pause simulation"
 msgstr "Приостановить симуляцию"
 
 #: src/gui/oscilloscope.cpp:183
-#, fuzzy, kde-format
-#| msgid "Run Simulation"
+#, kde-format
 msgid "Run simulation"
 msgstr "Запустить симуляцию"
 

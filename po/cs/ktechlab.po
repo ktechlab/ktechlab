@@ -1833,7 +1833,7 @@ msgstr "Typ souboru:"
 #: src/electronics/components/ecvoltagesignal.cpp:61
 #, kde-format
 msgid "Phase"
-msgstr ""
+msgstr "Fáze"
 
 #: src/electronics/components/ecvoltagesignal.cpp:68
 #, kde-format
@@ -2468,7 +2468,7 @@ msgstr ""
 #: src/electronics/simulation/elementsignal.cpp:24
 #, kde-format
 msgid "Sawtooth"
-msgstr ""
+msgstr "Pilovitý signál"
 
 #: src/electronics/simulation/elementsignal.cpp:25
 #, kde-format
@@ -2476,10 +2476,9 @@ msgid "Reverse Sawtooth"
 msgstr ""
 
 #: src/electronics/simulation/elementsignal.cpp:26
-#, fuzzy, kde-format
-#| msgid "Rectangular"
+#, kde-format
 msgid "Triangular"
-msgstr "Obdélníkově"
+msgstr "Trojúhelníkový"
 
 #: src/electronics/subcircuits.cpp:110
 #, kde-format

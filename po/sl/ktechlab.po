@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-10 00:49+0000\n"
-"PO-Revision-Date: 2026-09-28 07:34+0200\n"
+"PO-Revision-Date: 2026-10-10 09:00+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -1846,15 +1846,14 @@ msgid "Voltage Signal"
 msgstr "Napetostni signal"
 
 #: src/electronics/components/ecvoltagesignal.cpp:49
-#, fuzzy, kde-format
-#| msgid "Signal Lamp"
+#, kde-format
 msgid "Signal Type"
-msgstr "Signalna svetilka"
+msgstr "Zvrst signala"
 
 #: src/electronics/components/ecvoltagesignal.cpp:61
 #, kde-format
 msgid "Phase"
-msgstr ""
+msgstr "Faza"
 
 #: src/electronics/components/ecvoltagesignal.cpp:68
 #, kde-format
@@ -1862,10 +1861,9 @@ msgid "Voltage Range"
 msgstr "Obseg napetosti"
 
 #: src/electronics/components/ecvoltagesignal.cpp:75
-#, fuzzy, kde-format
-#| msgid "Voltage Out"
+#, kde-format
 msgid "Voltage Offset"
-msgstr "Izhodna napetost"
+msgstr "Zamik napetosti"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
 #: src/electronics/components/ecvoltagesignal.cpp:85 src/gui/logicwidget.ui:142
@@ -2491,24 +2489,22 @@ msgstr "Neznano"
 #: src/electronics/simulation/elementsignal.cpp:22
 #, kde-format
 msgid "Sinusoidal"
-msgstr ""
+msgstr "Sinusna"
 
 #: src/electronics/simulation/elementsignal.cpp:24
 #, kde-format
 msgid "Sawtooth"
-msgstr ""
+msgstr "Žagasta"
 
 #: src/electronics/simulation/elementsignal.cpp:25
-#, fuzzy, kde-format
-#| msgid "Reverse Beta"
+#, kde-format
 msgid "Reverse Sawtooth"
-msgstr "Beta v obratni smeri"
+msgstr "Obratno žajasta"
 
 #: src/electronics/simulation/elementsignal.cpp:26
-#, fuzzy, kde-format
-#| msgid "Rectangular"
+#, kde-format
 msgid "Triangular"
-msgstr "Pravokotno"
+msgstr "Trikotna"
 
 #: src/electronics/subcircuits.cpp:110
 #, kde-format
@@ -2523,7 +2519,7 @@ msgstr "Izhod kode Microbe"
 #: src/flowcodedocument.cpp:193 src/textdocument.cpp:464
 #, kde-format
 msgid "Assembly Code Output"
-msgstr "Izhod kode zbirnika Microbe"
+msgstr "Izhod kode zbirnika"
 
 #: src/flowcodedocument.cpp:217 src/textdocument.cpp:506
 #, kde-format
@@ -3928,14 +3924,12 @@ msgid "Project Name:"
 msgstr "Ime projekta:"
 
 #: src/gui/oscilloscope.cpp:180
-#, fuzzy, kde-format
-#| msgid "Pause Simulation"
+#, kde-format
 msgid "Pause simulation"
 msgstr "Zaustavi simulacijo"
 
 #: src/gui/oscilloscope.cpp:183
-#, fuzzy, kde-format
-#| msgid "Run Simulation"
+#, kde-format
 msgid "Run simulation"
 msgstr "Zaženi simulacijo"
 

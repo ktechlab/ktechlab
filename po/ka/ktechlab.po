@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-10 00:49+0000\n"
-"PO-Revision-Date: 2026-09-28 05:11+0200\n"
+"PO-Revision-Date: 2026-10-10 04:48+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -410,13 +410,13 @@ msgstr "შეტყობინებების ჟურნალის ჩ�
 #: src/core/ktechlab.kcfg:26
 #, kde-format
 msgid "Show Voltage Bars"
-msgstr "ვოლტაჟის ზოლების ჩვენება"
+msgstr "ძაბვის ზოლების ჩვენება"
 
 #. i18n: ectx: label, entry (ShowVoltageColor), group (General)
 #: src/core/ktechlab.kcfg:30
 #, kde-format
 msgid "Show Voltage as Color"
-msgstr "ვოლტაჟის ფერებად ჩვენება"
+msgstr "ძაბვის ფერებად ჩვენება"
 
 #. i18n: ectx: label, entry (ShowProbeLabels), group (General)
 #: src/core/ktechlab.kcfg:34
@@ -1414,7 +1414,7 @@ msgstr "CCVS"
 #: src/electronics/components/dependentsource.cpp:178
 #, kde-format
 msgid "Current Controlled Voltage Source"
-msgstr "დენით მართული ვოლტაჟის წყარო"
+msgstr "დენით მართული ძაბვის წყარო"
 
 #: src/electronics/components/dependentsource.cpp:214
 #, kde-format
@@ -1424,7 +1424,7 @@ msgstr "VCCS"
 #: src/electronics/components/dependentsource.cpp:220
 #, kde-format
 msgid "Voltage Controlled Current Source"
-msgstr "ვოლტაჟით მართული დენის წყარო"
+msgstr "ძაბვით მართული დენის წყარო"
 
 #: src/electronics/components/dependentsource.cpp:256
 #, kde-format
@@ -1434,7 +1434,7 @@ msgstr "VCVS"
 #: src/electronics/components/dependentsource.cpp:262
 #, kde-format
 msgid "Voltage Controlled Voltage Source"
-msgstr "ვოლტაჟით მართული ვოლტაჟის წყარო"
+msgstr "ძაბვით მართული ძაბვის წყარო"
 
 #: src/electronics/components/discretelogic.cpp:32
 #: src/electronics/components/discretelogic.cpp:90
@@ -1633,7 +1633,7 @@ msgstr "ფიქსირებული ძაბვა"
 #: src/electronics/components/ecvoltagesource.cpp:49
 #, kde-format
 msgid "Voltage"
-msgstr "Ვოლტაჟი"
+msgstr "ძაბვა"
 
 #: src/electronics/components/ecground.cpp:26
 #, kde-format
@@ -1670,7 +1670,7 @@ msgstr "P-არხიანი JFET"
 #: src/electronics/components/ecjfet.cpp:65
 #, kde-format
 msgid "Threshold voltage"
-msgstr "ზღვრული ვოლტაჟი"
+msgstr "ზღვრული ძაბვა"
 
 #: src/electronics/components/ecjfet.cpp:73
 #, kde-format
@@ -1847,29 +1847,27 @@ msgstr "ქვეწრედი"
 #: src/electronics/components/ecvoltagesignal.cpp:38
 #, kde-format
 msgid "Voltage Signal"
-msgstr "ვოლტაჟის სიგნალი"
+msgstr "ძაბვის სიგნალი"
 
 #: src/electronics/components/ecvoltagesignal.cpp:49
-#, fuzzy, kde-format
-#| msgid "Signal Lamp"
+#, kde-format
 msgid "Signal Type"
-msgstr "სიგნალის ნათურა"
+msgstr "სიგნალის ტიპი"
 
 #: src/electronics/components/ecvoltagesignal.cpp:61
 #, kde-format
 msgid "Phase"
-msgstr ""
+msgstr "ფაზა"
 
 #: src/electronics/components/ecvoltagesignal.cpp:68
 #, kde-format
 msgid "Voltage Range"
-msgstr "ვოლტაჟის დიაპაზონი"
+msgstr "ძაბვის დიაპაზონი"
 
 #: src/electronics/components/ecvoltagesignal.cpp:75
-#, fuzzy, kde-format
-#| msgid "Voltage Out"
+#, kde-format
 msgid "Voltage Offset"
-msgstr "გამომავალი ვოლტაჟი"
+msgstr "ძაბვის წანაცვლება"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
 #: src/electronics/components/ecvoltagesignal.cpp:85 src/gui/logicwidget.ui:142
@@ -2220,7 +2218,7 @@ msgstr "ქვედა აბსოლუტური მნიშვნელ�
 #: src/electronics/components/probe.cpp:148
 #, kde-format
 msgid "Voltage Probe"
-msgstr "ვოლტაჟის ზონდი"
+msgstr "ძაბვის ზონდი"
 
 #: src/electronics/components/probe.cpp:174
 #: src/electronics/components/probe.cpp:180
@@ -2385,12 +2383,12 @@ msgstr "ცვლადი რეზისტორი"
 #: src/electronics/components/voltageregulator.cpp:29
 #, kde-format
 msgid "Voltage Regulator"
-msgstr "ვოლტაჟის რეგულატორი"
+msgstr "ძაბვის რეგულატორი"
 
 #: src/electronics/components/voltageregulator.cpp:36
 #, kde-format
 msgid "Voltage Out"
-msgstr "გამომავალი ვოლტაჟი"
+msgstr "გამომავალი ძაბვა"
 
 #: src/electronics/gpsimprocessor.cpp:139
 #, kde-format
@@ -2495,24 +2493,22 @@ msgstr "უცნობი"
 #: src/electronics/simulation/elementsignal.cpp:22
 #, kde-format
 msgid "Sinusoidal"
-msgstr ""
+msgstr "სინუსოიდალური"
 
 #: src/electronics/simulation/elementsignal.cpp:24
 #, kde-format
 msgid "Sawtooth"
-msgstr ""
+msgstr "კბილოვანი ტალღა"
 
 #: src/electronics/simulation/elementsignal.cpp:25
-#, fuzzy, kde-format
-#| msgid "Reverse Beta"
+#, kde-format
 msgid "Reverse Sawtooth"
-msgstr "უკუღმა ბეტა"
+msgstr "ხერხის კბილის რევერსი"
 
 #: src/electronics/simulation/elementsignal.cpp:26
-#, fuzzy, kde-format
-#| msgid "Rectangular"
+#, kde-format
 msgid "Triangular"
-msgstr "მართკუთხედი"
+msgstr "სამკუთხედი"
 
 #: src/electronics/subcircuits.cpp:110
 #, kde-format
@@ -3929,14 +3925,12 @@ msgid "Project Name:"
 msgstr "პროექტის სახელი:"
 
 #: src/gui/oscilloscope.cpp:180
-#, fuzzy, kde-format
-#| msgid "Pause Simulation"
+#, kde-format
 msgid "Pause simulation"
 msgstr "სიმულაციის შეჩერება"
 
 #: src/gui/oscilloscope.cpp:183
-#, fuzzy, kde-format
-#| msgid "Run Simulation"
+#, kde-format
 msgid "Run simulation"
 msgstr "სიმულაციის გაშვება"
 
