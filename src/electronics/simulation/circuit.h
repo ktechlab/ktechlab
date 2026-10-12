@@ -131,21 +131,16 @@ protected:
      */
     static bool recursivePinAdd(Pin *node, PinList *unassignedNodes, PinList *associated, PinList *nodes);
 
-    int m_cnodeCount;
-    int m_branchCount;
-    int m_prepNLCount; // Count until next m_elementSet->prepareNonLinear() is called
-
     PinList m_pinList;
     ElementList m_elementList;
-    ElementSet *m_elementSet;
+    ElementSet *m_elementSet = nullptr;
 
     // Stuff for caching
-    bool m_bCanCache;
+    bool m_bCanCache = false;
     LogicCacheNode *m_pLogicCacheBase;
-    unsigned m_logicOutCount;
-    LogicOut **m_pLogicOut;
+    QList<LogicOut *> m_logicOut;
 
-    bool m_bCanAddChanged;
+    bool m_bCanAddChanged = true;
     Circuit *m_pNextChanged[2];
 };
 

@@ -27,14 +27,7 @@ typedef std::multimap<int, PinList> PinListMap;
 // BEGIN class Circuit
 Circuit::Circuit()
 {
-    m_bCanAddChanged = true;
     m_pNextChanged[0] = m_pNextChanged[1] = nullptr;
-    m_logicOutCount = 0;
-    m_bCanCache = false;
-    m_pLogicOut = nullptr;
-    m_elementSet = new ElementSet(this, 0, 0); // why do we do this?
-    m_cnodeCount = m_branchCount = -1;
-    m_prepNLCount = 0;
     m_pLogicCacheBase = new LogicCacheNode;
 }
 
@@ -42,7 +35,6 @@ Circuit::~Circuit()
 {
     delete m_elementSet;
     delete m_pLogicCacheBase;
-    delete[] m_pLogicOut;
 }
 
 void Circuit::addPin(Pin *node)
@@ -151,15 +143,15 @@ int Circuit::identifyGround(PinList nodeList, int *highest)
 
 void Circuit::init()
 {
-    m_branchCount = 0;
+    uint branchCount = 0;
 
     const ElementList::iterator listEnd = m_elementList.end();
     for (ElementList::iterator it = m_elementList.begin(); it != listEnd; ++it) {
-        m_branchCount += (*it)->numCBranches();
+        branchCount += (*it)->numCBranches();
     }
 
     // Now to give all the Pins ids
-    int groundCount = 0;
+    uint groundCount = 0;
     PinListMap eqs;
     PinList unassignedNodes = m_pinList;
     while (!unassignedNodes.isEmpty()) {
@@ -174,13 +166,16 @@ void Circuit::init()
         }
     }
 
-    m_cnodeCount = eqs.size() - groundCount;
-
     delete m_pLogicCacheBase;
     m_pLogicCacheBase = nullptr;
 
     delete m_elementSet;
-    m_elementSet = new ElementSet(this, m_cnodeCount, m_branchCount);
+
+    uint cnodeCount = groundCount >= eqs.size() ? 0: eqs.size() - groundCount;
+    if (cnodeCount + branchCount <= 0)
+        return; // Don't create empty element set
+
+    m_elementSet = new ElementSet(this, cnodeCount, branchCount);
 
     // Now, we can give the nodes their cnode ids, or tell them they are ground
     QuickVector *x = m_elementSet->x();
@@ -270,17 +265,15 @@ void Circuit::initCache()
     m_elementSet->updateInfo();
 
     m_bCanCache = true;
-    m_logicOutCount = 0;
+    uint logicOutCount = 0;
 
-    delete[] m_pLogicOut;
-    m_pLogicOut = nullptr;
+    m_logicOut.clear();
 
     delete m_pLogicCacheBase;
     m_pLogicCacheBase = nullptr;
 
-    const ElementList::iterator end = m_elementList.end();
-    for (ElementList::iterator it = m_elementList.begin(); it != end && m_bCanCache; ++it) {
-        switch ((*it)->type()) {
+    for (Element* e: std::as_const(m_elementList)) {
+        switch (e->type()) {
         case Element::Element_BJT:
         case Element::Element_CCCS:
         case Element::Element_CCVS:
@@ -299,7 +292,7 @@ void Circuit::initCache()
         }
 
         case Element::Element_LogicOut: {
-            m_logicOutCount++;
+            logicOutCount++;
             break;
         }
 
@@ -308,19 +301,16 @@ void Circuit::initCache()
         case Element::Element_Capacitance:
         case Element::Element_Inductance: {
             m_bCanCache = false;
-            break;
+            return;
         }
         }
     }
 
-    if (!m_bCanCache)
-        return;
-
-    m_pLogicOut = new LogicOut *[m_logicOutCount];
+    m_logicOut.resize(logicOutCount);
     unsigned i = 0;
-    for (ElementList::iterator it = m_elementList.begin(); it != end && m_bCanCache; ++it) {
-        if ((*it)->type() == Element::Element_LogicOut)
-            m_pLogicOut[i++] = static_cast<LogicOut *>(*it);
+    for (Element* e: std::as_const(m_elementList)) {
+        if (e->type() == Element::Element_LogicOut)
+            m_logicOut[i++] = static_cast<LogicOut *>(e);
     }
 
     m_pLogicCacheBase = new LogicCacheNode;
@@ -343,8 +333,8 @@ void Circuit::setCacheInvalidated()
 void Circuit::cacheAndUpdate()
 {
     LogicCacheNode *node = m_pLogicCacheBase;
-    for (unsigned i = 0; i < m_logicOutCount; i++) {
-        if (m_pLogicOut[i]->outputState()) {
+    for (unsigned i = 0; i < m_logicOut.size(); i++) {
+        if (m_logicOut[i]->outputState()) {
             if (!node->high)
                 node->high = new LogicCacheNode;
 
@@ -406,7 +396,7 @@ bool Circuit::recursivePinAdd(Pin *node, PinList *unassignedNodes, PinList *asso
 
 void Circuit::doNonLogic()
 {
-    if (!m_elementSet || m_cnodeCount + m_branchCount <= 0)
+    if (!m_elementSet)
         return;
 
     if (m_bCanCache) {
@@ -440,7 +430,7 @@ void Circuit::stepReactive()
 
 void Circuit::updateNodalVoltages()
 {
-    CNode **_cnodes = m_elementSet->cnodes();
+    const auto& _cnodes = m_elementSet->cnodes();
 
     const PinList::iterator endIt = m_pinList.end();
     for (PinList::iterator it = m_pinList.begin(); it != endIt; ++it) {
@@ -449,7 +439,7 @@ void Circuit::updateNodalVoltages()
         if (i == -1)
             node->setVoltage(0.);
         else {
-            const double v = _cnodes[i]->v;
+            const double v = _cnodes[i].v;
             node->setVoltage(std::isfinite(v) ? v : 0.);
         }
     }
@@ -465,6 +455,8 @@ void Circuit::updateCurrents()
 
 void Circuit::displayEquations()
 {
+    if (!m_elementSet)
+        return;
     m_elementSet->displayEquations();
 }
 // END class Circuit

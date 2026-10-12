@@ -24,71 +24,6 @@ const double K = 1.3806503e-23;   ///< Boltzmann's constant
 const double q = 1.602176462e-19; ///< Charge on an electron
 const double V_T = K * T / q;     ///< Thermal voltage
 
-class CNode
-{
-public:
-    CNode()
-        : v(0.0)
-        , isGround(false)
-        , m_n(0)
-    {
-    }
-    CNode(const uint32_t n)
-        : v(0.0)
-        , isGround(false)
-        , m_n(n)
-    {
-    }
-    void set_n(const uint n)
-    {
-        m_n = n;
-    }
-    uint n() const
-    {
-        return m_n;
-    }
-
-    /// Voltage on node. This is set from the last calculated voltage.
-    double v;
-
-    /// True for ground nodes. Obviously, you should ignore n and v if this is true
-    bool isGround;
-
-private:
-    /// CNode number
-    uint m_n;
-};
-
-class CBranch
-{
-public:
-    CBranch()
-        : i(0.0)
-        , m_n(0)
-    {
-    }
-    CBranch(const uint32_t n)
-        : i(0.0)
-        , m_n(n)
-    {
-    }
-    void set_n(const uint n)
-    {
-        m_n = n;
-    }
-    uint n() const
-    {
-        return m_n;
-    }
-
-    /// Current flowing through branch. This is set from the last calculated current.
-    double i;
-
-private:
-    /// CBranch number
-    uint m_n;
-};
-
 const int MAX_CNODES = 4;
 const int MAX_CBRANCHES = 4;
 
@@ -156,28 +91,28 @@ public:
     /**
      * Returns a pointer to the given CNode
      */
-    CNode *cnode(const uint num)
+    const CNode *cnode(const uint num) const
     {
         return p_cnode[num];
     }
     /**
      * Returns a pointer to the given CNode
      */
-    CBranch *cbranch(const uint num)
+    const CBranch *cbranch(const uint num) const
     {
         return p_cbranch[num];
     }
     /**
      * Returns the number of branches used by the element
      */
-    int numCBranches() const
+    uint numCBranches() const
     {
         return m_numCBranches;
     }
     /**
      * Returns the number of circuit nodes used by the element
      */
-    int numCNodes() const
+    uint numCNodes() const
     {
         return m_numCNodes;
     }
@@ -220,8 +155,8 @@ public:
     void elementSetDeleted();
 
     double m_cnodeI[8]; ///< Current flowing into the cnodes from the element
-    double cbranchCurrent(const int branch);
-    double cnodeVoltage(const int node);
+    double cbranchCurrent(const uint branch);
+    double cnodeVoltage(const uint node);
 
 protected:
     /**
@@ -246,16 +181,16 @@ protected:
     /**
      * Set by child class - the number of circuit nodes that the element uses
      */
-    int m_numCNodes;
-    CNode *p_cnode[MAX_CNODES];
+    uint m_numCNodes;
+    const CNode *p_cnode[MAX_CNODES];
 
     /**
      * Set by child class - the number of branches that the element uses
      * Typically, this is 0, but could be 1 (e.g. independent voltage source)
      * or 2 (e.g. cccs)
      */
-    int m_numCBranches;
-    CBranch *p_cbranch[MAX_CBRANCHES];
+    uint m_numCBranches;
+    const CBranch *p_cbranch[MAX_CBRANCHES];
 
     /**
      * True when the element can do add_initial_dc(), i.e. when it has
@@ -270,41 +205,40 @@ private:
 
 double &Element::A_g(uint i, uint j)
 {
-    if (p_cnode[i]->isGround || p_cnode[j]->isGround)
+    if (p_cnode[i]->num == CNode::GROUND || p_cnode[j]->num == CNode::GROUND)
         return m_temp;
-    return p_eSet->matrix()->g(p_cnode[i]->n(), p_cnode[j]->n());
+    return p_eSet->matrix()->g(p_cnode[i]->num, p_cnode[j]->num);
 }
 
 double &Element::A_b(uint i, uint j)
 {
-    if (p_cnode[i]->isGround)
+    if (p_cnode[i]->num == CNode::GROUND)
         return m_temp;
-    return p_eSet->matrix()->b(p_cnode[i]->n(), p_cbranch[j]->n());
+    return p_eSet->matrix()->b(p_cnode[i]->num, p_cbranch[j]->num);
 }
 
 double &Element::A_c(uint i, uint j)
 {
-    if (p_cnode[j]->isGround)
+    if (p_cnode[j]->num == CNode::GROUND)
         return m_temp;
-    return p_eSet->matrix()->c(p_cbranch[i]->n(), p_cnode[j]->n());
+    return p_eSet->matrix()->c(p_cbranch[i]->num, p_cnode[j]->num);
 }
 
 double &Element::A_d(uint i, uint j)
 {
-    return p_eSet->matrix()->d(p_cbranch[i]->n(), p_cbranch[j]->n());
+    return p_eSet->matrix()->d(p_cbranch[i]->num, p_cbranch[j]->num);
 }
 
 double &Element::b_i(uint i)
 {
-    if (p_cnode[i]->isGround)
+    if (p_cnode[i]->num == CNode::GROUND)
         return m_temp;
-
-    return (*(p_eSet->b()))[p_cnode[i]->n()];
+    return (*(p_eSet->b()))[p_cnode[i]->num];
 }
 
 double &Element::b_v(uint i)
 {
-    return (*(p_eSet->b()))[p_eSet->cnodeCount() + p_cbranch[i]->n()];
+    return (*(p_eSet->b()))[p_eSet->cnodeCount() + p_cbranch[i]->num];
 }
 
 #endif

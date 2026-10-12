@@ -11,13 +11,12 @@
 #ifndef ELEMENTSET_H
 #define ELEMENTSET_H
 
-//#include <vector>
+#include "cbranch.h"
+#include "cnode.h"
 
 #include <QList>
 
-class CBranch;
 class Circuit;
-class CNode;
 class Element;
 class ElementSet;
 class LogicIn;
@@ -51,7 +50,7 @@ public:
      * After creating the circuit, you must call setGround to specify
      * the ground nodes, before adding any elements.
      */
-    ElementSet(Circuit *circuit, const int n, const int m);
+    ElementSet(Circuit *circuit, const uint n, const uint m);
     /**
      * Destructor. Note that only the matrix and supporting data is deleted.
      * i.e. Any elements added to the circuit will not be deleted.
@@ -91,7 +90,7 @@ public:
      */
     bool containsNonLinear() const
     {
-        return b_containsNonLinear;
+        return m_cnonLinearList.size() > 0;;
     }
     /**
      * Solves for nonlinear elements, or just does linear if it doesn't contain
@@ -103,31 +102,42 @@ public:
      * @returns true if anything changed
      */
     bool doLinear(bool performLU);
-    CBranch **cbranches() const
+
+    const CBranch& cbranch(const uint i) const
+    {
+        return m_cbranches[i];
+    }
+
+    const CNode& cnode(const uint i) const
+    {
+        return m_cnodes[i];
+    }
+
+    const QList<CBranch>& cbranches() const
     {
         return m_cbranches;
     }
-    CNode **cnodes() const
+    const QList<CNode>& cnodes() const
     {
         return m_cnodes;
     }
-    CNode *ground() const
+    const CNode& ground() const
     {
         return m_ground;
     }
     /**
      * Returns the number of nodes in the circuit (excluding ground 'nodes')
      */
-    int cnodeCount() const
+    uint cnodeCount() const
     {
-        return m_cn;
+        return m_cnodes.size();
     }
     /**
      * Returns the number of voltage sources in the circuit
      */
-    int cbranchCount() const
+    uint cbranchCount() const
     {
-        return m_cb;
+        return m_cbranches.size();
     }
 
     void createMatrixMap();
@@ -150,16 +160,11 @@ private:
     ElementList m_elementList;
     NonLinearList m_cnonLinearList;
 
-    uint m_cb;
-    CBranch **m_cbranches; // Pointer to an array of cbranches
+    QList<CBranch> m_cbranches; // Pointer to an array of cbranches
+    QList<CNode> m_cnodes; // Pointer to an array of cnodes
+    CNode m_ground;
 
-    uint m_cn;
-    CNode **m_cnodes; // Pointer to an array of cnodes
-    CNode *m_ground;
-
-    uint m_clogic;
-    LogicIn **p_logicIn;
-    bool b_containsNonLinear;
+    QList<LogicIn *> m_logicIn;
     Circuit *m_pCircuit;
 };
 

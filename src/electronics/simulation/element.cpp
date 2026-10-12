@@ -9,7 +9,6 @@
  ***************************************************************************/
 
 #include "element.h"
-#include "elementset.h"
 
 #include <cassert>
 
@@ -92,10 +91,10 @@ void Element::setCNodes(const int n0, const int n1, const int n2, const int n3)
         return;
     }
 
-    p_cnode[0] = (n0 > -1) ? p_eSet->cnodes()[n0] : (n0 == -1 ? p_eSet->ground() : nullptr);
-    p_cnode[1] = (n1 > -1) ? p_eSet->cnodes()[n1] : (n1 == -1 ? p_eSet->ground() : nullptr);
-    p_cnode[2] = (n2 > -1) ? p_eSet->cnodes()[n2] : (n2 == -1 ? p_eSet->ground() : nullptr);
-    p_cnode[3] = (n3 > -1) ? p_eSet->cnodes()[n3] : (n3 == -1 ? p_eSet->ground() : nullptr);
+    p_cnode[0] = (n0 > -1) ? &p_eSet->cnode(n0) : (n0 == -1 ? &p_eSet->ground() : nullptr);
+    p_cnode[1] = (n1 > -1) ? &p_eSet->cnode(n1) : (n1 == -1 ? &p_eSet->ground() : nullptr);
+    p_cnode[2] = (n2 > -1) ? &p_eSet->cnode(n2) : (n2 == -1 ? &p_eSet->ground() : nullptr);
+    p_cnode[3] = (n3 > -1) ? &p_eSet->cnode(n3) : (n3 == -1 ? &p_eSet->ground() : nullptr);
     updateStatus();
 }
 
@@ -107,10 +106,10 @@ void Element::setCBranches(const int b0, const int b1, const int b2, const int b
             p_cbranch[i] = nullptr;
         return;
     }
-    p_cbranch[0] = (b0 > -1) ? p_eSet->cbranches()[b0] : nullptr;
-    p_cbranch[1] = (b1 > -1) ? p_eSet->cbranches()[b1] : nullptr;
-    p_cbranch[2] = (b2 > -1) ? p_eSet->cbranches()[b2] : nullptr;
-    p_cbranch[3] = (b3 > -1) ? p_eSet->cbranches()[b3] : nullptr;
+    p_cbranch[0] = (b0 > -1) ? &p_eSet->cbranch(b0) : nullptr;
+    p_cbranch[1] = (b1 > -1) ? &p_eSet->cbranch(b1) : nullptr;
+    p_cbranch[2] = (b2 > -1) ? &p_eSet->cbranch(b2) : nullptr;
+    p_cbranch[3] = (b3 > -1) ? &p_eSet->cbranch(b3) : nullptr;
     updateStatus();
 }
 
@@ -118,18 +117,18 @@ bool Element::updateStatus()
 {
     // First, set status to false if all nodes in use are ground
     b_status = false;
-    for (int i = 0; i < m_numCNodes; i++) {
-        b_status |= p_cnode[i] ? !p_cnode[i]->isGround : false;
+    for (uint i = 0; i < m_numCNodes; i++) {
+        b_status |= p_cnode[i] ? p_cnode[i]->num != CNode::GROUND : false;
     }
 
     // Set status to false if any of the nodes are not set
-    for (int i = 0; i < m_numCNodes; i++) {
+    for (uint i = 0; i < m_numCNodes; i++) {
         if (!p_cnode[i])
             b_status = false;
     }
 
     // Finally, set status to false if not all the required branches are set
-    for (int i = 0; i < m_numCBranches; i++) {
+    for (uint i = 0; i < m_numCBranches; i++) {
         if (!p_cbranch[i])
             b_status = false;
     }
@@ -147,16 +146,16 @@ bool Element::updateStatus()
     return b_status;
 }
 
-double Element::cbranchCurrent(const int branch)
+double Element::cbranchCurrent(const uint branch)
 {
-    if (!b_status || branch < 0 || branch >= m_numCBranches)
+    if (!b_status || branch >= m_numCBranches)
         return 0.;
     return (*p_cbranch)[branch].i;
 }
 
-double Element::cnodeVoltage(const int node)
+double Element::cnodeVoltage(const uint node)
 {
-    if (!b_status || node < 0 || node >= m_numCNodes)
+    if (!b_status || node >= m_numCNodes)
         return 0.;
     return (*p_cnode)[node].v;
 }
