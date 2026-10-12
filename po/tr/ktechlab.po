@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ktechlab\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-10 00:49+0000\n"
-"PO-Revision-Date: 2026-09-28 19:24+0300\n"
+"PO-Revision-Date: 2026-10-11 21:52+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1840,15 +1840,14 @@ msgid "Voltage Signal"
 msgstr "Gerilim sinyali"
 
 #: src/electronics/components/ecvoltagesignal.cpp:49
-#, fuzzy, kde-format
-#| msgid "Signal Lamp"
+#, kde-format
 msgid "Signal Type"
-msgstr "Sinyal lambası"
+msgstr "Sinyal Türü"
 
 #: src/electronics/components/ecvoltagesignal.cpp:61
 #, kde-format
 msgid "Phase"
-msgstr ""
+msgstr "Evre"
 
 #: src/electronics/components/ecvoltagesignal.cpp:68
 #, kde-format
@@ -1856,10 +1855,9 @@ msgid "Voltage Range"
 msgstr "Gerilim erimi"
 
 #: src/electronics/components/ecvoltagesignal.cpp:75
-#, fuzzy, kde-format
-#| msgid "Voltage Out"
+#, kde-format
 msgid "Voltage Offset"
-msgstr "Gerilim çıkışı"
+msgstr "Gerilim Ofseti"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
 #: src/electronics/components/ecvoltagesignal.cpp:85 src/gui/logicwidget.ui:142
@@ -2485,24 +2483,22 @@ msgstr "Bilinmeyen"
 #: src/electronics/simulation/elementsignal.cpp:22
 #, kde-format
 msgid "Sinusoidal"
-msgstr ""
+msgstr "Sinüzoidal"
 
 #: src/electronics/simulation/elementsignal.cpp:24
 #, kde-format
 msgid "Sawtooth"
-msgstr ""
+msgstr "Tırtıklı"
 
 #: src/electronics/simulation/elementsignal.cpp:25
-#, fuzzy, kde-format
-#| msgid "Reverse Beta"
+#, kde-format
 msgid "Reverse Sawtooth"
-msgstr "Geri betası"
+msgstr "Ters Tırtıklı"
 
 #: src/electronics/simulation/elementsignal.cpp:26
-#, fuzzy, kde-format
-#| msgid "Rectangular"
+#, kde-format
 msgid "Triangular"
-msgstr "Dörtgen"
+msgstr "Üçgensel"
 
 #: src/electronics/subcircuits.cpp:110
 #, kde-format
@@ -3922,16 +3918,14 @@ msgid "Project Name:"
 msgstr "Proje adı:"
 
 #: src/gui/oscilloscope.cpp:180
-#, fuzzy, kde-format
-#| msgid "Pause Simulation"
+#, kde-format
 msgid "Pause simulation"
-msgstr "Benzetimi Duraklat"
+msgstr "Benzetimi duraklat"
 
 #: src/gui/oscilloscope.cpp:183
-#, fuzzy, kde-format
-#| msgid "Run Simulation"
+#, kde-format
 msgid "Run simulation"
-msgstr "Benzetimi Çalıştır"
+msgstr "Benzetimi çalıştır"
 
 #: src/gui/oscilloscope.cpp:374
 #, kde-format
