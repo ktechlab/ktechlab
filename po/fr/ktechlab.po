@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-10 00:49+0000\n"
-"PO-Revision-Date: 2026-09-28 08:51+0200\n"
+"PO-Revision-Date: 2026-10-11 10:16+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -1873,15 +1873,14 @@ msgid "Voltage Signal"
 msgstr "Signal tension"
 
 #: src/electronics/components/ecvoltagesignal.cpp:49
-#, fuzzy, kde-format
-#| msgid "Signal Lamp"
+#, kde-format
 msgid "Signal Type"
-msgstr "Lampe témoin"
+msgstr "Type de signal"
 
 #: src/electronics/components/ecvoltagesignal.cpp:61
 #, kde-format
 msgid "Phase"
-msgstr ""
+msgstr "Phase"
 
 #: src/electronics/components/ecvoltagesignal.cpp:68
 #, kde-format
@@ -1889,10 +1888,9 @@ msgid "Voltage Range"
 msgstr "Échelle de tension"
 
 #: src/electronics/components/ecvoltagesignal.cpp:75
-#, fuzzy, kde-format
-#| msgid "Voltage Out"
+#, kde-format
 msgid "Voltage Offset"
-msgstr "Tension de sortie"
+msgstr "Décalage en tension"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox4)
 #: src/electronics/components/ecvoltagesignal.cpp:85 src/gui/logicwidget.ui:142
@@ -2518,24 +2516,22 @@ msgstr "Inconnu"
 #: src/electronics/simulation/elementsignal.cpp:22
 #, kde-format
 msgid "Sinusoidal"
-msgstr ""
+msgstr "Sinusoïdal"
 
 #: src/electronics/simulation/elementsignal.cpp:24
 #, kde-format
 msgid "Sawtooth"
-msgstr ""
+msgstr "En dents de scie"
 
 #: src/electronics/simulation/elementsignal.cpp:25
-#, fuzzy, kde-format
-#| msgid "Reverse Beta"
+#, kde-format
 msgid "Reverse Sawtooth"
-msgstr "Bêta inversé"
+msgstr "En dents de scie inversé"
 
 #: src/electronics/simulation/elementsignal.cpp:26
-#, fuzzy, kde-format
-#| msgid "Rectangular"
+#, kde-format
 msgid "Triangular"
-msgstr "Rectangulaire"
+msgstr "Triangulaire"
 
 #: src/electronics/subcircuits.cpp:110
 #, kde-format
@@ -3982,14 +3978,12 @@ msgid "Project Name:"
 msgstr "Nom du projet :"
 
 #: src/gui/oscilloscope.cpp:180
-#, fuzzy, kde-format
-#| msgid "Pause Simulation"
+#, kde-format
 msgid "Pause simulation"
 msgstr "Suspendre la simulation"
 
 #: src/gui/oscilloscope.cpp:183
-#, fuzzy, kde-format
-#| msgid "Run Simulation"
+#, kde-format
 msgid "Run simulation"
 msgstr "Lancer la simulation"
 
