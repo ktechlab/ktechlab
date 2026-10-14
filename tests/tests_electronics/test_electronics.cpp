@@ -241,7 +241,7 @@ private Q_SLOTS:
         ElementSet eset(&c, 1, 1);
         QCOMPARE(eset.cnodeCount(), 1);
         QCOMPARE(eset.cbranchCount(), 1);
-        QVERIFY(eset.ground()->isGround);
+        QVERIFY(eset.ground().num == CNode::GROUND);
 
         VoltagePoint v1(5.0);
         QVERIFY(v1.type() == Element::Element_VoltagePoint);
@@ -267,8 +267,8 @@ private Q_SLOTS:
         eset.doLinear(true);
         eset.displayEquations();
 
-        QCOMPARE(eset.cnodes()[0]->v, 5.0);
-        QCOMPARE(eset.cbranches()[0]->i, 0.005);
+        QCOMPARE(eset.cnodes()[0].v, 5.0);
+        QCOMPARE(eset.cbranches()[0].i, 0.005);
     }
 
     void resistanceSeriesTest2()
@@ -301,9 +301,9 @@ private Q_SLOTS:
         eset.doLinear(true);
         eset.displayEquations();
 
-        QCOMPARE(eset.cnodes()[0]->v, 12.0);
-        QCOMPARE(eset.cnodes()[1]->v, 9.0);
-        QCOMPARE(eset.cbranches()[0]->i, 0.003);
+        QCOMPARE(eset.cnodes()[0].v, 12.0);
+        QCOMPARE(eset.cnodes()[1].v, 9.0);
+        QCOMPARE(eset.cbranches()[0].i, 0.003);
     }
 
     void capacitanceTest1()
@@ -348,16 +348,16 @@ private Q_SLOTS:
             const double Vc = 12 * (1 - std::exp(-t/RC));
             const double I = (12-Vc)/r1.resistance();
             if (i % 100 == 0) {
-                qDebug() << "t=" << t << "Vc=" << Vc << "V1=" << eset.cnodes()[1]->v
-                << "I=" << I << "I1=" << eset.cbranches()[0]->i;
+                qDebug() << "t=" << t << "Vc=" << Vc << "V1=" << eset.cnodes()[1].v
+                << "I=" << I << "I1=" << eset.cbranches()[0].i;
             }
-            QCOMPARE_TOL(eset.cnodes()[0]->v, 12, tolerance);
-            QCOMPARE_TOL(eset.cnodes()[1]->v, Vc, tolerance);
-            QCOMPARE_TOL(eset.cbranches()[0]->i, I, tolerance);
+            QCOMPARE_TOL(eset.cnodes()[0].v, 12, tolerance);
+            QCOMPARE_TOL(eset.cnodes()[1].v, Vc, tolerance);
+            QCOMPARE_TOL(eset.cbranches()[0].i, I, tolerance);
         }
 
-        QCOMPARE_TOL(eset.cnodes()[1]->v, 12, tolerance);
-        QCOMPARE_TOL(eset.cbranches()[0]->i, 0, tolerance);
+        QCOMPARE_TOL(eset.cnodes()[1].v, 12, tolerance);
+        QCOMPARE_TOL(eset.cbranches()[0].i, 0, tolerance);
     }
 
     void inductanceTest1()
@@ -403,17 +403,17 @@ private Q_SLOTS:
             const double Vl = 12 * std::exp(-t*R_L);
             const double I = (12-Vl)/r1.resistance();
             if (i == 1 || i % 100 == 0) {
-                qDebug() << "t=" << t << "Vl=" << Vl << "V1=" << eset.cnodes()[1]->v
-                << "I=" << I << "I1=" << eset.cbranches()[0]->i << "I2=" << eset.cbranches()[1]->i;
+                qDebug() << "t=" << t << "Vl=" << Vl << "V1=" << eset.cnodes()[1].v
+                << "I=" << I << "I1=" << eset.cbranches()[0].i << "I2=" << eset.cbranches()[1].i;
             }
-            QCOMPARE_TOL(eset.cnodes()[0]->v, 12, tolerance);
-            QCOMPARE_TOL(eset.cnodes()[1]->v, Vl, tolerance);
-            QCOMPARE_TOL(eset.cbranches()[0]->i, I,  tolerance);
-            QCOMPARE_TOL(eset.cbranches()[1]->i, I, tolerance);
+            QCOMPARE_TOL(eset.cnodes()[0].v, 12, tolerance);
+            QCOMPARE_TOL(eset.cnodes()[1].v, Vl, tolerance);
+            QCOMPARE_TOL(eset.cbranches()[0].i, I,  tolerance);
+            QCOMPARE_TOL(eset.cbranches()[1].i, I, tolerance);
         }
 
-        QCOMPARE_TOL(eset.cnodes()[1]->v, 0, tolerance);
-        QCOMPARE_TOL(eset.cbranches()[0]->i, 1.2, tolerance);
+        QCOMPARE_TOL(eset.cnodes()[1].v, 0, tolerance);
+        QCOMPARE_TOL(eset.cbranches()[0].i, 1.2, tolerance);
     }
 
     void diodeForwardBiasTest1()
@@ -459,11 +459,11 @@ private Q_SLOTS:
         const double I = nVT/R*lambert(Is*R/nVT*std::exp(Vs/nVT));
         const double Vr = I*R;
         const double Vd = Vs-Vr;
-        qDebug() << "Vd=" << Vd << "Vr=" << Vr  << "V1=" << eset.cnodes()[1]->v
-        << "I=" << I << "I1=" << eset.cbranches()[0]->i;
-        QCOMPARE_TOL(eset.cnodes()[0]->v, Vs, tolerance);
-        QCOMPARE_TOL(eset.cnodes()[1]->v, Vr, tolerance);
-        QCOMPARE_TOL(eset.cbranches()[0]->i, I, tolerance);
+        qDebug() << "Vd=" << Vd << "Vr=" << Vr  << "V1=" << eset.cnodes()[1].v
+        << "I=" << I << "I1=" << eset.cbranches()[0].i;
+        QCOMPARE_TOL(eset.cnodes()[0].v, Vs, tolerance);
+        QCOMPARE_TOL(eset.cnodes()[1].v, Vr, tolerance);
+        QCOMPARE_TOL(eset.cbranches()[0].i, I, tolerance);
     }
 
     void diodeReverseBiasTest1()
@@ -498,9 +498,9 @@ private Q_SLOTS:
         eset.doNonLinear(150);
         eset.displayEquations();
 
-        QCOMPARE(eset.cnodes()[0]->v, -3.0);
-        QCOMPARE(eset.cnodes()[1]->v, 0.0);
-        QCOMPARE_TOL(eset.cbranches()[0]->i, 0, 1e-6);
+        QCOMPARE(eset.cnodes()[0].v, -3.0);
+        QCOMPARE(eset.cnodes()[1].v, 0.0);
+        QCOMPARE_TOL(eset.cbranches()[0].i, 0, 1e-6);
     }
 
     void diodeReverseBreakdownTest1()
@@ -545,12 +545,12 @@ private Q_SLOTS:
         const double I = -nVT/R*lambert(Is*R/nVT*std::exp(-(Vs+Vb)/nVT));
         const double Vr = I*R;
         const double Vd = Vs-Vr;
-        qDebug() << "Vd=" << Vd << "Vr=" << Vr  << "V1=" << eset.cnodes()[1]->v
-        << "I=" << I << "I1=" << eset.cbranches()[0]->i;
+        qDebug() << "Vd=" << Vd << "Vr=" << Vr  << "V1=" << eset.cnodes()[1].v
+        << "I=" << I << "I1=" << eset.cbranches()[0].i;
 
-        QCOMPARE_TOL(eset.cnodes()[0]->v, Vs, tolerance);
-        QCOMPARE_TOL(eset.cnodes()[1]->v, Vr, tolerance);
-        QCOMPARE_TOL(eset.cbranches()[0]->i, I, tolerance);
+        QCOMPARE_TOL(eset.cnodes()[0].v, Vs, tolerance);
+        QCOMPARE_TOL(eset.cnodes()[1].v, Vr, tolerance);
+        QCOMPARE_TOL(eset.cbranches()[0].i, I, tolerance);
     }
 
     void cleanupTestCase()
